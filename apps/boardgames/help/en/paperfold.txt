@@ -1,0 +1,12 @@
+Paper Fold
+# The aim
+A sheet of paper lies on a board of squares, coloured on its front and on its back. Fold it until the board shows the picture on the small card: the same squares covered, each showing the same colour.
+# A fold
+Fold along any ruled line between two rows or two columns. Everything on one side of the line is laid over the other side, turned over, so its back now shows on top. Drag the paper across the line, or tap the line and then the side to fold.
+- There must be paper on both sides of the line.
+- What folds must land on the board.
+- Cut-out squares stay empty and let the paper under them show through.
+# The end of the game
+When the board matches the card, the puzzle is solved.
+# Levels and stars
+Solved in the fewest folds possible: 3 stars; with up to half as many folds again: 2 stars; otherwise 1.

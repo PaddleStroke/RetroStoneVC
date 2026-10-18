@@ -1,0 +1,12 @@
+Papierfalten
+# Das Ziel
+Ein Blatt Papier liegt auf einem Brett aus Feldern, auf Vorder- und Rückseite gefärbt. Falte es, bis das Brett das Bild auf der kleinen Karte zeigt: dieselben Felder bedeckt, jedes in derselben Farbe.
+# Ein Falz
+Falte entlang einer beliebigen Linie zwischen zwei Reihen oder zwei Spalten. Alles auf einer Seite der Linie wird umgedreht auf die andere Seite gelegt, sodass nun seine Rückseite oben liegt. Ziehe das Papier über die Linie oder tippe die Linie und dann die zu faltende Seite an.
+- Auf beiden Seiten der Linie muss Papier liegen.
+- Was gefaltet wird, muss auf dem Brett landen.
+- Ausgeschnittene Felder bleiben leer und lassen das Papier darunter durchscheinen.
+# Das Ende der Partie
+Wenn das Brett der Karte gleicht, ist das Rätsel gelöst.
+# Level und Sterne
+Gelöst mit den wenigsten möglichen Faltungen: 3 Sterne; mit bis zu halb so vielen Faltungen mehr: 2 Sterne; sonst 1.

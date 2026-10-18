@@ -1,0 +1,12 @@
+Plegado de papel
+# El objetivo
+Una hoja de papel está sobre un tablero de casillas, coloreada por delante y por detrás. Dóblala hasta que el tablero muestre el dibujo de la tarjeta pequeña: las mismas casillas cubiertas, cada una del mismo color.
+# Un pliegue
+Dobla por cualquier línea marcada entre dos filas o dos columnas. Todo lo que hay a un lado de la línea se coloca sobre el otro lado, dado la vuelta, así que ahora se ve su reverso. Arrastra el papel por encima de la línea, o toca la línea y luego el lado que se dobla.
+- Tiene que haber papel a los dos lados de la línea.
+- Lo que se dobla tiene que caer dentro del tablero.
+- Las casillas recortadas quedan vacías y dejan ver el papel de debajo.
+# El final de la partida
+Cuando el tablero es igual que la tarjeta, el rompecabezas está resuelto.
+# Niveles y estrellas
+Resuelto con el mínimo de pliegues posible: 3 estrellas; con hasta la mitad más de pliegues: 2 estrellas; si no, 1.

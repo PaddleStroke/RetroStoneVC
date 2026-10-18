@@ -1,0 +1,12 @@
+Dobradura
+# O objetivo
+Uma folha de papel está sobre um tabuleiro de casas, colorida na frente e no verso. Dobre-a até o tabuleiro mostrar o desenho do cartão pequeno: as mesmas casas cobertas, cada uma da mesma cor.
+# Uma dobra
+Dobre ao longo de qualquer linha marcada entre duas fileiras ou duas colunas. Tudo o que está de um lado da linha vai para cima do outro lado, virado: agora o seu verso aparece por cima. Arraste o papel por cima da linha, ou toque na linha e depois no lado a dobrar.
+- Tem de haver papel dos dois lados da linha.
+- O que se dobra tem de cair dentro do tabuleiro.
+- As casas recortadas ficam vazias e deixam ver o papel de baixo.
+# O fim da partida
+Quando o tabuleiro fica igual ao cartão, o quebra-cabeça está resolvido.
+# Níveis e estrelas
+Resolvido com o mínimo de dobras possível: 3 estrelas; com até metade a mais de dobras: 2 estrelas; senão, 1.

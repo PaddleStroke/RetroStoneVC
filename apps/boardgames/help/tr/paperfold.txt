@@ -1,0 +1,12 @@
+Kâğıt Katlama
+# Amaç
+Kareli bir tahtanın üzerinde önü ve arkası boyalı bir kâğıt yaprağı durur. Tahta küçük karttaki resmi gösterene kadar onu katla: aynı kareler örtülü, her biri aynı renkte.
+# Bir katlama
+İki satır ya da iki sütun arasındaki herhangi bir çizgi boyunca katla. Çizginin bir yanındaki her şey ters çevrilip öbür yanın üstüne yatar; artık üstte arka yüzü görünür. Kâğıdı çizginin üzerinden sürükle ya da önce çizgiye, sonra katlanacak yana dokun.
+- Çizginin iki yanında da kâğıt olmalı.
+- Katlanan kısım tahtanın üstüne düşmeli.
+- Kesilmiş kareler boş kalır ve alttaki kâğıdı gösterir.
+# Oyunun sonu
+Tahta kartla aynı olduğunda bulmaca çözülür.
+# Seviyeler ve yıldızlar
+Mümkün olan en az katlamayla çözülürse 3 yıldız; en az katlama sayısının en fazla yarısı kadar fazlasıyla 2 yıldız; yoksa 1.

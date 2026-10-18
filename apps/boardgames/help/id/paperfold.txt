@@ -1,0 +1,12 @@
+Lipat Kertas
+# Tujuan
+Selembar kertas terletak di papan berpetak, berwarna di sisi depan dan sisi belakangnya. Lipat kertas itu sampai papan menunjukkan gambar pada kartu kecil: petak yang sama tertutup, masing-masing dengan warna yang sama.
+# Satu lipatan
+Lipat di sepanjang garis mana saja di antara dua baris atau dua kolom. Semua yang ada di satu sisi garis ditumpuk ke sisi lainnya dalam keadaan terbalik, sehingga sisi belakangnya kini terlihat di atas. Seret kertas melewati garis, atau ketuk garis lalu sisi yang akan dilipat.
+- Harus ada kertas di kedua sisi garis.
+- Bagian yang dilipat harus jatuh di atas papan.
+- Petak yang dipotong tetap kosong dan memperlihatkan kertas di bawahnya.
+# Akhir permainan
+Saat papan sama dengan kartu, teka-teki terpecahkan.
+# Level dan bintang
+Selesai dengan lipatan sesedikit mungkin: 3 bintang; dengan tambahan lipatan paling banyak setengah dari jumlah itu: 2 bintang; selain itu 1.

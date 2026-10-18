@@ -1,0 +1,12 @@
+Papirbretting
+# Målet
+Et papirark ligger på et brett med ruter, farget på forsiden og på baksiden. Brett det til brettet viser bildet på det lille kortet: de samme rutene dekket, hver i samme farge.
+# En bretting
+Brett langs hvilken som helst linje mellom to rader eller to kolonner. Alt på den ene siden av linjen legges snudd over den andre siden, så baksiden nå vises øverst. Dra papiret over linjen, eller trykk på linjen og så på siden som skal brettes.
+- Det må være papir på begge sider av linjen.
+- Det som brettes, må lande på brettet.
+- Utklipte ruter forblir tomme og lar papiret under synes.
+# Slutten på spillet
+Når brettet er likt kortet, er oppgaven løst.
+# Nivåer og stjerner
+Løst med færrest mulig brettinger: 3 stjerner; med opptil halvparten så mange brettinger til: 2 stjerner; ellers 1.

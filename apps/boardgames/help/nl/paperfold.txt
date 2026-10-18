@@ -1,0 +1,12 @@
+Papier vouwen
+# Het doel
+Een vel papier ligt op een bord met vakjes, gekleurd aan de voorkant en aan de achterkant. Vouw het tot het bord het plaatje op het kleine kaartje laat zien: dezelfde vakjes bedekt, elk in dezelfde kleur.
+# Een vouw
+Vouw langs een lijn tussen twee rijen of twee kolommen. Alles aan één kant van de lijn gaat omgedraaid over de andere kant, zodat nu de achterkant boven ligt. Sleep het papier over de lijn, of tik op de lijn en dan op de kant die vouwt.
+- Aan beide kanten van de lijn moet papier liggen.
+- Wat vouwt, moet op het bord terechtkomen.
+- Uitgeknipte vakjes blijven leeg en laten het papier eronder zien.
+# Het einde van het spel
+Als het bord gelijk is aan het kaartje, is de puzzel opgelost.
+# Levels en sterren
+Opgelost met zo weinig mogelijk vouwen: 3 sterren; met tot de helft meer vouwen: 2 sterren; anders 1.

@@ -1,0 +1,12 @@
+Pliage
+# Le but
+Une feuille de papier est posée sur un plateau de cases, colorée sur son recto et sur son verso. Plie-la jusqu'à ce que le plateau montre l'image de la petite carte : les mêmes cases couvertes, chacune de la même couleur.
+# Un pli
+Plie le long de n'importe quelle ligne tracée entre deux rangées ou deux colonnes. Tout ce qui est d'un côté de la ligne se rabat sur l'autre côté, retourné : son verso apparaît maintenant dessus. Fais glisser le papier par-dessus la ligne, ou touche la ligne puis le côté à plier.
+- Il doit y avoir du papier des deux côtés de la ligne.
+- Ce qui se plie doit retomber sur le plateau.
+- Les cases découpées restent vides et laissent voir le papier qui est dessous.
+# La fin de la partie
+Quand le plateau est identique à la carte, le casse-tête est résolu.
+# Niveaux et étoiles
+Résolu avec le moins de plis possible : 3 étoiles ; jusqu'à moitié plus de plis : 2 étoiles ; sinon 1.

@@ -1,0 +1,12 @@
+Piega la carta
+# Lo scopo
+Un foglio di carta è posato su una tavola a caselle, colorato sul davanti e sul retro. Piegalo finché la tavola mostra il disegno della piccola carta: le stesse caselle coperte, ognuna dello stesso colore.
+# Una piega
+Piega lungo una qualsiasi linea tracciata tra due righe o due colonne. Tutto ciò che sta da un lato della linea si ribalta sull'altro lato, capovolto: ora sopra si vede il suo retro. Trascina la carta oltre la linea, oppure tocca la linea e poi il lato da piegare.
+- Ci deve essere carta da entrambi i lati della linea.
+- Ciò che si piega deve ricadere sulla tavola.
+- Le caselle ritagliate restano vuote e lasciano vedere la carta sotto.
+# La fine della partita
+Quando la tavola è uguale alla carta, il rompicapo è risolto.
+# Livelli e stelle
+Risolto con il minor numero di pieghe possibile: 3 stelle; con fino a metà pieghe in più: 2 stelle; altrimenti 1.

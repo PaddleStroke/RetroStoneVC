@@ -1,0 +1,12 @@
+Paperin taittelu
+# Tavoite
+Paperiarkki on ruudukkolaudalla, ja sen etu- ja takapuoli on väritetty. Taita sitä, kunnes lauta näyttää pienen kortin kuvan: samat ruudut peitettyinä, jokainen samanvärisenä.
+# Taitos
+Taita minkä tahansa kahden rivin tai kahden sarakkeen välisen viivan kohdalta. Kaikki viivan toisella puolella oleva käännetään toisen puolen päälle, niin että sen takapuoli näkyy nyt päällä. Vedä paperia viivan yli, tai napauta viivaa ja sitten taitettavaa puolta.
+- Viivan kummallakin puolella on oltava paperia.
+- Taitettavan osan on osuttava laudalle.
+- Leikatut ruudut jäävät tyhjiksi, ja niiden läpi näkyy alla oleva paperi.
+# Pelin loppu
+Kun lauta vastaa korttia, tehtävä on ratkaistu.
+# Tasot ja tähdet
+Ratkaistu pienimmällä mahdollisella määrällä taitoksia: 3 tähteä; enintään puolet enemmän taitoksia: 2 tähteä; muuten 1.

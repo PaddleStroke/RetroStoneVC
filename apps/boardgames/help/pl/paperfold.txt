@@ -1,0 +1,12 @@
+Składanie papieru
+# Cel gry
+Kartka papieru leży na planszy z pól, pokolorowana z przodu i z tyłu. Składaj ją, aż plansza pokaże obrazek z małej karty: te same pola zakryte, każde w tym samym kolorze.
+# Złożenie
+Złóż wzdłuż dowolnej linii między dwoma rzędami lub dwiema kolumnami. Wszystko po jednej stronie linii zostaje przełożone na drugą stronę i odwrócone, więc teraz na wierzchu widać jego spód. Przeciągnij papier przez linię albo dotknij linii, a potem strony do złożenia.
+- Po obu stronach linii musi być papier.
+- To, co się składa, musi wylądować na planszy.
+- Wycięte pola zostają puste i widać przez nie papier pod spodem.
+# Koniec gry
+Gdy plansza wygląda jak karta, łamigłówka jest rozwiązana.
+# Poziomy i gwiazdki
+Rozwiązana najmniejszą możliwą liczbą złożeń: 3 gwiazdki; najwyżej o połowę więcej złożeń: 2 gwiazdki; inaczej 1.

@@ -1,0 +1,12 @@
+Skládání papíru
+# Cíl hry
+List papíru leží na desce s políčky, zbarvený na lícové i rubové straně. Skládej ho, dokud deska neukáže obrázek z malé karty: stejná políčka zakrytá, každé ve stejné barvě.
+# Přehyb
+Přehni podél kterékoli čáry mezi dvěma řadami nebo dvěma sloupci. Vše na jedné straně čáry se přeloží na druhou stranu, obrácené, takže nahoře je teď vidět jeho rub. Přetáhni papír přes čáru, nebo klepni na čáru a pak na stranu, která se má přehnout.
+- Na obou stranách čáry musí být papír.
+- Co se přehýbá, musí dopadnout na desku.
+- Vystřižená políčka zůstávají prázdná a je jimi vidět papír pod nimi.
+# Konec hry
+Když deska vypadá jako karta, hlavolam je vyřešen.
+# Úrovně a hvězdy
+Vyřešeno nejmenším možným počtem přehybů: 3 hvězdy; nejvýš o polovinu víc přehybů: 2 hvězdy; jinak 1.

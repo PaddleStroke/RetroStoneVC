@@ -1,0 +1,12 @@
+Papirfoldning
+# Målet
+Et ark papir ligger på en plade med felter, farvet på forsiden og på bagsiden. Fold det, til pladen viser billedet på det lille kort: de samme felter dækket, hvert i samme farve.
+# En foldning
+Fold langs en hvilken som helst linje mellem to rækker eller to søjler. Alt på den ene side af linjen lægges vendt over på den anden side, så dets bagside nu ses øverst. Træk papiret hen over linjen, eller tryk på linjen og så på den side, der skal foldes.
+- Der skal være papir på begge sider af linjen.
+- Det, der foldes, skal lande på pladen.
+- Udskårne felter forbliver tomme og lader papiret under dem ses.
+# Spillets afslutning
+Når pladen ligner kortet, er opgaven løst.
+# Baner og stjerner
+Løst med færrest mulige foldninger: 3 stjerner; med op til halvt så mange foldninger mere: 2 stjerner; ellers 1.

@@ -1,0 +1,12 @@
+Pappersvikning
+# Målet
+Ett papper ligger på en bräda med rutor, färgat på framsidan och på baksidan. Vik det tills brädan visar bilden på det lilla kortet: samma rutor täckta, var och en i samma färg.
+# En vikning
+Vik längs vilken linje som helst mellan två rader eller två kolumner. Allt på ena sidan av linjen läggs vänt över den andra sidan, så att baksidan nu syns överst. Dra papperet över linjen, eller tryck på linjen och sedan på sidan som ska vikas.
+- Det måste finnas papper på båda sidor om linjen.
+- Det som viks måste hamna på brädan.
+- Urklippta rutor förblir tomma och låter papperet under synas.
+# Partiets slut
+När brädan är likadan som kortet är pusslet löst.
+# Banor och stjärnor
+Löst med så få vikningar som möjligt: 3 stjärnor; med upp till hälften så många vikningar till: 2 stjärnor; annars 1.
