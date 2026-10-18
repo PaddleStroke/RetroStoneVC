@@ -142,8 +142,10 @@ static void pass(void) { act(MA_PASS); }
 /* a doubling: a gold cross and 2 (4: redoubled), centred on (cx, cy), h high */
 static void draw_mult(float cx, float cy, float h, int mult)
 {
-    ui_put_c(ct_icon(ICON_CLOSE, (int)(0.8f * h), 250, 214, 90), cx - 0.42f * h, cy, 0.8f * h, 0.8f * h);
-    ui_number(cx + 0.42f * h, cy, h, mult, 1);
+    int l = ct_light();                         /* the light table: a deeper gold */
+    ui_put_c(ct_icon(ICON_CLOSE, (int)(0.8f * h), l ? 190 : 250, l ? 142 : 214, l ? 40 : 90), cx - 0.42f * h, cy, 0.8f * h,
+             0.8f * h);
+    ui_number_ex(cx + 0.42f * h, cy, h, mult, ct_ink(), 255, 0);   /* cream; ink on the light table */
 }
 
 /* the double (redouble) button in the middle */
