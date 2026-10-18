@@ -418,6 +418,8 @@ static void begin(void)
     was_jam = 0;
     memset(shown_g, 0, sizeof shown_g);
     for (int i = 0; i < GEA_PEGS; i++) rest[i] = 0.37 * i;
+    sel = 0;                                    /* (its first size: not the last puzzle's, which a kept game played
+                                                 * again would not know) */
     tray_of();
     evaluate();
     if (last_box.w > 0) layout(last_box);
