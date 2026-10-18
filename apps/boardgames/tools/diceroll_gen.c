@@ -4,13 +4,16 @@
  * even tiles, arrows, all of them) and makes many with the rules' maker (dcr_make, from fixed seeds: a symmetric board,
  * a mirror or a turn, its holes and special tiles laid in symmetric sets, changed while the fewest rolls do not drop).
  * A board is kept when the chapter's new tiles matter (made plain, the way gets shorter) and when its layout was not
- * met before (turned or mirrored either). The difficulty: the fewest rolls, a little more for the states the die can
- * reach, a little less when many shortest ways exist. Each chapter keeps 25 boards spread over its difficulties, from
- * an easy one (chapter 1 from the very easiest) to its hardest; of the boards near each place on the curve the one
- * that looks best is kept (the board well filled, near square, few lone spurs, one shortest way or few); the chapter's
- * last board, its showpiece, the best looking of its hardest few. Deterministic (fixed seeds).
+ * met before (turned or mirrored either). The difficulty is measured (measure()): the fewest rolls, the share of
+ * mistaken rolls along the way, and how many naive players (rolling at random, mostly towards the goal) solve it.
+ * Each chapter keeps 25 boards: one to three easy ones first (chapter 1 from the very easiest) that show its new
+ * tiles, then boards no naive player solves, spread from the chapter's floor to its hardest; of the boards near
+ * each place on the curve the one that looks best is kept (the board well filled, near square, few lone spurs, one
+ * shortest way or few, another size than the level before); the chapter's last board, its showpiece, the best
+ * looking of its hardest few. Deterministic (fixed seeds).
  *   gcc -O2 -Iapps/boardgames/src -o /tmp/dcrgen apps/boardgames/tools/diceroll_gen.c -lm && \
  *       /tmp/dcrgen > apps/boardgames/src/games/diceroll_levels.h
+ * The levels' difficulty table: the same with -DDCR_TABLE, run with no output file.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #define DCR_GEN
@@ -24,30 +27,24 @@
 #define PER (DCR_LEVELS / DCR_CHAPTERS)
 #define MAKES 700                               /* boards kept a chapter, at most */
 
-typedef struct {
-    char text[DCR_TEXT];
-    int par, states, ways;
-    double diff, look;
-} cand;
-
 /* a chapter's boards: size w x h (up to grow more each way), holes, special sets (numbers, odd/even, arrows), the
- * changes tried; the new tiles that must matter (a DCR_* kind, 0 none); lo..hi: the rolls */
-typedef struct { int w, h, grow, holes, nums, parity, arrows, iters, from_easiest, need, lo, hi; } chapter;
+ * changes tried; the new tiles that must matter (a DCR_* kind, 0 none); lo..hi: the rolls; intro: its first levels,
+ * easy ones that show its new tiles; floor: the least score (measure()) of the others */
+typedef struct {
+    int w, h, grow, holes, nums, parity, arrows, iters, from_easiest, need, lo, hi, intro;
+    double floor;
+} chapter;
 
 static const chapter CH[DCR_CHAPTERS] = {
-    {3, 3, 2, 2, 0, 0, 0, 60, 1, 0, 3, 11},          /* plain tiles */
-    {4, 4, 1, 2, 2, 0, 0, 200, 0, DCR_NUM, 6, 14},   /* number tiles */
-    {5, 5, 2, 3, 3, 0, 0, 400, 0, DCR_NUM, 9, 20},   /* larger boards of them */
-    {5, 5, 2, 3, 1, 3, 0, 400, 0, DCR_ODD, 9, 22},   /* odd and even tiles */
-    {5, 5, 2, 3, 1, 0, 3, 450, 0, DCR_ARROW, 10, 24},/* arrows */
-    {6, 6, 2, 4, 2, 2, 2, 600, 0, -1, 13, 30},       /* all of them */
+    {3, 3, 2, 2, 0, 0, 0, 120, 1, 0, 3, 14, 3, 9},           /* plain tiles */
+    {4, 4, 1, 2, 2, 0, 0, 200, 0, DCR_NUM, 6, 18, 2, 15},     /* number tiles */
+    {5, 5, 2, 3, 3, 0, 0, 400, 0, DCR_NUM, 10, 24, 1, 21},    /* larger boards of them */
+    {5, 5, 2, 3, 1, 3, 0, 400, 0, DCR_ODD, 9, 26, 2, 23},     /* odd and even tiles */
+    {5, 5, 2, 3, 1, 0, 3, 450, 0, DCR_ARROW, 10, 28, 2, 26},  /* arrows */
+    {6, 6, 2, 4, 2, 2, 2, 600, 0, -1, 16, 34, 1, 33},         /* all of them */
 };
+#define NAIVE_MAX 0.05                          /* the most naive players a hard level may let win */
 
-static int by_diff(const void *a, const void *b)
-{
-    double d = ((const cand *)a)->diff - ((const cand *)b)->diff;
-    return d < 0 ? -1 : d > 0 ? 1 : strcmp(((const cand *)a)->text, ((const cand *)b)->text);
-}
 
 /* ---- layouts met before: the board's cells (not the die's faces), in each of its 8 turns and mirrors ---------- */
 static char (*kept)[DCR_TEXT];
@@ -126,6 +123,157 @@ static double look_of(const dcr_map *m, int ways)
            0.08 * log((double)ways);
 }
 
+/* ---- how hard a board is, measured ------------------------------------------------------------------------------
+ * trap: along a shortest way, the share of the legal rolls that are mistakes (they do not bring the goal a roll
+ * nearer); first: the share of the first rolls that are mistakes; naive: the share of 300 naive players who solve it
+ * within one and a half times its par (each roll at random, but three times in four one that brings the die no
+ * farther from the goal tile, never straight back); detour: the rolls over the start's distance to the goal. */
+typedef struct { int par, states, ways, detour; double trap, first, naive, score; } metric;
+
+typedef struct {
+    char text[DCR_TEXT];
+    metric m;
+    int w, h;
+    double look;
+} cand;
+
+static int by_score(const void *a, const void *b)
+{
+    double d = ((const cand *)a)->m.score - ((const cand *)b)->m.score;
+    return d < 0 ? -1 : d > 0 ? 1 : strcmp(((const cand *)a)->text, ((const cand *)b)->text);
+}
+
+static int dist_of(const dcr_map *m, const dcr_state *s) { return dcr_solve(m, s, NULL, NULL, NULL); }
+
+static void measure(const dcr_map *m, metric *mt)
+{
+    dcr_state s = start_of(m);
+    mt->par = dcr_solve(m, &s, NULL, &mt->states, &mt->ways);
+    int gx = m->goal % m->w, gy = m->goal / m->w;
+    mt->detour = mt->par - (abs(s.x - gx) + abs(s.y - gy));
+    int legal = 0, bad = 0, legal0 = 0, bad0 = 0;
+    dcr_state c = s;
+    for (int left = mt->par; left > 0; left--) {
+        int dir = -1;
+        dcr_solve(m, &c, &dir, NULL, NULL);
+        for (int k = 0; k < 4; k++) {
+            dcr_state n;
+            if (!dcr_try(m, &c, k, &n)) continue;
+            int d = dist_of(m, &n), mis = d < 0 || d != left - 1;
+            legal++;
+            bad += mis;
+            if (left == mt->par) { legal0++; bad0 += mis; }
+        }
+        dcr_try(m, &c, dir, &c);
+    }
+    mt->trap = legal ? (double)bad / legal : 0;
+    mt->first = legal0 ? (double)bad0 / legal0 : 0;
+    uint32_t r = pr_seed(77);
+    int wins = 0;
+    for (int t = 0; t < 300; t++) {
+        dcr_state p = s;
+        int back = -1;
+        for (int k = 0; k < mt->par + mt->par / 2 + 1 && !dcr_solved(m, &p); k++) {
+            int ok[4], nok = 0, near[4], nnear = 0, here = abs(p.x - gx) + abs(p.y - gy);
+            for (int d = 0; d < 4; d++) {
+                dcr_state n;
+                if (d == back || !dcr_try(m, &p, d, &n)) continue;
+                ok[nok++] = d;
+                if (abs(n.x - gx) + abs(n.y - gy) <= here) near[nnear++] = d;
+            }
+            if (!nok) break;
+            int d = nnear && pr_below(&r, 4) ? near[pr_below(&r, nnear)] : ok[pr_below(&r, nok)];
+            dcr_try(m, &p, d, &p);
+            back = (d + 2) & 3;
+        }
+        wins += dcr_solved(m, &p);
+    }
+    mt->naive = wins / 300.0;
+    /* the score: the rolls, worth more where the mistakes are many and the naive players fail */
+    mt->score = mt->par * (0.6 + mt->trap) * (1.2 - mt->naive) + 0.15 * mt->detour - 0.4 * log((double)mt->ways);
+}
+
+#ifdef DCR_TABLE                                /* the shipped levels' table: -DDCR_TABLE */
+#include "games/diceroll_levels.h"
+static void table_row(int lv, const char *text, const metric *mt)
+{
+    printf("%4d %3d %5d %5d %4d %5.2f %5.2f %5.2f %6.2f  %s\n", lv + 1, mt->par, mt->states, mt->ways, mt->detour,
+           mt->trap, mt->first, mt->naive, mt->score, text);
+}
+
+int main(void)
+{
+    (void)CH, (void)by_score, (void)look_of, (void)met, (void)matters;
+    double sum[DCR_CHAPTERS][5] = {{0}};
+    int trivial = 0;
+    printf("lvl par states ways detour trap first naive score  board\n");
+    for (int lv = 0; lv < DCR_LEVELS; lv++) {
+        dcr_map m;
+        metric mt;
+        dcr_parse(&m, dcr_levels[lv]);
+        measure(&m, &mt);
+        table_row(lv, dcr_levels[lv], &mt);
+        double *s = sum[lv / PER];
+        s[0] += mt.par; s[1] += mt.trap; s[2] += mt.naive; s[3] += mt.score; s[4] += mt.naive > 0.1 || mt.par <= 6;
+        trivial += lv >= 3 && (mt.naive > 0.1 || mt.par <= 6);
+    }
+    printf("\nchapter  par  trap naive score trivial\n");
+    for (int c = 0; c < DCR_CHAPTERS; c++)
+        printf("%7d %5.1f %5.2f %5.2f %5.1f %4.0f\n", c + 1, sum[c][0] / PER, sum[c][1] / PER, sum[c][2] / PER,
+               sum[c][3] / PER, sum[c][4]);
+    printf("trivial levels from level 4 (naive > 0.1 or par <= 6): %d\n", trivial);
+    return 0;
+}
+#else
+/* a chapter's levels from its pool (sorted by score): its first `intro` from the easy end (the chapter's new tiles
+ * shown plainly), the others spread from `floor` to the hardest over the boards no naive player solves, the last of
+ * the hardest few; of the boards near each place on the curve the best looking, another size than the last level's
+ * when it can */
+static int pick(cand *pool, int n, const chapter *C, int *chosen)
+{
+    static int hard[MAKES];
+    int nh = 0, used[MAKES] = {0};
+    for (int i = 0; i < n; i++)
+        if (pool[i].m.naive <= NAIVE_MAX && pool[i].m.score >= C->floor) hard[nh++] = i;
+    if (nh < PER - C->intro + 2) { fprintf(stderr, "only %d hard boards\n", nh); return 0; }
+    int lw = 0, lh = 0, last = -1;
+    for (int k = 0; k < C->intro; k++) {
+        int span = n / 5 > C->intro ? n / 5 : C->intro, i = -1;
+        int a = k * span / C->intro, b = (k + 1) * span / C->intro - 1;
+        if (C->from_easiest && k == 0) b = a + 2;
+        if (a <= last) a = last + 1;
+        if (b < a) b = a;
+        for (int j = a; j <= b && j < n; j++)       /* short ones: a long easy way is a dull one */
+            if (i < 0 || (pool[j].m.par <= C->lo + 6 &&
+                          (pool[i].m.par > C->lo + 6 || pool[j].look > pool[i].look))) i = j;
+        used[i] = 1;
+        last = i;
+        chosen[k] = i;
+        lw = pool[i].w, lh = pool[i].h;
+    }
+    double step = (double)(nh - 1) / (PER - C->intro - 1);
+    last = -1;
+    for (int k = 0; k < PER - C->intro; k++) {
+        int mid = (int)(k * step + 0.5), a = mid - (int)(step / 2), b = mid + (int)(step / 2), i = -1;
+        if (k == PER - C->intro - 1) a = nh - 1 - nh / 25 - 2, b = nh - 1;   /* the showpiece: of the hardest few */
+        if (a <= last) a = last + 1;
+        if (b > nh - 1) b = nh - 1;
+        if (b < a) b = a;
+        double best = -1e9;
+        for (int j = a; j <= b; j++) {
+            const cand *c = &pool[hard[j]];
+            double v = c->look - (c->w == lw && c->h == lh ? 0.15 : 0);
+            if (!used[hard[j]] && (i < 0 || v > best)) { best = v; i = j; }
+        }
+        if (i < 0) i = a;
+        last = i;
+        used[hard[i]] = 1;
+        chosen[C->intro + k] = hard[i];
+        lw = pool[hard[i]].w, lh = pool[hard[i]].h;
+    }
+    return 1;
+}
+
 int main(void)
 {
     kept = malloc((size_t)DCR_CHAPTERS * MAKES * 4 * sizeof *kept);
@@ -151,30 +299,21 @@ int main(void)
             if (par < C->lo || par > C->hi || !matters(&m, C->need, par)) continue;
             if (m.w < 3 || m.h < 3 || met(&m)) continue;
             dcr_text(&m, pool[n].text);
-            pool[n].par = par;
-            pool[n].states = states;
-            pool[n].ways = ways;
-            pool[n].diff = par + states / 250.0 - 0.3 * log((double)ways);
+            measure(&m, &pool[n].m);
+            pool[n].w = m.w;
+            pool[n].h = m.h;
             pool[n].look = look_of(&m, ways);
             n++;
         }
-        if (n < PER) { fprintf(stderr, "chapter %d: only %d boards\n", ch + 1, n); return 1; }
-        qsort(pool, (size_t)n, sizeof *pool, by_diff);
-        int lo = C->from_easiest ? 0 : n / 6;
-        double step = (double)(n - 1 - lo) / (PER - 1);
-        for (int k = 0, last = -1; k < PER; k++) {
-            int mid = lo + (int)(k * step + 0.5), a = mid - (int)(step / 2), b = mid + (int)(step / 2), i = -1;
-            if (k == 0 && C->from_easiest) a = b = 0;
-            if (k == PER - 1) a = n - 1 - n / 25 - 2, b = n - 1;   /* the showpiece: of the hardest few */
-            if (a < lo) a = lo;
-            if (a <= last) a = last + 1;
-            if (b > n - 1) b = n - 1;
-            if (b < a) b = a;
-            for (int j = a; j <= b; j++)
-                if (i < 0 || pool[j].look > pool[i].look) i = j;
-            last = i;
-            strcpy(out[ch * PER + k], pool[i].text);
-            outpar[ch * PER + k] = pool[i].par;
+        qsort(pool, (size_t)n, sizeof *pool, by_score);
+        int chosen[PER];
+        if (n < PER || !pick(pool, n, C, chosen)) {
+            fprintf(stderr, "chapter %d: only %d boards\n", ch + 1, n);
+            return 1;
+        }
+        for (int k = 0; k < PER; k++) {
+            strcpy(out[ch * PER + k], pool[chosen[k]].text);
+            outpar[ch * PER + k] = pool[chosen[k]].m.par;
         }
         fprintf(stderr, "chapter %d: %d boards, rolls %d .. %d\n", ch + 1, n, outpar[ch * PER],
                 outpar[ch * PER + PER - 1]);
@@ -186,3 +325,4 @@ int main(void)
     printf("\n};\n");
     return 0;
 }
+#endif
