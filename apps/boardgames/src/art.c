@@ -989,7 +989,7 @@ static void paint_stone(const uint8_t rgb[3], int size, uint8_t *o)
         if (memo_get(key, size, size, o)) return;
     }
     float base[3] = {rgb[0], rgb[1], rgb[2]}, lum = 0.3f * base[0] + 0.59f * base[1] + 0.11f * base[2];
-    float t = clampf((lum - 70) / 150, 0, 1);       /* 0 ebony .. 1 ivory: the dark ones take more light */
+    float t = clampf((lum - 40) / 130, 0, 1);       /* 0 ebony .. 1 ivory: the dark ones take more light */
     float amb = 0.32f + 0.28f * t, dif = 0.85f - 0.3f * t, rimk = 0.7f - 0.2f * t;
     float R = 0.45f * size, m = 0.5f * size, L[3] = {-0.45f, -0.6f, 0.66f}, H[3] = {-0.45f, -0.6f, 1.66f};
     float ln = sqrtf(L[0] * L[0] + L[1] * L[1] + L[2] * L[2]), hn = sqrtf(H[0] * H[0] + H[1] * H[1] + H[2] * H[2]);
