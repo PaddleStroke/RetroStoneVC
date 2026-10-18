@@ -15,6 +15,7 @@
 #include "assets.h"
 #include "house_ui.h"
 #include "game_text.h"
+#include "tall_ui.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -583,7 +584,7 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
     if (key != shown_key || best != shown_best) {
         char s[64];
         hu_clear();
-        if (state == ST_TITLE) hu_logo("LLAMA DRAMA", title_ramps, 2, 2, 0);
+        if (state == ST_TITLE) tu_logo("LLAMA DRAMA", title_ramps, 2, 2, 0);    /* (portrait: on two lines) */
         if ((state == ST_PLAY || state == ST_DEAD) && w->players >= 3 && !tall()) hu_score_tags(w->players, 0);
         if (state == ST_PLAY || state == ST_DEAD) {
             if (w->msg) text_centered(5, msg_text(w->msg), 1);
@@ -591,18 +592,19 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         }
         if (state == ST_OVER) {
             if (w->players == 1) {
-                hu_banner(4, HTR(GAME_OVER));
+                tu_banner(4, HTR(GAME_OVER));
                 hu_gameover_panel(1, new_best, w->l[0].score, 0);
                 rs_strf(s, sizeof s, TRN(POPPED_N, w->l[0].pops), w->l[0].pops);
                 hu_gameover_note(s);
             } else {
-                hu_results_panel(rs, NULL);            /* P2 WINS! and the ranking */
+                tu_results_panel(rs, NULL);            /* P2 WINS! and the ranking */
             }
         }
         shown_key = key;
         shown_best = best;
     }
-    if (state == ST_TITLE) hu_title_draw(st_t, best);
+    if (state == ST_TITLE && tu_on()) tu_title_draw(st_t, best, TR(VERB), MAX_PLAYERS, TALL_SLOT_ROW, 0);
+    else if (state == ST_TITLE) hu_title_draw(st_t, best);
     if (state == ST_OVER) {
         if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_TITLE));
         else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
@@ -615,9 +617,10 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     int sx = hu_shake_x(), sy = hu_shake_y(), t = state == ST_TITLE ? st_t : w->t;
     hu_standing rs;
     standing(w, &rs);
-    /* a tall screen (DESIGN.md "Tall screen"): the play zoomed, the left columns shown (the herd and the sky ahead of
-     * it); the title and the game-over panel show every column. x0 .. x1 - 1: the stage columns shown */
-    int zoom = tall() && (state == ST_PLAY || state == ST_DEAD);
+    /* a tall screen (DESIGN.md "Tall screen"): zoomed throughout, the left columns shown (the herd and the sky ahead
+     * of it): the title, play and the panels one view, the UI centred on the columns shown (tall_ui.h; dx below: the
+     * kit's sprites moved with it). x0 .. x1 - 1: the stage columns shown */
+    int zoom = tall();
     if (tall()) {
         rs_screen_fill(zoom);
         rs_screen_focus_x(0);
@@ -631,7 +634,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;     /* the panel slides up, ease-out */
     /* the UI centred on the screen (widescreen), on the columns shown (zoomed) */
     rs_bg_scroll(RS_BG1, -hu_ui_x() + (zoom ? STAGE_W / 2 - (x0 + x1) / 2 : 0), -slide);
-    hu_pause(paused, 13);
+    int dx = zoom ? (x0 + x1) / 2 - STAGE_W / 2 : 0, first = 0;
+    tu_pause(paused, 13);
     /* the hornets, the spit, their effects and the aim dots: in play over the text too (priority 3: the new hornets'
      * names, the hint, the corner tags never hide one); paused or under the game-over panel, behind the UI (2) */
     int play_prio = (state == ST_PLAY || state == ST_DEAD) && !paused ? 3 : 2;
@@ -644,9 +648,11 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         if (zoom) tall_scores(w, x0, x1);
         else hu_score_chips(w->players, v, 0);  /* 1: centred; 2: on the halves; 3-4: the corners */
     }
+    if (state == ST_OVER || state == ST_TITLE) first = rs_oam_next();
     if (state == ST_OVER) {
         if (w->players == 1) {
             hu_gameover_sprites(1, w->l[0].score, 0, best, hu_medal_of(w->l[0].score, medals), st_t, slide);
+            tu_oam_shift(first, dx);
         } else {
             hu_results_sprites(&rs, st_t, slide);
             for (int i = 0; i < rs.n; i++) {
@@ -654,12 +660,16 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
                 hu_results_icon_pos(&rs, i, &cx, &cy);
                 spr(SPR_ICON, cx - 8 + hu_ui_x(), cy - 8 + slide, 3, player_pal(rs.order[i]), 0);
             }
+            tu_oam_shift(first, dx);
         }
     }
     if (state == ST_TITLE) {
-        hu_title_sprites(st_t, slot_icon, NULL);   /* the prompt's glyph, the joined players popping in */
-        /* a hornet buzzes about on the right, waiting */
+        if (tu_on()) tu_title_sprites(st_t, MAX_PLAYERS, TALL_SLOT_ROW, slot_icon, NULL);
+        else hu_title_sprites(st_t, slot_icon, NULL);   /* the prompt's glyph, the joined players popping in */
+        tu_oam_shift(first, dx);
+        /* a hornet buzzes about on the right, waiting (zoomed: in the columns shown, by the logo's first word) */
         int hx = 250 + isin1024(st_t * 5) * 22 / 16384, hy = 112 + isin1024(st_t * 10) * 10 / 16384;
+        if (dx) hx = x1 - 28 + isin1024(st_t * 5) * 14 / 16384, hy = 36 + isin1024(st_t * 10) * 10 / 16384;
         spr(SPR_HORNET + (st_t / 3) % 2, hx - 8, hy - 8, 2, -1, icos1024(st_t * 5) > 0 ? 0 : RS_SPR_HFLIP);
     } else {
         draw_play(w, sx, sy, play_prio);
