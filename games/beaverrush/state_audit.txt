@@ -8,3 +8,5 @@ scene.trunk_sx      ... its BG2 scroll, the same
 scene.trunk_sy      ... the same
 scene.hud_lines     a tall screen: the HUD band at the screen's top, set by draw_frame before every picture (scene_hud)
 draw.title_out      the narrow title's glyph and slots (ht_title_draw), set every title frame before ht_title_sprites
+scene.ui_pin_on     a tall screen: the UI layer pinned on the screen (house_tall.h ht_pin), set by draw_frame before every picture (scene_ui_pin, for the raster)
+scene.ui_pin_top    ... the stage line of its row 0, the same

@@ -150,6 +150,8 @@ static void sky_lines(int t)
 }
 
 void scene_hud(int lines) { hud_lines = lines; }
+static int ui_pin_on, ui_pin_top;                /* the pinned UI's band (stage lines), set by draw.c */
+void scene_ui_pin(int on, int top) { ui_pin_on = on; ui_pin_top = top; }
 
 void scene_trunk(int x, int sx, int sy)
 {
@@ -172,6 +174,7 @@ static void raster_out(int line)
         rs_bg_window(RS_BG2, line == top && trunk_x >= 0 ? 0 : RS_WIN1);
     }
     if (hud_lines && line == top + hud_lines) rs_bg_window(RS_BG1, RS_WIN1);   /* past the HUD's band */
+    if (ui_pin_on) rs_bg_window(RS_BG1, line >= ui_pin_top && line < ui_pin_top + RS_SCREEN_H ? 0 : RS_WIN1);   /* the pinned UI */
     if (line < 0) {
         int k = top < 0 ? -line * 96 / -top : 0;            /* 0 at the stage's top .. 96 at the screen's */
         rs_pal_set(0, hu_scale_color(line_col[0], 256 - k));

@@ -54,6 +54,8 @@ void scene_bg_scroll(int view_sx);
 void scene_trunk(int x, int sx, int sy);
 /* a tall screen: BG1's top lines drawn at the screen's top (draw.c: rs_bg_pin), shown by the raster there (0: none) */
 void scene_hud(int lines);
+/* a tall screen: the UI layer pinned on the screen (house_tall.h ht_pin) from stage line top, shown by the raster there */
+void scene_ui_pin(int on, int top);
 int  scene_stage_shown(void);
 int  scene_tod(void);
 int  scene_season(void);

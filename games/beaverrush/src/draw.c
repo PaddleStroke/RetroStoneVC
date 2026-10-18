@@ -808,6 +808,9 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     int hud = tall() && !multi && (state == DS_PLAY || state == DS_END), hy = hud ? rs_screen_top() : 0;
     rs_bg_pin(RS_BG1, 0, hud ? HUD_LINES : 0, 0);
     scene_hud(hud ? HUD_LINES : 0);
+    int pin = !ht_narrow() ? HT_PIN_OFF : state == DS_TITLE ? HT_PIN_TITLE : state == DS_OVER && !multi ? HT_PIN_PANEL : HT_PIN_OFF;
+    if (pin) ht_pin(pin);                       /* the title and the panels at the same place on every game's screen */
+    scene_ui_pin(pin, ht_pin_dy(pin));
 
     rs_viewport v[RS_VIEW_MAX];
     int nv = multi ? split(w->players, v) : 0;
