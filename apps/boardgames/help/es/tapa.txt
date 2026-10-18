@@ -1,0 +1,11 @@
+Tapa
+# El objetivo
+Sombrea casillas del tablero para levantar un solo muro.
+- Todas las casillas sombreadas forman una sola pieza, unidas por los lados.
+- Ningún cuadrado de 2 × 2 está sombreado entero.
+- Una casilla con números nunca se sombrea. Sus números dan las longitudes de los tramos de casillas sombreadas entre sus ocho vecinas, en cualquier orden; dos tramos nunca se tocan.
+Cada tablero tiene una sola solución, que se encuentra solo razonando. Mantén pulsada una casilla para poner un punto: una nota de que queda sin sombrear.
+# El final de la partida
+El tablero está resuelto cuando se cumplen todas las reglas: una ola de luz dorada lo recorre.
+# Niveles y estrellas
+Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una casilla equivocada que quitas con Deshacer.

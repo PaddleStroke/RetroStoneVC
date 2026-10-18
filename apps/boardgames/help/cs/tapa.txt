@@ -1,0 +1,11 @@
+Tapa
+# Cíl hry
+Vybarvi políčka mřížky tak, aby vznikla jedna zeď.
+- Všechna vybarvená políčka tvoří jeden celek spojený stranami.
+- Žádný čtverec 2 × 2 není celý vybarvený.
+- Políčko s čísly se nikdy nevybarvuje. Jeho čísla udávají délky úseků vybarvených políček mezi jeho osmi sousedy, v libovolném pořadí; dva úseky se nikdy nedotýkají.
+Každý hlavolam má právě jedno řešení, které najdeš jen úvahou. Podrž prst na políčku a dáš do něj tečku: poznámku, že zůstane nevybarvené.
+# Konec hry
+Hlavolam je vyřešen, když platí všechna pravidla: mřížkou proběhne vlna zlatého světla.
+# Úrovně a hvězdy
+Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatné políčko, které vezmeš zpět tlačítkem Vrátit.

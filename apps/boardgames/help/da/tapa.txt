@@ -1,0 +1,11 @@
+Tapa
+# Målet
+Skravér felter i gitteret, så de danner én mur.
+- Alle de skraverede felter hænger sammen i ét stykke via siderne.
+- Intet kvadrat på 2 × 2 er helt skraveret.
+- Et felt med tal skraveres aldrig. Dets tal angiver længderne af rækkerne af skraverede felter blandt dets otte naboer, i vilkårlig rækkefølge; to rækker rører aldrig hinanden.
+Hver opgave har præcis én løsning, som findes ved ren logik. Hold på et felt for at sætte en prik i det: en note om, at det forbliver hvidt.
+# Spillets afslutning
+Opgaven er løst, når alle regler holder: en bølge af gyldent lys løber over gitteret.
+# Baner og stjerner
+Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et forkert felt, som du tager tilbage med Fortryd.

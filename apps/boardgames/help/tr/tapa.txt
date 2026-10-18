@@ -1,0 +1,11 @@
+Tapa
+# Amaç
+Izgaranın karelerini karartarak tek bir duvar ör.
+- Bütün kararmış kareler kenarlardan birleşen tek bir parça oluşturur.
+- Hiçbir 2 × 2 kare tamamen kararmış değildir.
+- Sayılı bir kare hiçbir zaman karartılmaz. Sayıları, sekiz komşusu arasındaki kararmış kare dizilerinin uzunluklarını herhangi bir sırayla verir; iki dizi hiçbir zaman birbirine değmez.
+Her bulmacanın tek bir çözümü vardır ve yalnızca akıl yürüterek bulunur. Bir kareye nokta koymak için parmağını üzerinde tut: kararmadan kalacağına dair bir not.
+# Oyunun sonu
+Bütün kurallar sağlanınca bulmaca çözülür: ızgaranın üzerinden altın rengi bir ışık dalgası geçer.
+# Seviyeler ve yıldızlar
+İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, Geri al ile kaldırdığın yanlış bir karedir.

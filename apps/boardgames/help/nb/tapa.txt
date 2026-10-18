@@ -1,0 +1,11 @@
+Tapa
+# Målet
+Skraver ruter i rutenettet slik at de danner én mur.
+- Alle de skraverte rutene henger sammen i ett stykke langs sidene.
+- Ingen kvadrat på 2 × 2 er helt skravert.
+- En rute med tall skraveres aldri. Tallene gir lengdene på rekkene av skraverte ruter blant de åtte naboene, i vilkårlig rekkefølge; to rekker berører aldri hverandre.
+Hver oppgave har nøyaktig én løsning, som finnes ved ren logikk. Hold på en rute for å sette en prikk i den: et notat om at den forblir hvit.
+# Slutten på spillet
+Oppgaven er løst når alle reglene holder: en bølge av gyllent lys går over rutenettet.
+# Nivåer og stjerner
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en feil rute som du tar tilbake med Angre.

@@ -1,0 +1,11 @@
+Tapa
+# Tavoite
+Varjosta ruudukosta ruutuja niin, että niistä syntyy yksi muuri.
+- Kaikki varjostetut ruudut ovat yhtä kappaletta sivujen kautta.
+- Mikään 2 × 2 -neliö ei ole kokonaan varjostettu.
+- Numeroruutua ei koskaan varjosteta. Sen numerot kertovat varjostettujen ruutujen jonojen pituudet sen kahdeksan naapurin joukossa, missä järjestyksessä tahansa; kaksi jonoa ei koskaan kosketa toisiaan.
+Jokaisessa tehtävässä on täsmälleen yksi ratkaisu, joka löytyy pelkällä päättelyllä. Pidä sormea ruudussa laittaaksesi siihen pisteen: muistiinpano, että se jää varjostamatta.
+# Pelin loppu
+Tehtävä on ratkaistu, kun kaikki säännöt pitävät: kultaisen valon aalto kulkee ruudukon yli.
+# Tasot ja tähdet
+Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä ruutu, jonka perut Kumoa-painikkeella.

@@ -1,0 +1,11 @@
+Tapa
+# Målet
+Skugga rutor i rutnätet så att de bildar en enda mur.
+- Alla skuggade rutor hänger ihop i ett stycke via sidorna.
+- Ingen kvadrat på 2 × 2 är helt skuggad.
+- En ruta med tal skuggas aldrig. Dess tal anger längderna på raderna av skuggade rutor bland dess åtta grannar, i valfri ordning; två rader rör aldrig varandra.
+Varje pussel har exakt en lösning, som hittas med enbart logik. Håll på en ruta för att sätta en prick i den: en anteckning om att den förblir vit.
+# Partiets slut
+Pusslet är löst när alla regler håller: en våg av gyllene ljus sveper över rutnätet.
+# Banor och stjärnor
+Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en felaktig ruta som du tar tillbaka med Ångra.

@@ -1,0 +1,11 @@
+Tapa
+# Das Ziel
+Schwärze Felder des Gitters, sodass eine einzige Mauer entsteht.
+- Alle geschwärzten Felder hängen als ein Stück zusammen, über die Seiten.
+- Kein Quadrat aus 2 × 2 Feldern ist ganz geschwärzt.
+- Ein Feld mit Zahlen wird nie geschwärzt. Seine Zahlen geben die Längen der Reihen geschwärzter Felder unter seinen acht Nachbarn an, in beliebiger Folge; zwei Reihen berühren sich nie.
+Jedes Rätsel hat genau eine Lösung, die man allein durch Überlegen findet. Halte ein Feld gedrückt, um einen Punkt hineinzusetzen: eine Notiz, dass es weiß bleibt.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn alle Regeln erfüllt sind: Eine Welle aus goldenem Licht läuft über das Gitter.
+# Level und Sterne
+Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist ein falsches Feld, das du mit Rückgängig zurücknimmst.

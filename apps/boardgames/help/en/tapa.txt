@@ -1,0 +1,11 @@
+Tapa
+# The aim
+Shade cells of the grid to build one wall.
+- All the shaded cells are joined in one piece, side by side.
+- No 2 × 2 square is all shaded.
+- A cell with numbers is never shaded. Its numbers give the lengths of the runs of shaded cells among its eight neighbours, in any order; two runs never touch.
+Every puzzle has exactly one solution, found by reasoning alone. Hold a cell to put a dot in it: a note that it stays unshaded.
+# The end of the game
+The puzzle is solved when every rule is kept: a wave of gold light runs over the grid.
+# Levels and stars
+No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong cell that you take back with undo.

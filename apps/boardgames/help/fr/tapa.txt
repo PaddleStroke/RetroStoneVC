@@ -1,0 +1,11 @@
+Tapa
+# Le but
+Noircis des cases de la grille pour bâtir un seul mur.
+- Toutes les cases noircies forment un seul bloc, reliées par les côtés.
+- Aucun carré de 2 × 2 n'est entièrement noirci.
+- Une case à chiffres n'est jamais noircie. Ses chiffres donnent les longueurs des suites de cases noircies parmi ses huit voisines, dans n'importe quel ordre ; deux suites ne se touchent jamais.
+Chaque grille a une seule solution, qu'on trouve par le seul raisonnement. Garde le doigt sur une case pour y mettre un point : une note qu'elle reste blanche.
+# La fin de la partie
+La grille est résolue quand toutes les règles sont respectées : une vague de lumière dorée la parcourt.
+# Niveaux et étoiles
+Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est une case fausse que tu reprends avec Annuler.

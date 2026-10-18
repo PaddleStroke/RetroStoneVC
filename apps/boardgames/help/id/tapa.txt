@@ -1,0 +1,11 @@
+Tapa
+# Tujuan
+Hitamkan kotak-kotak di kisi untuk membangun satu tembok.
+- Semua kotak hitam menyatu menjadi satu bagian lewat sisi-sisinya.
+- Tidak ada persegi 2 × 2 yang hitam seluruhnya.
+- Kotak berangka tidak pernah dihitamkan. Angka-angkanya menunjukkan panjang deretan kotak hitam di antara delapan tetangganya, dalam urutan mana pun; dua deretan tidak pernah bersentuhan.
+Setiap teka-teki punya tepat satu jawaban yang ditemukan hanya dengan bernalar. Tahan sebuah kotak untuk memberi titik: catatan bahwa kotak itu tetap putih.
+# Akhir permainan
+Teka-teki selesai jika semua aturan terpenuhi: gelombang cahaya emas melintasi kisi.
+# Level dan bintang
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah kotak salah yang kamu batalkan dengan Urungkan.
