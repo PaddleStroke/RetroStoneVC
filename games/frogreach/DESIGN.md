@@ -87,10 +87,15 @@ from their left edge on a 9:21 phone and the next pad, up to 224 px ahead, stays
 are the same pixels; the stage sits low (`rs_screen_origin_v`: 272 lines of sky above it, 64 of pond below).
 - **The HUD at the screen's top**: the score (kit sprites at `rs_screen_top()` + 8) and the hint and the flies/pad
   line (BG1's top 72 lines, `rs_bg_pin`) while one frog plays; a hint wider than the columns shown goes on two rows.
-- **Fill or fit**: one frog playing fills the display's height; the title, the panels and the split screens show every
-  column (`rs_screen_fill(0)`: the whole 320 x 576 picture across the width), the split screens' views keeping the
-  stage's 240 lines with two more viewports over the margins (the sky with its clouds and birds above, the water's
-  colour below).
+- **One view**: the title, the panels and two frogs' split screen stay zoomed like the play (never the letterboxed
+  full width), laid out in the columns shown by games/common/src/house_tall.h: the hint wrapped from row 11, the
+  slots, the prompt right under them (above the frog, who sits at the left), BEST, the join line and the credits
+  wrapped; GAME OVER and the score panel narrower (each value under its label; draw.c `over_panel`: the panel wide
+  enough for the retry line too); the ranking narrower. Two frogs: their P1/P2 tags in the columns shown, each view's
+  frog and next pad in them as for one frog. Only 3-4 frogs playing show every column (`rs_screen_fill(0)`): the
+  lower panels are 159 px wide with the compact frog 32 px in from each panel's left edge, so zoomed the left panel's
+  frog would be cut. The split screens' views keep the stage's 240 lines with two more viewports over the margins
+  (the sky with its clouds and birds above, the water's colour below).
 - **The sky's decor** (BG4, made at start-up: draw.c `decor_init`, its tiles shared: no VRAM past the guideline): a
   far range of snowy mountains rising behind the hills, lit from the left, its rock and snow hazier toward its foot
   (the raster sets their four colours line by line from the sky's, dithered over two lines), scrolling at an eighth

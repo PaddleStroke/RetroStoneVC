@@ -12,6 +12,7 @@
 #include "assets.h"
 #include "house_ui.h"
 #include "game_text.h"
+#include "house_tall.h"    /* a phone held upright: the title and the panels in the columns shown */
 #include "sine.h"
 #include <stdio.h>
 #include <string.h>
@@ -344,6 +345,17 @@ static void icon(int p,int cx,int cy,int t,void *user) {
  (void)user;rs_viewport vp={0};vp.w=(int16_t)rs_screen_width();vp.h=240;
  spr(SPR_HERO_ICON,cx-8+hu_ui_x(),cy-8+hu_bob(t+p*16,64,1),2,ppal(p),&vp);   /* the kit's UI coordinates -> stage */
 }
+/* ht_gameover_panel (house_tall.h) with the panel wide enough for the retry line too (ht_over_w leaves it out: "A:
+ * EKRAN TYTUŁOWY" would run over the panel's sides); returns the retry line's row */
+static int over_panel(int new_best,const char *retry) {
+ int w=ht_over_w(new_best,NULL),rw=hu_width(retry,0)+2,cols=ht_ncols(),r=ht_gameover_retry_row(NULL);
+ if(rw>w) w=rw>cols?cols:rw;
+ int x=ht_center_w(w),bottom=r+ht_text_rows(retry,1)+1;
+ hu_panel(x,9,w,bottom-9+1);
+ const char *lab[3]={hu_str(HS_SCORE),hu_str(new_best?HS_NEW_BEST:HS_BEST),hu_str(HS_MEDAL)};
+ for(int i=0;i<3;i++) hu_box_text(ht_center(lab[i],0),ht_over_label_row(i),lab[i]);
+ return r;
+}
 static void ranking(const world *w,hu_standing *rank) {
  int scores[4];for(int p=0;p<w->players;p++) scores[p]=w->h[p].score;
  hu_rank(rank,w->players,scores,scores);
@@ -358,11 +370,15 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
    VP[p].h=(int16_t)(VP[p].h==rs_screen_height()?RS_SCREEN_H:hh);VP[p].y=(int16_t)(first?0:RS_SCREEN_H-hh);
   }
  hu_clear();rs_oam_clear();rs_brightness(paused?9:15);
- /* a tall screen (game.h ZOOM_H, DESIGN.md "Tall screen"): a run of one frog fills the display's height, the sides
-  * cropped (the columns shown centred: the frog 20 px from their left edge on a 9:21 phone), the HUD pinned at the
-  * screen's top; the title, the panels and the split screens show every column */
+ /* a tall screen (game.h ZOOM_H, DESIGN.md "Tall screen"): ONE zoomed view, the display's height, the sides cropped
+  * (the columns shown centred: the frog 20 px from their left edge on a 9:21 phone): a run of one frog (the HUD
+  * pinned at the screen's top), two frogs' split screen, the title and the panels (laid out in the columns shown:
+  * house_tall.h); only 3-4 frogs' split screen shows every column (its lower panels' frogs sit 32 px in from each
+  * panel's left edge: cropped, the left one's would be cut) */
  int hud=tall() && !multi && (state==ST_PLAY || state==ST_DEAD);
- rs_screen_fill(hud);hud_lines=hud?HUD_LINES:0;rs_bg_pin(RS_BG1,0,hud_lines,0);
+ int zoom=tall() && (!multi || w->players==2);
+ rs_screen_fill(zoom);hud_lines=hud?HUD_LINES:0;rs_bg_pin(RS_BG1,0,hud_lines,0);
+ int narrow=ht_narrow();   /* the zoomed screen shows fewer columns than the kit's 320 */
  if(!paused) decor_t++;
  int next=1;
  for(int p=0;p<nviews;p++) {
@@ -394,7 +410,8 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
    if(multi) {
     char tag[16];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),p+1);
     snprintf(text,sizeof text,"%s %d",tag,h->score);
-    hu_text(ux+1,v->my+1,text);
+    int c0=ux+1;if(narrow) ht_cols(&c0,NULL);   /* zoomed (2 frogs): in the columns shown */
+    hu_text(c0,v->my+1,text);
    } else {
     int left=pad_life(h->anchor)-h->wait;if(left<0)left=0;
     const char *message=h->mode==MODE_LEAP?(h->good?TR(MSG_NICE_CATCH):TR(MSG_MISSED)):
@@ -416,13 +433,30 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  if(!multi) {
   rs_viewport *vp=&VP[0];hu_standing rank;ranking(w,&rank);
   int slide=state==ST_OVER?hu_slide_in(st_t,20,200):0;
-  if(state==ST_TITLE) {
+  if(state==ST_TITLE && narrow) {   /* zoomed (house_tall.h): the hint wrapped from row 11, the slots, the prompt
+                                     * under them (above the frog, at the left), BEST, the join line, the credits */
+   ht_logo("FROG REACH",title_ramps,2,2,0);
+   int r=ht_text(11,TR(HINT_TITLE),0),top=r+2<16?r+2:16;
+   ht_title tc={TR(VERB),MAX_PLAYERS,top,top+2};ht_title_out to;
+   ht_title_draw(&tc,st_t,best,&to);ht_title_sprites(&tc,&to,st_t,icon,NULL);
+  } else if(state==ST_TITLE) {
    hu_logo("FROG REACH",title_ramps,2,2,0);hu_title_draw(st_t,best);
    /* the hint, centred (half a column to the left, as the English always was) */
    int hw=hu_width(TR(HINT_TITLE),0);hu_text(hw<39?(39-hw)/2:0,16,TR(HINT_TITLE));hu_title_sprites(st_t,icon,NULL);
 
   }
-  if(state==ST_OVER) {
+  if(state==ST_OVER && narrow) {   /* zoomed: the panels narrower, in the columns shown (house_tall.h) */
+   if(w->players==1) {
+    static const int medals[4]=MEDAL_SCORES;
+    ht_banner(4,HTR(GAME_OVER));int r=over_panel(new_best,HTR(BACK_TITLE));
+    ht_gameover_sprites(w->h[0].score,best,hu_medal_of(w->h[0].score,medals),st_t,slide);
+    ht_retry_line_at(r,st_t,RETRY_LOCK,HTR(BACK_TITLE));
+   } else {
+    ht_results_panel(&rank,NULL);ht_results_sprites(&rank,st_t,slide);
+    for(int i=0;i<rank.n;i++) {int x,y;ht_results_icon_pos(&rank,i,&x,&y);spr(SPR_HERO_ICON,x-8+hu_ui_x(),y-8+slide,3,ppal(rank.order[i]),vp);}
+    ht_retry_line_at(hu_results_retry_row(&rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));
+   }
+  } else if(state==ST_OVER) {
    if(w->players==1) {
     static const int medals[4]=MEDAL_SCORES;
     hu_banner(4,HTR(GAME_OVER));hu_gameover_panel(1,new_best,w->h[0].score,0);
