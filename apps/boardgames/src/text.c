@@ -56,6 +56,10 @@ void text_init(const char *forced)
     turkish = !strcmp(t->code, "tr");
     stbtt_InitFont(&font[0], t->font, stbtt_GetFontOffsetForIndex(t->font, 0));
     stbtt_InitFont(&font[1], t->bold, stbtt_GetFontOffsetForIndex(t->bold, 0));
+    static int board_ready;                     /* the boards' fonts (every language's) set once: the cards'
+                                                 * painting thread reads them (text_glyph) as the language changes */
+    if (board_ready) return;
+    board_ready = 1;
     for (int b = 0; b < 2; b++)
         stbtt_InitFont(&board[b], tx_glyph_font[b], stbtt_GetFontOffsetForIndex(tx_glyph_font[b], 0));
     has_board2 = tx_glyph_font2[0] && tx_glyph_font2[1];
@@ -344,8 +348,8 @@ int text_page(const char *s, int w, float px, const uint8_t rgb[3], uint8_t *rgb
 
 int text_glyph(int c, float px, int bold, const uint8_t rgb[3], uint8_t *rgba, int w, int h)
 {
-    face fc = face_of(bold, px);
-    fc.f = board_for(c, bold ? 1 : 0);          /* the boards' own fonts */
+    face fc = {board_for(c, bold ? 1 : 0), 0, px, 0, 1, 0};   /* the boards' own fonts (not the language's: other
+                                                             * threads paint with this) */
     if (!fc.f) return 0;
     fc.scale = stbtt_ScaleForMappingEmToPixels(fc.f, px);
     int x0, y0, x1, y1;                         /* centred on its ink, not on its advance box */
