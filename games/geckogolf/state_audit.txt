@@ -13,3 +13,4 @@ draw.pool_n         scratch: their count
 draw.deep_tiles     the deep soil's tiles: made once by draw_init (deep_make), the same in every run
 draw.hud_lines      a tall screen's HUD band (rs_bg_pin): set again by draw_frame before each picture (a setting)
 draw.sky_top        the sky gradient's top colour: a cache made with line_col by sky_gradient (made again after a load)
+draw.title_out      the narrow title's glyph and slots (ht_title_draw), set every title frame before ht_title_sprites

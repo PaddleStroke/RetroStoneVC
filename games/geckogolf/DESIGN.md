@@ -146,7 +146,9 @@ course 4.9x on a 1080x2340 phone). The 240 lines of the stage are the same pixel
   score, the P1..P4 tag on its outer side, the pips under it; `tall_chip`), and BG1's top 128 lines pinned there
   (`rs_bg_pin`: HOLE N, the messages; a big message too wide for the columns is cut in two lines, `split_mid`, as is
   the first hole's hint), BG1 scrolled so its texts centre on the display.
-- **The title and the game-over panels** show every column (`rs_screen_fill(0)`): the sun up in the sky there.
+- **The title and the game-over panels** keep the same view (zoomed, the camera where it is): their texts and the
+  kit's sprites centred on the display like play's, the logo on two lines (the gecko by its second word), the lines
+  wrapped, a banner too wide on two lines (games/common/src/house_tall.h).
 - **Above the stage** (draw.c `raster_out`): the sky carried on from its top colour, deeper toward the screen's top
   (an ordered dither between the RGB555 steps: no stripes), two rows of clouds every 32 lines up to the HUD (stars at
   night); the course, the hills and the UI (but the pinned HUD) hidden there (window 1), and a ball keeps flying into

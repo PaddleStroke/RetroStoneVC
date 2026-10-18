@@ -22,6 +22,8 @@
 #include "assets.h"
 #include "house_ui.h"
 #include "game_text.h"
+#include "house_tall.h"             /* a phone held upright: the title and the panels in the columns shown */
+static ht_title_out title_out;            /* where the narrow title put its glyph and slots (drawn every title frame) */
 #include <stdio.h>
 #include <string.h>
 
@@ -863,7 +865,8 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
     }
     if (screen != shown_state || (state == ST_OVER && st_t == RETRY_LOCK) || best != shown_best || ui != shown_ui) {
         hu_clear();
-        if (state == ST_TITLE) hu_logo("GECKO GOLF", title_ramps, 2, 2, 0);
+        if (state == ST_TITLE && ht_narrow()) ht_logo("GECKO GOLF", title_ramps, 2, 2, 0);     /* GECKO over GOLF */
+        else if (state == ST_TITLE) hu_logo("GECKO GOLF", title_ramps, 2, 2, 0);
         if (screen == ST_PLAY) {
             char s[64];
             if (w->players >= 3 && cols >= 40) hu_score_tags(w->players, 0);     /* P1..P4 by the corner chips */
@@ -900,12 +903,18 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         if (state == ST_OVER) {
             if (w->players == 1) {
                 char s[64];
-                hu_banner(4, HTR(GAME_OVER));
-                hu_gameover_panel(1, new_best, w->g[0].holes, 0);
                 rs_strf(s, sizeof s, TR(ACES_N), w->g[0].aces);
-                hu_gameover_note(s);
+                if (ht_narrow()) {                 /* a phone held upright: the panel in the columns shown */
+                    ht_banner(4, HTR(GAME_OVER));
+                    ht_gameover_panel(new_best, s, HTR(BACK_TITLE));
+                } else {
+                    hu_banner(4, HTR(GAME_OVER));
+                    hu_gameover_panel(1, new_best, w->g[0].holes, 0);
+                    hu_gameover_note(s);
+                }
             } else {
-                hu_results_panel(rs, NULL);                                     /* P2 WINS! and the ranking */
+                if (ht_narrow()) ht_results_panel(rs, NULL);
+                else hu_results_panel(rs, NULL);                                /* P2 WINS! and the ranking */
             }
         }
         shown_state = screen;
@@ -913,9 +922,17 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         shown_ui = ui;
     }
     /* the title, every frame: the prompt (blinking), the player slots, BEST, the join line, the credits */
-    if (state == ST_TITLE) hu_title_draw(st_t, best);
+    if (state == ST_TITLE && ht_narrow()) {
+        ht_title tc = {TR(VERB), MAX_PLAYERS, 15, 0};
+        ht_title_draw(&tc, st_t, best, &title_out);
+    }
+    else if (state == ST_TITLE) hu_title_draw(st_t, best);
     if (state == ST_OVER) {
-        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_TITLE));
+        char s[64];
+        rs_strf(s, sizeof s, TR(ACES_N), w->g[0].aces);
+        if (ht_narrow()) ht_retry_line_at(w->players == 1 ? ht_gameover_retry_row(s) : hu_results_retry_row(rs), st_t,
+                                          RETRY_LOCK, HTR(BACK_TITLE));
+        else if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_TITLE));
         else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
     }
 }
@@ -929,22 +946,25 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     biome_blend(w, &bl);
     palettes(w, &bl);
     if (w->view_cam != drawn_cam || w->tr.rev != drawn_rev || rs_screen_width() != drawn_width) course_build(w);
-    /* a tall screen (DESIGN.md "Tall screen"): the course played zoomed, the camera panning along the hole, the HUD at
-     * the screen's top in the columns shown; the title and the game-over panels show every column */
-    int zoom = tall() && (state == ST_PLAY || state == ST_DEAD);
+    /* a tall screen (DESIGN.md "Tall screen"): zoomed throughout (the title, play and the panels one view), the camera
+     * panning along the hole, the HUD at the screen's top in play (the UI layer centred on the
+     * columns shown); the title and the panels laid out in them by house_tall.h */
+    int zoom = tall(), play = state == ST_PLAY || state == ST_DEAD;
     if (tall()) rs_screen_fill(zoom);
-    cam_update(w, zoom);
+    /* (the title: the view centred; the game-over panels: the view held where play left it, the panels drawn once) */
+    if (play || state == ST_TITLE || !zoom) cam_update(w, zoom && play);
+    if (zoom && !play) rs_screen_focus_x(cam_q >> 4);
     int vx0 = rs_screen_visible_x0(), vis = rs_screen_visible_x1() - vx0, vc = vx0 + vis / 2;
     zoom = zoom && vis < rs_screen_width();     /* (a display that shows every column: the stage's layout) */
-    hud_lines = zoom ? HUD_LINES : 0;
+    hud_lines = zoom && play ? HUD_LINES : 0;
     if (tall()) rs_bg_pin(RS_BG1, 0, hud_lines, 0);
     int pm = map_w() * 8 - 1, pan = (cam_q >> 4) - RS_SCREEN_W / 2;
     rs_bg_scroll(RS_BG2, (int)(w->view_cam & pm), 0);
     rs_bg_scroll(RS_BG3, (int)((w->view_cam / 4 - pan * 3 / 4) & pm), 0);     /* (the pan: the hills at 1/4) */
     screen_text(w, state, st_t, best, new_best, &rs, tv, zoom ? vis / 8 : 40);
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;     /* the panel slides up, ease-out */
-    rs_bg_scroll(RS_BG1, zoom ? (RS_SCREEN_W / 2 - vc) & pm : 0, -slide);     /* (zoomed: centred on the display) */
-    hu_pause(paused, 13);
+    rs_bg_scroll(RS_BG1, zoom && play ? (RS_SCREEN_W / 2 - vc) & pm : 0, -slide);   /* (zoomed: centred on the display) */
+    ht_pause(paused, 13);
 
     rs_oam_clear();
     int ox = (int)(w->hole_cam - w->view_cam);       /* the balls' stage x are the hole's: the pan moves them */
@@ -972,20 +992,30 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     }
     if (state == ST_OVER) {
         if (w->players == 1) {
-            hu_gameover_sprites(1, w->g[0].holes, 0, best, hu_medal_of(w->g[0].holes, medals), st_t, slide);
+            if (ht_narrow()) ht_gameover_sprites(w->g[0].holes, best, hu_medal_of(w->g[0].holes, medals), st_t, slide);
+            else hu_gameover_sprites(1, w->g[0].holes, 0, best, hu_medal_of(w->g[0].holes, medals), st_t, slide);
         } else {
-            hu_results_sprites(&rs, st_t, slide);
+            if (ht_narrow()) ht_results_sprites(&rs, st_t, slide);
+            else hu_results_sprites(&rs, st_t, slide);
             for (int i = 0; i < rs.n; i++) {
                 int cx, cy;
-                hu_results_icon_pos(&rs, i, &cx, &cy);
+                if (ht_narrow()) ht_results_icon_pos(&rs, i, &cx, &cy);
+                else hu_results_icon_pos(&rs, i, &cx, &cy);
                 spr(SPR_GECKO_ICON, cx - 8, cy - 8 + slide, 3, player_pal(rs.order[i]));
             }
         }
     }
     if (state == ST_TITLE) {
-        hu_title_sprites(st_t, slot_icon, NULL);   /* the prompt's glyph, the joined players popping in */
-        /* the gecko bobs under the logo */
-        spr(SPR_GECKO_IDLE + (st_t / 32) % 2, RS_SCREEN_W / 2 - 16, 92 + hu_bob(st_t, 64, READY_BOB), 2, -1);
+        if (ht_narrow()) {
+            ht_title tc = {TR(VERB), MAX_PLAYERS, 15, 0};
+            ht_title_sprites(&tc, &title_out, st_t, slot_icon, NULL);
+        } else {
+            hu_title_sprites(st_t, slot_icon, NULL);   /* the prompt's glyph, the joined players popping in */
+        }
+        /* the gecko bobs under the logo (zoomed: the logo on two lines, by its second word) */
+        int gx = RS_SCREEN_W / 2 - 16, gy = 92;
+        if (ht_narrow()) gx = ht_mid_x() + hu_ui_x() + 48, gy = 70;
+        spr(SPR_GECKO_IDLE + (st_t / 32) % 2, gx, gy + hu_bob(st_t, 64, READY_BOB), 2, -1);
     }
     if (state == ST_PLAY || state == ST_DEAD) {
         touch_spr(tv);
