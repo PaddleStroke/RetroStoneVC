@@ -2,6 +2,7 @@
 #include "game.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "house_tall.h"   /* a phone held upright: the title and the panels in the house's portrait layout */
 #include "game_text.h"
 #include <string.h>
 #include <stdio.h>
@@ -24,6 +25,7 @@ static rs_color lines[240];
 enum{M_BLANK,M_GRASS,M_EARTH_HI,M_EARTH_LO=M_EARTH_HI+4,M_ROCK=M_EARTH_LO+4,M_ROOF=M_ROCK+3,
      M_BED=M_ROOF+1,M_GEM=M_BED+3,M_TILES=M_GEM+2};
 static int hud_pinned;          /* set by draw_frame before every picture (not saved) */
+static int ui_pin;              /* the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels), set by draw_frame */
 static int sky_lines;           /* the lines of sky at the screen's top (tall_init, from the height: a setting) */
 static uint32_t mix(uint32_t a){a^=a>>16;a*=0x7feb352du;a^=a>>15;a*=0x846ca68bu;a^=a>>16;return a;}
 static rs_color sky(int y){
@@ -72,7 +74,8 @@ static void raster_out(int y){
  int top=rs_screen_top();
  if(y==top||y==RS_SCREEN_H){rs_window(0,rs_screen_left(),rs_screen_right());rs_bg_window(RS_BG2,RS_WIN1);rs_bg_window(RS_BG3,RS_WIN1);
   rs_bg_window(RS_BG4,0);rs_bg_scroll(RS_BG4,0,y==top?240:16);}
- rs_bg_window(RS_BG1,hud_pinned&&y>=top+HUD_PIN_Y&&y<top+HUD_PIN_Y+HUD_LINES?0:RS_WIN1);
+ if(ui_pin)rs_bg_window(RS_BG1,ht_pin_line(ui_pin,y)?0:RS_WIN1);   /* the pinned UI */
+ else rs_bg_window(RS_BG1,hud_pinned&&y>=top+HUD_PIN_Y&&y<top+HUD_PIN_Y+HUD_LINES?0:RS_WIN1);
  rs_pal_set(0,y<0?sky(y):lines[RS_SCREEN_H-1]);
 }
 static void raster(int y,void*user){(void)user;
@@ -170,24 +173,34 @@ static void field(const world*w){
   int id=0;if(ink&&next<512){id=next++;rs_tiles_load8(VR_BG2+id,tile,1);}rs_bg_put(RS_BG2,col,row,RS_MAP(id,4,0,0,0));
  }
 }
-static void icon(int p,int x,int y,int t,void*user){(void)t;(void)user;spr(SPR_HERO_ICON,x-8,y-8,hu_player_pal(p),0);}
+/* player p's icon, its top-left at stage x, y: anywhere on the screen (a tall screen: the title and the panels pinned) */
+static void icon_at(int p,int x,int y){const gm_sprite_def*d=&gm_spr[SPR_HERO_ICON];rs_spr(x,y,d->tile,d->w,d->h,hu_player_pal(p),2,0);}
+static void icon(int p,int x,int y,int t,void*user){(void)t;(void)user;icon_at(p,x-8,y-8);}
 void draw_frame(const world*w,int state,int t,int best,int new_best,int paused){
  hu_clear();rs_oam_clear();rs_brightness(paused?9:15);field(w);
  /* a tall screen: the HUD at the screen's top in play (BG1's top HUD_LINES pinned, the score's digits there too) */
  hud_pinned=rs_screen_height()>RS_SCREEN_H&&(state==ST_PLAY||state==ST_DEAD);
  rs_bg_pin(RS_BG1,0,hud_pinned?HUD_LINES:0,HUD_PIN_Y);int hy=hud_pinned?rs_screen_top()+HUD_PIN_Y:0;
+ ui_pin=!ht_narrow()?HT_PIN_OFF:state==ST_TITLE?HT_PIN_TITLE:state==ST_PLAY||state==ST_DEAD?HT_PIN_OFF:HT_PIN_PANEL;
+ if(ui_pin)ht_pin(ui_pin);   /* the title and the panels at the same place on every game's screen */
  for(int p=0;p<w->players;p++){const hero*h=&w->h[p];if(h->state==HS_DOWN&&h->t>70)continue;int id=h->state==HS_HIT||h->state==HS_DOWN?SPR_HERO_HIT:SPR_HERO_IDLE+(h->state==HS_RUN&&((w->t/8)%2));
   spr(id,h->x-16,GROUND_Y-31,hu_player_pal(p),h->facing<0);
  }
  timbers();   /* widescreen: the walls, behind the moles */
  int scores[4];for(int p=0;p<w->players;p++)scores[p]=w->h[p].score;hu_standing rank;hu_rank(&rank,w->players,scores,scores);int slide=state==ST_OVER?hu_slide_in(t,20,200):0;
- if(state==ST_TITLE){
+ if(state==ST_TITLE && ht_narrow()){   /* a tall screen: the house's portrait title (house_tall.h, its standard rows) */
+  ht_logo("MOLE MARBLES",ramps,2,HT_ROW_LOGO,0);ht_title tc={TR(VERB),MAX_PLAYERS,HT_ROW_SLOTS,0,TR(HINT_CONTROLS)};ht_title_out to;
+  ht_title_draw(&tc,t,best,&to);ht_title_sprites(&tc,&to,t,icon,NULL);
+ }else if(state==ST_TITLE){
   hu_logo("MOLE MARBLES",ramps,2,2,0);hu_title_draw(t,best);hu_title_sprites(t,icon,NULL);
   hu_text(hu_center(TR(HINT_CONTROLS),0),16,TR(HINT_CONTROLS));
  }else if(state==ST_PLAY||state==ST_DEAD){
   if(w->players==1)hu_number(scores[0],160,8+hy,3);
   else for(int p=0;p<w->players;p++){char s[48],tag[16];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),p+1);snprintf(s,sizeof s,"%s %d",tag,scores[p]);hu_text(p*10,1,s);}
   if(paused)hu_big(hu_center(HTR(PAUSED),1),13,HTR(PAUSED),HU_BIG_FREE);
+ }else if(ht_narrow()){   /* a tall screen: the house's portrait panels (house_tall.h) */
+  if(w->players==1){static const int medals[4]=MEDAL_SCORES;ht_banner(4,HTR(GAME_OVER));ht_gameover_panel(new_best,NULL,HTR(BACK_TITLE));ht_gameover_sprites(scores[0],best,hu_medal_of(scores[0],medals),t,slide);ht_retry_line_at(ht_gameover_retry_row(NULL),t,RETRY_LOCK,HTR(BACK_TITLE));}
+  else{ht_results_panel(&rank,NULL);ht_results_sprites(&rank,t,slide);for(int i=0;i<rank.n;i++){int x,y;ht_results_icon_pos(&rank,i,&x,&y);icon_at(rank.order[i],x-8,y-8+slide);}ht_retry_line_at(ht_results_retry_row(&rank),t,RETRY_LOCK,HTR(BACK_TITLE));}
  }else{
   if(w->players==1){static const int medals[4]=MEDAL_SCORES;hu_banner(4,HTR(GAME_OVER));hu_gameover_panel(1,new_best,scores[0],0);hu_gameover_sprites(1,scores[0],0,best,hu_medal_of(scores[0],medals),t,slide);hu_retry_line(t,RETRY_LOCK,HTR(BACK_TITLE));}
   else{hu_results_panel(&rank,NULL);hu_results_sprites(&rank,t,slide);for(int i=0;i<rank.n;i++){int x,y;hu_results_icon_pos(&rank,i,&x,&y);spr(SPR_HERO_ICON,x-8,y-8+slide,hu_player_pal(rank.order[i]),0);}hu_retry_line_at(hu_results_retry_row(&rank),t,RETRY_LOCK,HTR(BACK_TITLE));}
