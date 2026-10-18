@@ -28,8 +28,6 @@ static int wide(void){return rs_screen_width()>RS_SCREEN_W;}
 /* a tall screen (portrait, zoomed: DESIGN.md "Tall screen") */
 static int tall(void){return rs_screen_height()>RS_SCREEN_H;}
 static int hud_lines;                  /* the HUD's band of BG1 at the screen's top (rs_bg_pin; set before each picture) */
-static int hud_y;                      /* the screen line of that band (0 in play; the zoomed title: its logo and hint
-                                        * in the sky above the stage) */
 static const rs_color title_ramps[2][3]={
  {RS_HEX(0xffe8a0),RS_HEX(0xf1b750),RS_HEX(0x99623c)},
  {RS_HEX(0xebc8fc),RS_HEX(0xbb83d0),RS_HEX(0x76509a)}};
@@ -42,11 +40,10 @@ static void raster_out(int line) {
  if(line==top || line==RS_SCREEN_H) {
   rs_window(0,rs_screen_left(),rs_screen_right());
   for(int l=RS_BG1;l<=RS_BG3;l++)rs_bg_window(l,RS_WIN1);
-  if(line==top && hud_lines && !hud_y)rs_bg_window(RS_BG1,0);
+  if(line==top && hud_lines)rs_bg_window(RS_BG1,0);
   rs_obj_window(line==top?0:RS_WIN1);
  }
- if(hud_lines && hud_y && line==top+hud_y)rs_bg_window(RS_BG1,0);   /* the band lower in the sky (the title) */
- if(hud_lines && line==top+hud_y+hud_lines)rs_bg_window(RS_BG1,RS_WIN1);   /* past the HUD's band */
+ if(hud_lines && line==top+hud_lines)rs_bg_window(RS_BG1,RS_WIN1);   /* past the HUD's band */
  if(line<0)rs_pal_set(0,hu_scale_color(V[0].sky[0],256-(-line*100/-top)-((line&4)?4:0)));   /* the house dither */
  else {
   int d=line-RS_SCREEN_H,n=bot-RS_SCREEN_H,k=n>0?d*120/n:0;
@@ -88,22 +85,9 @@ void draw_init(void) {
  for(int l=0;l<3;l++)rs_bg_enable(l,1);
  memset(V,0,sizeof V);memset(VP,0,sizeof VP);nviews=0;rs_raster(raster,NULL);
 }
-/* the zoomed title (DESIGN.md "Tall screen"): the slots' row, under the lantern; the screen line of BG1's rows 0 ..
- * rows - 1 (the logo and the hint), centred in the sky between the corner buttons and the stage */
-#define TITLE_SLOTS 18
-static int title_band_y(int rows) {
- int sky=-rs_screen_top(),y=32+(sky-32-rows*8)/2;
- return y<0?0:y+rows*8>sky?sky-rows*8:y;
-}
-/* the zoomed title's logo: MOTH over AROUND when it does not fit on one line, each word in its own ramp (the second
- * one drawn as " AROUND ", the kit's second word, centred: house_tall.h's ht_logo would give it the first word's
- * palette entries). Returns the rows it takes. */
-static int tall_logo(int ty) {
- if(11*22-2<=ht_ncols()*8){hu_logo("MOTH AROUND",title_ramps,2,ty,0);return 6;}
- hu_config *c=(hu_config*)hu_cfg();int base=c->logo_tile;
- c->logo_tile=base+hu_logo("MOTH",title_ramps,2,ty,0);hu_logo(" AROUND ",title_ramps,2,ty+6,0);c->logo_tile=base;
- return 12;
-}
+/* the zoomed title (DESIGN.md "Tall screen"): the house layout (house_tall.h) takes the stage's rows, so the moth,
+ * the lantern and the leaves move up into the sky above the stage, by this many lines (the lantern mid-sky) */
+static int title_sky_dy(void) {return rs_screen_top()/2+8-102;}
 static int ppal(int p) {return p?hu_player_pal(p):0;}
 static void spr(int id,int x,int y,int priority,int pal,const rs_viewport *vp) {
  const gm_sprite_def *s=&gm_spr[id];
@@ -261,7 +245,7 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   * cropped), the title and the panels too, laid out in the columns shown (house_tall.h). Set before the UI is drawn:
   * the visible columns (ht_narrow) follow it. */
  rs_screen_fill(play || tall());
- int narrow=ht_narrow(),band=0;   /* (the zoomed title: the rows of BG1 pinned in the sky, its logo and hint) */
+ int narrow=ht_narrow();
  nviews=rs_viewport_layout(1,0,VP);
  VP[0].y=0;VP[0].h=RS_SCREEN_H;      /* a tall screen: the view is the stage's 240 lines (the raster draws the rest) */
  hu_clear();rs_oam_clear();rs_brightness(paused?9:15);int next=1;
@@ -271,7 +255,7 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
    * cx, cy: the lantern in the view's columns (stage x 160 at any width) */
   v->mx=vp->x>0?32:0;v->my=vp->y>0?16:0;v->cx=vp->w/2;
   v->cy=vp->h<200?75:LANTERN_Y;v->zoom=vp->h<200?128:vp->w<240?192:256;
-  if(state==ST_TITLE){v->cx=182-vp->x;v->cy=102;}
+  if(state==ST_TITLE){v->cx=182-vp->x;v->cy=102+(narrow?title_sky_dy():0);}   /* (zoomed: the halo off the stage) */
   int night=w->t*256/2400;if(night>256)night=256;
   rs_pal_set(RS_PAL_BG(PAL_GROUND)+11,hu_lerp_color(RS_HEX(0xa19882),RS_HEX(0x777261),night));
   for(int y=0;y<vp->h;y++)v->sky[y]=skycolor(night,y,vp->h);
@@ -293,7 +277,9 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
     hu_number(h->score,vp->x+vp->w/2,8+(tall()?rs_screen_top():0),3);   /* (a tall screen: at the screen's top) */
     rs_strf(text,sizeof text,TR(HUD_RINGS_TIME),h->anchor,h->alive_t/60);hu_text(hu_center(text,0),4,text);
    }
-   if(paused && narrow)ht_big(v->my+vp->h/16,HTR(PAUSED),HU_BIG_FREE);   /* (zoomed: in the columns shown) */
+   /* (zoomed: in the columns shown; not ht_pause: hu_pause draws PAUSED only when it changes, and this UI is cleared
+    * and drawn again every frame) */
+   if(paused && narrow)ht_big(v->my+vp->h/16,HTR(PAUSED),HU_BIG_FREE);
    else if(paused)hu_big(v->mx+((2*vp->x+vp->w)/8-hu_width(HTR(PAUSED),1))/2,v->my+vp->h/16,HTR(PAUSED),HU_BIG_FREE);
   }
   hu_view_oam_end(vp);
@@ -303,17 +289,16 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   rs_viewport *vp=&VP[0];hu_standing rank;ranking(w,&rank);
   int slide=state==ST_OVER?hu_slide_in(st_t,20,200):0;
   if(state==ST_TITLE && narrow) {
-   /* zoomed: MOTH over AROUND (one line when it fits) and the hint wrapped under them, BG1's rows that the sky above
-    * the stage shows (rs_bg_pin, below); the moth and the lantern on the stage, the slots, the prompt and the rest
-    * under them (house_tall.h); the moon under the logo, the stars around it */
-   band=ht_text(1+tall_logo(0)+(hu_tall(TR(HINT_TITLE))?1:0),TR(HINT_TITLE),0)+1;   /* (accents, CJK: a row more) */
-   ht_title tc={TR(VERB),MAX_PLAYERS,TITLE_SLOTS,0};ht_title_out at;
-   ht_title_draw(&tc,st_t,best,&at);ht_title_sprites(&tc,&at,st_t,icon,NULL);
-   spr(SPR_HERO_IDLE+(st_t/8)%2,112,87+hu_bob(st_t,64,3),2,0,vp);
-   spr(SPR_LANTERN+(st_t/12)%2,166,78,2,-1,vp);
-   spr(SPR_LEAF,68,101,1,-1,vp);spr(SPR_LEAF+1,242,96,1,-1,vp);
-   int y0=rs_screen_top()+title_band_y(band);
-   sky(w,vp,rs_screen_top()+HUD_LINES,y0+band*8+6,14,y0,y0+band*8,0);
+   /* zoomed: the house layout (house_tall.h, its default rows), the hint under the slots; the moth, the lantern and
+    * the leaves up in the sky above the stage (decor), the moon and the stars around them */
+   ht_logo("MOTH AROUND",title_ramps,2,2,0);
+   ht_title tc={TR(VERB),MAX_PLAYERS,15,0};ht_title_out at;
+   ht_title_draw(&tc,st_t,best,&at);ht_text(17,TR(HINT_TITLE),0);ht_title_sprites(&tc,&at,st_t,icon,NULL);
+   int dy=title_sky_dy();
+   spr(SPR_HERO_IDLE+(st_t/8)%2,112,87+dy+hu_bob(st_t,64,3),2,0,vp);
+   spr(SPR_LANTERN+(st_t/12)%2,166,78+dy,2,-1,vp);
+   spr(SPR_LEAF,68,101+dy,1,-1,vp);spr(SPR_LEAF+1,242,96+dy,1,-1,vp);
+   int top=rs_screen_top()+HUD_LINES;sky(w,vp,top,top+18,7,0,RS_SCREEN_H,0);
   } else if(state==ST_TITLE) {
    hu_logo("MOTH AROUND",title_ramps,2,2,0);hu_title_draw(st_t,best);
    /* the hint, centred (half a column left of the true centre: the English keeps its column 4) */
@@ -356,9 +341,9 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   for(int l=RS_BG1;l<=RS_BG3;l++)rs_bg_scroll(l,VP[0].sx[l],VP[0].sy[l]);
   rs_viewports(0,NULL,0);
  } else rs_viewports(nviews,VP,RS_HEX(0x252b43));
- /* a tall screen: the HUD's band of BG1 at the screen's top during a run; the zoomed title's logo and hint in the sky */
- hud_lines=tall() && play?HUD_LINES:band*8;hud_y=band?title_band_y(band):0;
- rs_bg_pin(RS_BG1,0,hud_lines,hud_y);
+ /* a tall screen: the HUD's band of BG1 at the screen's top during a run */
+ hud_lines=tall() && play?HUD_LINES:0;
+ rs_bg_pin(RS_BG1,0,hud_lines,0);
  shown_state=state;shown_best=best;
 }
 #define S(v) rs_state_var("draw." #v,&(v),sizeof(v))

@@ -100,12 +100,14 @@ hedge's shade under it, the rest above).
   top 48 lines, `rs_bg_pin`); with 2-4 players the tags go two a row (rows 1 and 3) inside the columns shown.
 - **One look**: the title, the pause and the game-over / results panels stay in the run's zoomed view
   (`rs_screen_fill(1)` always on a tall screen), laid out in the columns shown (games/common/src/house_tall.h, when
-  `ht_narrow()`): the title's logo as MOTH over AROUND (one line when it fits) and the hint wrapped under it, BG1's
-  rows pinned in the sky above the stage (`rs_bg_pin` at draw.c `title_band_y`, centred between the corner buttons and
-  the stage; raster_out shows BG1 on that band), the moon under it and the stars around it; the moth and the lantern
-  on the stage, then the slots (row 18), the prompt, BEST, the join line and the credits, wrapped. The panels: the
-  narrower banner, the game-over values under their labels, the ranking; the moon and the stars over them. PAUSED in
-  2x when it fits (`ht_big`). 2-4 players share the one view, so nothing needs every column.
+  `ht_narrow()`), the house's standard calls at their default rows, as every game: `ht_logo` (MOTH over AROUND when
+  one line does not fit) from row 2, `ht_title_draw` from row 15 (the slots, the prompt, BEST, the join line, the
+  credits) with the hint wrapped on row 17; `ht_banner`, `ht_gameover_panel`, the `ht_results_*` ranking,
+  `ht_retry_line_at`; PAUSED with `ht_big` (`ht_pause` draws only when the pause changes; this UI is redrawn
+  every frame). The UI takes the stage's rows, so on the zoomed title the moth, the lantern and the
+  leaves (decor) move up into the sky above the stage (draw.c `title_sky_dy`: the lantern mid-sky, its halo off the
+  stage), with the moon and the stars; the panels get the moon and the stars too. 2-4 players share the one view, so
+  nothing needs every column.
 - **Decor**: the raster (draw.c `raster_out`) draws the lines past the stage: above, the dusk or night sky going on,
   deeper toward the top; below, the hedge's shade, darker with depth. BG2 and BG3 are hidden there (window 1), BG1
   too past the HUD's band; line 0 puts the stage's settings back. In the sky above the stage: the moon in the columns
