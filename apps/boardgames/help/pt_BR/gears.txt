@@ -1,0 +1,12 @@
+Engrenagens
+# O objetivo
+Uma manivela gira sem parar a engrenagem do motor. Coloque engrenagens da bandeja nos pinos vazios para que cada engrenagem-alvo, de tampa vermelha, gire no sentido da sua seta.
+# As engrenagens
+Duas engrenagens se engatam quando seus dentes se tocam, e então giram em sentidos opostos. Uma engrenagem pequena gira mais rápido que uma grande.
+- Uma engrenagem não pode ir onde bateria em outra.
+- Um anel com um número ímpar de engrenagens engatadas trava todo o trem: nada gira.
+- Um eixo de latão deve girar no sentido da sua seta na velocidade da sua placa: as voltas que dá enquanto o motor dá uma. O tamanho da engrenagem posta nele define essa velocidade.
+# O fim da partida
+Quando cada alvo gira como pedido, cada engrenagem que você colocou também gira e nada está travado, o quebra-cabeça está resolvido.
+# Níveis e estrelas
+Resolvido com o mínimo de engrenagens possível: 3 estrelas; com até metade a mais de engrenagens: 2 estrelas; senão, 1.

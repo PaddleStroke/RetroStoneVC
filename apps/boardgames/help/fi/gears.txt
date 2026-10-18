@@ -1,0 +1,12 @@
+Hammasrattaat
+# Tavoite
+Kampi pyörittää moottorin ratasta koko ajan. Laita rattaita lokerosta tyhjiin tappeihin niin, että jokainen punahattuinen kohderatas pyörii nuolensa suuntaan.
+# Rattaat
+Kaksi ratasta tarttuu toisiinsa, kun niiden hampaat koskettavat, ja silloin ne pyörivät vastakkaisiin suuntiin. Pieni ratas pyörii nopeammin kuin iso.
+- Ratasta ei voi laittaa paikkaan, jossa se osuisi toiseen rattaaseen.
+- Pariton määrä toisiinsa tarttuvia rattaita renkaana jumittaa koko vaihteiston: mikään ei pyöri.
+- Messinkiakselin on pyörittävä nuolensa suuntaan kilpensä nopeudella: niin monta kierrosta kuin se tekee moottorin yhden kierroksen aikana. Sen päälle laitetun rattaan koko määrää tämän nopeuden.
+# Pelin loppu
+Kun jokainen kohde pyörii pyydetysti, jokainen laittamasi ratas pyörii myös eikä mikään ole jumissa, tehtävä on ratkaistu.
+# Tasot ja tähdet
+Ratkaistu pienimmällä mahdollisella määrällä rattaita: 3 tähteä; enintään puolet enemmän rattaita: 2 tähteä; muuten 1.

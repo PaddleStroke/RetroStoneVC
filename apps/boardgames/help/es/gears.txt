@@ -1,0 +1,12 @@
+Engranajes
+# El objetivo
+Una manivela hace girar sin parar el engranaje del motor. Pon engranajes de la bandeja en los ejes libres para que cada engranaje objetivo, con su tapa roja, gire en el sentido de su flecha.
+# Los engranajes
+Dos engranajes engranan cuando sus dientes se tocan, y entonces giran en sentidos contrarios. Un engranaje pequeño gira más rápido que uno grande.
+- Un engranaje no puede ir donde chocaría con otro.
+- Un anillo de un número impar de engranajes engranados bloquea todo el tren: nada gira.
+- Un eje de latón debe girar en el sentido de su flecha a la velocidad de su placa: las vueltas que da mientras el motor da una. El tamaño del engranaje puesto en él fija esa velocidad.
+# El final de la partida
+Cuando cada objetivo gira como se pide, cada engranaje que has puesto gira también y nada está bloqueado, el rompecabezas está resuelto.
+# Niveles y estrellas
+Resuelto con el mínimo de engranajes posible: 3 estrellas; con hasta la mitad más de engranajes: 2 estrellas; si no, 1.

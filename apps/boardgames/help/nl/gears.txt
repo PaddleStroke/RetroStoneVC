@@ -1,0 +1,12 @@
+Tandwielen
+# Het doel
+Een slinger draait het tandwiel van de motor onophoudelijk rond. Zet tandwielen uit de bak op de lege pennen, zodat elk doeltandwiel met een rood dopje de kant op draait die zijn pijl aangeeft.
+# De tandwielen
+Twee tandwielen grijpen in elkaar als hun tanden elkaar raken, en dan draaien ze tegengesteld. Een klein tandwiel draait sneller dan een groot.
+- Een tandwiel kan niet waar het tegen een ander tandwiel zou stoten.
+- Een ring van een oneven aantal ingrijpende tandwielen blokkeert de hele aandrijving: niets draait.
+- Een messing as moet de kant van zijn pijl op draaien met de snelheid op zijn plaatje: de toeren die hij maakt terwijl de motor er één maakt. De grootte van het tandwiel erop bepaalt die snelheid.
+# Het einde van het spel
+Als elk doel draait zoals gevraagd, elk geplaatst tandwiel ook draait en niets geblokkeerd is, is de puzzel opgelost.
+# Levels en sterren
+Opgelost met zo weinig mogelijk tandwielen: 3 sterren; met tot de helft meer tandwielen: 2 sterren; anders 1.

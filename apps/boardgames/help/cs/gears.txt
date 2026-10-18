@@ -1,0 +1,12 @@
+Ozubená kola
+# Cíl hry
+Klika neustále otáčí kolem motoru. Nasazuj kola z přihrádky na volné kolíky tak, aby se každé cílové kolo s červenou čepičkou otáčelo směrem své šipky.
+# Ozubená kola
+Dvě kola do sebe zapadnou, když se jejich zuby dotýkají, a pak se otáčejí opačnými směry. Malé kolo se točí rychleji než velké.
+- Kolo nejde nasadit tam, kde by narazilo do jiného kola.
+- Kruh z lichého počtu zapadajících kol zablokuje celý převod: nic se netočí.
+- Mosazná hřídel se musí točit směrem své šipky rychlostí na svém štítku: tolik otáček, kolik udělá za jednu otáčku motoru. Tu rychlost určuje velikost kola, které na ni nasadíš.
+# Konec hry
+Když se každý cíl točí, jak má, každé nasazené kolo se točí také a nic není zablokované, hádanka je vyřešená.
+# Úrovně a hvězdy
+Vyřešeno nejmenším možným počtem kol: 3 hvězdy; nejvýš o polovinu víc kol: 2 hvězdy; jinak 1.

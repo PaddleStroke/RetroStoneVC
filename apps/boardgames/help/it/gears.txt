@@ -1,0 +1,12 @@
+Ingranaggi
+# Lo scopo
+Una manovella fa girare di continuo l'ingranaggio del motore. Metti ingranaggi del vassoio sui perni liberi in modo che ogni ingranaggio bersaglio, con il cappuccio rosso, giri nel verso della sua freccia.
+# Gli ingranaggi
+Due ingranaggi si innestano quando i loro denti si toccano, e allora girano in versi opposti. Un ingranaggio piccolo gira più veloce di uno grande.
+- Un ingranaggio non può andare dove urterebbe un altro ingranaggio.
+- Un anello di un numero dispari di ingranaggi innestati blocca tutto il treno: niente gira.
+- Un albero di ottone deve girare nel verso della sua freccia alla velocità della sua targhetta: i giri che fa mentre il motore ne fa uno. La grandezza dell'ingranaggio messo sopra fissa quella velocità.
+# La fine della partita
+Quando ogni bersaglio gira come richiesto, ogni ingranaggio messo gira anch'esso e niente è bloccato, il rompicapo è risolto.
+# Livelli e stelle
+Risolto con il minor numero di ingranaggi possibile: 3 stelle; con fino a metà ingranaggi in più: 2 stelle; altrimenti 1.

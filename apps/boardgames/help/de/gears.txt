@@ -1,0 +1,12 @@
+Zahnräder
+# Das Ziel
+Eine Kurbel dreht das Zahnrad des Motors ununterbrochen. Setze Zahnräder aus der Ablage auf die freien Stifte, sodass sich jedes Zielrad mit roter Kappe in die Richtung seines Pfeils dreht.
+# Die Zahnräder
+Zwei Zahnräder greifen ineinander, wenn sich ihre Zähne berühren, und drehen sich dann gegenläufig. Ein kleines Zahnrad dreht sich schneller als ein großes.
+- Ein Zahnrad kann nicht dorthin, wo es an ein anderes stoßen würde.
+- Ein Ring aus einer ungeraden Zahl ineinandergreifender Zahnräder blockiert das ganze Getriebe: Nichts dreht sich.
+- Eine Messingwelle muss sich in Pfeilrichtung mit der Geschwindigkeit auf ihrer Plakette drehen: so viele Umdrehungen, wie sie während einer Umdrehung des Motors macht. Die Größe des aufgesetzten Zahnrads bestimmt diese Geschwindigkeit.
+# Das Ende der Partie
+Wenn sich jedes Ziel wie verlangt dreht, jedes gesetzte Zahnrad sich mitdreht und nichts blockiert ist, ist das Rätsel gelöst.
+# Level und Sterne
+Gelöst mit den wenigsten möglichen Zahnrädern: 3 Sterne; mit bis zu halb so vielen Zahnrädern mehr: 2 Sterne; sonst 1.

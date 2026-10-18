@@ -1,0 +1,12 @@
+Zębatki
+# Cel gry
+Korba bez przerwy obraca zębatkę silnika. Stawiaj zębatki z tacki na wolnych kołkach tak, aby każda zębatka docelowa z czerwonym kapturkiem obracała się w stronę swojej strzałki.
+# Zębatki
+Dwie zębatki zazębiają się, gdy ich zęby się stykają, i wtedy obracają się w przeciwne strony. Mała zębatka obraca się szybciej niż duża.
+- Zębatki nie można postawić tam, gdzie uderzyłaby w inną.
+- Pierścień z nieparzystej liczby zazębionych zębatek blokuje całą przekładnię: nic się nie obraca.
+- Mosiężny wałek musi obracać się w stronę swojej strzałki z prędkością z tabliczki: tyle obrotów, ile robi podczas jednego obrotu silnika. Tę prędkość wyznacza rozmiar zębatki postawionej na nim.
+# Koniec gry
+Gdy każdy cel obraca się tak, jak trzeba, każda postawiona zębatka też się obraca i nic nie jest zablokowane, zagadka jest rozwiązana.
+# Poziomy i gwiazdki
+Rozwiązana najmniejszą możliwą liczbą zębatek: 3 gwiazdki; najwyżej o połowę większą: 2 gwiazdki; inaczej 1.

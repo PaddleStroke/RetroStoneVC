@@ -1,0 +1,12 @@
+Dişliler
+# Amaç
+Bir kol, motorun dişlisini durmadan çevirir. Tepsideki dişlileri boş pimlere tak; kırmızı başlıklı her hedef dişli okunun gösterdiği yöne dönsün.
+# Dişliler
+İki dişli, dişleri birbirine değince kavraşır ve o zaman ters yönlere döner. Küçük bir dişli büyük bir dişliden daha hızlı döner.
+- Bir dişli, başka bir dişliye çarpacağı yere takılamaz.
+- Tek sayıda kavraşan dişliden oluşan bir halka bütün düzeneği kilitler: hiçbir şey dönmez.
+- Pirinç bir mil, okunun yönünde ve rozetindeki hızla dönmelidir: motor bir tur atarken attığı tur sayısı. Üstüne takılan dişlinin boyu bu hızı belirler.
+# Oyunun sonu
+Her hedef istendiği gibi döndüğünde, taktığın her dişli de döndüğünde ve hiçbir şey kilitli olmadığında bulmaca çözülür.
+# Seviyeler ve yıldızlar
+Mümkün olan en az dişliyle çözülürse 3 yıldız; en az sayının en fazla yarısı kadar fazlasıyla 2 yıldız; yoksa 1.

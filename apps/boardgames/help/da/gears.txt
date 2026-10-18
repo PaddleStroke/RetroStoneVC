@@ -1,0 +1,12 @@
+Tandhjul
+# Målet
+Et håndsving drejer hele tiden motorens tandhjul. Sæt tandhjul fra bakken på de tomme pinde, så hvert måltandhjul med rød hætte drejer den vej, dets pil viser.
+# Tandhjulene
+To tandhjul griber ind i hinanden, når deres tænder rører hinanden, og så drejer de hver sin vej. Et lille tandhjul drejer hurtigere end et stort.
+- Et tandhjul kan ikke sættes, hvor det ville støde mod et andet.
+- En ring af et ulige antal indgribende tandhjul blokerer hele gearet: intet drejer.
+- En messingaksel skal dreje sin pils vej med farten på sit skilt: de omgange, den tager, mens motoren tager én. Størrelsen på tandhjulet på den bestemmer den fart.
+# Spillets afslutning
+Når hvert mål drejer som ønsket, hvert tandhjul, du har sat, også drejer, og intet er blokeret, er opgaven løst.
+# Baner og stjerner
+Løst med færrest mulige tandhjul: 3 stjerner; med op til halvt så mange tandhjul mere: 2 stjerner; ellers 1.

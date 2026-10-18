@@ -1,0 +1,12 @@
+Engrenages
+# Le but
+Une manivelle fait tourner sans arrêt l'engrenage du moteur. Place des engrenages du plateau sur les tiges libres pour que chaque engrenage cible, à capuchon rouge, tourne dans le sens de sa flèche.
+# Les engrenages
+Deux engrenages s'engrènent quand leurs dents se touchent, et ils tournent alors en sens contraires. Un petit engrenage tourne plus vite qu'un grand.
+- Un engrenage ne peut pas aller là où il heurterait un autre engrenage.
+- Une boucle d'un nombre impair d'engrenages engrenés bloque tout le train : plus rien ne tourne.
+- Un axe en laiton doit tourner dans le sens de sa flèche à la vitesse de son badge : le nombre de tours qu'il fait pendant que le moteur en fait un. La taille de l'engrenage posé dessus fixe cette vitesse.
+# La fin de la partie
+Quand chaque cible tourne comme demandé, que chaque engrenage posé tourne aussi et que rien n'est bloqué, le casse-tête est résolu.
+# Niveaux et étoiles
+Résolu avec le moins d'engrenages possible : 3 étoiles ; jusqu'à moitié plus d'engrenages : 2 étoiles ; sinon 1.

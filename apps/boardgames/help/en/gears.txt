@@ -1,0 +1,12 @@
+Gears
+# The aim
+A crank turns the motor's gear all the time. Put gears from the tray on the empty pegs so that every target gear, with its red cap, turns the way its arrow shows.
+# The gears
+Two gears mesh when their teeth touch, and then they turn opposite ways. A small gear turns faster than a big one.
+- A gear cannot go where it would hit another gear.
+- A ring of an odd number of meshed gears jams the whole train: nothing turns.
+- A brass shaft must turn its arrow's way at the speed on its badge: the turns it makes while the motor makes one. The size of the gear put on it sets that speed.
+# The end of the game
+When every target turns as asked, every gear you put turns too, and nothing is jammed, the puzzle is solved.
+# Levels and stars
+Solved with the fewest gears possible: 3 stars; with up to half as many gears again: 2 stars; otherwise 1.

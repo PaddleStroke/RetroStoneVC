@@ -1,0 +1,12 @@
+Roda Gigi
+# Tujuan
+Sebuah engkol terus memutar roda gigi motor. Pasang roda gigi dari baki ke pasak yang kosong agar setiap roda gigi sasaran bertutup merah berputar ke arah panahnya.
+# Roda gigi
+Dua roda gigi saling berkait saat gigi-giginya bersentuhan, lalu keduanya berputar berlawanan arah. Roda gigi kecil berputar lebih cepat daripada yang besar.
+- Roda gigi tidak bisa dipasang di tempat ia akan menabrak roda gigi lain.
+- Lingkaran berisi roda gigi berkait dalam jumlah ganjil membuat seluruh rangkaian macet: tidak ada yang berputar.
+- Poros kuningan harus berputar ke arah panahnya dengan kecepatan pada lencananya: jumlah putarannya selama motor berputar sekali. Ukuran roda gigi yang dipasang di poros itu menentukan kecepatan tersebut.
+# Akhir permainan
+Jika setiap sasaran berputar seperti yang diminta, setiap roda gigi yang kamu pasang ikut berputar, dan tidak ada yang macet, teka-teki terpecahkan.
+# Level dan bintang
+Selesai dengan roda gigi sesedikit mungkin: 3 bintang; dengan tambahan roda gigi paling banyak setengah dari jumlah itu: 2 bintang; selain itu 1.

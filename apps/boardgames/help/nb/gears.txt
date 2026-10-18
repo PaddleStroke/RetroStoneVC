@@ -1,0 +1,12 @@
+Tannhjul
+# Målet
+En sveiv dreier hele tiden motorens tannhjul. Sett tannhjul fra brettet på de tomme pinnene, slik at hvert måltannhjul med rød hette dreier den veien pilen viser.
+# Tannhjulene
+To tannhjul griper inn i hverandre når tennene deres møtes, og da dreier de hver sin vei. Et lite tannhjul dreier fortere enn et stort.
+- Et tannhjul kan ikke settes der det ville støte mot et annet.
+- En ring av et oddetall tannhjul som griper inn i hverandre, låser hele giret: ingenting dreier.
+- En messingaksel må dreie pilens vei med farten på skiltet sitt: omdreiningene den tar mens motoren tar én. Størrelsen på tannhjulet på den bestemmer den farten.
+# Slutten på spillet
+Når hvert mål dreier som det skal, hvert tannhjul du har satt også dreier, og ingenting er låst, er oppgaven løst.
+# Nivåer og stjerner
+Løst med færrest mulig tannhjul: 3 stjerner; med opptil halvparten så mange tannhjul til: 2 stjerner; ellers 1.

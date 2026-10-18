@@ -1,0 +1,12 @@
+Kugghjul
+# Målet
+En vev vrider hela tiden motorns kugghjul. Sätt kugghjul från brickan på de tomma piggarna så att varje målkugghjul med röd hätta snurrar åt det håll pilen visar.
+# Kugghjulen
+Två kugghjul griper i varandra när deras kuggar möts, och då snurrar de åt var sitt håll. Ett litet kugghjul snurrar fortare än ett stort.
+- Ett kugghjul kan inte sättas där det skulle slå i ett annat.
+- En ring av ett udda antal kugghjul som griper i varandra låser hela växeln: ingenting snurrar.
+- En mässingsaxel ska snurra åt pilens håll med farten på sin skylt: de varv den gör medan motorn gör ett. Storleken på kugghjulet på den bestämmer den farten.
+# Partiets slut
+När varje mål snurrar som det ska, varje kugghjul du har satt också snurrar och ingenting är låst, är pusslet löst.
+# Banor och stjärnor
+Löst med så få kugghjul som möjligt: 3 stjärnor; med upp till hälften så många kugghjul till: 2 stjärnor; annars 1.
