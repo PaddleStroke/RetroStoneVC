@@ -2,10 +2,10 @@
  * Domino Chain in RetroStone Board, for one player: a board of the house wood in its walnut frame, its felt squares
  * sunk green, seen from the front and above so the pieces stand up in three dimensions (the rules:
  * dominochain_rules.c). The given dominoes ivory with ebony pips, the stock's ebony with ivory pips, the start red
- * lacquer over a brass arrow, long dominoes twice as tall, a turn a curve of three small dominoes, a splitter a brass
- * capped block, the bell brass on a walnut stand. The push: each piece tips over its edge, faster as it goes, in turn
- * along the chain; a piece hit from the side rocks and stays; the bell swings and rings out in gold rings. Missed: the
- * pieces left standing glow red, then everything stands up again.
+ * lacquer over a brass arrow, long dominoes twice as tall, a turn three small plain dominoes on a curved walnut base,
+ * a splitter a brass capped block, the bell brass on a walnut stand. The push: each piece tips over its edge, faster
+ * as it goes, in turn along the chain; a piece hit from the side rocks and stays; the bell swings and rings out in
+ * gold rings. Missed: the pieces left standing glow red, then everything stands up again.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * The tools: the push, the lamp (a hint: a piece put, or one taken back, in gold light), then the stock's pieces, each
@@ -36,6 +36,9 @@
 #define KZ 0.34f                                /* a unit of height up the screen, of a square (one tilt for all) */
 #define SH 0.0f                                 /* and across it */
 #define TOP 0.45f                               /* room above the board for the pieces standing, of a square */
+#define MINI_T 0.08f                            /* a turn's small dominoes: thick, wide, high (squares) */
+#define MINI_W 0.28f
+#define MINI_H 0.58f
 
 enum { T_PUSH, T_HINT, T_KIND };                /* the tools: the push, the lamp, then the stock's kinds */
 
@@ -151,7 +154,7 @@ static void token(int player, int size, uint8_t *rgba)
     paint_token(size, rgba);
 }
 
-/* the stock's pieces on their tools: a domino, a turn (three small ones on a curve), a long one, a splitter */
+/* the stock's pieces on their tools: a domino, a turn (three small ones on a curved base), a long one, a splitter */
 static void paint_kind(int kind, int size, uint8_t *o)
 {
     memset(o, 0, (size_t)size * size * 4);
@@ -164,6 +167,13 @@ static void paint_kind(int kind, int size, uint8_t *o)
         }
         free(f);
     } else if (kind == DMC_K_TURN) {
+        for (int y = 0; y < size; y++)          /* the walnut base's curve under them */
+            for (int x = 0; x < size; x++) {
+                float dx = (x + 0.5f) / size - 0.16f, dy = 0.84f - (y + 0.5f) / size, r = hypotf(dx, dy);
+                float cov = clampf(fminf(r - 0.5f, 0.74f - r) * size + 0.5f, 0, 1) *
+                            clampf(fminf(dx, dy) * size + 0.5f, 0, 1);
+                if (cov > 0) pzk_over(o + 4 * ((size_t)y * size + x), WALNUT, cov);
+            }
         for (int i = 0; i < 3; i++) {
             float a = (0.15f + 0.35f * i) * PUZ_PI / 2, cx = 0.16f + 0.62f * cosf(a), cy = 0.84f - 0.62f * sinf(a);
             float ux = cosf(a), uy = -sinf(a), vx = -uy, vy = ux;   /* across the curve, along it */
@@ -440,6 +450,7 @@ static void proj(float x, float y, float z, float *sx, float *sy)
 }
 
 typedef struct { float x, y, z; } v3;
+static float lift;                              /* what the box stands on (a turn's base), squares up */
 
 /* a box standing on (cx, cy) (squares), its thin side along (fx, fy), w across and h high, tipped by phi (radians)
  * over its front bottom edge; its faces lit from the top left, its broad faces with tex (NULL: plain) */
@@ -451,7 +462,7 @@ static void draw_box(float cx, float cy, float fx, float fy, float t, float w, f
     for (int i = 0; i < 8; i++) {
         float a = (i & 1 ? 0.5f : -0.5f) * t, b = (i & 2 ? 0.5f : -0.5f) * w, c = i & 4 ? h : 0;
         float a0 = a - t / 2, A = a0 * cp + c * sp, C = -a0 * sp + c * cp;
-        P[i] = (v3){cx + fx * (t / 2 + A) + sx * b, cy + fy * (t / 2 + A) + sy * b, C};
+        P[i] = (v3){cx + fx * (t / 2 + A) + sx * b, cy + fy * (t / 2 + A) + sy * b, C + lift};
     }
     /* the faces: corner indices, the normal (in the box's frame, turned with it), the broad faces textured */
     static const int F[5][4] = {{1, 3, 7, 5}, {2, 0, 4, 6}, {3, 2, 6, 7}, {0, 1, 5, 4}, {4, 5, 7, 6}};
@@ -545,21 +556,73 @@ static int by_key(const void *a, const void *b)
     return d < 0 ? -1 : d > 0;
 }
 
-/* a turn's small domino i (0..2) on its curve: its place and the way along the curve (from side `in`) */
-static void turn_mini(int c, int corner, int in, int i, float *x, float *y, float *fx, float *fy)
+/* a turn's curve: the corner's point in the square (ox, oy) and the angles from side `in` (a0) to the other (a1) */
+static void turn_arc(int corner, int in, float *ox, float *oy, float *a0, float *a1)
 {
     static const float CX[4] = {1, 1, 0, 0}, CY[4] = {0, 1, 1, 0};   /* the corner's point in the square */
     static const float MX[4] = {0.5f, 1, 0.5f, 0}, MY[4] = {0, 0.5f, 1, 0.5f};   /* each side's middle */
     int out = in == corner ? (corner + 1) & 3 : corner;
-    float ox = CX[corner], oy = CY[corner];
-    float a0 = atan2f(MY[in] - oy, MX[in] - ox), a1 = atan2f(MY[out] - oy, MX[out] - ox);
-    if (a1 - a0 > PUZ_PI) a1 -= 2 * PUZ_PI;
-    if (a0 - a1 > PUZ_PI) a1 += 2 * PUZ_PI;
+    *ox = CX[corner];
+    *oy = CY[corner];
+    *a0 = atan2f(MY[in] - *oy, MX[in] - *ox);
+    *a1 = atan2f(MY[out] - *oy, MX[out] - *ox);
+    if (*a1 - *a0 > PUZ_PI) *a1 -= 2 * PUZ_PI;
+    if (*a0 - *a1 > PUZ_PI) *a1 += 2 * PUZ_PI;
+}
+
+/* a turn's small domino i (0..2) on its curve: its place and the way along the curve (from side `in`) */
+static void turn_mini(int c, int corner, int in, int i, float *x, float *y, float *fx, float *fy)
+{
+    float ox, oy, a0, a1;
+    turn_arc(corner, in, &ox, &oy, &a0, &a1);
     float u = (0.2f + 0.3f * i), a = a0 + (a1 - a0) * u, sgn = a1 > a0 ? 1.0f : -1.0f;
     *x = c % G.m.w + ox + 0.5f * cosf(a);
     *y = c / G.m.w + oy + 0.5f * sinf(a);
     *fx = -sinf(a) * sgn;
     *fy = cosf(a) * sgn;
+}
+
+#define BASE_H 0.07f                            /* a turn's walnut base: its height, squares */
+
+/* a turn's base: a low walnut curve under its three small dominoes, so the three read as one piece (it stays when
+ * they fall); a soft shadow on the board, its walls, then its top over them */
+static void draw_turn_base(int c, int corner)
+{
+    enum { N = 12 };
+    float ox, oy, a0, a1;
+    turn_arc(corner, corner, &ox, &oy, &a0, &a1);
+    float gx = (float)(c % G.m.w) + ox, gy = (float)(c / G.m.w) + oy, r0 = 0.36f, r1 = 0.64f;
+    SDL_Vertex v[2 * (N + 1)];
+    int idx[6 * N], ni = 0;
+    for (int i = 0; i < N; i++) {
+        int k = 2 * i, q6[6] = {k, k + 1, k + 3, k, k + 3, k + 2};
+        for (int j = 0; j < 6; j++) idx[ni++] = q6[j];
+    }
+    for (int pass = 0; pass < 4; pass++) {      /* the shadow, the inner wall, the outer wall, the top */
+        float r = pass == 1 ? r0 : r1, lit = pass == 1 ? 0.62f : 0.78f;
+        for (int i = 0; i <= N; i++) {
+            float u = 0.04f + 0.92f * i / N, a = a0 + (a1 - a0) * u, ca = cosf(a), sa = sinf(a), x0, y0, x1, y1;
+            SDL_Color col = {0, 0, 0, 60};
+            if (pass == 0) {
+                proj(gx + (r0 - 0.02f) * ca + 0.04f, gy + (r0 - 0.02f) * sa + 0.04f, 0, &x0, &y0);
+                proj(gx + (r1 + 0.02f) * ca + 0.04f, gy + (r1 + 0.02f) * sa + 0.04f, 0, &x1, &y1);
+            } else {
+                if (pass < 3) {
+                    proj(gx + r * ca, gy + r * sa, 0, &x0, &y0);
+                    proj(gx + r * ca, gy + r * sa, BASE_H, &x1, &y1);
+                } else {
+                    proj(gx + r0 * ca, gy + r0 * sa, BASE_H, &x0, &y0);
+                    proj(gx + r1 * ca, gy + r1 * sa, BASE_H, &x1, &y1);
+                    lit = 1.12f;
+                }
+                col = (SDL_Color){(Uint8)clampf(WALNUT[0] * lit, 0, 255), (Uint8)clampf(WALNUT[1] * lit, 0, 255),
+                                  (Uint8)clampf(WALNUT[2] * lit, 0, 255), 255};
+            }
+            v[2 * i] = (SDL_Vertex){{x0, y0}, col, {0, 0}};
+            v[2 * i + 1] = (SDL_Vertex){{x1, y1}, col, {0, 0}};
+        }
+        SDL_RenderGeometry(ui.r, NULL, v, 2 * (N + 1), idx, ni);
+    }
 }
 
 static void draw_piece(int c, int part, float t, int shadow)
@@ -585,8 +648,12 @@ static void draw_piece(int c, int part, float t, int shadow)
         turn_mini(c, corner, in, part, &mx, &my, &fx, &fy);
         float phi = tipped(c, t, &way, &wob, part, 3);
         if (wob != 0) phi = wob;
-        if (shadow) draw_shadow(mx - fx * 0.06f, my - fy * 0.06f, fx, fy, 0.12f, 0.3f, 0.48f, phi);
-        else draw_box(mx - fx * 0.06f, my - fy * 0.06f, fx, fy, 0.12f, 0.3f, 0.48f, phi, body, face, 1);
+        if (shadow) draw_shadow(mx - fx * MINI_T / 2, my - fy * MINI_T / 2, fx, fy, MINI_T, MINI_W, MINI_H, phi);
+        else {                                  /* plain, on its base: the three read as one piece */
+            lift = BASE_H;
+            draw_box(mx - fx * MINI_T / 2, my - fy * MINI_T / 2, fx, fy, MINI_T, MINI_W, MINI_H, phi, body, NULL, 1);
+            lift = 0;
+        }
     } else if (p == DMC_SPLIT) {
         float phi = tipped(c, t, &way, &wob, 0, 1);
         if (way < 0) way = 2;
@@ -660,6 +727,10 @@ static void draw(void)
         }
     }
     qsort(it, (size_t)n, sizeof *it, by_key);
+    for (int c = 0; c < wh; c++) {              /* the turns' bases, under every piece and its shadow */
+        int o, p = dmc_piece(&G.m, &G.s, c, &o);
+        if (p == DMC_TURN) draw_turn_base(c, o);
+    }
     for (int i = 0; i < n; i++) draw_piece(it[i].c, it[i].part, t, 1);
     for (int i = 0; i < n; i++) draw_piece(it[i].c, it[i].part, t, 0);
     if (run.on || rise.on || win.on) ui_animate();
