@@ -135,17 +135,33 @@ an out player's head blinks).
 screen (427 for 16:9, 520 for phones) shows more of the lawn on both sides; the bed and its grid are the same at every
 width (identical play). A state saved at one width loads at another (`draw_state_loaded` sets the maps up again).
 
-**Tall screen** (docs/spec.md "Tall screen"): a phone held upright: `rs_screen_tall(RS_SCREEN_H_MAX)` first in
-`game_init`, so the RetroStone app gives the game the display's height at 320 columns. The 240 lines of the stage are
-the same pixels, centred; the raster (draw.c) draws the lines past it: more lawn above and below the bed (the lawn of
-the stage's top 32 lines, repeated every 32 lines and shifted sideways band by band), the other layers and the
-sprites hidden there (window 1); line 0 puts the stage's settings back, so a 240-line screen is unchanged. During a
-run the HUD (the score, the leaves to go, the berry; the arena's heads and stars) is drawn at the screen's top, not
-over the bed's frame mid-screen (sprites at `rs_screen_top()`; the raster shows the sprites in those 32 lines).
-Why not the zoomed screen (v2): the bed is 18 x 12 cells of 16 px, 304 px with its fence, and every cell is play;
-a zoom crops the sides to 188-236 columns on today's phones, so it would hide a third of the bed (a leaf, a wall, the
-other caterpillars) or need a camera that changes what the player sees. Turning the bed upright (12 x 18) would fit,
-but needs its own art (the frame's and the soil's tiles are not symmetric) and turned controls: a project of its own.
+**Tall screen** (docs/spec.md "Tall screen", the zoomed screen): a phone held upright plays on **the bed turned
+upright**. `rs_screen_zoom(512)` first in `game_init` (draw.c `draw_zoom`): 512 lines filling the display's height,
+218 columns shown on a 1080x2520 phone (9:21), 232 at 1080x2340, 256 at 720x1440, about 4.9x. The 18 x 12 bed, 304 px
+with its fence, would lose a third of its cells to the cropped sides, so in portrait the view turns it a quarter turn
+clockwise: **12 cells across and 18 down** (208 px with the fence: every cell shown on the narrowest phone). Only the
+view turns: the world, the rules, the layouts, the bot and the save states are the same (the plot's x runs down the
+screen, its y from right to left), so a run goes on when the phone turns (the app restarts the game from a state in
+the other view). In portrait:
+- The garden is its own art (make_art.py `garden(tall=True)`, tiles/garden_tall.png, 320 x 512; loaded instead of the
+  panorama, BG maps 64 rows tall): the bed upright with its frame lit from the top-left like the landscape one (the
+  tiles are not symmetric: drawn again, not turned), the soil's checker, crumbs and grooves; the lawn above and below
+  with a stepping-stone path up towards the HUD and down off the screen, flowers, tufts, stones, a bee, a snail, ants;
+  plain lawn under the HUD. A shorter tall screen (a tablet: every column) shows its middle.
+- The controls turn with it: the d-pad and the swipes are the screen's directions (main.c `draw_dir_in`).
+- The HUD at the screen's top, centred in the columns shown and clear of the app's corner buttons: the score, the 12
+  leaves under it, the berry on its left; the arena's heads and stars two by two.
+- The heads, bodies (their joins and tails worked out on the screen), obstacles, treats and effects are drawn on the
+  turned plot; the butterfly flutters up to the screen's top.
+- The same zoomed view on every screen (never `rs_screen_fill(0)`): the stage's 240 lines (the UI's 30 rows) centred
+  on the bed, so GARDEN N, ROUND N, PAUSED, the game-over panel (sliding up from the screen's bottom) and the results
+  sit on it. The title: the logo on two lines over the lawn above the bed (make_art.py `logo_tall`, the house logo,
+  CATERPILLAR at 3x over CRAWL at 4x, in the kit's logo tiles), the slots 5 columns apart, PRESS A TO CRAWL, BEST, the
+  join line and the credits cut into lines of at most 25 columns; a banner whose 2x title is wider than 26 columns
+  (the Norwegian GAME OVER, the Greek P1 WINS!) uses the small letters on a narrower panel.
+- A screen 241-351 lines tall (a near-square display) keeps the landscape bed, the raster drawing more lawn past the
+  stage (the lawn of the stage's top 32 lines, repeated every 32 lines and shifted sideways band by band) and the HUD
+  at the screen's top. Landscape and 4:3: 240 lines, the same pixels as before.
 
 ## Screens (the house flow: no "get ready", the title is the only menu)
 title (the logo, a caterpillar inching along with a leaf ahead, the player slots, PRESS A TO CRAWL with the A glyph,
@@ -185,7 +201,8 @@ cell its tail leaves, the treats and the slow time, the speed, the butterfly and
 it crawls, out on the wall and melting, the last one crawling wins, any body is out, heads meeting, the match,
 determinism, the bot), the libretro loader, the smoke tests (flow, start inputs, turns, the wall and the game over,
 pause, save RAM, joining and leaving, 4 players, the arena, a 2-bot match to the results, the bot, determinism), the
-touch tests (a tap starts, swipes turn, a finger steering, ignored swipes, the panel, every width), the UI screens
+touch tests (a tap starts, swipes turn, a finger steering, ignored swipes, the panel, every width; portrait: the
+swipes and the d-pad turned with the upright bed, a phone turned mid-run plays on the same game), the UI screens
 (tests/ui_test.sh), the save states (the lobby, a run, a race, a later garden, the butterfly, paused, 4 bots, the game
 over, the results) and their audit, all at 320, 427 and 520 columns, states across widths, and the 22 languages
 (tests/i18n_runs.txt).

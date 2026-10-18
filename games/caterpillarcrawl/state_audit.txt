@@ -6,3 +6,9 @@ main.SV             the battery save's copy (best scores, medals): stays in the 
 draw.lawn_sx        a tall screen: the garden's scroll for the lawn past the stage, set by draw_frame before every picture
 draw.lawn_sy        ... the same
 draw.hud_top        a tall screen: the HUD drawn at the screen top during a run, set by draw_frame before every picture
+draw.uv             portrait: the upright bed, from the screen's height in draw_init (fixed for a run; a state loads in either view)
+draw.plot_x         portrait: the plot's place on the stage, set by draw_init from the screen
+draw.plot_y         ... the same
+draw.pano_off       ... the same (the upright garden's line at the screen's top)
+draw.ui_y           ... the same (the stage's origin: the UI centred on the bed)
+draw.uv_glyph_x     portrait title: the prompt's glyph x, set before the sprites of the same picture

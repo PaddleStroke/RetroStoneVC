@@ -11,7 +11,8 @@ segment. Its head is a sprite (it slides from cell to cell); the body's segments
 sprite tiles (build_assets.py: BG2 shares the sprites' VRAM, one BG palette per player).
 
 Writes, in the art folder (default games/caterpillarcrawl/art):
-  sprites.png (256x96), tiles/garden.png (576x240: the garden, stage x -128..447), tiles/obstacles.png (64x16)
+  sprites.png (256x96), tiles/garden.png (576x240: the garden, stage x -128..447), tiles/obstacles.png (64x16),
+  tiles/garden_tall.png (320x512: portrait, the bed upright), tiles/logo_tall.png (200x72: portrait, the logo)
 
     python3 games/caterpillarcrawl/tools/make_art.py [--out DIR] [--preview]
 
@@ -54,7 +55,13 @@ SPRITES = [
     ("starpip", 16, 56, 8, 8, 2, "small"),      # the arena's round wins: won, to win
     ("digit", 32, 56, 8, 8, 11, "small"),       # 0-9 and + (the points of a flower, a butterfly)
 ]
-PANORAMAS = {"garden": ("tiles/garden.png", 576, 240)}
+PANORAMAS = {"garden": ("tiles/garden.png", 576, 240),
+             # portrait (draw.c "the upright bed"): the bed turned upright, 12 x 18 cells, on a lawn 512 lines tall
+             "garden_tall": ("tiles/garden_tall.png", 320, 512)}
+# the upright bed in the portrait panorama: its plot's left and top edges (px), cells across and down
+TALL_X, TALL_Y, TALL_W, TALL_H = 64, 132, 12, 18
+TALL_HUD = 40                                   # the portrait HUD's lines at the top (plain lawn under it)
+LOGO_TALL = ("tiles/logo_tall.png", 208, 72)    # the portrait title's logo: CATERPILLAR over CRAWL (BG1)
 OBSTACLES = ("tiles/obstacles.png", 64, 16)     # rock, bush, flower pot, mushroom (16x16 each, BG3)
 PANO_X0 = -128                                  # the garden's stage x of its left edge
 GRID_X, GRID_Y, GRID_W, GRID_H, CELL = 16, 40, 18, 12, 16
@@ -451,13 +458,13 @@ FLOWERS = [(250, 170, 200), (255, 226, 120), (250, 250, 240), (176, 150, 230)]
 STONE = [(206, 204, 194), (164, 160, 152)]
 
 
-def garden():
-    """576x240 from stage x PANO_X0: the lawn (a soft 16-px pattern, flowers and stepping stones on the 8-px grid so
+def garden(tall=False):
+    """576x240 from stage x PANO_X0 (tall: the portrait panorama, 320x512, the bed upright): the lawn (a soft 16-px pattern, flowers and stepping stones on the 8-px grid so
     the tiles repeat), the bed's wooden frame 8 px around the plot, the plot's soil in a checker of cells with a
     darker groove on each cell's bottom and right edge (the grid reads at a glance)."""
-    W, H = PANORAMAS["garden"][1:]
+    W, H = PANORAMAS["garden_tall" if tall else "garden"][1:]
     cv = Canvas(W, H)
-    rng = random.Random(11)
+    rng = random.Random(23 if tall else 11)
     for y in range(H):
         for x in range(W):
             u, v = x % 16, y % 16
@@ -467,12 +474,17 @@ def garden():
             elif (u, v) in ((4, 4), (12, 12), (10, 4), (3, 12), (7, 8)):
                 c = LAWN[2]
             cv.set(x, y, c)
-    px0 = GRID_X - PANO_X0
-    bed = (px0 - 8, GRID_Y - 8, px0 + GRID_W * CELL + 8, GRID_Y + GRID_H * CELL + 8)
+    if tall:
+        px0, py0, gw, gh = TALL_X, TALL_Y, TALL_W, TALL_H
+    else:
+        px0, py0, gw, gh = GRID_X - PANO_X0, GRID_Y, GRID_W, GRID_H
+    bed = (px0 - 8, py0 - 8, px0 + gw * CELL + 8, py0 + gh * CELL + 8)
 
     def free(tx, ty, w=2, h=2):
         x0, y0 = tx * 8, ty * 8
-        if y0 < bed[1] and bed[0] - 16 < x0 + w * 8 and x0 < bed[2] + 16:
+        if tall and y0 < TALL_HUD and 40 < x0 + w * 8 and x0 < W - 40:
+            return False                                    # the HUD at the screen's top stays plain lawn
+        if not tall and y0 < bed[1] and bed[0] - 16 < x0 + w * 8 and x0 < bed[2] + 16:
             return False                                    # the HUD band over the bed stays plain lawn
         return x0 + w * 8 <= bed[0] - 8 or x0 >= bed[2] + 8 or y0 + h * 8 <= bed[1] - 4 or y0 >= bed[3] + 8
 
@@ -530,12 +542,19 @@ def garden():
             c2.rect(ax, ay, ax + 2, ay, WOOD[2])
             c2.set(ax + 1, ay + 1, WOOD[2])
 
-    # a stepping-stone path from each side of the bed out to the lawn's edge (seen on wide screens)
+    # a stepping-stone path from each side of the bed out to the lawn's edge (seen on wide screens; tall: from its
+    # top and bottom edges, up towards the HUD and down off the screen)
     placed = set()
     for side in (-1, 1):
         for i in range(8):
-            sx = (bed[0] - 22 - i * 16) if side < 0 else (bed[2] + 6 + i * 16)
-            sy = 150 + int(round(6 * math.sin(i * 0.9 + (0 if side < 0 else 1.7))))
+            if tall:
+                sy = (bed[1] - 18 - i * 15) if side < 0 else (bed[3] + 5 + i * 15)
+                if sy < TALL_HUD + 2 or sy > H - 4:
+                    continue
+                sx = 153 + (-38 if side < 0 else 30) + int(round(7 * math.sin(i * 0.9 + (0 if side < 0 else 1.7))))
+            else:
+                sx = (bed[0] - 22 - i * 16) if side < 0 else (bed[2] + 6 + i * 16)
+                sy = 150 + int(round(6 * math.sin(i * 0.9 + (0 if side < 0 else 1.7))))
             c2 = Canvas(14, 9)
             hs.ellipse(c2, 7.0, 4.0, 6.0, 3.4, [STONE[0], STONE[0], STONE[1], STONE[1]])
             for x in range(14):
@@ -546,8 +565,11 @@ def garden():
                 for b in range(-1, 3):
                     placed.add((sx // 8 + a, sy // 8 + b))
     # decorations on the 8-px grid (away from the bed and the path)
-    for _ in range(170):
+    for k_ in range(330 if tall else 170):
         tx, ty = rng.randrange(0, W // 8 - 1), rng.randrange(0, H // 8 - 1)
+        if k_ >= 230:                                       # tall: more in the lawn a phone shows, above and below
+            tx = rng.randrange(7, 31)
+            ty = rng.randrange(5, (bed[1] - 16) // 8) if k_ % 2 else rng.randrange(bed[3] // 8 + 1, H // 8 - 1)
         if not free(tx, ty) or any((tx + a, ty + b) in placed for a in (-2, -1, 0, 1, 2) for b in (-2, -1, 0, 1, 2)):
             continue
         k = rng.randrange(12)
@@ -577,6 +599,12 @@ def garden():
             c2 = Canvas(8, 8)
             tuft(c2, 3, 7)
             cv.paste(c2, x - 3, bed[1] - 7)
+        if tall and erng.random() < 0.45:                         # tall: along its bottom edge too
+            c2 = Canvas(8, 8)
+            tuft(c2, 3, 7)
+            if erng.random() < 0.15:
+                c2.rect(2, 1, 3, 2, FLOWERS[erng.choice((0, 2, 3))])
+            cv.paste(c2, x - 3, bed[3] - 1)
     # the bed's frame: planks with a light top edge and nail dots, darker corners
     x0, y0, x1, y1 = bed
     for y in range(y0, y1):
@@ -607,8 +635,8 @@ def garden():
         grains = [(srng.randrange(2, 14), srng.randrange(2, 14)) for _ in range(2)]
         pebble = (srng.randrange(3, 11), srng.randrange(3, 11)) if i == 3 else None
         patterns.append((crumbs, grains, pebble))
-    for gy in range(GRID_H):
-        for gx in range(GRID_W):
+    for gy in range(gh):
+        for gx in range(gw):
             base = SOIL[0] if (gx + gy) % 2 == 0 else SOIL[1]
             crumbs, grains, pebble = patterns[(gx * 7 + gy * 13 + (gx * gy) % 5) % len(patterns)]
             for v in range(16):
@@ -620,13 +648,31 @@ def garden():
                         c = SOIL[2]
                     elif (u, v) in grains:
                         c = SOIL[0] if base == SOIL[1] else SOIL[1]
-                    cv.set(px0 + gx * CELL + u, GRID_Y + gy * CELL + v, c)
+                    cv.set(px0 + gx * CELL + u, py0 + gy * CELL + v, c)
             if pebble:
-                x, y = px0 + gx * CELL + pebble[0], GRID_Y + gy * CELL + pebble[1]
+                x, y = px0 + gx * CELL + pebble[0], py0 + gy * CELL + pebble[1]
                 cv.rect(x + 1, y, x + 2, y, STONE[1]), cv.rect(x, y + 1, x + 3, y + 1, SOIL[2])
                 cv.set(x + 1, y + 1, STONE[1])
     # the top band's shadow under the HUD: nothing (the kit's digits have their own outline)
     return cv
+
+
+def logo_tall():
+    """The portrait title's logo (the house logo, house_style.logo, as hu_logo draws it): CATERPILLAR at 3x over
+    CRAWL at 4x, so it fits the columns a zoomed portrait screen shows (hu_logo's one line would be 287 px)."""
+    W, H = LOGO_TALL[1:]
+    green = [(222, 248, 150), (150, 214, 84), (84, 160, 56)]          # draw.c title_ramps
+    pink = [(255, 208, 226), (246, 150, 190), (214, 92, 146)]
+    im = Image.new("RGB", (W, H), hs.MAGENTA)
+    a, _ = hs.logo(["CATERPILLAR"], [green], size=(W, 30), scale=3, y0=2)
+    b, _ = hs.logo(["CRAWL"], [pink], size=(W, 40), scale=4, y0=3)
+    im.paste(a, (0, 0))
+    bp = b.load()
+    for y in range(40):                                     # CRAWL over the first line's shadow
+        for x in range(W):
+            if bp[x, y] != hs.MAGENTA:
+                im.putpixel((x, 30 + y), bp[x, y])
+    return im
 
 
 def obstacles():
@@ -648,7 +694,8 @@ def build_sheet():
 def write_all(out, preview=False):
     os.makedirs(os.path.join(out, "tiles"), exist_ok=True)
     files = {"sprites.png": build_sheet(), PANORAMAS["garden"][0]: garden().image(),
-             OBSTACLES[0]: obstacles().image()}
+             PANORAMAS["garden_tall"][0]: garden(tall=True).image(), OBSTACLES[0]: obstacles().image(),
+             LOGO_TALL[0]: logo_tall()}
     for f, im in files.items():
         im.save(os.path.join(out, f))
         if preview:

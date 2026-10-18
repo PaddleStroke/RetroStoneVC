@@ -152,7 +152,9 @@ enum { ST_TITLE, ST_PLAY, ST_DEAD, ST_OVER };      /* no "get ready": the title 
 void draw_init(void);
 void draw_frame(const world *w, int state, int st_t, int best, int new_best, int paused);
 void draw_state(void);
-void draw_state_loaded(void);       /* widescreen: after a state saved at another width */
+void draw_state_loaded(void);       /* widescreen: after a state saved at another width (or in the other view) */
+int  draw_zoom(void);               /* first in init: the zoomed tall screen (portrait: the bed upright) */
+int  draw_dir_in(int dir);          /* a screen direction (a pad, a swipe) -> the plot's (portrait: turned back) */
 
 /* ---- sound (main.c) ------------------------------------------------------------------------------------------------ */
 enum { SFX_CHOMP, SFX_TURN, SFX_FLOWER, SFX_BERRY, SFX_BONK, SFX_COCOON, SFX_BUTTERFLY, SFX_POP, SFX_COUNT };

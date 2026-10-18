@@ -4,7 +4,8 @@
 # on the title (as the finger is lifted); in play a swipe turns the caterpillar that way, buffered like the d-pad (the
 # very run of the d-pad pressed on the same frame); a finger kept down steers on (an L drawn: two turns); a swipe
 # straight back is ignored, a slanted one too; nothing while paused; a tap on the game-over panel goes back to the
-# title (not a finger left down from the run, not a tap before the lock). The same run at every width.
+# title (not a finger left down from the run, not a tap before the lock). The same run at every width. Portrait (the
+# bed upright): the swipes and the d-pad go the screen's way, and a phone turned mid-run plays on the same game.
 #   touch_test.sh <caterpillarcrawl_headless> <out dir> [widths]
 # MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/caterpillarcrawl/LICENSE.
 H=$1
@@ -17,7 +18,7 @@ ko() { echo "  FAIL $1"; fail=1; }
 # run <name> <frames> <script> [width]: the final state's log line
 run() {
     printf "$3" > "$O/$1.input"
-    $H --width "${4:-320}" --frames "$2" --input "$O/$1.input" --opt seed=4 --opt strict=1 --opt dump=1 --opt music=0 \
+    $H ${D:---width ${4:-320}} --frames "$2" --input "$O/$1.input" --opt seed=4 --opt strict=1 --opt dump=1 --opt music=0 \
         2> "$O/$1.log" > /dev/null
     if grep -q "rs strict" "$O/$1.log"; then ko "$1: strict mode"; grep "rs strict" "$O/$1.log" | head -3; fi
     grep "state:" "$O/$1.log" | tail -1
@@ -84,5 +85,28 @@ ref=$(run w320 200 "${START}50 swipe @200 150 0 -40\n90 swipe @100 60 -40 0\n130
 for w in $WS 560; do
     s=$(run "w$w" 200 "${START}50 swipe @200 150 0 -40\n90 swipe @100 60 -40 0\n130 swipe @60 100 0 40\n" "$w")
     same "$s" "$ref" && ok "width $w: the same run as at 320" || ko "width $w: $s / $ref"
+done
+# portrait (DESIGN.md "Tall screen": the bed upright, a quarter turn clockwise): a swipe right on the screen is the
+# plot's up (the same run as a swipe up at 240 lines), the d-pad's Right too
+up=$(run swipe 120 "${START}50 swipe @200 150 0 -40\n")
+D="--display 1080x2520"
+a=$(run tall-swipe 120 "${START}50 swipe @200 150 40 0\n")
+b=$(run tall-pad 120 "${PAD}52 tap RIGHT\n")
+c=$(run tall-left 120 "${START}50 swipe @200 150 -40 0\n")
+D=""
+if [ "$(field "$a" dir)" = 3 ] && same "$a" "$up" && same "$b" "$up"; then
+    ok "portrait: a swipe right (or the d-pad's Right) is the upright bed's up: the run of a swipe up at 240 lines"
+else ko "portrait: $a / pad $b / landscape $up"; fi
+[ "$(field "$c" dir)" = 1 ] && ok "portrait: a swipe left turns it left on the screen (the plot's down)" || ko "portrait left: $c"
+# the phone turned mid-run (a save state, the game restarted in the other view, the state loaded): the same game
+ref=$($H --display 2340x1080 --frames 900 --opt bot=1 --opt seed=4 --opt ready=1 --opt dump=1 --opt music=0 2>&1 |
+      grep "state:" | tail -1)
+for turn in "2340x1080 300:1080x2520" "1080x2520 300:2340x1080" "1080x2340 200:1080x2520 500:2340x1080"; do
+    set -- $turn
+    disp=$1; shift
+    rz=""; for r in "$@"; do rz="$rz --resize $r"; done
+    s=$($H --display "$disp" $rz --frames 900 --opt bot=1 --opt seed=4 --opt ready=1 --opt dump=1 --opt music=0 2>&1 |
+        grep "state:" | tail -1)
+    same "$s" "$ref" && ok "turned ($turn): the same game in the other view" || ko "turned ($turn): $s / $ref"
 done
 exit $fail

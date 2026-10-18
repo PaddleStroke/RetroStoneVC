@@ -202,7 +202,7 @@ static int player_press(int p, int swipe)
     }
     if (p == 0 && start_press) return start_press;
     uint16_t pressed = rs_pad_pressed(hu_player_pad(p));
-    int d = pad_dir(pressed);
+    int d = draw_dir_in(pad_dir(pressed));      /* the screen's directions (portrait: the bed is upright) */
     if (p == 0 && d < 0) d = swipe;
     int pr = d >= 0 ? 1 + d : 0;
     if (pressed & RS_BTN_A) pr |= PRESS_GO;
@@ -240,7 +240,7 @@ static void game_over(void)
 static void play_update(void)
 {
     int press[MAX_PLAYERS] = {0};
-    int swipe = st == ST_PLAY ? touch_swipe() : -1;
+    int swipe = st == ST_PLAY ? draw_dir_in(touch_swipe()) : -1;
     for (int p = 0; p < W.players; p++) press[p] = player_press(p, swipe);
     start_press = 0;
     world_step(&W, press);
@@ -297,7 +297,7 @@ static void title_update(void)
         st_t = t;
     }
     if ((ev & HU_TITLE_START) || touch_tapped(st_t) || (opt_bot && st_t >= BOT_START)) {
-        int d = pad_dir(rs_pad_pressed(0));
+        int d = draw_dir_in(pad_dir(rs_pad_pressed(0)));
         ha_play(HA_CONFIRM);
         new_run(ST_PLAY);
         start_press = PRESS_GO | (d >= 0 ? 1 + d : 0);   /* the start press: also the first turn */
@@ -347,7 +347,7 @@ static void game_draw(void) { draw_frame(&W, st, st_t, run_best, new_best, pause
 
 static void game_init(void)
 {
-    rs_screen_tall(RS_SCREEN_H_MAX);            /* a phone held upright: more lawn above and below (draw.c, DESIGN.md) */
+    draw_zoom();                                /* a phone held upright: zoomed, the bed upright (draw.c, DESIGN.md) */
     save_load();
     run_best = (int)SV.best;                    /* then only game_over() raises it (states never read the .srm) */
     opt_music = rs_option_int("music", 1);
