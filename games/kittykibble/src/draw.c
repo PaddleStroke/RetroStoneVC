@@ -27,14 +27,10 @@ static const rs_color title_ramps[2][3] = {
 #define MAZE_COL0   6           /* the maze's first map column (MAZE_X = 6 * 8 + 4: the layer scrolls by 4) */
 #define MAZE_ROW0   3           /* its first map row (MAZE_Y = 3 * 8 + 4) */
 #define TITLE_KIT_Y 92
-/* zoomed (ht_narrow, DESIGN.md "Tall screen"): the logo on two lines (KITTY over KIBBLE), the kitten under it, the
- * slots, the prompt and the rest below (house_tall.h), the UI lifted NARROW_LIFT lines (the credits clear of the
- * bowls under the stage); the vacuums glide on the floor between the bowls and the table, under the stage */
-#define NARROW_LOGO  3
-#define NARROW_LIFT  8
+/* zoomed (ht_narrow, DESIGN.md "Tall screen"): the house_tall.h title (its default rows); the kitten under the
+ * two-line logo, the vacuums gliding on the floor between the bowls and the table, under the stage */
 #define NARROW_KIT_Y 116
 #define NARROW_VAC_Y 262
-#define NARROW_SLOTS 19
 #define BOTTOM_CHIPS 222        /* 3-4 players: the bottom chips' digits, under the maze */
 
 static int shown_key = -1, shown_best = -1, shown_room = -1;
@@ -418,7 +414,7 @@ static int screen_key(const world *w, int state, int st_t)
 }
 
 /* zoomed (DESIGN.md "Tall screen"): the title laid out in the columns shown (house_tall.h), its A glyph and slots */
-static const ht_title narrow_title = {NULL, MAX_PLAYERS, NARROW_SLOTS, 0};
+static const ht_title narrow_title = {NULL, MAX_PLAYERS, HU_ROW_SLOTS, 0};
 static ht_title_out narrow_out;         /* (set by screen_text every frame, before the sprites: not saved) */
 
 static void screen_text(const world *w, int state, int st_t, int best, int new_best, const hu_standing *rs)
@@ -428,7 +424,7 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         char s[64];
         hu_clear();
         if (state == ST_TITLE) {
-            if (narrow) ht_logo("KITTY KIBBLE", title_ramps, 2, NARROW_LOGO, 0);     /* KITTY over KIBBLE */
+            if (narrow) ht_logo("KITTY KIBBLE", title_ramps, 2, 2, 0);     /* KITTY over KIBBLE */
             else hu_logo("KITTY KIBBLE", title_ramps, 2, 2, 0);
         }
         if ((state == ST_PLAY || state == ST_DEAD) && w->players >= 3 && !tall())  /* (tall: hud_tall's kittens) */
@@ -449,11 +445,15 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         }
         if (state == ST_OVER) {
             if (w->players == 1) {
-                if (narrow) ht_banner(4, HTR(GAME_OVER));      /* (zoomed: in the columns shown) */
-                else hu_banner(4, HTR(GAME_OVER));
-                hu_gameover_panel(1, new_best, w->k[0].score, 0);
                 rs_strf(s, sizeof s, TR(ROOM_N), w->room);
-                hu_gameover_note(s);
+                if (narrow) {                           /* zoomed: in the columns shown */
+                    ht_banner(4, HTR(GAME_OVER));
+                    ht_gameover_panel(new_best, s, HTR(BACK_TITLE));
+                } else {
+                    hu_banner(4, HTR(GAME_OVER));
+                    hu_gameover_panel(1, new_best, w->k[0].score, 0);
+                    hu_gameover_note(s);
+                }
             } else if (narrow) {
                 ht_results_panel(rs, NULL);            /* the same, in the columns shown */
             } else {
@@ -468,7 +468,11 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         else hu_title_draw(st_t, best);
     }
     if (state == ST_OVER) {
-        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_TITLE));
+        if (w->players == 1 && narrow) {
+            char s[64];
+            rs_strf(s, sizeof s, TR(ROOM_N), w->room);
+            ht_retry_line_at(ht_gameover_retry_row(s), st_t, RETRY_LOCK, HTR(BACK_TITLE));
+        } else if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_TITLE));
         else if (narrow) ht_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
         else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
     }
@@ -509,10 +513,10 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     screen_text(w, state, st_t, best, new_best, &rs);
     /* the panel slides up, ease-out (a tall screen: from the screen's bottom) */
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200 + rs_screen_bottom() - RS_SCREEN_H) : 0;
-    if (state == ST_TITLE && ht_narrow()) slide = -NARROW_LIFT;      /* zoomed: the title's UI a little higher */
     ui_slide = slide;
     rs_bg_scroll(RS_BG1, 0, -slide);
-    hu_pause(paused, 13);
+    if (ht_narrow()) ht_pause(paused, 13);
+    else hu_pause(paused, 13);
 
     win_on = state != ST_TITLE;
     rs_obj_window(win_on ? RS_WIN1_OUT : 0);
@@ -526,7 +530,9 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     }
     if (state == ST_OVER) {
         if (w->players == 1) {
-            hu_gameover_sprites(1, w->k[0].score, 0, best, hu_medal_of(w->k[0].score, medals), st_t, slide);
+            int medal = hu_medal_of(w->k[0].score, medals);
+            if (ht_narrow()) ht_gameover_sprites(w->k[0].score, best, medal, st_t, slide);
+            else hu_gameover_sprites(1, w->k[0].score, 0, best, medal, st_t, slide);
         } else {
             int narrow = ht_narrow();
             if (narrow) ht_results_sprites(&rs, st_t, slide);
@@ -540,12 +546,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         }
     }
     if (state == ST_TITLE) {
-        if (ht_narrow()) {
-            ht_title_out o = narrow_out;        /* lifted with the UI */
-            o.glyph_y += slide;
-            o.slot_cy += slide;
-            ht_title_sprites(&narrow_title, &o, st_t, slot_icon, NULL);
-        } else hu_title_sprites(st_t, slot_icon, NULL);   /* the prompt's glyph, the joined players popping in */
+        if (ht_narrow()) ht_title_sprites(&narrow_title, &narrow_out, st_t, slot_icon, NULL);
+        else hu_title_sprites(st_t, slot_icon, NULL);   /* the prompt's glyph, the joined players popping in */
         title_sprites(st_t);
     } else if (state != ST_OVER) {
         draw_world(w);
