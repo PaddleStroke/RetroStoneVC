@@ -78,16 +78,65 @@ static int seen(const char *key)
     return 0;
 }
 
+/* the numbers taken away again two at a time, a cell and its partner turned half round the centre, while the solver
+ * still finishes it at its level: the numbers left lie the way a setter lays them (turned half round, the same).
+ * Several orders tried, the one leaving the fewest numbers kept */
+typedef struct { flm_puzzle *p; const uint8_t *full; } halves;
+
+static int half_grade(void *u, int cap)
+{
+    (void)cap;
+    return flm_grade(((halves *)u)->p, NULL);
+}
+
+static void half_clue(void *u, int i, int on)
+{
+    halves *h = u;
+    int m = h->p->n * h->p->n - 1 - i;
+    h->p->given[i] = on ? h->full[i] : 0;
+    h->p->given[m] = on ? h->full[m] : 0;
+}
+
+#define ORDERS 8                                /* the orders tried: the sparsest kept (pairs go less easily) */
+
+static int symmetric(flm_puzzle *p, const uint8_t *sol, int level, uint32_t seed)
+{
+    int n = p->n, order[FLM_CELLS], k = 0, best = FLM_CELLS + 1;
+    flm_puzzle q = *p, keep = *p;
+    for (int c = 0; c <= n * n - 1 - c; c++) order[k++] = c;
+    uint32_t s = seed * 2654435761u + 12345u;
+    halves h = {&q, sol};
+    bench_maker mk = {&h, half_grade, half_clue};
+    for (int t = 0; t < ORDERS; t++) {
+        for (int i = k - 1; i > 0; i--) {
+            s = s * 1103515245u + 12345u;
+            int j = (int)((s >> 8) % (uint32_t)(i + 1)), x = order[i];
+            order[i] = order[j];
+            order[j] = x;
+        }
+        memcpy(q.given, sol, sizeof q.given);
+        if (bench_reduce(&mk, order, k, level, NULL, 0) != level) continue;
+        int numbers = 0;
+        for (int c = 0; c < n * n; c++) numbers += q.given[c] > 0;
+        if (numbers < best) best = numbers, keep = q;
+    }
+    if (best > FLM_CELLS) return 0;             /* none at the level */
+    *p = keep;
+    return 1;
+}
+
 /* one candidate from a seed; 1 when it is of the size and the level and has one solution */
 static int candidate(cand *c, int n, int level, uint32_t seed)
 {
     uint8_t sol[FLM_CELLS];
     flm_make_ex(n, level, seed, BUDGET, &c->p, sol);
     if (c->p.n != n) return 0;
-    c->grade = flm_effort(&c->p, &c->passes, &c->mediums);
-    if (c->grade != level || flm_count(&c->p, 2) != 1) return 0;
+    if (!symmetric(&c->p, sol, level, seed)) return 0;
     c->numbers = 0;
     for (int i = 0; i < n * n; i++) c->numbers += c->p.given[i] > 0;
+    if (c->numbers * 100 > n * n * (level == BENCH_EASY ? 62 : 50)) return 0;   /* too full: little left to do */
+    c->grade = flm_effort(&c->p, &c->passes, &c->mediums);
+    if (c->grade != level || flm_count(&c->p, 2) != 1) return 0;
     /* the work: the passes, the medium finds weigh more; fewer numbers, a little more */
     c->score = (double)c->passes + 4.0 * c->mediums - 0.3 * c->numbers;
     canon(&c->p, c->key);
