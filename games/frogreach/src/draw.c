@@ -198,8 +198,14 @@ static void maps_setup(void) {
  laid_w=rs_screen_width();
 }
 /* After a state was loaded (rs_game.state_loaded): one saved at another width brings that width's maps; set this
- * width's up (each frame draws every view again). Same width: nothing. */
-void draw_relayout(void) { if(laid_w!=rs_screen_width()) maps_setup(); }
+ * width's up (each frame draws every view again). Same width: nothing. A state of another height (the phone turned:
+ * house_tall.h ht_shape_reset): this screen's maps, the pond's palette, the sky's decor (a tall screen's BG4,
+ * shown by the raster only) and the views laid out afresh on the next frame (nviews 0: the cameras too, even paused). */
+void draw_relayout(void) {
+ int shape=ht_shape_reset();
+ if(shape){rs_bg_enable(RS_BG4,0);rs_pal_load(RS_PAL_BG(PAL_GROUND),field_pal,16);if(tall()) decor_init();nviews=0;}
+ if(shape || laid_w!=rs_screen_width()) maps_setup();
+}
 void draw_init(void) {
  hu_config cfg=hu_defaults();cfg.obj_tile=KIT_OBJ_TILE;cfg.obj_vram=VR_OBJ;cfg.obj_pal=3;hu_init(&cfg);
  maps_setup();
