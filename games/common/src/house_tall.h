@@ -55,7 +55,18 @@ static inline int ht_mid_x(void) { int a, b; ht_px(&a, &b); return (a + b) / 2; 
 /* ---- wrapped text ------------------------------------------------------------------------------------------------ */
 #define HT_LINE 128
 #define HT_MAXL 4
-/* splits s into lines of at most maxw columns (at spaces; CJK between any two characters); returns the count */
+/* a character no line may start with (Japanese line breaking: small kana, the long vowel mark, closing punctuation) */
+static inline int ht_nostart(uint32_t cp)
+{
+    static const char *const no = "ぁぃぅぇぉっゃゅょゎゕゖァィゥェォッャュョヮヵヶーゝゞヽヾ、。，．！？：；）」』】〕〉》・…";
+    const char *p = no;
+    uint32_t c;
+    while ((c = rs_utf8_next(&p)) != 0)
+        if (c == cp) return 1;
+    return cp == '!' || cp == '?' || cp == ')' || cp == ',' || cp == '.';
+}
+/* splits s into lines of at most maxw columns (at spaces; CJK between any two characters, but never before a
+ * character ht_nostart refuses); returns the count */
 static inline int ht_wrap(const char *s, int maxw, char out[][HT_LINE], int maxl)
 {
     int n = 0;
@@ -72,10 +83,14 @@ static inline int ht_wrap(const char *s, int maxw, char out[][HT_LINE], int maxl
             memcpy(buf + len, p, (size_t)clen);
             buf[len + clen] = 0;
             if (len > 0 && hu_width(buf, 0) > maxw) break;
-            if (cp == ' ' || (wide && len > 0)) brk = p;    /* a break before a space or a CJK glyph ... */
+            if (cp == ' ' || (wide && len > 0 && !ht_nostart(cp))) brk = p;   /* a break before a space or a CJK glyph ... */
             len += clen;
             p = q;
-            if (wide) brk = p;                              /* ... and after a CJK glyph */
+            if (wide) {                                     /* ... and after a CJK glyph */
+                const char *r = q;
+                uint32_t nx = rs_utf8_next(&r);
+                if (!ht_nostart(nx)) brk = p;
+            }
         }
         if (*p && *p != ' ' && brk && brk > s) p = brk;     /* inside a word: back to the last break */
         len = (int)(p - s);
@@ -88,31 +103,42 @@ static inline int ht_wrap(const char *s, int maxw, char out[][HT_LINE], int maxl
     }
     return n;
 }
+/* the same, the lines balanced: the narrowest width that keeps their count (no lone last word) */
+static inline int ht_wrap_bal(const char *s, int maxw, char out[][HT_LINE], int maxl)
+{
+    int n = ht_wrap(s, maxw, out, HT_MAXL), b = maxw;
+    if (n < 2 || n > maxl) return ht_wrap(s, maxw, out, maxl);
+    while (b > 1 && ht_wrap(s, b - 1, out, HT_MAXL) == n) b--;
+    return ht_wrap(s, b, out, maxl);
+}
 /* the rows a line of s takes: 2 when its accents or CJK glyphs take the row above */
 static inline int ht_line_rows(const char *s) { return hu_tall(s) ? 2 : 1; }
-/* s centred in the visible columns from row `row` down, wrapped; box: on a panel (hu_box_text); returns the last
- * row used */
-static inline int ht_text(int row, const char *s, int box)
+/* the row step before wrapped line l: 1 + gap, at least 2 when the line takes the row above */
+static inline int ht_step(const char *l, int gap) { int k = 1 + gap; return hu_tall(l) && k < 2 ? 2 : k; }
+/* s centred in the visible columns from row `row` down, wrapped (balanced lines), `gap` blank rows between them;
+ * box: on a panel (hu_box_text); returns the last row used */
+static inline int ht_text_gap(int row, const char *s, int box, int gap)
 {
     char l[HT_MAXL][HT_LINE];
-    int n = ht_wrap(s, ht_ncols() - (box ? 2 : 0), l, HT_MAXL), r = row;
+    int n = ht_wrap_bal(s, ht_ncols() - (box ? 2 : 0), l, HT_MAXL), r = row;
     for (int i = 0; i < n; i++) {
-        if (i && hu_tall(l[i])) r++;
+        if (i) r += ht_step(l[i], gap);
         int x = ht_center(l[i], 0);
         if (box) hu_box_text(x, r, l[i]);
         else hu_text(x, r, l[i]);
-        if (i < n - 1) r++;
     }
     return r;
 }
-/* the rows ht_text would take (1 + the extra lines) */
-static inline int ht_text_rows(const char *s, int box)
+static inline int ht_text(int row, const char *s, int box) { return ht_text_gap(row, s, box, 0); }
+/* the rows ht_text_gap would take */
+static inline int ht_text_rows_gap(const char *s, int box, int gap)
 {
     char l[HT_MAXL][HT_LINE];
-    int n = ht_wrap(s, ht_ncols() - (box ? 2 : 0), l, HT_MAXL), r = 1;
-    for (int i = 1; i < n; i++) r += ht_line_rows(l[i]);
+    int n = ht_wrap_bal(s, ht_ncols() - (box ? 2 : 0), l, HT_MAXL), r = 1;
+    for (int i = 1; i < n; i++) r += ht_step(l[i], gap);
     return r;
 }
+static inline int ht_text_rows(const char *s, int box) { return ht_text_rows_gap(s, box, 0); }
 /* a 2x line centred in the visible columns (1x when 2x does not fit) */
 static inline void ht_big(int row, const char *s, int style)
 {
@@ -122,7 +148,7 @@ static inline void ht_big(int row, const char *s, int style)
 
 /* ---- banners and panels -------------------------------------------------------------------------------------- */
 /* hu_banner in the visible columns: as wide as the title + 2 (at least 20 when they fit); a title too wide for 2x
- * glyphs on a panel: 1x on a 3-row panel */
+ * glyphs on a panel: 1x on a 3-row panel (never 2x without the panel) */
 static inline void ht_banner(int y, const char *title)
 {
     int cols = ht_ncols(), w = hu_width(title, 1) + 2, acc = hu_tall(title);
@@ -132,7 +158,6 @@ static inline void ht_banner(int y, const char *title)
         hu_big(ht_center(title, 1), y + 1, title, HU_BIG_BANNER);
         return;
     }
-    if (w - 2 <= cols) { hu_big(ht_center(title, 1), y + 1, title, HU_BIG_FREE); return; }   /* 2x over the scene */
     w = hu_width(title, 0) + 2;
     if (w > cols) w = cols;
     hu_panel(ht_center_w(w), y - acc, w, 3 + acc);
@@ -151,16 +176,21 @@ static inline int ht_over_w(int new_best, const char *note)
     int w = l + 4 > 16 ? l + 4 : 16;
     return w > cols ? cols : w;
 }
-/* the labels' rows: 4 apart (5, from row 11, when a label's accents or CJK glyphs take the row above) */
+/* the labels' rows from row 10: 4 apart (5 when a label's accents or CJK glyphs take the row above; the panel then
+ * from row 8, so that the accents of the first label stay inside it); the note right under the medal; the panel
+ * ends on row 29 at the latest (the retry line then right under a long note) */
 static inline int ht_over_tall(void)
 {
     return hu_tall(hu_str(HS_SCORE)) || hu_tall(hu_str(HS_BEST)) || hu_tall(hu_str(HS_NEW_BEST)) || hu_tall(hu_str(HS_MEDAL));
 }
-static inline int ht_over_label_row(int i) { return ht_over_tall() ? 11 + 5 * i : 10 + 4 * i; }
+static inline int ht_over_label_row(int i) { return ht_over_tall() ? 10 + 5 * i : 10 + 4 * i; }
+static inline int ht_over_top(void) { return ht_over_tall() ? 8 : 9; }
+static inline int ht_over_note_row(void) { return ht_over_label_row(2) + 4; }
 static inline int ht_gameover_retry_row(const char *note)
 {
-    int r = ht_over_label_row(2) + 5;
-    return note ? r + 1 + ht_text_rows(note, 1) : r;
+    if (!note) return ht_over_label_row(2) + 5;
+    int r = ht_over_note_row() + ht_text_rows(note, 1);
+    return r + 2 > 29 ? r : r + 1;                     /* (a blank row before it when the panel fits) */
 }
 /* the same with another first label than SCORE (label0: e.g. DISTANCE, the value a game ranks and medals by) */
 static inline int ht_gameover_panel_ex(const char *label0, int new_best, const char *note, const char *retry)
@@ -171,10 +201,11 @@ static inline int ht_gameover_panel_ex(const char *label0, int new_best, const c
     if (w > ht_ncols()) w = ht_ncols();
     x = ht_center_w(w);
     int bottom = r + (retry ? ht_text_rows(retry, 1) : 1) + 1;
-    hu_panel(x, 9, w, bottom - 9 + 1);
+    if (bottom > 29) bottom = 29;
+    hu_panel(x, ht_over_top(), w, bottom - ht_over_top() + 1);
     const char *lab[3] = {label0 ? label0 : hu_str(HS_SCORE), hu_str(new_best ? HS_NEW_BEST : HS_BEST), hu_str(HS_MEDAL)};
     for (int i = 0; i < 3; i++) hu_box_text(ht_center(lab[i], 0), ht_over_label_row(i), lab[i]);
-    if (note) ht_text(ht_over_label_row(2) + 5, note, 1);
+    if (note) ht_text(ht_over_note_row(), note, 1);
     return r;
 }
 static inline int ht_gameover_panel(int new_best, const char *note, const char *retry)
@@ -209,15 +240,14 @@ static inline void ht_retry_line_at(int row, int t, int lock, const char *text)
     if (t < lock) return;
     if (hu_blink(t)) { ht_text(row, text, 1); return; }
     char l[HT_MAXL][HT_LINE], blank[HT_LINE];
-    int n = ht_wrap(text, ht_ncols() - 2, l, HT_MAXL), r = row;
+    int n = ht_wrap_bal(text, ht_ncols() - 2, l, HT_MAXL), r = row;
     for (int i = 0; i < n; i++) {
-        if (i && hu_tall(l[i])) r++;
+        if (i) r += ht_step(l[i], 0);
         int k = hu_width(l[i], 0);
         if (k >= HT_LINE) k = HT_LINE - 1;
         memset(blank, ' ', (size_t)k);
         blank[k] = 0;
         hu_box_text(ht_center(l[i], 0), r, blank);
-        r++;
     }
 }
 
@@ -330,26 +360,33 @@ static inline int ht_logo(const char *title, const rs_color (*ramps)[3], int nra
     return 12;
 }
 
-/* hu_pause on a zoomed tall screen: PAUSED in 2x letters when they fit in the visible columns, else in the small
- * ones; centred like hu_pause (on UI column 20: a game panning its view centres its UI layer on it) */
-static inline void ht_pause(int paused, int y)
+/* hu_pause on a zoomed tall screen: PAUSED drawn again every frame while paused (games that clear their UI layer each
+ * frame keep it), in 2x letters when they fit in the visible columns, else in the small ones, centred on the visible
+ * columns. dx: the game's own shift of its UI layer (it scrolls it by -hu_ui_x() - dx: a UI centred on a panned
+ * view), 0 for none. Every column shown (landscape, 4:3): hu_pause alone, the same pixels. */
+static inline void ht_pause_dx(int paused, int y, int dx)
 {
     hu_pause(paused, y);
-    if (paused && ht_narrow() && hu_width(hu_str(HS_PAUSED), 1) > ht_ncols()) {
-        hu_clear_rows(y, 2);
-        hu_text(hu_center(hu_str(HS_PAUSED), 0), y, hu_str(HS_PAUSED));
-    }
+    if (!paused || !ht_narrow()) return;
+    const char *s = hu_str(HS_PAUSED);
+    int big = hu_width(s, 1) <= ht_ncols(), d = dx >= 0 ? (dx + 4) / 8 : -((4 - dx) / 8);
+    hu_clear_rows(y, 2);
+    if (big) hu_big(ht_center(s, 1) - d, y, s, HU_BIG_FREE);
+    else hu_text(ht_center(s, 0) - d, y + 1, s);
 }
+static inline void ht_pause(int paused, int y) { ht_pause_dx(paused, y, 0); }
 
 /* What the title shows below the logo (hu_title_draw), laid out from row `top` down to row 29 in the visible
  * columns: the slots (2-4 players, their icons closer), the prompt PRESS A TO <VERB> (the A glyph left of it, the
- * line wrapped), BEST n, the join line (wrapped), the credits on two lines. Rows: slots on `top`, then the rest
+ * line wrapped), BEST n, the join line (wrapped), the credits on two lines. Wrapped lines (balanced) have a blank row between
+ * them; an optional hint goes above the prompt. Rows: slots on `top`, then the rest
  * spread over the rows left, bottom-aligned on row 29. */
 typedef struct ht_title {
     const char *verb;           /* the hu_title_cfg verb (NULL: PLAY) */
     int max_players;            /* the hu_title_cfg max_players */
     int top;                    /* the slots' row (or the first row when max_players is 1) */
     int prompt_row;             /* 0: placed with the rest; else the prompt's own row */
+    const char *hint;           /* NULL, or a game's short hint (its controls): wrapped above the prompt */
 } ht_title;
 typedef struct ht_title_out {
     int glyph_x, glyph_y;       /* the prompt's A glyph (UI pixels) */
@@ -396,8 +433,8 @@ static inline void ht_title_draw(const ht_title *c, int t, int best, ht_title_ou
         } else {
             rs_strf(s, sizeof s, hu_strn(HS_FULL, n), n);
         }
-        int k = ht_text_rows(s, 0);
-        ht_text(r - k + 1, s, 0);
+        int k = ht_text_rows_gap(s, 0, 1);
+        ht_text_gap(r - k + 1, s, 0, 1);
         r -= k + (hu_tall(s) ? 2 : 1);
     }
     if (best > 0) {
@@ -407,8 +444,8 @@ static inline void ht_title_draw(const ht_title *c, int t, int best, ht_title_ou
     }
     /* the prompt: the glyph (16 px) and a space left of the text */
     char l[HT_MAXL][HT_LINE];
-    int cols = ht_ncols(), nl = ht_wrap(prompt, cols - 3, l, HT_MAXL), k = 1;
-    for (int i = 1; i < nl; i++) k += ht_line_rows(l[i]);
+    int cols = ht_ncols(), nl = ht_wrap_bal(prompt, cols - 3, l, HT_MAXL), k = 1;
+    for (int i = 1; i < nl; i++) k += ht_step(l[i], 1);
     int pr = c->prompt_row ? c->prompt_row : r - k + 1;
     if (pr <= top) pr = top + 1;
     int pw = hu_width(l[0], 0) + 2, px = ht_center_w(pw);
@@ -417,10 +454,13 @@ static inline void ht_title_draw(const ht_title *c, int t, int best, ht_title_ou
     if (hu_blink(t)) {
         int rr = pr;
         for (int i = 0; i < nl; i++) {
-            if (i && hu_tall(l[i])) rr++;
+            if (i) rr += ht_step(l[i], 1);
             hu_text(i ? ht_center(l[i], 0) : px + 2, rr, l[i]);
-            rr++;
         }
+    }
+    if (c->hint) {                                      /* the hint above the prompt, a blank row between */
+        int kh = ht_text_rows_gap(c->hint, 0, 1), hr = pr - 1 - (hu_tall(l[0]) ? 1 : 0) - kh;
+        if (hr > top) ht_text_gap(hr, c->hint, 0, 1);
     }
 }
 /* the title's sprites (hu_title_sprites): the A glyph, each joined player's icon at its slot, popping in */
