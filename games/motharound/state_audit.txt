@@ -5,3 +5,4 @@ main.snd_buf        sound_init(): the synthesis buffer (the samples are made at 
 main.SV             the battery save's copy (best scores, medals): stays in the .srm, a state never takes it back
 draw.pixels         rings(): the ring layer's pixels, per-frame scratch (drawn again every frame)
 draw.hud_lines      the HUD band of a tall screen (rs_bg_pin): set by draw_frame before every picture, not saved
+draw.hud_y          the screen line of that band (the zoomed title's logo in the sky): set by draw_frame, not saved
