@@ -10,10 +10,10 @@
 #define RETRY_LOCK 36
 #define BOT_START 20
 #define HERO_LINE 112
-/* a phone held upright (DESIGN.md "Tall screen"): a screen of ZOOM_H lines (rs_screen_zoom), its height filling the
- * display's, the sides cropped (219 columns shown on a 9:21 phone, 236 on a 9:19.5 one, panning with the penguin); the
- * stage at the bottom: the lines above show the slope behind the penguins, the lookahead stays that of 4:3 */
-#define ZOOM_H 512
+/* a phone held upright (DESIGN.md "Tall screen"): the plain tall screen (rs_screen_tall), up to TALL_H lines, every
+ * column of the course shown (no pan); the stage at the bottom: the lines above show the slope behind the penguins,
+ * the lookahead stays that of 4:3 */
+#define TALL_H RS_SCREEN_H_MAX
 #define GATE_FIRST 340
 #define GATE_SPACING 275
 #define SKI_RADIUS 8

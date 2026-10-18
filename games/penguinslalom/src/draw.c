@@ -7,12 +7,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-typedef struct view {int scroll;rs_color sky[240];int cam;} view;   /* cam: a tall screen's pan (Q8 stage x) */
+typedef struct view {int scroll;rs_color sky[240];} view;
 static view V;static int shown_state=-1,shown_best=-1;
 #include "theme.inc"
 static int ppal(int p){return p?hu_player_pal(p):0;}
 static int course_y(int distance){return HERO_LINE+(distance-V.scroll)*3/5;}
-/* A tall screen (rs_screen_zoom, DESIGN.md "Tall screen", game.h ZOOM_H): the course drawn from the screen's top (the
+/* A tall screen (rs_screen_tall, DESIGN.md "Tall screen", game.h TALL_H): the course drawn from the screen's top (the
  * lines above the stage: the slope behind the penguins), the snow's colour carried on there; BG1 shown only in the
  * HUD's band pinned at the top (hud_lines) and on the stage (its map would wrap). */
 static int tall_screen(void){return rs_screen_height()>RS_SCREEN_H;}
@@ -31,12 +31,12 @@ static void raster(int line,void *user){
 static int wide(void){return rs_screen_width()>RS_SCREEN_W;}
 static int map_w(void){return wide()?128:64;}
 static int fdiv(int v,int d){return v>=0?v/d:-((d-1-v)/d);}             /* floor(v / d), d > 0 */
-/* the ground, redrawn each frame: as wide as the screen (widescreen), or the columns shown by the whole height (a tall
- * screen; every column when the display fits them) */
-#define CANVAS_MAX ((RS_SCREEN_W_MAX+16)*240>(RS_SCREEN_W+8)*ZOOM_H?(RS_SCREEN_W_MAX+16)*240:(RS_SCREEN_W+8)*ZOOM_H)
+/* the ground, redrawn each frame: as wide as the screen (widescreen), or the 320 columns by the whole height (a tall
+ * screen) */
+#define CANVAS_MAX ((RS_SCREEN_W_MAX+16)*240>(RS_SCREEN_W+8)*TALL_H?(RS_SCREEN_W_MAX+16)*240:(RS_SCREEN_W+8)*TALL_H)
 static uint8_t canvas[CANVAS_MAX];
 static int CX0=0,CW=320,CY0=0,CH=240;                                  /* its stage x 0, y 0 and size (set each frame) */
-static int map_h(void){return tall_screen()?64:32;}
+static int map_h(void){return !tall_screen()?32:rs_screen_height()<=512?64:128;}
 void draw_init(void){
  rs_screen_origin(rs_screen_margin());
  hu_config c=hu_defaults();c.obj_tile=KIT_OBJ_TILE;c.obj_vram=VR_OBJ;c.obj_pal=3;hu_init(&c);
@@ -266,7 +266,7 @@ static void foreground(const world *w){
   int y=course_y(id*135),x=(id&1)?315:5;pine(pixels,x,y,10+id%3);
  }
  if(up){   /* a tall screen: the slope uphill of the start (the title shows it): pines and a striped start arch */
-  for(int j=1;j<=12;j++){
+  for(int j=1;j<=16;j++){
    uint32_t hh=woods(j,3,5);int y=course_y(-60-j*64),x=(j&1)?24+(int)(hh%64):232+(int)(hh%64);
    if(y>CY0-10 && y<CY0+CH+60)pine(pixels,x,y,9+(int)(hh>>8)%4);
   }
@@ -354,50 +354,12 @@ static void title_ui(int t,int best){
  else rs_strf(text,sizeof text,"%s",TR(FULL));
  hu_text(hu_center(text,0),sp?28:27,text);hu_copyright(29);hu_title_sprites(t,icon,NULL);
 }
-/* A tall screen (DESIGN.md "Tall screen"): where the zoomed view centres, in stage x. The penguin always, with the bears
- * warned or sliding near its line while they fit in the columns shown; then, while they still fit: the next gate's
- * flags, the obstacles near. When the gate does not fit, the penguin (and its bears) at the edge on the gate's side. */
-static void cam_add(int *a,int *b,int lo,int hi,int vw){
- int na=lo<*a?lo:*a,nb=hi>*b?hi:*b;
- if(nb-na<=vw){*a=na;*b=nb;}
-}
-static int cam_target(const world *w){
- const hero *h=&w->h[0];int vw=rs_screen_visible_x1()-rs_screen_visible_x0();
- int id=course_index(w,h->distance);row r;course_row(w,id,&r);if(r.distance<=h->distance)course_row(w,id+1,&r);
- int a=h->x-28,b=h->x+28;
- for(int i=0;i<MAX_BEARS;i++)if(w->bears[i].active){
-  slope_obstacle o;bear_obstacle(w,i,0,&o);int y=course_y(o.distance);
-  if(y>HERO_LINE-110 && y<HERO_LINE+90)cam_add(&a,&b,o.x-o.rx-8,o.x+o.rx+8,vw);
- }
- int ga=r.left-14,gb=r.right+14,na=ga<a?ga:a,nb=gb>b?gb:b;
- if(nb-na>vw)return ga<a?b-vw/2:a+vw/2;
- a=na;b=nb;
- for(int k=id>0?id-1:0;k<=id+1;k++){
-  slope_obstacle o;course_obstacle(w,k,V.scroll,w->t,&o);int y=course_y(o.distance);
-  if(y>HERO_LINE-40 && y<HERO_LINE+128)cam_add(&a,&b,o.x-o.rx-8,o.x+o.rx+8,vw);
- }
- return (a+b)/2;
-}
-/* the HUD's text, centred on the columns shown */
-static void hud_text(int row,const char *s){
- int x0=rs_screen_visible_x0()-rs_screen_origin_x(),x1=rs_screen_visible_x1()-rs_screen_origin_x(),n=hu_width(s,0);
- int c=((x0+x1)/2-n*4+4)/8;
- if(c+n>x1/8)c=x1/8-n;
- if(c<(x0+7)/8)c=(x0+7)/8;
- hu_text(c,row,s);
-}
 void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paused){
  hu_clear();rs_oam_clear();rs_brightness(paused?9:15);V.scroll=w->scroll;
- /* a tall screen (game.h ZOOM_H): one penguin racing fills the display's height, the columns shown panning with it
-  * (cam_target, smoothed); the title, the panels and 2-4 players show every column. The HUD pinned at the top. */
- int zoom=tall_screen() && w->players==1 && (state==ST_PLAY || state==ST_DEAD);
- if(tall_screen()){
-  rs_screen_fill(zoom);
-  if(zoom){int target=cam_target(w)*256;if(!V.cam)V.cam=target;else if(!paused)V.cam+=(target-V.cam)/6;}
-  else V.cam=0;
-  rs_screen_focus_x(zoom?V.cam/256+rs_screen_origin_x():-1);
- }
- hud_lines=tall_screen() && (state==ST_PLAY || state==ST_DEAD)?(w->players==1?48:16):0;
+ /* a tall screen (game.h TALL_H): every column of the course shown, no pan; the HUD pinned at the screen's top: 48
+  * lines (2-4 players: their tags on row 4, clear of the frontend's back and pause buttons in the top corners) */
+ int tall=tall_screen();
+ hud_lines=tall && (state==ST_PLAY || state==ST_DEAD)?48:0;
  rs_bg_pin(RS_BG1,0,hud_lines,0);
  for(int y=0;y<240;y++){int d=(y&4)?2:0;V.sky[y]=RS_RGB8(232+y*8/240+d,241+y*5/240+d/2,238+y*4/240+d/2);}
  foreground(w);
@@ -408,13 +370,12 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  }else if(state==ST_PLAY || state==ST_DEAD){
   if(w->players==1){
    char text[128];
-   if(zoom)hu_number(w->h[0].score,(rs_screen_visible_x0()+rs_screen_visible_x1())/2-rs_screen_origin_x(),rs_screen_top()+8,3);
-   else hu_number(w->h[0].score,160,8,3);
+   hu_number(w->h[0].score,160,tall?rs_screen_top()+8:8,3);
    if(w->h[0].state==HS_RUN)rs_strf(text,sizeof text,TR(HUD_GATES_FISH),w->h[0].anchor,w->h[0].apples);
    else rs_strf(text,sizeof text,"%s",w->h[0].reason==2?TR(MSG_CRASH):TR(MSG_MISSED_GATE));
-   if(zoom)hud_text(4,text);else hu_text(hu_center(text,0),4,text);
-  }else for(int p=0;p<w->players;p++){char text[48],tag[16];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),p+1);snprintf(text,sizeof text,"%s %d",tag,w->h[p].score);hu_text(p*10,1,text);}
-  if(paused)hu_big(zoom?((rs_screen_visible_x0()+rs_screen_visible_x1())/2-rs_screen_origin_x())/8-hu_width(HTR(PAUSED),1)/2:hu_center(HTR(PAUSED),1),13,HTR(PAUSED),HU_BIG_FREE);   /* (zoomed: on the columns shown) */
+   hu_text(hu_center(text,0),4,text);
+  }else for(int p=0;p<w->players;p++){char text[48],tag[16];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),p+1);snprintf(text,sizeof text,"%s %d",tag,w->h[p].score);hu_text(tall?p*9+2:p*10,tall?4:1,text);}
+  if(paused)hu_big(hu_center(HTR(PAUSED),1),13,HTR(PAUSED),HU_BIG_FREE);
   scene(w);
  }else if(state==ST_OVER){
   int slide=hu_slide_in(st_t,20,200);
