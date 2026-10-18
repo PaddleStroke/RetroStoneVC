@@ -498,6 +498,12 @@ static void draw_berry(const world *w, int p, int state, int st_t)
     const berry *b = &w->b[p];
     int sx = (int)(b->x >> 16) - view_camx, h = b->h >> 16, pal = hu_player_pal(p);
     int bob = state == ST_READY || state == ST_TITLE ? hu_bob(st_t + p * 16, 64, 2) + 2 : 0;    /* waiting: it bobs */
+    if (state == ST_TITLE && narrow) {                  /* a zoomed title: each berry at its slot (house_tall.h), in view */
+        ht_title_out o;
+        ht_slots(&title_cfg, &o);
+        spr(berry_frame(b), o.slot_cx[p] + hu_ui_x() - 8, o.slot_cy - 8 - bob, 2, pal);
+        return;
+    }
     if (b->dead) {
         int dt = w->t - w->dead_f[p];
         if (dt <= HIT_FREEZE) spr(SPR_BERRY_HIT, sx - 8, screen_y(h, sx) - 15, 2, pal);
