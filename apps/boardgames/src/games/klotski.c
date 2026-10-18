@@ -313,7 +313,11 @@ static void draw(void)
                 float p = puz_pulse((float)(now - hint.t0), 0, HINT_MS);
                 if (p > 0) ui_mark_gold(px + pw / 2, py + ph / 2, (1.2f + PW[t] * 0.6f) * q * p);
             }
+            int in_tray = !(win.on && t == KLT_BIG);   /* a shadow in the tray stays on its floor (not out the exit) */
+            SDL_Rect floor = {(int)bx + fr, (int)by + fr, 4 * q, 5 * q};
+            if (in_tray) SDL_RenderSetClipRect(ui.r, &floor);
             ui_shadow_flat(px + pw / 2 + 0.03f * q, py + ph / 2 + 0.05f * q, pw, ph, 0.55f * fade);
+            if (in_tray) SDL_RenderSetClipRect(ui.r, NULL);
             ui_put(t_piece[t], px, py, pw, ph);
             SDL_SetTextureAlphaMod(t_piece[t], 255);
             if (i == sel) ui_mark_select(px, py, pw, ph);
