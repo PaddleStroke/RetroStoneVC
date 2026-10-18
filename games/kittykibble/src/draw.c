@@ -27,9 +27,9 @@ static const rs_color title_ramps[2][3] = {
 #define MAZE_COL0   6           /* the maze's first map column (MAZE_X = 6 * 8 + 4: the layer scrolls by 4) */
 #define MAZE_ROW0   3           /* its first map row (MAZE_Y = 3 * 8 + 4) */
 #define TITLE_KIT_Y 92
-/* zoomed (ht_narrow, DESIGN.md "Tall screen"): the house_tall.h title (its default rows); the kitten under the
- * two-line logo, the vacuums gliding on the floor between the bowls and the table, under the stage */
-#define NARROW_KIT_Y 116
+/* zoomed (ht_narrow, DESIGN.md "Tall screen"): the house_tall.h title (its default rows, anchored on the screen); the
+ * kitten between the slots and the prompt (ht_title_out gap_y0..1), the vacuums gliding on the floor between the bowls
+ * and the table, under the stage */
 #define NARROW_VAC_Y 262
 #define BOTTOM_CHIPS 222        /* 3-4 players: the bottom chips' digits, under the maze */
 
@@ -45,6 +45,7 @@ static int win_on;              /* the sprite window (in play) */
 #define ZOOM_H      544         /* 232 columns on a 9:21 phone (1080x2520): the maze's 216 and its pet doors */
 #define HUD_INSET   30          /* the HUD clear of the app's back and pause buttons in the top corners */
 static int ui_slide;            /* the game-over panel's slide (BG1's scroll), set by draw_frame before every picture */
+static int ui_pin;              /* the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels) */
 
 static int tall(void) { return rs_screen_height() > RS_SCREEN_H; }
 static int bg3_rows(void) { return tall() ? 128 : 32; }
@@ -53,7 +54,7 @@ static int bg3_rows(void) { return tall() ? 128 : 32; }
  * never wrapped round onto the stage) */
 static void ui_lines(int line)
 {
-    rs_bg_window(RS_BG1, line - ui_slide >= 0 && line - ui_slide < RS_SCREEN_H ? 0 : RS_WIN2);
+    rs_bg_window(RS_BG1, ht_pin_line(ui_pin, line - ui_slide) && (!ui_pin || ht_pin_line(ui_pin, line)) ? 0 : RS_WIN2);
 }
 
 static void raster_out(int line)
@@ -414,7 +415,7 @@ static int screen_key(const world *w, int state, int st_t)
 }
 
 /* zoomed (DESIGN.md "Tall screen"): the title laid out in the columns shown (house_tall.h), its A glyph and slots */
-static const ht_title narrow_title = {NULL, MAX_PLAYERS, HU_ROW_SLOTS, 0};
+static const ht_title narrow_title = {NULL, MAX_PLAYERS, HT_ROW_SLOTS, 0};
 static ht_title_out narrow_out;         /* (set by screen_text every frame, before the sprites: not saved) */
 
 static void screen_text(const world *w, int state, int st_t, int best, int new_best, const hu_standing *rs)
@@ -481,7 +482,8 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
 /* the title: the kitten bobbing under the logo with a ball of yarn, the four vacuums gliding by below */
 static void title_sprites(int t)
 {
-    int narrow = ht_narrow(), b = hu_bob(t, 64, READY_BOB), ky = narrow ? NARROW_KIT_Y : TITLE_KIT_Y;
+    int narrow = ht_narrow(), b = hu_bob(t, 64, READY_BOB);
+    int ky = narrow ? (narrow_out.gap_y0 + narrow_out.gap_y1) / 2 - 16 : TITLE_KIT_Y;   /* (zoomed: under the slots) */
     int vy = narrow ? NARROW_VAC_Y : TITLE_KIT_Y + 26;
     spr(SPR_KIT_DOWN + (t / 32) % 2, 160 - 16, ky + b, 2, 0, 0);
     spr(SPR_YARN + (t / 16) % 2, 160 + 2, ky + 2, 2, -1, 0);
@@ -515,6 +517,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200 + rs_screen_bottom() - RS_SCREEN_H) : 0;
     ui_slide = slide;
     rs_bg_scroll(RS_BG1, 0, -slide);
+    ui_pin = !ht_narrow() ? HT_PIN_OFF : state == ST_TITLE ? HT_PIN_TITLE : state == ST_OVER ? HT_PIN_PANEL : HT_PIN_OFF;
+    ht_pin(ui_pin);                     /* the title and the panels at the same place on every game's screen */
     if (ht_narrow()) ht_pause(paused, 13);
     else hu_pause(paused, 13);
 
