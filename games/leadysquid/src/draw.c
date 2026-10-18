@@ -663,10 +663,14 @@ void draw_view_log(const world *w)
 
 /* ---- save states (main.c) ----
  * A state saved at another width brings the maps of that width (64 or 128 tiles): set them up for this one (the
- * scenery again, the course redrawn from the obstacles, the UI redrawn on the next frame). Same width: nothing. */
+ * scenery again, the course redrawn from the obstacles, the UI redrawn on the next frame). Same width: nothing.
+ * A state of another height (the phone turned: house_tall.h ht_shape_reset): the same, and the layers and the sand's
+ * palette as the set-up leaves them (raster_out hid the layers and darkened the sand past the stage). */
 void draw_state_loaded(const world *w)
 {
-    if (rs_bg_map_w(RS_BG2) == scenery_w() && rs_bg_map_w(RS_BG1) == ui_w()) return;
+    int shape = ht_shape_reset();
+    if (shape) rs_pal_load(RS_PAL_BG(PAL_SEABED), ls_seabed_pal, 16);
+    if (!shape && rs_bg_map_w(RS_BG2) == scenery_w() && rs_bg_map_w(RS_BG1) == ui_w()) return;
     maps_setup();
     draw_reset_course(w);
     shown_state = -1;                           /* screen_text clears the UI layer and draws it again */
