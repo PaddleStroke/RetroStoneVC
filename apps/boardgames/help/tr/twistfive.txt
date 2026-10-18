@@ -1,0 +1,11 @@
+Çevir Beş
+# Amaç
+Kendi rengindeki beş bilyeyi ilk sen sıraya diz: yatay, dikey ya da çapraz. Açık renk başlar.
+# Bir tur
+- Boş bir deliğe bir bilye koy.
+- Sonra tahtanın dört çeyreğinden birini, istediğin yöne çeyrek tur çevir. Herhangi bir çeyreği, boş olsa bile çevirebilirsin; bilyeleri de onunla döner.
+- Bir çeyreği o yöne çevirmek için yanındaki yuvarlak oklardan birine dokun.
+# Oyunun sonu
+- Beşli sıra kazanır; bilyeyle de olur, çevirmeyle de. Bilyeyi koyar koymaz beşin olursa çevirmeden hemen kazanırsın.
+- Bir çevirme iki oyuncuya aynı anda beşli sıra verirse oyun berabere biter.
+- Tahta dolar ve kimsenin beşi olmazsa oyun berabere biter.

@@ -1,0 +1,11 @@
+Gira cinco
+# O objetivo
+Sê o primeiro a alinhar cinco berlindes da tua cor: na horizontal, na vertical ou na diagonal. As claras começam.
+# A tua vez
+- Coloca um berlinde num buraco vazio.
+- Depois roda um dos quatro quartos do tabuleiro um quarto de volta, para um lado ou para o outro. Pode ser qualquer quarto, mesmo vazio, e os berlindes rodam com ele.
+- Toca numa das setas redondas junto a um quarto para o rodar nesse sentido.
+# O fim do jogo
+- Cinco em linha ganham, seja pelo berlinde ou pela rotação. Se tiveres cinco ao colocar o berlinde, ganhas logo, sem rodar.
+- Se uma rotação alinhar cinco para os dois jogadores ao mesmo tempo, o jogo fica empatado.
+- Se o tabuleiro ficar cheio e ninguém tiver cinco, o jogo fica empatado.

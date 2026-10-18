@@ -1,0 +1,11 @@
+Drej fem
+# Målet
+Vær den første til at få fem kugler i din farve på række: vandret, lodret eller diagonalt. Lys begynder.
+# En tur
+- Læg en kugle i et tomt hul.
+- Drej derefter en af brættets fire fjerdedele en kvart omgang, den ene eller den anden vej. Enhver fjerdedel må drejes, også en tom, og dens kugler drejer med.
+- Tryk på en af de runde pile ved en fjerdedel for at dreje den den vej.
+# Spillets afslutning
+- Fem på række vinder, hvad enten det sker med kuglen eller drejningen. Har du fem, så snart kuglen er lagt, vinder du straks uden at dreje.
+- Giver en drejning begge spillere fem på række på én gang, ender spillet uafgjort.
+- Er brættet fuldt, og ingen har fem, ender spillet uafgjort.

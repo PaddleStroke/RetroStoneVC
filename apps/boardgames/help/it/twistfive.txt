@@ -1,0 +1,11 @@
+Gira cinque
+# Lo scopo
+Allinea per primo cinque biglie del tuo colore: in orizzontale, in verticale o in diagonale. Iniziano le chiare.
+# Un turno
+- Metti una biglia in un buco vuoto.
+- Poi gira uno dei quattro quarti della tavola di un quarto di giro, in un senso o nell'altro. Puoi girare qualsiasi quarto, anche vuoto, e le sue biglie girano con lui.
+- Tocca una delle frecce tonde vicino a un quarto per girarlo in quel senso.
+# La fine della partita
+- Cinque in fila vincono, grazie alla biglia o al giro. Se hai cinque in fila appena messa la biglia, vinci subito, senza girare.
+- Se un giro mette in fila cinque biglie per entrambi i giocatori, la partita è patta.
+- Se la tavola è piena e nessuno ha cinque in fila, la partita è patta.

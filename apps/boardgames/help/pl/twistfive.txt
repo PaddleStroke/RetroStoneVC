@@ -1,0 +1,11 @@
+Obróć piątkę
+# Cel gry
+Jako pierwszy ułóż pięć kulek swojego koloru w rzędzie: poziomo, pionowo lub po skosie. Zaczynają jasne.
+# Tura
+- Włóż kulkę do pustego dołka.
+- Potem obróć jedną z czterech ćwiartek planszy o ćwierć obrotu, w dowolną stronę. Może to być każda ćwiartka, nawet pusta, a jej kulki obracają się razem z nią.
+- Stuknij jedną z okrągłych strzałek przy ćwiartce, by obrócić ją w tę stronę.
+# Koniec gry
+- Pięć w rzędzie wygrywa, czy to dzięki kulce, czy obrotowi. Masz pięć zaraz po włożeniu kulki? Wygrywasz od razu, bez obracania.
+- Jeśli obrót daje pięć w rzędzie obu graczom naraz, jest remis.
+- Jeśli plansza się zapełni i nikt nie ma pięciu, jest remis.

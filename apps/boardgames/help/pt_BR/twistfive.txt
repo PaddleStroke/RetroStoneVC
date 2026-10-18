@@ -1,0 +1,11 @@
+Gira cinco
+# O objetivo
+Seja o primeiro a alinhar cinco bolinhas da sua cor: na horizontal, na vertical ou na diagonal. As claras começam.
+# A sua vez
+- Coloque uma bolinha num buraco vazio.
+- Depois gire um dos quatro quartos do tabuleiro um quarto de volta, para um lado ou para o outro. Pode ser qualquer quarto, mesmo vazio, e as bolinhas giram junto.
+- Toque numa das setas redondas junto a um quarto para girá-lo naquele sentido.
+# O fim da partida
+- Cinco em linha vencem, seja pela bolinha ou pelo giro. Se você tiver cinco ao colocar a bolinha, vence na hora, sem girar.
+- Se um giro alinhar cinco para os dois jogadores ao mesmo tempo, a partida empata.
+- Se o tabuleiro encher e ninguém tiver cinco, a partida empata.
