@@ -158,7 +158,7 @@ well, the rules are the same). One full view draws the whole height: the well la
   shown, takes a line per part (its parts are " - " apart in every language); a checkpoint's panel stays in them.
   The UI layer is hidden off the stage elsewhere (window 1 in the raster).
 - **Fill or fit**: one gopher digging fills the display's height; the title, pause and the game-over panels stay
-  zoomed like it, their text laid out in the columns shown (games/common/src/house_narrow.h: the logo's words
+  zoomed like it, their text laid out in the columns shown (games/common/src/house_tall.h: the logo's words
   stacked, lines wrapped, a narrower ranking); only the split screens (2-4 wells side by side need every column)
   show every column (`rs_screen_fill(0)`). The split screen keeps its views on the stage (`view_layout` clamps the
   tall layouts), the sky above them and the earth below, darker with depth (two more viewports with no layer: the

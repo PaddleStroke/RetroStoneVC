@@ -22,7 +22,7 @@
 #include "game.h"
 #include "assets.h"
 #include "house_ui.h"
-#include "house_narrow.h"
+#include "house_tall.h"
 #include "game_text.h"
 #include <stdio.h>
 #include <string.h>
@@ -133,7 +133,9 @@ static int shown_cols(void) { return 2 * (20 - (rs_screen_visible_x0() - rs_scre
 #define HUD_PIN_Y   12
 #define TALL_ABOVE  92                       /* the lines above the stage at ZOOM_H (draw_init) */
 static int hud_pinned;                       /* set by draw_frame each frame (not saved: drawn again first) */
-static int ui_cols = 40;                     /* the UI columns shown (hn_cols: draw_frame; not saved) */
+static int narrow;                           /* a zoomed tall screen narrower than the kit (draw_frame: ht_narrow) */
+static ht_title_out title_out;               /* the narrow title's glyph and slots, set by screen_text every title frame */
+static const ht_title title_cfg = {NULL, MAX_PLAYERS, HU_ROW_SLOTS, 0};   /* (the verb: TR(VERB), set where used) */
 
 static void raster(int line, void *user)
 {
@@ -868,23 +870,43 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
     if (state != shown_key || (state == ST_OVER && st_t == RETRY_LOCK) || best != shown_best) {
         hu_clear();
         shown_text = 0;
-        if (state == ST_TITLE) hn_logo("GOPHER DIG", title_ramps, 2, 2, 0, ui_cols);
+        if (state == ST_TITLE) {
+            if (narrow) ht_logo("GOPHER DIG", title_ramps, 2, 2, 0);
+            else hu_logo("GOPHER DIG", title_ramps, 2, 2, 0);
+        }
         if (state == ST_OVER) {
             if (w->players == 1) {
                 const gopher *g = &w->w[0].go;
-                hn_banner(4, HTR(GAME_OVER), ui_cols);
-                hu_gameover_panel(1, new_best, g->depth, 0);
-                hu_gameover_note(g->out == OUT_CRUSH ? TR(CRUSHED) : TR(NO_AIR));
+                const char *note = g->out == OUT_CRUSH ? TR(CRUSHED) : TR(NO_AIR);
+                if (narrow) {
+                    ht_banner(4, HTR(GAME_OVER));
+                    ht_gameover_panel(new_best, note, HTR(BACK_TITLE));
+                } else {
+                    hu_banner(4, HTR(GAME_OVER));
+                    hu_gameover_panel(1, new_best, g->depth, 0);
+                    hu_gameover_note(note);
+                }
             } else {
-                hn_results_panel(rs, NULL, ui_cols);
+                if (narrow) ht_results_panel(rs, NULL);
+                else hu_results_panel(rs, NULL);
             }
         }
         shown_key = state;
         shown_best = best;
     }
-    if (state == ST_TITLE) hn_title_draw(st_t, best, TR(VERB), MAX_PLAYERS, 0, ui_cols);
+    if (state == ST_TITLE && narrow) {
+        ht_title c = title_cfg;
+        c.verb = TR(VERB);
+        ht_title_draw(&c, st_t, best, &title_out);
+    } else if (state == ST_TITLE) {
+        hu_title_draw(st_t, best);
+    }
     if (state == ST_OVER) {
-        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_TITLE));
+        if (w->players == 1 && narrow)
+            ht_retry_line_at(ht_gameover_retry_row(w->w[0].go.out == OUT_CRUSH ? TR(CRUSHED) : TR(NO_AIR)), st_t, RETRY_LOCK,
+                             HTR(BACK_TITLE));
+        else if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_TITLE));
+        else if (narrow) ht_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
         else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
     }
 }
@@ -928,7 +950,7 @@ void draw_frame(const world *W, int state, int st_t, int best, int new_best, int
     int t = (int)rs_frame_count(), sx = hu_shake_x(), sy = hu_shake_y();
     int multi = (state == ST_PLAY || state == ST_DEAD) && W->players > 1;
     if (tall()) rs_screen_fill(!multi);        /* zoomed but for the split screens (their wells need every column) */
-    ui_cols = hn_cols();
+    narrow = ht_narrow();
     vrect v[MAX_PLAYERS];
     int nv = view_layout(multi ? W->players : 1, v);
     int nreg = multi ? (W->players >= 3 ? 4 : W->players) : 1;
@@ -965,7 +987,7 @@ void draw_frame(const world *W, int state, int st_t, int best, int new_best, int
     }
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;
     rs_bg_scroll(RS_BG1, 0, -slide);
-    hn_pause(paused, 13, ui_cols);
+    ht_pause(paused, 13);
     rs_oam_clear();
     /* a tall screen (DESIGN.md "Tall screen"): one gopher digging fills the display's height (zoomed, the sides
      * cropped), its HUD pinned at the screen's top; the title, the panels and the split screens show every column */
@@ -999,19 +1021,23 @@ void draw_frame(const world *W, int state, int st_t, int best, int new_best, int
             air_gauge(L.rx + 1, 5, 6, g, t, 1);
         } else if (state == ST_OVER) {
             if (W->players == 1) {
-                hu_gameover_sprites(1, w->go.depth, 0, best, hu_medal_of(w->go.depth, medals), st_t, slide);
+                if (narrow) ht_gameover_sprites(w->go.depth, best, hu_medal_of(w->go.depth, medals), st_t, slide);
+                else hu_gameover_sprites(1, w->go.depth, 0, best, hu_medal_of(w->go.depth, medals), st_t, slide);
             } else {
-                hn_results_sprites(&rs, st_t, slide, ui_cols);
+                if (narrow) ht_results_sprites(&rs, st_t, slide);
+                else hu_results_sprites(&rs, st_t, slide);
                 for (int i = 0; i < rs.n; i++) {
                     int cx, cy2;
-                    hn_results_icon_pos(&rs, i, ui_cols, &cx, &cy2);
+                    if (narrow) ht_results_icon_pos(&rs, i, &cx, &cy2);
+                    else hu_results_icon_pos(&rs, i, &cx, &cy2);
                     rs_spr(cx - 8, cy2 - 8 + slide, gm_spr[SPR_ICON].tile, 16, 16,
                            rs.order[i] ? hu_player_pal(rs.order[i]) : gm_spr[SPR_ICON].pal, 3, 0);
                 }
             }
         } else {
-            hn_title_sprites(st_t, slot_icon, NULL, TR(VERB), MAX_PLAYERS, 0, ui_cols, 0);
-            rs_spr(RS_SCREEN_W / 2 - 12, (ui_cols < 40 ? 112 : 92) + hu_bob(st_t, 64, READY_BOB), gm_spr[SPR_IDLE + (st_t / 40) % 2].tile, 24, 24,
+            if (narrow) ht_title_sprites(&title_cfg, &title_out, st_t, slot_icon, NULL);
+            else hu_title_sprites(st_t, slot_icon, NULL);
+            rs_spr(RS_SCREEN_W / 2 - 12, (narrow ? 112 : 92) + hu_bob(st_t, 64, READY_BOB), gm_spr[SPR_IDLE + (st_t / 40) % 2].tile, 24, 24,
                    gm_spr[SPR_IDLE].pal, 2, 0);
         }
         s.budget = SPR_BUDGET - rs_oam_next();
