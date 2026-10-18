@@ -118,11 +118,11 @@ on a 1080x2520 phone (3.4x before). The run is the same; the camera pans (`rs_sc
   Line 0 puts the stage's layers and scrolls back, so a 240-line screen is unchanged.
 - **One look**: the title, the game-over panel, the ranking and the pause stay in the zoomed view of the play (the same
   520 lines, the same columns, from TALL_BEHIND px behind the hedgehog's place), laid out in the columns shown with the
-  kit's `house_tall.h` (draw.c, when `ht_narrow()`): the banners and panels narrower (each game-over value under its
-  label), PAUSED centred in the columns. The title: HEDGEHOG over HILLS, BG1's rows 0..11 pinned in the sky
-  (`rs_bg_pin` at screen line 40; the raster shows BG1 above the stage only on its pinned band), the hedgehog under
-  them, then from row 13 the hint (its two sentences on two lines when it does not fit on one), the slots, the prompt,
-  BEST, the join line and the credits (`ht_title_draw`). The frost's flakes fall over the whole height there too.
+  kit's `house_tall.h` only, at its default rows, like every house game (draw.c, when `ht_narrow()`): `ht_banner`,
+  `ht_gameover_*`, `ht_results_*`, `ht_retry_line_at`, `ht_pause`; the title `ht_logo` (HEDGEHOG over HILLS, row 2)
+  and `ht_title_draw` from row 15 (the slots, the prompt, BEST, the join line, the credits). The title's hint has no
+  room there (the run's HUD shows HOLD / RELEASE at the start); the hedgehog (scene, not UI) floats in the sky above
+  the stage. The frost's flakes fall over the whole height on the panels too.
 - **Fill or fit**: only the split play (2-4 hedgehogs) shows every column (`rs_screen_fill(0)`): its views split the
   width (two columns of views from 3 players) and each needs the hills ahead. The split
   screen (split.c) keeps the stage's 240 lines (the layout of the whole height scaled to them; BG2 and BG3 are 32 rows
