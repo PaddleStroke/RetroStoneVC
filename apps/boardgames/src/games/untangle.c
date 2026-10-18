@@ -7,10 +7,10 @@
  * without crossings), or its die tab a puzzle made at random (the variants: the pins round a circle). Stars: the
  * moves against par (untangle.h), a hint caps them (pzkit.h).
  * Drag a pin anywhere on the board: its cords follow, and every cord that crosses another glows red, there and then.
- * When none crosses, they all turn gold. The board takes the room the shell gives (game.fill). The bar: the moves,
- * the crossings left (a small red cross of cords). The shell's tool: the hint (a pin moved where it lowers the
- * crossings most, or set where it sits in a layout without any, sliding there in gold light). Undo takes back one
- * move, all the way to the start.
+ * When none crosses, they all turn gold. The board is the largest square in the room the shell gives (game.fill).
+ * The bar: the moves, the crossings left (a small red cross of cords). The shell's tool: the hint (a pin moved where
+ * it lowers the crossings most, or set where it sits in a layout without any, sliding there in gold light). Undo
+ * takes back one move, all the way to the start.
  * Solved: the cords turn gold and a gold light runs over the pins from the last one moved.
  */
 #include <math.h>
@@ -86,12 +86,12 @@ static void paint_knot(uint8_t *o, int s)
     pzk_ball(o, s, s, 0.85f * S, 0.25f * S, 0.1f * S, BRASS, 1, 0.6f);
 }
 
-/* the field stretched over all the room (game.fill): a place is a part of its width and of its height (stretching
- * the board never makes or undoes a crossing) */
+/* the field: the largest square in the room (game.fill), centred: a place is a part of its width and of its height,
+ * the same scale both ways, so a wheel stays round in portrait and in landscape */
 static void layout(box b)
 {
     last_box = b;
-    int W = (int)floorf(b.w), H = (int)floorf(b.h);
+    int W = (int)floorf(fminf(b.w, b.h)), H = W;
     bw = (float)W;
     bh = (float)H;
     bx = floorf(b.x + (b.w - W) / 2);
