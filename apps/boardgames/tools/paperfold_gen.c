@@ -4,13 +4,17 @@
  * larger patterned sheets, all of it on the largest sheets) and makes many with the rules' maker (pfo_make, from
  * fixed seeds: a sheet of symmetric patterns and symmetric cut-outs, folded at random, the paper left never a sliver;
  * the picture left, its par found by the search). A sheet is kept when its par is in the chapter's range, when it has
- * the chapter's feature, and when it was not met before (turned or mirrored either). The difficulty: the fewest
- * folds, more when there are few shortest ways, a little more for the states the search went through. Each chapter keeps 25 spread over its difficulties (chapter 1 from the very
- * easiest: one fold); of the sheets near each place on the curve the one that looks best is kept (a picture of several
- * colours, mirrored or turned into itself, the board well used); the chapter's last level, its showpiece, the best
- * looking of its hardest few. Deterministic (fixed seeds).
+ * the chapter's feature, and when it was not met before (turned or mirrored either). The difficulty is measured
+ * (measure()): the fewest folds, the share of mistaken folds along the way, the shortest ways, and how many naive
+ * players (folding at random, mostly keeping the picture's squares covered) make the picture. Each chapter keeps 25:
+ * one to three easy ones first (chapter 1 from the very easiest: one fold) that show its feature, then sheets no
+ * naive player folds right, spread from the chapter's floor to its hardest; of the sheets near each place on the
+ * curve the one that looks best is kept (a picture of several colours, mirrored or turned into itself, the board well
+ * used, another size than the level before); the chapter's last level, its showpiece, the best looking of its
+ * hardest few. Deterministic (fixed seeds).
  *   gcc -O2 -Iapps/boardgames/src -o /tmp/pfogen apps/boardgames/tools/paperfold_gen.c -lm && \
  *       /tmp/pfogen > apps/boardgames/src/games/paperfold_levels.h
+ * The levels' difficulty table: the same with -DPFO_TABLE, run with no output file.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #define PFO_GEN
@@ -22,25 +26,33 @@
 #include "games/paperfold_rules.c"
 
 #define PER (PFO_LEVELS / PFO_CHAPTERS)
-#define MAKES 320                               /* sheets kept a chapter, at most */
+#define MAKES 600                               /* sheets kept a chapter, at most */
+
+typedef struct { int par, states, ways; double trap, first, naive, score; } metric;   /* measure() */
 
 typedef struct {
     char sheet[PFO_TEXT], picture[PFO_TEXT];
-    int par;
+    int par, w, h;
     double diff, look;
+    metric m;
 } cand;
 
 /* a chapter: the sheet's size w x h (up to grow more each way), the patterns (-1 any, -2 any but plain), the cuts, the
- * folds made, the colours; lo..hi the folds of the par; need: 1 a patterned front, 2 cut-outs, 3 a patterned back */
-typedef struct { int w, h, grow, front, back, cuts, folds, colours, lo, hi, need; } chapter;
+ * folds made, the colours; lo..hi the folds of the par; need: 1 a patterned front, 2 cut-outs, 3 a patterned back;
+ * intro: its first levels, easy ones that show its feature; naive, floor: the most naive players (measure()) the
+ * others may let win, their least score */
+typedef struct {
+    int w, h, grow, front, back, cuts, folds, colours, lo, hi, need, intro;
+    double naive, floor;
+} chapter;
 
 static const chapter CH[PFO_CHAPTERS] = {
-    {3, 3, 1, 0, 0, 0, 2, 2, 1, 2, 0},          /* plain sheets of two colours, small */
-    {4, 4, 1, -2, 0, 0, 3, 2, 2, 3, 1},         /* a patterned front */
-    {4, 4, 1, -1, 0, 2, 3, 3, 2, 3, 2},         /* cut-outs */
-    {4, 4, 1, -2, -2, 0, 4, 3, 3, 4, 3},        /* both sides patterned */
-    {5, 5, 0, -2, -1, 2, 4, 4, 3, 4, 2},        /* cut-outs in patterned sheets, larger */
-    {5, 5, 1, -2, -2, 2, 6, 4, 4, 6, 3},        /* all of it, the largest */
+    {3, 3, 1, 0, 0, 0, 4, 2, 1, 4, 0, 3, 0.1, 6},        /* plain sheets of two colours, small */
+    {4, 4, 1, -2, 0, 0, 5, 2, 2, 5, 1, 1, 0.08, 8.5},    /* a patterned front */
+    {4, 4, 1, -1, 0, 2, 5, 3, 2, 5, 2, 1, 0.08, 9},      /* cut-outs */
+    {4, 4, 1, -2, -2, 0, 6, 3, 3, 6, 3, 1, 0.06, 10},    /* both sides patterned */
+    {5, 5, 0, -2, -1, 2, 6, 4, 3, 6, 2, 1, 0.05, 10.5},  /* cut-outs in patterned sheets, larger */
+    {5, 5, 1, -2, -2, 2, 8, 4, 4, 8, 3, 0, 0.05, 12.5},  /* all of it, the largest */
 };
 
 static int by_diff(const void *a, const void *b)
@@ -122,6 +134,140 @@ static double look_of(const pfo_map *m)
            (paper < 2 ? 1 : 0);
 }
 
+/* ---- how hard a level is, measured ------------------------------------------------------------------------------
+ * trap: along a shortest way, the share of the possible folds that are mistakes (they do not bring the picture a fold
+ * nearer, or lose it); first: the same for the first fold; naive: the share of 300 naive players who make the picture
+ * within its par and half again (each fold at random, but three times in four one after which the paper still covers
+ * every square of the picture); ways: the shortest ways */
+static int covers(const pfo_map *m, const pfo_state *s)
+{
+    for (int c = 0; c < m->w * m->h; c++)
+        if (m->target[c] != PFO_NONE && s->cell[c] == PFO_NONE) return 0;
+    return 1;
+}
+
+static void measure(const pfo_map *m, metric *mt)
+{
+    pfo_state s = m->start;
+    mt->par = pfo_solve(m, &s, NULL, &mt->states);
+    mt->ways = pfo_ways(m, 1000);
+    int legal = 0, bad = 0, legal0 = 0, bad0 = 0;
+    pfo_state c = s;
+    for (int left = mt->par; left > 0; left--) {
+        int first = -1;
+        pfo_solve(m, &c, &first, NULL);
+        for (int f = 0; f < PFO_MOVES; f++) {
+            pfo_state n;
+            if (!pfo_try(m, &c, f, &n)) continue;
+            int mis = pfo_solve(m, &n, NULL, NULL) != left - 1;
+            legal++;
+            bad += mis;
+            if (left == mt->par) { legal0++; bad0 += mis; }
+        }
+        pfo_try(m, &c, first, &c);
+    }
+    mt->trap = legal ? (double)bad / legal : 0;
+    mt->first = legal0 ? (double)bad0 / legal0 : 0;
+    uint32_t r = pr_seed(77);
+    int wins = 0;
+    for (int t = 0; t < 300; t++) {
+        pfo_state p = s;
+        for (int k = 0; k < mt->par + mt->par / 2 && !pfo_solved(m, &p); k++) {
+            int ok[PFO_MOVES], nok = 0, good[PFO_MOVES], ngood = 0;
+            for (int f = 0; f < PFO_MOVES; f++) {
+                pfo_state n;
+                if (!pfo_try(m, &p, f, &n)) continue;
+                ok[nok++] = f;
+                if (covers(m, &n)) good[ngood++] = f;
+            }
+            if (!nok) break;
+            pfo_try(m, &p, ngood && pr_below(&r, 4) ? good[pr_below(&r, ngood)] : ok[pr_below(&r, nok)], &p);
+        }
+        wins += pfo_solved(m, &p);
+    }
+    mt->naive = wins / 300.0;
+    /* the score: the folds, worth more where the mistakes are many, the shortest ways few and the naive players fail */
+    mt->score = mt->par * (0.6 + mt->trap) * (1.2 - mt->naive) * 2 - 0.3 * log((double)mt->ways);
+}
+
+#ifdef PFO_TABLE                                /* the shipped levels' table: -DPFO_TABLE */
+#include "games/paperfold_levels.h"
+int main(void)
+{
+    (void)CH, (void)by_diff, (void)look_of, (void)met, (void)has;
+    double sum[PFO_CHAPTERS][5] = {{0}};
+    int trivial = 0;
+    printf("lvl par states ways trap first naive score  sheet picture\n");
+    for (int lv = 0; lv < PFO_LEVELS; lv++) {
+        pfo_map m;
+        metric mt;
+        pfo_parse(&m, pfo_levels[lv].sheet, pfo_levels[lv].picture);
+        measure(&m, &mt);
+        printf("%4d %3d %6d %4d %5.2f %5.2f %5.2f %6.2f  %s %s\n", lv + 1, mt.par, mt.states, mt.ways, mt.trap,
+               mt.first, mt.naive, mt.score, pfo_levels[lv].sheet, pfo_levels[lv].picture);
+        int triv = mt.naive > 0.1 || mt.par <= 1;
+        double *s = sum[lv / PER];
+        s[0] += mt.par; s[1] += mt.trap; s[2] += mt.naive; s[3] += mt.score; s[4] += triv;
+        trivial += lv >= 3 && triv;
+    }
+    printf("\nchapter  par  trap naive score trivial\n");
+    for (int c = 0; c < PFO_CHAPTERS; c++)
+        printf("%7d %5.1f %5.2f %5.2f %5.1f %4.0f\n", c + 1, sum[c][0] / PER, sum[c][1] / PER, sum[c][2] / PER,
+               sum[c][3] / PER, sum[c][4]);
+    printf("trivial levels from level 4 (naive > 0.1 or par <= 1): %d\n", trivial);
+    return 0;
+}
+#else
+/* a chapter's levels from its pool (sorted by score): its first `intro` from the easy end (the chapter's new feature
+ * shown plainly), the others spread from `floor` to the hardest over the sheets no naive player folds right, the last
+ * of the hardest few; of the sheets near each place on the curve the best looking, another size than the last
+ * level's when it can */
+static int pick(const cand *pool, int n, const chapter *C, int *chosen)
+{
+    static int hard[MAKES];
+    int nh = 0, used[MAKES] = {0};
+    for (int i = 0; i < n; i++)
+        if (pool[i].m.naive <= C->naive && pool[i].m.score >= C->floor) hard[nh++] = i;
+    fprintf(stderr, "  %d hard sheets\n", nh);
+    if (nh < PER - C->intro + 2) return 0;
+    int lw = 0, lh = 0, last = -1;
+    for (int k = 0; k < C->intro; k++) {
+        int span = n / 5 > C->intro ? n / 5 : C->intro, i = -1;
+        int a = k * span / C->intro, b = (k + 1) * span / C->intro - 1;
+        if (C->lo == 1 && k == 0) b = a + 1;
+        if (a <= last) a = last + 1;
+        if (b < a) b = a;
+        for (int j = a; j <= b && j < n; j++)
+            if (i < 0 || pool[j].look > pool[i].look) i = j;
+        used[i] = 1;
+        last = i;
+        chosen[k] = i;
+        lw = pool[i].w, lh = pool[i].h;
+    }
+    double step = (double)(nh - 1) / (PER - C->intro - 1);
+    last = -1;
+    for (int k = 0; k < PER - C->intro; k++) {
+        int mid = (int)(k * step + 0.5), a = mid - (int)(step / 2), b = mid + (int)(step / 2), i = -1;
+        if (k == PER - C->intro - 1) a = nh - 1 - nh / 25 - 2, b = nh - 1;   /* the showpiece: of the hardest few */
+        if (a <= last) a = last + 1;
+        if (b > nh - 1) b = nh - 1;
+        if (b < a) b = a;
+        double best = -1e9;
+        for (int j = a; j <= b; j++) {
+            const cand *c = &pool[hard[j]];
+            double v = c->look - (c->w == lw && c->h == lh ? 0.3 : 0);
+            if (!used[hard[j]] && (i < 0 || v > best)) { best = v; i = j; }
+        }
+        if (i < 0) i = a;
+        last = i;
+        used[hard[i]] = 1;
+        chosen[C->intro + k] = hard[i];
+        lw = pool[hard[i]].w, lh = pool[hard[i]].h;
+    }
+    return 1;
+}
+
+
 int main(void)
 {
     kept = malloc((size_t)PFO_CHAPTERS * MAKES * 40 * sizeof *kept);
@@ -144,32 +290,22 @@ int main(void)
             if (sp.h > PFO_MAXH) sp.h = PFO_MAXH;
             pfo_map m;
             pfo_make(&m, &sp, pr_next(&r));
-            int states, par = pfo_solve(&m, &m.start, NULL, &states);
+            int par = pfo_solve(&m, &m.start, NULL, NULL);
             if (par < C->lo || par > C->hi || !has(&m, C->need) || met(&m)) continue;
-            int ways = pfo_ways(&m, 1000);
             pfo_text(&m, pool[n].sheet, pool[n].picture);
             pool[n].par = par;
-            pool[n].diff = par + 1.2 / sqrt((double)(ways > 0 ? ways : 1)) + states / 30000.0 + m.w * m.h / 60.0;
+            measure(&m, &pool[n].m);
+            pool[n].diff = pool[n].m.score;
+            pool[n].w = m.w;
+            pool[n].h = m.h;
             pool[n].look = look_of(&m);
             n++;
         }
         if (n < PER) { fprintf(stderr, "chapter %d: only %d sheets\n", ch + 1, n); return 1; }
         qsort(pool, (size_t)n, sizeof *pool, by_diff);
-        int lo = ch == 0 ? 0 : n / 8;
-        double step = (double)(n - 1 - lo) / (PER - 1);
-        for (int k = 0, last = -1; k < PER; k++) {
-            int mid = lo + (int)(k * step + 0.5), a = mid - (int)(step / 2), b = mid + (int)(step / 2), i = -1;
-            if (k == 0 && ch == 0) a = b = 0;
-            if (k == PER - 1) a = n - 1 - n / 25 - 2, b = n - 1;
-            if (a < lo) a = lo;
-            if (a <= last) a = last + 1;
-            if (b > n - 1) b = n - 1;
-            if (b < a) b = a;
-            for (int j = a; j <= b; j++)
-                if (i < 0 || pool[j].look > pool[i].look) i = j;
-            last = i;
-            out[ch * PER + k] = pool[i];
-        }
+        int chosen[PER];
+        if (!pick(pool, n, C, chosen)) { fprintf(stderr, "chapter %d: too few hard sheets\n", ch + 1); return 1; }
+        for (int k = 0; k < PER; k++) out[ch * PER + k] = pool[chosen[k]];
         fprintf(stderr, "chapter %d: %d sheets, folds %d .. %d\n", ch + 1, n, out[ch * PER].par,
                 out[ch * PER + PER - 1].par);
     }
@@ -179,3 +315,4 @@ int main(void)
     printf("};\n");
     return 0;
 }
+#endif
