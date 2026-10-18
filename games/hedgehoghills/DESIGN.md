@@ -116,7 +116,15 @@ on a 1080x2520 phone (3.4x before). The run is the same; the camera pans (`rs_sc
   the panorama's top rows without the cloud on the crest); below, the earth: BG2's map is 64 rows tall there and
   terrain() fills rows 30..63 with the soil (frost included). The frost's flakes and wisps fall over the whole height.
   Line 0 puts the stage's layers and scrolls back, so a 240-line screen is unchanged.
-- **Fill or fit**: the title, the panels and the split screens show every column (`rs_screen_fill(0)`). The split
+- **One look**: the title, the game-over panel, the ranking and the pause stay in the zoomed view of the play (the same
+  520 lines, the same columns, from TALL_BEHIND px behind the hedgehog's place), laid out in the columns shown with the
+  kit's `house_tall.h` (draw.c, when `ht_narrow()`): the banners and panels narrower (each game-over value under its
+  label), PAUSED centred in the columns. The title: HEDGEHOG over HILLS, BG1's rows 0..11 pinned in the sky
+  (`rs_bg_pin` at screen line 40; the raster shows BG1 above the stage only on its pinned band), the hedgehog under
+  them, then from row 13 the hint (its two sentences on two lines when it does not fit on one), the slots, the prompt,
+  BEST, the join line and the credits (`ht_title_draw`). The frost's flakes fall over the whole height there too.
+- **Fill or fit**: only the split play (2-4 hedgehogs) shows every column (`rs_screen_fill(0)`): its views split the
+  width (two columns of views from 3 players) and each needs the hills ahead. The split
   screen (split.c) keeps the stage's 240 lines (the layout of the whole height scaled to them; BG2 and BG3 are 32 rows
   then), the sky above its views and the earth below them (two layer-less views: the raster's colours). (It crashed on
   a tall screen before: the views spanned the whole height.)

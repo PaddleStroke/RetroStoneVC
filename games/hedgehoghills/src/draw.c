@@ -8,6 +8,7 @@
 #include "game.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "house_tall.h"
 #include "game_text.h"
 #include <stdio.h>
 #include <string.h>
@@ -32,6 +33,7 @@ uint16_t draw_hills_entry(int row,int col) {
  * raster's lines past the stage, and the HUD's lines pinned at the screen's top (set by draw_frame before every
  * picture: not saved) */
 static int tall_sx,tall_sy,hud_pinned,tall_cam,tall_b3x,tall_b3y,tall_split;
+static int tall_pin_at,tall_pin_n;     /* BG1's band pinned above the stage: its screen line and its lines (0: none) */
 static rs_color tall_earth[2];
 /* the clouds above the stage (a tall screen): bands of BG3's cloud strip, {stage line, x offset, parallax shift} */
 #define CLOUD_BANDS 2
@@ -42,6 +44,13 @@ static const int cloud_band[CLOUD_BANDS][3]={{-86,150,4},{-42,350,3}};
 #define TALL_UP 150
 #define HUD_LINES 56
 #define TALL_BEHIND 40
+/* the zoomed title (house_tall.h): the logo's two lines (UI rows 0..11) pinned in the sky at screen line TITLE_PIN_AT,
+ * the hedgehog under them (stage y), then from row TITLE_HINT_ROW the hint, the slots, the prompt and the rest */
+#define TITLE_LOGO_ROW 0
+#define TITLE_PIN_ROWS 12
+#define TITLE_PIN_AT 40
+#define TITLE_HERO_Y 26
+#define TITLE_HINT_ROW 13   /* (row 12 free: the accents of its first line) */
 static int tall(void) { return rs_screen_height()>RS_SCREEN_H; }
 static int bg2_rows(void) { return tall()?64:32; }   /* a tall screen: the earth below the stage, rows 30..63 */
 static rs_color tall_scale(rs_color c,int k) {   /* darker by k/256, rounded (soft steps) */
@@ -53,10 +62,11 @@ static rs_color tall_scale(rs_color c,int k) {   /* darker by k/256, rounded (so
  * 240-line screen: the same values, so the same pixels). */
 static void raster_out(int line) {
     int top=rs_screen_top();
-    if(line==top) { for(int l=0;l<3;l++) rs_bg_enable(l,0); rs_bg_enable(RS_BG1,hud_pinned); }
-    if(line==top+HUD_LINES && line<0) rs_bg_enable(RS_BG1,0);
+    if(line==top) for(int l=0;l<3;l++) rs_bg_enable(l,0);
     if(line==RS_SCREEN_H) { rs_bg_enable(RS_BG1,0); rs_bg_enable(RS_BG2,1); rs_bg_enable(RS_BG3,1); }
     if(line<0) {
+        /* BG1 only on its pinned band: the HUD at the screen's top, or the zoomed title's logo in the sky */
+        rs_bg_enable(RS_BG1,line>=top+tall_pin_at && line<top+tall_pin_at+tall_pin_n);
         int k=top<0?-line*64/-top:0;
         rs_pal_set(0,tall_scale(line_col[(line&4)?4:0],256-k));
         /* the clouds drifting in the sky above the stage: BG3's cloud strip (rows 32..34), two bands, slower than the
@@ -251,25 +261,42 @@ static void standing(const world *w,hu_standing *s) {
     int score[4]; for(int p=0;p<w->players;p++) score[p]=w->h[p].score;
     hu_rank(s,w->players,score,score);
 }
-static void screen_text(const world *w,int state,int st_t,int best,int new_best,const hu_standing *rank) {
+/* narrow: a zoomed tall screen's single view (DESIGN.md "Tall screen"): the title and the panels laid out in the
+ * columns shown (house_tall.h; the title's lines below the logo: draw_frame) */
+static void screen_text(const world *w,int state,int st_t,int best,int new_best,const hu_standing *rank,int narrow) {
     int screen=state==ST_DEAD?ST_PLAY:state;
     if(screen!=shown_state||(state==ST_OVER && st_t==RETRY_LOCK)||best!=shown_best) {
         hu_clear();
-        if(state==ST_TITLE) hu_logo("HEDGEHOG HILLS",title_ramps,2,2,0);
+        if(state==ST_TITLE) {
+            if(narrow) {   /* HEDGEHOG over HILLS (as house_tall.h's ht_logo, always on two lines: the 4x glyphs fit;
+                            * " HILLS ": the kit's second word, so its own ramp, centred) */
+                hu_config *c=(hu_config *)hu_cfg();
+                int base=c->logo_tile;
+                c->logo_tile=base+hu_logo("HEDGEHOG",title_ramps,2,TITLE_LOGO_ROW,0);
+                hu_logo(" HILLS ",title_ramps,2,TITLE_LOGO_ROW+6,0);
+                c->logo_tile=base;
+            } else hu_logo("HEDGEHOG HILLS",title_ramps,2,2,0);
+        }
         if(screen==ST_PLAY && w->players>=3) hu_score_tags(w->players,0);
-        if(state==ST_OVER) {
+        if(state==ST_OVER && narrow) {
+            if(w->players==1) { ht_banner(4,HTR(GAME_OVER)); ht_gameover_panel(new_best,NULL,HTR(BACK_TITLE)); }
+            else ht_results_panel(rank,NULL);
+        } else if(state==ST_OVER) {
             if(w->players==1) { hu_banner(4,HTR(GAME_OVER)); hu_gameover_panel(1,new_best,w->h[0].score,0); }
             else hu_results_panel(rank,NULL);
         }
         shown_state=screen; shown_best=best;
     }
-    if(state==ST_TITLE) {
+    if(state==ST_TITLE && !narrow) {
         hu_title_draw(st_t,best);
         /* the hint, centred (a column to the left, as the English always was) */
         int hw=hu_width(TR(HINT_TITLE),0);
         hu_text(hw<38?(38-hw)/2:0,16,TR(HINT_TITLE));
     }
-    if(state==ST_OVER) {
+    if(state==ST_OVER && narrow) {
+        if(w->players==1) ht_retry_line_at(ht_gameover_retry_row(NULL),st_t,RETRY_LOCK,HTR(BACK_TITLE));
+        else ht_retry_line_at(hu_results_retry_row(rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));
+    } else if(state==ST_OVER) {
         if(w->players==1) hu_retry_line(st_t,RETRY_LOCK,HTR(BACK_TITLE));
         else hu_retry_line_at(hu_results_retry_row(rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));
     }
@@ -295,14 +322,20 @@ static void screen_text(const world *w,int state,int st_t,int best,int new_best,
 void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paused) {
     static const int medals[4]=MEDAL_SCORES;
     for(int l=0;l<3;l++) rs_bg_enable(l,1);   /* (a tall screen: the raster hid them past the stage) */
-    /* a tall screen: one hedgehog running fills the display's height, the columns shown from TALL_BEHIND px behind it,
-     * the HUD (BG1's top HUD_LINES) pinned at the screen's top; the title, the panels and the split screens show every
-     * column */
+    /* a tall screen: one view stays zoomed (one look: the play, the title, the panels, the pause), the columns shown
+     * from TALL_BEHIND px behind the hedgehog's place; one hedgehog running: the HUD (BG1's top HUD_LINES) pinned at
+     * the screen's top; the title and the panels laid out in the columns shown (house_tall.h). The split play (2-4
+     * views) shows every column: its views split the width and each needs the hills ahead. */
     int run=state==ST_PLAY || state==ST_DEAD,hud=tall() && run && w->players==1;
-    rs_screen_fill(hud || !tall());
-    if(hud) rs_screen_focus_x(HERO_X-TALL_BEHIND+(rs_screen_visible_x1()-rs_screen_visible_x0())/2);
+    int one=tall() && !(run && w->players>1);
+    rs_screen_fill(one || !tall());
+    if(one) rs_screen_focus_x(HERO_X-TALL_BEHIND+(rs_screen_visible_x1()-rs_screen_visible_x0())/2);
     else rs_screen_focus_x(-1);
-    rs_bg_pin(RS_BG1,0,hud?HUD_LINES:0,0);
+    int narrow=one && ht_narrow();
+    /* the zoomed title: the logo in the sky above the stage (when the sky has room for it) */
+    int pin=narrow && state==ST_TITLE && rs_screen_origin_y()>=TITLE_PIN_AT+TITLE_PIN_ROWS*8;
+    tall_pin_at=pin?TITLE_PIN_AT:0; tall_pin_n=hud?HUD_LINES:pin?TITLE_PIN_ROWS*8:0;
+    rs_bg_pin(RS_BG1,0,tall_pin_n,tall_pin_at);
     hud_pinned=hud;
     /* BG2: 64 rows for one hedgehog on a tall screen (the earth below the stage), the split screens' 32 */
     int rows=tall() && !(run && w->players>1)?64:32;
@@ -334,9 +367,10 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
     tall_sx=-sx; tall_sy=-sy;   /* (for the raster's line 0 on a tall screen) */
     rs_bg_scroll(RS_BG2,-sx,-sy);
     hu_standing rank; standing(w,&rank);
-    screen_text(w,state,st_t,best,new_best,&rank);
+    screen_text(w,state,st_t,best,new_best,&rank,narrow);
     int slide=state==ST_OVER?hu_slide_in(st_t,20,200):0;
     rs_bg_scroll(RS_BG1,-hu_ui_x()&(rs_bg_map_w(RS_BG1)*8-1),-slide); hu_pause(paused,13);   /* the UI centred */
+    if(paused && narrow) { hu_clear_rows(13,2); ht_big(13,hu_str(HS_PAUSED),HU_BIG_FREE); }   /* (in the columns shown) */
     rs_oam_clear();
     if(state==ST_PLAY||state==ST_DEAD) {
         int scores[4]; for(int p=0;p<w->players;p++) scores[p]=w->h[p].score;
@@ -344,7 +378,16 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
                           rs_screen_top()+10,3);   /* (a tall screen: at its top, centred in the columns shown) */
         else hu_score_chips(w->players,scores,0);
     }
-    if(state==ST_OVER) {
+    if(state==ST_OVER && narrow) {
+        if(w->players==1) ht_gameover_sprites(w->h[0].score,best,hu_medal_of(w->h[0].score,medals),st_t,slide);
+        else {
+            ht_results_sprites(&rank,st_t,slide);
+            for(int i=0;i<rank.n;i++) {
+                int cx,cy; ht_results_icon_pos(&rank,i,&cx,&cy);
+                spr(SPR_HERO_ICON,cx-8+hu_ui_x(),cy-8+slide,3,draw_player_pal(rank.order[i]));
+            }
+        }
+    } else if(state==ST_OVER) {
         if(w->players==1) hu_gameover_sprites(1,w->h[0].score,0,best,hu_medal_of(w->h[0].score,medals),st_t,slide);
         else {
             hu_results_sprites(&rank,st_t,slide);
@@ -354,7 +397,38 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
             }
         }
     }
-    if(state==ST_TITLE) {
+    if(state==ST_TITLE && narrow) {
+        /* zoomed: HEDGEHOG over HILLS, the hedgehog under them, the hint, then the slots, the prompt, BEST, the join
+         * line and the credits (house_tall.h) */
+        int pinned=tall_pin_n>0,r=pinned?TITLE_HINT_ROW:18;
+        /* the hint wrapped, a row between its lines; too wide for one line: its two sentences on their own lines */
+        char hint[HT_MAXL][HT_LINE],first[HT_LINE];
+        const char *s=TR(HINT_TITLE),*cut=NULL;
+        /* the stops: the bytes the first line keeps, those the second skips (the ã€‚ is 3 bytes; " / ": dropped) */
+        static const char *const stops[4]={"\xe3\x80\x82",". ",", "," / "};
+        static const int keep[4]={3,1,1,0},skip[4]={3,2,2,3};
+        int k=0;
+        if(hu_width(s,0)>ht_ncols()) for(;k<4;k++) {
+            cut=strstr(s,stops[k]);
+            if(cut && cut[skip[k]]) break;               /* (something after it) */
+            cut=NULL;
+        }
+        int n=0;
+        if(cut && cut-s+keep[k]<HT_LINE) {
+            memcpy(first,s,(size_t)(cut-s+keep[k])); first[cut-s+keep[k]]=0;
+            n=ht_wrap(first,ht_ncols(),hint,HT_MAXL);
+            n+=ht_wrap(cut+skip[k],ht_ncols(),hint+n,HT_MAXL-n);
+        } else n=ht_wrap(s,ht_ncols(),hint,HT_MAXL);
+        for(int i=0;i<n;i++) {
+            if(i) r+=hu_tall(hint[i])?3:2;
+            hu_text(ht_center(hint[i],0),r,hint[i]);
+        }
+        ht_title tc={TR(VERB),MAX_PLAYERS,r+2,0};
+        ht_title_out to;
+        ht_title_draw(&tc,st_t,best,&to);
+        ht_title_sprites(&tc,&to,st_t,slot_icon,NULL);
+        spr(SPR_HERO_IDLE+(st_t/32)%2,ht_mid_x()-16+hu_ui_x(),(pinned?TITLE_HERO_Y:100)+hu_bob(st_t,64,4),2,-1);
+    } else if(state==ST_TITLE) {
         hu_title_sprites(st_t,slot_icon,NULL);
         spr(SPR_HERO_IDLE+(st_t/32)%2,144+hu_ui_x(),91+hu_bob(st_t,64,4),2,-1);   /* centred with the title (widescreen) */
     } else {
@@ -386,12 +460,12 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
         int front=(int)(w->frost/Q16_ONE)-cam_x;
         /* (a tall screen: over its whole height, from its top) */
         int fy0=rs_screen_top(),fh=rs_screen_bottom()-rs_screen_top()-20;
-        if(front>-100) for(int i=0;i<(hud?40:18);i++) {
-            int x=front+38-((w->t*2+i*31)%155),y=hud?fy0+(w->t+i*37)%fh:(w->t+i*37)%220;
+        if(front>-100) for(int i=0;i<(one?40:18);i++) {
+            int x=front+38-((w->t*2+i*31)%155),y=one?fy0+(w->t+i*37)%fh:(w->t+i*37)%220;
             spr(SPR_SNOW,x,y,2,-1);
         }
         if(front>-100) for(int i=0;i<5;i++) {
-            int x=front+22-((w->t*3+i*39)%148),y=hud?fy0+(w->t/3+i*47)%fh:(w->t/3+i*47)%230;
+            int x=front+22-((w->t*3+i*39)%148),y=one?fy0+(w->t/3+i*47)%fh:(w->t/3+i*47)%230;
             spr(SPR_FROST_WISP+(w->t/12+i)%2,x,y,1,-1);
         }
     }
