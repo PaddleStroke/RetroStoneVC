@@ -6,7 +6,7 @@
 #                                   bot, the UI screens (0-3 players joined), save states and their audit, the props'
 #                                   sizes and anchors (lod_test.sh), the bark's furrows on screen (furrow_test.sh),
 #                                   the touch controls (touch_test.sh), the frame cost; then again at each widescreen width of WIDTHS (427 520), and the
-#                                   game across widths (tests/wide_test.sh)
+#                                   game across widths (tests/wide_test.sh) and on tall screens (tests/tall_test.sh)
 #   make nuttybranch-dist           dist/windows/NuttyBranch.exe, dist/libretro/nuttybranch_libretro.so (+ .armhf.so)
 #   make nuttybranch-windows        only the Windows exe
 #   make nuttybranch-armhf          the libretro core for the RetroStone2 (Cortex-A7)
@@ -72,6 +72,7 @@ nuttybranch-check:
 	done
 	RS_WIDTH=520 sh $(NUTTYBRANCH_DIR)/tests/bench_test.sh build/host/nuttybranch_headless
 	sh $(NUTTYBRANCH_DIR)/tests/wide_test.sh build/host/nuttybranch_headless build/host/nuttybranch_test_states build "$(WIDTHS)"
+	sh $(NUTTYBRANCH_DIR)/tests/tall_test.sh build/host/nuttybranch_headless build
 	bash tools/i18n_test.sh build/host/nuttybranch_headless nuttybranch build/nuttybranch-i18n $(if $(WIDESCREEN_nuttybranch),320 $(WIDTHS),320)
 
 nuttybranch-screenshots:

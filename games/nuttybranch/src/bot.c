@@ -117,6 +117,9 @@ static int look(int player, int *fx, int *fy, int *air)
         /* widescreen: it watches the 320 columns of the stage (what a 4:3 screen shows), so it plays the same at
          * every width; the margins only add scenery */
         if (s->x <= -(int)s->w || s->x >= RS_SCREEN_W) continue;
+        /* a tall screen: it watches the stage's 240 lines too, and not what only a tall screen draws (the things
+         * passed, near the camera below the stage; the weather past the stage): the 4:3 screen's sprites */
+        if (draw_oam_tall(i)) continue;
         int f, x, y;
         if (!draw_sprite_id(s, &f, &x, &y)) continue;
         int flip = (s->flags & RS_SPR_HFLIP) != 0;

@@ -214,4 +214,10 @@
 #define FALL_FRAMES   40                   /* the fall animation */
 #define BOT_START     20
 
+/* ---- the tall screen (a phone held upright: DESIGN.md "Tall screen") ------------------------------------------------ */
+#define ZOOM_H        480                  /* rs_screen_zoom: 480 lines, 204 to 222 columns shown on today's phones */
+#define TALL_ABOVE    112                  /* lines above the stage (the canopy, the sky, the HUD); the rest below it:
+                                            * the branch carried on toward the camera, down to the screen's bottom */
+#define TALL_HUD      48                   /* the UI layer's top lines pinned at the screen's top while running */
+
 #endif

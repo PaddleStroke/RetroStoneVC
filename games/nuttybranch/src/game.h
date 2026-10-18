@@ -161,8 +161,13 @@ typedef struct road_line {
     uint8_t ring, haze, wet;
 } road_line;
 #define ROAD_PTS (DRAW_SEGS + 2)
+#define ROAD_EXT (ZOOM_H - RS_SCREEN_H)  /* a tall screen's lines past the stage, above or below (at most) */
 typedef struct road_view {
     road_line ln[RS_SCREEN_H];
+    /* a tall screen: the lines past the stage, ext_top above it (up[0] = stage line -1) and ext_bot below it
+     * (dn[0] = stage line 240); 0 and 0 (the default): the stage's 240 lines only. The stage's lines are the same */
+    int ext_top, ext_bot;
+    road_line up[ROAD_EXT], dn[ROAD_EXT];
     int npts;
     int32_t ps[ROAD_PTS];       /* the projected points of the main branch: s (Q8), z (Q8), screen x / y (Q8 px) */
     int32_t pz[ROAD_PTS], px[ROAD_PTS], py[ROAD_PTS];
@@ -174,8 +179,18 @@ typedef struct road_view {
     int top;                    /* the highest line with branch */
 } road_view;
 void road_project(const world *w, road_view *v);
+/* the line y of the view (stage line; a tall screen's lines past the stage too), NULL outside the lines projected */
+static inline road_line *road_ln(road_view *v, int y)
+{
+    if (y >= 0 && y < RS_SCREEN_H) return &v->ln[y];
+    if (y < 0 && -1 - y < v->ext_top) return &v->up[-1 - y];
+    if (y >= RS_SCREEN_H && y - RS_SCREEN_H < v->ext_bot) return &v->dn[y - RS_SCREEN_H];
+    return 0;
+}
 /* screen position of a point on the branch: s (Q8), angle (Q12 deg), height (Q8), branch (1 = a fork's dead one).
- * Returns 0 when it is out of view (behind the camera, too far); *hidden = behind a crest; scale = px per unit (Q8). */
+ * Returns 0 when it is out of view (behind the camera, too far); *hidden = behind a crest (1), or (2, a tall screen
+ * only) shown on the lines below the stage where the stage's 240 lines would hide it: what a 4:3 screen does not
+ * draw; scale = px per unit (Q8). */
 int  road_point(const world *w, const road_view *v, int32_t s, int32_t ang, int32_t h, int branch,
                 int *sx, int *sy, int *scale, int *hidden);
 int32_t fork_offset(const world *w, int32_t s_q8, int branch);  /* Q8 units: a branch's lateral offset at s */
@@ -199,6 +214,8 @@ void draw_lodcheck_report(void);                    /* tests: --opt lodcheck=1 *
 /* the sprite on screen (OAM) -> which drawing it is (a SPR_* frame of assets.h) and the point it is anchored at: the
  * way a player recognises a thing by its look (the bot); 0 = not one of the world's */
 int draw_sprite_id(const rs_sprite *s, int *frame, int *ax, int *ay);
+/* a tall screen: OAM entry i shows only there (past the stage's 240 lines, or a thing a 4:3 screen does not draw) */
+int draw_oam_tall(int i);
 
 /* ---- sound (main.c) ------------------------------------------------------------------------------------------------ */
 enum { SFX_JUMP, SFX_CRUNCH, SFX_CREAK, SFX_FALL, SFX_TOK, SFX_WIND, SFX_HOOT, SFX_LAND, SFX_WEB,

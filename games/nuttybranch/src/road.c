@@ -75,6 +75,15 @@ void road_project(const world *w, road_view *v)
 {
     memset(v->ln, 0, sizeof v->ln);
     for (int y = 0; y < RS_SCREEN_H; y++) v->ln[y].row = ROW_NONE;
+    /* a tall screen (DESIGN.md "Tall screen"): the lines past the stage too, from ytop to ybot; the stage's lines come
+     * out the same (a segment below the stage only lowers the crest line maxy where it stays below the stage) */
+    if (v->ext_top > ROAD_EXT) v->ext_top = ROAD_EXT;
+    if (v->ext_bot > ROAD_EXT) v->ext_bot = ROAD_EXT;
+    if (v->ext_top < 0) v->ext_top = 0;
+    if (v->ext_bot < 0) v->ext_bot = 0;
+    for (int y = 0; y < v->ext_top; y++) v->up[y] = (road_line){0, 0, 0, 0, ROW_NONE, 0, 0, 0, 0};
+    for (int y = 0; y < v->ext_bot; y++) v->dn[y] = (road_line){0, 0, 0, 0, ROW_NONE, 0, 0, 0, 0};
+    int ytop = -v->ext_top, ybot = RS_SCREEN_H - 1 + v->ext_bot;
     int32_t n0 = seg_floor(w->cam_s >> 8);
     v->nfk = 0;
     for (int i = 0; i < w->ob_count && v->nfk < 4; i++) {
@@ -120,7 +129,7 @@ void road_project(const world *w, road_view *v)
         if (o->kind == OB_RAIN && o->s + o->len >= cs && nr < MAX_SPANS) rains[nr++] = (span){o->s, o->s + o->len, 0};
     }
     /* fill the lines, near to far */
-    int32_t maxy = RS_SCREEN_H * 256;
+    int32_t maxy = (ybot + 1) * 256;
     v->top = RS_SCREEN_H;
     for (int k = 0; k + 1 < np; k++) {
         v->pclip[k] = maxy;
@@ -128,8 +137,8 @@ void road_project(const world *w, road_view *v)
         if (yf >= maxy || yf >= yn) continue;        /* behind a crest, or facing away */
         int32_t lo = yn < maxy ? yn : maxy;
         int y0 = (yf - 128 + 255) >> 8, y1 = ((lo - 128 + 255) >> 8) - 1;
-        if (y0 < 0) y0 = 0;
-        if (y1 > RS_SCREEN_H - 1) y1 = RS_SCREEN_H - 1;
+        if (y0 < ytop) y0 = ytop;
+        if (y1 > ybot) y1 = ybot;
         int64_t izn = ((int64_t)1 << 40) / v->pz[k], izf = ((int64_t)1 << 40) / v->pz[k + 1];
         for (int y = y1; y >= y0; y--) {
             int32_t yc = y * 256 + 128;
@@ -137,7 +146,7 @@ void road_project(const world *w, road_view *v)
             int64_t iz = izn + (izf - izn) * t / 65536;
             int32_t z = (int32_t)(((int64_t)1 << 40) / iz);
             int32_t xc = v->px[k] + (int32_t)((int64_t)(v->px[k + 1] - v->px[k]) * t / 65536);
-            road_line *L = &v->ln[y];
+            road_line *L = road_ln(v, y);
             int32_t s_q8 = w->cam_s + z, s = s_q8 >> 8;
             L->z = z;
             L->s = s;
@@ -189,7 +198,7 @@ void road_project(const world *w, road_view *v)
                 L->tcx = TEX_CX;
                 break;
             }
-            if (L->row != ROW_NONE && y < v->top) v->top = y;
+            if (L->row != ROW_NONE && y < v->top && y >= 0) v->top = y;
         }
         if (yf < maxy) maxy = yf;
     }
@@ -208,11 +217,11 @@ void road_project(const world *w, road_view *v)
         proj(w, v, s_q8, lat, hg - FACE_DEPTH * 256, &px, &pb);
         if (pb <= pt) continue;
         int y0 = (pt + 128) >> 8, y1 = (pb - 128) >> 8;
-        if (y0 < 0) y0 = 0;
-        if (y1 > RS_SCREEN_H - 1) y1 = RS_SCREEN_H - 1;
+        if (y0 < ytop) y0 = ytop;
+        if (y1 > ybot) y1 = ybot;
         int32_t s1 = gaps[i].s1;
         for (int y = y0; y <= y1; y++) {
-            road_line *L = &v->ln[y];
+            road_line *L = road_ln(v, y);
             if (L->row != ROW_NONE) continue;
             int r = (int)((int64_t)(y * 256 + 128 - pt) * FACE_ROWS / (pb - pt));
             L->row = (int16_t)(ROW_FACE + (r < 0 ? 0 : r > FACE_ROWS - 1 ? FACE_ROWS - 1 : r));
@@ -261,6 +270,9 @@ int road_point(const world *w, const road_view *v, int32_t s, int32_t ang, int32
     *sx = (px + 128) >> 8;
     *sy = (py + 128) >> 8;
     *scale = (int)((int64_t)FOCAL * 256 * 256 / z);
+    /* (a tall screen: the crest line of the stage's 240 lines is the same, clamped to the stage's bottom) */
+    int32_t clip240 = v->pclip[k] < RS_SCREEN_H * 256 ? v->pclip[k] : RS_SCREEN_H * 256;
     if (pyb > v->pclip[k] + 2 * 256) *hidden = 1;
+    else if (pyb > clip240 + 2 * 256) *hidden = 2;
     return 1;
 }

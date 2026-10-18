@@ -213,6 +213,43 @@ The game opts in (`max_width` = 560, `WIDESCREEN_nuttybranch = 1`): 320 x 240 is
   frame on the host, the PPU drawing 1.6 times the columns: an A20 estimate of 10.7-15.4 ms of 16.7), wide_test.sh and
   the language test at 320, 427 and 520. Screenshots: title-, play-, gameover- and play-4-players-427/520.png.
 
+## Tall screen (docs/spec.md "Tall screen", the zoomed recipe)
+A phone held upright: `rs_screen_zoom(ZOOM_H)` (480 lines, tuning.h) first in `game_init`. The app scales the 480
+lines to the display's height and crops the sides: 204 columns on a 1080x2520 phone, 222 on a 1080x2340 one, so the
+branch and the squirrel are about 5 times their 4:3 size. The stage's 240 lines sit `TALL_ABOVE` (112) lines down;
+128 lines below it.
+- **The branch down to the screen's bottom**: road.c projects every line of the screen (`road_view.ext_top`,
+  `ext_bot`: the lines past the stage, `road_ln()`), the same projection carried on toward the camera (z from 80
+  units at the stage's last line to 42 at the screen's): more branch near the camera, the bark big. The stage's 240
+  lines come out exactly the same (a segment below the stage only lowers the crest line where it stays below the
+  stage). The raster sets the branch layer on the lines past the stage from their own tables (`raster_out`: no line
+  scroll there, the layer's scroll itself), with the bark palettes per line as on the stage.
+- **The things passed, near the camera**: a 4:3 screen hides a thing once its bark line leaves the stage's bottom
+  (`road_point`'s crest test); on a tall screen it is drawn on down to the screen's bottom (`hidden` = 2: shown only
+  there), the side branches and fungi too, until they pass the camera. The swinging branch's vine goes up to the
+  screen's top, the wind's leaves and the rain cover every line.
+- **The forest above, designed for the height**: the sky is one smooth gradient from the screen's top to the horizon
+  (no dither steps there), the canopy's fringe at the screen's top (behind the HUD) and the forest's two layers
+  stretched between it and the horizon (`bg_row`: 2.4 lines per row): the pines grow tall and reach up into the sky,
+  in every style and season (the same tiles, no VRAM). From the horizon down, the stage's rows.
+- **The HUD at the screen's top**: the UI layer's top 48 lines pinned there (`rs_bg_pin`; 72 with 3-4 players), the
+  score digits at `rs_screen_top()` + 10, the distance under them; 2 players at the quarters of the columns shown, 3-4
+  players two by two, each with its P1..P4 tag.
+- **The same zoomed view on every screen**: the title, the game-over panel, the results and the pause never fill
+  the width. The title has its own layout in the columns shown (`title_tall`: the UI layer scrolled to the screen's
+  top): the logo on two lines (`logo_two_lines` moves the second word's cells under the first), the players' slots,
+  the prompt with its A, BEST, the join line and the credits wrapped to the columns (at ": " and " - " first), the
+  joined squirrels waiting on the branch. The game-over panel and the results are the kit's, in the stage (they fit
+  the columns shown; the 1-player panel moves right when a long label widens it); a GAME OVER too wide for the
+  columns in big letters (Greek) is written small in its banner.
+- **The same game**: the rules never look at the height. The bot reads the stage's 240 lines and the sprites a 4:3
+  screen draws: what only the tall screen draws (past the stage's lines, or hidden on a 4:3 screen) is marked
+  (`draw_oam_tall`) and the stage's frames take the sprite pool as at 240 (the tall screen's own frames get their
+  tiles last, like the widescreen margins'). tests/tall_test.sh compares the whole logs (the bot's every decision,
+  the falls, the game-over frames, distances, scores, the final state's hash) of 1- and 4-player runs, a deep run,
+  three runs from the title and 13 trap scenes at 320x240 and on 1080x2520, 1080x2340 and 720x1440 displays.
+- Landscape and 4:3 are the same pixels as before (checked at 320x240, 427, 520 and 2340x1080).
+
 ## Scenery
 Decorations never touch the rules and come from their own RNG (the course is the same with or without them):
 - **side branches** grow out of both flanks every 160-400 units (leafy and reaching up, long and low, or carrying

@@ -56,6 +56,24 @@ static int wide_extra;                                /* drawing what only a wid
 #define WIDE_EXTRA 16
 static int laid_w;                                    /* the width the UI map was laid out for (widescreen) */
 
+/* A tall screen (rs_screen_zoom: a phone held upright; DESIGN.md "Tall screen"): ZOOM_H lines, the stage TALL_ABOVE
+ * lines down; the branch is projected on every line (road.c: the stage's 240 lines the same), the lines past the stage
+ * drawn by the raster from these tables (scratch: draw_frame fills them before the frame is drawn), by screen line */
+static int tall(void) { return rs_screen_height() > RS_SCREEN_H; }
+static int16_t tl_row[ZOOM_H], tl_a[ZOOM_H], tl_tcx[ZOOM_H], tl_wl[ZOOM_H], tl_wr[ZOOM_H], tl_hofs[ZOOM_H];
+static uint8_t tl_sel[ZOOM_H];
+static rs_color tl_sky[ZOOM_H];
+static int tl_top, tl_shy, tl_bg3x, tl_bg4x, tl_ui0, tl_ui1, tl_hud;
+/* the OAM entries only a tall screen shows (past the stage's lines, or a thing the stage's lines would hide): the bot
+ * does not see them, so it plays as on a 4:3 screen (saved: the bot reads it before the next frame is drawn) */
+static uint8_t oam_tall[RS_OAM_MAX];
+static int obj_extra;                                 /* drawing a thing of the wider or taller screen only (scratch) */
+int draw_oam_tall(int i) { return i >= 0 && i < RS_OAM_MAX && oam_tall[i]; }
+/* the columns shown (stage x): every column but on a zoomed tall screen */
+static int vis_l(void) { return tall() ? rs_screen_visible_x0() - rs_screen_origin_x() : rs_screen_left(); }
+static int vis_r(void) { return tall() ? rs_screen_visible_x1() - rs_screen_origin_x() : rs_screen_right(); }
+static int bg_row(int y);
+
 int draw_band(void) { return band_now; }
 
 /* widescreen (DESIGN.md "Widescreen"): the 320-px stage is centred (rs_screen_origin in draw_init) and the screen
@@ -65,9 +83,60 @@ int draw_band(void) { return band_now; }
 static int ui_map_w(void) { return rs_screen_width() > 512 ? 128 : 64; }
 static int fdiv8(int v) { return v >= 0 ? v / 8 : -((7 - v) / 8); }      /* floor(v / 8) */
 
+/* a tall screen's lines past the stage: the sky (or the depths), the backdrop's layers, the branch near the camera */
+static void raster_out(int y)
+{
+    int i = y - tl_top;
+    if (i < 0 || i >= ZOOM_H) return;
+    rs_pal_set(0, tl_sky[i]);
+    rs_bg_enable(RS_BG1, y >= tl_ui0 && y < tl_ui1);
+    if (y < 0) {
+        /* above the stage: the forest's layers carried up, stretched (bg_row; DESIGN.md "Tall screen") */
+        rs_bg_enable(RS_BG3, 1);
+        rs_bg_enable(RS_BG4, 1);
+        rs_bg_scroll(RS_BG3, tl_bg3x, bg_row(y) - y);
+        rs_bg_scroll(RS_BG4, tl_bg4x, bg_row(y) - y);
+    } else {
+        /* below it the branch covers the columns shown; the forest's last rows, should a curve show them */
+        rs_bg_scroll(RS_BG3, tl_bg3x, 255 - y);
+        rs_bg_scroll(RS_BG4, tl_bg4x, 255 - y);
+    }
+    if (tl_row[i] >= TEX_H) {
+        rs_bg_enable(RS_BG2, 0);
+        return;
+    }
+    rs_bg_enable(RS_BG2, 1);
+    rs_affine m = {tl_a[i], 0, 0, 0, tl_tcx[i], tl_row[i], 0};
+    rs_bg_affine(RS_BG2, &m);
+    rs_bg_scroll(RS_BG2, tl_hofs[i], -tl_shy);        /* (no line scroll past the stage: the scroll itself) */
+    rs_window(0, tl_wl[i], tl_wr[i]);
+    if (tl_sel[i] != last_sel) {
+        last_sel = tl_sel[i];
+        rs_pal_load(RS_PAL_BG(PAL_BARK), bark_pal[last_sel], 16);
+    }
+}
+
 static void raster(int y, void *user)
 {
     (void)user;
+    if (y < 0 || y >= RS_SCREEN_H) {
+        raster_out(y);
+        return;
+    }
+    if (tall()) {                                     /* the stage's lines: its own settings back */
+        rs_bg_enable(RS_BG1, y >= tl_ui0 && y < tl_ui1);
+        if (y == 0) {
+            rs_bg_scroll(RS_BG2, 0, -tl_shy);
+            rs_bg_scroll(RS_BG3, tl_bg3x, 0);
+            rs_bg_scroll(RS_BG4, tl_bg4x, 0);
+            rs_bg_enable(RS_BG3, 1);
+            rs_bg_enable(RS_BG4, 1);
+        }
+        if (y <= HORIZON_Y) {                         /* the forest stretched up to the horizon (bg_row) */
+            rs_bg_scroll(RS_BG3, tl_bg3x, bg_row(y) - y);
+            rs_bg_scroll(RS_BG4, tl_bg4x, bg_row(y) - y);
+        }
+    }
     rs_pal_set(0, sky[y]);
     if (draw_line_row[y] >= TEX_H) {
         rs_bg_enable(RS_BG2, 0);
@@ -114,6 +183,10 @@ static void forest_maps(void)
 void draw_init(void)
 {
     rs_screen_origin(rs_screen_margin());   /* widescreen: the 320-px stage centred, the scenery wider */
+    if (tall()) {                           /* a tall screen: TALL_ABOVE lines above the stage (fewer if shorter) */
+        int extra = rs_screen_height() - RS_SCREEN_H;
+        rs_screen_origin_v(extra * TALL_ABOVE / (ZOOM_H - RS_SCREEN_H));
+    }
     laid_w = rs_screen_width();
     hu_config hc = hu_defaults();       /* BG1 at VRAM 0, the kit at 0 on palette 0, the logo at 320 on palette 5 */
     hc.obj_tile = KIT_OBJ_TILE;
@@ -201,6 +274,29 @@ static void band_palettes(int32_t metres)
         }
         sky[y] = c;
     }
+    if (!tall()) return;
+    /* a tall screen: the sky from the screen's top to the horizon, one smooth gradient (the forest's layers are
+     * stretched over the same lines: bg_row); below the stage the misty depths go on (the stage's last colour) */
+    int top = rs_screen_top();
+    for (int i = 0; i < rs_screen_height() && i < ZOOM_H; i++) {
+        int y = top + i;
+        if (y >= HORIZON_Y && y < RS_SCREEN_H) continue;
+        rs_color c = y < HORIZON_Y ? mix(key[0], key[1], i * 256 / (HORIZON_Y - top)) : sky[RS_SCREEN_H - 1];
+        if (y >= 0) sky[y] = c;
+        else tl_sky[i] = c;
+    }
+}
+
+/* a tall screen: the forest's row shown on stage line y above the horizon. Its top rows (the canopy's fringe) at the
+ * screen's top as they are, the rest down to the horizon stretched over the lines between (the trees grow taller: the
+ * camera sees more of them, looking up); from the horizon down, the stage's rows */
+#define TALL_FRINGE 16
+static int bg_row(int y)
+{
+    int s = y - tl_top, sh = HORIZON_Y - tl_top;
+    if (y >= HORIZON_Y || sh <= HORIZON_Y) return y;
+    if (s < TALL_FRINGE) return s;
+    return TALL_FRINGE + (s - TALL_FRINGE) * (HORIZON_Y - TALL_FRINGE) / (sh - TALL_FRINGE);
 }
 
 /* ---- the sprite pool ----------------------------------------------------------------------------------------------- */
@@ -308,13 +404,13 @@ static void marg_resolve(void)
     marg_nrec = 0;
 }
 
-/* a piece of frame d anchored at (sx, sy) (mirrored when hflip) shows in the columns [x0, x1) */
-static int shows(const gm_sprite_def *d, int sx, int sy, int hflip, int x0, int x1)
+/* a piece of frame d anchored at (sx, sy) (mirrored when hflip) shows in the columns [x0, x1), lines [y0, y1) */
+static int shows(const gm_sprite_def *d, int sx, int sy, int hflip, int x0, int x1, int y0, int y1)
 {
     for (int i = 0; i < d->npieces; i++) {
         const gm_piece *p = &gm_pieces[d->piece + i];
         int x = hflip ? sx - p->dx - p->w : sx + p->dx, y = sy + p->dy;
-        if (x > x0 - (int)p->w && x < x1 && y > -(int)p->h && y < RS_SCREEN_H) return 1;
+        if (x > x0 - (int)p->w && x < x1 && y > y0 - (int)p->h && y < y1) return 1;
     }
     return 0;
 }
@@ -327,8 +423,9 @@ static int spr_at4(int f, int sx, int sy, int prio, int pal, int hflip, int sx4)
 {
     const gm_sprite_def *d = &gm_spr[f];
     int sl = rs_screen_left(), sr = rs_screen_right(), base, later = 0;
-    if (!wide_extra && shows(d, sx4, sy, hflip, 0, RS_SCREEN_W)) base = pool_get(f);
-    else if ((sl < 0 || sr > RS_SCREEN_W) && shows(d, sx, sy, hflip, sl, sr)) {
+    int st = rs_screen_top(), sb = rs_screen_bottom(), tl = tall();    /* (a tall screen: its lines past the stage) */
+    if (!wide_extra && shows(d, sx4, sy, hflip, 0, RS_SCREEN_W, 0, RS_SCREEN_H)) base = pool_get(f);
+    else if ((sl < 0 || sr > RS_SCREEN_W || tl) && shows(d, sx, sy, hflip, sl, sr, st, sb)) {
         later = !d->resident;
         if (later && marg_nrec >= MARG_RECS) return 0;
         base = later ? 0 : d->tile;
@@ -338,9 +435,10 @@ static int spr_at4(int f, int sx, int sy, int prio, int pal, int hflip, int sx4)
     for (int i = 0; i < d->npieces; i++) {
         const gm_piece *p = &gm_pieces[d->piece + i];
         int x = hflip ? sx - p->dx - p->w : sx + p->dx, y = sy + p->dy;
-        if (x <= sl - (int)p->w || x >= sr || y <= -(int)p->h || y >= RS_SCREEN_H) continue;
+        if (x <= sl - (int)p->w || x >= sr || y <= st - (int)p->h || y >= sb) continue;
         int k = rs_spr(x, y, base + p->toff, p->w, p->h, pal >= 0 ? pal : d->pal, prio,
                        (hflip ? RS_SPR_HFLIP : 0) | (later ? RS_SPR_HIDE : 0));
+        if (k >= 0 && tl) oam_tall[k] = (uint8_t)(wide_extra || y <= -(int)p->h || y >= RS_SCREEN_H);
         if (k >= 0) {
             if (first < 0) first = k;
             last = k;
@@ -400,8 +498,10 @@ static int32_t undrop(int32_t ang)
 static int lc_on = -1, lc_objects, lc_steps, lc_jumps, lc_back, lc_far, lc_anchors, lc_off, lc_kept;
 static int on_branch(int *sx, int sy)
 {
-    if (sy < 0 || sy >= RS_SCREEN_H) return 1;
-    const road_line *L = &RV.ln[sy];
+    /* (a tall screen's own things: on their lines past the stage too) */
+    if ((sy < 0 || sy >= RS_SCREEN_H) && !(wide_extra && tall())) return 1;
+    const road_line *L = road_ln(&RV, sy);
+    if (!L) return 1;
     if (L->row >= TEX_H || L->tcx == FACE_CX || L->a <= 0) return 0;        /* no bark on its line: not drawn */
     if (L->row >= ROW_FORK) return 1;
     int hw = BRANCH_R * 256 * 17 / 16 / L->a;
@@ -409,6 +509,23 @@ static int on_branch(int *sx, int sy)
     if (x != *sx) lc_kept++;                          /* (tests: counted) */
     *sx = x;
     return 1;
+}
+
+/* road_point's hidden: 1 behind a crest; 2 (a tall screen) on the lines below the stage where the stage's own lines
+ * would hide it: drawn as a tall screen's own thing (wide_extra: not the 4:3 screen's sprites, the bot does not see
+ * it). Returns 1 when it is not drawn */
+static int unseen(int hid)
+{
+    wide_extra = obj_extra || (hid == 2 && tall());
+    return hid == 1 || (hid == 2 && !tall());
+}
+
+/* line y shows bark (a tall screen's own things: its lines past the stage too) */
+static int bark_line(int y)
+{
+    if ((y < 0 || y >= RS_SCREEN_H) && !(wide_extra && tall())) return 0;
+    const road_line *L = road_ln(&RV, y);
+    return L && L->row < TEX_H && L->tcx != FACE_CX;
 }
 
 static int decor_lod(int lod) { return lod < 1 ? 0 : lod - 1; }   /* the scenery starts at the 2nd size */
@@ -491,7 +608,7 @@ static void draw_obj(const world *w, const obj *o)
     int32_t ang = o->ang, h = 0;
     switch (o->kind) {
     case OB_ACORN: case OB_HAZEL: case OB_WALNUT: {
-        if (o->taken || !road_point(w, &RV, o->s * 256, ang, 0, 0, &sx, &sy, &sc, &hid) || hid) return;
+        if (o->taken || !road_point(w, &RV, o->s * 256, ang, 0, 0, &sx, &sy, &sc, &hid) || unseen(hid)) return;
         if ((l = lod_of(sc)) > 5) return;
         if (!on_branch(&sx, sy)) return;
         lod_note(o, l, 0, sc, sx, sy, 1);
@@ -501,13 +618,13 @@ static void draw_obj(const world *w, const obj *o)
         return;
     }
     case OB_TWIG:                                    /* a branch out of one flank (its frames: per kind) */
-        if (!road_point(w, &RV, o->s * 256, 0, 0, 0, &sx, &sy, &sc, &hid) || hid) return;
+        if (!road_point(w, &RV, o->s * 256, 0, 0, 0, &sx, &sy, &sc, &hid) || unseen(hid)) return;
         if (!on_branch(&sx, sy)) return;
         lod_note(o, l = decor_lod(lod_of(sc)) + 1, 1, sc, sx, sy, 1);
         spr_at(SPR_LIMB + (int)o->len * (LODS - 1) + l - 1, sx, sy, 2, -1, o->side < 0);
         return;
     case OB_KNOTHOLE: {
-        if (!road_point(w, &RV, o->s * 256 + KNOTHOLE_LEN * 128, ang, 0, 0, &sx, &sy, &sc, &hid) || hid) return;
+        if (!road_point(w, &RV, o->s * 256 + KNOTHOLE_LEN * 128, ang, 0, 0, &sx, &sy, &sc, &hid) || unseen(hid)) return;
         int peek = ((w->t + o->s) / 50) % 4 == 0;     /* now and then a mouse peeks out */
         if (!on_branch(&sx, sy)) return;
         lod_note(o, l = lod_of(sc), 0, sc, sx, sy, 1);
@@ -515,7 +632,7 @@ static void draw_obj(const world *w, const obj *o)
         return;
     }
     case OB_KNOT: case OB_WEB: case OB_SNOW: {
-        if (!road_point(w, &RV, o->s * 256, ang, 0, 0, &sx, &sy, &sc, &hid) || hid) return;
+        if (!road_point(w, &RV, o->s * 256, ang, 0, 0, &sx, &sy, &sc, &hid) || unseen(hid)) return;
         if (!on_branch(&sx, sy)) return;
         lod_note(o, lod_of(sc), 0, sc, sx, sy, 1);
         int id = o->kind == OB_KNOT ? SPR_KNOT : o->kind == OB_WEB ? SPR_WEB : SPR_SNOW;
@@ -524,14 +641,14 @@ static void draw_obj(const world *w, const obj *o)
     }
     case OB_SAP:
         for (int32_t s = o->s + 14; s < o->s + o->len; s += 28) {
-            if (!road_point(w, &RV, s * 256, ang, 0, 0, &sx, &sy, &sc, &hid) || hid) continue;
+            if (!road_point(w, &RV, s * 256, ang, 0, 0, &sx, &sy, &sc, &hid) || unseen(hid)) continue;
             if (!on_branch(&sx, sy)) continue;
             spr_at(tilted(SPR_SAP, ang, lod_of(sc)), sx, sy, 2, -1, ang < 0);
         }
         return;
     case OB_CATER: case OB_SNAKE: {
         int on = o->kind == OB_CATER ? cater_ang(w, o, &ang) : snake_ang(w, o, &ang);
-        if (!on || !road_point(w, &RV, o->s * 256, ang, 0, 0, &sx, &sy, &sc, &hid) || hid) return;
+        if (!on || !road_point(w, &RV, o->s * 256, ang, 0, 0, &sx, &sy, &sc, &hid) || unseen(hid)) return;
         if (!on_branch(&sx, sy)) return;
         lod_note(o, lod_of(sc), 0, sc, sx, sy, 1);
         int base = o->kind == OB_CATER ? SPR_CATER : SPR_SNAKE;
@@ -542,7 +659,7 @@ static void draw_obj(const world *w, const obj *o)
     }
     case OB_CONE: {
         if (!cone_h(w, o, &h)) return;
-        if (!road_point(w, &RV, o->s * 256, ang, 0, 0, &sx, &sy, &sc, &hid) || hid) return;
+        if (!road_point(w, &RV, o->s * 256, ang, 0, 0, &sx, &sy, &sc, &hid) || unseen(hid)) return;
         if (!on_branch(&sx, sy)) return;
         lod_note(o, l = lod_of(sc), 0, sc, sx, sy, 1);
         if (h > 0) spr_at(SPR_SHADOW + l, sx, sy, 2, -1, 0);
@@ -557,17 +674,17 @@ static void draw_obj(const world *w, const obj *o)
             lod_note(o, lod_of(sc), 0, sc, sx, sy, 0);
             spr_at(SPR_OWL + lod_of(sc) + ((w->t / 6) % 2 ? LODS : 0), sx, sy, 2, -1, 0);
         }
-        if (road_point(w, &RV, o->s * 256, ang, 0, 0, &bx, &by, &bs, &bh) && !bh)
+        if (road_point(w, &RV, o->s * 256, ang, 0, 0, &bx, &by, &bs, &bh) && !unseen(bh))
             spr_at(SPR_BIGSHADOW + lod_of(bs), bx, by, 2, -1, 0);     /* its shadow sweeps over the bark */
         return;
     }
     case OB_PECKER: {
         int open = hole_open(w, o);
-        if (open > 0 && road_point(w, &RV, (o->s + HOLE_LEN / 2) * 256, ang, 0, 0, &sx, &sy, &sc, &hid) && !hid) {
+        if (open > 0 && road_point(w, &RV, (o->s + HOLE_LEN / 2) * 256, ang, 0, 0, &sx, &sy, &sc, &hid) && !unseen(hid)) {
             l = lod_of(sc) + (open < 128 ? 2 : open < 256 ? 1 : 0);
             if (l < LODS) spr_at(tilted(SPR_HOLE, ang, l), sx, sy, 2, -1, ang < 0);
         }
-        if (road_point(w, &RV, o->s * 256, o->side * ANG(68), undrop(ANG(68)), 0, &sx, &sy, &sc, &hid) && !hid) {
+        if (road_point(w, &RV, o->s * 256, o->side * ANG(68), undrop(ANG(68)), 0, &sx, &sy, &sc, &hid) && !unseen(hid)) {
             if (on_branch(&sx, sy)) {
                 lod_note(o, lod_of(sc), 0, sc, sx, sy, 2);
                 int peck = o->t0 >= 0 && w->t - o->t0 < HOLE_OPEN + 72 && (w->t - o->t0) % 24 < 6;
@@ -577,7 +694,7 @@ static void draw_obj(const world *w, const obj *o)
         return;
     }
     case OB_FORK:                                     /* the dead branch's broken end */
-        if (road_point(w, &RV, (o->s + o->len) * 256, 0, 0, 1, &sx, &sy, &sc, &hid) && !hid) {
+        if (road_point(w, &RV, (o->s + o->len) * 256, 0, 0, 1, &sx, &sy, &sc, &hid) && !unseen(hid)) {
             lod_note(o, lod_of(sc), 0, sc, sx, sy, 0);
             spr_at(SPR_BROKEN + lod_of(sc), sx, sy, 2, -1, 0);
         }
@@ -594,7 +711,14 @@ static void draw_obj(const world *w, const obj *o)
         /* it hangs from the canopy, out of sight above: its vine from the pivot up past the top of the screen, as
          * thick as the swinging stem at that size */
         int vl = lod_of(sc), vf = SPR_VINE + (vl <= 3 ? 0 : vl <= 8 ? 2 : 4), hung = 1;
-        for (int y = sy - 16; y > -16; y -= 16) hung &= spr_at(vf + ((y >> 4) & 1), sx, y, 2, -1, 0);
+        int y = sy - 16;
+        for (; y > -16; y -= 16) hung &= spr_at(vf + ((y >> 4) & 1), sx, y, 2, -1, 0);
+        if (tall()) {                                 /* a tall screen: on up to its top (its own sprites) */
+            int was = wide_extra;
+            wide_extra = 1;
+            for (; y > rs_screen_top() - 16; y -= 16) spr_at(vf + ((y >> 4) & 1), sx, y, 2, -1, 0);
+            wide_extra = was;
+        }
         hang_note(sy, hung);
         return;
     }
@@ -611,7 +735,7 @@ static void draw_obj(const world *w, const obj *o)
     }
     case OB_CROW: {
         int32_t cs;
-        if (!crow_at(w, o, &cs, &h) || !road_point(w, &RV, cs * 256, ang, h, 0, &sx, &sy, &sc, &hid) || hid) return;
+        if (!crow_at(w, o, &cs, &h) || !road_point(w, &RV, cs * 256, ang, h, 0, &sx, &sy, &sc, &hid) || unseen(hid)) return;
         int state = o->t1 >= 0 ? 2 : o->t0 >= 0 && (w->t / 10) % 2 ? 1 : 0;
         spr_at(SPR_CROW + state * LODS + lod_of(sc), sx, sy, 2, -1, 0);
         return;
@@ -624,13 +748,13 @@ static void draw_obj(const world *w, const obj *o)
              * up into the margins: it is drawn on until it has gone out at the real edge (the 4:3 screen lets it go
              * there: drawn for the wider screen only, wide_extra) */
             int below = kind != DC_MUSH && sy >= RS_SCREEN_H && rs_screen_width() > RS_SCREEN_W;
-            if (hid && !below) return;
+            if (unseen(hid) && !below) return;
             if (kind == DC_MUSH) {
                 if (!on_branch(&sx, sy)) return;
                 lod_note(o, decor_lod(lod_of(sc)) + 1, 1, sc, sx, sy, 2);
                 spr_at(SPR_MUSH + decor_lod(lod_of(sc)), sx, sy, 2, -1, o->side < 0);
             } else {
-                if (!below && (sy < 0 || sy >= RS_SCREEN_H || RV.ln[sy].row >= TEX_H || RV.ln[sy].tcx == FACE_CX))
+                if (!below && !bark_line(sy))
                     return;                                       /* only out of the branch drawn */
                 l = limb_lod(lod_of(sc));
                 if (!on_branch(&sx, sy)) return;
@@ -654,7 +778,7 @@ static void draw_obj(const world *w, const obj *o)
 static void draw_drop(const world *w, const drop *d)
 {
     int sx, sy, sc, hid;
-    if (!road_point(w, &RV, d->s * 256, d->ang, 0, 0, &sx, &sy, &sc, &hid) || hid) return;
+    if (!road_point(w, &RV, d->s * 256, d->ang, 0, 0, &sx, &sy, &sc, &hid) || unseen(hid)) return;
     int l = lod_of(sc);
     if (d->t < DROP_FALL) {
         int r = DROP_FALL - d->t;
@@ -782,6 +906,24 @@ static void weather(const world *w)
                 spr_at(SPR_RAIN + (k + age / 4) % 2, x, y, 2, -1, 0);
             }
         }
+        if (!tall() || o->t0 < 0 || (o->kind != OB_WIND && o->kind != OB_RAIN)) continue;
+        /* a tall screen: the same weather over its lines past the stage, from its top (its own sprites) */
+        int above = -rs_screen_top(), ext = rs_screen_height() - RS_SCREEN_H, age = w->t - o->t0, was = wide_extra;
+        wide_extra = 1;
+        if (o->kind == OB_WIND && lead <= o->s + o->len + 64)
+            for (int k = 0, n = 10 * ext / 170; k < n; k++) {
+                int x = sl + (age * (5 + k % 3) + k * 47) % (sw + 80) - 40, e = (k * 53 + 11) % ext;
+                if (o->side < 0) x = RS_SCREEN_W - x;
+                spr_at(SPR_LEAF + ((age / 5 + k) % 2), x, (e < above ? e - above : RS_SCREEN_H + e - above) +
+                       ((age + k * 9) / 6) % 5, 2, -1, 0);
+            }
+        if (o->kind == OB_RAIN && lead <= o->s + o->len)
+            for (int k = 0, n = 18 * sw / 336 * ext / 256 + 1; k < n; k++) {
+                int x = sl + (k * 71 + age * 3) % (sw + 16) - 8, e = (k * 41 + age * 9) % (ext + 16);
+                spr_at(SPR_RAIN + (k + age / 4) % 2, x, e < above + 16 ? e - above - 16 : RS_SCREEN_H + e - above - 16,
+                       2, -1, 0);
+            }
+        wide_extra = was;
     }
 }
 static void slot_icon(int p, int cx, int cy, int t, void *user)
@@ -816,35 +958,209 @@ static void ui_text(int col, int row, const char *s)
     for (int i = 0; i < n; i++) rs_bg_put(RS_BG1, (col + i) & (mw - 1), row, e[i]);
 }
 
+/* ---- a tall screen's HUD, title and panels: inside the columns shown (DESIGN.md "Tall screen") --------------------- */
+static int vis_c0(void) { return (vis_l() + 7) / 8; }    /* the UI columns shown in full: vis_c0() .. vis_c1() - 1 */
+static int vis_c1(void) { return vis_r() / 8; }
+
+/* the score chips at the screen's top (UI coordinates = screen pixels there: the HUD's lines are pinned): 1 player
+ * centred, 2 at the quarters of the columns shown, 3-4 two by two, a P1..P4 tag left of each */
+static hu_chip tall_chip(int players, int p)
+{
+    hu_chip c = {RS_SCREEN_W / 2, 10, 0, -1, -1};
+    int l = vis_l(), wd = vis_r() - vis_l();
+    if (players == 2) c.x = l + wd / 4 + (p ? wd / 2 : 0);
+    if (players >= 3) {
+        c.x = l + wd / 4 + (p & 1 ? wd / 2 : 0) + 8;
+        c.y = p >= 2 ? 42 : 6;
+        c.tag_x = (c.x - 44) / 8;
+        c.tag_y = (c.y + 4) / 8;
+    }
+    return c;
+}
+
+/* text centred in the columns shown, wrapped at the last space that fits (a " - " or ": " break loses its dash),
+ * lines `step` rows apart (accents and CJK take the row above). Returns the row after it; *col: the first line's
+ * column, *width its width (may be NULL) */
+static int tall_text(int row, const char *s, int step, int *col, int *width)
+{
+    char buf[192];
+    snprintf(buf, sizeof buf, "%s", s);
+    int c0 = vis_c0(), cols = vis_c1() - c0;
+    char *p = buf;
+    for (int line = 0; *p && line < 4; line++) {
+        char *rest = p + strlen(p), *pref = NULL;
+        if (hu_width(p, 0) > cols)
+            for (char *q = p + 1; *q; q++) {
+                if (*q != ' ') continue;
+                *q = 0;
+                int fits = hu_width(p, 0) <= cols;
+                *q = ' ';
+                if (!fits) break;
+                rest = q;
+                if (q[-1] == ':' || (q[1] == '-' && q[2] == ' ')) pref = q;     /* "P2 / P3:" | "A - B" */
+            }
+        if (pref) rest = pref;
+        char keep = *rest;
+        *rest = 0;
+        size_t n = strlen(p);
+        while (n > 0 && (p[n - 1] == ' ' || p[n - 1] == '-')) p[--n] = 0;    /* "A - B": no dangling dash */
+        int wd = hu_width(p, 0), x = c0 + (cols - wd) / 2;
+        hu_text(x, row, p);
+        if (line == 0 && col) *col = x;
+        if (line == 0 && width) *width = wd;
+        *rest = keep;
+        p = rest;
+        while (*p == ' ' || (*p == '-' && p[1] == ' ')) p++;
+        row += step;
+    }
+    return row;
+}
+
+/* the logo on two lines: hu_logo draws the words on one line, wider than the columns shown; the second word's cells go
+ * under the first (rows ty + 1 .. ty + 5: the letters, their outline and shadow), both centred */
+static void logo_two_lines(int ty)
+{
+    const char *t = GAME_LOGO, *sp = strchr(t, ' ');
+    int len = (int)strlen(t), sc = len * 22 - 2 <= 304 ? 4 : 3, adv = 5 * sc + 2, x0 = (320 - (len * adv - 2)) / 2;
+    if (!sp || len * adv - 2 <= vis_r() - vis_l() - 8) return;
+    int k = (int)(sp - t);
+    int px[2][2] = {{x0 - 1, x0 + (k - 1) * adv + 5 * sc + 3}, {x0 + (k + 1) * adv - 1, x0 + (len - 1) * adv + 5 * sc + 3}};
+    uint16_t cell[2][5][40], blank = rs_bg_get(RS_BG1, 0, ty);
+    int c0[2], nc[2];
+    for (int wd = 0; wd < 2; wd++) {
+        c0[wd] = px[wd][0] / 8;
+        nc[wd] = px[wd][1] / 8 - c0[wd] + 1;
+        for (int r = 0; r < 5; r++)
+            for (int c = 0; c < nc[wd]; c++) cell[wd][r][c] = rs_bg_get(RS_BG1, c0[wd] + c, ty + 1 + r);
+    }
+    for (int r = 0; r < 11; r++)
+        for (int c = 0; c < 40; c++) rs_bg_put(RS_BG1, c, ty + r, blank);
+    for (int wd = 0; wd < 2; wd++) {
+        int shift = (2 * RS_SCREEN_W / 2 - px[wd][0] - px[wd][1] + 8) / 16;     /* whole cells: centred on 160 */
+        for (int r = 0; r < 5; r++)
+            for (int c = 0; c < nc[wd]; c++) rs_bg_put(RS_BG1, c0[wd] + shift + c, ty + 1 + wd * 5 + r, cell[wd][r][c]);
+    }
+}
+
+/* the title on a tall screen, every frame (its rows from the screen's top: the UI layer scrolled there): the logo
+ * (screen_text), the players' slots, the prompt with its A, BEST, the join line, the credits; the kit's lobby */
+enum { TT_SLOTS = 13, TT_TAGS = 15, TT_PROMPT = 18, TT_BEST = 20, TT_JOIN = 22, TT_COPY = 28 };
+static int tt_glyph_x;                                /* the prompt's A (scratch: set before the sprites each frame) */
+static int tt_slot_x(int p) { return RS_SCREEN_W / 2 - 66 + 44 * p; }
+static void title_tall(int t, int best)
+{
+    char s[192], who[64];
+    int n = hu_players(), col = 0, wd = 0;
+    hu_clear_rows(TT_SLOTS - 1, 30 - TT_SLOTS + 1);
+    for (int p = 0; p < n; p++) {
+        rs_strf(s, sizeof s, hu_str(HS_PLAYER_TAG), p + 1);
+        hu_text(tt_slot_x(p) / 8 - 1, TT_TAGS, s);
+    }
+    rs_strf(s, sizeof s, hu_str(HS_PRESS_TO), TR(VERB));
+    int c0 = vis_c0(), cols = vis_c1() - c0;
+    wd = hu_width(s, 0);
+    col = c0 + (cols - wd + 3) / 2;                   /* the A glyph (2 columns and a gap) left of it */
+    if (hu_blink(t)) hu_text(col, TT_PROMPT, s);
+    tt_glyph_x = col * 8 - 20;
+    if (best > 0) {
+        rs_strf(s, sizeof s, hu_str(HS_BEST_N), best);
+        tall_text(TT_BEST, s, 2, NULL, NULL);
+    }
+    if (n < MAX_PLAYERS) {
+        who[0] = 0;
+        for (int p = n; p < MAX_PLAYERS; p++) {
+            size_t k = strlen(who);
+            if (p > n) k += (size_t)snprintf(who + k, sizeof who - k, " / ");
+            if (k < sizeof who) rs_strf(who + k, sizeof who - k, hu_str(HS_PLAYER_TAG), p + 1);
+        }
+        rs_strf(s, sizeof s, hu_str(n > 1 ? HS_JOIN_LEAVE : HS_JOIN), who);
+    } else {
+        rs_strf(s, sizeof s, hu_strn(HS_FULL, n), n);
+    }
+    tall_text(TT_JOIN, s, 2, NULL, NULL);
+    tall_text(TT_COPY, "(C) 2026 8BCRAFT - RETROSTONE VC", 1, NULL, NULL);
+}
+
+static void title_tall_sprites(int t)
+{
+    int top = rs_screen_top();
+    hu_glyph(HU_BTN_A, tt_glyph_x, top + TT_PROMPT * 8 - 4, (t / 30) % 2, 3);
+    for (int p = 0; p < hu_players(); p++) {          /* the joined players pop in (the kit's way) */
+        int cx = tt_slot_x(p), cy = top + TT_SLOTS * 8 + 4, a = hu_player_age(p);
+        if (p > 0 && a < 24) {
+            hu_sparkle(cx + 8, cy - 14, (a / 6) & 1, 3);
+            hu_sparkle(cx - 14, cy - 2, (a / 6 + 1) & 1, 3);
+        }
+        slot_icon(p, cx, cy + (p > 0 && a < 16 ? 12 - hu_ease_back(a, 16, 12) : 0), t, NULL);
+    }
+}
+
+/* a banner too wide for the columns shown in the house's big letters: the same panel with the small ones */
+static void tall_banner(int y, const char *title)
+{
+    int cols = vis_c1() - vis_c0();
+    if (!tall() || hu_width(title, 1) + 2 <= cols - 2) {
+        hu_banner(y, title);
+        return;
+    }
+    int wd = hu_width(title, 0) + 4, acc = hu_tall(title);
+    if (wd < 20) wd = 20;
+    hu_panel((40 - wd) / 2, y - acc, wd, 4 + acc);
+    hu_box_text(20 - hu_width(title, 0) / 2, y + 2, title);
+}
+
+/* the game-over panel (1 player): the best line (into s) and how much the longest label widens the panel leftwards */
+static int over_grow(int best, int new_best, char *s, size_t n)
+{
+    if (new_best) snprintf(s, n, "%s", HTR(NEW_BEST_EXCL));
+    else rs_strf(s, n, TR(OVER_BEST_M), best);
+    const char *lab[4] = {TR(OVER_METRES), s, TR(OVER_NUTS), HTR(MEDAL)};
+    int l = 0;
+    for (int i = 0; i < 4; i++)
+        if (hu_width(lab[i], 0) > l) l = hu_width(lab[i], 0);
+    return l > 10 ? (l - 10 < 10 ? l - 10 : 10) : 0;
+}
+
+/* a tall screen: the columns the panel (10 - d .. 30) moves right to stay in the columns shown (0 elsewhere) */
+static int over_shift(int d)
+{
+    if (!tall() || 10 - d >= vis_c0()) return 0;
+    int sh = vis_c0() - (10 - d), room = vis_c1() - 30;
+    return sh < room ? sh : room > 0 ? room : 0;
+}
+
 static void screen_text(const world *w, int state, int st_t, int best, int new_best, const hu_standing *rs)
 {
     int screen = state == ST_DEAD ? ST_PLAY : state;
     if (screen != shown_state || (state == ST_OVER && st_t == RETRY_LOCK) || best != shown_best) {
         hu_clear();
-        if (state == ST_TITLE) hu_logo(GAME_LOGO, title_ramps, 2, 2, 0);
-        if (screen == ST_PLAY && w->players >= 3) hu_score_tags(w->players, 0);
+        if (state == ST_TITLE) hu_logo(GAME_LOGO, title_ramps, 2, tall() ? 0 : 2, 0);
+        if (state == ST_TITLE && tall()) logo_two_lines(0);
+        if (screen == ST_PLAY && w->players >= 3 && !tall()) hu_score_tags(w->players, 0);
+        if (screen == ST_PLAY && w->players >= 3 && tall())
+            for (int p = 0; p < w->players; p++) {          /* (a tall screen: the tags by its chips) */
+                char s[12];
+                hu_chip c = tall_chip(w->players, p);
+                rs_strf(s, sizeof s, hu_str(HS_PLAYER_TAG), p + 1);
+                hu_text(c.tag_x, c.tag_y, s);
+            }
         if (state == ST_OVER) {
             if (w->players == 1) {
                 /* the house game-over panel (hu_gameover_panel's layout) with our labels: METRES, the best under it,
                  * NUTS, MEDAL from column 12, the values (sprites) from column 22; longer labels widen it leftwards.
                  * A best line with accents or CJK (drawn in the row above) needs that row free: METRES goes up a
-                 * row and the panel starts a row higher. */
+                 * row and the panel starts a row higher. A tall screen: moved right into the columns shown. */
                 char s[64];
-                hu_banner(4, HTR(GAME_OVER));
-                if (new_best) snprintf(s, sizeof s, "%s", HTR(NEW_BEST_EXCL));
-                else rs_strf(s, sizeof s, TR(OVER_BEST_M), best);
+                tall_banner(4, HTR(GAME_OVER));
+                int d = over_grow(best, new_best, s, sizeof s), sh = over_shift(d);
                 const char *lab[4] = {TR(OVER_METRES), s, TR(OVER_NUTS), HTR(MEDAL)};
-                int l = 0;
-                for (int i = 0; i < 4; i++)
-                    if (hu_width(lab[i], 0) > l) l = hu_width(lab[i], 0);
-                int d = l > 10 ? (l - 10 < 10 ? l - 10 : 10) : 0;
-                int tall = 0;
-                for (const char *c = s; *c; c++) tall |= (unsigned char)*c >= 128;
-                hu_panel(10 - d, 9 - tall, 20 + d, 12 + tall);
-                hu_box_text(12 - d, 11 - tall, lab[0]);
-                hu_box_text(12 - d, 12, lab[1]);                     /* under METRES */
-                hu_box_text(12 - d, 14, lab[2]);
-                hu_box_text(12 - d, 17, lab[3]);
+                int acc = 0;
+                for (const char *c = s; *c; c++) acc |= (unsigned char)*c >= 128;
+                hu_panel(10 - d + sh, 9 - acc, 20 + d, 12 + acc);
+                hu_box_text(12 - d + sh, 11 - acc, lab[0]);
+                hu_box_text(12 - d + sh, 12, lab[1]);                /* under METRES */
+                hu_box_text(12 - d + sh, 14, lab[2]);
+                hu_box_text(12 - d + sh, 17, lab[3]);
             } else {
                 hu_results_panel(rs, NULL);
             }
@@ -852,13 +1168,14 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         shown_state = screen;
         shown_best = best;
     }
-    if (state == ST_TITLE) hu_title_draw(st_t, best);
+    if (state == ST_TITLE && tall()) title_tall(st_t, best);
+    else if (state == ST_TITLE) hu_title_draw(st_t, best);
     if (screen == ST_PLAY) {
         /* the distance under the scores */
         char s[64];
         for (int pass = 0; pass < 2; pass++)
             for (int p = 0; p < w->players; p++) {
-                hu_chip c = hu_score_chip(w->players, p, 0);
+                hu_chip c = tall() ? tall_chip(w->players, p) : hu_score_chip(w->players, p, 0);
                 rs_strf(s, sizeof s, TR(HUD_METRES), (int)w->q[p].dist_m);
                 int row = c.y < 120 ? c.y / 8 + 3 : c.y / 8 - 2;
                 int sw = hu_width(s, 0);
@@ -880,6 +1197,8 @@ void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, i
     static const int medals[4] = MEDAL_METRES;
     int sx = hu_shake_x(), sy = hu_shake_y();
     pool_now++;
+    RV.ext_top = tall() ? -rs_screen_top() : 0;         /* a tall screen: the branch on its every line */
+    RV.ext_bot = tall() ? rs_screen_bottom() - RS_SCREEN_H : 0;
     road_project(w, &RV);
     band_palettes((w->lead_s >> 8) / UNITS_PER_M);
     /* the per-line registers of the branch layer (the HDMA tables) and the backdrop's parallax */
@@ -907,6 +1226,29 @@ void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, i
         bg2_dx[y] = (int16_t)(L->tcx - L->xc - sx);
         bark_sel[y] = (uint8_t)((L->wet * HAZE_LEVELS + L->haze) * 4 + L->ring);
     }
+    if (tall()) {
+        /* a tall screen: the same registers for its lines past the stage (the raster sets them: raster_out) */
+        tl_top = rs_screen_top();
+        tl_shy = sy;
+        tl_bg3x = canopy & 255;
+        tl_bg4x = forest & 255;
+        for (int i = 0; i < rs_screen_height() && i < ZOOM_H; i++) {
+            const road_line *L = road_ln(&RV, tl_top + i);
+            if (!L || (tl_top + i >= 0 && tl_top + i < RS_SCREEN_H)) continue;
+            tl_row[i] = L->row < TEX_H && L->a > 0 ? L->row : ROW_NONE;
+            tl_a[i] = L->a;
+            tl_tcx[i] = L->tcx;
+            int span = L->tcx == FACE_CX ? BRANCH_R * 16
+                     : L->row < ROW_FORK ? BRANCH_R * 17
+                     : L->row < ROW_GRAIN ? (FORK_STEP * ((L->row - ROW_FORK) / 8 + 1) / 2 + BRANCH_R + 2) * 16
+                     : (BRANCH_R + 2) * 16;
+            int hw = L->a > 0 ? span * 16 / L->a + 2 : 0;
+            tl_wl[i] = (int16_t)(L->xc + sx - hw);
+            tl_wr[i] = (int16_t)(L->xc + sx + hw);
+            tl_hofs[i] = (int16_t)(L->tcx - L->xc - sx);
+            tl_sel[i] = (uint8_t)((L->wet * HAZE_LEVELS + L->haze) * 4 + L->ring);
+        }
+    }
     rs_bg_scroll(RS_BG2, 0, -sy);
     rs_bg_scroll(RS_BG3, canopy & 255, 0);              /* the near forest at half the curves' drift ... */
     rs_bg_scroll(RS_BG4, forest & 255, 0);              /* ... the far one at a quarter */
@@ -915,27 +1257,45 @@ void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, i
     screen_text(w, state, st_t, best_m, new_best, &rs);
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;
     rs_bg_scroll(RS_BG1, 0, -slide);
+    if (tall()) {
+        /* a tall screen (DESIGN.md "Tall screen"): running, the HUD's lines pinned at the screen's top; the title's
+         * 30 rows from the screen's top (its own layout: title_tall); the panels where the kit puts them (the stage) */
+        int run = state == ST_PLAY || state == ST_DEAD;
+        tl_hud = run ? (w->players >= 3 ? TALL_HUD + 24 : TALL_HUD) : 0;
+        rs_bg_pin(RS_BG1, 0, tl_hud, 0);
+        tl_ui0 = run || state == ST_TITLE ? tl_top : 0;
+        tl_ui1 = state == ST_TITLE ? tl_top + RS_SCREEN_H : RS_SCREEN_H + slide;
+        if (state == ST_TITLE) rs_bg_scroll(RS_BG1, 0, -tl_top);
+    }
     hu_pause(paused, 13);
 
     rs_oam_clear();
+    memset(oam_tall, 0, sizeof oam_tall);
     marg_nrec = 0;
     /* front to back: the UI, the big leaves sweeping past, then the world near to far */
     if (state == ST_PLAY || state == ST_DEAD) {
         int score[MAX_PLAYERS];
         for (int p = 0; p < w->players; p++) score[p] = w->q[p].score;
-        hu_score_chips(w->players, score, 0);
+        if (!tall()) hu_score_chips(w->players, score, 0);
+        else
+            for (int p = 0; p < w->players; p++) {          /* the chips in the columns shown, at the screen's top */
+                hu_chip c = tall_chip(w->players, p);
+                hu_number_at(score[p], c.x, tl_top + c.y, c.align, 3);
+            }
     }
     if (state == ST_OVER) {
         if (w->players == 1) {
             /* the distance, the nuts, the medal (hu_gameover_sprites' layout, with the nuts on the second line) */
             int medal = hu_medal_of(w->q[0].dist_m, medals);
-            hu_number(w->q[0].dist_m, 25 * 8, 11 * 8 - 4 + slide, 3);
-            hu_number(w->q[0].score, 25 * 8, 14 * 8 - 4 + slide, 3);
+            char s[64];
+            int sh = over_shift(over_grow(best_m, new_best, s, sizeof s)) * 8;    /* (a tall screen) */
+            hu_number(w->q[0].dist_m, 25 * 8 + sh, 11 * 8 - 4 + slide, 3);
+            hu_number(w->q[0].score, 25 * 8 + sh, 14 * 8 - 4 + slide, 3);
             if (medal) {
-                hu_medal(medal, 22 * 8 - 4, 16 * 8 - 4 + slide, 3);
-                if ((st_t / 20) % 3 == 0) hu_sparkle(22 * 8 + 12, 16 * 8 - 4 + slide, (st_t / 10) % 2, 3);
+                hu_medal(medal, 22 * 8 - 4 + sh, 16 * 8 - 4 + slide, 3);
+                if ((st_t / 20) % 3 == 0) hu_sparkle(22 * 8 + 12 + sh, 16 * 8 - 4 + slide, (st_t / 10) % 2, 3);
             } else {
-                hu_box_text(22, 17, "-");
+                hu_box_text(22 + sh / 8, 17, "-");
             }
         } else {
             hu_results_sprites(&rs, st_t, slide);
@@ -946,7 +1306,8 @@ void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, i
             }
         }
     }
-    if (state == ST_TITLE) {
+    if (state == ST_TITLE && tall()) title_tall_sprites(st_t);   /* (the squirrels wait on the branch: the list) */
+    else if (state == ST_TITLE) {
         hu_title_sprites(st_t, slot_icon, NULL);
         /* the squirrel bobs under the logo, its tail swaying */
         int bob = hu_bob(st_t, 64, 4);
@@ -971,7 +1332,7 @@ void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, i
     int16_t extra[WIDE_EXTRA];
     int nx = 0, wide = rs_screen_width() > RS_SCREEN_W;
     int n = 0;
-    if (state != ST_TITLE)
+    if (state != ST_TITLE || tall())
         for (int p = 0; p < w->players && n < DRAW_MAX; p++)
             list[n++] = (drawable){w->q[p].s - w->cam_s - 1, DK_SQ, (int16_t)p};
     for (int k = 0; k < DROPS && n < DRAW_MAX; k++)
@@ -990,13 +1351,14 @@ void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, i
         if (o->kind == OB_DECOR && z < 60 * 256) {
             /* (widescreen: a side branch passing the camera, drawn on in the margins, after the 4:3 screen's list) */
             if (wide && (o->len <= DC_SIDE2 || o->len == DC_HIVE) && nx < WIDE_EXTRA) extra[nx++] = (int16_t)i;
+            else if (tall() && nx < WIDE_EXTRA) extra[nx++] = (int16_t)i;     /* (a tall screen: on its lines below) */
             continue;
         }
         if (o->kind == OB_DECOR && o->len <= DC_SIDE2 && z > 1200 * 256) continue;   /* the far end stays clear */
         /* a side branch passing the camera drops a big leaf sweeping past the edge of the screen */
         if (o->kind == OB_DECOR && o->len <= DC_SIDE2 && z < 150 * 256 && z >= 150 * 256 - w->speed &&
             ((o->s * 7) & 3) != 0)
-            parts_spawn(o->side > 0 ? rs_screen_right() - 20 : rs_screen_left() + 20, 20 + (o->s & 63), PK_FGLEAF,
+            parts_spawn(o->side > 0 ? vis_r() - 20 : vis_l() + 20, 20 + (o->s & 63), PK_FGLEAF,
                         o->side * 6, 5, 34, o->side > 0 ? 300 : 20);   /* (widescreen: at the real edge) */
         list[n++] = (drawable){z, DK_OBJ, (int16_t)i};
     }
@@ -1012,10 +1374,10 @@ void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, i
         if (list[i].kind == DK_SQ) draw_squirrel(w, list[i].idx, st_t);
         else if (list[i].kind == DK_DROP) draw_drop(w, &w->drops[list[i].idx]);
         else {
-            wide_extra = list[i].kind == DK_WIDE;
+            obj_extra = wide_extra = list[i].kind == DK_WIDE;
             draw_obj(w, ob_get(w, list[i].idx));
-            wide_extra = 0;
         }
+        obj_extra = wide_extra = 0;                    /* (unseen() may have set it: a tall screen's own) */
     }
     marg_resolve();                                    /* (widescreen) the margins' sprites get their tiles */
 }
@@ -1027,6 +1389,7 @@ void draw_frame(const world *w, int state, int st_t, int best_m, int new_best, i
  * width by itself: the branch, the props and the forest are drawn in stage coordinates every frame. */
 void draw_relayout(void)
 {
+    if (tall()) shown_state = -1;                  /* a tall screen: its own title layout (the height is not saved) */
     if (laid_w == rs_screen_width()) return;      /* a state of this width: nothing to do (it saves the same bytes) */
     laid_w = rs_screen_width();
     if (rs_bg_map_w(RS_BG1) != ui_map_w()) rs_bg_setup(RS_BG1, ui_map_w(), 32, VR_BG1);
@@ -1040,6 +1403,7 @@ void draw_state(void)
     S(draw_line_x); S(draw_line_a); S(draw_line_row); S(draw_line_tcx); S(line_wl); S(line_wr); S(bg2_dx); S(bg_style); S(sky); S(bark_sel);
     S(bark_pal); S(shown_state); S(shown_best); S(band_now); S(parts);
     S(pool_slot); S(pool_stamp); S(pool_used); S(pool_now); S(marg_slot); S(marg_stamp); S(marg_used); S(laid_w);
+    S(oam_tall);
     RS_STATE_RASTER(raster);
 }
 #undef S
