@@ -1098,10 +1098,14 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
 /* ---- save states (main.c) ----
  * A state saved at another width brings the maps of that width (64 or 128 tiles): set them up for this one (the sky,
  * the field drawn again from the world, the UI drawn again on the next frame: its text, the photo, PAUSED). The game
- * is the same at every width. Same width: nothing to do. */
+ * is the same at every width. Same width: nothing to do. A state of another height (the phone turned: house_tall.h
+ * ht_shape_reset, the UI layer's window gone): the same, and BG4 off as draw_init leaves it. */
 void draw_state_loaded(void)
 {
-    if (rs_bg_map_w(RS_BG3) == map_w() && rs_bg_map_h(RS_BG3) == map_h() && rs_bg_map_w(RS_BG1) == ui_w()) return;
+    int shape = ht_shape_reset();
+    if (shape) rs_bg_enable(RS_BG4, 0);
+    if (!shape && rs_bg_map_w(RS_BG3) == map_w() && rs_bg_map_h(RS_BG3) == map_h() && rs_bg_map_w(RS_BG1) == ui_w())
+        return;
     maps_setup();
     shown_state = -1;                             /* screen_text clears the UI layer and draws it again */
     hud_line = -1;
