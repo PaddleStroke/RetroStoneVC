@@ -269,6 +269,7 @@ static int pond_span_ex(int y, int e, int *x0, int *x1)
 
 static int clampi(int v, int lo, int hi) { return v < lo ? lo : v > hi ? hi : v; }
 
+static int ui_pin;                      /* the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels) */
 static void raster(int line, void *user)
 {
     (void)user;
@@ -279,7 +280,7 @@ static void raster(int line, void *user)
          * by themselves), the rim's end colours carried on, the rays swaying on (one view: the layer's scroll; the
          * line-scroll table is the stage's), no UI layer but the HUD's band pinned at the top (rs_bg_pin) */
         int top = rs_screen_top() + HUD_PIN_Y;
-        rs_bg_enable(RS_BG1, hud_lines && line >= top && line < top + hud_lines);
+        rs_bg_enable(RS_BG1, ui_pin ? ht_pin_line(ui_pin, line) : hud_lines && line >= top && line < top + hud_lines);
         rs_pal_set(0, rim_col[line < 0 ? 0 : RS_SCREEN_H - 1]);
         rs_bg_scroll(RS_BG2, ray_t / 3 + hu_bob(((line * 3 + ray_t) % 240 + 240) % 240, 240, 3), 0);
     } else if (line == 0) {
@@ -289,6 +290,7 @@ static void raster(int line, void *user)
     } else {
         rs_pal_set(0, rim_col[line]);
     }
+    if (ui_pin && line >= 0 && line < RS_SCREEN_H) rs_bg_enable(RS_BG1, ht_pin_line(ui_pin, line));
     if (!L->floor_on) {
         rs_window(0, 0, 0);
         rs_window(1, 0, 0);                     /* deep water behind the pause band */
@@ -793,6 +795,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     rs_screen_fill(!multi);
     hud_lines = tall() && solo ? HUD_LINES : 0;
     rs_bg_pin(RS_BG1, 0, hud_lines, HUD_PIN_Y);
+    ui_pin = !ht_narrow() ? HT_PIN_OFF : state == ST_TITLE ? HT_PIN_TITLE : state == ST_OVER ? HT_PIN_PANEL : HT_PIN_OFF;
+    if (ui_pin) ht_pin(ui_pin);                 /* the title and the panels at the same place on every game's screen */
     if (hud_lines) {
         vs[0] = v[0];
         view_shown(&vs[0]);
@@ -874,7 +878,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
                 hu_title_sprites(st_t, slot_icon, NULL);
             }
             sview k = {rs_screen_left(), 0, rs_screen_width(), RS_SCREEN_H, 0, 0, 65536, 12};
-            int fy = ht_narrow() ? 122 : 112;      /* (zoomed: under the logo on its two lines) */
+            int fy = ht_narrow() ? (title_out.gap_y0 + title_out.gap_y1) / 2 : 112;   /* (zoomed: under the slots) */
             draw_fish_at(&k, RS_SCREEN_W / 2 + 6, fy + hu_bob(st_t, 64, 4), 19, 8, 0, (st_t / 10) & 1, 2);
         }
         s.budget = SPR_BUDGET_1 + extra - rs_oam_next();
