@@ -1,0 +1,11 @@
+Yin-yang
+# O objetivo
+Põe uma pedra, de marfim ou de ébano, em cada casa da grelha.
+- Todas as pedras de marfim formam um só grupo, ligadas pelos lados, e assim também todas as de ébano.
+- Nenhum quadrado de 2 × 2 tem quatro pedras da mesma cor.
+- As pedras mostradas no início ficam onde estão.
+Cada grelha tem uma única solução, encontrada só pelo raciocínio.
+# O fim do jogo
+A grelha está resolvida quando cada casa tem a sua pedra: uma onda de luz dourada percorre-a.
+# Níveis e estrelas
+Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é uma pedra errada que tiras com Anular.

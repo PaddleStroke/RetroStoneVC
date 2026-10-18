@@ -1,0 +1,11 @@
+Yin-Yang
+# Das Ziel
+Lege in jedes Feld des Gitters einen Stein, aus Elfenbein oder Ebenholz.
+- Alle Elfenbeinsteine hängen als eine Gruppe zusammen, über die Seiten, und ebenso alle Ebenholzsteine.
+- Kein Quadrat aus 2 × 2 Feldern hat vier Steine einer Farbe.
+- Die Steine, die zu Beginn liegen, bleiben, wo sie sind.
+Jedes Rätsel hat genau eine Lösung, die man allein durch Überlegen findet.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn jedes Feld seinen Stein hat: Eine Welle aus goldenem Licht läuft über das Gitter.
+# Level und Sterne
+Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist ein falscher Stein, den du mit Rückgängig zurücknimmst.

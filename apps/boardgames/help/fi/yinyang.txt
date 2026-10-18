@@ -1,0 +1,11 @@
+Jin ja jang
+# Tavoite
+Laita jokaiseen ruudukon ruutuun kivi, norsunluinen tai eebenpuinen.
+- Kaikki norsunluukivet ovat yhtenä ryhmänä sivujen kautta, samoin kaikki eebenkivet.
+- Missään 2 × 2 -neliössä ei ole neljää samanväristä kiveä.
+- Alussa näkyvät kivet pysyvät paikoillaan.
+Jokaisessa tehtävässä on täsmälleen yksi ratkaisu, joka löytyy pelkällä päättelyllä.
+# Pelin loppu
+Tehtävä on ratkaistu, kun jokaisessa ruudussa on oikea kivi: kultaisen valon aalto kulkee ruudukon yli.
+# Tasot ja tähdet
+Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä kivi, jonka perut Kumoa-painikkeella.

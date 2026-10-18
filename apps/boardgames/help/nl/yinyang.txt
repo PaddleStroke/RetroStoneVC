@@ -1,0 +1,11 @@
+Yin-yang
+# Het doel
+Leg in elk vakje van het rooster een steen, van ivoor of van ebbenhout.
+- Alle ivoren stenen vormen één groep, verbonden via de zijden, en zo ook alle ebbenhouten stenen.
+- Geen vierkant van 2 × 2 heeft vier stenen van één kleur.
+- De stenen die er vanaf het begin liggen, blijven liggen.
+Elke puzzel heeft precies één oplossing, te vinden door alleen te redeneren.
+# Het einde van het spel
+De puzzel is opgelost als elk vakje zijn steen heeft: een golf van gouden licht loopt over het rooster.
+# Levels en sterren
+Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is een verkeerde steen die je met Ongedaan maken terugneemt.

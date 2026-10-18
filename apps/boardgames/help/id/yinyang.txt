@@ -1,0 +1,11 @@
+Yin-Yang
+# Tujuan
+Letakkan sebuah batu, gading atau eboni, di setiap kotak kisi.
+- Semua batu gading menyatu dalam satu kelompok lewat sisi-sisinya, begitu pula semua batu eboni.
+- Tidak ada persegi 2 × 2 yang berisi empat batu berwarna sama.
+- Batu yang terlihat sejak awal tetap di tempatnya.
+Setiap teka-teki punya tepat satu jawaban yang ditemukan hanya dengan bernalar.
+# Akhir permainan
+Teka-teki selesai jika setiap kotak berisi batunya: gelombang cahaya emas melintasi kisi.
+# Level dan bintang
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah batu salah yang kamu batalkan dengan Urungkan.

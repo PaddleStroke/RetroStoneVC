@@ -1,0 +1,11 @@
+Yin og yang
+# Målet
+Legg en stein, elfenben eller ibenholt, i hver rute i rutenettet.
+- Alle elfenbenssteinene henger sammen i én gruppe langs sidene, og det samme gjør alle ibenholtsteinene.
+- Ingen kvadrat på 2 × 2 har fire steiner i samme farge.
+- Steinene som vises fra start, blir liggende.
+Hver oppgave har nøyaktig én løsning, som finnes ved ren logikk.
+# Slutten på spillet
+Oppgaven er løst når hver rute har sin stein: en bølge av gyllent lys går over rutenettet.
+# Nivåer og stjerner
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en feil stein som du tar tilbake med Angre.

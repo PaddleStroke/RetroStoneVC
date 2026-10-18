@@ -1,0 +1,11 @@
+Yin-Yang
+# Amaç
+Izgaranın her karesine fildişi ya da abanoz bir taş koy.
+- Bütün fildişi taşlar kenarlardan birleşen tek bir grup oluşturur; bütün abanoz taşlar da öyle.
+- Hiçbir 2 × 2 karede aynı renkten dört taş bulunmaz.
+- Başta görünen taşlar yerinde kalır.
+Her bulmacanın tek bir çözümü vardır ve yalnızca akıl yürüterek bulunur.
+# Oyunun sonu
+Her karede doğru taş olunca bulmaca çözülür: ızgaranın üzerinden altın rengi bir ışık dalgası geçer.
+# Seviyeler ve yıldızlar
+İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, Geri al ile kaldırdığın yanlış bir taştır.

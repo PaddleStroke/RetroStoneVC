@@ -1,0 +1,11 @@
+Jin-jang
+# Cíl hry
+Polož do každého políčka mřížky kámen, slonovinový, nebo ebenový.
+- Všechny slonovinové kameny tvoří jednu skupinu spojenou stranami, a stejně tak všechny ebenové.
+- Žádný čtverec 2 × 2 nemá čtyři kameny jedné barvy.
+- Kameny ukázané na začátku zůstávají na místě.
+Každý hlavolam má právě jedno řešení, které najdeš jen úvahou.
+# Konec hry
+Hlavolam je vyřešen, když je v každém políčku jeho kámen: mřížkou proběhne vlna zlatého světla.
+# Úrovně a hvězdy
+Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatný kámen, který vezmeš zpět tlačítkem Vrátit.

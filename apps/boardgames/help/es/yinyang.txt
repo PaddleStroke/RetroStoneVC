@@ -1,0 +1,11 @@
+Yin-yang
+# El objetivo
+Pon una piedra, de marfil o de ébano, en cada casilla del tablero.
+- Todas las piedras de marfil forman un solo grupo, unidas por los lados, y lo mismo todas las de ébano.
+- Ningún cuadrado de 2 × 2 tiene cuatro piedras del mismo color.
+- Las piedras que se ven al principio se quedan donde están.
+Cada tablero tiene una sola solución, que se encuentra solo razonando.
+# El final de la partida
+El tablero está resuelto cuando cada casilla tiene su piedra: una ola de luz dorada lo recorre.
+# Niveles y estrellas
+Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una piedra equivocada que quitas con Deshacer.

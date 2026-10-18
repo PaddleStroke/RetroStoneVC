@@ -1,0 +1,11 @@
+Yin-Yang
+# The aim
+Put a stone, ivory or ebony, in every cell of the grid.
+- All the ivory stones are joined in one group, side by side, and so are all the ebony stones.
+- No 2 × 2 square holds four stones of one colour.
+- The stones shown at the start stay where they are.
+Every puzzle has exactly one solution, found by reasoning alone.
+# The end of the game
+The puzzle is solved when every cell holds its stone: a wave of gold light runs over the grid.
+# Levels and stars
+No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong stone that you take back with undo.

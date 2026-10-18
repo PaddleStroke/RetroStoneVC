@@ -1,0 +1,11 @@
+Yin-yang
+# Målet
+Læg en sten, elfenben eller ibenholt, i hvert felt i gitteret.
+- Alle elfenbensstenene hænger sammen i én gruppe via siderne, og det samme gør alle ibenholtsstenene.
+- Intet kvadrat på 2 × 2 har fire sten i samme farve.
+- Stenene, der vises fra start, bliver liggende.
+Hver opgave har præcis én løsning, som findes ved ren logik.
+# Spillets afslutning
+Opgaven er løst, når hvert felt har sin sten: en bølge af gyldent lys løber over gitteret.
+# Baner og stjerner
+Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er en forkert sten, som du tager tilbage med Fortryd.

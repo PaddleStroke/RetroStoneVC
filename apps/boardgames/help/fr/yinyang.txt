@@ -1,0 +1,11 @@
+Yin-yang
+# Le but
+Pose une pierre, d'ivoire ou d'ébène, dans chaque case de la grille.
+- Toutes les pierres d'ivoire forment un seul groupe, reliées par les côtés, et de même toutes les pierres d'ébène.
+- Aucun carré de 2 × 2 ne porte quatre pierres d'une même couleur.
+- Les pierres montrées au départ restent en place.
+Chaque grille a une seule solution, qu'on trouve par le seul raisonnement.
+# La fin de la partie
+La grille est résolue quand chaque case porte sa pierre : une vague de lumière dorée la parcourt.
+# Niveaux et étoiles
+Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est une pierre fausse que tu reprends avec Annuler.

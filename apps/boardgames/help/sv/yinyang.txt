@@ -1,0 +1,11 @@
+Yin och yang
+# Målet
+Lägg en sten, av elfenben eller ebenholts, i varje ruta i rutnätet.
+- Alla elfenbensstenar hänger ihop i en grupp via sidorna, och likaså alla ebenholtsstenar.
+- Ingen kvadrat på 2 × 2 har fyra stenar av samma färg.
+- Stenarna som syns från början ligger kvar.
+Varje pussel har exakt en lösning, som hittas med enbart logik.
+# Partiets slut
+Pusslet är löst när varje ruta har sin sten: en våg av gyllene ljus sveper över rutnätet.
+# Banor och stjärnor
+Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en felaktig sten som du tar tillbaka med Ångra.

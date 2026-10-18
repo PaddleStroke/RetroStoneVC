@@ -1,0 +1,11 @@
+Yin-yang
+# O objetivo
+Ponha uma pedra, de marfim ou de ébano, em cada casa da grade.
+- Todas as pedras de marfim formam um só grupo, ligadas pelos lados, e assim também todas as de ébano.
+- Nenhum quadrado de 2 × 2 tem quatro pedras da mesma cor.
+- As pedras mostradas no início ficam onde estão.
+Cada grade tem uma única solução, encontrada só pelo raciocínio.
+# O fim da partida
+A grade está resolvida quando cada casa tem a sua pedra: uma onda de luz dourada passa por ela.
+# Níveis e estrelas
+Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma pedra errada que você tira com Desfazer.

@@ -1,0 +1,11 @@
+Yin-yang
+# Cel gry
+Połóż kamień, z kości słoniowej albo z hebanu, na każdym polu siatki.
+- Wszystkie kamienie z kości słoniowej tworzą jedną grupę połączoną bokami, tak samo wszystkie hebanowe.
+- Żaden kwadrat 2 × 2 nie ma czterech kamieni jednego koloru.
+- Kamienie widoczne od początku zostają na miejscu.
+Każda łamigłówka ma dokładnie jedno rozwiązanie, które znajdziesz samym rozumowaniem.
+# Koniec gry
+Łamigłówka jest rozwiązana, gdy na każdym polu leży jego kamień: przez siatkę przebiega fala złotego światła.
+# Poziomy i gwiazdki
+Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to źle położony kamień cofnięty przyciskiem Cofnij.
