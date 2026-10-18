@@ -444,11 +444,11 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         logo_on = 0;
         if (state == DS_TITLE) {
             logo_on = 1;
-            if (narrow)                             /* LEADY over SQUID (the logo's tile columns 0..15, 16..31) */
+            if (narrow)     /* LEADY over SQUID (the logo art's tile columns 0..15, 16..31) on ht_logo's rows 2..7, 8..13 */
                 for (int k = 0; k < 2; k++)
                     for (int y = 1; y < 7; y++)
                         for (int x = 0; x < LOGO_W / 2; x++)
-                            rs_bg_put(RS_BG1, 13 - k + x, 1 + 6 * k + (y - 1), ls_logo_map[y * LOGO_W + k * LOGO_W / 2 + x]);
+                            rs_bg_put(RS_BG1, ht_center_w(LOGO_W / 2) + 1 - k + x, 2 + 6 * k + (y - 1), ls_logo_map[y * LOGO_W + k * LOGO_W / 2 + x]);
             else
                 for (int y = 0; y < LOGO_H; y++)
                     for (int x = 0; x < LOGO_W; x++) rs_bg_put(RS_BG1, 4 + x, 2 + y, ls_logo_map[y * LOGO_W + x]);
@@ -560,7 +560,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     rs_bg_scroll(RS_BG1, -hu_ui_x() - ui_dx, -slide);   /* the UI centred on the screen (widescreen) */
     if (redraw_pause && paused) hu_pause(0, 13);  /* the UI layer was set up again (a state of another width) */
     redraw_pause = 0;
-    hu_pause(paused, 13);
+    ht_pause_dx(paused, 13, ui_dx);              /* (house_tall.h: PAUSED centred on the columns shown) */
 
     rs_oam_clear();
     /* front to back: UI, squids, ink and weights, caps, bubbles */
