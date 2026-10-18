@@ -1,16 +1,17 @@
 /*
- * Box Pusher's levels, made by chance and chosen: src/games/boxpusher_levels.h. Our own levels: no published set is
- * used. Each candidate:
- *   - a room: a rectangle of floor in walls, corners cut away, walls dropped inside at random (the floor stays in one
- *     piece, no cell walled on three sides);
- *   - places drawn at random, the crates set on them;
+ * Box Pusher's levels, drawn with taste and chosen: src/games/boxpusher_levels.h. Our own levels: no published set
+ * is used. Each candidate:
+ *   - a room as a designer draws one: a rectangle of floor in walls with a symmetry (a mirror or a half turn), its
+ *     corners cut away in pairs, its inner walls set in pairs (the floor stays in one piece, no cell walled on three
+ *     sides, no open 3 x 3 square of floor: no wasted room);
+ *   - the places together in a store room (grown from one) or apart, the crates set on them;
  *   - every position reached from there by pulling crates (the keeper steps back from a crate and drags it), breadth
- *     first: the farthest one (the most pulls, then the most cells the crates travelled) is the start, its pulls the
- *     fewest pushes that solve it;
+ *     first: the farthest one (the most pulls) is the start, its pulls the fewest pushes that solve it;
  *   - checked by the rules' own solver (bp_solve: the same count), then played by its hints to count how often the
  *     crate pushed changes.
  * The candidates are graded (pushes, crate changes, crates) and 60 chosen, evenly over the grades, into chapters of
- * 20 from the easiest.
+ * 20 from the easiest, store rooms and places apart taking turns; each chapter ends with its hardest room, its
+ * showpiece. Deterministic (fixed seeds).
  *   gcc -O2 -Iapps/boardgames/src -o /tmp/bpgen apps/boardgames/tools/boxpusher_gen.c \
  *       apps/boardgames/src/games/boxpusher_rules.c && /tmp/bpgen > apps/boardgames/src/games/boxpusher_levels.h
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
@@ -25,7 +26,7 @@
 typedef struct {
     int w, h, nbox, keeper;
     uint8_t map[BP_CELLS], goal[BP_CELLS], box[BP_CELLS];
-    int pushes, changes, score;
+    int pushes, changes, score, store;
     char rows[BP_CELLS + BP_MAXH + 1];
 } level;
 
@@ -76,28 +77,48 @@ static int walled_three(const level *L)
     return 0;
 }
 
-static void room(level *L, int iw, int ih, int drops)
+/* a cell's partner under the room's symmetry: 0 a mirror (left and right), 1 a half turn */
+static int partner(const level *L, int sym, int c)
+{
+    int x = c % L->w, y = c / L->w;
+    return sym ? (L->w - 1 - x) + (L->h - 1 - y) * L->w : (L->w - 1 - x) + y * L->w;
+}
+
+/* an open square of 3 x 3 floor: wasted room, a plain look */
+static int open_block(const level *L)
+{
+    for (int y = 0; y + 2 < L->h; y++)
+        for (int x = 0; x + 2 < L->w; x++) {
+            int open = 1;
+            for (int k = 0; k < 9 && open; k++) open = L->map[(x + k % 3) + (y + k / 3) * L->w] == BP_FLOOR;
+            if (open) return 1;
+        }
+    return 0;
+}
+
+/* a room with a symmetry, as a designer draws one: its corners cut in pairs, its walls set in pairs */
+static void room(level *L, int iw, int ih, int drops, int sym)
 {
     L->w = iw + 2;
     L->h = ih + 2;
     memset(L->map, BP_WALL, sizeof L->map);
     for (int y = 1; y <= ih; y++)
         for (int x = 1; x <= iw; x++) L->map[x + y * L->w] = BP_FLOOR;
-    for (int k = 0; k < 4; k++) {               /* corners cut away */
-        if (pr_below(&rng, 3)) continue;
-        int cw = 1 + pr_below(&rng, iw / 2), ch = 1 + pr_below(&rng, ih / 2);
+    for (int k = 0; k < 4; k += 2) {            /* corners cut away, each with its partner */
+        if (pr_below(&rng, 2)) continue;
+        int cw = 1 + pr_below(&rng, iw / 2 - 1), ch = 1 + pr_below(&rng, ih / 2 - 1);
         for (int y = 0; y < ch; y++)
             for (int x = 0; x < cw; x++) {
-                int cx = k & 1 ? iw - x : 1 + x, cy = k & 2 ? ih - y : 1 + y;
-                L->map[cx + cy * L->w] = BP_WALL;
+                int c = (1 + x) + (k & 2 ? ih - y : 1 + y) * L->w;
+                L->map[c] = L->map[partner(L, sym, c)] = BP_WALL;
             }
     }
     for (int k = 0, tries = 0; k < drops && tries < 400; tries++) {
-        int c = (1 + pr_below(&rng, iw)) + (1 + pr_below(&rng, ih)) * L->w;
-        if (L->map[c] != BP_FLOOR) continue;
-        L->map[c] = BP_WALL;
-        if (!connected(L) || walled_three(L)) L->map[c] = BP_FLOOR;
-        else k++;
+        int c = (1 + pr_below(&rng, iw)) + (1 + pr_below(&rng, ih)) * L->w, p = partner(L, sym, c);
+        if (L->map[c] != BP_FLOOR || L->map[p] != BP_FLOOR) continue;
+        L->map[c] = L->map[p] = BP_WALL;
+        if (!connected(L) || walled_three(L)) L->map[c] = L->map[p] = BP_FLOOR;
+        else k += 1 + (p != c);
     }
 }
 
@@ -274,15 +295,34 @@ int main(void)
             int iw = ch == 0 ? 5 + pr_below(&rng, 2) : 6 + pr_below(&rng, 3);
             int ih = ch == 0 ? 5 + pr_below(&rng, 2) : 6 + pr_below(&rng, 3);
             L.nbox = ch == 0 ? 2 + pr_below(&rng, 2) : ch == 1 ? 3 : 3 + pr_below(&rng, 2);
-            room(&L, iw, ih, (iw * ih) / (ch == 0 ? 5 : 4) + pr_below(&rng, 4));
+            room(&L, iw, ih, (iw * ih) / (ch == 0 ? 5 : 4) + pr_below(&rng, 4), pr_below(&rng, 2));
             int fl = floor_cells(&L);
-            if (fl < L.nbox * 4 + 6) continue;
-            for (int k = 0; k < L.nbox;) {      /* the places */
-                int c = pr_below(&rng, L.w * L.h);
-                if (L.map[c] == BP_FLOOR && !L.goal[c]) { L.goal[c] = 1; k++; }
-            }
+            if (fl < L.nbox * 4 + 6 || open_block(&L)) continue;
+            L.store = pr_below(&rng, 2);
+            if (L.store) {                      /* the places together, a store room: grown from one */
+                int c;
+                do c = pr_below(&rng, L.w * L.h);
+                while (L.map[c] != BP_FLOOR);
+                L.goal[c] = 1;
+                for (int k = 1, t = 0; k < L.nbox && t < 400; t++) {
+                    int n = nxt(L.w, L.h, pr_below(&rng, L.w * L.h), pr_below(&rng, 4)), touch = 0;
+                    if (n < 0 || L.map[n] != BP_FLOOR || L.goal[n]) continue;
+                    for (int d = 0; d < 4; d++) {
+                        int m = nxt(L.w, L.h, n, d);
+                        touch |= m >= 0 && L.goal[m];
+                    }
+                    if (touch) { L.goal[n] = 1; k++; }
+                }
+                int ng = 0;
+                for (int k = 0; k < L.w * L.h; k++) ng += L.goal[k];
+                if (ng != L.nbox) continue;
+            } else
+                for (int k = 0; k < L.nbox;) {  /* the places, apart */
+                    int c = pr_below(&rng, L.w * L.h);
+                    if (L.map[c] == BP_FLOOR && !L.goal[c]) { L.goal[c] = 1; k++; }
+                }
             if (!pull_search(&L)) continue;
-            int lo = ch == 0 ? 8 : ch == 1 ? 18 : 28;
+            int lo = ch == 0 ? 8 : ch == 1 ? 18 : 24;
             if (L.pushes < lo) continue;
             to_rows(&L);
             if (!check(&L)) continue;
@@ -294,33 +334,60 @@ int main(void)
         fprintf(stderr, "chapter %d: %d candidates, scores %d..%d\n", ch + 1, nc[ch], nc[ch] ? cand[ch][0].score : 0,
                 nc[ch] ? cand[ch][nc[ch] - 1].score : 0);
     }
+    /* 20 a chapter, evenly through the upper part of its grades (the lowest ones are too plain), easiest first; a
+     * store room and places apart take turns where a neighbour allows; the last is the chapter's showpiece: its
+     * hardest room */
+    static int sel[3][BP_PER_CHAPTER];
+    for (int ch = 0; ch < 3; ch++) {
+        static uint8_t used[CANDS];
+        memset(used, 0, sizeof used);
+        int from = nc[ch] / (ch == 0 ? 4 : 3), span = nc[ch] - from, prev = -1, run = 0;
+        sel[ch][BP_PER_CHAPTER - 1] = nc[ch] - 1;
+        used[nc[ch] - 1] = 1;
+        for (int i = 0; i < BP_PER_CHAPTER - 1; i++) {
+            int at = from + (int)((long)span * i / BP_PER_CHAPTER + span / (2 * BP_PER_CHAPTER)), pick = -1;
+            for (int dk = 0; dk < 4 && pick < 0; dk++)
+                for (int s = -1; s <= 1 && pick < 0; s += 2) {
+                    int j = at + s * dk;
+                    if (j < 0 || j >= nc[ch] || used[j]) continue;
+                    if (run >= 1 && cand[ch][j].store == prev) continue;
+                    pick = j;
+                }
+            if (pick < 0) pick = at;
+            while (used[pick]) pick++;
+            used[pick] = 1;
+            run = cand[ch][pick].store == prev ? run + 1 : 1;
+            prev = cand[ch][pick].store;
+            sel[ch][i] = pick;
+        }
+        /* easiest first again, the showpiece last */
+        for (int i = 1; i < BP_PER_CHAPTER - 1; i++)
+            for (int k = i; k > 0 && cand[ch][sel[ch][k]].score < cand[ch][sel[ch][k - 1]].score; k--) {
+                int t = sel[ch][k];
+                sel[ch][k] = sel[ch][k - 1];
+                sel[ch][k - 1] = t;
+            }
+    }
     static const char *const head[] = {
         "/*",
-        " * Box Pusher's levels: our own, made by tools/boxpusher_gen.c (rooms drawn by chance, starts found by",
-        " * pulling the crates back from their places, each checked by the rules' solver), three chapters of 20 from",
-        " * the easiest. Each: the rows, then (in the comment) its fewest pushes and how often the crate pushed",
-        " * changes on that way.",
+        " * Box Pusher's levels: our own, made by tools/boxpusher_gen.c (rooms drawn with a symmetry, the places",
+        " * together in a store room or apart, starts found by pulling the crates back from their places, each checked",
+        " * by the rules' solver), three chapters of 20 from the easiest, each ending with its showpiece. Each: the",
+        " * rows, then (in the comment) its fewest pushes and how often the crate pushed changes on that way.",
         " * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).",
         " */",
     };
     for (size_t i = 0; i < sizeof head / sizeof head[0]; i++) printf("%s\n", head[i]);
     printf("const char *const bp_levels[BP_LEVELS] = {\n");
-    for (int ch = 0; ch < 3; ch++) {
-        /* 20 evenly through the upper part of the chapter's grades (the lowest ones are too plain), easiest first */
-        int from = nc[ch] / (ch == 0 ? 4 : 3), span = nc[ch] - from;
+    for (int ch = 0; ch < 3; ch++)
         for (int i = 0; i < BP_PER_CHAPTER; i++) {
-            level *L = &cand[ch][from + (int)((long)span * i / BP_PER_CHAPTER + span / (2 * BP_PER_CHAPTER))];
+            level *L = &cand[ch][sel[ch][i]];
             printf("    \"%s\", /* %d: %d pushes, %d changes, %d crates */\n", L->rows, ch * 20 + i + 1, L->pushes,
                    L->changes, L->nbox);
         }
-    }
     printf("};\n/* each level's fewest pushes (the stars: three for as few) */\nconst int16_t bp_par[BP_LEVELS] = {");
-    for (int ch = 0, n = 0; ch < 3; ch++) {
-        int from = nc[ch] / (ch == 0 ? 4 : 3), span = nc[ch] - from;
-        for (int i = 0; i < BP_PER_CHAPTER; i++, n++)
-            printf("%s%d", n ? ", " : "",
-                   cand[ch][from + (int)((long)span * i / BP_PER_CHAPTER + span / (2 * BP_PER_CHAPTER))].pushes);
-    }
+    for (int ch = 0, n = 0; ch < 3; ch++)
+        for (int i = 0; i < BP_PER_CHAPTER; i++, n++) printf("%s%d", n ? ", " : "", cand[ch][sel[ch][i]].pushes);
     printf("};\n");
     return 0;
 }
