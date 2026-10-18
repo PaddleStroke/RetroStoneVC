@@ -1062,10 +1062,13 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
 
 /* ---- save states (main.c) ---- */
 /* a state saved at another width brings maps of another size: set them up for this width, redraw the UI; the course's
- * tiles are drawn again at the next frame (the same as they were) */
+ * tiles are drawn again at the next frame (the same as they were). A state of another height (the phone turned:
+ * house_tall.h ht_shape_reset): the same, and BG4 off again (the game draws on three layers). */
 void draw_state_loaded(void)
 {
-    if (rs_bg_map_w(RS_BG2) != map_w() || rs_bg_map_h(RS_BG2) != map_h())
+    int shape = ht_shape_reset();
+    if (shape) rs_bg_enable(RS_BG4, 0);
+    if (shape || rs_bg_map_w(RS_BG2) != map_w() || rs_bg_map_h(RS_BG2) != map_h())
         maps_setup();                                      /* (it draws the UI again: shown_state) */
     drawn_cam = 0x7fffffff;                                /* the course's tiles: drawn again, the same */
     sky_key = -1;
