@@ -47,8 +47,8 @@ static const rs_color title_ramps[2][3] = {
 #define BANNER_ROW_TALL 7               /* ... the turn's banner (under the HUD's badges), the big messages */
 #define BIG_ROW_TALL 9
 #define CLOUD_END 64                    /* a tall screen: the clouds (BG4) down to this stage line */
-#define TITLE_SLOTS_TALL 15             /* a zoomed title (ht_narrow, house_tall.h): the player slots' row (the standard one), */
-#define TITLE_TEAMS_TALL (-6)           /* ... the four teams above the logo (stage y; the standard rows keep 2..29) */
+#define TITLE_SLOTS_TALL HT_ROW_SLOTS   /* a zoomed title (ht_narrow, house_tall.h): the player slots' row (the standard one), */
+#define TITLE_TEAMS_TALL (-6)           /* ... the four teams above the logo (UI y, pinned with it: house_tall.h ht_pin_dy) */
 
 static rs_color line_col[RS_SCREEN_H];
 static uint16_t cell_map[FROWS][FCOLS];       /* the BG2 entry of each field cell */
@@ -69,6 +69,7 @@ static uint8_t px_buf[64];              /* scratch: one tile's pixels (state_aud
  * screen never gets these lines: the same pixels. */
 static int bg2_sx, bg2_sy;              /* BG2's scroll as written (the camera, the shake), restored at line 0 */
 static int pin_on;                      /* the screen line of BG1's pinned texts, 0: none (draw_frame sets it each picture) */
+static int ui_pin;                      /* the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels) */
 static ht_title_out title_out;          /* a zoomed title's glyph and slots (house_tall.h), set before the sprites */
 
 static int tall(void) { return rs_screen_height() > RS_SCREEN_H; }
@@ -91,6 +92,7 @@ static void raster_out(int line)
     if (pin_on && line == top + pin_on) rs_bg_window(RS_BG1, 0);    /* BG1's pinned texts (rs_bg_pin) */
     if (pin_on && top + pin_on == 0 && line == RS_SCREEN_H) rs_bg_window(RS_BG1, 0);   /* (pinned in place: rows 30-31, */
     if (pin_on && top + pin_on == 0 && line == 32 * 8) rs_bg_window(RS_BG1, RS_WIN2);  /* ... not the map wrapped round) */
+    if (ui_pin) rs_bg_window(RS_BG1, ht_pin_line(ui_pin, line) ? 0 : RS_WIN2);   /* the pinned UI */
     if (line < 0) {
         int k = top < 0 ? line * 80 / top : 0;              /* 0 at the stage's top .. 80 at the screen's */
         rs_pal_set(0, hu_scale_color(line_col[0], 256 - k));          /* (no 4-line dither: no stripes up there) */
@@ -878,11 +880,12 @@ void draw_frame(const world *w, const camera *cam, int state, int st_t, int best
     int play = state == ST_PLAY || state == ST_DEAD, narrow = ht_narrow();
     rs_screen_fill(1);
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;     /* the panel slides up, ease-out */
-    /* BG1 pinned: the play's texts in the sky under the HUD; a zoomed game over: the layer in its own place, its 32
-     * rows (the tallest panels, with accents or Japanese, end on rows 30-31, under the stage's 240 lines) */
-    int over_rows = narrow && state == ST_OVER;
-    pin_on = tall() && play ? PIN_Y : over_rows ? rs_screen_origin_y() : 0;
-    rs_bg_pin(RS_BG1, 0, !pin_on ? 0 : over_rows ? 32 * 8 : PIN_LINES, pin_on);
+    /* BG1 pinned: the play's texts in the sky under the HUD; the title and the panels at the same place on every
+     * game's screen (house_tall.h ht_pin) */
+    pin_on = tall() && play ? PIN_Y : 0;
+    rs_bg_pin(RS_BG1, 0, pin_on ? PIN_LINES : 0, pin_on);
+    ui_pin = !narrow ? HT_PIN_OFF : state == ST_TITLE ? HT_PIN_TITLE : state == ST_OVER ? HT_PIN_PANEL : HT_PIN_OFF;
+    if (ui_pin) ht_pin(ui_pin);
     screen_text(w, state, st_t, best, new_best, &rs);
     rs_bg_scroll(RS_BG1, 0, -slide);
     ht_pause(paused, 13);                       /* (house_tall.h: the small letters when 2x does not fit) */
@@ -916,7 +919,7 @@ void draw_frame(const world *w, const camera *cam, int state, int st_t, int best
         for (int i = 0; i < 4; i++) {              /* the four teams under the logo, throwing in turn */
             int th = ((st_t / 40) & 3) == i && (st_t % 40) < 16;
             spr(crit_spr(i, th ? P_THROW : P_IDLE0 + ((st_t / 32 + i) & 1)), 160 - 46 + i * 24,
-                (narrow ? TITLE_TEAMS_TALL : 86) + hu_bob(st_t + i * 16, 64, 2), 2, i >= 2 ? RS_SPR_HFLIP : 0);
+                (narrow ? TITLE_TEAMS_TALL + ht_pin_dy(HT_PIN_TITLE) : 86) + hu_bob(st_t + i * 16, 64, 2), 2, i >= 2 ? RS_SPR_HFLIP : 0);
         }
     }
     if (play) {
