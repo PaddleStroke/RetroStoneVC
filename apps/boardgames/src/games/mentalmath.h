@@ -70,4 +70,14 @@ int  mmh_done(const mmh_game *g);
 int  mmh_stars(const mmh_game *g, int tenths);  /* the drill over in that time: 1..3 */
 int  mmh_script(mmh_game *g, const char *moves);
 
+/* the drill's clock, paused while the game is away (as Falling Notes' song): each frame drawn says the time (now: the
+ * game's clock, ms) and the real time (real: ms; a gap of more than MMH_AWAY_MS between two frames drawn is the game
+ * not on the screen: another screen, the rules, the app in the background), and that gap is not counted */
+#define MMH_AWAY_MS 250
+typedef struct { uint32_t t0, last, real, end; int on, over; } mmh_clock;
+void     mmh_clock_start(mmh_clock *c, uint32_t now, uint32_t real);
+void     mmh_clock_frame(mmh_clock *c, uint32_t now, uint32_t real);   /* a frame drawn (or the player acting) */
+uint32_t mmh_clock_ms(const mmh_clock *c, uint32_t now, uint32_t real); /* the drill's time so far */
+void     mmh_clock_stop(mmh_clock *c, uint32_t now, uint32_t real);
+
 #endif

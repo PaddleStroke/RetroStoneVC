@@ -9,7 +9,8 @@
  * red glow, the hollow shakes and empties (a mistake). The shell's tool: the hint (the answer typed, counted). Undo
  * takes back a digit typed. The keys: the digits type, the arrows move a frame over the pad, Return presses it. The
  * bar: the seconds so far, and the best time of this drill (a medal) once there is one. The clock starts when the
- * first sum shows. Over: the stars (the time against par, capped by the hints and mistakes: mentalmath.h), the time
+ * first sum shows and waits while the game is not on the screen (mmh_clock: the rules page, the menu, the app in
+ * the background). Over: the stars (the time against par, capped by the hints and mistakes: mentalmath.h), the time
  * beside par on the end card; the best time is kept for each level and each kind of random drill.
  * The shell's level screen chooses a level (150 in six chapters: mentalmath_levels.h), or its die tab a random drill
  * of a kind (the variants).
@@ -37,8 +38,8 @@ static const uint8_t INK[3] = {52, 34, 22}, GOLD[3] = {236, 194, 96}, AMBER[3] =
 
 static mmh_game G;
 static int which = -1;                          /* the best's slot: a level, or MMH_LEVELS + variant */
-static Uint32 t0, t_end;
-static int started, kept_best;
+static mmh_clock clk;                           /* paused while the game is away (mentalmath.h) */
+static int kept_best;
 static uint16_t best[BESTS];                    /* tenths of a second; 0 none */
 
 static box room;
@@ -69,8 +70,14 @@ static void bests_write(void)
 
 static Uint32 elapsed(void)
 {
-    if (!started) return 0;
-    return (t_end ? t_end : ui_ms()) - t0;
+    return mmh_clock_ms(&clk, ui_ms(), SDL_GetTicks());
+}
+
+/* the clock on: started at the first sum shown, then told of each frame (a gap: the game was away) */
+static void clock_on(void)
+{
+    if (!clk.on) mmh_clock_start(&clk, ui_ms(), SDL_GetTicks());
+    else mmh_clock_frame(&clk, ui_ms(), SDL_GetTicks());
 }
 
 static int tenths(void) { return (int)((elapsed() + 99) / 100); }
@@ -195,8 +202,7 @@ static void layout(box b)
 static void begin(int slot)
 {
     which = slot;
-    started = 0;
-    t_end = 0;
+    memset(&clk, 0, sizeof clk);
     kept_best = 0;
     flash.kind = 0;
     held.on = 0;
@@ -234,8 +240,9 @@ static int stars(void) { return mmh_stars(&G, tenths()); }
 /* the drill over: the clock stops, a best time kept */
 static void finish(void)
 {
-    if (t_end || !mmh_done(&G)) return;
-    t_end = started ? ui_ms() : t0;
+    if (clk.over || !mmh_done(&G)) return;
+    clock_on();
+    mmh_clock_stop(&clk, ui_ms(), SDL_GetTicks());
     int t = tenths();
     if (t < 1) t = 1;
     if (which >= 0 && which < BESTS && (!best[which] || t < best[which])) {
@@ -262,7 +269,7 @@ static void react(int r, int q)
 static void type(int d)
 {
     if (mmh_done(&G)) return;
-    if (!started) started = 1, t0 = ui_ms();
+    clock_on();
     int q = G.cur;
     if (flash.kind == MMH_WRONG) flash.kind = 0;
     react(mmh_type(&G, d), q);
@@ -277,7 +284,7 @@ static int undo(void)
 
 static int script(const char *moves)
 {
-    if (!started) started = 1, t0 = ui_ms();
+    clock_on();
     int ok = mmh_script(&G, moves);
     if (mmh_done(&G)) finish();
     return ok;
@@ -286,7 +293,7 @@ static int script(const char *moves)
 static void do_hint(void)
 {
     if (mmh_done(&G)) { ui_sound(SND_DENY); return; }
-    if (!started) started = 1, t0 = ui_ms();
+    clock_on();
     int q = G.cur;
     react(mmh_hint(&G), q);
 }
@@ -375,7 +382,7 @@ static void draw(void)
 {
     if (!t_plank) layout(room);
     if (!t_plank) return;
-    if (!started && !mmh_done(&G)) started = 1, t0 = ui_ms();   /* the clock starts with the first sum shown */
+    if (!mmh_done(&G)) clock_on();             /* the clock starts with the first sum shown; away, it waited */
     ui_put(t_plank, px, py, pw, ph);
     Uint32 now = ui_ms();
     float f = flash.kind ? (now - flash.t0) / (float)FLASH_MS : 1;

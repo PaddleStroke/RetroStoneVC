@@ -248,3 +248,37 @@ int mmh_script(mmh_game *g, const char *s)
     }
     return 1;
 }
+
+/* ---- the clock --------------------------------------------------------------------------------------------------- */
+static int away(const mmh_clock *c, uint32_t real) { return c->last && real - c->real > MMH_AWAY_MS; }
+
+void mmh_clock_start(mmh_clock *c, uint32_t now, uint32_t real)
+{
+    memset(c, 0, sizeof *c);
+    c->on = 1;
+    c->t0 = c->last = now;
+    c->real = real;
+}
+
+void mmh_clock_frame(mmh_clock *c, uint32_t now, uint32_t real)
+{
+    if (!c->on || c->over) return;
+    if (away(c, real)) c->t0 += now - c->last;  /* away a while: the clock waited */
+    c->last = now;
+    c->real = real;
+}
+
+uint32_t mmh_clock_ms(const mmh_clock *c, uint32_t now, uint32_t real)
+{
+    if (!c->on) return 0;
+    if (c->over) return c->end - c->t0;
+    return (away(c, real) ? c->last : now) - c->t0;
+}
+
+void mmh_clock_stop(mmh_clock *c, uint32_t now, uint32_t real)
+{
+    if (!c->on || c->over) return;
+    mmh_clock_frame(c, now, real);
+    c->end = now;
+    c->over = 1;
+}

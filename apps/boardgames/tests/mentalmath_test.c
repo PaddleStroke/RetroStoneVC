@@ -96,9 +96,30 @@ static void test_typing(void)
     CHECK(mmh_decode(mmh_levels[149], &g) && mmh_script(&g, "= h +3") && g.cur == 5 && g.hints == 1);
 }
 
+static void test_clock(void)
+{
+    mmh_clock c;
+    memset(&c, 0, sizeof c);
+    CHECK(mmh_clock_ms(&c, 5000, 5000) == 0);  /* not started */
+    mmh_clock_start(&c, 1000, 1000);
+    for (uint32_t t = 1000; t <= 3000; t += 16) mmh_clock_frame(&c, t, t);
+    CHECK(mmh_clock_ms(&c, 3000, 3000) == 2000);
+    CHECK(mmh_clock_ms(&c, 3200, 3200) == 2200);   /* between frames */
+    CHECK(mmh_clock_ms(&c, 63000, 63000) == 2000); /* away a minute: not counted */
+    mmh_clock_frame(&c, 63000, 63000);             /* back on the screen */
+    CHECK(mmh_clock_ms(&c, 63000, 63000) == 2000);
+    mmh_clock_frame(&c, 63100, 63100);
+    mmh_clock_stop(&c, 63200, 63200);
+    CHECK(mmh_clock_ms(&c, 99000, 99000) == 2200);   /* stopped */
+    mmh_clock_start(&c, 10, 10);                  /* the picture mode: its clock jumps, the real time does not */
+    mmh_clock_frame(&c, 60010, 20);
+    CHECK(mmh_clock_ms(&c, 60010, 20) == 60000);
+}
+
 int main(void)
 {
     test_typing();
+    test_clock();
     test_levels();
     test_variants();
     if (fails) {
