@@ -1,0 +1,13 @@
+Tipplabyrint
+# Målet
+Färgade kulor ligger i en bricka med väggar och hål i samma färger. Få ner varje kula i ett hål i dess färg.
+# Ett drag
+Tippa brickan uppåt, nedåt, åt vänster eller åt höger: alla kulor rullar åt det hållet tills en vägg eller en annan kula stoppar dem.
+En kula som rullar över ett hål i sin färg faller ner och fyller det. En kula som faller ner i ett hål i en annan färg sitter fast: ångra.
+- En färgad grind släpper bara igenom kulor i sin färg.
+- En pilruta kan bara rullas in på i pilens riktning.
+- Ett hål med lock öppnas när de andra hålen i dess färg är fyllda.
+# Partiets slut
+Pusslet är löst när varje kula ligger i ett hål i sin färg.
+# Banor och stjärnor
+Löst med så få drag som möjligt: 3 stjärnor; med upp till hälften fler drag: 2 stjärnor; annars 1.

@@ -1,0 +1,13 @@
+Laberinto inclinable
+# El objetivo
+Unas canicas de colores están en una bandeja con paredes y agujeros de los mismos colores. Mete cada canica en un agujero de su color.
+# Una jugada
+Inclina la bandeja hacia arriba, abajo, la izquierda o la derecha: todas las canicas ruedan hacia ese lado hasta que una pared u otra canica las detiene.
+Una canica que pasa por un agujero de su color cae dentro y lo llena. Una canica que cae en un agujero de otro color se queda atascada: deshaz.
+- Una reja de color solo deja pasar las canicas de su color.
+- En una casilla con flecha solo se entra en el sentido de la flecha.
+- Un agujero con tapa se abre cuando los demás agujeros de su color están llenos.
+# El final de la partida
+El rompecabezas está resuelto cuando cada canica está en un agujero de su color.
+# Niveles y estrellas
+Resuelto con el mínimo de jugadas posible: 3 estrellas; con hasta la mitad más de jugadas: 2 estrellas; si no, 1.

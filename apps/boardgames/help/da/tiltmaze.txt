@@ -1,0 +1,13 @@
+Vippelabyrint
+# Målet
+Farvede kugler ligger i en bakke med vægge og huller i de samme farver. Få hver kugle ned i et hul i dens farve.
+# Et træk
+Vip bakken op, ned, til venstre eller til højre: alle kugler ruller den vej, til en væg eller en anden kugle stopper dem.
+En kugle, der ruller over et hul i sin farve, falder ned og fylder det. En kugle, der falder i et hul i en anden farve, sidder fast: fortryd.
+- En farvet låge lukker kun kugler i sin farve igennem.
+- Et pilefelt kan kun køres ind på i pilens retning.
+- Et hul med låg åbner sig, når de andre huller i dets farve er fyldt.
+# Spillets afslutning
+Opgaven er løst, når hver kugle ligger i et hul i sin farve.
+# Baner og stjerner
+Løst med færrest mulige træk: 3 stjerner; med op til halvanden gang så mange træk: 2 stjerner; ellers 1.

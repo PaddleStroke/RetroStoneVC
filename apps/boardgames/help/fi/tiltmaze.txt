@@ -1,0 +1,13 @@
+Kallistuslabyrintti
+# Tavoite
+Värikkäät kuulat ovat seinillä jaetussa tarjottimessa, jossa on samanvärisiä reikiä. Saa jokainen kuula oman värisensä reikään.
+# Siirto
+Kallista tarjotinta ylös, alas, vasemmalle tai oikealle: kaikki kuulat vierivät siihen suuntaan, kunnes seinä tai toinen kuula pysäyttää ne.
+Oman värisensä reiän yli vierivä kuula putoaa siihen ja täyttää sen. Toisen värin reikään pudonnut kuula jää jumiin: peru.
+- Värillinen portti päästää läpi vain oman värisensä kuulat.
+- Nuoliruutuun pääsee vain nuolen suuntaan.
+- Kannellinen reikä aukeaa, kun sen värin muut reiät on täytetty.
+# Pelin loppu
+Tehtävä on ratkaistu, kun jokainen kuula on oman värisensä reiässä.
+# Tasot ja tähdet
+Ratkaistu vähimmällä mahdollisella siirtomäärällä: 3 tähteä; enintään puolitoista kertaa niin monella siirrolla: 2 tähteä; muuten 1.

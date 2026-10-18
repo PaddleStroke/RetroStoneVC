@@ -1,0 +1,13 @@
+Labirin Miring
+# Tujuan
+Kelereng berwarna ada di sebuah nampan berdinding dengan lubang-lubang berwarna sama. Masukkan setiap kelereng ke lubang yang sewarna.
+# Satu langkah
+Miringkan nampan ke atas, ke bawah, ke kiri, atau ke kanan: semua kelereng menggelinding ke arah itu sampai terhenti oleh dinding atau kelereng lain.
+Kelereng yang melewati lubang sewarna jatuh ke dalamnya dan mengisinya. Kelereng yang jatuh ke lubang berwarna lain tersangkut: batalkan.
+- Gerbang berwarna hanya meloloskan kelereng yang sewarna.
+- Petak panah hanya bisa dimasuki searah panahnya.
+- Lubang bertutup terbuka setelah lubang lain yang sewarna terisi.
+# Akhir permainan
+Teka-teki selesai saat setiap kelereng berada di lubang yang sewarna.
+# Level dan bintang
+Selesai dengan langkah sesedikit mungkin: 3 bintang; dengan langkah paling banyak satu setengah kalinya: 2 bintang; selain itu 1.

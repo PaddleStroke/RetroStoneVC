@@ -1,0 +1,13 @@
+Eğimli labirent
+# Amaç
+Renkli bilyeler, duvarlı bir tepside aynı renklerde deliklerle birlikte duruyor. Her bilyeyi kendi rengindeki bir deliğe sok.
+# Bir hamle
+Tepsiyi yukarı, aşağı, sola ya da sağa eğ: tüm bilyeler, bir duvar ya da başka bir bilye onları durdurana kadar o yöne yuvarlanır.
+Kendi rengindeki bir deliğin üstünden geçen bilye içine düşer ve onu doldurur. Başka renkte bir deliğe düşen bilye sıkışır: geri al.
+- Renkli bir kapı yalnızca kendi rengindeki bilyeleri geçirir.
+- Oklu bir kareye yalnızca okun yönünde girilir.
+- Kapaklı bir delik, kendi rengindeki öbür delikler dolunca açılır.
+# Oyunun sonu
+Her bilye kendi rengindeki bir delikte olunca bulmaca çözülür.
+# Seviyeler ve yıldızlar
+Mümkün olan en az hamleyle çözülürse 3 yıldız; en fazla yarısı kadar fazla hamleyle 2 yıldız; yoksa 1.

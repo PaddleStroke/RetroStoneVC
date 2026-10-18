@@ -1,0 +1,13 @@
+Labirinto inclinabile
+# Lo scopo
+Delle biglie colorate sono in un vassoio con pareti e buche degli stessi colori. Porta ogni biglia in una buca del suo colore.
+# Una mossa
+Inclina il vassoio in su, in giù, a sinistra o a destra: tutte le biglie rotolano da quella parte finché una parete o un'altra biglia non le ferma.
+Una biglia che passa su una buca del suo colore ci cade e la riempie. Una biglia caduta in una buca di un altro colore resta bloccata: annulla.
+- Un cancello colorato lascia passare solo le biglie del suo colore.
+- In una casella con la freccia si entra solo nel verso della freccia.
+- Una buca con coperchio si apre quando le altre buche del suo colore sono piene.
+# La fine della partita
+Il rompicapo è risolto quando ogni biglia è in una buca del suo colore.
+# Livelli e stelle
+Risolto con il minimo di mosse possibile: 3 stelle; con fino a metà mosse in più: 2 stelle; altrimenti 1.

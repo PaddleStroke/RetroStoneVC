@@ -1,0 +1,13 @@
+Naklápěcí bludiště
+# Cíl hry
+Barevné kuličky leží v podnose se stěnami a s jamkami stejných barev. Dostaň každou kuličku do jamky její barvy.
+# Tah
+Nakloň podnos nahoru, dolů, doleva nebo doprava: všechny kuličky se kutálejí tím směrem, dokud je nezastaví stěna nebo jiná kulička.
+Kulička, která přejede jamku své barvy, do ní spadne a zaplní ji. Kulička, která spadne do jamky jiné barvy, uvízne: vrať tah.
+- Barevná branka propustí jen kuličky své barvy.
+- Na pole se šipkou lze vjet jen ve směru šipky.
+- Jamka s víčkem se otevře, když jsou ostatní jamky její barvy zaplněné.
+# Konec hry
+Hádanka je vyřešena, když je každá kulička v jamce své barvy.
+# Úrovně a hvězdy
+Vyřešeno nejmenším možným počtem tahů: 3 hvězdy; nejvýše o polovinu více tahů: 2 hvězdy; jinak 1.

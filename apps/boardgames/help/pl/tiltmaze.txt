@@ -1,0 +1,13 @@
+Przechylany labirynt
+# Cel gry
+Kolorowe kulki leżą na tacy ze ściankami i dołkami w tych samych kolorach. Umieść każdą kulkę w dołku jej koloru.
+# Ruch
+Przechyl tacę w górę, w dół, w lewo lub w prawo: wszystkie kulki toczą się w tę stronę, aż zatrzyma je ścianka lub inna kulka.
+Kulka, która toczy się przez dołek swojego koloru, wpada do niego i go wypełnia. Kulka, która wpadnie do dołka innego koloru, utyka: cofnij.
+- Kolorowa furtka przepuszcza tylko kulki swojego koloru.
+- Na pole ze strzałką można wtoczyć się tylko w kierunku strzałki.
+- Dołek z pokrywką otwiera się, gdy pozostałe dołki jego koloru są wypełnione.
+# Koniec gry
+Zagadka jest rozwiązana, gdy każda kulka jest w dołku swojego koloru.
+# Poziomy i gwiazdki
+Rozwiązane najmniejszą możliwą liczbą ruchów: 3 gwiazdki; najwyżej o połowę więcej ruchów: 2 gwiazdki; inaczej 1.

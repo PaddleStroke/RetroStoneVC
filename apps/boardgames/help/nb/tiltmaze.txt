@@ -1,0 +1,13 @@
+Vippelabyrint
+# Målet
+Fargede kuler ligger i et brett med vegger og hull i de samme fargene. Få hver kule ned i et hull i sin farge.
+# Et trekk
+Vipp brettet opp, ned, til venstre eller til høyre: alle kulene ruller dit til en vegg eller en annen kule stopper dem.
+En kule som ruller over et hull i sin farge, faller ned og fyller det. En kule som faller ned i et hull i en annen farge, sitter fast: angre.
+- En farget port slipper bare gjennom kuler i sin farge.
+- En pilrute kan bare kjøres inn på i pilens retning.
+- Et hull med lokk åpner seg når de andre hullene i samme farge er fylt.
+# Slutten på spillet
+Oppgaven er løst når hver kule ligger i et hull i sin farge.
+# Nivåer og stjerner
+Løst med færrest mulige trekk: 3 stjerner; med opptil halvparten flere trekk: 2 stjerner; ellers 1.

@@ -1,0 +1,13 @@
+Kipplabyrinth
+# Das Ziel
+Farbige Murmeln liegen in einem Kasten mit Wänden und Löchern in denselben Farben. Bring jede Murmel in ein Loch ihrer Farbe.
+# Ein Zug
+Kippe den Kasten nach oben, unten, links oder rechts: Alle Murmeln rollen dorthin, bis eine Wand oder eine andere Murmel sie aufhält.
+Rollt eine Murmel über ein Loch ihrer Farbe, fällt sie hinein und füllt es. Fällt sie in ein Loch einer anderen Farbe, steckt sie fest: Nimm den Zug zurück.
+- Ein farbiges Gitter lässt nur Murmeln seiner Farbe durch.
+- Ein Pfeilfeld darf nur in Pfeilrichtung befahren werden.
+- Ein Loch mit Deckel öffnet sich, sobald die anderen Löcher seiner Farbe gefüllt sind.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn jede Murmel in einem Loch ihrer Farbe liegt.
+# Level und Sterne
+Gelöst mit den wenigsten möglichen Zügen: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1.

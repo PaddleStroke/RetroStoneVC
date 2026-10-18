@@ -1,0 +1,13 @@
+Labyrinthe à bascule
+# Le but
+Des billes de couleur sont posées dans un plateau à murets, avec des trous des mêmes couleurs. Mets chaque bille dans un trou de sa couleur.
+# Un coup
+Penche le plateau vers le haut, le bas, la gauche ou la droite : toutes les billes roulent de ce côté jusqu'à ce qu'un muret ou une autre bille les arrête.
+Une bille qui passe sur un trou de sa couleur y tombe et le remplit. Une bille tombée dans un trou d'une autre couleur est coincée : annule.
+- Une barrière de couleur ne laisse passer que les billes de sa couleur.
+- Une case à flèche ne s'entre que dans le sens de la flèche.
+- Un trou à couvercle s'ouvre quand les autres trous de sa couleur sont remplis.
+# La fin de la partie
+Le casse-tête est résolu quand chaque bille est dans un trou de sa couleur.
+# Niveaux et étoiles
+Résolu avec le moins de coups possible : 3 étoiles ; jusqu'à moitié plus de coups : 2 étoiles ; sinon 1.

@@ -1,0 +1,13 @@
+Labirinto inclinável
+# O objetivo
+Berlindes coloridos estão num tabuleiro com paredes e buracos das mesmas cores. Põe cada berlinde num buraco da sua cor.
+# Uma jogada
+Inclina o tabuleiro para cima, para baixo, para a esquerda ou para a direita: todos os berlindes rolam para esse lado até uma parede ou outro berlinde os travar.
+Um berlinde que passa por um buraco da sua cor cai nele e preenche-o. Um berlinde que cai num buraco de outra cor fica preso: anula.
+- Um portão colorido só deixa passar os berlindes da sua cor.
+- Numa casa com seta só se entra no sentido da seta.
+- Um buraco com tampa abre-se quando os outros buracos da sua cor estão cheios.
+# O fim do jogo
+O quebra-cabeças está resolvido quando cada berlinde está num buraco da sua cor.
+# Níveis e estrelas
+Resolvido com o mínimo de jogadas possível: 3 estrelas; com até metade a mais de jogadas: 2 estrelas; senão, 1.

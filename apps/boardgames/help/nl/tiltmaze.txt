@@ -1,0 +1,13 @@
+Kanteldoolhof
+# Het doel
+Gekleurde knikkers liggen in een bak met muurtjes en gaten in dezelfde kleuren. Krijg elke knikker in een gat van zijn kleur.
+# Een zet
+Kantel de bak omhoog, omlaag, naar links of naar rechts: alle knikkers rollen die kant op tot een muurtje of een andere knikker ze tegenhoudt.
+Een knikker die over een gat van zijn kleur rolt, valt erin en vult het. Valt een knikker in een gat van een andere kleur, dan zit hij vast: maak ongedaan.
+- Een gekleurd hek laat alleen knikkers van zijn kleur door.
+- Een pijlvakje kun je alleen in de richting van de pijl op.
+- Een gat met deksel gaat open zodra de andere gaten van zijn kleur gevuld zijn.
+# Het einde van het spel
+De puzzel is opgelost als elke knikker in een gat van zijn kleur ligt.
+# Levels en sterren
+Opgelost met zo weinig mogelijk zetten: 3 sterren; met tot de helft meer zetten: 2 sterren; anders 1.

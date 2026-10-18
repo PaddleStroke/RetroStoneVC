@@ -1,0 +1,13 @@
+Labirinto inclinável
+# O objetivo
+Bolinhas coloridas estão numa bandeja com paredes e buracos das mesmas cores. Coloque cada bolinha num buraco da sua cor.
+# Uma jogada
+Incline a bandeja para cima, para baixo, para a esquerda ou para a direita: todas as bolinhas rolam para esse lado até uma parede ou outra bolinha pará-las.
+Uma bolinha que passa por um buraco da sua cor cai nele e o preenche. Uma bolinha que cai num buraco de outra cor fica presa: desfaça.
+- Um portão colorido só deixa passar as bolinhas da sua cor.
+- Numa casa com seta só se entra no sentido da seta.
+- Um buraco com tampa se abre quando os outros buracos da sua cor estão cheios.
+# O fim da partida
+O quebra-cabeça está resolvido quando cada bolinha está num buraco da sua cor.
+# Níveis e estrelas
+Resolvido com o mínimo de jogadas possível: 3 estrelas; com até metade a mais de jogadas: 2 estrelas; senão, 1.

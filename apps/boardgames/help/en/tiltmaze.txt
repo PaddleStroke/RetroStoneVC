@@ -1,0 +1,13 @@
+Tilt Maze
+# The aim
+Coloured marbles lie in a walled tray with holes of the same colours. Get every marble into a hole of its colour.
+# A move
+Tilt the tray up, down, left or right: every marble rolls that way until a wall or another marble stops it.
+A marble rolling over a hole of its colour drops in and fills it. A marble that drops into a hole of another colour is stuck: undo.
+- A coloured gate lets only marbles of its colour through.
+- An arrow tile can only be entered the way the arrow points.
+- A lidded hole opens once the other holes of its colour are filled.
+# The end of the game
+The puzzle is solved when every marble is in a hole of its colour.
+# Levels and stars
+Solved in the fewest moves possible: 3 stars; with up to half as many moves again: 2 stars; otherwise 1.
