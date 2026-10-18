@@ -1,0 +1,12 @@
+Sexkantsstaplar
+# Målet
+Lägg staplar av färgade sexkantiga brickor på bikakan och samla färgerna. Nå banans mål: ta bort ett antal brickor, eller ett antal brickor av en färg.
+# Reglerna
+- Dra en stapel från brickhållaren till en tom ruta. När hållaren är tom kommer tre nya staplar.
+- Grannstaplar med samma färg överst går ihop: deras översta brickor flyttar till den renaste, den med minst andra brickor under. Det som blir synligt kan i sin tur passa.
+- Tio eller fler brickor av en färg överst på en stapel försvinner.
+- Stenar förblir tomma. En låst ruta öppnas när lika många brickor till som dess tal har tagits bort.
+# Partiets slut
+Banan är löst när målet nås, och förlorad om brädet blir fullt först. Oändligt spel fortsätter tills brädet är fullt: varje borttagen bricka ger en poäng.
+# Banor och stjärnor
+Målet nått med inte fler staplar än datorn behövde: 3 stjärnor; med upp till hälften fler: 2 stjärnor; annars 1.

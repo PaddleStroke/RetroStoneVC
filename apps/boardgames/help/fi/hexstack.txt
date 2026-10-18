@@ -1,0 +1,12 @@
+Kuusikulmiopinot
+# Tavoite
+Aseta värillisten kuusikulmiolaattojen pinoja kennostoon ja kokoa värit yhteen. Saavuta tason tavoite: poista tietty määrä laattoja tai tietty määrä yhden värin laattoja.
+# Säännöt
+- Vedä pino tarjottimelta tyhjään ruutuun. Kun tarjotin on tyhjä, tulee kolme uutta pinoa.
+- Vierekkäiset pinot, joiden päällimmäinen väri on sama, yhdistyvät: niiden päällimmäiset laatat siirtyvät puhtaimpaan, jossa on vähiten muita laattoja alla. Paljastuva väri voi vuorostaan sopia.
+- Kymmenen tai useampi saman värin laatta pinon päällä poistuu.
+- Kivet jäävät tyhjiksi. Lukittu ruutu aukeaa, kun sen luvun verran laattoja on vielä poistettu.
+# Pelin loppu
+Taso on ratkaistu, kun tavoite saavutetaan, ja hävitty, jos lauta täyttyy ensin. Loputon peli jatkuu, kunnes lauta on täynnä: jokainen poistettu laatta on yksi piste.
+# Tasot ja tähdet
+Tavoite saavutettu enintään niin monella pinolla kuin tietokone tarvitsi: 3 tähteä; enintään puolet enemmän: 2 tähteä; muuten 1.

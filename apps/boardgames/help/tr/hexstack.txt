@@ -1,0 +1,12 @@
+Altıgen Yığınlar
+# Amaç
+Renkli altıgen taş yığınlarını peteğe yerleştir ve renkleri bir araya topla. Seviyenin hedefine ulaş: belli sayıda taşı ya da tek bir renkten belli sayıda taşı temizle.
+# Kurallar
+- Tepsiden bir yığını boş bir hücreye sürükle. Tepsi boşalınca üç yeni yığın gelir.
+- Üstünde aynı renk olan komşu yığınlar birleşir: üstteki taşları en saf olana, altında en az başka taş olana geçer. Açığa çıkan renk de sırayla eşleşebilir.
+- Bir yığının üstünde tek renkten on ya da daha fazla taş olunca temizlenir.
+- Kayalar boş kalır. Kilitli bir hücre, üzerindeki sayı kadar taş daha temizlenince açılır.
+# Oyunun sonu
+Seviye, hedefe ulaşınca çözülür; tahta önce dolarsa kaybedilir. Sonsuz oyun tahta dolana kadar sürer: temizlenen her taş bir puandır.
+# Seviyeler ve yıldızlar
+Hedefe bilgisayarın gerek duyduğundan fazla yığın kullanmadan ulaşmak: 3 yıldız; yarısı kadar fazlasıyla: 2 yıldız; yoksa 1.

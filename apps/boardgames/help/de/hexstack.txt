@@ -1,0 +1,12 @@
+Sechseck-Stapel
+# Das Ziel
+Setze Stapel aus farbigen Sechseckplättchen auf die Wabe und sammle die Farben. Erreiche das Ziel des Levels: eine Anzahl Plättchen abräumen oder eine Anzahl Plättchen einer Farbe.
+# Die Regeln
+- Ziehe einen Stapel aus der Ablage auf ein leeres Feld. Ist die Ablage leer, kommen drei neue Stapel.
+- Benachbarte Stapel mit derselben Farbe oben finden zusammen: Ihre oberen Plättchen wandern auf den reinsten von ihnen, den mit den wenigsten anderen Plättchen darunter. Was dabei frei wird, kann wiederum passen.
+- Zehn oder mehr Plättchen einer Farbe oben auf einem Stapel werden abgeräumt.
+- Steine bleiben leer. Ein verschlossenes Feld öffnet sich, sobald so viele weitere Plättchen abgeräumt sind, wie seine Zahl angibt.
+# Das Ende der Partie
+Das Level ist gelöst, wenn sein Ziel erreicht ist, und verloren, wenn sich das Brett vorher füllt. Das endlose Spiel geht weiter, bis das Brett voll ist: Jedes abgeräumte Plättchen zählt einen Punkt.
+# Level und Sterne
+Das Ziel mit nicht mehr Stapeln erreicht, als der Computer brauchte: 3 Sterne; mit bis zu halb so vielen mehr: 2 Sterne; sonst 1.

@@ -1,0 +1,12 @@
+Zeshoekstapels
+# Het doel
+Zet stapels gekleurde zeshoekige tegels op de honingraat en breng de kleuren bij elkaar. Haal het doel van het level: een aantal tegels wegspelen, of een aantal tegels van één kleur.
+# De regels
+- Sleep een stapel uit het bakje naar een leeg vak. Is het bakje leeg, dan komen er drie nieuwe stapels.
+- Naburige stapels met dezelfde kleur bovenop komen samen: hun bovenste tegels gaan naar de zuiverste, die met de minste andere tegels eronder. Wat daarbij vrijkomt, kan op zijn beurt passen.
+- Tien of meer tegels van één kleur boven op een stapel verdwijnen.
+- Stenen blijven leeg. Een vergrendeld vak gaat open zodra er nog zoveel tegels zijn weggespeeld als zijn getal.
+# Het einde van het spel
+Het level is opgelost als het doel gehaald is, en verloren als het bord eerder vol raakt. Eindeloos spelen gaat door tot het bord vol is: elke weggespeelde tegel telt één punt.
+# Levels en sterren
+Het doel gehaald met niet meer stapels dan de computer nodig had: 3 sterren; met tot de helft meer: 2 sterren; anders 1.

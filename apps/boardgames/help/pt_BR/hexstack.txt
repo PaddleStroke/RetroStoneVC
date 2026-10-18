@@ -1,0 +1,12 @@
+Pilhas hexagonais
+# O objetivo
+Coloque pilhas de peças hexagonais coloridas na colmeia e junte as cores. Alcance o objetivo do nível: eliminar um número de peças, ou um número de peças de uma cor.
+# As regras
+- Arraste uma pilha da bandeja para uma casa vazia. Quando a bandeja fica vazia, chegam três pilhas novas.
+- Pilhas vizinhas com a mesma cor em cima se juntam: as peças de cima vão para a mais pura, a que tem menos peças de outras cores embaixo. O que fica descoberto pode combinar por sua vez.
+- Dez ou mais peças de uma cor no alto de uma pilha são eliminadas.
+- As pedras ficam vazias. Uma casa trancada abre quando forem eliminadas mais tantas peças quanto o seu número.
+# O fim da partida
+O nível está resolvido quando o objetivo é alcançado, e perdido se o tabuleiro encher antes. O jogo sem fim continua até o tabuleiro ficar cheio: cada peça eliminada vale um ponto.
+# Níveis e estrelas
+A meta alcançada sem mais pilhas do que o computador precisou: 3 estrelas; com até metade a mais: 2 estrelas; senão, 1.

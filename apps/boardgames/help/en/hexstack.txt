@@ -1,0 +1,12 @@
+Hex Stacks
+# The aim
+Put stacks of coloured hex tiles on the honeycomb and gather the colours. Reach the level's goal: clear a number of tiles, or a number of tiles of one colour.
+# The rules
+- Drag a stack from the tray onto an empty cell. When the tray is empty, three more stacks come.
+- Neighbouring stacks with the same colour on top come together: their top tiles move onto the purest of them, the one with the fewest other tiles underneath. What they uncover may match in turn.
+- Ten or more tiles of one colour on top of a stack clear.
+- Stones stay empty. A locked cell opens once as many more tiles as its number have been cleared.
+# The end of the game
+The level is solved when its goal is reached, and lost if the board fills up first. Endless play goes on until the board is full: each tile cleared scores a point.
+# Levels and stars
+The goal reached with no more stacks than the computer needed: 3 stars; with up to half as many again: 2 stars; otherwise 1.

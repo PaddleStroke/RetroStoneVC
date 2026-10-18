@@ -1,0 +1,12 @@
+Pilhas hexagonais
+# O objetivo
+Coloca pilhas de peças hexagonais coloridas no favo e junta as cores. Alcança o objetivo do nível: eliminar um número de peças, ou um número de peças de uma cor.
+# As regras
+- Arrasta uma pilha do tabuleiro de espera para uma casa vazia. Quando fica vazio, chegam três pilhas novas.
+- Pilhas vizinhas com a mesma cor no topo juntam-se: as peças de cima passam para a mais pura, a que tem menos peças de outras cores por baixo. O que fica a descoberto pode combinar por sua vez.
+- Dez ou mais peças de uma cor no topo de uma pilha são eliminadas.
+- As pedras ficam vazias. Uma casa fechada abre quando forem eliminadas mais tantas peças quanto o seu número.
+# O fim do jogo
+O nível fica resolvido quando o objetivo é alcançado, e perdido se o tabuleiro encher antes. O jogo sem fim continua até o tabuleiro ficar cheio: cada peça eliminada vale um ponto.
+# Níveis e estrelas
+O objetivo atingido sem mais pilhas do que as que o computador precisou: 3 estrelas; com até metade a mais: 2 estrelas; caso contrário, 1.

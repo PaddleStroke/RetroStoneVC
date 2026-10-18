@@ -1,0 +1,12 @@
+Šestiúhelníkové věžičky
+# Cíl hry
+Pokládej věžičky barevných šestiúhelníkových destiček na plástev a sbírej barvy. Splň cíl úrovně: odstraň určitý počet destiček, nebo destiček jedné barvy.
+# Pravidla
+- Přetáhni věžičku ze zásobníku na prázdné pole. Když je zásobník prázdný, přijdou tři nové věžičky.
+- Sousední věžičky se stejnou barvou nahoře se spojí: jejich horní destičky přejdou na tu nejčistší, s nejmenším počtem jiných destiček pod sebou. Co se odkryje, se může opět spojit.
+- Deset nebo více destiček jedné barvy na vrcholu věžičky zmizí.
+- Kameny zůstávají prázdné. Zamčené pole se otevře, až se odstraní ještě tolik destiček, kolik ukazuje jeho číslo.
+# Konec hry
+Úroveň je vyřešena, když splníš cíl, a prohraná, když se deska zaplní dřív. Nekonečná hra pokračuje, dokud není deska plná: každá odstraněná destička je jeden bod.
+# Úrovně a hvězdy
+Cíl splněn s nejvýš tolika věžičkami, kolik potřeboval počítač: 3 hvězdy; až o polovinu více: 2 hvězdy; jinak 1.

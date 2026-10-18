@@ -1,0 +1,12 @@
+Pile esagonali
+# Lo scopo
+Metti pile di tessere esagonali colorate sul favo e riunisci i colori. Raggiungi l'obiettivo del livello: eliminare un certo numero di tessere, o di tessere di un colore.
+# Le regole
+- Trascina una pila dal vassoio su una casella vuota. Quando il vassoio è vuoto, arrivano tre nuove pile.
+- Le pile vicine con lo stesso colore in cima si uniscono: le loro tessere in cima passano sulla più pura, quella con meno tessere di altri colori sotto. Ciò che scoprono può a sua volta combaciare.
+- Dieci o più tessere di un colore in cima a una pila si eliminano.
+- Le pietre restano vuote. Una casella chiusa si apre quando sono state eliminate altre tessere quante ne indica il suo numero.
+# La fine della partita
+Il livello è risolto quando l'obiettivo è raggiunto, e perso se il tabellone si riempie prima. Il gioco senza fine continua finché il tabellone è pieno: ogni tessera eliminata vale un punto.
+# Livelli e stelle
+L'obiettivo raggiunto con non più pile di quante ne sono servite al computer: 3 stelle; fino a metà in più: 2 stelle; altrimenti 1.

@@ -1,0 +1,12 @@
+Tumpukan Heksagon
+# Tujuan
+Letakkan tumpukan ubin heksagon berwarna di sarang lebah dan kumpulkan warnanya. Capai tujuan level: hapus sejumlah ubin, atau sejumlah ubin dari satu warna.
+# Aturan
+- Seret tumpukan dari baki ke sel yang kosong. Saat baki kosong, tiga tumpukan baru datang.
+- Tumpukan bertetangga dengan warna teratas yang sama bergabung: ubin teratasnya pindah ke tumpukan paling murni, yang paling sedikit memiliki ubin lain di bawahnya. Warna yang terbuka bisa cocok lagi.
+- Sepuluh ubin atau lebih dari satu warna di puncak tumpukan terhapus.
+- Batu tetap kosong. Sel terkunci terbuka setelah ubin sebanyak angkanya terhapus lagi.
+# Akhir permainan
+Level selesai saat tujuannya tercapai, dan kalah jika papan penuh lebih dulu. Permainan tanpa akhir berlanjut sampai papan penuh: setiap ubin yang terhapus bernilai satu poin.
+# Level dan bintang
+Tujuan tercapai dengan tumpukan tidak lebih banyak daripada yang diperlukan komputer: 3 bintang; hingga setengahnya lagi: 2 bintang; selain itu 1.

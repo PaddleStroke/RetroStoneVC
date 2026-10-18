@@ -1,0 +1,12 @@
+Sześciokątne stosy
+# Cel gry
+Układaj stosy kolorowych sześciokątnych płytek na plastrze miodu i zbieraj kolory. Osiągnij cel poziomu: usuń określoną liczbę płytek albo płytek jednego koloru.
+# Zasady
+- Przeciągnij stos z podajnika na puste pole. Gdy podajnik jest pusty, przychodzą trzy nowe stosy.
+- Sąsiednie stosy z tym samym kolorem na wierzchu łączą się: ich wierzchnie płytki przechodzą na najczystszy z nich, ten z najmniejszą liczbą innych płytek pod spodem. To, co się odsłoni, może z kolei pasować.
+- Dziesięć lub więcej płytek jednego koloru na wierzchu stosu znika.
+- Kamienie pozostają puste. Zamknięte pole otwiera się, gdy usunie się jeszcze tyle płytek, ile wskazuje jego liczba.
+# Koniec gry
+Poziom jest rozwiązany po osiągnięciu celu, a przegrany, jeśli plansza zapełni się wcześniej. Gra bez końca trwa, aż plansza się zapełni: każda usunięta płytka to jeden punkt.
+# Poziomy i gwiazdki
+Cel osiągnięty nie większą liczbą stosów, niż potrzebował komputer: 3 gwiazdki; do połowy więcej: 2 gwiazdki; w przeciwnym razie 1.

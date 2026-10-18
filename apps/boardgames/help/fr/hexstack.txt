@@ -1,0 +1,12 @@
+Piles hexagonales
+# Le but
+Pose des piles de tuiles hexagonales colorées sur le nid d'abeilles et rassemble les couleurs. Atteins l'objectif du niveau : effacer un nombre de tuiles, ou un nombre de tuiles d'une couleur.
+# Les règles
+- Fais glisser une pile du plateau vers une case vide. Quand le plateau est vide, trois nouvelles piles arrivent.
+- Les piles voisines qui ont la même couleur dessus se rassemblent : leurs tuiles du dessus passent sur la plus pure, celle qui a le moins d'autres tuiles dessous. Ce qu'elles découvrent peut s'assortir à son tour.
+- Dix tuiles ou plus d'une même couleur sur le dessus d'une pile s'effacent.
+- Les pierres restent vides. Une case verrouillée s'ouvre quand autant de tuiles que son nombre ont encore été effacées.
+# La fin de la partie
+Le niveau est résolu quand son objectif est atteint, et perdu si le plateau se remplit avant. Le jeu sans fin continue jusqu'à ce que le plateau soit plein : chaque tuile effacée rapporte un point.
+# Niveaux et étoiles
+L'objectif atteint avec pas plus de piles qu'il n'en a fallu à l'ordinateur : 3 étoiles ; jusqu'à moitié plus : 2 étoiles ; sinon 1.

@@ -1,0 +1,12 @@
+Sekskantstabler
+# Målet
+Legg stabler av fargede sekskantbrikker på bikuben og samle fargene. Nå nivåets mål: fjern et antall brikker, eller et antall brikker av én farge.
+# Reglene
+- Dra en stabel fra brettet nederst til en tom rute. Når det er tomt, kommer tre nye stabler.
+- Nabostabler med samme farge øverst samles: de øverste brikkene flyttes over på den reneste, den med færrest andre brikker under seg. Det som kommer fram, kan passe sammen igjen.
+- Ti eller flere brikker av én farge øverst på en stabel fjernes.
+- Steiner forblir tomme. En låst rute åpner seg når like mange brikker til som tallet på den er fjernet.
+# Slutten på spillet
+Nivået er løst når målet er nådd, og tapt hvis brettet blir fullt først. Uendelig spill fortsetter til brettet er fullt: hver brikke som fjernes, gir ett poeng.
+# Nivåer og stjerner
+Målet nådd med ikke flere stabler enn datamaskinen trengte: 3 stjerner; med opptil halvparten flere: 2 stjerner; ellers 1.

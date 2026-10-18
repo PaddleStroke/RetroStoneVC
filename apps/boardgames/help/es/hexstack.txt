@@ -1,0 +1,12 @@
+Pilas hexagonales
+# El objetivo
+Coloca pilas de fichas hexagonales de colores en el panal y reúne los colores. Alcanza el objetivo del nivel: eliminar un número de fichas, o un número de fichas de un color.
+# Las reglas
+- Arrastra una pila de la bandeja a una casilla vacía. Cuando la bandeja se vacía, llegan tres pilas nuevas.
+- Las pilas vecinas con el mismo color arriba se juntan: sus fichas de arriba pasan a la más pura, la que tiene menos fichas de otros colores debajo. Lo que queda al descubierto puede coincidir a su vez.
+- Diez fichas o más de un color encima de una pila se eliminan.
+- Las piedras quedan vacías. Una casilla cerrada se abre cuando se han eliminado tantas fichas más como indica su número.
+# El final de la partida
+El nivel se resuelve al alcanzar su objetivo, y se pierde si el tablero se llena antes. El juego sin fin sigue hasta que el tablero está lleno: cada ficha eliminada vale un punto.
+# Niveles y estrellas
+La meta alcanzada sin más pilas de las que necesitó el ordenador: 3 estrellas; con hasta la mitad más: 2 estrellas; si no, 1.
