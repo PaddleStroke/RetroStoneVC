@@ -120,7 +120,8 @@ static void draw(void)
         }
         if (mt_redeals_left(p)) {
             solui_again(&U, hs->x, hs->y);
-            ui_number(hs->x, hs->y + 0.5f * SOLUI_ASPECT * U.w + 0.3f * U.w, 0.32f * U.w, mt_redeals_left(p), 1);
+            ui_number(hs->x, hs->y + 0.5f * SOLUI_ASPECT * U.w + 0.3f * U.w, 0.32f * U.w, mt_redeals_left(p),
+                      TH.dark);                 /* (ink on the light table) */
         }
     }
     solui_draw(&U);

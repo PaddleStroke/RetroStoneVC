@@ -22,6 +22,7 @@
 #include "cards.h"
 #include "cards_table.h"
 #include "games/sollevels.h"
+#include "pages.h"
 #include "shell.h"
 
 #define SOLUI_ASPECT 1.4f
@@ -78,13 +79,52 @@ typedef struct solui {
     /* a game's own slides for the moves from `first` on, played from `before` (a shuffle: solui_rearrange); 0: the
      * usual ones (NULL: always the usual ones) */
     int (*animate)(struct solui *u, const solpos *before, int first);
+    /* spread (solui_table sets it): the columns fanned wider while the longest one leaves room (an upright phone's
+     * height used); spread_e: the longest column's reach at the widest steps (card widths) seen since the deal, so the
+     * steps only close up as the columns grow, never open again under the player's eyes */
+    int spread;
+    float spread_e;
 } solui;
 
 /* ---- where the cards lie ----------------------------------------------------------------------------------------- */
-/* a column's steps: as set, closer when it would reach past its room (the face-up ones first, then the others) */
+#define SOLUI_SPREAD_DOWN 0.45f                 /* the widest steps, card widths: face down, face up */
+#define SOLUI_SPREAD_UP 0.9f
+
+/* the longest column's reach (its last card's centre below its first one's) at the widest steps, card widths; and the
+ * least room a column has (pixels) */
+static inline float solui_reach(const solui *u, const solpos *p, float *room)
+{
+    float e = 0;
+    *room = 1e9f;
+    for (int i = 0; i < p->npiles; i++) {
+        if (u->at[i].fan != SF_COLUMN) continue;
+        int n = p->n[i], down = p->down[i] < n ? p->down[i] : n, up = n - down;
+        float r = down * SOLUI_SPREAD_DOWN + (up > 1 ? up - 1 : 0) * SOLUI_SPREAD_UP;
+        if (r > e) e = r;
+        if (u->at[i].room < *room) *room = u->at[i].room;
+    }
+    return e;
+}
+
+/* the steps the columns take (parts of w): as set, wider while the deal's longest column so far leaves room */
+static inline void solui_spread(const solui *u, float *down, float *up)
+{
+    *down = u->down_step;
+    *up = u->up_step;
+    if (!u->spread || u->w <= 0) return;
+    float room, e = fmaxf(u->spread_e, solui_reach(u, &u->rec->pos, &room));
+    float k = e > 0 ? fminf(1, room / (e * u->w)) : 1;
+    *down = fmaxf(*down, SOLUI_SPREAD_DOWN * k);
+    *up = fmaxf(*up, SOLUI_SPREAD_UP * k);
+}
+
+/* a column's steps: as set (spread), closer when it would reach past its room (the face-up ones first, then the
+ * others) */
 static inline void solui_steps(const solui *u, const solpos *p, int pile, float *dd, float *du)
 {
-    ct_column_steps(p->n[pile], p->down[pile], u->at[pile].room, u->w, u->down_step, u->up_step, dd, du);
+    float down, up;
+    solui_spread(u, &down, &up);
+    ct_column_steps(p->n[pile], p->down[pile], u->at[pile].room, u->w, down, up, dd, du);
 }
 
 static inline void solui_xy(const solui *u, const solpos *p, int pile, int i, float *x, float *y)
@@ -138,9 +178,13 @@ static inline soltable solui_table(solui *u, box b, float across, float need, in
 {
     soltable t;
     if (u->base_up <= 0) u->base_up = u->up_step, u->base_down = u->down_step;
-    float w = floorf(fminf(b.w / ((across - 1) * 1.06f + 1.1f), b.h / (3.06f + need)));
+    u->spread = 1;
+    /* the gaps: on a tall screen (the width the limit) a little narrower, the cards a little bigger */
+    int tall = b.h > 1.3f * b.w;
+    float gap = tall ? 1.04f : 1.06f, edge = tall ? 1.05f : 1.1f;
+    float w = floorf(fminf(b.w / ((across - 1) * gap + edge), b.h / (3.06f + need)));
     t.w = u->w = w;
-    t.pitch = across > 1 ? fminf(1.16f * w, (b.w - 1.1f * w) / (across - 1)) : 0;
+    t.pitch = across > 1 ? fminf(1.16f * w, (b.w - edge * w) / (across - 1)) : 0;
     t.x0 = b.x + b.w / 2 - (across - 1) / 2 * t.pitch;
     t.ty = b.y + 0.06f * w + 0.7f * w;
     t.cy = t.ty + 1.58f * w;
@@ -412,6 +456,7 @@ static inline int solui_undo(solui *u)
 static inline void solui_new(solui *u)
 {
     solui_calm(u);
+    u->spread_e = 0;
     u->won = 0;
     u->hints = u->undos = 0;
 }
@@ -472,6 +517,13 @@ static inline void solui_draw_pile(const solui *u, int pile)
         if (s->first && k < n) k = 0;           /* a run arriving: it shows once the king has landed */
         int top = !k || p->kind[pile] == SP_STOCK || k <= p->down[pile] ? CARD_NONE : p->c[pile][s->first ? 0 : k - 1];
         int glow = solui_glows(u, pile, n - 1) || (!n && solui_glows(u, pile, -1));
+        if (!k && !TH.dark) {                   /* the light theme: an empty place a soft shade (Montana's gaps) */
+            float h = SOLUI_ASPECT * w;
+            SDL_Texture *t = ct_round((int)w, (int)h, 0.075f * w, (const uint8_t[4]){96, 84, 62, 255});
+            SDL_SetTextureAlphaMod(t, 40);
+            ui_put_c(t, s->x, s->y, w, h);
+            SDL_SetTextureAlphaMod(t, 255);
+        }
         cards_pile(deck, s->x, s->y, w, k, top, (glow ? CD_GLOW : 0) | (k && solui_chosen(u, pile) ? CD_RAISED : 0));
         break;
     }
@@ -512,6 +564,10 @@ static inline void solui_draw_pile(const solui *u, int pile)
 static inline void solui_draw(solui *u)
 {
     const solpos *p = &u->rec->pos;
+    if (u->spread) {                            /* the steps close up as the columns grow (solui_spread) */
+        float room, e = solui_reach(u, p, &room);
+        if (e > u->spread_e) u->spread_e = e;
+    }
     Uint32 now = ui_ms();
     if (u->hint && now - u->hint_t0 > SOLUI_HINT_MS) u->hint = 0;
     if (u->hint) ui_animate();

@@ -53,6 +53,7 @@ static void layout(box b)
     float ty = b.y + 0.76f * w, top = ty + 0.9f * w, band = (b.y + b.h - top) / 2;
     float room = band - 1.55f * w;
     U.up_step = clampf(room / w / 7, U.base_up, 0.55f);
+    U.spread = 1;                               /* (each row's columns spread in its band) */
     for (int i = 0; i < BKD_PILES; i++) {
         solspot *s = &U.at[i];
         memset(s, 0, sizeof *s);
