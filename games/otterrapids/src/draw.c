@@ -2,6 +2,7 @@
 #include "game.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "house_tall.h"   /* a phone held upright: the title and the panels in the house's portrait layout */
 #include "game_text.h"
 #include "sine.h"
 #include <stdlib.h>
@@ -21,11 +22,13 @@ static int tall_screen(void){return rs_screen_height()>RS_SCREEN_H;}
 static int fdiv(int a,int b){return a>=0?a/b:-((b-1-a)/b);}
 static int bg1_sx,bg1_sy,hud_pin;       /* BG1's scroll as written (the panel slides, the pause in the columns shown),
                                          * its HUD lines pinned at the screen's top: set by draw_frame */
+static int ui_pin;                      /* the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels) */
 static void raster_out(int y){
  int e=y&4?3:0,c[3]={86+e+fdiv(y,24),169+e+fdiv(y,32),175+e+fdiv(y,40)};
  for(int i=0;i<3;i++)c[i]=c[i]<0?0:c[i]>255?255:c[i];
  rs_pal_set(0,RS_RGB8(c[0],c[1],c[2]));
- if(y-rs_screen_top()<hud_pin)rs_bg_scroll(RS_BG1,bg1_sx,0);    /* the pinned HUD: BG1's stage lines from 0 */
+ if(ui_pin && ht_pin_line(ui_pin,y))rs_bg_scroll(RS_BG1,bg1_sx,bg1_sy);   /* the pinned UI (the title, the panels) */
+ else if(y-rs_screen_top()<hud_pin)rs_bg_scroll(RS_BG1,bg1_sx,0);    /* the pinned HUD: BG1's stage lines from 0 */
  else rs_bg_scroll(RS_BG1,bg1_sx,240+(y&15)-y);                 /* map rows 30-31: empty */
 }
 static void raster(int y,void*u){(void)u;
@@ -323,6 +326,14 @@ static int tall(const char*s){for(;*s;s++)if((unsigned char)*s>=128)return 1;ret
 /* the column of a title line: its English column x0, or the centred one when that is further left (a longer text;
  * lead: columns before the text, the prompt's A glyph) */
 static int left_x(const char*s,int x0,int lead){int c=(40-hu_width(s,0)-lead)/2+lead;return c<x0?(c<lead?lead:c):x0;}
+/* player p's icon at the slot (ht_title_sprites; anywhere on the screen) */
+static void icon(int p,int cx,int cy,int t,void*u){(void)t;(void)u;const gm_sprite_def*s=&gm_spr[SPR_HERO_ICON];rs_spr(cx-8,cy-8,s->tile,s->w,s->h,hu_player_pal(p),2,0);}
+/* a tall screen: the house's portrait title (house_tall.h, its standard rows; the hint's two parts above the prompt) */
+static void title_tall(int t,int best){
+ char hint[192];snprintf(hint,sizeof hint,"%s - %s",TR(HINT_MOVE),TR(HINT_GOAL));
+ ht_logo("OTTER RAPIDS",ramps,2,HT_ROW_LOGO,0);ht_title tc={TR(VERB),MAX_PLAYERS,HT_ROW_SLOTS,0,hint};ht_title_out to;
+ ht_title_draw(&tc,t,best,&to);ht_title_sprites(&tc,&to,t,icon,NULL);
+}
 static void title(const world*w,int t,int best){
  hu_logo("OTTER RAPIDS",ramps,2,1,0);
  /* The lines under the logo: the hint, the join line, the prompt (after its A glyph), the goal. Each starts at its
@@ -348,16 +359,22 @@ void draw_frame(const world*w,int state,int t,int best,int fresh,int paused){hu_
   * display's height filled with the whole course's width (ZOOM_H: no pan, a few columns of bank cropped on the
   * tallest phones), the river ahead above. The score at the screen's top (1 player: sprites; more: BG1's top rows
   * pinned, one column in from the left edge). */
- int solo=w->players==1&&(state==ST_PLAY||state==ST_DEAD),hx=160,hy=8;bg1_sx=0;hud_pin=0;
+ int solo=w->players==1&&(state==ST_PLAY||state==ST_DEAD),hx=160,hy=8;bg1_sx=0;hud_pin=0;ui_pin=HT_PIN_OFF;
  if(tall_screen()){
   rs_screen_fill(1);rs_screen_focus_x(-1);
   if(solo)hy=rs_screen_top()+8;
   else if(state==ST_PLAY||state==ST_DEAD)hud_pin=16;
   rs_bg_pin(RS_BG1,0,hud_pin,0);
+  ui_pin=state==ST_TITLE?HT_PIN_TITLE:state==ST_OVER?HT_PIN_PANEL:HT_PIN_OFF;
+  if(ui_pin)ht_pin(ui_pin);   /* the title and the panels at the same place on every game's screen */
  }
  foreground(w);
  if(rs_screen_width()>RS_SCREEN_W)land(w);
- if(state==ST_TITLE){title(w,t,best);scene(w);}else if(state==ST_PLAY||state==ST_DEAD){if(w->players==1)hu_number(w->h[0].score,hx,hy,3);else for(int p=0;p<w->players;p++){char b[48],tag[16];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),p+1);snprintf(b,sizeof b,"%s %d",tag,w->h[p].score);hu_text(p*10+tall_screen(),1,b);}scene(w);if(paused)hu_big(hu_center(HTR(PAUSED),1),13,HTR(PAUSED),HU_BIG_FREE);
+ if(state==ST_TITLE){if(tall_screen())title_tall(t,best);else title(w,t,best);scene(w);}else if(state==ST_PLAY||state==ST_DEAD){if(w->players==1)hu_number(w->h[0].score,hx,hy,3);else for(int p=0;p<w->players;p++){char b[48],tag[16];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),p+1);snprintf(b,sizeof b,"%s %d",tag,w->h[p].score);hu_text(p*10+tall_screen(),1,b);}scene(w);if(paused)hu_big(hu_center(HTR(PAUSED),1),13,HTR(PAUSED),HU_BIG_FREE);
+ }else if(tall_screen()){int slide=hu_slide_in(t,20,200);   /* a tall screen: the house's portrait panels (house_tall.h) */
+  if(w->players==1){static const int med[4]=MEDAL_SCORES;ht_banner(4,HTR(GAME_OVER));ht_gameover_panel(fresh,NULL,HTR(BACK_TITLE));ht_gameover_sprites(w->h[0].score,best,hu_medal_of(w->h[0].score,med),t,slide);ht_retry_line_at(ht_gameover_retry_row(NULL),t,RETRY_LOCK,HTR(BACK_TITLE));}
+  else{int scores[4];for(int p=0;p<w->players;p++)scores[p]=w->h[p].score;hu_standing s;hu_rank(&s,w->players,scores,scores);ht_results_panel(&s,NULL);ht_results_sprites(&s,t,slide);for(int i=0;i<s.n;i++){int x,y;ht_results_icon_pos(&s,i,&x,&y);icon(s.order[i],x,y+slide,0,NULL);}ht_retry_line_at(ht_results_retry_row(&s),t,RETRY_LOCK,HTR(BACK_TITLE));}
+  rs_bg_scroll(RS_BG1,0,-slide);
  }else{int slide=hu_slide_in(t,20,200);if(w->players==1){static const int med[4]=MEDAL_SCORES;hu_banner(4,HTR(GAME_OVER));hu_gameover_panel(1,fresh,w->h[0].score,0);hu_gameover_sprites(1,w->h[0].score,0,best,hu_medal_of(w->h[0].score,med),t,slide);hu_retry_line(t,RETRY_LOCK,HTR(BACK_TITLE));}else{int scores[4];for(int p=0;p<w->players;p++)scores[p]=w->h[p].score;hu_standing s;hu_rank(&s,w->players,scores,scores);hu_results_panel(&s,NULL);hu_results_sprites(&s,t,slide);for(int i=0;i<s.n;i++){int x,y;hu_results_icon_pos(&s,i,&x,&y);spr(SPR_HERO_ICON,x-8,y-8+slide,hu_player_pal(s.order[i]));}hu_retry_line_at(hu_results_retry_row(&s),t,RETRY_LOCK,HTR(BACK_TITLE));}rs_bg_scroll(RS_BG1,0,-slide);}
  if(state!=ST_OVER)rs_bg_scroll(RS_BG1,bg1_sx,0);
  rs_bg_scroll(RS_BG2,0,tall_screen()?-rs_screen_top()&(TALL_ROWS*8-1):0);rs_viewports(0,NULL,0);   /* (a tall screen: map row 0 at the top) */
