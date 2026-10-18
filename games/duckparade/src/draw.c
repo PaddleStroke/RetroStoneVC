@@ -65,16 +65,18 @@ static int map_h(void) { return tall() ? 64 : 32; }                  /* BG2, BG3
 static int band_y(void) { return tall() && rs_screen_top() <= -FIELD_Y ? rs_screen_top() : 0; }
 static int zoom_band_dx, zoom_shade_dx;   /* BG2's scroll for the band and the shadows, set by draw_frame (not saved) */
 static int zoom_hud;                      /* the HUD pinned at the screen's top (draw_frame; not saved) */
+static int ui_pin;                        /* the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels) */
 static int ui_off;                        /* the stage x of UI x 0: hu_ui_x(), or the zoomed view's (draw_frame) */
 static int narrow;                        /* a zoomed tall screen showing fewer columns than the kit needs (draw_frame) */
 static ht_title_out title_out;            /* the narrow title's glyph and slots, set by screen_text every title frame */
-static const ht_title title_cfg = {NULL, MAX_PLAYERS, HU_ROW_SLOTS, 0};   /* (the verb: TR(VERB), set where used) */
+static const ht_title title_cfg = {NULL, MAX_PLAYERS, HT_ROW_SLOTS, 0};   /* (the verb: TR(VERB), set where used) */
 
 static void raster_tall(int line)
 {
     int by = band_y(), band = line >= by && line < by + FIELD_Y, stage = line >= 0 && line < RS_SCREEN_H;
     if (line == rs_screen_top()) rs_window(1, rs_screen_left(), rs_screen_right());
-    rs_bg_window(RS_BG1, stage || (band && zoom_hud) ? 0 : RS_WIN2);
+    if (ui_pin) rs_bg_window(RS_BG1, ht_pin_line(ui_pin, line) ? 0 : RS_WIN2);   /* the pinned UI */
+    else rs_bg_window(RS_BG1, stage || (band && zoom_hud) ? 0 : RS_WIN2);
     rs_bg_scroll(RS_BG2, stage ? 0 : band ? zoom_band_dx : zoom_shade_dx, -by);
     if (band) {
         rs_pal_set(RS_PAL_BG(PAL_CLOUD) + SKY_IDX, line_col[line - by]);
@@ -1005,6 +1007,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     ui_off = vw < RS_SCREEN_W ? (rs_screen_visible_x0() + rs_screen_visible_x1()) / 2 - RS_SCREEN_W / 2 : hu_ui_x();
     zoom_hud = by < 0;                            /* the HUD's rows at the screen's top (rs_bg_pin) */
     if (tall()) rs_bg_pin(RS_BG1, 0, zoom_hud ? FIELD_Y : 0, 0);
+    ui_pin = !narrow ? HT_PIN_OFF : state == DS_TITLE ? HT_PIN_TITLE : state == DS_OVER ? HT_PIN_PANEL : HT_PIN_OFF;
+    if (ui_pin) ht_pin(ui_pin);                   /* the title and the panels at the same place on every game's screen */
     screen_text(w, state, st_t, best, new_best);
     if (play) hud(w, state, best, vw);
     int slide = state == DS_OVER ? hu_slide_in(st_t, 20, 200) : 0;
