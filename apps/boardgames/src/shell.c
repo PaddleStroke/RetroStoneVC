@@ -2885,6 +2885,9 @@ static void jr_var(struct jrec *r, uint32_t v)  /* 7 bits a byte, the last witho
     while (v >= 128) { jr_u8(r, (v & 127) | 128); v >>= 7; }
     jr_u8(r, v);
 }
+/* a point as the record keeps it (quarter pixels): what the game is given, live and played again alike (a tap on
+ * a cell's edge lands in the same cell) */
+static float jr_q(float v) { return floorf(clampf(v * 4 + 0.5f, 0, 65535)) / 4; }
 static void jr_xy(struct jrec *r, float x, float y)   /* quarter pixels */
 {
     jr_u16(r, (unsigned)clampf(x * 4 + 0.5f, 0, 65535));
@@ -5189,6 +5192,7 @@ static void press(float x, float y)
 /* a press that is the game's: a bar's (its own use of it), else the board's (kept in the game's record) */
 static void game_press(float x, float y)
 {
+    x = jr_q(x), y = jr_q(y);
     struct jrec *jr = jr_point(EV_PRESS, x, y);
     for (int p = 0; p < ui.players && games[cur]->bar_press; p++) {   /* the game's own use of a bar */
         box b = L.bar[p];
@@ -5233,6 +5237,7 @@ static void motion(float x, float y)
     /* a stray finger: nobody's; a puzzle solved: only the gesture the game had then (it goes on to its lifting: the pin
      * placed where the player wants it), or a tool's press */
     if (PT.stray || (solved_card() && !PT.game)) return;
+    x = jr_q(x), y = jr_q(y);
     struct jrec *jr = PT.game ? jr_point(EV_MOTION, x, y) : NULL;   /* (a mouse hovering: not kept) */
     games[cur]->motion(x, y);
     jr_done(jr);
@@ -5288,6 +5293,7 @@ static void release(float x, float y)
     if (held_press) held_press = 0;           /* a finger put down on a bot's turn: none of it the game's */
     else if (stray || (!mine && solved_card())) return;   /* down when the game ended, or on its card: nobody's */
     else if (screen == SCR_GAME && !(is_view() && hand.up)) {
+        x = jr_q(x), y = jr_q(y);
         struct jrec *jr = jr_point(EV_RELEASE, x, y);
         games[cur]->release(x, y);
         jr_done(jr);
@@ -5374,6 +5380,7 @@ static void touch(Uint32 type, long long id, float x, float y)
     int phase = type == SDL_FINGERDOWN ? FINGER_DOWN : type == SDL_FINGERUP ? FINGER_UP : FINGER_MOVE;
     if (phase == FINGER_DOWN && PT.nheld < MAX_FINGERS) PT.held[PT.nheld++] = id;
     if (phase == FINGER_UP) id_drop(PT.held, &PT.nheld, id);
+    x = jr_q(x), y = jr_q(y);
     struct jrec *jr = jr_point(EV_FINGER, x, y);
     if (jr) { jr_u32(jr, (uint32_t)(id & 0x7fffffff)); jr_u8(jr, (unsigned)phase); }
     games[cur]->finger((int)(id & 0x7fffffff), phase, x, y);   /* (ended under them: they go on, gesture_held) */
