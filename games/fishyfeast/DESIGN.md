@@ -169,7 +169,7 @@ rim's end colours, sways the rays by BG2's scroll (the line-scroll table is the 
   lines pinned at screen line 22 with `rs_bg_pin`, under the frontend's pause button; the raster shows BG1 there).
   The touch SPLIT / EJECT buttons sit at the bottom-right of the columns shown, the stick's zone in their left 60%.
 - **One view throughout**: the title and the panels keep play's zoomed view (the logo on two lines, the lines wrapped,
-  a banner too wide on two lines: src/tall_ui.h). Only the split screens (2-4 players) show every column
+  a banner too wide on two lines: games/common/src/house_tall.h). Only the split screens (2-4 players) show every column
   (`rs_screen_fill(0)`: the whole 320 x 420 picture across the width, the views as tall as the screen).
 - A 240-line screen is unchanged (the same pixels in landscape and 4:3).
 
