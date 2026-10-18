@@ -80,7 +80,6 @@ static int bg3_rows(void) { return tall() ? 64 : 32; }
 #define PL_PIN_SY     52        /* BG1's rows 0-3 (the HUD's words) drawn from this screen line (rs_bg_pin) */
 #define PL_PIN_N      32
 #define PL_MID        160       /* the middle of the screen (and of the two jars) */
-#define PL_TITLE_SLOTS 18       /* the title: the slots row (house_tall.h ht_title), the logo above (rows 1-12) */
 static int portrait(void) { return rs_screen_height() >= PL_MIN_H; }
 static int pl_pin;              /* the HUD's band is pinned this frame (the raster shows BG1 there) */
 static int pl_on;               /* portrait this frame (the raster: the sprites everywhere) */
@@ -724,7 +723,7 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         hu_clear();
         shown_text = 0;
         if (state == ST_TITLE) {
-            if (narrow) ht_logo("JELLY JAM", title_ramps, 2, 1, 0);
+            if (narrow) ht_logo("JELLY JAM", title_ramps, 2, 2, 0);     /* (house_tall.h: its default rows) */
             else hu_logo("JELLY JAM", title_ramps, 2, 2, 0);
         }
         if (state == ST_OVER) {
@@ -745,7 +744,7 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         shown_best = best;
     }
     if (state == ST_TITLE && narrow) {
-        ht_title cfg = {TR(VERB), MAX_PLAYERS, PL_TITLE_SLOTS, 0};
+        ht_title cfg = {TR(VERB), MAX_PLAYERS, HU_ROW_SLOTS, 0};
         ht_title_draw(&cfg, st_t, best, &title_out);
     } else if (state == ST_TITLE) {
         hu_title_draw(st_t, best);
@@ -899,12 +898,13 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;
     rs_bg_scroll(RS_BG1, 0, -slide);
     /* PAUSED: under the previews, above the chef and the heroes (in play); below a banner (the intro, a round won) */
-    hu_pause(paused, !title && (w->phase == PH_INTRO || w->phase == PH_END) ? 13 : 11);
+    if (ht_narrow()) ht_pause(paused, 13);               /* (house_tall.h: the house row) */
+    else hu_pause(paused, !title && (w->phase == PH_INTRO || w->phase == PH_END) ? 13 : 11);
 
     rs_oam_clear();
     if (state == ST_TITLE) {
         if (ht_narrow()) {                         /* (house_tall.h: the slots closer, the glyph by the wrapped prompt) */
-            ht_title cfg = {TR(VERB), MAX_PLAYERS, PL_TITLE_SLOTS, 0};
+            ht_title cfg = {TR(VERB), MAX_PLAYERS, HU_ROW_SLOTS, 0};
             ht_title_sprites(&cfg, &title_out, st_t, slot_icon, NULL);
         } else {
             hu_title_sprites(st_t, slot_icon, NULL);   /* the prompt's glyph, the joined players popping in */
