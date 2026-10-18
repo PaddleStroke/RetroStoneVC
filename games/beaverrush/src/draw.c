@@ -15,6 +15,7 @@
 #include "assets.h"
 #include "house_ui.h"
 #include "game_text.h"
+#include "tall_ui.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -672,15 +673,15 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
     if (redo) {
         hu_clear();
         banner_on = 0;
-        if (state == DS_TITLE) hu_logo("BEAVER RUSH", title_ramps, 2, 2, 0);
+        if (state == DS_TITLE) tu_logo("BEAVER RUSH", title_ramps, 2, 2, 0);   /* (portrait: on two lines) */
         else hu_logo_hide();
         if (state == DS_OVER) {
             if (w->players == 1) {
-                hu_banner(4, HTR(GAME_OVER));
+                tu_banner(4, HTR(GAME_OVER));
                 hu_gameover_panel(1, new_best, w->bv[0].score, 0);
                 if (!hu_medal_of(w->bv[0].score, medal_scores)) hu_box_text(22, 17, "-");
             } else {
-                hu_results_panel(rs, NULL);            /* "P3 WINS!" (or DRAW!) and the ranking */
+                tu_results_panel(rs, NULL);            /* "P3 WINS!" (or DRAW!) and the ranking */
             }
         }
         shown_state = state;
@@ -689,7 +690,8 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         for (int p = 0; p < MAX_PLAYERS; p++) PV[p].bar_px = -1;
     }
     /* the title, every frame: PRESS <-/-> TO GNAW, the player slots, BEST, the join line, the credits */
-    if (state == DS_TITLE) hu_title_draw(st_t, best);
+    if (state == DS_TITLE && tu_on()) tu_title_draw(st_t, best, TR(VERB), MAX_PLAYERS, 0, 0);
+    else if (state == DS_TITLE) hu_title_draw(st_t, best);
     if (state == DS_OVER) {
         if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_MENU));
         else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_MENU));
@@ -783,14 +785,16 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         scene_trunk(160 - TRUNK_W / 2 + sx, tx, ty);    /* a tall screen: the trunk above the stage */
         scene_bg_scroll(PANO_X);
     }
+    /* a tall screen (DESIGN.md "Tall screen"): one view throughout, the display's height filled (the sides cropped):
+     * the title, play, the panels (laid out in the columns shown: tall_ui.h); only a split screen (2-4 beavers, each
+     * its trunk across the stage) and its ranking over the views show every column; the HUD (the score, the bar) at
+     * the screen's top */
+    rs_screen_fill(!multi || state == DS_TITLE);
     screen_text(w, state, st_t, best, new_best, &rs);
     int slide = state == DS_OVER ? hu_slide_in(st_t, 20, 200) : 0;
     rs_bg_scroll(RS_BG1, 0, -slide);
-    hu_pause(paused, 13);
-    /* a tall screen (DESIGN.md "Tall screen"): one beaver plays filling the display's height (the sides cropped); the
-     * title, the panels and a split screen show every column; the HUD (the score, the bar) at the screen's top */
+    tu_pause(paused, 13);
     int hud = tall() && !multi && (state == DS_PLAY || state == DS_END), hy = hud ? rs_screen_top() : 0;
-    rs_screen_fill(!multi && (state == DS_PLAY || state == DS_END));
     rs_bg_pin(RS_BG1, 0, hud ? HUD_LINES : 0, 0);
     scene_hud(hud ? HUD_LINES : 0);
 
@@ -798,7 +802,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     int nv = multi ? split(w->players, v) : 0;
     rs_oam_clear();
     /* front to back: the UI, the effects, the beaver, the bird, the sky */
-    if (state == DS_TITLE) hu_title_sprites(st_t, slot_icon, NULL);   /* the D-pad glyph, the players popping in */
+    if (state == DS_TITLE && tu_on()) tu_title_sprites(st_t, MAX_PLAYERS, 0, slot_icon, NULL);
+    else if (state == DS_TITLE) hu_title_sprites(st_t, slot_icon, NULL);   /* the D-pad glyph, the players popping in */
     if (!multi && state == DS_OVER) {
         /* the house panel's values; the medal is an acorn in the house tiers (bronze, silver, gold, pearl) */
         int m = hu_medal_of(w->bv[0].score, medal_scores);
