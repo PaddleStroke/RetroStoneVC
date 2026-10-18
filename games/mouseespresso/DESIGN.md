@@ -192,13 +192,12 @@ most of the course ahead (199 px of the 248 at 4:3 on a 1080x2520 phone, 217 on 
   pause, the game-over panel and the 2-4 players' results stay in the run's zoomed view (`rs_screen_fill(1)`, the same
   columns from `TALL_BEHIND` px behind the first mouse: the title is the run's first frame), never the full width. Play
   is one shared screen for 1-4 players, so nothing needs every column. When fewer than 320 columns show
-  (`ht_narrow()`), the screens are laid out in them with games/common/src/house_tall.h: the game-over panel narrower
-  (each value under its label, wide enough for the retry line), the ranking, the banners, PAUSED centred. The title
-  (draw.c `title_narrow`): the logo on two lines (one at 720x1440) is drawn in the UI rows 18..28, the band behind the
-  mice resting on the counter (else unused), turned by whole tiles to centre it in the columns shown, and pinned
-  (`rs_bg_pin`) 16 lines above the stage, the raster showing BG1 there; the stage's rows 0..17 hold, from the top, the
-  hint, the players' slots, the prompt, BEST, the join line (each wrapped) and the credits on two lines, up to two rows
-  between them while they fit (the long Polish, Greek or Japanese lines: fewer); the counter and the mice stay clear.
-  Checked in en, de, el, fr, ja, pl, ru, tr and uk at 1080x2520 (231 columns), 1080x2340 and 720x1440.
+  (`ht_narrow()`), the screens are the house's uniform ones (games/common/src/house_tall.h, its default rows, as in
+  every game): `ht_logo` (row 2), `ht_title_draw` / `ht_title_sprites` (slots on row 15, the rest down to the credits
+  on rows 28-29), `ht_banner`, `ht_gameover_panel`, `ht_results_*`, `ht_retry_line_at`, `ht_pause`. The title's hint
+  is not shown there (the uniform title has no row for it). The only scene change: on that title the mice resting on
+  the counter are not drawn (the join line and the credits lie where they rest; the slots show the players' icons);
+  they appear when the run starts. Checked in en, de, el, fr, ja, pl, ru, tr and uk at 1080x2520 (231 columns),
+  1080x2340 and 720x1440.
 - Landscape and 4:3 are the same pixels as before (checked at 2340x1080 and 320x240). The frontend's touch zone (hold
   anywhere) is the whole screen.

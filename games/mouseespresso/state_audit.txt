@@ -8,8 +8,6 @@ draw.p1_drawn_x     tests only (--opt view=1, draw_view_log): where P1's sprite 
 draw.tile_slot      foreground(): the playfield tiles shared this frame, per-frame scratch (cleared every frame)
 draw.tile_seen      foreground(): the tiles loaded this frame, per-frame scratch
 draw.hud_pinned     a tall screen: whether the HUD is pinned at the screen's top, set by draw_frame before every picture (the raster)
-draw.logo_pin       a tall screen: the title logo's pinned band, its first line, set by draw_frame before every picture (the raster)
-draw.logo_lines     a tall screen: that band's lines, set with it
 bot.eye             bot_decide(): the playfield picture it reads, rebuilt from the world every frame (look())
 bot.solid           bot_decide(): that picture as bits, rebuilt with it
 bot.tall            bot_decide(): dilation scratch
