@@ -1,0 +1,13 @@
+Dominoketju
+# Tavoite
+Pystyssä seisovien dominojen ketju kulkee punaisesta aloitusdominosta messinkikelloon, mutta siinä on aukkoja. Täytä aukot varastosi palasilla ja tönäise: yhden tönäisyn on kaadettava laudan kaikki palat ja soitettava kelloa.
+# Palat
+Aseta pala mihin tahansa vapaaseen puuruutuun; huovalla mikään ei seiso. Kaatuva pala kaataa kulkusuunnassaan seuraavan ruudun palan.
+- Domino kaatuu vain, kun siihen osutaan pituussuunnassa, ei koskaan sivulta.
+- Mutka kääntää ketjun kulman ympäri.
+- Pitkä domino ulottuu kahden ruudun päähän, aukon tai tyhjän ruudun yli.
+- Jakaja lähettää ketjun kumpaankin suuntaan, vasemmalle ja oikealle.
+# Pelin loppu
+Kun yksi tönäisy kaataa kaiken ja kello soi, tehtävä on ratkaistu. Muuten kaikki nousee taas pystyyn uutta yritystä varten.
+# Tasot ja tähdet
+Ratkaistu pienimmällä mahdollisella palamäärällä ilman vihjettä: 3 tähteä; enintään kahdella vihjeellä tai enintään puolet enemmän paloja: 2 tähteä; muuten 1.

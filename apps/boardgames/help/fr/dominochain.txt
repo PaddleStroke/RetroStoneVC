@@ -1,0 +1,13 @@
+Chaîne de dominos
+# Le but
+Une chaîne de dominos debout va du domino rouge de départ jusqu'à une cloche en laiton, avec des trous. Comble les trous avec les pièces de ta réserve, puis pousse : une seule poussée doit faire tomber toutes les pièces du plateau et sonner la cloche.
+# Les pièces
+Pose une pièce sur n'importe quelle case de bois libre ; rien ne tient sur le feutre. Une pièce qui tombe renverse la pièce de la case suivante sur son chemin.
+- Un domino ne tombe que s'il est frappé dans sa longueur, jamais par le côté.
+- Un virage fait tourner la chaîne à angle droit.
+- Un long domino atteint deux cases plus loin, par-dessus un trou ou une case vide.
+- Un séparateur envoie la chaîne des deux côtés, à gauche et à droite.
+# La fin de la partie
+Quand une seule poussée renverse tout et fait sonner la cloche, le casse-tête est résolu. Sinon, tout se relève pour un nouvel essai.
+# Niveaux et étoiles
+Résolu avec le moins de pièces possible et sans indice : 3 étoiles ; avec deux indices au plus, ou jusqu'à moitié plus de pièces : 2 étoiles ; sinon 1.

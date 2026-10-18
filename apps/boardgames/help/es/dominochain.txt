@@ -1,0 +1,13 @@
+Cadena de dominós
+# El objetivo
+Una cadena de fichas de dominó en pie va desde la ficha roja de salida hasta una campana de latón, con huecos. Llena los huecos con piezas de tu reserva y empuja: un solo empujón debe derribar todas las piezas del tablero y hacer sonar la campana.
+# Las piezas
+Pon una pieza en cualquier casilla de madera libre; sobre el fieltro no se sostiene nada. Una pieza que cae derriba la pieza de la casilla siguiente en su camino.
+- Un dominó solo cae si lo golpean a lo largo, nunca de lado.
+- Una curva hace girar la cadena en una esquina.
+- Un dominó largo llega dos casillas más allá, por encima de un hueco o de una casilla vacía.
+- Un divisor envía la cadena hacia los dos lados, a la izquierda y a la derecha.
+# El final de la partida
+Cuando un solo empujón lo derriba todo y suena la campana, el rompecabezas está resuelto. Si no, todo vuelve a ponerse en pie para otro intento.
+# Niveles y estrellas
+Resuelto con el mínimo de piezas posible y sin pistas: 3 estrellas; con dos pistas como mucho, o con hasta la mitad más de piezas: 2 estrellas; si no, 1.

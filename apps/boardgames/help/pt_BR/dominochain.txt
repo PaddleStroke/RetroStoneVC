@@ -1,0 +1,13 @@
+Corrente de dominós
+# O objetivo
+Uma corrente de dominós em pé vai do dominó vermelho de partida até um sino de latão, com buracos. Preencha os buracos com peças do seu estoque e depois empurre: um único empurrão deve derrubar todas as peças do tabuleiro e tocar o sino.
+# As peças
+Coloque uma peça em qualquer casa de madeira livre; nada fica em pé sobre o feltro. Uma peça que cai derruba a peça da casa seguinte no seu caminho.
+- Um dominó só cai se for atingido no sentido do comprimento, nunca de lado.
+- Uma curva faz a corrente virar uma esquina.
+- Um dominó comprido alcança duas casas adiante, por cima de um buraco ou de uma casa vazia.
+- Um divisor manda a corrente para os dois lados, para a esquerda e para a direita.
+# O fim da partida
+Quando um único empurrão derruba tudo e toca o sino, o quebra-cabeça está resolvido. Senão, tudo volta a ficar em pé para uma nova tentativa.
+# Níveis e estrelas
+Resolvido com o mínimo de peças possível e sem dicas: 3 estrelas; com no máximo duas dicas, ou com até metade a mais de peças: 2 estrelas; senão, 1.

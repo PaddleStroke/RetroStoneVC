@@ -1,0 +1,13 @@
+Domino Chain
+# The aim
+A chain of standing dominoes runs from the red start domino to a brass bell, with gaps in it. Fill the gaps with pieces from your stock, then push: one push must topple every piece on the board and ring the bell.
+# The pieces
+Put a piece on any free wooden square; nothing stands on the felt. A falling piece knocks over the next square's piece in its way.
+- A domino falls only when it is hit along its length, never from the side.
+- A turn sends the chain round a corner.
+- A long domino reaches two squares on, over a gap or an empty square.
+- A splitter sends the chain both ways, to the left and to the right.
+# The end of the game
+When one push topples everything and rings the bell, the puzzle is solved. Otherwise everything stands up again for another try.
+# Levels and stars
+Solved with the fewest pieces possible and no hint: 3 stars; with up to two hints, or up to half as many pieces again: 2 stars; otherwise 1.

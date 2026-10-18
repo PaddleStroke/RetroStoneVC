@@ -1,0 +1,13 @@
+Řetěz domina
+# Cíl hry
+Řetěz stojících kostek domina vede od červené startovní kostky ke mosaznému zvonku, ale má mezery. Vyplň mezery díly ze své zásoby a pak strč: jediné strčení musí shodit všechny díly na desce a rozeznít zvonek.
+# Díly
+Postav díl na kterékoli volné dřevěné políčko; na suknu nic nestojí. Padající díl shodí díl na dalším políčku ve svém směru.
+- Kostka domina padá jen tehdy, když ji něco zasáhne podélně, nikdy ze strany.
+- Zatáčka stočí řetěz za roh.
+- Dlouhá kostka dosáhne o dvě políčka dál, přes mezeru nebo prázdné políčko.
+- Rozdělovač pošle řetěz na obě strany, doleva i doprava.
+# Konec hry
+Když jediné strčení shodí všechno a zvonek zazvoní, hlavolam je vyřešen. Jinak se všechno znovu postaví k dalšímu pokusu.
+# Úrovně a hvězdy
+Vyřešeno nejmenším možným počtem dílů a bez nápovědy: 3 hvězdy; nejvýš se dvěma nápovědami nebo nejvýš o polovinu víc dílů: 2 hvězdy; jinak 1.

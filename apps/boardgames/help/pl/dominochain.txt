@@ -1,0 +1,13 @@
+Łańcuch domina
+# Cel gry
+Łańcuch stojących kostek domina biegnie od czerwonej kostki startowej do mosiężnego dzwonka, ale ma luki. Wypełnij luki elementami ze swojego zapasu, a potem pchnij: jedno pchnięcie musi przewrócić wszystkie elementy na planszy i zadzwonić dzwonkiem.
+# Elementy
+Postaw element na dowolnym wolnym drewnianym polu; na suknie nic nie stoi. Padający element przewraca element na następnym polu na swojej drodze.
+- Kostka domina pada tylko wtedy, gdy zostanie trafiona wzdłuż, nigdy z boku.
+- Zakręt prowadzi łańcuch za róg.
+- Długa kostka sięga dwa pola dalej, nad luką albo pustym polem.
+- Rozdzielacz wysyła łańcuch w obie strony, w lewo i w prawo.
+# Koniec gry
+Gdy jedno pchnięcie przewraca wszystko i dzwoni dzwonek, łamigłówka jest rozwiązana. W przeciwnym razie wszystko znów staje do kolejnej próby.
+# Poziomy i gwiazdki
+Rozwiązana najmniejszą możliwą liczbą elementów i bez podpowiedzi: 3 gwiazdki; z najwyżej dwiema podpowiedziami albo najwyżej o połowę większą liczbą elementów: 2 gwiazdki; inaczej 1.

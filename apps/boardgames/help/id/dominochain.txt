@@ -1,0 +1,13 @@
+Rantai Domino
+# Tujuan
+Serangkaian kartu domino yang berdiri membentang dari domino merah di awal sampai sebuah lonceng kuningan, tetapi ada celah di dalamnya. Isi celah itu dengan bidak dari persediaanmu, lalu dorong: satu dorongan saja harus merobohkan semua bidak di papan dan membunyikan lonceng.
+# Bidak
+Letakkan bidak di petak kayu mana saja yang kosong; tidak ada yang bisa berdiri di atas kain laken. Bidak yang jatuh merobohkan bidak di petak berikutnya pada arahnya.
+- Domino hanya jatuh jika terkena searah panjangnya, tidak pernah dari samping.
+- Belokan membelokkan rantai di sebuah sudut.
+- Domino panjang menjangkau dua petak ke depan, melewati celah atau petak kosong.
+- Pemisah mengirim rantai ke dua arah, ke kiri dan ke kanan.
+# Akhir permainan
+Saat satu dorongan merobohkan semuanya dan lonceng berbunyi, teka-teki terpecahkan. Jika tidak, semuanya berdiri lagi untuk percobaan berikutnya.
+# Level dan bintang
+Selesai dengan bidak sesedikit mungkin tanpa petunjuk: 3 bintang; dengan paling banyak dua petunjuk, atau tambahan bidak paling banyak setengah dari jumlah itu: 2 bintang; selain itu 1.
