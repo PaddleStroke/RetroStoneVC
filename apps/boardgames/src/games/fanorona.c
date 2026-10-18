@@ -247,11 +247,12 @@ static int xy_pt(float x, float y)              /* the point whose cell holds (x
     return lines_at(&P, x, y, &gx, &gy) ? gx + FN_COLS * gy : -1;
 }
 
-static void cell_mark(int pt, void (*mark)(float, float, float, float))
+/* a point marked with a round mark (a line board has no squares): the last turn's, the selected piece's */
+static void cell_mark(int pt, void (*mark)(float, float, float))
 {
     float x, y;
     pt_xy(pt, &x, &y);
-    mark(x - P.sq / 2.0f, y - P.sq / 2.0f, (float)P.sq, (float)P.sq);
+    mark(x, y, 0.96f * P.sq);
 }
 
 static void disc_at(int who, float cx, float cy, float d, float alpha) { ui_flat_at(t_disc[who], cx, cy, d, alpha, 0); }
@@ -307,11 +308,11 @@ static void draw(void)
     if (G.ply) {                                /* the last turn: a step, or every step of its chain */
         int side = G.pos[G.ply - 1].side;
         for (int k = G.ply - 1; k >= 0 && G.pos[k].side == side; k--) {
-            cell_mark(G.move[k].from, ui_mark_last);
-            cell_mark(G.move[k].to, ui_mark_last);
+            cell_mark(G.move[k].from, ui_mark_last_round);
+            cell_mark(G.move[k].to, ui_mark_last_round);
         }
     }
-    if (sel >= 0) cell_mark(choice.on ? choice.to : sel, ui_mark_select);
+    if (sel >= 0) cell_mark(choice.on ? choice.to : sel, ui_mark_select_round);
     /* the step slides; the pieces taken start fading half-way through it */
     float t = 1, total = anim.n ? STEP_MS * 0.5f + (anim.n - 1) * FADE_GAP + FADE_MS : STEP_MS;
     if (anim.on) {
