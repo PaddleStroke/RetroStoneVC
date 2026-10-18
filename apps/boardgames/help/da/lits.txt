@@ -1,0 +1,12 @@
+LITS
+# Målet
+Skravér felter i gitteret, som er delt op i indrammede områder.
+- Hvert område har præcis fire skraverede felter, der hænger sammen via siderne: et L, et I, et T eller et S, drejet eller spejlet.
+- Alle de skraverede felter hænger sammen i ét stykke via siderne.
+- Intet kvadrat på 2 × 2 er helt skraveret.
+- To brikker med samme form rører aldrig hinanden med en side hen over en væg.
+Hver opgave har præcis én løsning, som findes ved ren logik. Hold på et felt for at sætte en prik i det: en note om, at det forbliver hvidt.
+# Spillets afslutning
+Opgaven er løst, når alle regler holder: en bølge af gyldent lys løber over gitteret.
+# Baner og stjerner
+Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et forkert felt, som du tager tilbage med Fortryd.

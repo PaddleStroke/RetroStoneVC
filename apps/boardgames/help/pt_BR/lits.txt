@@ -1,0 +1,12 @@
+LITS
+# O objetivo
+Pinte casas da grade, que é dividida em regiões contornadas.
+- Cada região tem exatamente quatro casas pintadas, ligadas pelos lados: um L, um I, um T ou um S, girado ou espelhado.
+- Todas as casas pintadas formam uma peça só, ligadas pelos lados.
+- Nenhum quadrado de 2 × 2 fica todo pintado.
+- Duas peças da mesma forma nunca se tocam pelo lado através de uma parede.
+Cada grade tem uma única solução, encontrada só pelo raciocínio. Segure uma casa para pôr um ponto nela: uma anotação de que ela fica sem pintar.
+# O fim da partida
+A grade está resolvida quando todas as regras são cumpridas: uma onda de luz dourada passa por ela.
+# Níveis e estrelas
+Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma casa errada que você tira com Desfazer.

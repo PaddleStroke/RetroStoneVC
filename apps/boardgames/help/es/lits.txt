@@ -1,0 +1,12 @@
+LITS
+# El objetivo
+Sombrea casillas del tablero, que está dividido en regiones con borde.
+- Cada región tiene exactamente cuatro casillas sombreadas, unidas por los lados: una L, una I, una T o una S, girada o reflejada.
+- Todas las casillas sombreadas forman una sola pieza, unidas por los lados.
+- Ningún cuadrado de 2 × 2 está sombreado entero.
+- Dos piezas de la misma forma nunca se tocan por un lado a través de una pared.
+Cada tablero tiene una sola solución, que se encuentra solo razonando. Mantén pulsada una casilla para poner un punto: una nota de que queda sin sombrear.
+# El final de la partida
+El tablero está resuelto cuando se cumplen todas las reglas: una ola de luz dorada lo recorre.
+# Niveles y estrellas
+Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una casilla equivocada que quitas con Deshacer.

@@ -1,0 +1,12 @@
+LITS
+# Le but
+Noircis des cases de la grille, qui est découpée en régions entourées.
+- Chaque région compte exactement quatre cases noircies, reliées par les côtés : un L, un I, un T ou un S, tourné ou retourné.
+- Toutes les cases noircies forment un seul bloc, reliées par les côtés.
+- Aucun carré de 2 × 2 n'est entièrement noirci.
+- Deux pièces de même forme ne se touchent jamais par un côté à travers un mur.
+Chaque grille a une seule solution, qu'on trouve par le seul raisonnement. Garde le doigt sur une case pour y mettre un point : une note qu'elle reste blanche.
+# La fin de la partie
+La grille est résolue quand toutes les règles sont respectées : une vague de lumière dorée la parcourt.
+# Niveaux et étoiles
+Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est une case fausse que tu reprends avec Annuler.

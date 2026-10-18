@@ -1,0 +1,12 @@
+LITS
+# Cel gry
+Zamaluj pola siatki, która jest podzielona na obramowane obszary.
+- Każdy obszar ma dokładnie cztery zamalowane pola połączone bokami: L, I, T lub S, obrócone albo odbite.
+- Wszystkie zamalowane pola tworzą jeden kawałek, połączone bokami.
+- Żaden kwadrat 2 × 2 nie jest cały zamalowany.
+- Dwa klocki tego samego kształtu nigdy nie stykają się bokiem przez ścianę.
+Każda łamigłówka ma dokładnie jedno rozwiązanie, które znajdziesz samym rozumowaniem. Przytrzymaj pole, aby postawić w nim kropkę: notatkę, że zostaje niezamalowane.
+# Koniec gry
+Łamigłówka jest rozwiązana, gdy wszystkie zasady są spełnione: przez siatkę przebiega fala złotego światła.
+# Poziomy i gwiazdki
+Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to źle oznaczone pole cofnięte przyciskiem Cofnij.

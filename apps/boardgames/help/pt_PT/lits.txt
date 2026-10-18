@@ -1,0 +1,12 @@
+LITS
+# O objetivo
+Pinta casas da grelha, que está dividida em regiões contornadas.
+- Cada região tem exatamente quatro casas pintadas, ligadas pelos lados: um L, um I, um T ou um S, rodado ou espelhado.
+- Todas as casas pintadas formam uma peça só, ligadas pelos lados.
+- Nenhum quadrado de 2 × 2 fica todo pintado.
+- Duas peças da mesma forma nunca se tocam pelo lado através de uma parede.
+Cada grelha tem uma única solução, encontrada só pelo raciocínio. Mantém o dedo numa casa para lhe pôr um ponto: uma nota de que fica por pintar.
+# O fim do jogo
+A grelha está resolvida quando todas as regras são cumpridas: uma onda de luz dourada percorre-a.
+# Níveis e estrelas
+Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é uma casa errada que tiras com Anular.

@@ -1,0 +1,12 @@
+LITS
+# Tavoite
+Varjosta ruudukosta ruutuja; ruudukko on jaettu rajattuihin alueisiin.
+- Jokaisessa alueessa on täsmälleen neljä varjostettua ruutua, sivuista yhdessä: L, I, T tai S, käännettynä tai peilattuna.
+- Kaikki varjostetut ruudut ovat yhtä kappaletta sivujen kautta.
+- Mikään 2 × 2 -neliö ei ole kokonaan varjostettu.
+- Kaksi samanmuotoista palaa eivät koskaan kosketa toisiaan sivulla seinän yli.
+Jokaisessa tehtävässä on täsmälleen yksi ratkaisu, joka löytyy pelkällä päättelyllä. Pidä sormea ruudussa laittaaksesi siihen pisteen: muistiinpano, että se jää varjostamatta.
+# Pelin loppu
+Tehtävä on ratkaistu, kun kaikki säännöt pitävät: kultaisen valon aalto kulkee ruudukon yli.
+# Tasot ja tähdet
+Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä ruutu, jonka perut Kumoa-painikkeella.

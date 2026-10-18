@@ -1,0 +1,12 @@
+LITS
+# Målet
+Skraver ruter i rutenettet, som er delt inn i innrammede områder.
+- Hvert område har nøyaktig fire skraverte ruter som henger sammen langs sidene: en L, en I, en T eller en S, dreid eller speilet.
+- Alle de skraverte rutene henger sammen i ett stykke langs sidene.
+- Ingen kvadrat på 2 × 2 er helt skravert.
+- To brikker med samme form berører aldri hverandre langs en side over en vegg.
+Hver oppgave har nøyaktig én løsning, som finnes ved ren logikk. Hold på en rute for å sette en prikk i den: et notat om at den forblir hvit.
+# Slutten på spillet
+Oppgaven er løst når alle reglene holder: en bølge av gyllent lys går over rutenettet.
+# Nivåer og stjerner
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en feil rute som du tar tilbake med Angre.

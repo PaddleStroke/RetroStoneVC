@@ -1,0 +1,12 @@
+LITS
+# Het doel
+Kleur vakjes van het rooster zwart; het rooster is verdeeld in omlijnde gebieden.
+- Elk gebied heeft precies vier zwarte vakjes, verbonden via de zijden: een L, een I, een T of een S, gedraaid of gespiegeld.
+- Alle zwarte vakjes vormen samen één geheel, verbonden via de zijden.
+- Geen vierkant van 2 × 2 is helemaal zwart.
+- Twee stukken van dezelfde vorm raken elkaar nooit met een zijde over een muur heen.
+Elke puzzel heeft precies één oplossing, te vinden door alleen te redeneren. Houd een vakje vast om er een stip in te zetten: een notitie dat het wit blijft.
+# Het einde van het spel
+De puzzel is opgelost als alle regels kloppen: een golf van gouden licht loopt over het rooster.
+# Levels en sterren
+Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is een verkeerd vakje dat je met Ongedaan maken terugneemt.

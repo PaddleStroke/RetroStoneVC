@@ -1,0 +1,12 @@
+LITS
+# Das Ziel
+Schwärze Felder des Gitters, das in umrandete Bereiche aufgeteilt ist.
+- Jeder Bereich hat genau vier geschwärzte Felder, an den Seiten verbunden: ein L, ein I, ein T oder ein S, gedreht oder gespiegelt.
+- Alle geschwärzten Felder hängen als ein Stück zusammen, über die Seiten.
+- Kein Quadrat aus 2 × 2 Feldern ist ganz geschwärzt.
+- Zwei Teile derselben Form berühren sich nie an einer Seite über eine Wand hinweg.
+Jedes Rätsel hat genau eine Lösung, die man allein durch Überlegen findet. Halte ein Feld gedrückt, um einen Punkt hineinzusetzen: eine Notiz, dass es weiß bleibt.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn alle Regeln erfüllt sind: Eine Welle aus goldenem Licht läuft über das Gitter.
+# Level und Sterne
+Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist ein falsches Feld, das du mit Rückgängig zurücknimmst.
