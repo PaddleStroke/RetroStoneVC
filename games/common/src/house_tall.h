@@ -12,6 +12,7 @@
  * ht_narrow() says when to use them: a tall screen whose visible columns are fewer than the kit's 320 (then the game
  * keeps rs_screen_fill(1) and calls ht_*), else the kit's own calls, unchanged (landscape, 4:3: the same pixels).
  * Call them after rs_screen_fill(1) and rs_screen_focus_x() of the frame (the visible columns follow the focus).
+ * The title and the panels are anchored on the screen, the same height in every game (ht_pin, below): one family.
  * Nothing here is saved in states (no statics): the helpers draw from their arguments.
  */
 #ifndef HOUSE_TALL_H
@@ -56,6 +57,46 @@ static inline int ht_ncols(void) { int a, b; ht_cols(&a, &b); return b - a; }
 /* a tall screen (a phone held upright): the house_tall.h layouts, on every phone alike (whether the zoomed view shows
  * 188 columns or all 320: one look, no switch between two phones); landscape, 4:3: the kit's own */
 static inline int ht_narrow(void) { return rs_screen_height() > RS_SCREEN_H; }
+
+/* ---- anchored on the screen ------------------------------------------------------------------------------------
+ * Every game places its 240-line stage at its own height (rs_screen_origin_v), so the UI layer's rows land at another
+ * height in each game. The title and the panels are anchored on the SCREEN instead, the same in every game: the
+ * logo's top at HT_LOGO_AT % of the screen's height, the banner's (GAME OVER, P1 WINS!) at HT_PANEL_AT %. The game
+ * pins its whole UI layer there while they show (ht_pin: rs_bg_pin of the layer's 240 lines) and keeps the layer
+ * visible on those lines in its raster (ht_pin_line: stage lines ht_pin_dy() .. + 239 instead of 0 .. 239); the
+ * helpers' sprites (the digits, medals, glyph, slots, icon positions) follow by themselves. The scene and the mascots
+ * stay where the game draws them (stage coordinates). Landscape, 4:3: no pin, the same pixels. */
+#define HT_ROW_LOGO  2          /* the logo's row (ht_logo's ty): two lines, glyph rows 3..7 and 9..13 */
+#define HT_ROW_SLOTS 15         /* the title's slots (ht_title.top), right under it */
+#define HT_LOGO_AT   20         /* the logo's top (row HT_ROW_LOGO), % of the screen's height */
+#define HT_PANEL_AT  24         /* the banner's top (row 4), % of the screen's height */
+#define HT_LOGO_LINE_PX 152     /* a logo at most this wide at 4x stays on one line (ht_logo; the narrowest view) */
+enum { HT_PIN_OFF, HT_PIN_TITLE, HT_PIN_PANEL };
+/* the screen line of the UI layer's row 0 when pinned as `which` */
+static inline int ht_pin_screen_y(int which)
+{
+    int h = rs_screen_height();
+    return which == HT_PIN_TITLE ? h * HT_LOGO_AT / 100 - HT_ROW_LOGO * 8 : h * HT_PANEL_AT / 100 - 4 * 8;
+}
+/* what the pin moves the UI layer by (stage lines; 0: not pinned, or a 240-line screen): the stage line where the
+ * pinned UI's row 0 shows; the helpers add it to their sprites (a game adds it to its own sprites at UI positions) */
+static inline int ht_pin_dy(int which)
+{
+    return which && ht_narrow() ? ht_pin_screen_y(which) - rs_screen_origin_y() : 0;
+}
+/* the UI layer pinned as `which` (HT_PIN_OFF: no pin; a game with its own HUD pin sets that one instead); every
+ * frame, after the game's own rs_bg_pin of the layer. Nothing on a 240-line screen. */
+static inline void ht_pin(int which)
+{
+    if (!ht_narrow()) return;
+    rs_bg_pin(hu_cfg()->layer, 0, which ? RS_SCREEN_H : 0, which ? ht_pin_screen_y(which) : 0);
+}
+/* in a raster: does the UI layer show on stage line `line`, pinned as `which` (HT_PIN_OFF: the stage's 240 lines) */
+static inline int ht_pin_line(int which, int line)
+{
+    int t = ht_pin_dy(which);
+    return line >= t && line < t + RS_SCREEN_H;
+}
 /* the column that centres w columns in the visible ones; the UI x of their centre */
 static inline int ht_center_w(int w) { int a, b; ht_cols(&a, &b); return a + (b - a - w) / 2; }
 static inline int ht_center(const char *s, int big) { return ht_center_w(hu_width(s, big)); }
@@ -119,6 +160,14 @@ static inline int ht_wrap_bal(const char *s, int maxw, char out[][HT_LINE], int 
     if (n < 2 || n > maxl) return ht_wrap(s, maxw, out, maxl);
     while (b > 1 && ht_wrap(s, b - 1, out, HT_MAXL) == n) b--;
     return ht_wrap(s, b, out, maxl);
+}
+/* s has a 16x16 (CJK) glyph */
+static inline int ht_wide(const char *s)
+{
+    uint32_t c;
+    while ((c = rs_utf8_next(&s)) != 0)
+        if (rs_glyph_wide(c)) return 1;
+    return 0;
 }
 /* the rows a line of s takes: 2 when its accents or CJK glyphs take the row above */
 static inline int ht_line_rows(const char *s) { return hu_tall(s) ? 2 : 1; }
@@ -226,7 +275,7 @@ static inline void ht_gameover_pos(int i, int *cx, int *y)
 {
     int r = ht_over_label_row(i);
     if (cx) *cx = ht_mid_x();
-    if (y) *y = i < 2 ? (r + 2) * 8 - 4 : (r + 1) * 8;
+    if (y) *y = (i < 2 ? (r + 2) * 8 - 4 : (r + 1) * 8) + ht_pin_dy(HT_PIN_PANEL);   /* (pinned: on the screen) */
 }
 static inline void ht_gameover_sprites(int score, int best, int medal, int t, int slide_px)
 {
@@ -240,7 +289,7 @@ static inline void ht_gameover_sprites(int score, int best, int medal, int t, in
         hu_medal(medal, cx - 12, y + slide_px, 3);
         if ((t / 20) % 3 == 0) hu_sparkle(cx + 14, y + slide_px, (t / 10) % 2, 3);
     } else {
-        hu_box_text((cx - 4) / 8, y / 8 + 1, "-");
+        hu_box_text((cx - 4) / 8, (y - ht_pin_dy(HT_PIN_PANEL)) / 8 + 1, "-");   /* (BG: the UI's own row) */
     }
 }
 /* the blinking retry line (hu_retry_line_at) centred in the visible columns, wrapped on the panel */
@@ -261,9 +310,23 @@ static inline void ht_retry_line_at(int row, int t, int lock, const char *text)
 }
 
 /* the ranking for 2-4 players (hu_results_*): the banner on row 3, the panel from row 8, one row per place 3 rows
- * apart: the rank (when it fits) and the tag, the hero icon, the value, the medal */
-static inline int ht_results_w(void) { int c = ht_ncols(); return c < 24 ? c : 24; }
+ * apart: the rank (when it fits) and the tag, the hero icon, the value, the medal; the retry line on
+ * ht_results_retry_row() (ht_retry_line_at), inside the panel even wrapped (the panel is sized for the longer of the
+ * kit's two retry lines, A: TITLE and A: MAIN MENU, in the player's language) */
+static inline int ht_retry_rows(void)
+{
+    int a = ht_text_rows(hu_str(HS_BACK_TITLE), 1), b = ht_text_rows(hu_str(HS_BACK_MENU), 1);
+    return a > b ? a : b;
+}
+static inline int ht_results_w(void)
+{
+    int c = ht_ncols(), w = 24, a = hu_width(hu_str(HS_BACK_TITLE), 0) + 2, b = hu_width(hu_str(HS_BACK_MENU), 0) + 2;
+    if (a > w) w = a;
+    if (b > w) w = b;
+    return c < w ? c : w;
+}
 static inline int ht_results_rank(void) { return ht_results_w() >= 21; }
+static inline int ht_results_retry_row(const hu_standing *s) { return hu_results_retry_row(s); }
 /* (extra: more rows at the panel's bottom, for ht_round_panel) */
 static inline void ht_results_panel_ex(const hu_standing *s, const char *title, int extra)
 {
@@ -276,7 +339,7 @@ static inline void ht_results_panel_ex(const hu_standing *s, const char *title, 
     }
     ht_banner(3, title);
     int w = ht_results_w(), x = ht_center_w(w), rk = ht_results_rank();
-    hu_panel(x, 8, w, 3 * s->n + 4 + extra);
+    hu_panel(x, 8, w, 3 * s->n + 4 + extra + ht_retry_rows() - 1);
     for (int i = 0; i < s->n; i++) {
         char tag[16];
         int row = hu_results_row(s, i);
@@ -308,14 +371,14 @@ static inline void ht_results_cols(int *icon_cx, int *value_cx, int *medal_x)
 static inline void ht_results_icon_pos(const hu_standing *s, int place, int *cx, int *cy)
 {
     ht_results_cols(cx, NULL, NULL);
-    if (cy) *cy = hu_results_row(s, place) * 8 + 4;
+    if (cy) *cy = hu_results_row(s, place) * 8 + 4 + ht_pin_dy(HT_PIN_PANEL);
 }
 static inline void ht_results_sprites(const hu_standing *s, int t, int slide_px)
 {
     int vx, mx;
     ht_results_cols(NULL, &vx, &mx);
     for (int i = 0; i < s->n; i++) {
-        int y = hu_results_row(s, i) * 8 + slide_px, m = hu_results_medal(s, i);
+        int y = hu_results_row(s, i) * 8 + slide_px + ht_pin_dy(HT_PIN_PANEL), m = hu_results_medal(s, i);
         hu_number(s->value[s->order[i]], vx, y - 4, 3);
         if (m) {
             hu_medal(m, mx, y - 8, 3);
@@ -325,9 +388,11 @@ static inline void ht_results_sprites(const hu_standing *s, int t, int slide_px)
 }
 
 /* ---- the title ----------------------------------------------------------------------------------------------------- */
-/* The title's logo on two lines (one word each, the kit's logo font at 4x), the first at row ty, the second 6 rows
- * lower: the second word's tiles follow the first's (the kit's logo area, HU_LOGO_TILES in all). ramps as hu_logo
- * (one per word). A one-word title: one line. Returns the rows the logo takes (its glyphs: ty + 1 .. ty + 5 or 11). */
+/* The title's logo on two lines (one word each, the kit's logo font at 4x, 3x for a word too wide for the columns
+ * shown), the first at row ty (HT_ROW_LOGO), the second 6 rows lower: the second word's tiles follow the first's (the
+ * kit's logo area, HU_LOGO_TILES in all). ramps as hu_logo (one per word). The same rule in every game, whatever its
+ * columns: two words always stack (a title on one line only when it is at most HT_LOGO_LINE_PX wide at 4x: none of
+ * today's); a one-word title: one line. Returns the rows the logo takes (its glyphs: ty + 1 .. ty + 5 or 11). */
 /* (the logo rows ty .. ty + 7 moved d tiles right, d < 0: left) */
 static inline void ht_logo_shift(int ty, int d)
 {
@@ -365,9 +430,8 @@ static inline int ht_logo_word(const char *word, int wlen, const rs_color (*ramp
 static inline int ht_logo(const char *title, const rs_color (*ramps)[3], int nramps, int ty, int rivets)
 {
     const char *sp = strchr(title, ' ');
-    int len = (int)strlen(title), lw = len * 22 - 2 <= 304 ? len * 22 - 2 : len * 17 - 2;   /* hu_logo: 4x or 3x */
-    int fit = ht_ncols() * 8;
-    if (!sp || lw <= fit) {
+    int len = (int)strlen(title), fit = ht_ncols() * 8;
+    if (!sp || len * 22 - 2 <= HT_LOGO_LINE_PX) {      /* one line only when short at 4x: the same rule in every game */
         hu_logo(title, ramps, nramps, ty, rivets);
         ht_logo_shift(ty, ht_logo_d(ht_mid_x() - RS_SCREEN_W / 2));     /* centred on the view (a panned view) */
         return 6;
@@ -414,6 +478,8 @@ typedef struct ht_title {
 typedef struct ht_title_out {
     int glyph_x, glyph_y;       /* the prompt's A glyph (UI pixels) */
     int slot_cx[HU_MAX_PLAYERS], slot_cy;   /* the slots' icon centres */
+    int gap_y0, gap_y1;         /* the free lines between the slots and the text under them (hint or prompt), UI y: a
+                                 * game's title mascot goes there, centred, the same place in every game */
 } ht_title_out;
 static inline void ht_slots(const ht_title *c, ht_title_out *o)
 {
@@ -421,7 +487,7 @@ static inline void ht_slots(const ht_title *c, ht_title_out *o)
     ht_px(&x0, &x1);
     int sp = (x1 - x0) / m;
     for (int p = 0; p < HU_MAX_PLAYERS; p++) o->slot_cx[p] = x0 + sp * (2 * (p % m) + 1) / 2 + (sp >= 44 ? 10 : 0);
-    o->slot_cy = c->top * 8 + 4;
+    o->slot_cy = c->top * 8 + 4 + ht_pin_dy(HT_PIN_TITLE);
 }
 static inline void ht_title_draw(const ht_title *c, int t, int best, ht_title_out *o)
 {
@@ -473,7 +539,11 @@ static inline void ht_title_draw(const ht_title *c, int t, int best, ht_title_ou
     if (pr <= top) pr = top + 1;
     int pw = hu_width(l[0], 0) + 2, px = ht_center_w(pw);
     o->glyph_x = px * 8 - 4;                            /* as the kit: the glyph's right edge 4 px left of the text */
-    o->glyph_y = pr * 8 - 4;
+    o->glyph_y = pr * 8 - 4 + ht_pin_dy(HT_PIN_TITLE);
+    if (ht_wide(l[0])) {                                /* a line of 16-px glyphs (CJK): the glyph on its middle, 2 px */
+        o->glyph_x -= 2;                                /* more room before it */
+        o->glyph_y -= 4;
+    }
     if (hu_blink(t)) {
         int rr = pr;
         for (int i = 0; i < nl; i++) {
@@ -481,10 +551,16 @@ static inline void ht_title_draw(const ht_title *c, int t, int best, ht_title_ou
             hu_text(i ? ht_center(l[i], 0) : px + 2, rr, l[i]);
         }
     }
+    int first = pr - (hu_tall(l[0]) ? 1 : 0);           /* the first row of text under the slots */
     if (c->hint) {                                      /* the hint above the prompt, a blank row between */
         int kh = ht_text_rows_gap(c->hint, 0, 1), hr = pr - 1 - (hu_tall(l[0]) ? 1 : 0) - kh;
-        if (hr > top) ht_text_gap(hr, c->hint, 0, 1);
+        if (hr > top) {
+            ht_text_gap(hr, c->hint, 0, 1);
+            first = hr - (hu_tall(c->hint) ? 1 : 0);
+        }
     }
+    o->gap_y0 = (m > 1 ? top + 1 : top) * 8 + 4 + ht_pin_dy(HT_PIN_TITLE);
+    o->gap_y1 = first * 8 - 2 + ht_pin_dy(HT_PIN_TITLE);
 }
 /* the title's sprites (hu_title_sprites): the A glyph, each joined player's icon at its slot, popping in */
 static inline void ht_title_sprites(const ht_title *c, const ht_title_out *o, int t, hu_icon_fn icon, void *user)

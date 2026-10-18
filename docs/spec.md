@@ -132,6 +132,20 @@ display's height, its sides cropped, so the game is big. **The plain tall screen
    at 0 / 240.
 7. **Check at 1080x2340 and 1080x2520** (`<game>_headless --display 1080x2340 --visible --png out.png`), the title,
    play and the panels; and landscape (2340x1080, `--width 520`) and 4:3 stay the same pixels.
+8. **The house UI, the same on every game's screen** (the 8BCraft games: `games/common/src/house_tall.h`, `ht_*`).
+   On a tall screen the title, the banners, the game over, the results and the pause use only the standard calls
+   and rows: the logo on row `HT_ROW_LOGO` (two words always on two lines, each 4x, 3x when too wide for the
+   columns shown), the slots on `HT_ROW_SLOTS`, then the hint, the prompt, BEST, the join line and the credits
+   bottom-aligned on row 29; the GAME OVER banner on row 4 and its panel from row 8 or 9; the ranking's banner on
+   row 3. Each game places its stage at its own height, so these rows are **anchored on the screen, not the
+   stage**: while the title or a panel shows, the game pins its whole UI layer (`ht_pin(HT_PIN_TITLE)` /
+   `ht_pin(HT_PIN_PANEL)`: `rs_bg_pin` of its 240 lines) so that the logo's top lands at `HT_LOGO_AT` % (20) of the
+   screen's height and the banner's at `HT_PANEL_AT` % (24), and its raster shows the UI layer on those lines
+   (`ht_pin_line`) instead of the stage's. The helpers' sprites (the glyph, the slots, the digits, the medals, the
+   icon positions) follow by themselves (`ht_pin_dy`); a sprite a game draws at a UI position adds `ht_pin_dy`. The
+   scene stays where the game draws it; a title mascot goes between the slots and the text under them
+   (`ht_title_out` `gap_y0` .. `gap_y1`) or, above the logo, moves with it. A game with a UI layer of 64 rows (nothing
+   to hide past its 30) may scroll it down by `ht_pin_dy` instead (its viewports too). Landscape and 4:3: no pin.
 
 **SNES mapping.** The SNES shows 256x224 (NTSC). A port keeps 60 Hz but loses 64 columns and 16 lines: a
 Bomber Mole playfield of 20x14 cells becomes 16x14 visible cells with horizontal scrolling, and the 16-px HUD
