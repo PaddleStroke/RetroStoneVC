@@ -155,10 +155,11 @@ the other view). In portrait:
   turned plot; the butterfly flutters up to the screen's top.
 - The same zoomed view on every screen (never `rs_screen_fill(0)`): the stage's 240 lines (the UI's 30 rows) centred
   on the bed, so GARDEN N, ROUND N, PAUSED, the game-over panel (sliding up from the screen's bottom) and the results
-  sit on it. The title: the logo on two lines over the lawn above the bed (make_art.py `logo_tall`, the house logo,
-  CATERPILLAR at 3x over CRAWL at 4x, in the kit's logo tiles), the slots 5 columns apart, PRESS A TO CRAWL, BEST, the
-  join line and the credits cut into lines of at most 25 columns; a banner whose 2x title is wider than 26 columns
-  (the Norwegian GAME OVER, the Greek P1 WINS!) uses the small letters on a narrower panel.
+  sit on it. The title, the banners, PAUSED and the panels are the house's uniform portrait UI
+  (games/common/src/house_tall.h, its default rows only, as every zoomed game): the logo as CATERPILLAR over CRAWL
+  (`ht_logo`, row 2), the title caterpillar under it (stage y 121), the slots, the prompt, BEST, the join line and the
+  credits (`ht_title_draw` from `HU_ROW_SLOTS`), GARDEN N and ROUND N (`ht_big`), the round's winner and GAME OVER
+  (`ht_banner`), the game-over panel with the butterflies as its note (`ht_gameover_*`), the ranking (`ht_results_*`).
 - A screen 241-351 lines tall (a near-square display) keeps the landscape bed, the raster drawing more lawn past the
   stage (the lawn of the stage's top 32 lines, repeated every 32 lines and shifted sideways band by band) and the HUD
   at the screen's top. Landscape and 4:3: 240 lines, the same pixels as before.

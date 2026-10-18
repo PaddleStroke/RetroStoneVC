@@ -11,4 +11,4 @@ draw.plot_x         portrait: the plot's place on the stage, set by draw_init fr
 draw.plot_y         ... the same
 draw.pano_off       ... the same (the upright garden's line at the screen's top)
 draw.ui_y           ... the same (the stage's origin: the UI centred on the bed)
-draw.uv_glyph_x     portrait title: the prompt's glyph x, set before the sprites of the same picture
+draw.narrow_out     portrait title: its layout (house_tall.h: the A glyph, the slots), set by screen_text every frame before the sprites

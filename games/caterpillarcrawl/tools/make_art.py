@@ -12,7 +12,7 @@ sprite tiles (build_assets.py: BG2 shares the sprites' VRAM, one BG palette per 
 
 Writes, in the art folder (default games/caterpillarcrawl/art):
   sprites.png (256x96), tiles/garden.png (576x240: the garden, stage x -128..447), tiles/obstacles.png (64x16),
-  tiles/garden_tall.png (320x512: portrait, the bed upright), tiles/logo_tall.png (200x72: portrait, the logo)
+  tiles/garden_tall.png (320x512: portrait, the bed upright)
 
     python3 games/caterpillarcrawl/tools/make_art.py [--out DIR] [--preview]
 
@@ -61,7 +61,6 @@ PANORAMAS = {"garden": ("tiles/garden.png", 576, 240),
 # the upright bed in the portrait panorama: its plot's left and top edges (px), cells across and down
 TALL_X, TALL_Y, TALL_W, TALL_H = 64, 132, 12, 18
 TALL_HUD = 40                                   # the portrait HUD's lines at the top (plain lawn under it)
-LOGO_TALL = ("tiles/logo_tall.png", 208, 72)    # the portrait title's logo: CATERPILLAR over CRAWL (BG1)
 OBSTACLES = ("tiles/obstacles.png", 64, 16)     # rock, bush, flower pot, mushroom (16x16 each, BG3)
 PANO_X0 = -128                                  # the garden's stage x of its left edge
 GRID_X, GRID_Y, GRID_W, GRID_H, CELL = 16, 40, 18, 12, 16
@@ -657,24 +656,6 @@ def garden(tall=False):
     return cv
 
 
-def logo_tall():
-    """The portrait title's logo (the house logo, house_style.logo, as hu_logo draws it): CATERPILLAR at 3x over
-    CRAWL at 4x, so it fits the columns a zoomed portrait screen shows (hu_logo's one line would be 287 px)."""
-    W, H = LOGO_TALL[1:]
-    green = [(222, 248, 150), (150, 214, 84), (84, 160, 56)]          # draw.c title_ramps
-    pink = [(255, 208, 226), (246, 150, 190), (214, 92, 146)]
-    im = Image.new("RGB", (W, H), hs.MAGENTA)
-    a, _ = hs.logo(["CATERPILLAR"], [green], size=(W, 30), scale=3, y0=2)
-    b, _ = hs.logo(["CRAWL"], [pink], size=(W, 40), scale=4, y0=3)
-    im.paste(a, (0, 0))
-    bp = b.load()
-    for y in range(40):                                     # CRAWL over the first line's shadow
-        for x in range(W):
-            if bp[x, y] != hs.MAGENTA:
-                im.putpixel((x, 30 + y), bp[x, y])
-    return im
-
-
 def obstacles():
     w, h = OBSTACLES[1:]
     cv = Canvas(w, h)
@@ -694,8 +675,7 @@ def build_sheet():
 def write_all(out, preview=False):
     os.makedirs(os.path.join(out, "tiles"), exist_ok=True)
     files = {"sprites.png": build_sheet(), PANORAMAS["garden"][0]: garden().image(),
-             PANORAMAS["garden_tall"][0]: garden(tall=True).image(), OBSTACLES[0]: obstacles().image(),
-             LOGO_TALL[0]: logo_tall()}
+             PANORAMAS["garden_tall"][0]: garden(tall=True).image(), OBSTACLES[0]: obstacles().image()}
     for f, im in files.items():
         im.save(os.path.join(out, f))
         if preview:

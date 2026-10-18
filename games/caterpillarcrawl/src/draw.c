@@ -19,6 +19,7 @@
 #include "game.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "house_tall.h"
 #include "game_text.h"
 #include <stdio.h>
 #include <string.h>
@@ -49,14 +50,7 @@ static int hud_top;
 static int uv, plot_x = GRID_X, plot_y = GRID_Y, pano_off, ui_y;
 #define PLOT_W (uv ? GRID_H : GRID_W)       /* the plot on the screen, in cells */
 #define PLOT_H (uv ? GRID_W : GRID_H)
-#define LOGO_ROW (-14)                      /* portrait title: the logo's top row on the stage (row 50 of BG1's 64) */
-#define UV_CAT_Y 22                         /* the title caterpillar's line on the stage */
-#define UV_SLOTS 8                          /* rows: the players' slots, PRESS A, BEST, the join line, the credits */
-#define UV_PROMPT 12
-#define UV_BEST 15
-#define UV_JOIN 18
-#define UV_COPY 25
-#define UV_COLS 25                          /* the widest line of text, in columns (the columns shown, less a margin) */
+#define UV_CAT_Y 121                        /* the title caterpillar's line on the stage (under the house_tall.h logo) */
 
 int draw_zoom(void) { return rs_screen_zoom(ZOOM_H); }
 
@@ -455,118 +449,9 @@ static void title_caterpillar(int t)
     spr(SPR_LEAF + (t / 30) % 2, x0 + 5 * 14 + 14, cy, 2, -1, 0);
 }
 
-/* ---- portrait: the title and the long lines in the columns shown ------------------------------------------------ */
-/* s centred on row y, cut at its spaces into lines of at most UV_COLS columns, 2 rows apart (accents go in the row
- * above): after a colon if it can ("P2 / P3 / P4:" over "PRESS A TO JOIN"), else the last space that fits; returns
- * the rows used */
-static int text_wrap(int y, const char *s, int box)
-{
-    char line[160];
-    int rows = 0;
-    while (*s) {
-        int n = (int)strlen(s), cut = n, colon = 0;
-        if (hu_width(s, 0) > UV_COLS) {
-            cut = 0;
-            for (int i = 1; i < n && i < (int)sizeof line; i++)
-                if (s[i] == ' ') {
-                    memcpy(line, s, (size_t)i);
-                    line[i] = 0;
-                    if (hu_width(line, 0) > UV_COLS) break;
-                    if (!colon || s[i - 1] == ':') cut = i;
-                    if (s[i - 1] == ':' && hu_width(s + i + 1, 0) <= UV_COLS) colon = 1;
-                }
-            if (!cut) cut = n;                      /* one long word: as it is */
-        }
-        if (cut >= (int)sizeof line) cut = (int)sizeof line - 1;
-        memcpy(line, s, (size_t)cut);
-        line[cut] = 0;
-        if (box) hu_box_text(hu_center(line, 0), y + rows, line);
-        else hu_text(hu_center(line, 0), y + rows, line);
-        rows += 2;
-        s += cut;
-        while (*s == ' ') s++;
-    }
-    return rows;
-}
-
-/* the logo on two lines (make_art.py logo_tall) in the kit's logo tiles, above the stage */
-static void uv_logo(void)
-{
-    rs_tiles_load(VR_BG1 + LOGO_TILE, gm_logo_tiles, gm_logo_tile_count);
-    rs_pal_load(RS_PAL_BG(PAL_LOGO), gm_logo_pal, 16);
-    for (int y = 0; y < LOGO_TH; y++)
-        for (int x = 0; x < LOGO_TW; x++)
-            rs_bg_put(RS_BG1, (40 - LOGO_TW) / 2 + x, (LOGO_ROW + y) & 63, gm_logo_map[y * LOGO_TW + x] | 0x2000);
-}
-
-/* the players' slots, 5 columns apart (the kit's are 9: wider than the columns shown) */
-static void uv_slot_pos(int p, int *cx, int *cy)
-{
-    *cx = (10 + 5 * p) * 8 + 28;
-    *cy = UV_SLOTS * 8 + 4;
-}
-
-/* hu_title_draw in the columns shown: PRESS A TO CRAWL, BEST, the slots' tags, the join line, the credits */
-static int uv_glyph_x;
-static void uv_title_draw(int t, int best)
-{
-    char s[160], who[64] = "";
-    int n = hu_players();
-    rs_strf(s, sizeof s, HTR(PRESS_TO), TR(VERB));
-    uv_glyph_x = hu_prompt(UV_PROMPT, s, t);
-    hu_clear_rows(UV_BEST, 1);
-    if (best > 0) {
-        rs_strf(s, sizeof s, HTR(BEST_N), best);
-        hu_text(hu_center(s, 0), UV_BEST, s);
-    }
-    hu_clear_rows(UV_SLOTS, 1);
-    for (int p = 0; p < n; p++) {
-        rs_strf(s, sizeof s, HTR(PLAYER_TAG), p + 1);
-        hu_text(10 + 5 * p, UV_SLOTS, s);
-    }
-    hu_clear_rows(UV_JOIN - 1, 6);
-    if (n < MAX_PLAYERS) {
-        for (int p = n; p < MAX_PLAYERS; p++) {
-            size_t k = strlen(who);
-            if (p > n) k += (size_t)snprintf(who + k, sizeof who - k, " / ");
-            if (k < sizeof who) rs_strf(who + k, sizeof who - k, HTR(PLAYER_TAG), p + 1);
-        }
-        rs_strf(s, sizeof s, n > 1 ? HTR(JOIN_LEAVE) : HTR(JOIN), who);
-    } else {
-        rs_strf(s, sizeof s, HTRN(FULL, n), n);
-    }
-    text_wrap(UV_JOIN, s, 0);
-    hu_text(hu_center("(C) 2026 8BCRAFT", 0), UV_COPY, "(C) 2026 8BCRAFT");
-    hu_text(hu_center("RETROSTONE VC", 0), UV_COPY + 1, "RETROSTONE VC");
-}
-
-/* hu_title_sprites in the columns shown: the prompt's glyph, the joined players popping in */
-static void uv_title_sprites(int t)
-{
-    int gx, gy, g = hu_title_glyph(&gx, &gy);
-    if (g >= 0) hu_glyph(g, uv_glyph_x, UV_PROMPT * 8 - 4, (t / 30) % 2, 3);
-    for (int p = 0; p < hu_players(); p++) {
-        int cx, cy, a = hu_player_age(p);
-        uv_slot_pos(p, &cx, &cy);
-        if (a < 24) {
-            hu_sparkle(cx + 8, cy - 14, (a / 6) & 1, 3);
-            hu_sparkle(cx - 14, cy - 2, (a / 6 + 1) & 1, 3);
-        }
-        slot_icon(p, cx, cy + (a < 16 ? 12 - hu_ease_back(a, 16, 12) : 0), t, NULL);
-    }
-}
-
-/* a banner (GAME OVER) whose 2x title would be wider than the columns shown: the small letters on a panel */
-static void banner(int y, const char *title)
-{
-    if (!uv || hu_width(title, 1) + 2 <= UV_COLS + 1) {
-        hu_banner(y, title);
-        return;
-    }
-    int w = hu_width(title, 0) + 4, tall = hu_tall(title);
-    hu_panel((40 - w) / 2, y - tall, w, 3 + tall);
-    hu_box_text(hu_center(title, 0), y + 1, title);
-}
+/* ---- portrait: the title and the panels in the columns shown (house_tall.h, its default rows) --------------------- */
+static const ht_title narrow_title = {NULL, MAX_PLAYERS, HU_ROW_SLOTS, 0, NULL};   /* (the verb: TR(VERB), set where used) */
+static ht_title_out narrow_out;         /* (set by screen_text every title frame, before the sprites: not saved) */
 
 /* 2-4 players: ranked by rounds won */
 static void standing(const world *w, hu_standing *s)
@@ -582,9 +467,13 @@ static void standing(const world *w, hu_standing *s)
 /* ---- the BG screens -------------------------------------------------------------------------------------------- */
 static void text_centered(int row, const char *s, int big)
 {
-    if (big && hu_width(s, 1) > (uv ? UV_COLS : 38)) big = 0;   /* a long translation: the small letters */
+    if (ht_narrow()) {                                  /* portrait: in the columns shown (house_tall.h) */
+        if (big) ht_big(row, s, HU_BIG_FREE);
+        else ht_text(row, s, 0);
+        return;
+    }
+    if (big && hu_width(s, 1) > 38) big = 0;            /* a long translation: the small letters */
     if (big) hu_big(hu_center(s, 1), row, s, HU_BIG_FREE);
-    else if (uv) text_wrap(row, s, 0);                  /* portrait: on two lines if need be */
     else hu_text(hu_center(s, 0), row, s);
 }
 
@@ -608,7 +497,7 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         char s[96], tag[16];
         hu_clear();
         if (state == ST_TITLE) {
-            if (uv) uv_logo();                          /* portrait: the logo on two lines */
+            if (ht_narrow()) ht_logo("CATERPILLAR CRAWL", title_ramps, 2, 2, 0);    /* CATERPILLAR over CRAWL */
             else hu_logo("CATERPILLAR CRAWL", title_ramps, 2, 2, 0);
         }
         if (state == ST_PLAY || state == ST_DEAD) {
@@ -628,47 +517,61 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
                 if (w->round_winner >= 0) {
                     rs_strf(tag, sizeof tag, HTR(PLAYER_TAG), w->round_winner + 1);
                     rs_strf(s, sizeof s, TR(ROUND_WIN), tag);
-                    /* on a navy panel: the line stays readable over the bodies that fill the arena by now */
-                    int x = hu_center(s, 0), tall = hu_tall(s);
-                    if (uv && hu_width(s, 0) > UV_COLS) {   /* portrait: a long translation on two lines */
-                        hu_panel(20 - (UV_COLS + 4) / 2, 12 - tall, UV_COLS + 4, 5 + tall);
-                        text_wrap(13, s, 1);
-                    } else {
+                    if (ht_narrow()) {                  /* portrait: the house banner (house_tall.h) */
+                        ht_banner(11, s);
+                    } else {                            /* on a navy panel: readable over the bodies that fill the arena */
+                        int x = hu_center(s, 0), tall = hu_tall(s);
                         hu_panel(x - 2, 12 - tall, hu_width(s, 0) + 4, 3 + tall);
                         hu_box_text(x, 13, s);
                     }
+                } else if (ht_narrow()) {
+                    ht_banner(11, HTR(DRAW));
                 } else {
-                    banner(11, HTR(DRAW));
+                    hu_banner(11, HTR(DRAW));
                 }
             }
         }
         if (state == ST_OVER) {
             if (w->players == 1) {
-                banner(4, HTR(GAME_OVER));
-                hu_gameover_panel(1, new_best, w->c[0].score, 0);
                 rs_strf(s, sizeof s, TRN(BUTTERFLIES_N, w->c[0].butterflies), w->c[0].butterflies);
-                hu_gameover_note(s);
-            } else {
-                hu_results_panel(rs, NULL);            /* P2 WINS! and the ranking by rounds won */
-                int win = hu_winner(rs);
-                if (win >= 0) rs_strf(s, sizeof s, HTR(WINS), win + 1);
-                else rs_strf(s, sizeof s, "%s", HTR(DRAW));
-                if (uv && hu_width(s, 1) + 2 > UV_COLS + 1) {   /* portrait: a banner too wide, made narrow */
-                    hu_clear_rows(2, 5);
-                    banner(3, s);
+                if (ht_narrow()) {                      /* portrait: in the columns shown (house_tall.h) */
+                    ht_banner(4, HTR(GAME_OVER));
+                    ht_gameover_panel(new_best, s, HTR(BACK_TITLE));
+                } else {
+                    hu_banner(4, HTR(GAME_OVER));
+                    hu_gameover_panel(1, new_best, w->c[0].score, 0);
+                    hu_gameover_note(s);
                 }
+            } else if (ht_narrow()) {
+                ht_results_panel(rs, NULL);            /* P2 WINS! and the ranking by rounds won */
+            } else {
+                hu_results_panel(rs, NULL);
             }
         }
         shown_key = key;
         shown_best = best;
     }
     if (state == ST_TITLE) {
-        if (uv) uv_title_draw(st_t, best);
-        else hu_title_draw(st_t, best);
+        if (ht_narrow()) {
+            ht_title c = narrow_title;
+            c.verb = TR(VERB);
+            ht_title_draw(&c, st_t, best, &narrow_out);
+        } else {
+            hu_title_draw(st_t, best);
+        }
     }
     if (state == ST_OVER) {
-        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_TITLE));
-        else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
+        if (w->players == 1 && ht_narrow()) {
+            char s[96];
+            rs_strf(s, sizeof s, TRN(BUTTERFLIES_N, w->c[0].butterflies), w->c[0].butterflies);
+            ht_retry_line_at(ht_gameover_retry_row(s), st_t, RETRY_LOCK, HTR(BACK_TITLE));
+        } else if (w->players == 1) {
+            hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_TITLE));
+        } else if (ht_narrow()) {
+            ht_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
+        } else {
+            hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
+        }
     }
 }
 
@@ -692,7 +595,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     /* the panel slides up, ease-out (portrait: from the screen's bottom) */
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, uv ? 360 : 200) : 0;
     rs_bg_scroll(RS_BG1, 0, -slide);
-    hu_pause(paused, 13);
+    if (ht_narrow()) ht_pause(paused, 13);
+    else hu_pause(paused, 13);
 
     rs_oam_clear();
     /* a tall screen (DESIGN.md "Tall screen"): during a run the HUD at the screen's top */
@@ -700,19 +604,24 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     /* front to back: the UI, the play */
     if (state == ST_PLAY || state == ST_DEAD) hud(w);
     if (state == ST_OVER) {
-        if (w->players == 1) {
-            hu_gameover_sprites(1, w->c[0].score, 0, best, hu_medal_of(w->c[0].score, medals), st_t, slide);
+        int narrow = ht_narrow(), medal = hu_medal_of(w->c[0].score, medals);
+        if (w->players == 1 && narrow) {
+            ht_gameover_sprites(w->c[0].score, best, medal, st_t, slide);
+        } else if (w->players == 1) {
+            hu_gameover_sprites(1, w->c[0].score, 0, best, medal, st_t, slide);
         } else {
-            hu_results_sprites(&rs, st_t, slide);
+            if (narrow) ht_results_sprites(&rs, st_t, slide);
+            else hu_results_sprites(&rs, st_t, slide);
             for (int i = 0; i < rs.n; i++) {
                 int cx, cy;
-                hu_results_icon_pos(&rs, i, &cx, &cy);
+                if (narrow) ht_results_icon_pos(&rs, i, &cx, &cy);
+                else hu_results_icon_pos(&rs, i, &cx, &cy);
                 spr(SPR_ICON, cx - 8, cy - 8 + slide, 3, player_pal(rs.order[i]), 0);
             }
         }
     }
     if (state == ST_TITLE) {
-        if (uv) uv_title_sprites(st_t);             /* portrait: in the columns shown */
+        if (ht_narrow()) ht_title_sprites(&narrow_title, &narrow_out, st_t, slot_icon, NULL);   /* (house_tall.h) */
         else hu_title_sprites(st_t, slot_icon, NULL);   /* the prompt's glyph, the joined players popping in */
         title_caterpillar(st_t);
     } else if (state != ST_OVER) {

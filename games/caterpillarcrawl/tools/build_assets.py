@@ -31,7 +31,6 @@ import make_art  # noqa: E402
 PAL_BODY, PAL_LOGO, PAL_GARDEN, PAL_OBST = 1, 5, 6, 7
 OBJ_PAL = {"hero": 0, "props": 2, "small": 6}            # OBJ 3: the house kit sprites; OBJ 1, 4, 5: players 2-4
 VR_BG1, VR_BG3, VR_BG4, VR_OBJ = 0, 1024, 1536, 3072
-LOGO_TILE = 320                                           # the kit's logo tiles on BG1 (hu_defaults)
 KIT_OBJ_TILE = 512                                        # the kit's sprites (house_ui.h HU_OBJ_TILES) after ours
 # players 2-4: the caterpillar's greens turned (house_style.player_palettes: P2 pink, P3 and P4 the farthest hues)
 P2_HUE = (0.16, 0.50, 0.62)
@@ -110,20 +109,6 @@ def main():
     h.append("extern const uint16_t gm_tall_map[TALL_PANO_W * TALL_PANO_H];\nextern const uint16_t gm_tall_pal[16];")
     assert len(r.tiles) <= VR_OBJ - VR_BG4, "the portrait garden's tiles reach the sprites'"
     stats.append("portrait garden %d" % len(r.tiles))
-
-    # ---- BG1 in portrait: the title's logo on two lines (in the kit's logo tiles, hu_defaults: 320.., PAL_LOGO) -----
-    f, w, hh = make_art.LOGO_TALL
-    img = rsasset.load(os.path.join(a.art, f))
-    r = rsasset.convert_bg(cells8(img, 0, 0, w, hh), 1, pal_base=PAL_LOGO, tile_base=LOGO_TILE)
-    assert len(r.palettes) == 1 and len(r.tiles) <= 320
-    c.append(rsasset.c_bytes("gm_logo_tiles", rsasset.tiles_bytes(r.tiles)))
-    c.append("const int gm_logo_tile_count = %d;" % len(r.tiles))
-    c.append(arr("gm_logo_map", [m[0] for m in r.metas]))
-    c.append(arr("gm_logo_pal", rsasset.palette16(r.palettes[0])))
-    h.append("#define LOGO_TILE %d\n#define LOGO_TW %d\n#define LOGO_TH %d" % (LOGO_TILE, w // 8, hh // 8))
-    h.append("extern const uint8_t gm_logo_tiles[];\nextern const int gm_logo_tile_count;")
-    h.append("extern const uint16_t gm_logo_map[LOGO_TW * LOGO_TH];\nextern const uint16_t gm_logo_pal[16];")
-    stats.append("portrait logo %d" % len(r.tiles))
 
     # ---- BG3: the obstacles, 16x16 each (OB_ROCK.. order: rock, bush, pot, mushroom), four map entries each -------
     f, w, hh = make_art.OBSTACLES
