@@ -162,15 +162,24 @@ static inline int ht_gameover_retry_row(const char *note)
     int r = ht_over_label_row(2) + 5;
     return note ? r + 1 + ht_text_rows(note, 1) : r;
 }
-static inline int ht_gameover_panel(int new_best, const char *note, const char *retry)
+/* the same with another first label than SCORE (label0: e.g. DISTANCE, the value a game ranks and medals by) */
+static inline int ht_gameover_panel_ex(const char *label0, int new_best, const char *note, const char *retry)
 {
-    int w = ht_over_w(new_best, note), x = ht_center_w(w), r = ht_gameover_retry_row(note);
+    int w = ht_over_w(new_best, note), x, r = ht_gameover_retry_row(note);
+    if (label0 && hu_width(label0, 0) + 4 > w) w = hu_width(label0, 0) + 4;
+    if (retry && hu_width(retry, 0) + 2 > w) w = hu_width(retry, 0) + 2;   /* the retry line inside it too */
+    if (w > ht_ncols()) w = ht_ncols();
+    x = ht_center_w(w);
     int bottom = r + (retry ? ht_text_rows(retry, 1) : 1) + 1;
     hu_panel(x, 9, w, bottom - 9 + 1);
-    const char *lab[3] = {hu_str(HS_SCORE), hu_str(new_best ? HS_NEW_BEST : HS_BEST), hu_str(HS_MEDAL)};
+    const char *lab[3] = {label0 ? label0 : hu_str(HS_SCORE), hu_str(new_best ? HS_NEW_BEST : HS_BEST), hu_str(HS_MEDAL)};
     for (int i = 0; i < 3; i++) hu_box_text(ht_center(lab[i], 0), ht_over_label_row(i), lab[i]);
     if (note) ht_text(ht_over_label_row(2) + 5, note, 1);
     return r;
+}
+static inline int ht_gameover_panel(int new_best, const char *note, const char *retry)
+{
+    return ht_gameover_panel_ex(NULL, new_best, note, retry);
 }
 /* the value of label i (0 score, 1 best, 2 medal): the digits' centre x and top y (UI pixels, before the slide) */
 static inline void ht_gameover_pos(int i, int *cx, int *y)
@@ -268,23 +277,68 @@ static inline void ht_results_sprites(const hu_standing *s, int t, int slide_px)
 /* The title's logo on two lines (one word each, the kit's logo font at 4x), the first at row ty, the second 6 rows
  * lower: the second word's tiles follow the first's (the kit's logo area, HU_LOGO_TILES in all). ramps as hu_logo
  * (one per word). A one-word title: one line. Returns the rows the logo takes (its glyphs: ty + 1 .. ty + 5 or 11). */
+/* (the logo rows ty .. ty + 7 moved d tiles right, d < 0: left) */
+static inline void ht_logo_shift(int ty, int d)
+{
+    if (!d) return;
+    int layer = hu_cfg()->layer;
+    uint16_t row[40], blank = rs_bg_get(layer, 0, ty);
+    for (int y = ty; y < ty + 8 && y < 32; y++) {
+        for (int x = 0; x < 40; x++) row[x] = rs_bg_get(layer, x, y);
+        for (int x = 0; x < 40; x++) rs_bg_put(layer, x, y, x - d >= 0 && x - d < 40 ? row[x - d] : blank);
+    }
+}
+/* the tiles that move the kit's logo (centred on UI x 160) by px pixels, rounded */
+static inline int ht_logo_d(int px) { return px >= 0 ? (px + 4) / 8 : -((4 - px) / 8); }
+/* one word of a stacked logo in ramp slot `slot` (for hu_logo the slot-th word: as many spaces before it, and as many
+ * after so that it stays centred), at 3x when 4x is wider than fit_px (spaces after it to reach hu_logo's 3x, the
+ * logo moved back), centred on the visible columns; the call sets the slots below too (ramps[0] stays the first
+ * word's). Returns the tiles used. */
+static inline int ht_logo_word(const char *word, int wlen, const rs_color (*ramps)[3], int nramps, int slot,
+                               int ty, int rivets, int fit_px)
+{
+    char s[64];
+    rs_color tmp[4][3];
+    int lead = slot, trail = slot;
+    if (wlen > 40) wlen = 40;
+    if (wlen * 22 - 2 > fit_px)
+        while ((wlen + lead + trail) * 22 - 2 <= 304) trail++;
+    int len = wlen + lead + trail, adv = len * 22 - 2 <= 304 ? 22 : 17;
+    snprintf(s, sizeof s, "%*s%.*s%*s", lead, "", wlen, word, trail, "");
+    for (int i = 0; i <= slot && i < 4; i++)
+        for (int k = 0; k < 3; k++) tmp[i][k] = ramps[i < nramps ? i : nramps - 1][k];
+    int used = hu_logo(s, (const rs_color (*)[3])tmp, slot + 1, ty, rivets);
+    ht_logo_shift(ty, ht_logo_d((trail - lead) * adv / 2 + ht_mid_x() - RS_SCREEN_W / 2));
+    return used;
+}
 static inline int ht_logo(const char *title, const rs_color (*ramps)[3], int nramps, int ty, int rivets)
 {
-    char w1[64];
     const char *sp = strchr(title, ' ');
     int len = (int)strlen(title), lw = len * 22 - 2 <= 304 ? len * 22 - 2 : len * 17 - 2;   /* hu_logo: 4x or 3x */
-    if (!sp || lw <= ht_ncols() * 8) { hu_logo(title, ramps, nramps, ty, rivets); return 6; }
-    size_t n = (size_t)(sp - title);
-    if (n >= sizeof w1) n = sizeof w1 - 1;
-    memcpy(w1, title, n);
-    w1[n] = 0;
+    int fit = ht_ncols() * 8;
+    if (!sp || lw <= fit) {
+        hu_logo(title, ramps, nramps, ty, rivets);
+        ht_logo_shift(ty, ht_logo_d(ht_mid_x() - RS_SCREEN_W / 2));     /* centred on the view (a panned view) */
+        return 6;
+    }
     hu_config *c = (hu_config *)hu_cfg();               /* the second word after the first's tiles */
     int base = c->logo_tile;
-    int used = hu_logo(w1, ramps, nramps, ty, rivets);
+    int used = ht_logo_word(title, (int)(sp - title), ramps, nramps, 0, ty, rivets, fit);
     c->logo_tile = base + used;
-    hu_logo(sp + 1, nramps > 1 ? ramps + 1 : ramps, nramps > 1 ? nramps - 1 : 1, ty + 6, 0);
+    ht_logo_word(sp + 1, (int)strlen(sp + 1), ramps, nramps, nramps > 1 ? 1 : 0, ty + 6, 0, fit);
     c->logo_tile = base;
     return 12;
+}
+
+/* hu_pause on a zoomed tall screen: PAUSED in 2x letters when they fit in the visible columns, else in the small
+ * ones; centred like hu_pause (on UI column 20: a game panning its view centres its UI layer on it) */
+static inline void ht_pause(int paused, int y)
+{
+    hu_pause(paused, y);
+    if (paused && ht_narrow() && hu_width(hu_str(HS_PAUSED), 1) > ht_ncols()) {
+        hu_clear_rows(y, 2);
+        hu_text(hu_center(hu_str(HS_PAUSED), 0), y, hu_str(HS_PAUSED));
+    }
 }
 
 /* What the title shows below the logo (hu_title_draw), laid out from row `top` down to row 29 in the visible
