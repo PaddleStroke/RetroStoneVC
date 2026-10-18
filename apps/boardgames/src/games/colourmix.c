@@ -88,12 +88,12 @@ static void places(void)
         float y0 = (TBH - rows * (TH + 0.4f) + 0.4f) / 2;
         for (int t = 0; t < n; t++) {
             int r = t / cols, c = t % cols, inrow = r == rows - 1 ? n - r * cols : cols;
-            tub_x[t] = 14.3f + (c + 0.5f - inrow / 2.0f) * slot - TW / 2;
+            tub_x[t] = 14.4f + (c + 0.5f - inrow / 2.0f) * slot - TW / 2;
             tub_y[t] = y0 + r * (TH + 0.4f);
         }
-        pot_ux = 3.5f;
+        pot_ux = 7.15f;                         /* the card at the left, the pot next to the tubes */
         pot_uy = 3.95f;
-        card_ux = 8.35f;
+        card_ux = 2.0f;
         card_uy = pot_uy;
         met_ux = 0.5f;
         met_uy = pot_uy + POT_R + 0.5f;
