@@ -7,10 +7,12 @@
 #include "pm.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "house_narrow.h"
 #include "game_text.h"
 #include <stdio.h>
 #include <string.h>
 
+static int shown_cols = 40;                     /* the UI columns the text was laid out in (not saved: hn_cols each frame) */
 static int shown_state = -1, shown_best = -1, shown_players, shown_score = -1, shown_chain = -1;
 /* the 1-player game-over panel's layout (longer translated text): moved left by over_dx columns, widened right by
  * over_ex columns (0, 0: the English layout, a 20 x 12 panel at column 10) */
@@ -56,20 +58,29 @@ void ui_frame(const world *w, int state, int st_t, int best_m, int best_score, i
     const mamie *m = &w->m[0];
     int redraw = draw_redraw_ui();              /* a state of another width: the UI layer was set up again */
     if (redraw) shown_state = -1;
+    int cols = hn_cols();                       /* the UI columns shown (a zoomed tall screen: the title and panels in them) */
+    if (cols != shown_cols) shown_state = -1;
+    shown_cols = cols;
     if (state != shown_state || best_m != shown_best || w->players != shown_players) {
         hu_clear();
         shown_score = shown_chain = -1;
         if (state == DS_TITLE) {
-            hu_logo("POGO MAMIE", pm_logo_ramps, 2, 2, 0);
+            hn_logo("POGO MAMIE", pm_logo_ramps, 2, 2, 0, cols);
             if (best_m > 0) {
                 rs_strf(s, sizeof s, TR(TITLE_BEST), best_m, best_score);
-                hu_text(hu_center(s, 0), 24, s);
+                if (cols < 40) hn_wrap(24, s, 0, cols - 1, 2, 1);
+                else hu_text(hu_center(s, 0), 24, s);
             }
-            hu_copyright(28);
+            if (cols < 40) {
+                hu_text(hu_center("(C) 2026 8BCRAFT", 0), 28, "(C) 2026 8BCRAFT");
+                hu_text(hu_center("RETROSTONE VC", 0), 29, "RETROSTONE VC");
+            } else {
+                hu_copyright(28);
+            }
         }
         if (state == DS_OVER) {
             if (w->players == 1) {
-                hu_banner(4, HTR(GAME_OVER));
+                hn_banner(4, HTR(GAME_OVER), cols);
                 int md = medal_of(m->dist_m);
                 char sc[16], bv[64];
                 const char *bl = new_best ? HTR(NEW_BEST_EXCL) : HTR(BEST), *mn = rs_tr(&gs_strings, medal_text[md]);
@@ -90,14 +101,14 @@ void ui_frame(const world *w, int state, int st_t, int best_m, int best_score, i
                 for (int p = 0; p < w->players; p++)
                     keys[p] = values[p] = w->m[p].dist_m;
                 hu_rank(&rank, w->players, keys, values);
-                hu_results_panel(&rank, NULL);
+                hn_results_panel(&rank, NULL, cols);
             }
         }
         shown_state = state;
         shown_best = best_m;
         shown_players = w->players;
     }
-    if (state == DS_TITLE) hu_title_draw(st_t, best_m);
+    if (state == DS_TITLE) hn_title_draw(st_t, cols < 40 ? -1 : best_m, TR(VERB), MAX_PLAYERS, 0, cols);   /* (narrow: its own BEST line) */
     if ((state == DS_PLAY || state == DS_FALL) && w->players > 2) hu_score_tags(w->players, 0);
     if ((state == DS_PLAY || state == DS_FALL) && w->players == 1 && (m->score != shown_score || m->chain != shown_chain)) {
         if (m->chain > 1) rs_strf(s, sizeof s, TR(HUD_SCORE_CHAIN), m->score, m->chain);
@@ -115,7 +126,7 @@ void ui_frame(const world *w, int state, int st_t, int best_m, int best_score, i
         }
     }
     if (redraw && paused) hu_pause(0, 13);        /* ... and PAUSED, if it shows */
-    hu_pause(paused, 13);
+    hn_pause(paused, 13, cols);
     /* widescreen: the UI centred on the screen (the stage origin is 0: the UI layer scrolls by -hu_ui_x()) */
     rs_bg_scroll(RS_BG1, -hu_ui_x() - draw_ui_dx(), state == DS_OVER ? -hu_slide_in(st_t, 20, 200) : 0);
 }
@@ -181,10 +192,10 @@ void ui_sprites(const world *w, int state, int st_t, int best_m)
             int values[MAX_PLAYERS];
             for (int p = 0; p < w->players; p++) values[p] = w->m[p].dist_m;
             hu_rank(&rank, w->players, values, values);
-            hu_results_sprites(&rank, st_t, oy);
+            hn_results_sprites(&rank, st_t, oy, hn_cols());
         }
     }
-    if (state == DS_TITLE) hu_title_sprites(st_t, NULL, NULL);
+    if (state == DS_TITLE) hn_title_sprites(st_t, NULL, NULL, TR(VERB), MAX_PLAYERS, 0, hn_cols(), draw_ui_dx());
 }
 
 /* ---- save states (main.c) ---- */

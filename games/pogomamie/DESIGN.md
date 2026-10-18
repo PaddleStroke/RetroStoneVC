@@ -224,8 +224,10 @@ ahead) but smaller sprites; 480 is nearly the world's whole height (512), so Par
   them are ahead, and the stage's left edge (where she cannot go back past) comes into view when she brakes. The roofs,
   things and the gusts' streaks come in at the visible right edge (BG2 is streamed over the stage's 320 columns, the
   sprites culled at the screen's edges, not the stage's).
-- **Fill or fit**: the title, "get ready", the game-over panel and the races (2-4 players: every racer must be seen,
-  the camera waits for them) show every column (`rs_screen_fill(0)`: the whole 320 x 480 picture across the width).
+- **Fill or fit**: the title (the view from the screen's left: the grannies at the start), pause and the game-over
+  panels stay zoomed like play, their text in the columns shown (games/common/src/house_narrow.h: the logo's words
+  stacked, lines wrapped); only the races (2-4 players: every racer must be seen, the camera waits for them) show
+  every column (`rs_screen_fill(0)`: the whole 320 x 480 picture across the width).
 - **The HUD at the screen's top** while playing: the UI layer's top 48 lines pinned (`rs_bg_pin`: the score, the
   tags), the distance and the score chips at `rs_screen_top()` (draw_hud_y), centred in the columns shown
   (draw_ui_dx); the power-up icons under the app's back button. The UI layer shows only the stage's lines otherwise.

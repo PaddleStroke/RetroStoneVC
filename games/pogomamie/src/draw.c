@@ -893,7 +893,7 @@ static void tall_frame(const world *w, int state)
     rs_screen_origin_v(o);
     view_y = camy_i - o;                            /* (the shake included: the playfield shakes) */
     view_cam_y = camy_i;
-    rs_screen_fill(one);
+    rs_screen_fill(!play || w->players == 1);   /* zoomed but for 2-4 racing (they spread over every column) */
     hud_lines = play ? HUD_LINES : 0;
     rs_bg_pin(RS_BG1, 0, hud_lines, 0);
     int v = rs_screen_visible_x1() - rs_screen_visible_x0();
@@ -904,11 +904,14 @@ static void tall_frame(const world *w, int state)
         else if (lx > pan_x0 + PAN_MAX) pan_x0 += clampi(lx - pan_x0 - PAN_MAX, 0, 2);
         pan_x0 = clampi(pan_x0, 0, RS_SCREEN_W - v);
         rs_screen_focus_x(pan_x0 + v / 2);
+    } else if (state == DS_TITLE && v < RS_SCREEN_W) {   /* the title: from the screen's left, the grannies at the start */
+        pan_x0 = -1;
+        rs_screen_focus_x(v / 2);
     } else {
         pan_x0 = -1;
         rs_screen_focus_x(-1);
     }
-    ui_dx = one ? (rs_screen_visible_x0() + rs_screen_visible_x1()) / 2 - RS_SCREEN_W / 2 : 0;
+    ui_dx = one || state == DS_TITLE ? (rs_screen_visible_x0() + rs_screen_visible_x1()) / 2 - RS_SCREEN_W / 2 : 0;
 }
 
 void draw_frame(const world *w, int state, int st_t, int paused)

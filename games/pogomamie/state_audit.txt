@@ -8,3 +8,4 @@ draw.view_cam_y     transient: the camera y of that picture (the raster's world 
 draw.hud_lines      transient: the UI lines pinned at a tall screen's top, set by draw_frame before each picture
 draw.ui_dx          transient: the UI's shift to the middle of the zoomed columns shown, set by draw_frame
 draw.mid_a3         transient: the mid-ground's virtual y at a tall screen's top (the raster's shading), set by draw_frame
+ui.shown_cols       the UI columns the text was laid out in (hn_cols): a setting of the frontend; a change lays the text out again
