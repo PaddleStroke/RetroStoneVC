@@ -70,14 +70,14 @@ static void bests_write(void)
 
 static Uint32 elapsed(void)
 {
-    return mmh_clock_ms(&clk, ui_ms(), SDL_GetTicks());
+    return mmh_clock_ms(&clk, ui_ms(), ui_real_ms());
 }
 
 /* the clock on: started at the first sum shown, then told of each frame (a gap: the game was away) */
 static void clock_on(void)
 {
-    if (!clk.on) mmh_clock_start(&clk, ui_ms(), SDL_GetTicks());
-    else mmh_clock_frame(&clk, ui_ms(), SDL_GetTicks());
+    if (!clk.on) mmh_clock_start(&clk, ui_ms(), ui_real_ms());
+    else mmh_clock_frame(&clk, ui_ms(), ui_real_ms());
 }
 
 static int tenths(void) { return (int)((elapsed() + 99) / 100); }
@@ -242,7 +242,7 @@ static void finish(void)
 {
     if (clk.over || !mmh_done(&G)) return;
     clock_on();
-    mmh_clock_stop(&clk, ui_ms(), SDL_GetTicks());
+    mmh_clock_stop(&clk, ui_ms(), ui_real_ms());
     int t = tenths();
     if (t < 1) t = 1;
     if (which >= 0 && which < BESTS && (!best[which] || t < best[which])) {

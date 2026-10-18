@@ -195,7 +195,8 @@ int slap_show(const char *move)
     int a = !strcmp(move, "p") ? SLA_PLAY : !strcmp(move, "c") ? SLA_CLAIM : -1;
     if (move[0] == 's' && move[1] >= '0' && move[1] <= '9' && !move[2]) a = SLA_SLAP | (move[1] - '0');
     if (a < 0) return 0;
-    if (bot_saw != G.n || (SLA_KIND(a) == SLA_SLAP && !slap_right(&G.pos))) return 1;   /* too late: nothing */
+    if ((bot_saw != G.n && !ui_replaying()) || (SLA_KIND(a) == SLA_SLAP && !slap_right(&G.pos)))
+        return 1;                               /* too late: nothing (played again: no bot looked, taken as in time) */
     if (!slap_legal(&G.pos, a)) return 0;
     act(a);
     return 1;
