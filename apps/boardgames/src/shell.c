@@ -3559,6 +3559,7 @@ static void start_game(int v, int same)
     else start_rng[cur] = rng;
     int card = ui_over();                       /* (the end card's next or replay: what start() sees, kept) */
     ui.level = games[cur]->levels && !in_random(cur) ? v : -1;
+    dice.n = 0;                                 /* no dice of the last game (still rolling: ui_dice_busy) */
     if (in_random(cur)) games[cur]->start_random(v);
     else games[cur]->start(v);
     started[cur] = 1;
