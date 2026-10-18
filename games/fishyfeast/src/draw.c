@@ -374,6 +374,9 @@ static void draw_fish_at(sview *s, int x, int y, int px, int colour, int face, i
 static int sx_of(const sview *s, int32_t wx) { return s->ox + s->w / 2 + to_screen(wx, s->cx, s->zq); }
 static int sy_of(const sview *s, int32_t wy) { return s->oy + s->h / 2 + to_screen(wy, s->cy, s->zq); }
 
+/* a phone held upright, the title: no urchins (the camera's tour slid them under the title's lines, unreadable) */
+static int no_urchins;
+
 /* the world in one view: bubbles, the players' markers, then fish and urchins (bigger in front), then the pellets */
 static void draw_world(sview *s, const world *w, int me, int t)
 {
@@ -409,7 +412,7 @@ static void draw_world(sview *s, const world *w, int me, int t)
         list[n] = (int16_t)i;
         key[n++] = c->mass * 2 + 1;
     }
-    for (int u = 0; u < URCHINS_N; u++) {
+    for (int u = 0; u < URCHINS_N && !no_urchins; u++) {
         int32_t dx = w->u[u].x * FX - s->cx, dy = w->u[u].y * FX - s->cy;
         if (dx - ur > hw || dx + ur < -hw || dy - ur > hh || dy + ur < -hh) continue;
         list[n] = (int16_t)(MAX_CELLS + u);
@@ -882,7 +885,9 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
             draw_fish_at(&k, RS_SCREEN_W / 2 + 6, fy + hu_bob(st_t, 64, 4), 19, 8, 0, (st_t / 10) & 1, 2);
         }
         s.budget = SPR_BUDGET_1 + extra - rs_oam_next();
+        no_urchins = state == ST_TITLE && ht_narrow();
         draw_world(&s, w, (state == ST_PLAY || state == ST_DEAD) ? 0 : -1, t);
+        no_urchins = 0;
         if (views_on) {
             rs_viewports(0, NULL, 0);
             views_on = 0;
