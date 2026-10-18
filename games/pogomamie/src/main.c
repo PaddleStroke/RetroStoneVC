@@ -299,7 +299,7 @@ static void game_update(void)
 
 static void game_draw(void)
 {
-    draw_frame(&W, st, st_t, paused);
+    draw_frame(&W, st, st_t, paused, (int)SV.best_m);
     ui_frame(&W, st, st_t, (int)SV.best_m, (int)SV.best_score, new_best, paused);
 }
 

@@ -230,7 +230,7 @@ int  pm_touch_armed(void);           /* main.c: a swipe up armed the big bounce 
 /* draw.c; the screens */
 enum { DS_TITLE, DS_READY, DS_PLAY, DS_FALL, DS_OVER };
 void draw_init(void);
-void draw_frame(const world *w, int state, int st_t, int paused);
+void draw_frame(const world *w, int state, int st_t, int paused, int best_m);   /* best_m: the title's and the panel's BEST */
 void draw_reset(const world *w);
 void draw_invalidate(void);
 void fx_event(const world *w, int p, int ev, const hit *h);

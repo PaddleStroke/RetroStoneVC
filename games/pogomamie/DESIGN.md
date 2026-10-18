@@ -225,8 +225,8 @@ ahead) but smaller sprites; 480 is nearly the world's whole height (512), so Par
   things and the gusts' streaks come in at the visible right edge (BG2 is streamed over the stage's 320 columns, the
   sprites culled at the screen's edges, not the stage's).
 - **Fill or fit**: the title (the view from the screen's left: the grannies at the start), pause and the game-over
-  panels stay zoomed like play, their text in the columns shown (games/common/src/house_narrow.h: the logo's words
-  stacked, lines wrapped); only the races (2-4 players: every racer must be seen, the camera waits for them) show
+  panels stay zoomed like play, their text in the columns shown (games/common/src/house_tall.h: the logo's words
+  stacked, lines wrapped, DISTANCE, BEST and MEDAL each over its value, the score under them); only the races (2-4 players: every racer must be seen, the camera waits for them) show
   every column (`rs_screen_fill(0)`: the whole 320 x 480 picture across the width).
 - **The HUD at the screen's top** while playing: the UI layer's top 48 lines pinned (`rs_bg_pin`: the score, the
   tags), the distance and the score chips at `rs_screen_top()` (draw_hud_y), centred in the columns shown

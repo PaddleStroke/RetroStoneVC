@@ -911,10 +911,10 @@ static void tall_frame(const world *w, int state)
         pan_x0 = -1;
         rs_screen_focus_x(-1);
     }
-    ui_dx = one || state == DS_TITLE ? (rs_screen_visible_x0() + rs_screen_visible_x1()) / 2 - RS_SCREEN_W / 2 : 0;
+    ui_dx = one ? (rs_screen_visible_x0() + rs_screen_visible_x1()) / 2 - RS_SCREEN_W / 2 : 0;
 }
 
-void draw_frame(const world *w, int state, int st_t, int paused)
+void draw_frame(const world *w, int state, int st_t, int paused, int best_m)
 {
     /* a crash shakes the playfield and the world's sprites (never the UI): house_ui.c hu_shake */
     int camx = world_camx(w) + hu_shake_x(), camy = world_camy(w) + hu_shake_y();
@@ -950,7 +950,7 @@ void draw_frame(const world *w, int state, int st_t, int paused)
     (void)paused;
     /* sprites, front to back: the UI (ui.c), the players, effects, the cat, things */
     rs_oam_clear();
-    ui_sprites(w, state, st_t, 0);
+    ui_sprites(w, state, st_t, best_m);
     draw_fx();
     for (int p = 0; p < w->players; p++) draw_player(w, p);
     draw_cat(w);
