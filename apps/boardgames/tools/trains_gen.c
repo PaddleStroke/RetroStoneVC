@@ -2,16 +2,18 @@
  * Train Switches' levels: src/games/trains_levels.h. Our own levels: no published or commercial set is used.
  * Each chapter has its idea (one switch at a time; two portals; toggles; crossings and loops; trains together;
  * tunnels) and two sources of networks:
- * - drawn by hand (TPL below: a fork, sidings, a comb, a fan, a crossover, a station square, a figure of eight, a
- *   mountain line...), each as drawn and mirrored; the rules' finisher sets their stems (mostly facing the portals),
- *   toggles and trains;
- * - laid by the rules' maker from fixed seeds, most of them mirrored left to right (a symmetric yard).
+ * - drawn by hand (TPL below: a fork, sidings, a comb, a fan, an anchor, a trident, a crossover, a station square, a
+ *   figure of eight, a mountain line, tunnels on the sides or crossed...), each as drawn and mirrored; the rules'
+ *   finisher sets their stems (mostly facing the portals), toggles and trains;
+ * - laid by the rules' maker from fixed seeds, most of them mirrored left to right (a symmetric yard; a tunnel
+ *   mirrored too, its image the second tunnel).
  * A network is kept when every switch is run over, the trains go to stations of two colours or more, and it was not
  * met before (nor its mirror). The difficulty: the par (the fewest flips), how rare the settings that work are, the
  * trains and the switches. The look: symmetry, the track spread over the board, few jogs and curves. Along each
  * chapter's curve the best-looking network near each place is kept, a drawing used twice at most and never twice in
  * a row; chapter 1 opens with the simplest drawings (a fork, sidings, a comb), and each chapter ends on its showpiece
- * (a drawing's hardest puzzle, else the best-looking of the hardest few). Deterministic.
+ * (a drawing's hardest puzzle, else the best-looking of the hardest few; in chapters 3 and 6 one of the chapter's
+ * hardest). Deterministic.
  *   gcc -O2 -Iapps/boardgames/src -o /tmp/trsgen apps/boardgames/tools/trains_gen.c -lm && \
  *       /tmp/trsgen > apps/boardgames/src/games/trains_levels.h
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
@@ -44,6 +46,10 @@ static const tpl TPL[] = {
     {{"...P...", "...#...", ".#####.", ".#...#.", "###.###", "#.#.#.#", "S.S.S.S", NULL}, 0, 0, 2},   /* a tree */
     {{"...P....", "...#....", ".######.", ".#....#.", ".#.S..#.", ".#.#..#.", ".###.###", ".#...#.#",
       ".S...S.S", NULL}, 0, 2, 2},                                                                 /* a fan */
+    {{"...P...", "...#...", "S#####S", ".#...#.", ".#...#.", ".S...S.", NULL}, 0, 0, 2},       /* a candelabra */
+    {{"...P...", "...#...", ".#####.", ".#...#.", "S#...#S", ".#...#.", ".S...S.", NULL}, 0, 0, 2},   /* an anchor */
+    {{"..P..", "..#..", ".###.", ".#.#.", "S#.#S", ".#.#.", ".S.S.", NULL}, 0, 0, 2},          /* a narrow anchor */
+    {{"...P...", "...#...", "..###..", "..#.#..", "S##.##S", "..#.#..", "..S.S..", NULL}, 0, 0, 2},   /* a trident */
     /* chapter 2: two portals */
     {{".P...P.", ".#...#.", ".#...#.", ".#####.", ".#...#.", ".#...#.", ".S...S.", NULL}, 1, 1, 3},   /* crossover */
     {{".P...P.", ".#...#.", "###.###", "#.#.#.#", "#.###.#", "#..#..#", "S..S..S", NULL}, 1, 0, 3},
@@ -68,7 +74,13 @@ static const tpl TPL[] = {
       ".S###S.", NULL}, 5, 0, 12},                                                                  /* under the hill */
     {{"...P...", "...#...", ".###...", ".#.#...", ".1.#...", ".S####.", ".....#.", ".2...#.", ".#...S.",
       ".S.....", NULL}, 5, 0, 11},
-    {{".P...P.", ".#...#.", ".#...#.", ".##%##.", "...#...", ".1.#.2.", ".#.#.#.", "S##%##S", NULL}, 5, 2, 12},
+    {{".P...P.", ".#...#.", ".#...#.", ".##%##.", "...#...", ".1.#.2.", ".#.#.#.", "S##%##S", NULL}, 5, 0, 12},
+    {{".P...P.", ".#...#.", "###.###", "#.#.#.#", "1.#.#.3", "..#.#..", "2.###.4", "#..#..#", "##.#.##",
+      ".S.S.S.", NULL}, 5, 0, 16},                                                                  /* side tunnels */
+    {{".P...P.", ".#...#.", ".#...#.", ".1...3.", ".......", "..4.2..", "..#.#..", ".#####.", ".#.#.#.",
+      ".S.S.S.", NULL}, 5, 0, 16},                                                                  /* crossed below */
+    {{".P...P.", ".#...#.", "###.###", "1.#.#.3", "..#.#..", "..###..", "4..#..2", "#..#..#", "##.#.##",
+      ".S.S.S.", NULL}, 5, 2, 17},                                                                  /* the pass */
     {{NULL}, -1, 0, 0},
 };
 
@@ -91,6 +103,8 @@ static const trs_spec TSP[] = {
     {0, 0, 0, 2, 2, 2, 0, 1, 0, 0, 0, 1, 3, 1, 0, 70},    /* 13: the X, its toggle */
     {0, 0, 0, 4, 2, 3, 0, 1, 0, 0, 0, 2, 4, 1, 0, 60},    /* 14: a mountain */
     {0, 0, 0, 4, 2, 3, 0, 0, 0, 0, 1, 1, 3, 1, 0, 70},    /* 15: a meeting, together */
+    {0, 0, 0, 3, 3, 3, 0, 1, 0, 1, 0, 2, 5, 1, 0, 50},    /* 16: tunnels, three trains */
+    {0, 0, 0, 3, 4, 3, 0, 1, 0, 1, 0, 2, 6, 1, 0, 50},    /* 17: tunnels, four trains (a showpiece) */
 };
 
 /* the maker's networks, each chapter's: w h portals stations trains switches loops toggles crossings tunnels together
@@ -107,8 +121,8 @@ static const chapter CH[TRS_CHAPTERS] = {
       {6, 8, 3, 4, 4, 4, 0, 1, 1, 0, 0, 3, 5, 1, 0, 50}, {7, 8, 1, 3, 3, 3, 1, 1, 1, 0, 0, 3, 5, 1, 1, 50}}, 4, 40000},
     {{{7, 8, 2, 3, 2, 2, 0, 0, 1, 0, 1, 2, 4, 1, 1, 60}, {7, 8, 3, 3, 3, 3, 0, 0, 1, 0, 1, 2, 4, 1, 1, 50},
       {6, 8, 3, 4, 3, 4, 1, 1, 0, 0, 1, 3, 5, 1, 0, 50}, {7, 8, 2, 4, 2, 3, 1, 0, 1, 0, 1, 3, 5, 1, 1, 50}}, 4, 40000},
-    {{{7, 9, 2, 4, 4, 4, 1, 1, 1, 1, 0, 3, 5, 1, 0, 50}, {7, 9, 3, 4, 3, 4, 0, 0, 1, 1, 1, 3, 5, 1, 0, 50},
-      {7, 9, 2, 5, 5, 5, 1, 2, 0, 1, 0, 3, 6, 1, 0, 50}, {7, 9, 2, 4, 4, 4, 1, 1, 1, 0, 0, 3, 5, 1, 1, 50}}, 4, 40000},
+    {{{7, 9, 2, 4, 4, 4, 1, 1, 1, 1, 0, 3, 5, 1, 1, 50}, {7, 9, 3, 4, 3, 4, 0, 0, 1, 1, 1, 3, 5, 1, 1, 50},
+      {7, 9, 2, 5, 5, 5, 1, 2, 0, 1, 0, 3, 6, 1, 1, 50}, {7, 9, 2, 4, 4, 4, 1, 1, 1, 0, 0, 3, 5, 1, 1, 50}}, 4, 40000},
 };
 
 typedef struct {
@@ -308,10 +322,21 @@ int main(void)
             chosen[open++] = best;
             prev = t;
         }
-        /* the showpiece: the hardest puzzle of the chapter's showpiece drawing, else the best-looking of the hardest */
+        /* the showpiece: the hardest puzzle of the chapter's showpiece drawing; in chapters 3 and 6 only if among the
+         * hardest sixteenth, else the best-looking there (a showpiece drawing's first, then the harder) */
         int show = -1;
         for (int j = 0; j < nc; j++)
             if (C[j].part == 2 && !C[j].used && (show < 0 || C[j].diff > C[show].diff)) show = j;
+        double hard = C[nc - 1 - nc / 16].diff;
+        if ((ch == 2 || ch == 5) && show >= 0 && C[show].diff < hard) {   /* chapters 3 and 6 */
+            int best = -1;
+            for (int j = nc - 1; j >= 0 && C[j].diff >= hard; j--)
+                if (!C[j].used && C[j].part != 1 &&
+                    (best < 0 || C[j].look + (C[j].part == 2) + 0.1 * C[j].diff >
+                                     C[best].look + (C[best].part == 2) + 0.1 * C[best].diff))
+                    best = j;
+            if (best >= 0) show = best;
+        }
         if (show < 0) show = pick(nc - nc / 12 - 2, nc - 1, -2, uses);
         C[show].used = 1;
         if (C[show].src >= 0) uses[C[show].src]++;

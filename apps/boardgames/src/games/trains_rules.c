@@ -592,24 +592,51 @@ static int far_cell(const trs_map *m, lay_ctx *L, int from)   /* an empty square
     return -1;
 }
 
-/* a line from the starts to the target (as lay()), through a tunnel: in at a mouth, out at its twin, pair `pair` */
+/* a mouth's square (far_cell's); mirrored: off the middle, its image free too */
+static int mouth_cell(const trs_map *m, lay_ctx *L, int from)
+{
+    for (int k = 0; k < 20; k++) {
+        int c = far_cell(m, L, from);
+        if (c < 0 || !L->sym) return c;
+        int o = mir(m, c);
+        if (o != c && m->kind[o] == TRS_EMPTY && !L->reserved[o]) return c;
+    }
+    return -1;
+}
+
+static void keep(const trs_map *m, lay_ctx *L, int c, int on)   /* (un)keeps a square, mirrored its image too */
+{
+    L->reserved[c] = (uint8_t)on;
+    if (L->sym) L->reserved[mir(m, c)] = (uint8_t)on;
+}
+
+static void mouth(trs_map *m, const lay_ctx *L, int c, int pair)   /* a mouth of `pair` (its image: the next pair's) */
+{
+    m->kind[c] = TRS_TUNNEL;
+    m->k[c] = (uint8_t)pair;
+    if (L->sym) {
+        m->kind[mir(m, c)] = TRS_TUNNEL;
+        m->k[mir(m, c)] = (uint8_t)(pair + 1);
+    }
+}
+
+/* a line from the starts to the target (as lay()), through a tunnel: in at a mouth, out at its twin, pair `pair`
+ * (mirrored: the line's image through the next pair, each tunnel the other's image) */
 static int lay_tunnel(trs_map *m, lay_ctx *L, const int *sc, const int *sd, const float *s0, int ns, int tk,
                       int tcell, int tdir, int allow, int pair)
 {
-    int a = far_cell(m, L, -1);
+    int a = mouth_cell(m, L, -1);
     if (a < 0) return 0;
-    L->reserved[a] = 1;
-    int b = far_cell(m, L, a);
-    L->reserved[a] = 0;
+    keep(m, L, a, 1);
+    int b = mouth_cell(m, L, a);
+    keep(m, L, a, 0);
     if (b < 0) return 0;
-    L->reserved[b] = 1;
-    m->kind[a] = TRS_TUNNEL;                    /* a target the line enters from any side */
-    m->k[a] = (uint8_t)pair;
+    keep(m, L, b, 1);
+    mouth(m, L, a, pair);                       /* a target the line enters from any side */
     int ok = lay(m, L, sc, sd, s0, ns, TG_CELL, a, -1, allow);
-    L->reserved[b] = 0;
+    keep(m, L, b, 0);
     if (!ok) return 0;
-    m->kind[b] = TRS_TUNNEL;
-    m->k[b] = (uint8_t)pair;
+    mouth(m, L, b, pair);
     int bs[4], bd[4], n = 0;
     float b0[4] = {0};
     for (int d = 0; d < 4; d++) {
@@ -743,7 +770,7 @@ static int network(trs_map *m, const trs_spec *sp, lay_ctx *L)
     m->w = sp->w;
     m->h = sp->h;
     m->together = sp->together;
-    L->sym = sp->sym && (m->w & 1) && !sp->tunnels;
+    L->sym = sp->sym && (m->w & 1);
     int W = m->w * m->h, port[TRS_MAXE], stat[TRS_COLOURS], np = sp->portals, nst = sp->stations, prim[16];
     for (int c = 0; c < W; c++) L->wt[c] = (float)pr_below(&L->rs, 100) / 60;
     if (L->sym)
@@ -821,9 +848,9 @@ static int network(trs_map *m, const trs_spec *sp, lay_ctx *L)
             tun = 0;
         }
         if (!ok) return 0;
-        if (tun) { tunnels--; pair++; }
+        if (tun) { tunnels--; pair += L->sym ? 2 : 1; }
     }
-    if (pair < sp->tunnels) return 0;
+    if (tunnels > 0) return 0;
     return finish(m, sp, L);
 }
 
