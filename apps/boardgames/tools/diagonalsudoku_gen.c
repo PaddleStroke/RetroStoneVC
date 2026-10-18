@@ -8,7 +8,8 @@
  * half); 6 a digit tried and followed. Within a chapter the candidates are ranked by work and picked evenly, then go
  * from the easiest to the hardest. Duplicates dropped.
  * The taste (sudoku_gen_craft.h): the clues keep a setter's symmetry, mixed along a chapter (half and quarter turns,
- * mirrors, the diagonal), spread evenly (no bare row, column or box, none crowded).
+ * mirrors, the diagonal), spread evenly (no bare row, column or box, none crowded); each chapter ends with its
+ * showpiece, its hardest with a quarter turn or both mirrors.
  * Deterministic (fixed seeds): run it again after a change to the maker and check the diff.
  *   gcc -O2 -Iapps/boardgames/src -o /tmp/dsugen apps/boardgames/tools/diagonalsudoku_gen.c \
  *       apps/boardgames/src/games/diagonalsudoku_rules.c -lm && /tmp/dsugen > apps/boardgames/src/games/diagonalsudoku_levels.h
@@ -23,7 +24,7 @@
 
 typedef struct {
     char code[SV_CELLS + 1];
-    int level, clues;
+    int level, clues, mode;
     long passes;
     double score;
 } cand;
@@ -81,6 +82,7 @@ static void fill_pool(int level, int want, uint32_t seed0, int extra, int chapte
         double bal = cr_balance(s.region, p, &bare);
         if (bare < (level == SV_EASY ? 2 : 1) || bal > 1.45) { lop++; continue; }
         if (extra) c.score = 1000 - c.clues * 10 + c.passes / 50.0;
+        c.mode = mode;
         pool[npool++] = c;
     }
     fprintf(stderr, "pool level %d: %d (%d lopsided dropped)\n", level, npool, lop);
@@ -97,9 +99,18 @@ static void pick(int k, int from, int span)
     }
 }
 
+/* the chapter from its easiest to its hardest; its showpiece last: the hardest of those with a quarter turn or both
+ * mirrors (the setters' grandest symmetries), when there is one */
 static void sort_chapter(int first)
 {
     qsort(chosen + first, (size_t)(nchosen - first), sizeof chosen[0], by_score);
+    int show = -1;
+    for (int i = first; i < nchosen; i++)
+        if (chosen[i].mode == CR_ROT4 || chosen[i].mode == CR_BOTH) show = i;
+    if (show < 0) return;
+    cand c = chosen[show];
+    memmove(chosen + show, chosen + show + 1, (size_t)(nchosen - 1 - show) * sizeof chosen[0]);
+    chosen[nchosen - 1] = c;
 }
 
 int main(void)
