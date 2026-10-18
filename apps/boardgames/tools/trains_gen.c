@@ -8,14 +8,17 @@
  * - laid by the rules' maker from fixed seeds, most of them mirrored left to right (a symmetric yard; a tunnel
  *   mirrored too, its image the second tunnel).
  * A network is kept when every switch is run over, the trains go to stations of two colours or more, and it was not
- * met before (nor its mirror). The difficulty: the par (the fewest flips), how rare the settings that work are, the
- * trains and the switches. The look: symmetry, the track spread over the board, few jogs and curves. Along each
- * chapter's curve the best-looking network near each place is kept, a drawing used twice at most and never twice in
- * a row; chapter 1 opens with the simplest drawings (a fork, sidings, a comb), and each chapter ends on its showpiece
- * (a drawing's hardest puzzle, else the best-looking of the hardest few; in chapters 3 and 6 one of the chapter's
- * hardest). Deterministic.
+ * met before (nor its mirror). The difficulty is measured (measure()): the par (the fewest flips), the share of
+ * first flips that mislead, how rare the settings that work are, the trains, and how many naive players solve it
+ * (each sends the trains and flips a switch the first wrong train ran over). The look: symmetry, the track spread
+ * over the board, few jogs and curves. Each chapter opens with its opening drawings (chapter 1: a fork, sidings, a
+ * comb); then only networks the naive players mostly fail, spread from the chapter's floor score to its hardest, the
+ * best-looking near each place, a drawing used twice at most and never twice in a row; each chapter ends on its
+ * showpiece (a drawing's hardest puzzle, else the best-looking of the hardest few; in chapters 3 and 6 one of the
+ * chapter's hardest). Deterministic.
  *   gcc -O2 -Iapps/boardgames/src -o /tmp/trsgen apps/boardgames/tools/trains_gen.c -lm && \
  *       /tmp/trsgen > apps/boardgames/src/games/trains_levels.h
+ * The levels' difficulty table: the same with -DTRS_TABLE, run with no output file.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #define TRS_GEN
@@ -28,7 +31,11 @@
 
 #define PER (TRS_LEVELS / TRS_CHAPTERS)
 #define MAXC 6000
-static const int PAR[TRS_CHAPTERS][2] = {{1, 2}, {2, 3}, {2, 3}, {2, 4}, {2, 4}, {3, 5}};   /* each chapter's pars */
+/* a level past the chapter's openings: at most NAIVE[ch] of the naive players solve it (measure()), its score at least
+ * FLOOR[ch] */
+static const double NAIVE[TRS_CHAPTERS] = {0.25, 0.25, 0.25, 0.25, 0.2, 0.15};
+static const double FLOOR[TRS_CHAPTERS] = {4, 5.5, 6.5, 7.5, 9, 11};
+static double naive_max, floor_min;
 
 /* ---- the drawings: '#' 'o' track (a line of each joins its own kind; '%' joins any), '+' a crossing, 'P' a portal,
  * 'S' a station, '1' '2' a tunnel's two mouths ('3' '4' a second tunnel's); '.' grass. Each with its chapter, the
@@ -111,8 +118,8 @@ static const trs_spec TSP[] = {
  * lo hi tries sym natural */
 typedef struct { trs_spec sp[4]; int nsp, makes; } chapter;
 static const chapter CH[TRS_CHAPTERS] = {
-    {{{5, 6, 1, 2, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 100}, {5, 7, 1, 3, 1, 2, 0, 0, 0, 0, 0, 1, 2, 1, 1, 90},
-      {7, 7, 1, 3, 1, 2, 0, 0, 0, 0, 0, 1, 3, 1, 1, 80}, {5, 7, 1, 3, 1, 2, 0, 0, 0, 0, 0, 1, 2, 1, 0, 80}}, 4, 40000},
+    {{{5, 7, 1, 3, 1, 3, 0, 0, 0, 0, 0, 2, 3, 1, 1, 80}, {7, 7, 1, 4, 1, 3, 0, 0, 0, 0, 0, 2, 3, 1, 1, 70},
+      {7, 8, 1, 4, 1, 4, 0, 0, 0, 0, 0, 2, 4, 1, 1, 60}, {6, 7, 1, 4, 1, 3, 0, 0, 0, 0, 0, 2, 3, 1, 0, 60}}, 4, 40000},
     {{{7, 7, 2, 2, 2, 2, 0, 0, 0, 0, 0, 2, 3, 1, 1, 70}, {7, 8, 2, 3, 2, 3, 0, 0, 0, 0, 0, 2, 3, 1, 1, 70},
       {7, 8, 2, 4, 2, 3, 0, 0, 0, 0, 0, 2, 4, 1, 1, 60}, {6, 7, 2, 3, 3, 3, 0, 0, 0, 0, 0, 2, 3, 1, 0, 60}}, 4, 40000},
     {{{7, 7, 1, 3, 3, 2, 0, 1, 0, 0, 0, 1, 3, 1, 1, 70}, {7, 8, 2, 3, 4, 3, 0, 1, 0, 0, 0, 2, 4, 1, 1, 60},
@@ -125,10 +132,52 @@ static const chapter CH[TRS_CHAPTERS] = {
       {7, 9, 2, 5, 5, 5, 1, 2, 0, 1, 0, 3, 6, 1, 1, 50}, {7, 9, 2, 4, 4, 4, 1, 1, 1, 0, 0, 3, 5, 1, 1, 50}}, 4, 40000},
 };
 
+/* ---- how hard a puzzle is, measured -----------------------------------------------------------------------------
+ * first: the share of the switches whose flip is a mistake at the start (it does not bring a working setting a flip
+ * nearer); rare: how rare the working settings are (log2 of the settings over the working ones); naive: the share of
+ * 300 naive players who solve it within its par and half again: each sends the trains, watches the first one that
+ * goes wrong and flips a switch it ran over (one in four flips: any switch at random) */
+typedef struct { int par, ns, nt, sols; double first, rare, naive, score; } metric;
+
+static void measure(const trs_map *m, metric *mt)
+{
+    mt->par = trs_solve(m, m->set0, NULL, &mt->sols);
+    mt->ns = m->ns;
+    mt->nt = m->nt;
+    mt->rare = log2((double)(1 << m->ns) / (mt->sols > 0 ? mt->sols : 1));
+    int bad = 0;
+    for (int i = 0; i < m->ns; i++) bad += trs_solve(m, (uint16_t)(m->set0 ^ 1u << i), NULL, NULL) != mt->par - 1;
+    mt->first = m->ns ? (double)bad / m->ns : 0;
+    uint32_t r = pr_seed(77);
+    int wins = 0;
+    static trs_run run;
+    for (int t = 0; t < 300; t++) {
+        uint16_t set = m->set0;
+        int ok = 0;
+        for (int k = 0; k <= mt->par + mt->par / 2 && !ok; k++) {
+            if (trs_simulate(m, set, &run) == TRS_OK) { ok = 1; break; }
+            if (k == mt->par + mt->par / 2) break;
+            int on[TRS_PATH], non = 0, bt = run.bad_t >= 0 && run.bad_t < m->nt ? run.bad_t : 0;
+            for (int j = 0; j < run.len[bt]; j++) {
+                int s = trs_switch_at(m, run.cell[bt][j]);
+                if (s >= 0) on[non++] = s;
+            }
+            int s = non && pr_below(&r, 4) ? on[pr_below(&r, non)] : pr_below(&r, m->ns);
+            set ^= (uint16_t)(1u << s);
+        }
+        wins += ok;
+    }
+    mt->naive = wins / 300.0;
+    /* the score: the flips, worth more where the first flips mislead and the naive players fail, the working
+     * settings rare, the trains many */
+    mt->score = mt->par * (0.6 + mt->first) * (1.2 - mt->naive) * 2 + 0.5 * mt->rare + 0.3 * mt->nt;
+}
+
 typedef struct {
     char text[TRS_TEXT], shape[2 * TRS_CELLS + 1];
     int par, src, part, used;                   /* src: the drawing (-1 the maker's) */
     double diff, look;
+    metric m;
 } cand;
 
 static cand C[MAXC];
@@ -238,7 +287,8 @@ static void add(const trs_map *m, const trs_quality *q, int src, int part)
     c->src = src;
     c->part = part;
     c->used = 0;
-    c->diff = q->par + 1.2 * log2((double)(1 << m->ns) / q->sols) + 0.4 * m->nt + 0.25 * m->ns;
+    measure(m, &c->m);
+    c->diff = c->m.score;
     c->look = look_of(m) + (src >= 0 ? 0.8 : 0);
 }
 
@@ -257,12 +307,42 @@ static int pick(int from, int to, int prev_src, const int *uses)
     (void)prev_src;
     for (int j = from; j <= to; j++) {
         if (j < 0 || j >= nc || C[j].used || C[j].part) continue;
+        if (C[j].m.naive > naive_max || C[j].m.score < floor_min) continue;
         if (C[j].src >= 0 && (uses[C[j].src] >= 2 || slot - last_at[C[j].src] < 6)) continue;
         if (best < 0 || C[j].look > C[best].look) best = j;
     }
     return best;
 }
 
+#ifdef TRS_TABLE                                /* the shipped levels' table: -DTRS_TABLE */
+#include "games/trains_levels.h"
+int main(void)
+{
+    (void)TPL, (void)TSP, (void)CH, (void)by_diff, (void)look_of, (void)drawn, (void)add, (void)pick, (void)NAIVE,
+        (void)FLOOR;
+    double sum[TRS_CHAPTERS][5] = {{0}};
+    int trivial = 0;
+    printf("lvl par sw trains first rare naive score  network\n");
+    for (int lv = 0; lv < TRS_LEVELS; lv++) {
+        trs_map m;
+        metric mt;
+        trs_parse(&m, trs_levels[lv]);
+        measure(&m, &mt);
+        printf("%4d %3d %2d %2d %5.2f %5.2f %5.2f %6.2f  %s\n", lv + 1, mt.par, mt.ns, mt.nt, mt.first, mt.rare,
+               mt.naive, mt.score, trs_levels[lv]);
+        int triv = mt.naive > 0.25 || mt.par <= 1;
+        double *s = sum[lv / PER];
+        s[0] += mt.par; s[1] += mt.first; s[2] += mt.naive; s[3] += mt.score; s[4] += triv;
+        trivial += lv >= 3 && triv;
+    }
+    printf("\nchapter  par first naive score trivial\n");
+    for (int c = 0; c < TRS_CHAPTERS; c++)
+        printf("%7d %5.1f %5.2f %5.2f %5.1f %4.0f\n", c + 1, sum[c][0] / PER, sum[c][1] / PER, sum[c][2] / PER,
+               sum[c][3] / PER, sum[c][4]);
+    printf("trivial levels from level 4 (naive > 0.25 or par <= 1): %d\n", trivial);
+    return 0;
+}
+#else
 int main(void)
 {
     static char out[TRS_LEVELS][TRS_TEXT];
@@ -270,6 +350,8 @@ int main(void)
     for (int i = 0; i < 64; i++) last_at[i] = -100;
     for (int ch = 0; ch < TRS_CHAPTERS; ch++) {
         nc = 0;
+        naive_max = NAIVE[ch];
+        floor_min = FLOOR[ch];
         uint32_t rs = pr_seed(1000u + 7919u * (uint32_t)ch);
         for (int t = 0; TPL[t].ch >= 0; t++) {  /* the drawings, as drawn and mirrored */
             if (TPL[t].ch != ch) continue;
@@ -340,16 +422,22 @@ int main(void)
         if (show < 0) show = pick(nc - nc / 12 - 2, nc - 1, -2, uses);
         C[show].used = 1;
         if (C[show].src >= 0) uses[C[show].src]++;
-        for (int i = open; i < PER - 1; i++) {  /* along the curve: its par, then the best-looking near its place */
+        static int H[MAXC];                     /* the hard ones, by score */
+        int nh = 0, laid = 0;
+        for (int j = 0; j < nc; j++)
+            if (!C[j].part && C[j].m.naive <= naive_max && C[j].m.score >= floor_min) {
+                H[nh++] = j;
+                laid += C[j].src < 0;
+            }
+        fprintf(stderr, "  %d hard networks, %d laid\n", nh, laid);
+        if (nh < PER) { fprintf(stderr, "chapter %d: too few hard networks\n", ch + 1); return 1; }
+        for (int i = open; i < PER - 1; i++) {  /* along the curve: the best-looking near its place */
             slot = k + i;
             double f = (double)(i - open) / (PER - 1 - open);
-            int want = (int)floor(PAR[ch][0] + (PAR[ch][1] + 0.99 - PAR[ch][0]) * f), g0 = -1, g1 = -1;
-            for (int j = 0; j < nc; j++)
-                if (C[j].par == want) { if (g0 < 0) g0 = j; g1 = j; }
-            double sub = (f * (PAR[ch][1] + 1 - PAR[ch][0])) - (want - PAR[ch][0]);   /* 0..1 within the par */
-            int at = g0 < 0 ? (int)(f * (nc - 1)) : g0 + (int)(sub * (g1 - g0)), win = g0 < 0 ? 30 : g1 - g0 + 1;   /* the whole par: the best-looking */
-            int best = pick(at - win, at + win, prev, uses);
-            for (int w2 = win; best < 0 && w2 < 2 * nc; w2 *= 2) best = pick(at - w2, at + w2, prev, uses);
+            int p = (int)(f * (nh - 1) + 0.5), w = nh / (PER - open) + 1;   /* its place among the hard ones */
+            int at = H[p], lo = H[p - w < 0 ? 0 : p - w], hi = H[p + w > nh - 1 ? nh - 1 : p + w];
+            int best = pick(lo, hi, prev, uses);
+            for (int w2 = hi - lo + 1; best < 0 && w2 < 2 * nc; w2 *= 2) best = pick(at - w2, at + w2, prev, uses);
             if (best < 0) { fprintf(stderr, "chapter %d: ran out\n", ch + 1); return 1; }
             C[best].used = 1;
             if (C[best].src >= 0) { uses[C[best].src]++; last_at[C[best].src] = slot; }
@@ -373,3 +461,4 @@ int main(void)
     printf("\n};\n");
     return 0;
 }
+#endif
