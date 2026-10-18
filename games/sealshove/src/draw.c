@@ -59,6 +59,7 @@ static uint8_t tile_buf[64];                    /* scratch: one tile being paint
 /* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): what the stage shows this frame, for
  * the raster's lines past the stage (set by draw_frame before every picture: not saved) */
 static int tall_floe, tall_sea_x, tall_sea_y;
+static int ui_pin;                              /* the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels) */
 static int sea_w(void);
 
 /* the sea's colour on a line past the stage: the gradient carried on, gentler (a third of its slope) */
@@ -90,6 +91,7 @@ static void raster(int line, void *user)
         int by = line < 0 ? TALL_ABOVE_Y : line >= 256 ? TALL_BELOW_Y : 0;
         rs_bg_scroll(RS_BG3, (tall_sea_x + bx) & (sea_w() * 8 - 1), (tall_sea_y + by) & 255);
         rs_pal_set(0, sea_color_out(line));
+        if (ui_pin) rs_bg_enable(RS_BG1, ht_pin_line(ui_pin, line));
         return;
     }
     if (line == 0) {
@@ -97,6 +99,7 @@ static void raster(int line, void *user)
         rs_bg_enable(RS_BG2, tall_floe);
         rs_bg_scroll(RS_BG3, tall_sea_x, tall_sea_y);
     }
+    if (ui_pin) rs_bg_enable(RS_BG1, ht_pin_line(ui_pin, line));
     rs_pal_set(0, line_col[line]);
 }
 
@@ -752,6 +755,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     tall_sea_y = -sy;
     rs_bg_scroll(RS_BG3, tall_sea_x, tall_sea_y);
     ht_pause(paused, 13);                       /* (hu_pause; zoomed: 1x when PAUSED does not fit at 2x) */
+    ui_pin = !narrow ? HT_PIN_OFF : state == ST_TITLE ? HT_PIN_TITLE : state == ST_OVER ? HT_PIN_PANEL : HT_PIN_OFF;
+    ht_pin(ui_pin);                             /* the title and the panels at the same place on every game's screen */
 
     rs_oam_clear();
     /* front to back: the UI, the touch controls, the HUD, the seals and their overlays, the props, the decor */

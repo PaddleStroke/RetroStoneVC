@@ -8,3 +8,4 @@ draw.drawn_width    the width the maps were set up for: a setting of the fronten
 draw.tall_floe      a tall screen: whether the floe shows, set by draw_frame before every picture (the raster's line 0)
 draw.tall_sea_x     ... the sea's scroll, the same
 draw.tall_sea_y     ... the same
+draw.ui_pin         a tall screen: the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels), set by draw_frame before every picture (the raster shows it there)
