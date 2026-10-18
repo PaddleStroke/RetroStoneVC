@@ -95,7 +95,8 @@ static void draw(void)
     }
     if (lb_redeals_left(p) && !U.won) {         /* the hand: an arrow going round, the redeals left in it */
         solui_again(&U, U.at[LB_HAND].x, U.at[LB_HAND].y - 0.14f * U.w);
-        ui_number(U.at[LB_HAND].x, U.at[LB_HAND].y + 0.4f * U.w, 0.3f * U.w, lb_redeals_left(p), 1);
+        ui_number_ex(U.at[LB_HAND].x, U.at[LB_HAND].y + 0.4f * U.w, 0.3f * U.w, lb_redeals_left(p), ct_ink(), 255,
+                     0);                        /* cream; ink on the light table */
     }
     const solspot *m = &U.at[LB_MERCI];
     if (lb_merci_open(p) && !p->n[LB_MERCI]) {  /* the merci's place, open: in gold light while the game goes on */
