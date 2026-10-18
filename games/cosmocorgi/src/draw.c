@@ -75,17 +75,20 @@ static void raster_out(int line)
     }
 }
 
+static int ui_pin;                      /* the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels) */
 static void raster(int line, void *user)
 {
     (void)user;
     if (line < 0 || line >= RS_SCREEN_H) {
         raster_out(line);
+        if (ui_pin) rs_bg_enable(RS_BG1, ht_pin_line(ui_pin, line));
         return;
     }
     if (line == 0) {
         rs_bg_enable(RS_BG1, 1);
         for (int l = RS_BG2; l <= RS_BG4; l++) rs_bg_scroll(l, tall_x[l], tall_y);
     }
+    if (ui_pin) rs_bg_enable(RS_BG1, ht_pin_line(ui_pin, line));
     rs_pal_set(0, line_col[line]);
 }
 static int fdiv8(int v) { return v >= 0 ? v / 8 : -((7 - v) / 8); }
@@ -369,7 +372,7 @@ static int enemy_sprite(const world *w, const enemy *e, int *flags)
 static int view_x0, view_x1;
 static int narrow;                        /* a zoomed tall screen narrower than the kit (draw_frame: ht_narrow) */
 static ht_title_out title_out;            /* the narrow title's glyph and slots, set by screen_text every title frame */
-static const ht_title title_cfg = {NULL, MAX_PLAYERS, HU_ROW_SLOTS, 0};   /* (the verb: TR(VERB), set where used) */
+static const ht_title title_cfg = {NULL, MAX_PLAYERS, HT_ROW_SLOTS, 0};   /* (the verb: TR(VERB), set where used) */
 
 /* A zoomed screen: a robot on the stage (the 320 columns would show it) but outside the columns shown gets a warning
  * arrow at that edge, at its height (blinking), the warning the stage's width gives; at most 4, not stacked */
@@ -751,6 +754,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;     /* the panel slides up, ease-out */
     rs_bg_scroll(RS_BG1, -hu_ui_x() - ui_dx, -slide);  /* the UI centred on the screen (widescreen), or the view */
     ht_pause_dx(paused, 13, ui_dx);
+    ui_pin = !ht_narrow() ? HT_PIN_OFF : state == ST_TITLE ? HT_PIN_TITLE : state == ST_OVER ? HT_PIN_PANEL : HT_PIN_OFF;
+    ht_pin(ui_pin);                     /* the title and the panels at the same place on every game's screen */
 
     rs_oam_clear();
     /* front to back: the UI, the play */
