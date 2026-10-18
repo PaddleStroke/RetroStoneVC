@@ -1,0 +1,7 @@
+Borra y suma
+# El objetivo
+Cada fila tiene un objetivo al final y cada columna uno debajo. Borra cifras para que las que queden en cada fila y en cada columna sumen su objetivo. Cada tablero tiene una sola solución, que se encuentra razonando. Mantén pulsada una cifra para rodearla: una nota de que se queda.
+# El final de la partida
+El tablero está resuelto cuando cada fila y cada columna suman su objetivo.
+# Niveles y estrellas
+Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una casilla equivocada que quitas con Deshacer.

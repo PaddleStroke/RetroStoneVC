@@ -1,0 +1,7 @@
+Sudda till summan
+# Målet
+Varje rad har ett mål i slutet och varje kolumn ett under sig. Sudda bort siffror så att siffrorna som är kvar i varje rad och varje kolumn tillsammans blir dess mål. Varje pussel har exakt en lösning, som går att hitta med enbart logik. Håll på en siffra för att ringa in den: en anteckning om att den står kvar.
+# Partiets slut
+Pusslet är löst när varje rad och varje kolumn blir sitt mål.
+# Banor och stjärnor
+Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en felaktig ruta som du tar tillbaka med Ångra.

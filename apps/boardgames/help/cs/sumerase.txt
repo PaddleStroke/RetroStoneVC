@@ -1,0 +1,7 @@
+Vygumuj na součet
+# Cíl hry
+Každý řádek má na konci cílové číslo a každý sloupec pod sebou. Vygumuj číslice tak, aby zbylé číslice v každém řádku a každém sloupci daly dohromady jeho cílové číslo. Každá úloha má právě jedno řešení, které najdeš samotnou úvahou. Podrž číslici a zakroužkuješ ji: poznámka, že zůstává.
+# Konec hry
+Úloha je vyřešená, když každý řádek a každý sloupec dává své cílové číslo.
+# Úrovně a hvězdy
+Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatné políčko, které vezmeš zpět tlačítkem Vrátit.

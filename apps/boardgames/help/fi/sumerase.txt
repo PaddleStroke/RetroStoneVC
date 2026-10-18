@@ -1,0 +1,7 @@
+Pyyhi summaksi
+# Tavoite
+Jokaisen rivin päässä on tavoiteluku, ja jokaisen sarakkeen alla samoin. Pyyhi numeroita niin, että jokaisen rivin ja sarakkeen jäljelle jäävät numerot antavat yhteensä sen tavoiteluvun. Jokaisella tehtävällä on täsmälleen yksi ratkaisu, joka löytyy pelkällä päättelyllä. Pidä numeroa painettuna rengastaaksesi sen: merkintä, että se jää.
+# Pelin loppu
+Tehtävä on ratkaistu, kun jokainen rivi ja sarake antaa tavoitelukunsa.
+# Tasot ja tähdet
+Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä ruutu, jonka perut Kumoa-painikkeella.

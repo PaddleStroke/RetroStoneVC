@@ -1,0 +1,7 @@
+Silerek Topla
+# Amaç
+Her satırın sonunda, her sütunun da altında bir hedef sayı var. Rakamları sil: her satırda ve her sütunda kalan rakamların toplamı onun hedefi olsun. Her bulmacanın tek bir çözümü var ve yalnızca akıl yürüterek bulunur. Bir rakamı halka içine almak için basılı tut: kalacağına dair bir not.
+# Oyunun sonu
+Her satır ve her sütun hedefini tuttuğunda bulmaca çözülür.
+# Seviyeler ve yıldızlar
+İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, Geri al ile kaldırdığın yanlış bir karedir.

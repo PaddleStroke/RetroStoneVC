@@ -1,0 +1,7 @@
+Slet til summen
+# Målet
+Hver række har et mål for enden, og hver søjle et under sig. Slet cifre, så de cifre, der er tilbage i hver række og hver søjle, giver dens mål tilsammen. Hver opgave har præcis én løsning, som findes ved ren logik. Hold på et ciffer for at sætte ring om det: en note om, at det bliver.
+# Spillets afslutning
+Opgaven er løst, når hver række og hver søjle giver sit mål.
+# Baner og stjerner
+Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et forkert felt, som du tager tilbage med Fortryd.

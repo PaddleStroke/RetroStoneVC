@@ -1,0 +1,7 @@
+Hapus Jumlah
+# Tujuan
+Setiap baris punya angka target di ujungnya, dan setiap kolom di bawahnya. Hapus angka sehingga angka yang tersisa di setiap baris dan setiap kolom berjumlah sama dengan targetnya. Setiap teka-teki punya tepat satu solusi, yang ditemukan hanya dengan penalaran. Tahan sebuah angka untuk melingkarinya: catatan bahwa angka itu tetap.
+# Akhir permainan
+Teka-teki selesai ketika setiap baris dan setiap kolom mencapai targetnya.
+# Level dan bintang
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah kotak salah yang kamu batalkan dengan Urungkan.

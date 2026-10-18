@@ -1,0 +1,7 @@
+Visk ut til summen
+# Målet
+Hver rad har et mål på enden, og hver kolonne et under seg. Visk ut sifre slik at sifrene som er igjen i hver rad og hver kolonne, til sammen blir målet. Hvert puslespill har nøyaktig én løsning, som kan finnes med ren logikk. Hold på et siffer for å sette ring rundt det: et notat om at det blir stående.
+# Slutten på spillet
+Puslespillet er løst når hver rad og hver kolonne blir sitt mål.
+# Nivåer og stjerner
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en feil rute som du tar tilbake med Angre.

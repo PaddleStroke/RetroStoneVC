@@ -1,0 +1,7 @@
+Apagar para somar
+# O objetivo
+Cada linha tem um alvo no fim, e cada coluna um embaixo. Apague algarismos para que os que sobram em cada linha e em cada coluna somem o seu alvo. Cada desafio tem uma só solução, encontrada apenas pelo raciocínio. Segure um algarismo para circulá-lo: uma nota de que ele fica.
+# O fim da partida
+O desafio está resolvido quando cada linha e cada coluna somam o seu alvo.
+# Níveis e estrelas
+Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma casa errada que você tira com Desfazer.

@@ -1,0 +1,7 @@
+Wymaż do sumy
+# Cel gry
+Każdy wiersz ma na końcu liczbę docelową, a każda kolumna pod spodem. Wymaż cyfry tak, aby cyfry pozostałe w każdym wierszu i każdej kolumnie dawały razem jej liczbę docelową. Każda łamigłówka ma dokładnie jedno rozwiązanie, które da się znaleźć samym rozumowaniem. Przytrzymaj cyfrę, aby ją zakreślić: notatka, że zostaje.
+# Koniec gry
+Łamigłówka jest rozwiązana, gdy każdy wiersz i każda kolumna dają swoją liczbę docelową.
+# Poziomy i gwiazdki
+Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to źle oznaczone pole cofnięte przyciskiem Cofnij.

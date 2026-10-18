@@ -1,0 +1,7 @@
+Summen radieren
+# Das Ziel
+Jede Zeile hat am Ende eine Zielzahl, jede Spalte eine darunter. Radiere Ziffern weg, sodass die übrigen Ziffern jeder Zeile und jeder Spalte zusammen ihre Zielzahl ergeben. Jedes Rätsel hat genau eine Lösung, die sich allein durch Nachdenken finden lässt. Halte eine Ziffer gedrückt, um sie einzukreisen: eine Notiz, dass sie bleibt.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn jede Zeile und jede Spalte ihre Zielzahl ergibt.
+# Level und Sterne
+Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist ein falsches Feld, das du mit Rückgängig zurücknimmst.

@@ -1,0 +1,7 @@
+Efface-sommes
+# Le but
+Chaque ligne a une cible à son bout, et chaque colonne une cible en dessous. Efface des chiffres pour que les chiffres restants de chaque ligne et de chaque colonne fassent sa cible. Chaque grille a une seule solution, que l'on trouve par le raisonnement seul. Appuie longuement sur un chiffre pour l'entourer : une note qu'il reste.
+# La fin de la partie
+La grille est résolue quand chaque ligne et chaque colonne fait sa cible.
+# Niveaux et étoiles
+Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est une case fausse que tu reprends avec Annuler.
