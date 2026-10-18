@@ -720,12 +720,15 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
 }
 
 /* ---- save states (main.c) ---- */
-/* a state saved at another width brings maps of another size: set them up for this width, redraw the UI */
+/* a state saved at another width brings maps of another size: set them up for this width, redraw the UI. One of
+ * another height (the phone turned: house_tall.h ht_shape_reset) also brings the windows raster_out left: gone. */
 void draw_state_loaded(void)
 {
     rs_screen_origin(view_left());              /* (not part of a state: this width's) */
-    if (drawn_width == rs_screen_width() && drawn_height == rs_screen_height()) return;
+    int shape = ht_shape_reset();
+    if (!shape && drawn_width == rs_screen_width() && drawn_height == rs_screen_height()) return;
     maps_setup();                               /* and the UI is drawn again (shown_key: the corners' tags) */
+    hu_pause(0, 13);                            /* ... and PAUSED, if it shows (draw_frame: hu_pause(paused)) */
 }
 
 #define S(v) rs_state_var("draw." #v, &(v), sizeof(v))
