@@ -15,7 +15,7 @@
 #include "game.h"
 #include "assets.h"
 #include "house_ui.h"
-#include "house_narrow.h"
+#include "house_tall.h"
 #include "game_text.h"
 #include <stdio.h>
 #include <string.h>
@@ -367,7 +367,9 @@ static int enemy_sprite(const world *w, const enemy *e, int *flags)
 
 /* the stage columns shown: view_x0 .. view_x1 - 1 (the whole screen, but on a zoomed screen in play) */
 static int view_x0, view_x1;
-static int ui_cols = 40;                  /* the UI columns shown (hn_cols: draw_frame; not saved) */
+static int narrow;                        /* a zoomed tall screen narrower than the kit (draw_frame: ht_narrow) */
+static ht_title_out title_out;            /* the narrow title's glyph and slots, set by screen_text every title frame */
+static const ht_title title_cfg = {NULL, MAX_PLAYERS, HU_ROW_SLOTS, 0};   /* (the verb: TR(VERB), set where used) */
 
 /* A zoomed screen: a robot on the stage (the 320 columns would show it) but outside the columns shown gets a warning
  * arrow at that edge, at its height (blinking), the warning the stage's width gives; at most 4, not stacked */
@@ -566,7 +568,8 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
     if (key != shown_key || best != shown_best) {
         char s[64];
         hu_clear();
-        if (state == ST_TITLE) hn_logo("COSMO CORGI", title_ramps, 2, 2, 0, ui_cols);
+        if (state == ST_TITLE && narrow) ht_logo("COSMO CORGI", title_ramps, 2, 2, 0);
+        else if (state == ST_TITLE) hu_logo("COSMO CORGI", title_ramps, 2, 2, 0);
         if ((state == ST_PLAY || state == ST_DEAD) && w->players >= 3 && !tall()) hu_score_tags(w->players, 0);
         if (state == ST_PLAY || state == ST_DEAD) {
             if (w->phase == PH_INTRO && w->phase_t < INTRO_FRAMES) {
@@ -593,20 +596,36 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         }
         if (state == ST_OVER) {
             if (w->players == 1) {
-                hn_banner(4, HTR(GAME_OVER), ui_cols);
-                hu_gameover_panel(1, new_best, w->h[0].score, 0);
                 rs_strf(s, sizeof s, TR(STAGE_N), world_stage(w));
-                hu_gameover_note(s);
+                if (narrow) {
+                    ht_banner(4, HTR(GAME_OVER));
+                    ht_gameover_panel(new_best, s, HTR(BACK_TITLE));
+                } else {
+                    hu_banner(4, HTR(GAME_OVER));
+                    hu_gameover_panel(1, new_best, w->h[0].score, 0);
+                    hu_gameover_note(s);
+                }
             } else {
-                hn_results_panel(rs, NULL, ui_cols);            /* P2 WINS! and the ranking */
+                if (narrow) ht_results_panel(rs, NULL);
+                else hu_results_panel(rs, NULL);         /* P2 WINS! and the ranking */
             }
         }
         shown_key = key;
         shown_best = best;
     }
-    if (state == ST_TITLE) hn_title_draw(st_t, best, TR(VERB), MAX_PLAYERS, 0, ui_cols);
+    if (state == ST_TITLE && narrow) {
+        ht_title c = title_cfg;
+        c.verb = TR(VERB);
+        ht_title_draw(&c, st_t, best, &title_out);
+    } else if (state == ST_TITLE) {
+        hu_title_draw(st_t, best);
+    }
     if (state == ST_OVER) {
-        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_TITLE));
+        char s[64];
+        rs_strf(s, sizeof s, TR(STAGE_N), world_stage(w));
+        if (w->players == 1 && narrow) ht_retry_line_at(ht_gameover_retry_row(s), st_t, RETRY_LOCK, HTR(BACK_TITLE));
+        else if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_TITLE));
+        else if (narrow) ht_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
         else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
     }
 }
@@ -675,7 +694,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     standing(w, &rs);
 
     /* a tall screen (DESIGN.md "Tall screen"): zoomed, the camera on the corgis in play; the title and the panels in
-     * the middle columns (house_narrow.h) */
+     * the middle columns (house_tall.h) */
     int zoom = tall(), play = state == ST_PLAY || state == ST_DEAD, ui_dx = 0;
     view_x0 = rs_screen_left();
     view_x1 = rs_screen_right();
@@ -692,7 +711,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         ui_dx = (view_x0 + view_x1) / 2 - (rs_screen_left() + rs_screen_right()) / 2;
         if (drawn_height != rs_screen_height()) maps_setup();
     }
-    ui_cols = hn_cols();
+    narrow = ht_narrow();
 
     /* the section's colours: blended in from the last section's as it begins */
     int th = state == ST_TITLE ? 0 : world_theme(w->sec), prev = th, k = 256;
@@ -731,7 +750,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     screen_text(w, state, st_t, best, new_best, &rs);
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;     /* the panel slides up, ease-out */
     rs_bg_scroll(RS_BG1, -hu_ui_x() - ui_dx, -slide);  /* the UI centred on the screen (widescreen), or the view */
-    hn_pause(paused, 13, ui_cols);
+    ht_pause(paused, 13);
 
     rs_oam_clear();
     /* front to back: the UI, the play */
@@ -744,18 +763,22 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     }
     if (state == ST_OVER) {
         if (w->players == 1) {
-            hu_gameover_sprites(1, w->h[0].score, 0, best, hu_medal_of(w->h[0].score, medals), st_t, slide);
+            if (narrow) ht_gameover_sprites(w->h[0].score, best, hu_medal_of(w->h[0].score, medals), st_t, slide);
+            else hu_gameover_sprites(1, w->h[0].score, 0, best, hu_medal_of(w->h[0].score, medals), st_t, slide);
         } else {
-            hn_results_sprites(&rs, st_t, slide, ui_cols);
+            if (narrow) ht_results_sprites(&rs, st_t, slide);
+            else hu_results_sprites(&rs, st_t, slide);
             for (int i = 0; i < rs.n; i++) {
                 int cx, cy;
-                hn_results_icon_pos(&rs, i, ui_cols, &cx, &cy);
+                if (narrow) ht_results_icon_pos(&rs, i, &cx, &cy);
+                else hu_results_icon_pos(&rs, i, &cx, &cy);
                 spr(SPR_ICON, cx - 8 + hu_ui_x(), cy - 8 + slide, 3, player_pal(rs.order[i]), 0);
             }
         }
     }
     if (state == ST_TITLE) {
-        hn_title_sprites(st_t, slot_icon, NULL, TR(VERB), MAX_PLAYERS, 0, ui_cols, 0);   /* the prompt's glyph, the joined players popping in */
+        if (narrow) ht_title_sprites(&title_cfg, &title_out, st_t, slot_icon, NULL);
+        else hu_title_sprites(st_t, slot_icon, NULL);   /* the prompt's glyph, the joined players popping in */
         /* the corgi's rocket bobs under the logo, a puppy pod behind it, a bark flying ahead */
         int b = hu_bob(st_t, 64, READY_BOB), x = 160 + hu_ui_x();
         spr(SPR_ROCKET + (st_t / 4) % 2, x - 16, TITLE_Y - 14 + b, 2, 0, 0);

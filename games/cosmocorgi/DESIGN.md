@@ -192,7 +192,7 @@ those of every width. The stage is centred (180 lines above and below it at 600)
   centred; 2-4 with each corgi's icon, P1 P2 side by side, P3 P4 under them; no corner tags); the UI layer is scrolled
   so its centred texts (the section's name, BIG ROBOT!, the power-ups, PAUSED) and the boss bar sit in the middle of
   the columns shown (a big text wider than them uses the small letters). The title and the game-over panels stay zoomed too (one
-  look in portrait), the view centred, their text in the columns shown (games/common/src/house_narrow.h).
+  look in portrait), the view centred, their text in the columns shown (games/common/src/house_tall.h).
 - **Past the stage** (BG2-BG4 maps 128 rows tall on a tall screen: the stage's rows, then the rows below it from row 30
   down and the rows above it up from row 127, the wrap putting them in place without a raster): the walls go on in a
   band of rock, metal or ice 3-6 tiles deep, rolling, its outer side a lit surface (`walls_tall`); in the nebula (and

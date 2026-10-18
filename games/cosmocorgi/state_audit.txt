@@ -8,4 +8,5 @@ draw.tall_y         ... the same
 draw.planet_y       ... the same (BG4's scroll for the big planet under the stage)
 draw.view_x0        the stage columns shown this frame (draw_frame: the screen, or the zoomed view), set before use
 draw.view_x1        ... the same
-draw.ui_cols        the UI columns shown (house_narrow.h hn_cols), set by draw_frame before every use
+draw.narrow         a zoomed tall screen narrower than the kit (house_tall.h ht_narrow), set by draw_frame before every use
+draw.title_out      the narrow title's glyph and slots (ht_title_draw), set every title frame before ht_title_sprites
