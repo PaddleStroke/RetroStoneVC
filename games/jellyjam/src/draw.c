@@ -19,6 +19,7 @@
 #include "game.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "house_tall.h"
 #include "game_text.h"
 #include <stdio.h>
 #include <string.h>
@@ -44,6 +45,7 @@ static uint8_t slot_used[FIELD_TILES];                     /* the BG2 tiles hand
 static uint8_t cache_ok[MAX_FIELDS];                       /* shown_pic is right (not after a state load) */
 static int laid_key = -1;                                  /* the layout the maps were set up for */
 static int laid_width;                                     /* ... and the width (state_audit.txt) */
+static int laid_height;                                    /* ... and the height */
 static int chef_loaded = -1;                               /* the chef in the OBJ slot */
 static int shown_key = -1, shown_best = -1;
 static uint32_t shown_text;
@@ -52,7 +54,7 @@ static int text_paused;
 static int map_w(void) { return rs_screen_width() > 512 ? 128 : 64; }
 static int fdiv8(int v) { return v >= 0 ? v / 8 : -((7 - v) / 8); }
 
-/* A tall screen (rs_screen_tall: a phone held upright; DESIGN.md "Tall screen"): the stage's 240 lines in the middle,
+/* A tall screen shorter than PL_MIN_H (below: portrait; DESIGN.md "Tall screen"): the stage's 240 lines in the middle,
  * the kitchen wall going on above and below it, with two shelves of jam jars. BG3's map is 64 rows (512 px) there: the
  * stage's rows 0-31 as before, rows 32-63 the wall and the shelves (TALL_SHELF_A, _B), which the lines past the stage
  * show by themselves (above: 512 + y, rows 63 upward; below: rows 30 on), the wall's pattern seamless. The raster hides
@@ -62,9 +64,46 @@ static int fdiv8(int v) { return v >= 0 ? v / 8 : -((7 - v) / 8); }
 static int tall(void) { return rs_screen_height() > RS_SCREEN_H; }
 static int bg3_rows(void) { return tall() ? 64 : 32; }
 
+/* Portrait (the zoomed screen, rs_screen_zoom(ZOOM_H) in main.c; DESIGN.md "Tall screen"): a screen of PL_MIN_H lines
+ * or more gets the portrait layout: the two jars side by side in the middle of the columns shown (no board between
+ * them), the HUD on a wooden board above them (the scores, the hero and the chef, the next pairs, the level and the
+ * chef's name or the players' stars), the jars standing on a counter, jam jars on shelves below; the title, the
+ * banners and the panels laid out inside the columns shown (the logo on two lines, the long lines wrapped). The stage
+ * keeps its 240 lines, PL_ABOVE lines below the screen's top. BG3's 64 rows then map one to one to the screen's
+ * lines (rows 51-63 above the stage, 30-50 below). 3-4 players need every column: their play shows the whole screen
+ * (rs_screen_fill(0)); their title and results stay zoomed. A shorter tall screen keeps the v1 margins. */
+#define PL_ABOVE      104       /* the stage's top, screen line */
+#define PL_X0         60        /* the two fields' insides (frames: 56..160, 160..264: 208 columns) */
+#define PL_X1         164
+#define PL_BOARD_TOP  24        /* the HUD board: its lip's screen line (BG3 row 54) ... */
+#define PL_BOARD_ROW  ((512 - PL_ABOVE + PL_BOARD_TOP) / 8)
+#define PL_PIN_SY     52        /* BG1's rows 0-3 (the HUD's words) drawn from this screen line (rs_bg_pin) */
+#define PL_PIN_N      32
+#define PL_MID        160       /* the middle of the screen (and of the two jars) */
+#define PL_TITLE_SLOTS 18       /* the title: the slots row (house_tall.h ht_title), the logo above (rows 1-12) */
+static int portrait(void) { return rs_screen_height() >= PL_MIN_H; }
+static int pl_pin;              /* the HUD's band is pinned this frame (the raster shows BG1 there) */
+static int pl_on;               /* portrait this frame (the raster: the sprites everywhere) */
+
 static void raster(int line, void *user)
 {
     (void)user;
+    if (pl_on) {                /* portrait: BG1 and BG2 past the stage hidden (but the HUD's band); sprites shown */
+        int s = line - rs_screen_top();
+        if (line == rs_screen_top() || line == RS_SCREEN_H) {
+            rs_window(0, rs_screen_left(), rs_screen_right());
+            rs_bg_window(RS_BG1, RS_WIN1);
+            rs_bg_window(RS_BG2, RS_WIN1);
+            rs_obj_window(0);
+        }
+        if (pl_pin && line < 0 && s == PL_PIN_SY) rs_bg_window(RS_BG1, 0);
+        if (pl_pin && line < 0 && s == PL_PIN_SY + PL_PIN_N) rs_bg_window(RS_BG1, RS_WIN1);
+        if (line == 0) {
+            rs_bg_window(RS_BG1, 0);
+            rs_bg_window(RS_BG2, 0);
+        }
+        return;
+    }
     if ((line < 0 && line == rs_screen_top()) || line == RS_SCREEN_H) {
         rs_window(0, rs_screen_left(), rs_screen_right());
         rs_bg_window(RS_BG1, RS_WIN1);
@@ -91,6 +130,7 @@ static void maps_setup(void)
     shown_key = -1;
     shown_text = 0;
     laid_width = rs_screen_width();
+    laid_height = rs_screen_height();
 }
 
 void draw_init(void)
@@ -172,16 +212,46 @@ static void side_shelves(const int rows[], int n, int bare)   /* bare: the shelf
     }
 }
 
+/* portrait: a counter's top (its lip at row ty) and its front of boards down to row ty1 - 1, its underside after */
+static void counter(int left, int right, int ty, int ty1)
+{
+    for (int tx = left - 1; tx <= right; tx++)
+        for (int y = ty; y <= ty1; y++)
+            kput(tx, y, y == ty ? KT_WOOD_LIP : y == ty1 ? KT_WOOD_UNDER : (tx + y) % 4 ? KT_WOOD_BOARD : KT_WOOD_BOARD2);
+}
+
+/* portrait: the kitchen past the stage. Above (rows 51-63): the HUD board in play (2 fields), else two shelves of
+ * jars; below (rows 30-50): the counter (the jars stand on it), then two shelves of jars (rows 40, 48) */
+static void kitchen_portrait(int nf, int title, int left, int right)
+{
+    if (!title && nf <= 2) {                       /* the HUD board above the jars, as wide as them */
+        int bx0 = (PL_X0 - 4) / 8, bx1 = (PL_X1 + COLS * LAYOUT_CELL_BIG + 4) / 8 - 1;
+        for (int ty = PL_BOARD_ROW; ty <= 64; ty++)
+            for (int tx = bx0; tx <= bx1; tx++)
+                kput(tx, ty & 63, ty == 64 ? KT_WOOD_UNDER : ty == PL_BOARD_ROW ? KT_WOOD_LIP : tx == bx0 ? KT_WOOD_EDGE_L
+                                  : tx == bx1 ? KT_WOOD_EDGE_R : ((tx + ty) % 5 ? KT_WOOD_BOARD : KT_WOOD_BOARD2));
+    } else {
+        shelf(left - 1, right + 1, 54, 1);
+        shelf(left - 1, right + 1, 61, 1);
+    }
+    if (title || nf <= 2) counter(left, right, 30, 34);
+    else counter(left, right, (LAYOUT34_Y + LAYOUT_CELL_SMALL * VROWS + 4) / 8, 32);   /* (3-4 jars: on it too) */
+    shelf(left - 1, right + 1, 40, 1);
+    shelf(left - 1, right + 1, 48, 1);
+}
+
 static void kitchen(int nf, int title)
 {
     int left = fdiv8(rs_screen_left()), right = fdiv8(rs_screen_right() + 7);
     rs_bg_fill(RS_BG3, 0);
     wall(left - 1, right + 1, 0, 32);              /* a tile more all round: a shake shows no backdrop at the edges */
-    if (tall()) {                                  /* a tall screen: the wall past the stage, two shelves of jars */
-        wall(left - 1, right + 1, 32, 64);
+    if (tall()) wall(left - 1, right + 1, 32, 64); /* a tall screen: the wall past the stage ... */
+    if (portrait()) kitchen_portrait(nf, title, left, right);
+    else if (tall()) {                             /* ... and two shelves of jars */
         shelf(left - 1, right + 1, TALL_SHELF_A, 1);
         shelf(left - 1, right + 1, TALL_SHELF_B, 1);
     }
+    if (title && portrait()) return;               /* (portrait: the counter below the stage, under the credits) */
     if (title) {                                   /* a counter at the bottom, jars on it at both ends (mirrored) */
         for (int tx = left - 1; tx <= right; tx++) {
             kput(tx, 27, KT_WOOD_LIP);
@@ -197,7 +267,7 @@ static void kitchen(int nf, int title)
         return;
     }
     flayout L[MAX_FIELDS];
-    int n = field_layout(nf, L);
+    int n = screen_layout(nf, L);
     for (int i = 0; i < n; i++) {                  /* the jar frames round the fields, their insides */
         int tx0 = (L[i].x - 4) / 8, tx1 = (L[i].x + L[i].w + 4) / 8 - 1, ty0 = (L[i].y - 4) / 8,
             ty1 = (L[i].y + L[i].h + 4) / 8 - 1;
@@ -209,7 +279,9 @@ static void kitchen(int nf, int title)
                 kput(tx, ty, rt[fy][fx]);
             }
     }
-    if (nf <= 2) {                                 /* the wooden board between the two fields */
+    if (nf <= 2 && portrait()) {
+        /* (portrait: no board between the jars; the HUD board above them) */
+    } else if (nf <= 2) {                          /* the wooden board between the two fields */
         int bx0 = (L[0].x + L[0].w + 4) / 8 + 1, bx1 = (L[1].x - 4) / 8 - 1;
         for (int ty = 5; ty < 30; ty++)
             for (int tx = bx0; tx < bx1; tx++)
@@ -221,6 +293,17 @@ static void kitchen(int nf, int title)
         static const int rows[3] = {11, 19, 27};
         side_shelves(rows, 3, nf <= 2 ? 1 : -1);
     }
+}
+
+/* the fields as shown: field_layout, but portrait puts the two side by side (draw, touch, the sounds' pan) */
+int screen_layout(int nf, flayout out[MAX_FIELDS])
+{
+    int n = field_layout(nf, out);
+    if (n == 2 && portrait()) {
+        out[0].x = PL_X0;
+        out[1].x = PL_X1;
+    }
+    return n;
 }
 
 /* ---- the fields' pictures (BG2) ----------------------------------------------------------------------------------- */
@@ -403,10 +486,10 @@ static void upload_field(int fi, const region *R)
 static void layout(const world *w, int title)
 {
     int key = title ? 0 : w->nf;
-    if (key == laid_key && laid_width == rs_screen_width()) return;
-    if (laid_width != rs_screen_width()) maps_setup();
+    if (key == laid_key && laid_width == rs_screen_width() && laid_height == rs_screen_height()) return;
+    if (laid_width != rs_screen_width() || laid_height != rs_screen_height()) maps_setup();
     flayout L[MAX_FIELDS];
-    int n = field_layout(laid_key > 0 ? laid_key : 0, L);
+    int n = screen_layout(laid_key > 0 ? laid_key : 0, L);
     for (int i = 0; i < MAX_FIELDS; i++) {
         region R;
         if (i < n) region_of(&L[i], &R);
@@ -421,7 +504,7 @@ static void layout(const world *w, int title)
 static void spr(int id, int x, int y, int prio, int pal)
 {
     const gm_sprite_def *d = &gm_spr[id];
-    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= -(int)d->h || y >= RS_SCREEN_H) return;
+    if (x <= rs_screen_left() - (int)d->w || x >= rs_screen_right() || y <= rs_screen_top() - (int)d->h || y >= rs_screen_bottom()) return;
     rs_spr(x, y, d->tile, d->w, d->h, pal >= 0 ? pal : d->pal, prio, 0);
 }
 
@@ -497,7 +580,7 @@ static void droplets(const field *f, const region *R)
 }
 
 /* ---- the UI's text (BG1): what this frame shows; drawn again only when it changes ------------------------------- */
-typedef struct ptext { int x, y; char s[48]; } ptext;
+typedef struct ptext { int x, y, wrap; char s[48]; } ptext;     /* wrap: centred and wrapped in the columns shown */
 typedef struct uiplan { char banner[48]; int banner_row; ptext t[16]; int n; } uiplan;
 
 static void add_text(uiplan *u, int x, int y, const char *s)
@@ -505,11 +588,31 @@ static void add_text(uiplan *u, int x, int y, const char *s)
     if (u->n >= 16) return;
     u->t[u->n].x = x;
     u->t[u->n].y = y;
+    u->t[u->n].wrap = 0;
     snprintf(u->t[u->n].s, sizeof u->t[u->n].s, "%s", s);
     u->n++;
 }
 
 static void add_centred(uiplan *u, int x0, int w, int y, const char *s) { add_text(u, fdiv8(x0 + w / 2) - hu_width(s, 0) / 2, y, s); }
+
+/* a line centred on the screen: wrapped in the columns shown on a zoomed tall screen (house_tall.h); returns the next
+ * free row */
+static int add_line(uiplan *u, int y, const char *s)
+{
+    if (!ht_narrow()) {
+        add_centred(u, 0, RS_SCREEN_W, y, s);
+        return y + 1;
+    }
+    add_text(u, 0, y, s);
+    u->t[u->n - 1].wrap = 1;
+    return y + ht_text_rows(s, 0);
+}
+
+static void banner(int y, const char *s)
+{
+    if (ht_narrow()) ht_banner(y, s);
+    else hu_banner(y, s);
+}
 
 static uint32_t hash_plan(const uiplan *u, int extra)
 {
@@ -534,11 +637,11 @@ static void play_texts(const world *w, const flayout *L, int side)
         u.banner_row = 8;
         if (w->mode == MODE_DUEL && w->phase_t < INTRO_FRAMES - GO_FRAMES) {
             rs_strf(s, sizeof s, TR(VS_NAME), chef_names[(w->level - 1) % CHEFS]);
-            add_centred(&u, 0, RS_SCREEN_W, 13, s);
+            add_line(&u, 13, s);
         }
         if (w->mode == MODE_DUEL && w->level == 1 && w->duels_won == 0) {
-            add_centred(&u, 0, RS_SCREEN_W, 19, TR(HINT_MOVE));
-            add_centred(&u, 0, RS_SCREEN_W, 21, TR(HINT_TURN));
+            int r = add_line(&u, 19, TR(HINT_MOVE));
+            add_line(&u, r < 21 ? 21 : r + 1, TR(HINT_TURN));
         }
     } else if (w->phase == PH_END) {
         if (w->mode == MODE_DUEL) snprintf(u.banner, sizeof u.banner, "%s", TR(YOU_WIN));
@@ -561,7 +664,18 @@ static void play_texts(const world *w, const flayout *L, int side)
             add_text(&u, fdiv8(L[i].x + L[i].w) - hu_width(s, 0), 1, s);
         }
     }
-    if (w->nf == 2 && w->phase != PH_INTRO) {               /* the board between: who plays */
+    if (w->nf == 2 && portrait()) {                         /* portrait: the HUD board's words (rows 0-3, pinned) */
+        if (w->mode == MODE_DUEL) {
+            rs_strf(s, sizeof s, TR(LEVEL_N), w->level);
+            add_centred(&u, 0, RS_SCREEN_W, 1, s);
+            add_centred(&u, 0, RS_SCREEN_W, 3, chef_names[(w->level - 1) % CHEFS]);
+        } else {                                            /* the tags over each player's stars */
+            for (int p = 0; p < 2; p++) {
+                rs_strf(s, sizeof s, HTR(PLAYER_TAG), p + 1);
+                add_text(&u, fdiv8((p ? PL_MID + 20 : PL_MID - 20) - hu_width(s, 0) * 4 + 4), 1, s);
+            }
+        }
+    } else if (w->nf == 2 && w->phase != PH_INTRO) {        /* the board between: who plays */
         int bx = L[0].x + L[0].w + 4, bw = L[1].x - 4 - bx;
         if (w->mode == MODE_DUEL) {
             const char *name = chef_names[(w->level - 1) % CHEFS];
@@ -581,8 +695,10 @@ static void play_texts(const world *w, const flayout *L, int side)
     if (h == shown_text) return;
     shown_text = h;
     hu_clear();
-    if (u.banner[0]) hu_banner(u.banner_row, u.banner);
-    for (int i = 0; i < u.n; i++) hu_text(u.t[i].x, u.t[i].y, u.t[i].s);
+    if (u.banner[0]) banner(u.banner_row, u.banner);
+    for (int i = 0; i < u.n; i++)
+        if (u.t[i].wrap) ht_text(u.t[i].y, u.t[i].s, 0);
+        else hu_text(u.t[i].x, u.t[i].y, u.t[i].s);
 }
 
 /* the title, the game over and the results */
@@ -596,20 +712,31 @@ static void standing(const world *w, hu_standing *s)
     hu_rank(s, w->players, key, val);
 }
 
+/* a zoomed tall screen (house_tall.h): the title below the two-line logo; where its glyph and slots went */
+static ht_title_out title_out;                  /* set by screen_text every title frame (state_audit.txt) */
+
 static void screen_text(const world *w, int state, int st_t, int best, int new_best, const hu_standing *rs)
 {
-    int screen = state == ST_DEAD ? ST_PLAY : state;
+    int screen = state == ST_DEAD ? ST_PLAY : state, narrow = ht_narrow();
+    char note[48];
+    rs_strf(note, sizeof note, TR(LEVEL_N), w->level);
     if (screen != shown_key || (state == ST_OVER && st_t == RETRY_LOCK) || best != shown_best) {
         hu_clear();
         shown_text = 0;
-        if (state == ST_TITLE) hu_logo("JELLY JAM", title_ramps, 2, 2, 0);
+        if (state == ST_TITLE) {
+            if (narrow) ht_logo("JELLY JAM", title_ramps, 2, 1, 0);
+            else hu_logo("JELLY JAM", title_ramps, 2, 2, 0);
+        }
         if (state == ST_OVER) {
-            if (w->players == 1) {
-                char s[48];
+            if (w->players == 1 && narrow) {
+                ht_banner(4, HTR(GAME_OVER));
+                ht_gameover_panel(new_best, note, HTR(BACK_TITLE));
+            } else if (w->players == 1) {
                 hu_banner(4, HTR(GAME_OVER));
                 hu_gameover_panel(1, new_best, w->f[0].score, 0);
-                rs_strf(s, sizeof s, TR(LEVEL_N), w->level);
-                hu_gameover_note(s);
+                hu_gameover_note(note);
+            } else if (narrow) {
+                ht_results_panel(rs, NULL);
             } else {
                 hu_results_panel(rs, NULL);
             }
@@ -617,9 +744,16 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         shown_key = screen;
         shown_best = best;
     }
-    if (state == ST_TITLE) hu_title_draw(st_t, best);
+    if (state == ST_TITLE && narrow) {
+        ht_title cfg = {TR(VERB), MAX_PLAYERS, PL_TITLE_SLOTS, 0};
+        ht_title_draw(&cfg, st_t, best, &title_out);
+    } else if (state == ST_TITLE) {
+        hu_title_draw(st_t, best);
+    }
     if (state == ST_OVER) {
-        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_TITLE));
+        if (w->players == 1 && narrow) ht_retry_line_at(ht_gameover_retry_row(note), st_t, RETRY_LOCK, HTR(BACK_TITLE));
+        else if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_TITLE));
+        else if (narrow) ht_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
         else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
     }
 }
@@ -655,9 +789,35 @@ static void side_characters(const world *w, const flayout *L, int t)
     }
 }
 
+/* portrait, 2 fields: the HUD board above the jars (screen lines PL_BOARD_TOP .. PL_ABOVE): the scores over the jars,
+ * the hero and the chef (or the two heroes) at its ends, the next pairs beside them, the rounds won in the middle
+ * (the level and the chef's name, or the tags: BG1's pinned rows, play_texts) */
+static void hud_board(const world *w, const flayout *L, int t, int nexts)
+{
+    int y0 = rs_screen_top(), xl = L[0].x + 4, xr = L[1].x + L[1].w - 36;
+    for (int i = 0; i < 2; i++) {
+        const field *f = &w->f[i];
+        hu_number_at(f->score, L[i].x + L[i].w / 2, y0 + 34, 0, 3);
+        if (nexts && f->alive && w->phase == PH_PLAY) next_pair(w, f, i ? PL_MID + 40 : PL_MID - 56, y0 + 56, 16);
+    }
+    if (w->mode == MODE_DUEL) {
+        chef_load(w->level);
+        chef_spr(chef_frame(w), xr, y0 + 60 + hu_bob(t, 64, 2));
+        spr(hero_frame(w, 0, t), xl, y0 + 60 + hu_bob(t + 20, 64, 2), 2, 0);
+        return;
+    }
+    for (int i = 0; i < 2; i++) {
+        spr(hero_frame(w, i, t), i ? xr : xl, y0 + 60 + hu_bob(t + i * 20, 64, 2), 2, player_pal(i));
+        for (int k = 0; k < WINS_NEEDED; k++)
+            spr(w->f[i].wins > k ? SPR_STAR_ON : SPR_STAR_OFF, (i ? PL_MID + 12 : PL_MID - 29) + k * 9, y0 + 77, 2, -1);
+    }
+}
+
 static void play_sprites(const world *w, const flayout *L, const region *R, int side, int t)
 {
-    if (w->nf == 2) {
+    if (w->nf == 2 && portrait()) {
+        hud_board(w, L, t, 1);
+    } else if (w->nf == 2) {
         int bx = L[0].x + L[0].w + 4, bw = L[1].x - 4 - bx, mid = bx + bw / 2;
         for (int i = 0; i < 2; i++) {
             const field *f = &w->f[i];
@@ -697,9 +857,17 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
 {
     static const int medals[4] = MEDAL_SCORES;
     (void)tv;
-    if (laid_width != rs_screen_width()) maps_setup();
+    if (laid_width != rs_screen_width() || laid_height != rs_screen_height()) maps_setup();
     int title = state == ST_TITLE || !w->started;
     layout(w, title);
+    int pl = portrait(), playing = !title && (state == ST_PLAY || state == ST_DEAD);
+    pl_on = pl;
+    pl_pin = pl && playing && w->nf == 2;
+    if (tall()) {                           /* a phone held upright: zoomed, but 3-4 players' play (every column) */
+        rs_screen_fill(!(pl && playing && w->nf > 2));
+        if (pl) rs_screen_origin_v(PL_ABOVE);
+        rs_bg_pin(RS_BG1, 0, pl_pin ? PL_PIN_N : 0, PL_PIN_SY);
+    }
     hu_standing rs;
     standing(w, &rs);
     int t = (int)rs_frame_count();
@@ -708,7 +876,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     rs_bg_scroll(RS_BG3, -sx, -sy);
     flayout L[MAX_FIELDS];
     region R[MAX_FIELDS];
-    int n = title ? 0 : field_layout(w->nf, L);
+    int n = title ? 0 : screen_layout(w->nf, L);
     for (int i = 0; i < n; i++) {
         region_of(&L[i], &R[i]);
         paint_field(w, i, &R[i]);
@@ -735,27 +903,38 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
 
     rs_oam_clear();
     if (state == ST_TITLE) {
-        hu_title_sprites(st_t, slot_icon, NULL);   /* the prompt's glyph, the joined players popping in */
-        spr(hero_frame(w, 0, st_t), RS_SCREEN_W / 2 - 16, 90 + hu_bob(st_t, 64, 4), 2, 0);
-        for (int k = 0; k < 4; k++) {              /* jellies bouncing round the hero */
-            static const int jx[4] = {92, 212, 64, 240}, jy[4] = {104, 104, 120, 120};
+        if (ht_narrow()) {                         /* (house_tall.h: the slots closer, the glyph by the wrapped prompt) */
+            ht_title cfg = {TR(VERB), MAX_PLAYERS, PL_TITLE_SLOTS, 0};
+            ht_title_sprites(&cfg, &title_out, st_t, slot_icon, NULL);
+        } else {
+            hu_title_sprites(st_t, slot_icon, NULL);   /* the prompt's glyph, the joined players popping in */
+        }
+        spr(hero_frame(w, 0, st_t), RS_SCREEN_W / 2 - 16, (pl ? 102 : 90) + hu_bob(st_t, 64, 4), 2, 0);
+        for (int k = 0; k < 4; k++) {              /* jellies bouncing round the hero (portrait: closer, lower) */
+            static const int jx[2][4] = {{92, 212, 64, 240}, {104, 200, 76, 228}}, jy[2][4] = {{104, 104, 120, 120}, {112, 112, 124, 124}};
             int b = hu_bob(st_t * 2 + k * 23, 48, 6);
-            spr(SPR_JELLY16_0 + k, jx[k], jy[k] - (b < 0 ? -b : b), 2, -1);
+            spr(SPR_JELLY16_0 + k, jx[pl][k], jy[pl][k] - (b < 0 ? -b : b), 2, -1);
         }
         return;
     }
     if (state == ST_OVER) {
-        if (w->players == 1) {
+        int narrow = ht_narrow();
+        if (w->players == 1 && narrow) {
+            ht_gameover_sprites(w->f[0].score, best, hu_medal_of(w->f[0].score, medals), st_t, slide);
+        } else if (w->players == 1) {
             hu_gameover_sprites(1, w->f[0].score, 0, best, hu_medal_of(w->f[0].score, medals), st_t, slide);
         } else {
-            hu_results_sprites(&rs, st_t, slide);
+            if (narrow) ht_results_sprites(&rs, st_t, slide);
+            else hu_results_sprites(&rs, st_t, slide);
             for (int i = 0; i < rs.n; i++) {
                 int cx, cy;
-                hu_results_icon_pos(&rs, i, &cx, &cy);
+                if (narrow) ht_results_icon_pos(&rs, i, &cx, &cy);
+                else hu_results_icon_pos(&rs, i, &cx, &cy);
                 spr(SPR_HERO_ICON, cx - 8, cy - 8 + slide, 3, player_pal(rs.order[i]));
             }
         }
         if (side && w->nf == 2) side_characters(w, L, t);   /* (the shelves beside are bare without them) */
+        if (pl && w->nf == 2) hud_board(w, L, t, 0);        /* (portrait: the HUD board above the panel) */
     }
     if (!title && state != ST_OVER) play_sprites(w, L, R, side, t);   /* the panels: only the fields behind */
 }

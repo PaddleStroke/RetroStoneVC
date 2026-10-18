@@ -7,6 +7,10 @@ draw.pic            the field picture being painted: scratch, painted again from
 draw.shown_pic      a cache of what the fields' VRAM tiles hold (only to skip uploads): draw_state_loaded forgets it
 draw.cache_ok       whether that cache is right: cleared by draw_state_loaded
 draw.laid_width     the width the maps were set up for: a setting of the frontend (draw_state_loaded sets them up again)
+draw.laid_height    the height the maps were set up for: a setting of the frontend (as laid_width)
+draw.pl_pin         portrait: the HUD band pinned this frame, for the raster: set by draw_frame every frame
+draw.pl_on          portrait this frame, for the raster: set by draw_frame every frame
+draw.title_out      the title's glyph and slots (house_tall.h): set by screen_text every title frame before the sprites
 draw.clip_y         painting scratch (set for each field)
 draw.pic_w          painting scratch (set for each field)
 draw.pic_h          painting scratch (set for each field)

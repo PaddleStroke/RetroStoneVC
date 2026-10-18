@@ -215,12 +215,27 @@ warning, save RAM, the bot beating chef 1 with chains, determinism), the touch t
 players, paused, the results) and their audit, at 320, 427 and 520 columns, states across widths, and the 22 languages
 (tests/i18n_runs.txt).
 
-## Tall screen (docs/spec.md "Tall screen")
+## Tall screen (docs/spec.md "Tall screen", the zoomed recipe)
 
-The game opts in (`rs_screen_tall(RS_SCREEN_H_MAX)` in game_init): a phone held upright gives 320 x up to 720
-lines; the 240-line stage stays centred, the same pixels, and a 240-line screen (landscape, 4:3, wide) is unchanged.
-- **More kitchen**: the tiled wall goes on above and below the stage, with two shelves of jam jars in each margin.
-  BG3's map is 64 rows there (rows 32-63: the wall, the shelves at rows 42 and 56); the lines past the stage show
-  them by themselves (above: rows 63 upward, below: rows 30 on), and the wall's pattern runs on without a seam.
-- **The raster** (always installed; nothing on a 240-line screen) hides the UI, the fields and the sprites past the
-  stage (window 1) and puts them back at line 0. A state of another height sets the maps up again.
+A phone held upright: `rs_screen_zoom(ZOOM_H)` (512 lines, game.h) first in game_init. The app scales the 512 lines
+to the display's height and crops the sides: 218 columns on a 1080x2520 phone, 236 on a 1080x2340 one, 256 at
+720x1440; the two 16-px jars side by side take 208 of them, so they are about 4.9x on a 9:21 phone. A 240-line screen
+(landscape, 4:3, wide) is unchanged, the same pixels.
+- **The portrait layout** (draw.c, from PL_MIN_H = 456 lines; a shorter tall screen keeps the old margins of wall and
+  shelves): the stage sits 104 lines below the screen's top (`rs_screen_origin_v`). The two jars stand side by side in
+  the middle (`screen_layout`: insides at x 60 and 164, frames 56-264; no board between them), on a counter (BG3 rows
+  30-34); the touch controls are relative drags of one cell (16 px), so they follow as they are.
+- **The HUD on a wooden board above the jars** (screen lines 24-104, BG3 rows 54-64): the scores over each jar (kit
+  digits at `rs_screen_top()` + 34), the hero and the chef (or the two heroes) at its ends, the next pairs beside them,
+  and in the middle the level and the chef's name (1 player) or the tags and the rounds won (2 players). The words are
+  BG1's rows 0-3, drawn at screen line 52 (`rs_bg_pin`); the chain counts and banners keep the stage's rows.
+- **Below**: two shelves of jam jars (rows 40 and 48) down to the screen's bottom (the finger's area). Above the title
+  and the 3-4 players' fields: two shelves of jars (rows 54 and 61). BG3's 64 rows map one to one to the 512 lines
+  (rows 51-63 above the stage, 30-50 below), the wall's pattern without a seam.
+- **One view**: the title, the banners, PAUSED, the game-over panel and the results stay zoomed, laid out in the columns
+  shown by the house kit's house_tall.h (the title's lines wrapped and stacked, the slots closer, narrower panels, the
+  game-over values under their labels; long banners on 1x text). 3-4 players' play needs every column (3 jars of 80
+  px are 240): it alone shows the whole width (`rs_screen_fill(0)`), its title and results stay zoomed.
+- **The raster**: past the stage it hides BG1 (but the pinned HUD band) and BG2 (their maps would wrap there); the
+  sprites show everywhere (they are culled at `rs_screen_top()` / `bottom()`). A state of another height sets the
+  maps up again.

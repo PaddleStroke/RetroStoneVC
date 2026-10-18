@@ -125,6 +125,10 @@
 #define MEDAL_SCORES  {3000, 12000, 35000, 70000}    /* bronze, silver, gold, pearl (1 player: points) */
 /* touch (player 1; main.c, play.c touch_column): drag the pair column by column, tap to turn, swipe down to drop */
 #define TOUCH_SOFT_PX 28        /* a finger dragged this far down (and more down than sideways): soft drop */
+/* a phone held upright (draw.c, DESIGN.md "Tall screen"): a zoomed screen of ZOOM_H lines (rs_screen_zoom), the two
+ * 16-px jars side by side in the 218 columns a 9:21 phone shows of it; the portrait layout from PL_MIN_H lines */
+#define ZOOM_H        512
+#define PL_MIN_H      456
 
 /* ---- play.c: the rules ------------------------------------------------------------------------------------------ */
 typedef struct pair_t {                 /* the falling pair: a pivot and a child that turns round it */
@@ -241,6 +245,7 @@ void draw_init(void);
 void draw_frame(const world *w, int state, int st_t, int best, int new_best, int paused, const touch_view *tv);
 void draw_state(void);
 void draw_state_loaded(void);       /* widescreen and caches: after a state */
+int  screen_layout(int nf, flayout out[MAX_FIELDS]);              /* field_layout as shown (portrait: side by side) */
 extern const char *const chef_names[CHEFS];
 
 /* ---- sound (main.c) ------------------------------------------------------------------------------------------------ */

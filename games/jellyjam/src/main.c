@@ -127,7 +127,7 @@ static void sound_init(void)
 static int pan_of(int i)
 {
     flayout L[MAX_FIELDS];
-    int n = field_layout(W.nf, L);
+    int n = screen_layout(W.nf, L);
     return i < n ? L[i].x + L[i].w / 2 : RS_SCREEN_W / 2;
 }
 
@@ -169,7 +169,7 @@ static void touch_read(pin *in)
 {
     const field *f = &W.f[0];
     flayout L[MAX_FIELDS];
-    field_layout(W.nf, L);
+    screen_layout(W.nf, L);
     for (int i = 0; i < RS_TOUCH_MAX; i++) {
         const rs_touch_point *t = rs_touch(i);
         if (t && t->pressed && touch_slot < 0) {
@@ -381,7 +381,7 @@ static void game_draw(void) { draw_frame(&W, st, st_t, run_best, new_best, pause
 
 static void game_init(void)
 {
-    rs_screen_tall(RS_SCREEN_H_MAX);      /* a phone held upright: more kitchen wall (draw.c, DESIGN.md "Tall screen") */
+    rs_screen_zoom(ZOOM_H);               /* a phone held upright: zoomed, the jars side by side (draw.c, DESIGN.md) */
     save_load();
     run_best = (int)SV.best;                    /* then only game_over() raises it (states never read the .srm) */
     opt_music = rs_option_int("music", 1);
