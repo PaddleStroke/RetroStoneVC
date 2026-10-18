@@ -627,6 +627,7 @@ void hfl_found(const hfl_game *g, int *count)
             }
             if (d == e) break;
         }
+        if (len == 1 && g->p.given[c] == HFL_ONE) ok = 1;   /* shown as a one-cell ship: closed at once */
         if ((ok || len == longest) && len <= HFL_LONG) count[len]++;   /* the longest: closed by its length */
     }
 }

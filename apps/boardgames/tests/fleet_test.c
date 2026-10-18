@@ -121,6 +121,11 @@ int main(void)
         if (!G.p.given[c] && f < 0) f = c;
         if (G.p.given[c] && shown < 0) shown = c;
     }
+    {                                           /* a shown one-cell ship is found at once */
+        int count[HFL_LONG + 1];
+        hfl_found(&G, count);
+        CHECK(count[1] >= 1);
+    }
     CHECK(f >= 0 && shown >= 0 && !hfl_free(&G, shown) && G.st[shown] != HFL_EMPTY);
     CHECK(!hfl_paint(&G, &shown, 1, HFL_EMPTY));
     CHECK(hfl_tap_state(&G, f) == HFL_SHIP && hfl_hold_state(&G, f) == HFL_WATER);
