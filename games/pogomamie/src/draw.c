@@ -504,12 +504,20 @@ void draw_init(void)
 }
 
 /* A state saved at another width brings the maps of that width (64 or 128 tiles) and the backdrop's slots of that
- * width: set them up for this one (everything streamed again, the UI redrawn on the next frame). Same width: nothing. */
+ * width: set them up for this one (everything streamed again, the UI redrawn on the next frame). Same width: nothing.
+ * A state of another height (the phone turned: house_tall.h ht_shape_reset): the same, and the look's palettes
+ * applied again (the tall raster shaded the mid-ground's city below the stage), the UI's shift to the columns shown
+ * none (tall_frame sets it again on a tall screen). */
 void draw_state_loaded(void)
 {
+    int shape = ht_shape_reset();
+    if (shape) {
+        memset(shown_look, 0xff, sizeof shown_look);
+        ui_dx = 0;
+    }
     rs_screen_origin(view_left());              /* (not part of a state: this width's) */
     /* (a state of another height: a tall screen's maps are 64 rows, else 32) */
-    if (drawn_width == rs_screen_width() && rs_bg_map_h(RS_BG2) == map_rows()) return;
+    if (!shape && drawn_width == rs_screen_width() && rs_bg_map_h(RS_BG2) == map_rows()) return;
     drawn_width = rs_screen_width();
     maps_setup();
     if (wide()) rs_tiles_load(VR_BG3, pm_mid_tiles, pm_mid_wide_tile_count);
