@@ -841,8 +841,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     rs_screen_fill(w->players == 1 || !(play || state == ST_READY));
     int vx0 = rs_screen_visible_x0(), vw = rs_screen_visible_x1() - vx0;
     if (vw >= rs_screen_width()) rs_screen_focus_x(-1);
-    else if (state == ST_TITLE) rs_screen_focus_x(vw / 2);
-    else if (state == ST_OVER) rs_screen_focus_x(-1);
+    else if (state == ST_TITLE || state == ST_OVER) rs_screen_focus_x(-1);   /* (house_tall.h: the middle) */
     else rs_screen_focus_x(rs_screen_origin_x() + PIVOT_X - ZOOM_BEHIND + vw / 2);
     vx0 = rs_screen_visible_x0() - rs_screen_origin_x();     /* the stage x of the first column shown */
     narrow = ht_narrow();

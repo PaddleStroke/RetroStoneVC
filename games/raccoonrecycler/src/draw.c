@@ -118,8 +118,8 @@ int draw_route_at(int x){
 static const ht_title title_cfg={NULL,MAX_PLAYERS,TITLE_SLOTS,0};
 /* a raccoon's x on screen: zoomed in play (one player) kept on the columns shown; zoomed on the panels, the stations
  * moved in from the sides to the edges shown, so that every raccoon shows (the title: at its slot) */
-static int hx(int x,int clamp,int narrow,int vx0,int vx1){
- if(!narrow)return x;
+static int hx(int x,int clamp,int vx0,int vx1){
+ if(vx1-vx0>=RS_SCREEN_W)return x;
  if(clamp)return x<vx0+18?vx0+18:x>vx1-18?vx1-18:x;
  return x<160?x+vx0+18-48:x+vx1-18-272;   /* the stations (48, 80 | 240, 272) moved in to the edges shown */
 }
@@ -150,7 +150,7 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  // Same real workstations on title and during play; full-size raccoons stand on the platform.
  for(int p=0;p<w->players;p++){const hero *h=&w->h[p];int id=SPR_HERO_IDLE;
   if(h->feedback<0||!h->alive)id=SPR_HERO_HIT;else if(h->drop_t&&h->drop_side!=ROUTE_CENTER)id=h->drop_side<0?SPR_HERO_LEFT:SPR_HERO_RIGHT;
-  int x=narrow&&state==ST_TITLE?slots.slot_cx[p]+hu_ui_x():hx(h->x,zoom&&play,narrow,vx0,vx1);   /* (zoomed: on the columns shown) */
+  int x=narrow&&state==ST_TITLE?slots.slot_cx[p]+hu_ui_x():hx(h->x,zoom&&play,vx0,vx1);   /* (zoomed: on the columns shown) */
   spr(id,x-16,126,2,ppal(p));
  }
  /* A single fixed conveyor; each player's gate chooses a continuous outgoing route. */

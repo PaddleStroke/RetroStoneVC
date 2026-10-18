@@ -904,9 +904,6 @@ static void tall_frame(const world *w, int state)
         else if (lx > pan_x0 + PAN_MAX) pan_x0 += clampi(lx - pan_x0 - PAN_MAX, 0, 2);
         pan_x0 = clampi(pan_x0, 0, RS_SCREEN_W - v);
         rs_screen_focus_x(pan_x0 + v / 2);
-    } else if (state == DS_TITLE && v < RS_SCREEN_W) {   /* the title: from the screen's left, the grannies at the start */
-        pan_x0 = -1;
-        rs_screen_focus_x(v / 2);
     } else {
         pan_x0 = -1;
         rs_screen_focus_x(-1);

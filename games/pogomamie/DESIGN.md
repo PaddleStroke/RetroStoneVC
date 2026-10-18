@@ -224,7 +224,7 @@ ahead) but smaller sprites; 480 is nearly the world's whole height (512), so Par
   them are ahead, and the stage's left edge (where she cannot go back past) comes into view when she brakes. The roofs,
   things and the gusts' streaks come in at the visible right edge (BG2 is streamed over the stage's 320 columns, the
   sprites culled at the screen's edges, not the stage's).
-- **Fill or fit**: the title (the view from the screen's left: the grannies at the start), pause and the game-over
+- **Fill or fit**: the title (the view centred, as every zoomed title), pause and the game-over
   panels stay zoomed like play, their text in the columns shown (games/common/src/house_tall.h: the logo's words
   stacked, lines wrapped, DISTANCE, BEST and MEDAL each over its value, the score under them); only the races (2-4 players: every racer must be seen, the camera waits for them) show
   every column (`rs_screen_fill(0)`: the whole 320 x 480 picture across the width).
