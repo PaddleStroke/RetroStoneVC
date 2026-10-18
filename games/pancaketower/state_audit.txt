@@ -6,3 +6,4 @@ sfx.half_buf        sfx_init(): the 16-kHz copy of a sound being stored (start-u
 render.sbuf         the pixel buffer a pancake sprite is drawn into before it is uploaded (scratch)
 main.SV             the battery save's copy (best scores, medals): stays in the .srm, a state never takes it back
 draw.oam_logged     development (--opt oamlog=1): the crowded line was logged once
+draw.narrow_out     a tall title's layout (house_tall.h: the A glyph, the slots), set by screen_text every frame before the sprites

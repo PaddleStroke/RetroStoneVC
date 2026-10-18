@@ -306,10 +306,11 @@ line) and every view is the screen's whole height. Rules, speeds and the bot are
   the bottom-left corner of the columns shown; the moon and the balloon too. A sliding pancake is partly cropped at
   the ends of its travel (+-107 px: the play needs the middle, the tower is always whole): the rules stay the same.
 - **The same view everywhere** (fill on): the title, pause, the game-over panel and the 2-4 player results stay
-  zoomed, laid out for 24 columns (tiles 8..31). The title: the logo in two lines (PANCAKE / TOWER, the kit's tiles
-  moved) in the sky; the prompt, BEST and the join line over the attic's dark boards (wrapped in two lines when too
-  wide); the joined chefs on the kitchen's wall over their tags; the credits over the floor. A banner too wide (GAME
-  OVER in most languages, a winner) goes on two lines of 2x letters; the results' panel is 2 columns narrower. Only
+  zoomed, as the house's uniform portrait UI (games/common/src/house_tall.h, its default rows only, as every zoomed
+  game; the stage is the screen's top): the logo as PANCAKE over TOWER (`ht_logo`, row 2) in the sky, the joined
+  chefs in the kitchen under their slots (`NARROW_CHEF_Y`: clear of the house rows), the prompt, BEST, the join line and
+  the credits (`ht_title_draw` from `HU_ROW_SLOTS`), PAUSED (`ht_pause`), GAME OVER (`ht_banner`), the game-over
+  panel with the pancakes as its note and the fork medal at its MEDAL (`ht_gameover_*`), the ranking (`ht_results_*`). Only
   2-4 players playing show every column (`rs_screen_fill(0)`: their panes need the whole width): full-height panes.
 - **VRAM**: the 64-row maps take 4-12 KB more: 65.6 KB in 1 player, 71.8 KB in 4 players (strict mode warns; the
   guideline is the SNES's, which has no tall screen). A state saved at another height lays the views out again (as for

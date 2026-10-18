@@ -14,6 +14,7 @@
 #include "assets.h"
 #include "render.h"
 #include "house_ui.h"
+#include "house_tall.h"
 #include "game_text.h"
 #include <stdio.h>
 #include <string.h>
@@ -112,9 +113,8 @@ static const uint8_t *near_tile_data(int t)
  * A phone held upright: ZOOM_H lines (main.c: rs_screen_zoom), the stage at the screen's top (rs_screen_origin_v(0): the
  * stage y is the screen line) and every view the screen's whole height. The house is a cutaway: the camera no longer
  * waits under an unbroken ceiling. The maps' rings are 64 rows; BG2's sway (1 player) and the far layer's two mappings
- * (the town's horizon just above the roof) are set per line by the raster; BG1 is 64 rows: the title's lines and its
- * panels are laid out for the TALL_COLS columns the narrowest phone shows. Landscape and 4:3: nothing changes. */
-#define TALL_COLS   24                             /* the UI's columns (tiles 8..31): 1080x2520 shows 208 columns */
+ * (the town's horizon just above the roof) are set per line by the raster; BG1 is 64 rows: the title, the banners and
+ * the panels are the house's uniform portrait UI (house_tall.h, its default rows). Landscape and 4:3: nothing changes. */
 #define FAR_UP      (-150)                         /* the far layer above the roof: the town's rooftops just over it, */
 #define FAR_UP_CAM  320                            /*   back to the landscape's mapping as the camera climbs from here */
 static int tall(void) { return rs_screen_height() > RS_SCREEN_H; }
@@ -1012,162 +1012,15 @@ static void draw_chef(view *v, int p, int t, int players)
     if (pose == CH_PANIC) spr(SPR_SWEAT, ox + 36, oy + 10 + (t / 8) % 4, 2, -1, 0, v);
 }
 
-/* ---- the UI on a tall screen: laid out for the TALL_COLS columns shown (the kit's rows, then moved) --------------------- */
-/* BG1's rows y0..y1 go dy rows lower (bottom first); their old place is blank (BG1 is 64 rows on a tall screen) */
-static void ui_move_rows(int y0, int y1, int dy)
-{
-    uint16_t blank = rs_bg_get(RS_BG1, 0, 63);           /* never written: the kit's clear */
-    for (int y = y1; y >= y0; y--)
-        for (int x = 0; x < 64; x++) {
-            rs_bg_put(RS_BG1, x, y + dy, rs_bg_get(RS_BG1, x, y));
-            rs_bg_put(RS_BG1, x, y, blank);
-        }
-}
-
-/* the logo in two lines: PANCAKE centred, TOWER centred under it (hu_logo drew "PANCAKE TOWER" on rows 0..7: its
- * letters on rows 1..5, PANCAKE in columns 2..21, TOWER in 24..38), over the sky above the roof */
-static void tall_logo(void)
-{
-    uint16_t tower[5][15], blank = rs_bg_get(RS_BG1, 0, 63);
-    for (int r = 0; r < 5; r++)
-        for (int c = 0; c < 15; c++) tower[r][c] = rs_bg_get(RS_BG1, 24 + c, 1 + r);
-    for (int r = 1; r <= 5; r++) {
-        for (int c = 21; c >= 2; c--) rs_bg_put(RS_BG1, c + 8, r, rs_bg_get(RS_BG1, c, r));
-        for (int c = 0; c < 40; c++)
-            if (c < 10 || c > 29) rs_bg_put(RS_BG1, c, r, blank);
-    }
-    for (int r = 0; r < 5; r++)
-        for (int c = 0; c < 15; c++) rs_bg_put(RS_BG1, 13 + c, 7 + r, tower[r][c]);
-}
-
-/* s in at most two lines of at most maxw columns (big: 2x glyphs): 0 when it fits in one, else 1 and the two halves
- * (split at the space that balances them best; text without spaces, CJK: between any two characters) */
-static int tall_wrap(const char *s, int big, int maxw, char *a, char *b, size_t size)
-{
-    if (hu_width(s, big) <= maxw) return 0;
-    int n = (int)strlen(s), best = -1, best_w = 1 << 30, spaces = 0;
-    for (int i = 1; i < n; i++) spaces += s[i] == ' ';
-    for (int i = 1; i < n && i < (int)size; i++) {
-        if ((unsigned char)s[i] >= 0x80 && (unsigned char)s[i] < 0xc0) continue;   /* inside a UTF-8 character */
-        if (spaces && s[i] != ' ') continue;
-        if (s[i] == ' ' && s[i + 1] && strchr(":;!?-", s[i + 1])) continue;         /* no line starts with a colon or a dash */
-        memcpy(a, s, (size_t)i);
-        a[i] = 0;
-        snprintf(b, size, "%s", s + i + (s[i] == ' '));
-        int wa = hu_width(a, big), wb = hu_width(b, big), w = wa > wb ? wa : wb;
-        if (w < best_w) best_w = w, best = i;
-    }
-    if (best < 0) return 0;
-    memcpy(a, s, (size_t)best);
-    a[best] = 0;
-    snprintf(b, size, "%s", s + best + (s[best] == ' '));
-    return 1;
-}
-
-/* a line of small text centred on row y, or two (rows y and y + 2) when it is wider than the columns shown */
-static void tall_text(int y, const char *s)
-{
-    char a[128], b[128];
-    if (!tall_wrap(s, 0, TALL_COLS, a, b, sizeof a)) { hu_text(hu_center(s, 0), y, s); return; }
-    hu_text(hu_center(a, 0), y, a);
-    hu_text(hu_center(b, 0), y + 2, b);
-}
-
-/* a banner (GAME OVER, P2 WINS!) in two lines of 2x letters when one is wider than the columns shown, on rows 0..7 */
-static void tall_banner(const char *title)
-{
-    char a[96], b[96];
-    if (!tall_wrap(title, 1, TALL_COLS - 2, a, b, sizeof a)) return;    /* the kit's one line fits */
-    hu_clear_rows(0, 8);
-    int acc1 = hu_tall(a), acc2 = hu_tall(b), wa = hu_width(a, 1), wb = hu_width(b, 1), w = (wa > wb ? wa : wb) + 2;
-    if (w < 20) w = 20;
-    int r1 = 1 + acc1, r2 = r1 + 2 + acc2;
-    hu_panel((40 - w) / 2, 0, w, r2 + 3);
-    hu_big(hu_center(a, 1), r1, a, HU_BIG_BANNER);
-    hu_big(hu_center(b, 1), r2, b, HU_BIG_BANNER);
-}
-
-/* the title on a tall screen (screen rows of 8 lines; the house as at the start of a run): the logo in the sky, the
- * prompt, BEST and the join line over the attic's dark boards (rows 20..28), the joined chefs on the kitchen's wall over
- * their tags (row 47), the credits over the floor (rows 59, 60). The kit's text is drawn on rows 0..29 only: the tags
- * and the credits are drawn higher, then moved down (ui_move_rows). */
-static const int TALL_SLOT_X[4] = {96, 136, 184, 224};   /* closer than the kit's, inside the columns shown */
-#define TALL_ROW_SLOTS 47
-#define TALL_ROW_PROMPT 20
-
-/* the prompt "PRESS A TO <PLAY>": one line with the A glyph on its left, or two (the glyph left of the first) */
-static const char *tall_prompt_line(char *s, char *a, char *b, size_t size, int *two)
-{
-    rs_strf(s, size, HTR(PRESS_TO), HTR(PLAY));
-    *two = tall_wrap(s, 0, TALL_COLS - 2, a, b, size);
-    return *two ? a : s;
-}
-
-static void tall_title_draw(int t, int best)
-{
-    char s[160], a[160], b[160];
-    int two;
-    hu_clear_rows(12, 18);
-    const char *l1 = tall_prompt_line(s, a, b, sizeof s, &two);
-    if (hu_blink(t)) {
-        hu_text(hu_center(l1, 0) + 1, TALL_ROW_PROMPT, l1);
-        if (two) hu_text(hu_center(b, 0) + 1, TALL_ROW_PROMPT + 2, b);
-    }
-    if (best > 0) {
-        rs_strf(s, sizeof s, HTR(BEST_N), best);
-        hu_text(hu_center(s, 0), 24, s);
-    }
-    int n = hu_players();
-    if (n < MAX_PLAYERS) {                        /* the kit's join line: the free tags, then PRESS A TO JOIN */
-        char who[64] = "";
-        for (int p = n; p < MAX_PLAYERS; p++) {
-            size_t k = strlen(who);
-            if (p > n) k += (size_t)snprintf(who + k, sizeof who - k, " / ");
-            if (k < sizeof who) rs_strf(who + k, sizeof who - k, HTR(PLAYER_TAG), p + 1);
-        }
-        rs_strf(s, sizeof s, hu_str(n > 1 ? HS_JOIN_LEAVE : HS_JOIN), who);
-    } else {
-        rs_strf(s, sizeof s, HTRN(FULL, n), n);
-    }
-    tall_text(26, s);
-    for (int p = 0; p < n; p++) {                 /* the tags: row 15, then 47 */
-        rs_strf(s, sizeof s, HTR(PLAYER_TAG), p + 1);
-        hu_text(TALL_SLOT_X[p] / 8 - 1, 15, s);
-    }
-    hu_text(hu_center("(C) 2026 8BCRAFT", 0), 12, "(C) 2026 8BCRAFT");   /* rows 12, 13, then 59, 60 */
-    hu_text(hu_center("RETROSTONE VC", 0), 13, "RETROSTONE VC");
-    ui_move_rows(14, 15, TALL_ROW_SLOTS - 15);
-    ui_move_rows(12, 13, 47);
-}
-
-/* the title's sprites on a tall screen: the A glyph and the joined chefs (popping in), as the kit's at their places */
+/* ---- the UI on a tall screen: the house's uniform portrait UI (house_tall.h, its default rows) ------------------------ */
+static const ht_title narrow_title = {NULL, MAX_PLAYERS, HU_ROW_SLOTS, 0, NULL};   /* (PRESS A TO PLAY) */
+static ht_title_out narrow_out;         /* (set by screen_text every title frame, before the sprites: not saved) */
+#define NARROW_CHEF_Y 380       /* the slots' chefs: their feet on the kitchen's floor, under the house rows (stage y) */
 static void title_chef(int p, int cx, int cy, int t, void *user);
-static void tall_title_sprites(int t)
+/* a slot's chef (ht_title_sprites): under his slot, in the kitchen (popping in as the slot's icon would) */
+static void narrow_chef(int p, int cx, int cy, int t, void *user)
 {
-    char s[160], a[160], b[160];
-    int two;
-    const char *l1 = tall_prompt_line(s, a, b, sizeof s, &two);
-    hu_glyph(HU_BTN_A, (hu_center(l1, 0) + 1) * 8 - 20, TALL_ROW_PROMPT * 8 - 4, (t / 30) % 2, 3);
-    for (int p = 0; p < hu_players(); p++) {
-        int cx = TALL_SLOT_X[p], cy = TALL_ROW_SLOTS * 8 + 4, age = hu_player_age(p);
-        if (age < 24) {
-            hu_sparkle(cx + 8, cy - 14, (age / 6) & 1, 3);
-            hu_sparkle(cx - 14, cy - 2, (age / 6 + 1) & 1, 3);
-        }
-        title_chef(p, cx, cy + (age < 16 ? 12 - hu_ease_back(age, 16, 12) : 0), t, NULL);
-    }
-}
-
-/* the 2-4 player results' panel two columns narrower (24 -> 22 wide: inside the columns shown) */
-static void tall_results_narrow(int players)
-{
-    uint16_t blank = rs_bg_get(RS_BG1, 0, 63);
-    for (int y = 8; y < 8 + 3 * players + 4; y++) {
-        rs_bg_put(RS_BG1, 9, y, rs_bg_get(RS_BG1, 8, y));
-        rs_bg_put(RS_BG1, 30, y, rs_bg_get(RS_BG1, 31, y));
-        rs_bg_put(RS_BG1, 8, y, blank);
-        rs_bg_put(RS_BG1, 31, y, blank);
-    }
+    title_chef(p, cx, cy - narrow_out.slot_cy + NARROW_CHEF_Y, t, user);
 }
 
 /* ---- the UI (the house kit) ------------------------------------------------------------------------------------- */
@@ -1196,21 +1049,24 @@ static void screen_text(const match *m, int state, int st_t, int best, int new_b
         }
         title_logo_on = 0;
         if (state == DS_TITLE) {
-            if (hu_logo("PANCAKE TOWER", title_ramps, 2, tall() ? 0 : 2, 0) > HU_LOGO_TILES - EXT_TILES)
+            if (ht_narrow()) ht_logo("PANCAKE TOWER", title_ramps, 2, 2, 0);    /* PANCAKE over TOWER */
+            else if (hu_logo("PANCAKE TOWER", title_ramps, 2, 2, 0) > HU_LOGO_TILES - EXT_TILES)
                 rs_log("draw: the logo's tiles reach the glyph pool");
             title_logo_on = 1;
             near_pal_last = 0;                         /* the logo has BG palette 5 (the kitchen does not use it) */
-            if (tall()) tall_logo();                   /* two lines; the rest: tall_title_draw */
-            else {
+            if (!ht_narrow()) {
                 rs_strf(s, sizeof s, HTR(BEST_N), best);
                 if (best > 0) hu_text(hu_center(s, 0), 24, s);
                 hu_copyright(28);
             }
         }
         if (state == DS_OVER) {
-            if (m->players == 1) {
+            if (m->players == 1 && ht_narrow()) {    /* portrait: in the columns shown (house_tall.h) */
+                ht_banner(4, HTR(GAME_OVER));
+                rs_strf(s, sizeof s, TRN(PANCAKES_N, m->tw[0].pancakes), m->tw[0].pancakes);
+                ht_gameover_panel(new_best, s, HTR(BACK_MENU));
+            } else if (m->players == 1) {
                 hu_banner(4, HTR(GAME_OVER));
-                if (tall()) tall_banner(HTR(GAME_OVER));
                 hu_gameover_panel(1, new_best, m->tw[0].score, 0);
                 rs_strf(s, sizeof s, TRN(PANCAKES_N, m->tw[0].pancakes), m->tw[0].pancakes);
                 /* under SCORE; a text that takes the row above (accents, CJK) goes to the panel's foot */
@@ -1224,15 +1080,8 @@ static void screen_text(const match *m, int state, int st_t, int best, int new_b
                     keys[p] = values[p] * 100000 + m->tw[p].score;
                 }
                 hu_rank(&rank, m->players, keys, values);
-                hu_results_panel(&rank, NULL);
-                if (tall()) {                          /* the banner in two lines if need be, the panel narrower */
-                    char t[96];
-                    int w = hu_winner(&rank);
-                    if (w >= 0) rs_strf(t, sizeof t, HTR(WINS), w + 1);
-                    else snprintf(t, sizeof t, "%s", HTR(DRAW));
-                    tall_banner(t);
-                    tall_results_narrow(m->players);
-                }
+                if (ht_narrow()) ht_results_panel(&rank, NULL);
+                else hu_results_panel(&rank, NULL);
             }
         }
         shown_state = state;
@@ -1240,14 +1089,19 @@ static void screen_text(const match *m, int state, int st_t, int best, int new_b
         shown_players = m->players;
     }
     if (state == DS_TITLE) {
-        if (tall()) tall_title_draw(st_t, best);
+        if (ht_narrow()) ht_title_draw(&narrow_title, st_t, best, &narrow_out);
         else hu_title_draw(st_t, best);
     }
     if (state == DS_OVER) {
-        if (m->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_MENU));
-        else {
+        if (m->players == 1 && ht_narrow()) {
+            rs_strf(s, sizeof s, TRN(PANCAKES_N, m->tw[0].pancakes), m->tw[0].pancakes);
+            ht_retry_line_at(ht_gameover_retry_row(s), st_t, RETRY_LOCK, HTR(BACK_MENU));
+        } else if (m->players == 1) {
+            hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_MENU));
+        } else {
             hu_standing rank = {.n = m->players};
-            hu_retry_line_at(hu_results_retry_row(&rank), st_t, RETRY_LOCK, HTR(BACK_MENU));
+            if (ht_narrow()) ht_retry_line_at(hu_results_retry_row(&rank), st_t, RETRY_LOCK, HTR(BACK_MENU));
+            else hu_retry_line_at(hu_results_retry_row(&rank), st_t, RETRY_LOCK, HTR(BACK_MENU));
         }
     }
 }
@@ -1299,6 +1153,9 @@ void draw_frame(const match *m, int state, int st_t, int best, int new_best, int
             v->wob_dx[v->y0 + l] = (int16_t)(i >= 0 && i < n ? -wobble(v, i, n, t) : 0);
         }
     }
+    /* a tall screen: 2-4 players playing show every column (their panes need them); the rest stays zoomed (set before
+     * the UI is laid out: house_tall.h reads the columns shown) */
+    if (tall()) rs_screen_fill(!(m->players > 1 && (state == DS_PLAY || state == DS_READY)));
     screen_text(m, state, st_t, best, new_best);
     if (!title_logo_on && !near_pal_last) {            /* the attic, the roof and the sky's palette */
         static const int slots[NEAR_PALS] = NEAR_PAL_SLOTS;
@@ -1307,9 +1164,8 @@ void draw_frame(const match *m, int state, int st_t, int best, int new_best, int
     }
     /* the panel slides up, ease-out (a tall screen: from its bottom) */
     int slide = state == DS_OVER ? hu_slide_in(st_t, 20, tall() ? rs_screen_height() - 40 : 200) : 0;
-    /* a tall screen: 2-4 players playing show every column (their panes need them); the rest stays zoomed */
-    if (tall()) rs_screen_fill(!(m->players > 1 && (state == DS_PLAY || state == DS_READY)));
-    hu_pause(paused, 13);
+    if (ht_narrow()) ht_pause(paused, 13);
+    else hu_pause(paused, 13);
     int shx = hu_shake_x(), shy = hu_shake_y();
 
     rs_oam_clear();
@@ -1326,7 +1182,13 @@ void draw_frame(const match *m, int state, int st_t, int best, int new_best, int
         rs_bg_line_scroll(RS_BG2, tall() ? NULL : v->wob_dx, NULL);   /* a tall screen: the raster sways it */
         /* front to back: the UI, then the world */
         if (state == DS_OVER) {
-            hu_gameover_sprites(1, m->tw[0].score, 0, best, 0, st_t, slide);
+            int narrow = ht_narrow(), mcx = 22 * 8 + 8, my = 16 * 8 - 4, mrow = 17;   /* (the medal: centre x, top y, row) */
+            if (narrow) ht_gameover_sprites(m->tw[0].score, best, 0, st_t, slide);
+            else hu_gameover_sprites(1, m->tw[0].score, 0, best, 0, st_t, slide);
+            if (narrow) {
+                ht_gameover_pos(2, &mcx, &my);
+                mrow = my / 8 + 1;
+            }
             int medal = fork_medal_tier(m->tw[0].score);
             if (medal && !medals_loaded) {
                 int t0 = pt_spr[SPR_MEDAL].tile;
@@ -1334,15 +1196,15 @@ void draw_frame(const match *m, int state, int st_t, int best, int new_best, int
                 medals_loaded = 1;
             }
             if (medal) {
-                hu_box_text(22, 17, " ");               /* the kit wrote "-": our fork medal instead */
-                spr(SPR_MEDAL + medal - 1, 22 * 8 - 4, 16 * 8 - 4 + slide, 3, -1, 0, NULL);
-                if ((st_t / 20) % 3 == 0) hu_sparkle(22 * 8 + 12, 16 * 8 - 4 + slide, (st_t / 10) % 2, 3);
+                hu_box_text((mcx - 4) / 8, mrow, " ");   /* the kit wrote "-": our fork medal instead */
+                spr(SPR_MEDAL + medal - 1, mcx - 12, my + slide, 3, -1, 0, NULL);
+                if ((st_t / 20) % 3 == 0) hu_sparkle(mcx + 4, my + slide, (st_t / 10) % 2, 3);
             } else {
-                hu_box_text(22, 17, "-");
+                hu_box_text((mcx - 4) / 8, mrow, "-");
             }
         }
         if (state == DS_TITLE) {
-            if (tall()) tall_title_sprites(st_t);
+            if (ht_narrow()) ht_title_sprites(&narrow_title, &narrow_out, st_t, narrow_chef, NULL);
             else hu_title_sprites(st_t, title_chef, NULL);
         }
         draw_view_sprites(m, 0, state, st_t, t);
@@ -1368,7 +1230,7 @@ void draw_frame(const match *m, int state, int st_t, int best, int new_best, int
              * Draw the shared UI inside each world view instead of an opaque UI-only overlay. */
             vp->w = (int16_t)((p + 1 < m->players ? vps[p + 1].x : rs_screen_right()) - vp->x);
             if (state == DS_TITLE) {
-                if (tall()) tall_title_sprites(st_t);
+                if (ht_narrow()) ht_title_sprites(&narrow_title, &narrow_out, st_t, narrow_chef, NULL);
                 else hu_title_sprites(st_t, title_chef, NULL);
             } else {
                 hu_standing rank;
@@ -1378,7 +1240,8 @@ void draw_frame(const match *m, int state, int st_t, int best, int new_best, int
                     keys[i] = values[i] * 100000 + m->tw[i].score;
                 }
                 hu_rank(&rank, m->players, keys, values);
-                hu_results_sprites(&rank, st_t, slide);
+                if (ht_narrow()) ht_results_sprites(&rank, st_t, slide);
+                else hu_results_sprites(&rank, st_t, slide);
             }
             for (int i = vp->oam_first; i < rs_oam_next(); i++) {
                 rs_sprite *s = rs_oam(i);
