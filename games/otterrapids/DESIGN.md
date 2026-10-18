@@ -82,25 +82,24 @@ Screenshots: title, play and game over at 427 and 520.
 
 ## Tall screen (docs/spec.md "Tall screen", the zoomed recipe)
 
-A phone held upright: `rs_screen_zoom(ZOOM_H)` (440 lines, game.h) first in `game_init`. The RetroStone app scales
-the 440 lines to the display's height and crops the sides: 202 columns on a 1080x2340 phone, 188 on a 1080x2520 one,
-so the otter and the river are about 5.3x on a 1080x2340 phone. The 240 lines of the stage are the same pixels; the
-stage sits low (`rs_screen_origin_v`: 150 lines above it, `TALL_BELOW` = 50 below), so the otter is at about three
-quarters of the screen's height, clear of the touch buttons, and sees more of the river ahead (a fair lookahead:
-the course, its rules and the bot are unchanged).
+A phone held upright: `rs_screen_zoom(ZOOM_H)` (720 lines, game.h) first in `game_init`: a vertical course, so the
+display shows its whole width and uses the height for more of the river (the owner: no pan). The RetroStone app
+scales the screen to the display's height: 308 of the 320 columns on a 1080x2520 phone (6 columns of grass cropped
+each side; the banks never come nearer than 12), all 320 on a 1080x2340 one (692 lines) and on 720x1440 (640).
+The 240 lines of the stage are the same pixels; the stage sits low (`rs_screen_origin_v`: 430 lines above it at
+720, `TALL_BELOW` = 50 below), so the otter is at about five sixths of the screen's height, clear of the touch
+buttons, and sees more of the river ahead (a fair lookahead, about 2.5 s at the top speed: the course, its rules and
+the bot are unchanged).
 - **The whole screen is the river, from the first frame**: the foreground (BG2: the banks, islands, reeds, ripples,
   rocks, logs, whirlpools and crocodiles) is drawn for every line of the screen, from `rs_screen_top()` to
-  `rs_screen_bottom()` (BG2's map is 64 rows tall there, scrolled so that its row 0 is the screen's top); the hazard
+  `rs_screen_bottom()` (BG2's map is 128 rows tall there, scrolled so that its row 0 is the screen's top); the hazard
   rows, ripples and reeds are generated for the distances shown, so things scroll in at the screen's top edge and
   out at its bottom. The fish and the otters are sprites culled at the screen's edges, not the stage's. The tiles
   are made each frame for the columns shown (one more on each side), each different tile once (the grass, the open
-  water): at most about 600 of the 1023 (4 otters, every column shown), so the VRAM stays as in landscape.
-- **The view follows the otter**: one otter's run fills the display's height, the view halfway between the otter and
-  the river's middle (`rs_screen_focus_x`): the otter always in it, the bank beside it in view. The score (sprites)
-  is at the screen's top, centred in the columns shown; the pause text too (BG1 scrolled to them).
-- **Fill or fit**: the title, the game-over panels and 2-4 otters show every column (`rs_screen_fill(0)`: the whole
-  320 x 440 river across the width); in a race the players' scores (BG1's top 16 lines) are pinned at the screen's
-  top (`rs_bg_pin`).
+  water): at most about 780 of the 1023 at 720 lines (bot runs of 1 and 4 otters).
+- **One view throughout**: the title, play (1-4 otters) and the panels, zoomed (`rs_screen_fill(1)`), centred, no
+  pan. The score (sprites, 1 player) is at the screen's top; in a race the players' scores (BG1's top 16 lines,
+  one column in from the left edge) are pinned at the screen's top (`rs_bg_pin`).
 - **The lines past the stage**: the raster carries the water's gradient on in the backdrop (draw.c `raster_out`) and
   shows BG1's empty bottom rows there (its scroll set per line), but for its pinned HUD lines; line 0 puts BG1's
   scroll back. A 240-line screen never gets these lines.

@@ -53,7 +53,10 @@ int bot_decide(const world*,int);
 
 /* ---- draw.c -------------------------------------------------------------------------------------------------------- */
 enum { ST_TITLE, ST_PLAY, ST_DEAD, ST_OVER };      /* no "get ready": the title is the only menu */
-#define ZOOM_H 440                      /* a tall screen (portrait): the zoomed height (DESIGN.md "Tall screen") */
+#define ZOOM_H 720                      /* a tall screen (portrait): the zoomed height (DESIGN.md "Tall screen"): the
+                                         * most lines, so that the whole course's width shows (308 of the 320
+                                         * columns on a 9:21 phone, all of them on a 9:19.5 one) and more of the
+                                         * river ahead */
 #define TALL_BELOW 50                   /* ... the river's lines below the stage (the rest above it: the lookahead) */
 void draw_init(void);
 void draw_layout(const world *w);       /* widescreen: the layers for rs_screen_width() (init, a loaded state) */

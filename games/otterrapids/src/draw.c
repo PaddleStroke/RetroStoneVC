@@ -16,7 +16,7 @@ static const rs_color ramps[2][3]={{RS_RGB8(254,219,147),RS_RGB8(219,154,85),RS_
  * the water's gradient on (the backdrop) and show BG1's empty bottom rows (its scroll set per line), but for its HUD
  * rows pinned at the screen's top (rs_bg_pin); line 0 puts BG1's scroll back. A 240-line screen never gets these
  * lines: the same pixels. */
-#define TALL_ROWS 64
+#define TALL_ROWS 128
 static int tall_screen(void){return rs_screen_height()>RS_SCREEN_H;}
 static int fdiv(int a,int b){return a>=0?a/b:-((b-1-a)/b);}
 static int bg1_sx,bg1_sy,hud_pin;       /* BG1's scroll as written (the panel slides, the pause in the columns shown),
@@ -344,20 +344,20 @@ static void title(const world*w,int t,int best){
  hu_text(hu_center(b,0),r_join,b);hu_copyright(29);
 }
 void draw_frame(const world*w,int state,int t,int best,int fresh,int paused){hu_clear();rs_oam_clear();rs_brightness(paused?9:15);
- /* a tall screen (DESIGN.md "Tall screen"): one otter's run fills the display's height, the view on the otter (the
-  * sides cropped); the title, the panels and 2-4 otters show every column. The score at the screen's top (1 player:
-  * sprites, centred in the columns shown; more: BG1's top rows pinned), the pause text in the columns shown. */
+ /* a tall screen (DESIGN.md "Tall screen"): one view throughout, the title, play (1-4 otters) and the panels: the
+  * display's height filled with the whole course's width (ZOOM_H: no pan, a few columns of bank cropped on the
+  * tallest phones), the river ahead above. The score at the screen's top (1 player: sprites; more: BG1's top rows
+  * pinned, one column in from the left edge). */
  int solo=w->players==1&&(state==ST_PLAY||state==ST_DEAD),hx=160,hy=8;bg1_sx=0;hud_pin=0;
  if(tall_screen()){
-  /* the view halfway between the otter and the river's middle: the otter always in it, the bank by it in view */
-  rs_screen_fill(solo);rs_screen_focus_x(solo?(w->h[0].x+160)/2+rs_screen_origin_x():-1);
-  if(solo){hx=(rs_screen_visible_x0()+rs_screen_visible_x1())/2-rs_screen_origin_x();hy=rs_screen_top()+8;bg1_sx=160-hx;}
+  rs_screen_fill(1);rs_screen_focus_x(-1);
+  if(solo)hy=rs_screen_top()+8;
   else if(state==ST_PLAY||state==ST_DEAD)hud_pin=16;
   rs_bg_pin(RS_BG1,0,hud_pin,0);
  }
  foreground(w);
  if(rs_screen_width()>RS_SCREEN_W)land(w);
- if(state==ST_TITLE){title(w,t,best);scene(w);}else if(state==ST_PLAY||state==ST_DEAD){if(w->players==1)hu_number(w->h[0].score,hx,hy,3);else for(int p=0;p<w->players;p++){char b[48],tag[16];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),p+1);snprintf(b,sizeof b,"%s %d",tag,w->h[p].score);hu_text(p*10,1,b);}scene(w);if(paused)hu_big(hu_center(HTR(PAUSED),1),13,HTR(PAUSED),HU_BIG_FREE);
+ if(state==ST_TITLE){title(w,t,best);scene(w);}else if(state==ST_PLAY||state==ST_DEAD){if(w->players==1)hu_number(w->h[0].score,hx,hy,3);else for(int p=0;p<w->players;p++){char b[48],tag[16];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),p+1);snprintf(b,sizeof b,"%s %d",tag,w->h[p].score);hu_text(p*10+tall_screen(),1,b);}scene(w);if(paused)hu_big(hu_center(HTR(PAUSED),1),13,HTR(PAUSED),HU_BIG_FREE);
  }else{int slide=hu_slide_in(t,20,200);if(w->players==1){static const int med[4]=MEDAL_SCORES;hu_banner(4,HTR(GAME_OVER));hu_gameover_panel(1,fresh,w->h[0].score,0);hu_gameover_sprites(1,w->h[0].score,0,best,hu_medal_of(w->h[0].score,med),t,slide);hu_retry_line(t,RETRY_LOCK,HTR(BACK_TITLE));}else{int scores[4];for(int p=0;p<w->players;p++)scores[p]=w->h[p].score;hu_standing s;hu_rank(&s,w->players,scores,scores);hu_results_panel(&s,NULL);hu_results_sprites(&s,t,slide);for(int i=0;i<s.n;i++){int x,y;hu_results_icon_pos(&s,i,&x,&y);spr(SPR_HERO_ICON,x-8,y-8+slide,hu_player_pal(s.order[i]));}hu_retry_line_at(hu_results_retry_row(&s),t,RETRY_LOCK,HTR(BACK_TITLE));}rs_bg_scroll(RS_BG1,0,-slide);}
  if(state!=ST_OVER)rs_bg_scroll(RS_BG1,bg1_sx,0);
  rs_bg_scroll(RS_BG2,0,tall_screen()?-rs_screen_top()&(TALL_ROWS*8-1):0);rs_viewports(0,NULL,0);   /* (a tall screen: map row 0 at the top) */
