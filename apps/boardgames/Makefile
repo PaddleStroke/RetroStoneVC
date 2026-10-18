@@ -20,6 +20,7 @@ GAMES  ?= all
 NEEDS_chesspuzzles := $(D)/src/games/chess.c
 NEEDS_goproblems := $(D)/src/games/go_rules.c
 NEEDS_shogimate := $(D)/src/games/shogi_rules.c
+NEEDS_defuse := $(D)/src/games/logicgates_rules.c
 BOT_NEEDS_chess := $(D)/src/games/chess.c
 GAME_SRC := $(if $(filter all,$(GAMES)),$(wildcard $(D)/src/games/*.c),\
               $(sort $(foreach g,$(GAMES),$(wildcard $(D)/src/games/$(g).c $(D)/src/games/$(g)_*.c) $(NEEDS_$(g)))))

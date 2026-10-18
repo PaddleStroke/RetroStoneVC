@@ -1134,7 +1134,7 @@ static int last_sec;
 static void clock_frame(void)
 {
     if (clk.stop) return;
-    Uint32 now = ui_ms(), real = SDL_GetTicks();
+    Uint32 now = ui_ms(), real = ui_real_ms();
     if (clk.last && real - clk.real <= AWAY_MS && now - clk.last <= LEAP_MS) clk.ms += now - clk.last;
     clk.last = now;
     clk.real = real;
