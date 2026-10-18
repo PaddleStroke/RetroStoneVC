@@ -28,10 +28,14 @@ enum { T_TURN, T_OVER, T_LAY, TOOLS };
 
 static cblgame G;
 static int n = 14, seats = 2, tall, fr, made_q = -1, made_n = -1, made_s = -1, made_tw = -1, made_th = -1;
-static int made_small = -1, made_tq = -1, tcols = 7, trows = 3;
-static float q, gx, gy, slot;                   /* a square; the squares' top left; a tray slot */
+static int made_small = -1, made_tq = -1;
+static float q, gx, gy, tc;                     /* a square; the squares' top left; a square in the tray */
+static float tbx[CBL_BLOCKS], tby[CBL_BLOCKS], tbw[CBL_BLOCKS], tbh[CBL_BLOCKS];   /* each block's place in the tray */
+static uint8_t tray_o[CBL_BLOCKS];              /* how each block lies in the tray (along it) */
 static box room, tray, tin;                     /* the room, the tray's plank, its inside */
-static SDL_Texture *t_board, *t_tray, *t_block[CBL_SEATS], *t_tblock[CBL_SEATS], *t_small[CBL_SEATS];
+/* a block's squares: one picture per seat and per sides joined to the block's other squares (JOIN_*) */
+enum { JOIN_R = 1, JOIN_D = 2, JOIN_L = 4, JOIN_U = 8, JOINS = 16 };
+static SDL_Texture *t_board, *t_tray, *t_block[CBL_SEATS][JOINS], *t_tblock[CBL_SEATS][JOINS], *t_small[CBL_SEATS];
 static int sel = -1;                            /* the block chosen (of the player to move) */
 static uint8_t orient[CBL_SEATS][CBL_BLOCKS];   /* each block's turn in each tray */
 static struct { int on, ax, ay; } ghost;        /* the chosen block's ghost: its anchor (the box's top left) */
@@ -100,24 +104,28 @@ static void refresh(void)                       /* what the player to move can l
     cbl_corners(p, p->turn, corner_mark);
 }
 
-/* tray slot i's centre */
+static void tray_fit(uint32_t mask);
+
+/* block i's place in the tray: its centre */
 static void slot_c(int i, float *x, float *y)
 {
-    *x = tin.x + (i % tcols + 0.5f) * slot;
-    *y = tin.y + (i / tcols + 0.5f) * slot;
+    *x = tbx[i] + tbw[i] / 2;
+    *y = tby[i] + tbh[i] / 2;
 }
 
 static void play(int m, int fly)
 {
     int seat = now()->turn, b = cbl_block(m);
-    if (!cbl_play(&G, m)) { ui_sound(SND_DENY); return; }
+    if (!cbl_legal(now(), m)) { ui_sound(SND_DENY); return; }
+    tray_fit(now()->left[seat]);                /* where it flies from: its place in the tray */
+    slot_c(b, &anim.fx, &anim.fy);
+    anim.fc = tc;
+    cbl_play(&G, m);
     anim.on = 1;
     anim.move = m;
     anim.seat = seat;
     anim.fly = fly;
     anim.t0 = ui_ms();
-    slot_c(b, &anim.fx, &anim.fy);
-    anim.fc = slot / 5.3f;
     ghost.on = 0;
     sel = -1;
     fing.mode = F_NONE;
@@ -151,12 +159,53 @@ int cornerblocks_show(const char *move)
 }
 
 /* ---- pictures ---------------------------------------------------------------------------------------------------- */
-/* a block's square in a seat's lacquer, d x d: the wood's grain under the colour, bevelled */
-static void paint_block(int seat, int d, uint8_t *o)
+/* a block's square in a seat's lacquer, d x d (a whole square of the board): the wood's grain under the colour; its
+ * open sides (not in join) set in a little from the square's edge, bevelled, their corners rounded; its joined sides
+ * run on into the next square of the same block, a fine groove between them: a block reads as one piece */
+static void paint_cell(int seat, int d, int join, uint8_t *o)
 {
     art_plank(d, d, 0, o);
     hue_lacquer(o, d, d, hue_of(seat));
-    puz_bevel(o, d, d, 0.14f * d, fmaxf(1.2f, 0.13f * d), 0.45f);
+    float e = fmaxf(0.5f, 0.035f * d), r = 0.16f * d, b = fmaxf(1.2f, 0.13f * d), big = 1e9f;
+    int L = !(join & JOIN_L), R = !(join & JOIN_R), U = !(join & JOIN_U), D = !(join & JOIN_D);
+    float x0 = L ? e : 0, x1 = R ? d - e : d, y0 = U ? e : 0, y1 = D ? d - e : d;
+    for (int y = 0; y < d; y++)
+        for (int x = 0; x < d; x++) {
+            float px = x + 0.5f, py = y + 0.5f, nx = 0, ny = 0;
+            float dl = L ? px - x0 : big, dr = R ? x1 - px : big, du = U ? py - y0 : big, dd = D ? y1 - py : big;
+            float dist = fminf(fminf(dl, dr), fminf(du, dd));
+            if (dist == dl) nx = -1;
+            else if (dist == dr) nx = 1;
+            else if (dist == du) ny = -1;
+            else if (dist == dd) ny = 1;
+            float cx = L && px < x0 + r ? x0 + r : R && px > x1 - r ? x1 - r : -1;   /* a rounded corner */
+            float cy = U && py < y0 + r ? y0 + r : D && py > y1 - r ? y1 - r : -1;
+            if (cx >= 0 && cy >= 0) {
+                float l = hypotf(px - cx, py - cy);
+                dist = r - l;
+                if (l > 0) nx = (px - cx) / l, ny = (py - cy) / l;
+            }
+            uint8_t *p = o + 4 * (y * d + x);
+            float k = 1;
+            if (dist < b) k = 1 + 0.45f * (1 - fmaxf(dist, 0) / b) * -(nx + ny) * 0.7071f;
+            if ((join & JOIN_R && x == d - 1) || (join & JOIN_D && y == d - 1)) k *= 0.86f;   /* the groove */
+            if ((join & JOIN_L && x == 0) || (join & JOIN_U && y == 0)) k *= 0.93f;
+            for (int i = 0; i < 3; i++) p[i] = (uint8_t)clampf(p[i] * k, 0, 255);
+            p[3] = (uint8_t)(255 * clampf(dist + 0.5f, 0, 1));
+        }
+}
+
+static void paint_block(int seat, int d, uint8_t *o) { paint_cell(seat, d, 0, o); }   /* a square alone */
+
+/* the squares' pictures of every seat and join, side d */
+static void make_cells(SDL_Texture *t[CBL_SEATS][JOINS], int d)
+{
+    for (int s = 0; s < CBL_SEATS; s++)
+        for (int j = 0; j < JOINS; j++) {
+            ui_free(&t[s][j]);
+            paint_cell(s, d, j, ui_buf(d, d));
+            t[s][j] = ui_tex(d, d, ui_buf(d, d));
+        }
 }
 
 /* the board: n x n squares of side c sunk in the plank (frame f), the start squares inlaid with their colour */
@@ -203,10 +252,13 @@ static void paint_tool(int kind, int size, uint8_t *rgba)
     memset(rgba, 0, (size_t)size * size * 4);
     art_fig *f = art_fig_new();
     if (kind == T_TURN) {
-        art_arc(f, ART_PART, 0.5f, 0.54f, 0.21f, 0.31f, -50, 205);   /* clockwise round, its head at the top left */
-        float a = 205 * ART_PI / 180;
-        art_head(f, ART_PART, 0.5f + 0.26f * cosf(a) + 0.04f, 0.54f + 0.26f * sinf(a) - 0.07f, 295, 0.26f);
-        art_rect(f, ART_PART, 0.43f, 0.47f, 0.57f, 0.61f);   /* the block it turns */
+        /* a bent block of three in the middle, a round arrow going clockwise round it, its head at the top */
+        art_arc(f, ART_PART, 0.5f, 0.5f, 0.33f, 0.41f, -20, 230);
+        float a = 230 * ART_PI / 180, t = (230 + 90) * ART_PI / 180, m = 0.37f;
+        art_head(f, ART_PART, 0.5f + m * cosf(a) + 0.07f * cosf(t), 0.5f + m * sinf(a) + 0.07f * sinf(t), 320, 0.28f);
+        art_rect(f, ART_PART, 0.36f, 0.36f, 0.485f, 0.485f);
+        art_rect(f, ART_PART, 0.36f, 0.515f, 0.485f, 0.64f);
+        art_rect(f, ART_PART, 0.515f, 0.515f, 0.64f, 0.64f);
     } else {                                    /* a triangle, its outline mirrored across a dotted line */
         static const float L[] = {0.42f, 0.2f, 0.42f, 0.8f, 0.1f, 0.8f};
         art_poly(f, ART_PART, L, 3);
@@ -219,6 +271,85 @@ static void paint_tool(int kind, int size, uint8_t *rgba)
     art_fig_paint(rgba, size, f, white, NULL, 0, 0);   /* (frees the figure) */
 }
 
+/* the blocks of mask in rows (in the order given, each lying along the tray), squares of side c, the rows as wide as
+ * the tray's inside: the height they take; store: their places (each row centred) */
+#define TRAY_GAP 0.6f                           /* between two blocks, in squares */
+static float tray_pack(float c, uint32_t mask, const int *order, int store)
+{
+    float row_y = 0, row_h = 0, x = 0, g = TRAY_GAP * c;
+    int first = 0, k = 0, list[CBL_BLOCKS];
+    for (int i = 0; i < CBL_BLOCKS; i++)
+        if (mask >> order[i] & 1) list[k++] = order[i];
+    for (int i = 0; i <= k; i++) {
+        float w = 0, h = 0;
+        int b = i < k ? list[i] : -1;
+        if (b >= 0) {
+            cbl_shape s;
+            cbl_shape_of(b, tray_o[b], &s);
+            w = s.w * c, h = s.h * c;
+            if (w > tin.w) return 1e9f;
+        }
+        if (b < 0 || (x > 0 && x + w > tin.w)) {   /* the row is full (or the last): placed, centred */
+            if (store)
+                for (int j = first; j < i; j++) {
+                    tbx[list[j]] += tin.x + (tin.w - (x - g)) / 2;
+                    tby[list[j]] = row_y + (row_h - tbh[list[j]]) / 2;
+                }
+            row_y += row_h + g;
+            row_h = x = 0;
+            first = i;
+            if (b < 0) break;
+        }
+        if (store) tbx[b] = x, tbw[b] = w, tbh[b] = h;
+        x += w + g;
+        row_h = fmaxf(row_h, h);
+    }
+    return row_y - g;
+}
+
+/* the blocks still in a tray (mask), their squares as big as the tray holds them (never bigger than the board's),
+ * each block lying along the tray (its shortest side across); packed again when the blocks or the tray change */
+static uint32_t packed = 0;
+static void tray_fit(uint32_t mask)
+{
+    if (mask == packed || !mask) return;
+    packed = mask;
+    int wide = tin.w >= tin.h, by_index[CBL_BLOCKS], by_height[CBL_BLOCKS], k = 0;
+    for (int b = 0; b < CBL_BLOCKS; b++) {
+        int best = 0, bs = 99;
+        for (int o = 0; o < 8; o++) {
+            cbl_shape s;
+            cbl_shape_of(b, o, &s);
+            int across = wide ? s.h : s.w;
+            if (across < bs) bs = across, best = o;
+        }
+        tray_o[b] = (uint8_t)best;
+        by_index[b] = b;
+    }
+    for (int across = 1; across <= 5; across++)  /* the other order: the thin ones first, rows of one height */
+        for (int b = 0; b < CBL_BLOCKS; b++) {
+            cbl_shape s;
+            cbl_shape_of(b, tray_o[b], &s);
+            if ((wide ? s.h : s.w) == across) by_height[k++] = b;
+        }
+    const int *order = by_index;
+    float best = 0;
+    for (int t = 0; t < 2; t++) {
+        const int *o = t ? by_height : by_index;
+        float c = floorf(fminf(q, fminf(tin.w, tin.h) / 2));
+        while (c > 4 && tray_pack(c, mask, o, 0) > tin.h) c -= 0.5f;
+        if (c > best + 0.75f) best = c, order = o;   /* the order of the blocks unless the other is clearly bigger */
+    }
+    tc = floorf(best);
+    float h = tray_pack(tc, mask, order, 1), dy = floorf(tin.y + (tin.h - h) / 2);   /* the rows centred */
+    for (int b = 0; b < CBL_BLOCKS; b++) tby[b] += dy;
+    int tq = (int)ceilf(tc * 1.15f);
+    if (made_tq != tq) {                        /* the tray's blocks (the chosen one a little bigger) */
+        made_tq = tq;
+        make_cells(t_tblock, tq);
+    }
+}
+
 static void layout(box b)
 {
     room = b;
@@ -226,7 +357,7 @@ static void layout(box b)
     seats = now()->seats;
     tall = b.h >= b.w;
     float side, gap;
-    if (tall) side = fminf(b.w, b.h - clampf(b.h - b.w, 0.3f * b.h, 0.45f * b.h));
+    if (tall) side = fminf(b.w, b.h - clampf(b.h - b.w, 0.33f * b.h, 0.45f * b.h));
     else side = fminf(b.h, b.w - clampf(b.w - b.h, 0.26f * b.w, 0.45f * b.w));
     gap = GAP * side;
     q = floorf((side - 0.05f * side) / n);
@@ -235,44 +366,22 @@ static void layout(box b)
     if (tall) {
         gx = floorf(b.x + (b.w - W) / 2) + fr;
         gy = floorf(b.y) + fr;
-        tray = (box){b.x + (b.w - W) / 2, b.y + W + gap, W, b.h - W - gap};
+        tray = (box){b.x, b.y + W + gap, b.w, b.h - W - gap};
     } else {
         gx = floorf(b.x) + fr;
         gy = floorf(b.y + (b.h - W) / 2) + fr;
-        tray = (box){b.x + W + gap, b.y + (b.h - W) / 2, b.w - W - gap, W};
+        tray = (box){b.x + W + gap, b.y, b.w - W - gap, b.h};
     }
     int tf = (int)fmaxf(3, 0.6f * fr);
     tin = (box){tray.x + tf, tray.y + tf, tray.w - 2 * tf, tray.h - 2 * tf};
-    float best = 0;
-    for (int c = 1; c <= CBL_BLOCKS; c++) {     /* the slots: as big as the tray's shape allows */
-        int r = (CBL_BLOCKS + c - 1) / c;
-        float s = fminf(tin.w / c, tin.h / r);
-        if (s > best) best = s, tcols = c, trows = r;
-    }
-    slot = floorf(best);
-    tin.x += floorf((tin.w - tcols * slot) / 2);
-    tin.y += floorf((tin.h - trows * slot) / 2);
+    packed = 0;                                 /* the tray packed again, at its next look */
     if (made_q != (int)q || made_n != n || made_s != seats) {
         made_q = (int)q, made_n = n, made_s = seats;
         int w = (int)W;
         ui_free(&t_board);
         paint_board(ui_buf(w, w), n, (int)q, fr, seats);
         t_board = ui_tex(w, w, ui_buf(w, w));
-        int d = (int)q;
-        for (int s = 0; s < CBL_SEATS; s++) {
-            ui_free(&t_block[s]);
-            paint_block(s, d, ui_buf(d, d));
-            t_block[s] = ui_tex(d, d, ui_buf(d, d));
-        }
-    }
-    int tq = (int)ceilf(slot / 5.3f * 1.25f);
-    if (made_tq != tq) {                        /* the tray's blocks (and the chosen one, a little bigger) */
-        made_tq = tq;
-        for (int s = 0; s < CBL_SEATS; s++) {
-            ui_free(&t_tblock[s]);
-            paint_block(s, tq, ui_buf(tq, tq));
-            t_tblock[s] = ui_tex(tq, tq, ui_buf(tq, tq));
-        }
+        make_cells(t_block, (int)q);
     }
     if (made_tw != (int)tray.w || made_th != (int)tray.h) {
         made_tw = (int)tray.w, made_th = (int)tray.h;
@@ -438,25 +547,39 @@ static int people(void)
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
 /* a block (as shown: flipped with the board) of seat's colour, its squares c wide, its box's top left at (x, y);
  * its shadow under it (lifted: a high one); tint: 0 its colour, 1 red (may not go there) */
-static void block_at(SDL_Texture *t, int block, int o, float x, float y, float c, Uint8 light, Uint8 alpha, int lifted,
-                     int red)
+/* the sides of square i of a shape joined to its other squares (JOIN_*) */
+static int joins_of(const cbl_shape *s, int i)
+{
+    int j = 0;
+    for (int k = 0; k < s->n; k++) {
+        int dx = s->x[k] - s->x[i], dy = s->y[k] - s->y[i];
+        if (!dy) j |= dx == 1 ? JOIN_R : dx == -1 ? JOIN_L : 0;
+        if (!dx) j |= dy == 1 ? JOIN_D : dy == -1 ? JOIN_U : 0;
+    }
+    return j;
+}
+
+static void block_at(SDL_Texture *set[JOINS], int block, int o, float x, float y, float c, Uint8 light, Uint8 alpha,
+                     int lifted, int red)
 {
     cbl_shape s;
     shape_seen(block, o, &s);
-    float d = c - fmaxf(1, roundf(0.06f * c)), in = (c - d) / 2, sx = lifted ? 0.16f * c : 0.05f * c,
-          sy = lifted ? 0.24f * c : 0.08f * c;
-    SDL_SetTextureColorMod(t, 0, 0, 0);
-    SDL_SetTextureAlphaMod(t, (Uint8)(alpha * (lifted ? 0.3f : 0.32f)));
-    for (int i = 0; i < s.n; i++) ui_put(t, x + s.x[i] * c + in + sx, y + s.y[i] * c + in + sy, d, d);
-    SDL_SetTextureColorMod(t, 255, 255, 255);
+    float sx = lifted ? 0.16f * c : 0.05f * c, sy = lifted ? 0.24f * c : 0.08f * c;
+    for (int i = 0; i < s.n; i++) {             /* its shadow, the squares joined */
+        SDL_Texture *t = set[joins_of(&s, i)];
+        SDL_SetTextureColorMod(t, 0, 0, 0);
+        SDL_SetTextureAlphaMod(t, (Uint8)(alpha * (lifted ? 0.3f : 0.32f)));
+        ui_put(t, x + s.x[i] * c + sx, y + s.y[i] * c + sy, c, c);
+    }
     for (int i = 0; i < s.n; i++) {
+        SDL_Texture *t = set[joins_of(&s, i)];
         if (red) SDL_SetTextureColorMod(t, 255, 120, 100);
         else SDL_SetTextureColorMod(t, light, light, light);
         SDL_SetTextureAlphaMod(t, alpha);
-        ui_put(t, x + s.x[i] * c + in, y + s.y[i] * c + in, d, d);
+        ui_put(t, x + s.x[i] * c, y + s.y[i] * c, c, c);
+        SDL_SetTextureColorMod(t, 255, 255, 255);
+        SDL_SetTextureAlphaMod(t, 255);
     }
-    SDL_SetTextureColorMod(t, 255, 255, 255);
-    SDL_SetTextureAlphaMod(t, 255);
 }
 
 static void draw_tray(void)
@@ -465,21 +588,27 @@ static void draw_tray(void)
     if (t_tray) ui_put(t_tray, tray.x, tray.y, tray.w, tray.h);
     int me = p->over ? ui_bottom() : p->turn, live = people();   /* the game over: the bottom player's blocks left */
     if (me >= p->seats) me = 0;
-    float c = slot / 5.3f;
-    for (int b = 0; b < CBL_BLOCKS; b++) {
+    tray_fit(p->left[me]);
+    float c = tc;
+    for (int i = 0; i <= CBL_BLOCKS; i++) {   /* the chosen one last, over the others */
+        int b = i < CBL_BLOCKS ? i : sel;
+        if (b < 0 || (i < CBL_BLOCKS ? b == sel && live : !live)) continue;
         if (!(p->left[me] >> b & 1) || (fing.mode == F_TRAY && fing.moved && b == fing.block)) continue;
         if (anim.on && cbl_block(anim.move) == b) continue;
+        int chosen = b == sel && live, o = chosen ? orient[me][b] : tray_o[b];   /* the chosen one as it is turned */
         cbl_shape s;
-        shape_seen(b, orient[me][b], &s);
-        float cx, cy, k = b == sel && live ? 1.12f : 1;
+        shape_seen(b, o, &s);
+        float cx, cy, k = chosen ? 1.12f : 1;
         slot_c(b, &cx, &cy);
-        if (b == sel && live)
+        cx = clampf(cx, tin.x + s.w * c * k / 2, tin.x + tin.w - s.w * c * k / 2);   /* kept in the tray */
+        cy = clampf(cy, tin.y + s.h * c * k / 2, tin.y + tin.h - s.h * c * k / 2);
+        if (chosen)
             for (int i = 0; i < s.n; i++)
                 ui_mark_gold_a(cx + (s.x[i] + 0.5f - s.w / 2.0f) * c * k, cy + (s.y[i] + 0.5f - s.h / 2.0f) * c * k,
                                2 * c, 0.65f);
         int dim = !anim.on && !p->over && !(playable >> b & 1);
-        block_at(t_tblock[me], b, orient[me][b], cx - s.w * c * k / 2, cy - s.h * c * k / 2, c * k, dim ? 120 : 255,
-                 dim ? 170 : 255, b == sel && live, 0);
+        block_at(t_tblock[me], b, o, cx - s.w * c * k / 2, cy - s.h * c * k / 2, c * k, dim ? 120 : 255,
+                 dim ? 170 : 255, chosen, 0);
     }
 }
 
@@ -498,7 +627,14 @@ static void draw(void)
     int newest = anim.on ? anim.move : -1;
     cbl_shape ns = {{0}, {0}, 0, 0, 0};
     if (newest >= 0) cbl_shape_of(cbl_block(newest), cbl_orient(newest), &ns);
-    float d = q - fmaxf(1, roundf(0.06f * q)), in = (q - d) / 2;
+    static int16_t piece[CBL_SQ];               /* each square's block (the move that laid it) */
+    for (int i = 0; i < CBL_SQ; i++) piece[i] = -1;
+    for (int k = 0; k < G.ply; k++) {
+        int m = G.move[k], a = cbl_anchor(m);
+        cbl_shape s;
+        cbl_shape_of(cbl_block(m), cbl_orient(m), &s);
+        for (int i = 0; i < s.n; i++) piece[a + s.y[i] * CBL_MAXN + s.x[i]] = (int16_t)k;
+    }
     if (G.ply > 0 && !anim.on) {                /* the last block laid */
         int m = G.move[G.ply - 1], a = cbl_anchor(m);
         cbl_shape s;
@@ -518,8 +654,13 @@ static void draw(void)
                 for (int i = 0; i < ns.n; i++) fresh |= a % CBL_MAXN + ns.x[i] == xx && a / CBL_MAXN + ns.y[i] == yy;
             }
             if (fresh) continue;
+            int me = piece[yy * CBL_MAXN + xx], j = 0;   /* the sides joined to the same block, as on the screen */
+            if (xx + 1 < n && piece[yy * CBL_MAXN + xx + 1] == me) j |= ui.flipped ? JOIN_L : JOIN_R;
+            if (xx > 0 && piece[yy * CBL_MAXN + xx - 1] == me) j |= ui.flipped ? JOIN_R : JOIN_L;
+            if (yy + 1 < n && piece[(yy + 1) * CBL_MAXN + xx] == me) j |= ui.flipped ? JOIN_U : JOIN_D;
+            if (yy > 0 && piece[(yy - 1) * CBL_MAXN + xx] == me) j |= ui.flipped ? JOIN_D : JOIN_U;
             cell_xy(xx, yy, &x, &y);
-            ui_put(t_block[v - 1], x + in, y + in, d, d);
+            ui_put(t_block[v - 1][me < 0 ? 0 : j], x, y, q, q);
         }
     int live = people();
     if (live && fing.mode != F_TRAY)            /* where the player's blocks may start */
@@ -579,10 +720,13 @@ static void draw(void)
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
 static int tray_block(float px, float py)       /* the block in hand under the finger, -1 */
 {
-    if (px < tin.x || py < tin.y) return -1;
-    int c = (int)((px - tin.x) / slot), r = (int)((py - tin.y) / slot), b = r * tcols + c;
-    if (c >= tcols || r >= trows || b >= CBL_BLOCKS || !(now()->left[now()->turn] >> b & 1)) return -1;
-    return b;
+    tray_fit(now()->left[now()->turn]);
+    float g = TRAY_GAP * tc / 2;
+    for (int b = 0; b < CBL_BLOCKS; b++)
+        if (now()->left[now()->turn] >> b & 1 && px >= tbx[b] - g && px < tbx[b] + tbw[b] + g && py >= tby[b] - g &&
+            py < tby[b] + tbh[b] + g)
+            return b;
+    return -1;
 }
 
 static void lay(void)
@@ -633,7 +777,7 @@ static void motion(float px, float py)
 {
     if (fing.mode == F_NONE) return;
     fing.x = px, fing.y = py;
-    if (!fing.moved && hypotf(px - fing.x0, py - fing.y0) > 0.3f * fmaxf(q, slot / 4)) {
+    if (!fing.moved && hypotf(px - fing.x0, py - fing.y0) > 0.3f * fmaxf(q, tc)) {
         fing.moved = 1;
         if (fing.mode == F_TRAY) {              /* a block taken from the tray: chosen */
             if (!(playable >> fing.block & 1)) { ui_sound(SND_DENY); fing.mode = F_NONE; return; }
