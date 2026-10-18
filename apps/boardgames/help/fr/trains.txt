@@ -1,0 +1,14 @@
+Aiguillages
+# Le but
+Des petits trains attendent devant leurs portails. Règle les aiguillages, puis lance les trains : chacun doit s'arrêter à une gare de sa couleur.
+# Un coup
+Un coup bascule un aiguillage. Un train qui entre dans un aiguillage par la pointe prend la branche choisie ; s'il entre par une branche, il passe simplement.
+- Les trains partent un par un, dans l'ordre inscrit sur leur cabine, chacun une fois le précédent arrêté.
+- Un aiguillage à disque de laiton bascule tout seul après chaque train qui passe dessus.
+- Un croisement laisse les trains passer tout droit. Un tunnel mène à l'autre tunnel du même numéro.
+- Quand les trains partent tous en même temps, deux trains qui arrivent sur la même case, ou face à face, se percutent.
+Une mauvaise gare, une voie sans issue ou une collision met fin à l'essai : les trains reviennent pour recommencer.
+# La fin de la partie
+Le casse-tête est résolu quand chaque train s'est arrêté à une gare de sa couleur.
+# Niveaux et étoiles
+3 étoiles : le moins de coups possible, au premier essai, sans indice. 2 étoiles : jusqu'à moitié plus de coups, avec au plus deux indices et essais ratés en tout. Sinon 1.

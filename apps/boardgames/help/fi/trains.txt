@@ -1,0 +1,14 @@
+Ratavaihteet
+# Tavoite
+Lelujunat odottavat lähtöporteillaan. Käännä vaihteet ja lähetä sitten junat: jokaisen on pysähdyttävä oman värisensä asemalle.
+# Siirto
+Siirto kääntää yhden vaihteen. Juna, joka tulee vaihteeseen sen kärjestä, kulkee haaraan, johon vaihde on käännetty; haarasta tuleva juna vain ajaa läpi.
+- Junat lähtevät yksi kerrallaan ohjaamoon merkityssä järjestyksessä, kukin vasta kun edellinen on pysähtynyt.
+- Messinkikiekollinen vaihde kääntyy itsestään jokaisen sen yli ajavan junan jälkeen.
+- Risteyksessä junat jatkavat suoraan. Tunneli vie toiseen samanumeroiseen tunneliin.
+- Kun kaikki junat lähtevät yhtä aikaa, kaksi junaa törmää, jos ne kohtaavat samassa ruudussa tai nokat vastakkain.
+Väärä asema, umpikuja tai törmäys päättää ajon: junat palaavat uutta yritystä varten.
+# Pelin loppu
+Tehtävä on ratkaistu, kun jokainen juna on pysähtynyt oman värisensä asemalle.
+# Tasot ja tähdet
+3 tähteä: vähin mahdollinen siirtomäärä, ensimmäisellä ajolla, ilman vihjettä. 2 tähteä: enintään puolitoista kertaa niin monta siirtoa ja enintään kaksi vihjettä ja epäonnistunutta ajoa yhteensä. Muuten 1.

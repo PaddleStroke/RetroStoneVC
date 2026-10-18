@@ -1,0 +1,14 @@
+Tren makasları
+# Amaç
+Oyuncak trenler girişlerinde bekliyor. Makasları ayarla, sonra trenleri yola çıkar: her biri kendi rengindeki bir istasyonda durmalı.
+# Bir hamle
+Bir hamle bir makası değiştirir. Makasa tek hatlı ucundan giren tren, makasın ayarlı olduğu kola sapar; kollardan birinden giren tren ise doğrudan geçer.
+- Trenler kabinlerinde yazan sırayla tek tek kalkar; her biri, önceki durunca yola çıkar.
+- Pirinç diskli bir makas, üzerinden geçen her trenden sonra kendiliğinden değişir.
+- Bir kavşakta trenler dümdüz geçer. Bir tünel, aynı numaralı öbür tünele çıkar.
+- Bütün trenler aynı anda kalktığında, bir karede buluşan ya da kafa kafaya gelen iki tren çarpışır.
+Yanlış istasyon, çıkmaz hat ya da çarpışma seferi bitirir: trenler yeni bir deneme için geri gelir.
+# Oyunun sonu
+Her tren kendi rengindeki bir istasyonda durunca bulmaca çözülür.
+# Seviyeler ve yıldızlar
+3 yıldız: mümkün olan en az hamle, ilk denemede, ipucu olmadan. 2 yıldız: en fazla yarısı kadar fazla hamle, ipucu ve başarısız denemeler toplam en fazla iki. Yoksa 1.

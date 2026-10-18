@@ -1,0 +1,14 @@
+Sporskifter
+# Målet
+Legetøjstog venter ved deres portaler. Stil sporskifterne, og send så togene af sted: hvert tog skal standse ved en station i sin farve.
+# Et træk
+Et træk skifter ét sporskifte. Et tog, der kører ind i et sporskifte fra enden med ét spor, tager den gren, sporskiftet er stillet til; kører det ind fra en gren, kører det bare igennem.
+- Togene kører ét ad gangen, i rækkefølgen på deres førerhuse, hvert først når det forrige er standset.
+- Et sporskifte med en messingskive skifter af sig selv efter hvert tog, der kører over det.
+- I en krydsning kører togene ligeud. En tunnel fører til den anden tunnel med samme nummer.
+- Når alle togene kører på én gang, støder to tog sammen, hvis de mødes på et felt eller front mod front.
+En forkert station, et blindspor eller et sammenstød afslutter turen: togene kommer tilbage til et nyt forsøg.
+# Spillets afslutning
+Opgaven er løst, når hvert tog er standset ved en station i sin farve.
+# Baner og stjerner
+3 stjerner: færrest mulige træk, i første forsøg, uden tip. 2 stjerner: op til halvanden gang så mange træk, med højst to tip og mislykkede ture i alt. Ellers 1.

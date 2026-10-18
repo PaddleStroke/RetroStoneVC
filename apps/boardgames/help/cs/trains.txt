@@ -1,0 +1,14 @@
+Výhybky
+# Cíl hry
+Vláčky čekají u svých portálů. Nastav výhybky a pak vlaky vyšli: každý musí zastavit ve stanici své barvy.
+# Tah
+Tah přehodí jednu výhybku. Vlak, který vjede do výhybky od jejího hrotu, pojede do větve, na kterou je výhybka nastavená; když vjede z některé větve, prostě projede.
+- Vlaky vyjíždějí po jednom, v pořadí vyznačeném na kabinách, každý až poté, co předchozí zastaví.
+- Výhybka s mosazným kotoučem se sama přehodí po každém vlaku, který jí projede.
+- Křížením vlaky projedou rovně. Tunel vede do druhého tunelu se stejným číslem.
+- Když vyjedou všechny vlaky naráz, srazí se dva vlaky, které se potkají na jednom poli nebo čelně.
+Špatná stanice, slepá kolej nebo srážka jízdu ukončí: vlaky se vrátí na další pokus.
+# Konec hry
+Hádanka je vyřešena, když každý vlak zastavil ve stanici své barvy.
+# Úrovně a hvězdy
+3 hvězdy: nejmenší možný počet tahů, napoprvé, bez nápovědy. 2 hvězdy: nejvýše o polovinu více tahů, nejvýš dvě nápovědy a nepovedené jízdy dohromady. Jinak 1.

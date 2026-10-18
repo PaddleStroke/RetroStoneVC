@@ -1,0 +1,14 @@
+Train Switches
+# The aim
+Toy trains wait at their portals. Set the switches, then send the trains: each one must stop at a station of its colour.
+# A move
+A move flips one switch. A train entering a switch by its single end takes the branch the switch is set to; entering by a branch, it simply runs through.
+- The trains leave one at a time, in the order on their cabs, each once the one before has stopped.
+- A switch with a brass disc flips by itself after each train that runs over it.
+- A crossing lets trains run straight on. A tunnel leads to the other tunnel with the same number.
+- When the trains all leave at once, two trains meeting on a square, or head on, crash.
+A wrong station, a dead end or a crash ends the run: the trains come back for another try.
+# The end of the game
+The puzzle is solved when every train has stopped at a station of its colour.
+# Levels and stars
+3 stars: the fewest flips possible, at the first run, with no hint. 2 stars: up to half as many flips again, with at most two hints and failed runs together. Otherwise 1.

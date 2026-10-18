@@ -1,0 +1,14 @@
+Wissels
+# Het doel
+Speelgoedtreintjes wachten bij hun portalen. Zet de wissels goed en stuur dan de treinen weg: elke trein moet stoppen bij een station van zijn kleur.
+# Een zet
+Elke zet legt één wissel om. Een trein die een wissel vanaf de punt binnenrijdt, neemt de tak waarop de wissel staat; komt hij via een tak binnen, dan rijdt hij gewoon door.
+- De treinen vertrekken één voor één, in de volgorde op hun cabine, elk pas als de vorige stilstaat.
+- Een wissel met een messing schijf legt zichzelf om na elke trein die eroverheen rijdt.
+- Op een kruising rijden treinen rechtdoor. Een tunnel leidt naar de andere tunnel met hetzelfde nummer.
+- Als alle treinen tegelijk vertrekken, botsen twee treinen die op hetzelfde vakje komen of frontaal op elkaar rijden.
+Een verkeerd station, een doodlopend spoor of een botsing beëindigt de rit: de treinen komen terug voor een nieuwe poging.
+# Het einde van het spel
+De puzzel is opgelost als elke trein bij een station van zijn kleur is gestopt.
+# Levels en sterren
+3 sterren: zo weinig mogelijk zetten, bij de eerste rit, zonder hint. 2 sterren: tot de helft meer zetten, met hoogstens twee hints en mislukte ritten samen. Anders 1.

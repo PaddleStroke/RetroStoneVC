@@ -1,0 +1,14 @@
+Wesel Kereta
+# Tujuan
+Kereta mainan menunggu di gerbang masuknya. Atur wesel, lalu jalankan kereta: setiap kereta harus berhenti di stasiun yang sewarna.
+# Satu langkah
+Satu langkah memindahkan satu wesel. Kereta yang masuk ke wesel dari ujung tunggalnya mengambil cabang sesuai arah wesel; jika masuk dari cabang, kereta langsung lewat.
+- Kereta berangkat satu per satu, sesuai urutan di kabinnya, masing-masing setelah kereta sebelumnya berhenti.
+- Wesel dengan cakram kuningan berpindah sendiri setiap kali ada kereta yang melewatinya.
+- Di persilangan, kereta terus lurus. Terowongan menuju terowongan lain yang bernomor sama.
+- Saat semua kereta berangkat bersamaan, dua kereta yang bertemu di satu petak, atau berhadapan, bertabrakan.
+Stasiun yang salah, jalan buntu, atau tabrakan mengakhiri perjalanan: kereta kembali untuk percobaan berikutnya.
+# Akhir permainan
+Teka-teki selesai saat setiap kereta sudah berhenti di stasiun yang sewarna.
+# Level dan bintang
+3 bintang: langkah sesedikit mungkin, pada percobaan pertama, tanpa petunjuk. 2 bintang: langkah paling banyak satu setengah kalinya, dengan paling banyak dua petunjuk dan percobaan gagal seluruhnya. Selain itu 1.

@@ -1,0 +1,14 @@
+Scambi
+# Lo scopo
+Dei trenini aspettano ai loro portali. Imposta gli scambi, poi fai partire i treni: ognuno deve fermarsi in una stazione del suo colore.
+# Una mossa
+Una mossa gira uno scambio. Un treno che entra in uno scambio dalla punta prende il ramo su cui è impostato; se entra da un ramo, passa e basta.
+- I treni partono uno alla volta, nell'ordine indicato sulle cabine, ognuno quando il precedente si è fermato.
+- Uno scambio con un disco d'ottone si gira da solo dopo ogni treno che ci passa sopra.
+- In un incrocio i treni vanno dritti. Una galleria porta all'altra galleria con lo stesso numero.
+- Quando i treni partono tutti insieme, due treni che si incontrano su una casella, o frontalmente, si scontrano.
+Una stazione sbagliata, un binario morto o uno scontro chiude la corsa: i treni tornano per un altro tentativo.
+# La fine della partita
+Il rompicapo è risolto quando ogni treno si è fermato in una stazione del suo colore.
+# Livelli e stelle
+3 stelle: il minimo di mosse possibile, al primo tentativo, senza suggerimenti. 2 stelle: fino a metà mosse in più, con al massimo due suggerimenti e corse fallite in tutto. Altrimenti 1.
