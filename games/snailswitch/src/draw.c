@@ -30,7 +30,7 @@ static const rs_color title_ramps[2][3]={
 #define TALL_WATER RS_HEX(0x34575a)
 #define TALL_CANOPY_DARK RS_HEX(0x2e4a3c)
 #define TALL_SHADE 120          /* the canopy's shade at the screen's top (of 256) */
-static int tall_sx,tall_fx,tall_fy,hud_lines,hud_y;   /* hud_y: the pinned band's first screen line */
+static int tall_sx,tall_fx,tall_fy,hud_lines;
 static const rs_color ground_pal[16]={0,RS_HEX(0x23352f),RS_HEX(0x466947),RS_HEX(0x619248),
  RS_HEX(0x94bd59),RS_HEX(0xd5e594),RS_HEX(0x573343),RS_HEX(0xa65162),RS_HEX(0xe88189),
  RS_HEX(0xffc6a7),RS_HEX(0x805034),RS_HEX(0xc08038),RS_HEX(0xf2ba50),
@@ -43,7 +43,7 @@ static void raster_out(int y){
   rs_bg_window(RS_BG1,RS_WIN1);rs_bg_window(RS_BG2,y==top?RS_WIN1:0);
   rs_obj_window(y==top?0:RS_WIN1);
  }
- if(hud_lines&&(y==top+hud_y||y==top+hud_y+hud_lines))rs_bg_window(RS_BG1,y==top+hud_y?0:RS_WIN1);   /* the HUD band */
+ if(hud_lines&&(y==top+HUD_Y||y==top+HUD_Y+hud_lines))rs_bg_window(RS_BG1,y==top+HUD_Y?0:RS_WIN1);   /* the HUD band */
  if(y<0){   /* the canopy: the band read down, up, down... (no seam), darker toward the screen's top every 8 lines */
   int d=-1-y,ph=d%(2*TALL_CANOPY),k=top<0?d*TALL_SHADE/-top:0;
   rs_bg_scroll(RS_BG3,tall_sx,TALL_CANOPY_Y+(ph<TALL_CANOPY?ph:2*TALL_CANOPY-1-ph)-y);
@@ -232,49 +232,22 @@ static void draw_heroes(const world*w,int t,int sx,int sy){
 static void slot_icon(int p,int cx,int cy,int t,void*u){(void)t;(void)u;spr(SPR_HERO_ICON,cx-8+hu_ui_x(),cy-8,2,player_pal(p));}
 static void standing(const world*w,hu_standing*s){int a[4];for(int p=0;p<w->players;p++)a[p]=w->h[p].score;hu_rank(s,w->players,a,a);}
 /* A zoomed tall screen showing fewer than 320 columns (house_tall.h ht_narrow): the title and the panels laid out in
- * the columns shown (DESIGN.md "Tall screen"). The title's logo on BG1's rows 0 .. LOGO_ROWS - 1, SNAIL over SWITCH,
- * centred in the columns shown, the hint under it: those rows pinned over the canopy above the stage (rs_bg_pin,
- * draw_frame), clear of the vine and of the corner buttons; the slots from row TITLE_SLOTS, under the snails. */
-#define TITLE_SLOTS 18
-#define LOGO_ROWS 12
-#define LOGO_SPLIT 19           /* hu_logo("SNAIL SWITCH") at 4x: SNAIL in UI columns 3..17, SWITCH in 19..36 */
-/* the kit's logo (its colours: SNAIL pink, SWITCH green), its words' tiles moved by whole columns to two lines,
- * each centred in the columns shown (centred at x 84 and 226 in the kit's one-line logo) */
-static void title_logo(void){
- uint16_t m[6][40];
- hu_logo("SNAIL SWITCH",title_ramps,2,0,0);
- for(int y=0;y<6;y++)for(int x=0;x<40;x++)m[y][x]=rs_bg_get(RS_BG1,x,y);
- uint16_t blank=m[0][0];
- hu_clear_rows(0,8);
- int mid=ht_mid_x(),d1=ht_fdiv8(mid-84+4),d2=ht_fdiv8(mid-226+4);
- for(int y=0;y<6;y++)for(int x=0;x<40;x++){
-  int second=x>=LOGO_SPLIT,nx=x+(second?d2:d1);
-  if(m[y][x]!=blank&&nx>=0&&nx<40)rs_bg_put(RS_BG1,nx,y+(second?6:0),m[y][x]);
- }
-}
-/* ht_gameover_panel with the panel wide enough for the retry line too (ht_over_w leaves it out); its labels */
-static void over_panel(int new_best,const char*retry){
- int w=ht_over_w(new_best,NULL),rw=hu_width(retry,0)+2,cols=ht_ncols(),r=ht_gameover_retry_row(NULL);
- if(rw>w)w=rw>cols?cols:rw;
- int x=ht_center_w(w),bottom=r+ht_text_rows(retry,1)+1;
- hu_panel(x,9,w,bottom-9+1);
- const char*lab[3]={hu_str(HS_SCORE),hu_str(new_best?HS_NEW_BEST:HS_BEST),hu_str(HS_MEDAL)};
- for(int i=0;i<3;i++)hu_box_text(ht_center(lab[i],0),ht_over_label_row(i),lab[i]);
-}
-/* returns the last row of the zoomed title's hint (0: none) */
-static int screen_text(const world *w, int state, int st_t, int best, int new_best, const hu_standing *rs,
-                       ht_title *tc, ht_title_out *to)
+ * the columns shown by the house's standard calls (DESIGN.md "Tall screen"): ht_logo (SNAIL over SWITCH), the hint
+ * under it, ht_title_draw; ht_banner, ht_gameover_panel, ht_results_*. */
+#define LOGO_TY 0               /* the logo's first row (as Unicorn Hop): the hint ends above the snails' vine */
+static void screen_text(const world *w, int state, int st_t, int best, int new_best, const hu_standing *rs,
+                        ht_title *tc, ht_title_out *to)
 {
     int screen = state == ST_DEAD ? ST_PLAY : state, narrow = ht_narrow(), x0 = rs_screen_visible_x0();
     if (screen != shown_state || (state == ST_OVER && st_t == RETRY_LOCK) || best != shown_best || x0 != shown_x0) {
         hu_clear();
-        if (state == ST_TITLE && narrow) title_logo();                   /* pinned: draw_frame */
+        if (state == ST_TITLE && narrow) ht_logo("SNAIL SWITCH", title_ramps, 2, LOGO_TY, 0);
         else if (state == ST_TITLE) hu_logo("SNAIL SWITCH", title_ramps, 2, 2, 0);
         if (screen == ST_PLAY && w->players >= 3) hu_score_tags(w->players, tall() ? HUD_LOW_Y : 0);    /* P1..P4 by the corner chips */
         if (state == ST_OVER && narrow) {
             if (w->players == 1) {
                 ht_banner(4, HTR(GAME_OVER));
-                over_panel(new_best, HTR(BACK_TITLE));
+                ht_gameover_panel(new_best, NULL, HTR(BACK_TITLE));
             } else {
                 ht_results_panel(rs, NULL);
             }
@@ -291,20 +264,20 @@ static int screen_text(const world *w, int state, int st_t, int best, int new_be
         shown_x0 = x0;
     }
     if (state == ST_TITLE && narrow) {
-        /* the hint wrapped under the canopy's logo, then the slots, the prompt, BEST, the join line, the credits */
+        /* the hint's two lines under the logo, then the slots, the prompt, BEST, the join line, the credits */
         const char *goal = TR(HINT_GOAL);
-        int r = ht_text(LOGO_ROWS + 1, TR(HINT_MOVE), 0) + 1, last;
+        int r = ht_text(LOGO_TY + 12 + (hu_tall(TR(HINT_MOVE)) ? 1 : 0), TR(HINT_MOVE), 0) + 1;   /* (accents: a row lower) */
         if (hu_tall(goal)) r++;
-        last = r = ht_text(r, goal, 0);
-        tc->verb = HTR(PLAY); tc->max_players = MAX_PLAYERS; tc->top = r + 2 > TITLE_SLOTS ? r + 2 : TITLE_SLOTS;
+        r = ht_text(r, goal, 0);
+        tc->verb = HTR(PLAY); tc->max_players = MAX_PLAYERS; tc->top = r + 2 > HU_ROW_SLOTS ? r + 2 : HU_ROW_SLOTS;   /* the kit's slot row: under the snails */
         tc->prompt_row = 0;
         ht_title_draw(tc, st_t, best, to);
-        return last;
+        return;
     }
     if (state == ST_OVER && narrow) {
         ht_retry_line_at(w->players == 1 ? ht_gameover_retry_row(NULL) : hu_results_retry_row(rs), st_t, RETRY_LOCK,
                          HTR(BACK_TITLE));
-        return 0;
+        return;
     }
     /* the title, every frame: the prompt (blinking), the player slots, BEST, the join line, the credits */
     if (state == ST_TITLE) {
@@ -320,7 +293,6 @@ static int screen_text(const world *w, int state, int st_t, int best, int new_be
         if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_TITLE));
         else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
     }
-    return 0;
 }
 
 /* The view (a tall screen, DESIGN.md "Tall screen"): ONE zoomed view for the play, the title and the panels, the
@@ -343,7 +315,7 @@ static void tall_hud(const world*w){
  int sc[4];for(int p=0;p<w->players;p++)sc[p]=w->h[p].score;
  if(!tall()){hu_score_chips(w->players,sc,0);return;}
  int x0=rs_screen_visible_x0(),vw=rs_screen_visible_x1()-x0,top=rs_screen_top();
- hud_lines=w->players>=3?HUD_LINES:0;hud_y=HUD_Y;rs_bg_pin(RS_BG1,0,hud_lines,HUD_Y);
+ hud_lines=w->players>=3?HUD_LINES:0;rs_bg_pin(RS_BG1,0,hud_lines,HUD_Y);
  if(w->players<=2){for(int p=0;p<w->players;p++)hu_number(sc[p],x0+vw*(2*p+1)/(2*w->players),top+12,3);return;}
  for(int p=0;p<w->players;p++){hu_chip c=hu_score_chip(w->players,p,HUD_LOW_Y);hu_number_at(sc[p],c.x,c.y+top+HUD_Y,c.align,3);}
 }
@@ -353,18 +325,14 @@ void draw_frame(const world*w,int state,int st_t,int best,int new_best,int pause
  foreground(w);rs_bg_scroll(RS_BG2,rs_screen_origin_x()-sx,-sy);   /* the canvas from the screen's left edge */rs_bg_scroll(RS_BG3,w->scroll/4,0);tall_sx=w->scroll/4;
  view(w,state);
  int narrow=ht_narrow();ht_title tc={0};ht_title_out to={0};
- int hint=screen_text(w,state,st_t,best,new_best,&rank,&tc,&to);
+ screen_text(w,state,st_t,best,new_best,&rank,&tc,&to);
  int slide=state==ST_OVER?hu_slide_in(st_t,20,200):0;
  rs_bg_scroll(RS_BG1,-hu_ui_x(),-slide);       /* the UI centred on the screen (widescreen) */
  if(redraw_pause&&paused)hu_pause(0,13);       /* the UI layer was set up again (a state of another width) */
- redraw_pause=0;hu_pause(paused,13);rs_oam_clear();
- if(paused&&narrow){hu_clear_rows(13,2);ht_big(13,HTR(PAUSED),HU_BIG_FREE);}   /* zoomed: centred in the columns shown */
+ redraw_pause=0;ht_pause(paused,13);rs_oam_clear();
  tall_fx=rs_screen_origin_x()-sx;tall_fy=-sy;
  int play=state==ST_PLAY||state==ST_DEAD;
- if(play)tall_hud(w);
- else if(state==ST_TITLE&&narrow){   /* the logo's and the hint's rows over the canopy (centred in it when they fit) */
-  hud_lines=(hint+1)*8;hud_y=(-rs_screen_top()-hud_lines)/2;if(hud_y<0)hud_y=0;rs_bg_pin(RS_BG1,0,hud_lines,hud_y);
- }else{hud_lines=0;rs_bg_pin(RS_BG1,0,0,0);}
+ if(play)tall_hud(w);else{hud_lines=0;rs_bg_pin(RS_BG1,0,0,0);}
  if(state==ST_TITLE&&narrow)ht_title_sprites(&tc,&to,st_t,slot_icon,NULL);
  else if(state==ST_TITLE)hu_title_sprites(st_t,slot_icon,NULL);
  if(state!=ST_OVER)draw_heroes(w,w->t,sx,sy);
