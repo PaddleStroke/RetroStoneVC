@@ -2,7 +2,7 @@
 #include "game.h"
 #include "assets.h"
 #include "house_ui.h"
-#include "house_narrow.h"
+#include "house_tall.h"
 #include "game_text.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -113,10 +113,13 @@ int draw_route_at(int x){
  for(int b=1;b<3;b++)if(abs(x-(BIN_X(b)+16))<abs(x-(BIN_X(best)+16)))best=b;
  return route[best];
 }
-/* a raccoon's x on screen: zoomed in play (one player) kept on the columns shown; zoomed on the title and the panels, the
- * stations moved in from the sides to the edges shown, so that every raccoon shows */
-static int hx(int x,int clamp,int cols,int vx0,int vx1){
- if(cols>=40)return x;
+/* a narrow tall screen's title (house_tall.h): the slots under the raccoons, from row TITLE_SLOTS */
+#define TITLE_SLOTS 20
+static const ht_title title_cfg={NULL,MAX_PLAYERS,TITLE_SLOTS,0};
+/* a raccoon's x on screen: zoomed in play (one player) kept on the columns shown; zoomed on the panels, the stations
+ * moved in from the sides to the edges shown, so that every raccoon shows (the title: at its slot) */
+static int hx(int x,int clamp,int narrow,int vx0,int vx1){
+ if(!narrow)return x;
  if(clamp)return x<vx0+18?vx0+18:x>vx1-18?vx1-18:x;
  return x<160?x+vx0+18-48:x+vx1-18-272;   /* the stations (48, 80 | 240, 272) moved in to the edges shown */
 }
@@ -129,7 +132,8 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  int play=state==ST_PLAY||state==ST_DEAD,zoom=!play||w->players==1,top=rs_screen_top();   /* 2-4 players play on every column */
  hud_pinned=tall()&&play;rs_screen_fill(zoom);rs_bg_pin(RS_BG1,0,hud_pinned?HUD_LINES:0,HUD_PIN_Y);
  int hy=hud_pinned?top+HUD_PIN_Y:0,vx0=rs_screen_visible_x0()-rs_screen_origin_x(),vx1=rs_screen_visible_x1()-rs_screen_origin_x();
- int cols=hn_cols();   /* the UI columns shown: the title and the panels laid out in them */
+ int narrow=ht_narrow();   /* the title and the panels laid out in the columns shown (house_tall.h) */
+ ht_title_out slots;ht_slots(&title_cfg,&slots);
  if(tall())rs_bg_scroll(RS_BG4,(-(int)rs_frame_count()/6)&511,(-top)&255);   /* the clouds drift */
  /* Foreground signs and HUD get the first OAM slots, above all moving objects. */
  if(state==ST_PLAY||state==ST_DEAD)for(int p=0;p<w->players;p++){
@@ -138,7 +142,7 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   hu_number(h->score,cx,(w->players>1?10:2)+hy,3);
  }
  /* Bin badges are the complete rule: neutral animal silhouettes or plain colour swatches. */
- for(int b=0;b<3;b++){
+ for(int b=0;b<3&&!(narrow&&(state==ST_TITLE||state==ST_OVER));b++){   /* (a narrow title or panel: its text over the bins) */
   int badge=w->mode==RULE_SPECIES?SPR_BADGE_DUCK+w->bin_order[b]:SPR_BADGE_YELLOW+w->bin_order[b];
   spr(badge,BIN_X(b),197,3,-1);
   if(w->switch_t>0 && ((w->switch_t/6)&1))spr(SPR_LAMP,BIN_X(b)+12,178,3,-1);
@@ -146,7 +150,7 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  // Same real workstations on title and during play; full-size raccoons stand on the platform.
  for(int p=0;p<w->players;p++){const hero *h=&w->h[p];int id=SPR_HERO_IDLE;
   if(h->feedback<0||!h->alive)id=SPR_HERO_HIT;else if(h->drop_t&&h->drop_side!=ROUTE_CENTER)id=h->drop_side<0?SPR_HERO_LEFT:SPR_HERO_RIGHT;
-  int x=hx(h->x,zoom&&play,cols,vx0,vx1);   /* (zoomed: on the columns shown) */
+  int x=narrow&&state==ST_TITLE?slots.slot_cx[p]+hu_ui_x():hx(h->x,zoom&&play,narrow,vx0,vx1);   /* (zoomed: on the columns shown) */
   spr(id,x-16,126,2,ppal(p));
  }
  /* A single fixed conveyor; each player's gate chooses a continuous outgoing route. */
@@ -166,26 +170,28 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  int y0=-12+(w->scroll/256%12);while(y0>top-12)y0-=12;      /* (a tall screen: up to its top) */
  for(int yy=y0;yy<BELT_JOIN;yy+=12)spr(SPR_BELT_MARK,146,yy,1,-1);
  for(int yy=y0;yy<BELT_JOIN;yy+=12)spr(SPR_BELT_MARK,166,yy,1,-1);
- if(state==ST_TITLE){
-  int nl=hn_logo("RACCOON RECYCLER",title_ramps,2,cols<40?0:2,0,cols),hr=nl>1?11:8,pr=nl>1?13:10;   /* stacked: the hint and the prompt under it */
-  if(cols<40)hn_wrap(hr,TR(HINT),0,cols-1,1,1);else hu_text(hu_center(TR(HINT),0),8,TR(HINT));
-  for(int p=0;p<w->players;p++){char label[32];rs_strf(label,sizeof label,HTR(PLAYER_TAG),p+1);hu_text((hx(w->h[p].x,0,cols,vx0,vx1)-hu_width(label,0)*4)/8,20,label);}
+ if(state==ST_TITLE&&narrow){   /* the house_tall.h title: the logo on two lines, the hint under it */
+  ht_title c=title_cfg;ht_title_out o;c.verb=TR(VERB);
+  ht_logo("RACCOON RECYCLER",title_ramps,2,1,0);ht_text(14,TR(HINT),0);
+  ht_title_draw(&c,st_t,best,&o);ht_title_sprites(&c,&o,st_t,NULL,NULL);
+ }else if(state==ST_TITLE){
+  hu_logo("RACCOON RECYCLER",title_ramps,2,2,0);hu_text(hu_center(TR(HINT),0),8,TR(HINT));
+  for(int p=0;p<w->players;p++){char label[32];rs_strf(label,sizeof label,HTR(PLAYER_TAG),p+1);hu_text((w->h[p].x-hu_width(label,0)*4)/8,20,label);}
   /* the join line: the free player tags ("P2/P3/P4") in the line of the player count */
   char tags[96]="",join[160];int used[4]={1,0,0,0};for(int p=0;p<w->players;p++)used[hu_player_pad(p)]=1;
   int len=0;for(int p=1;p<4;p++)if(!used[p]){char tag[32];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),p+1);len+=snprintf(tags+len,sizeof tags-(size_t)len,"%s%s",len?"/":"",tag);}
   if(len)rs_strf(join,sizeof join,w->players>1?TR(JOIN_LEAVE):TR(JOIN),tags);else rs_strf(join,sizeof join,"%s",TR(FULL));
   char prompt[128];rs_strf(prompt,sizeof prompt,HTR(PRESS_TO),TR(VERB));
-  if(cols>=40){hu_text(hu_center(join,0),22,join);int glyph=hu_prompt(10,prompt,st_t);if(hu_blink(st_t))hu_glyph(HU_BTN_A,glyph,77,3,0);hu_copyright(29);}
-  else{char l[HN_LINES][160];hn_wrap(22,join,0,cols-1,2,1);hn_split_bal(prompt,cols-5,2,l,0);
-   if(hu_blink(st_t)){hn_wrap(pr,prompt,0,cols-5,2,1);hu_glyph(HU_BTN_A,hu_center(l[0],0)*8-20,pr*8-3,3,0);}
-   hu_text(hu_center("(C) 2026 8BCRAFT",0),28,"(C) 2026 8BCRAFT");hu_text(hu_center("RETROSTONE VC",0),29,"RETROSTONE VC");}
+  hu_text(hu_center(join,0),22,join);int glyph=hu_prompt(10,prompt,st_t);if(hu_blink(st_t))hu_glyph(HU_BTN_A,glyph,77,3,0);hu_copyright(29);
   /* BEST on the top row; text with accents or tall glyphs one row lower (they take the row above) */
   if(best){char b[64];rs_strf(b,sizeof b,HTR(BEST_N),best);int row=0;for(const char *c=b;*c;c++)if((unsigned char)*c>=0x80)row=1;hu_text(hu_center(b,0),row,b);}
  }else if(state==ST_OVER){
-  if(w->players==1){static const int medals[4]=MEDAL_SCORES;hn_banner(4,HTR(GAME_OVER),cols);hu_gameover_panel(1,new_best,score[0],0);hu_gameover_sprites(1,score[0],0,best,hu_medal_of(score[0],medals),st_t,slide);hu_retry_line(st_t,RETRY_LOCK,HTR(BACK_TITLE));}
-  else{hn_results_panel(&rank,NULL,cols);hn_results_sprites(&rank,st_t,slide,cols);for(int i=0;i<rank.n;i++){int xx,yy;hn_results_icon_pos(&rank,i,cols,&xx,&yy);spr(SPR_HERO_ICON,xx-8,yy-8+slide,3,ppal(rank.order[i]));}hu_retry_line_at(hu_results_retry_row(&rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));}
+  if(w->players==1&&narrow){static const int medals[4]=MEDAL_SCORES;ht_banner(4,HTR(GAME_OVER));ht_gameover_panel(new_best,NULL,HTR(BACK_TITLE));ht_gameover_sprites(score[0],best,hu_medal_of(score[0],medals),st_t,slide);ht_retry_line_at(ht_gameover_retry_row(NULL),st_t,RETRY_LOCK,HTR(BACK_TITLE));}
+  else if(w->players==1){static const int medals[4]=MEDAL_SCORES;hu_banner(4,HTR(GAME_OVER));hu_gameover_panel(1,new_best,score[0],0);hu_gameover_sprites(1,score[0],0,best,hu_medal_of(score[0],medals),st_t,slide);hu_retry_line(st_t,RETRY_LOCK,HTR(BACK_TITLE));}
+  else if(narrow){ht_results_panel(&rank,NULL);ht_results_sprites(&rank,st_t,slide);for(int i=0;i<rank.n;i++){int xx,yy;ht_results_icon_pos(&rank,i,&xx,&yy);spr(SPR_HERO_ICON,xx-8,yy-8+slide,3,ppal(rank.order[i]));}ht_retry_line_at(hu_results_retry_row(&rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));}
+  else{hu_results_panel(&rank,NULL);hu_results_sprites(&rank,st_t,slide);for(int i=0;i<rank.n;i++){int xx,yy;hu_results_icon_pos(&rank,i,&xx,&yy);spr(SPR_HERO_ICON,xx-8,yy-8+slide,3,ppal(rank.order[i]));}hu_retry_line_at(hu_results_retry_row(&rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));}
  }
- hn_pause(paused,13,cols);
+ ht_pause(paused,13);
 }
 void draw_state(void){RS_STATE_RASTER(raster);}
 /* After a state was loaded: the width is not in a state, and one saved at another width brings that width's ground

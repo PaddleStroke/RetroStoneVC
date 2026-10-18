@@ -127,8 +127,9 @@ first in `game_init`. The app scales the 440 lines to the display's height and c
   players, the tags (BG1's top 24 lines pinned at screen line 4: `rs_bg_pin`).
 - **Fill or fit**: one raccoon playing fills the display's height, its workstation moved into the columns shown (the
   station stays the same: only where it is drawn); the title, pause, the game-over panel and the results stay zoomed
-  like play (house_narrow.h: the logo's words stacked, the hint and the prompt under them, the lines wrapped, a
-  narrower ranking; the stations drawn in from the sides to the edges shown, so every raccoon shows); only 2-4 players
+  like play (house_tall.h, the house layout of every zoomed game: the logo's words stacked, the hint under them,
+  the raccoons over the title's slots, the bins' badges hidden under the text; on the panels the stations drawn in to
+  the edges shown, so every raccoon shows); only 2-4 players
   playing show every column (`rs_screen_fill(0)`: the raccoons stand where they are).
 - Landscape and 4:3 are the same pixels as before (checked at 2340x1080 and 320x240); the touch columns are the
   bins' at any height.
