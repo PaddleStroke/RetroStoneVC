@@ -182,6 +182,9 @@ $(ARC_GEN)/arcade_data.c: FORCE
 # when something of games/, tools/ or sdk/ is newer than the last copy (the stamp; the other ABIs then skip them). One
 # platform at a time (they share $(ARC)/bundle-gen).
 ARC_STAMP := $(ARC)/bundle-gen/assets.stamp
+# (GAMES= on the command line is this app's: kept from bundle.mk, which lists its own games. A list of several leaves
+# its other words behind, not variables: a sub-make ignores them.)
+MAKEOVERRIDES := $(filter-out GAMES=%,$(MAKEOVERRIDES))
 $(ARC)/%/libarcade_core.a: $(ARC_DATA) FORCE
 	@mkdir -p $(ARC)/bundle-gen
 	+flock $(ARC)/bundle-gen/lock sh -c 'skip=; [ -f $(ARC_STAMP) ] && \
