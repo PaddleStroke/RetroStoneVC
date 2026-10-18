@@ -1,0 +1,12 @@
+Rolo de pintura
+# O objetivo
+Uma bola encharcada de tinta está sobre um piso de madeira, entre paredes de nogueira. Pinte todas as casas do piso.
+# Uma jogada
+Empurre a bola para cima, para baixo, para a esquerda ou para a direita. Ela rola até uma parede ou a borda do piso a deter, pintando cada casa por onde passa. A casa de partida já está pintada.
+- Uma casa com ranhura dupla precisa de duas demãos: a bola tem que passar por ela duas vezes.
+- Os portais vêm em pares da mesma cor: uma bola que entra em um sai pelo outro e continua rolando na mesma direção. Os portais não são pintados.
+- Uma casa com seta só pode ser atravessada em um sentido: a bola só entra nela e sai dela no sentido da seta.
+# O fim da partida
+Quando todo o piso está pintado, o desafio está resolvido.
+# Níveis e estrelas
+Resolvido com o mínimo de empurrões possível: 3 estrelas; com até metade a mais de empurrões: 2 estrelas; senão, 1.

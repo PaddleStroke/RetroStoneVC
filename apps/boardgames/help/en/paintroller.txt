@@ -1,0 +1,12 @@
+Paint Roller
+# The aim
+A ball wet with paint lies on a wooden floor among walnut walls. Paint every tile of the floor.
+# A move
+Push the ball up, down, left or right. It rolls until a wall or the edge of the floor stops it, painting every tile it rolls over. The tile it starts on is already painted.
+- A tile with a double groove needs two coats: the ball must roll onto it twice.
+- Portals come in pairs of the same colour: a ball rolling into one comes out of the other and rolls on the same way. Portals take no paint.
+- An arrow tile is crossed one way: the ball rolls onto it and off it along the arrow only.
+# The end of the game
+When the whole floor is painted, the puzzle is solved.
+# Levels and stars
+Solved in the fewest pushes possible: 3 stars; with up to half as many pushes again: 2 stars; otherwise 1.

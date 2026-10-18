@@ -1,0 +1,12 @@
+Rouleau de peinture
+# Le but
+Une bille trempée de peinture est posée sur un parquet, entre des murs en noyer. Peins toutes les cases du parquet.
+# Un coup
+Pousse la bille vers le haut, le bas, la gauche ou la droite. Elle roule jusqu'à ce qu'un mur ou le bord du parquet l'arrête, et peint chaque case sur laquelle elle passe. La case de départ est déjà peinte.
+- Une case à double rainure demande deux couches : la bille doit y rouler deux fois.
+- Les portails vont par paires de même couleur : une bille qui entre dans l'un ressort par l'autre et continue dans le même sens. Les portails ne se peignent pas.
+- Une case fléchée ne se traverse que dans un sens : la bille n'y entre et n'en sort que dans le sens de la flèche.
+# La fin de la partie
+Quand tout le parquet est peint, le casse-tête est résolu.
+# Niveaux et étoiles
+Résolu avec le moins de poussées possible : 3 étoiles ; jusqu'à moitié plus de poussées : 2 étoiles ; sinon 1.

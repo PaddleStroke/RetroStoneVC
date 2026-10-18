@@ -1,0 +1,3 @@
+Pequeno
+Médio
+Grande

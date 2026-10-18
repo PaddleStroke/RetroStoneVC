@@ -1,0 +1,12 @@
+Boya Rulosu
+# Amaç
+Boyaya bulanmış bir top, ceviz duvarların arasında ahşap bir zeminde duruyor. Zeminin her karesini boya.
+# Bir hamle
+Topu yukarı, aşağı, sola ya da sağa it. Bir duvar ya da zeminin kenarı onu durdurana kadar yuvarlanır ve üstünden geçtiği her kareyi boyar. Başladığı kare zaten boyalıdır.
+- Çift oluklu bir kare iki kat boya ister: top onun üstüne iki kez yuvarlanmalıdır.
+- Portallar aynı renkte çiftler hâlinde gelir: birine giren top öbüründen çıkar ve aynı yönde yuvarlanmayı sürdürür. Portallar boyanmaz.
+- Oklu bir kareden yalnızca tek yönde geçilir: top o kareye yalnızca ok yönünde girer ve çıkar.
+# Oyunun sonu
+Zeminin tamamı boyandığında bulmaca çözülmüş olur.
+# Seviyeler ve yıldızlar
+Mümkün olan en az itişle çözülürse 3 yıldız; en az itiş sayısının en fazla yarısı kadar fazla itişle 2 yıldız; yoksa 1.

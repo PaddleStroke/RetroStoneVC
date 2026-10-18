@@ -1,0 +1,12 @@
+Maalausrulla
+# Tavoite
+Maalista märkä pallo on puulattialla pähkinäpuisten seinien keskellä. Maalaa lattian jokainen ruutu.
+# Siirto
+Tönäise palloa ylös, alas, vasemmalle tai oikealle. Se vierii, kunnes seinä tai lattian reuna pysäyttää sen, ja maalaa jokaisen ruudun, jonka yli se vierii. Lähtöruutu on jo maalattu.
+- Kaksinkertaisella uralla merkitty ruutu tarvitsee kaksi maalikerrosta: pallon täytyy vieriä sille kahdesti.
+- Portaalit ovat pareittain samanvärisiä: portaaliin vierivä pallo tulee ulos sen parista ja vierii samaan suuntaan. Portaaleja ei maalata.
+- Nuoliruudun voi ylittää vain yhteen suuntaan: pallo vierii sille ja siltä pois vain nuolen suuntaan.
+# Pelin loppu
+Kun koko lattia on maalattu, tehtävä on ratkaistu.
+# Tasot ja tähdet
+Ratkaistu pienimmällä mahdollisella määrällä tönäisyjä: 3 tähteä; enintään puolet enemmän tönäisyjä: 2 tähteä; muuten 1.

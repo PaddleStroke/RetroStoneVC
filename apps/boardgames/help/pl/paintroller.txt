@@ -1,0 +1,12 @@
+Wałek malarski
+# Cel gry
+Kulka nasączona farbą leży na drewnianej podłodze między ścianami z orzecha. Pomaluj każde pole podłogi.
+# Ruch
+Pchnij kulkę w górę, w dół, w lewo lub w prawo. Toczy się, aż zatrzyma ją ściana albo brzeg podłogi, i maluje każde pole, po którym przejedzie. Pole startowe jest już pomalowane.
+- Pole z podwójnym rowkiem wymaga dwóch warstw farby: kulka musi na nie wjechać dwa razy.
+- Portale występują w parach tego samego koloru: kulka, która wtoczy się do jednego, wychodzi z drugiego i toczy się dalej w tym samym kierunku. Portali się nie maluje.
+- Pole ze strzałką można przejechać tylko w jedną stronę: kulka wjeżdża na nie i zjeżdża z niego tylko zgodnie ze strzałką.
+# Koniec gry
+Gdy cała podłoga jest pomalowana, łamigłówka jest rozwiązana.
+# Poziomy i gwiazdki
+Rozwiązana najmniejszą możliwą liczbą pchnięć: 3 gwiazdki; najwyżej o połowę więcej pchnięć: 2 gwiazdki; inaczej 1.

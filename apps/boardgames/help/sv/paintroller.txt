@@ -1,0 +1,12 @@
+Målarroller
+# Målet
+En kula full av färg ligger på ett trägolv mellan väggar av valnöt. Måla varje ruta på golvet.
+# Ett drag
+Knuffa kulan uppåt, nedåt, åt vänster eller åt höger. Den rullar tills en vägg eller kanten av golvet stoppar den och målar varje ruta den rullar över. Rutan den börjar på är redan målad.
+- En ruta med dubbelt spår behöver två lager färg: kulan måste rulla in på den två gånger.
+- Portaler finns i par med samma färg: en kula som rullar in i den ena kommer ut ur den andra och rullar vidare åt samma håll. Portaler målas inte.
+- En pilruta kan bara korsas åt ett håll: kulan rullar bara in på och av den i pilens riktning.
+# Partiets slut
+När hela golvet är målat är pusslet löst.
+# Banor och stjärnor
+Löst med så få knuffar som möjligt: 3 stjärnor; med upp till hälften så många knuffar till: 2 stjärnor; annars 1.

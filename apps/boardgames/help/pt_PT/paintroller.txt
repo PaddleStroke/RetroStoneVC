@@ -1,0 +1,12 @@
+Rolo de pintura
+# O objetivo
+Uma bola encharcada de tinta está sobre um soalho de madeira, entre paredes de nogueira. Pinta todas as casas do soalho.
+# Uma jogada
+Empurra a bola para cima, para baixo, para a esquerda ou para a direita. Rola até uma parede ou a borda do soalho a travar, pintando cada casa por onde passa. A casa de partida já está pintada.
+- Uma casa com ranhura dupla precisa de duas demãos: a bola tem de passar por ela duas vezes.
+- Os portais vêm aos pares da mesma cor: uma bola que entra num sai pelo outro e continua a rolar na mesma direção. Os portais não são pintados.
+- Uma casa com seta só se atravessa num sentido: a bola só entra nela e sai dela no sentido da seta.
+# O fim do jogo
+Quando todo o soalho está pintado, o desafio fica resolvido.
+# Níveis e estrelas
+Resolvido com o mínimo de empurrões possível: 3 estrelas; com até metade mais de empurrões: 2 estrelas; senão, 1.

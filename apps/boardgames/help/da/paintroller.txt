@@ -1,0 +1,12 @@
+Malerrulle
+# Målet
+En kugle fuld af maling ligger på et trægulv mellem vægge af valnød. Mal hvert felt på gulvet.
+# Et træk
+Skub kuglen op, ned, til venstre eller til højre. Den ruller, til en væg eller kanten af gulvet stopper den, og maler hvert felt, den ruller over. Feltet, den starter på, er allerede malet.
+- Et felt med en dobbelt rille skal have to lag maling: kuglen skal rulle ind på det to gange.
+- Portaler kommer i par med samme farve: en kugle, der ruller ind i den ene, kommer ud af den anden og ruller videre i samme retning. Portaler bliver ikke malet.
+- Et pilefelt kan kun krydses én vej: kuglen ruller kun ind på og af det i pilens retning.
+# Spillets afslutning
+Når hele gulvet er malet, er opgaven løst.
+# Baner og stjerner
+Løst med færrest mulige skub: 3 stjerner; med op til halvt så mange skub mere: 2 stjerner; ellers 1.

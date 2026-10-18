@@ -1,0 +1,12 @@
+Malerull
+# Målet
+En kule full av maling ligger på et tregulv mellom vegger av valnøtt. Mal hver rute på gulvet.
+# Et trekk
+Dytt kulen opp, ned, til venstre eller til høyre. Den ruller til en vegg eller kanten av gulvet stopper den, og maler hver rute den ruller over. Ruten den starter på, er allerede malt.
+- En rute med dobbelt rille trenger to strøk: kulen må rulle inn på den to ganger.
+- Portaler kommer i par med samme farge: en kule som ruller inn i den ene, kommer ut av den andre og ruller videre samme vei. Portaler blir ikke malt.
+- En pilrute kan bare krysses én vei: kulen ruller bare inn på og av den i pilens retning.
+# Slutten på spillet
+Når hele gulvet er malt, er oppgaven løst.
+# Nivåer og stjerner
+Løst med færrest mulig dytt: 3 stjerner; med opptil halvparten så mange dytt til: 2 stjerner; ellers 1.

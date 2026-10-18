@@ -1,0 +1,12 @@
+Rol Cat
+# Tujuan
+Sebuah bola yang basah oleh cat ada di atas lantai kayu, di antara dinding kayu kenari. Catlah setiap petak lantai.
+# Satu langkah
+Dorong bola ke atas, ke bawah, ke kiri, atau ke kanan. Bola menggelinding sampai dinding atau tepi lantai menghentikannya, sambil mengecat setiap petak yang dilewatinya. Petak tempat bola mulai sudah dicat.
+- Petak beralur ganda perlu dua lapis cat: bola harus menggelinding ke atasnya dua kali.
+- Portal selalu berpasangan dengan warna yang sama: bola yang masuk ke satu portal keluar dari pasangannya dan terus menggelinding ke arah yang sama. Portal tidak perlu dicat.
+- Petak panah hanya bisa dilewati satu arah: bola hanya bisa masuk dan keluar dari petak itu searah panah.
+# Akhir permainan
+Saat seluruh lantai sudah dicat, teka-teki selesai.
+# Level dan bintang
+Selesai dengan dorongan sesedikit mungkin: 3 bintang; dengan tambahan dorongan paling banyak setengah dari jumlah itu: 2 bintang; selain itu 1.

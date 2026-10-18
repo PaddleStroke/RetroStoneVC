@@ -1,0 +1,12 @@
+Malířský váleček
+# Cíl hry
+Kulička nasáklá barvou leží na dřevěné podlaze mezi stěnami z ořechového dřeva. Natři každé políčko podlahy.
+# Tah
+Šťouchni kuličku nahoru, dolů, doleva nebo doprava. Kutálí se, dokud ji nezastaví stěna nebo okraj podlahy, a natře každé políčko, přes které přejede. Políčko, na kterém začíná, je už natřené.
+- Políčko s dvojitou drážkou potřebuje dva nátěry: kulička na ně musí vjet dvakrát.
+- Portály jsou v párech stejné barvy: kulička, která vjede do jednoho, vyjede z druhého a kutálí se dál stejným směrem. Portály se nenatírají.
+- Políčko se šipkou se dá přejet jen jedním směrem: kulička na ně vjíždí a sjíždí z něj jen ve směru šipky.
+# Konec hry
+Když je natřená celá podlaha, hlavolam je vyřešen.
+# Úrovně a hvězdy
+Vyřešeno nejmenším možným počtem šťouchnutí: 3 hvězdy; nejvýš o polovinu víc šťouchnutí: 2 hvězdy; jinak 1.

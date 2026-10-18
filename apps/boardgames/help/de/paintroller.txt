@@ -1,0 +1,12 @@
+Farbroller
+# Das Ziel
+Eine Kugel voller Farbe liegt auf einem Holzboden zwischen Wänden aus Nussbaum. Färbe jedes Feld des Bodens.
+# Ein Zug
+Stoße die Kugel nach oben, unten, links oder rechts. Sie rollt, bis eine Wand oder der Rand des Bodens sie stoppt, und färbt jedes Feld, über das sie rollt. Das Startfeld ist schon gefärbt.
+- Ein Feld mit doppelter Rille braucht zwei Farbschichten: Die Kugel muss zweimal darauf rollen.
+- Portale gibt es paarweise in derselben Farbe: Eine Kugel, die in eines rollt, kommt aus dem anderen heraus und rollt in derselben Richtung weiter. Portale werden nicht gefärbt.
+- Ein Pfeilfeld lässt sich nur in einer Richtung überqueren: Die Kugel rollt nur in Pfeilrichtung darauf und wieder herunter.
+# Das Ende der Partie
+Ist der ganze Boden gefärbt, ist das Rätsel gelöst.
+# Level und Sterne
+Gelöst mit den wenigsten möglichen Stößen: 3 Sterne; mit bis zu halb so vielen Stößen mehr: 2 Sterne; sonst 1.

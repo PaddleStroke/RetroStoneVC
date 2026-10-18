@@ -1,0 +1,12 @@
+Rodillo de pintura
+# El objetivo
+Una bola empapada de pintura está sobre un suelo de madera, entre paredes de nogal. Pinta todas las casillas del suelo.
+# Una jugada
+Empuja la bola hacia arriba, abajo, la izquierda o la derecha. Rueda hasta que una pared o el borde del suelo la detienen, y pinta cada casilla por la que pasa. La casilla de salida ya está pintada.
+- Una casilla con doble ranura necesita dos capas: la bola debe pasar por ella dos veces.
+- Los portales van en parejas del mismo color: una bola que entra en uno sale por el otro y sigue rodando en la misma dirección. Los portales no se pintan.
+- Una casilla con flecha se cruza en un solo sentido: la bola solo entra en ella y sale de ella siguiendo la flecha.
+# El final de la partida
+Cuando todo el suelo está pintado, el rompecabezas está resuelto.
+# Niveles y estrellas
+Resuelto con el mínimo de empujones posible: 3 estrellas; con hasta la mitad más de empujones: 2 estrellas; si no, 1.

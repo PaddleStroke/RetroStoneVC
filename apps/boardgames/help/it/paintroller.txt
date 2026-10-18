@@ -1,0 +1,12 @@
+Rullo di vernice
+# Lo scopo
+Una pallina intrisa di vernice è su un pavimento di legno, tra pareti di noce. Dipingi tutte le caselle del pavimento.
+# Una mossa
+Spingi la pallina in su, in giù, a sinistra o a destra. Rotola finché una parete o il bordo del pavimento la fermano, e dipinge ogni casella su cui passa. La casella di partenza è già dipinta.
+- Una casella con doppia scanalatura richiede due mani: la pallina deve passarci sopra due volte.
+- I portali vanno a coppie dello stesso colore: una pallina che entra in uno esce dall'altro e continua a rotolare nella stessa direzione. I portali non si dipingono.
+- Una casella con freccia si attraversa in un solo senso: la pallina ci entra e ne esce solo nel verso della freccia.
+# La fine della partita
+Quando tutto il pavimento è dipinto, il rompicapo è risolto.
+# Livelli e stelle
+Risolto con il minor numero di spinte possibile: 3 stelle; con fino a metà spinte in più: 2 stelle; altrimenti 1.

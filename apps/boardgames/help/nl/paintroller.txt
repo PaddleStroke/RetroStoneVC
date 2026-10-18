@@ -1,0 +1,12 @@
+Verfroller
+# Het doel
+Een bal vol verf ligt op een houten vloer tussen muren van notenhout. Verf elk vak van de vloer.
+# Een zet
+Duw de bal omhoog, omlaag, naar links of naar rechts. Hij rolt tot een muur of de rand van de vloer hem tegenhoudt en verft elk vak waar hij overheen rolt. Het vak waar hij begint, is al geverfd.
+- Een vak met een dubbele groef heeft twee lagen nodig: de bal moet er twee keer op rollen.
+- Portalen komen in paren van dezelfde kleur: een bal die het ene in rolt, komt uit het andere en rolt in dezelfde richting verder. Portalen worden niet geverfd.
+- Een pijlvak kun je maar in één richting oversteken: de bal rolt er alleen in de richting van de pijl op en af.
+# Het einde van het spel
+Als de hele vloer geverfd is, is de puzzel opgelost.
+# Levels en sterren
+Opgelost met zo weinig mogelijk duwen: 3 sterren; met tot de helft meer duwen: 2 sterren; anders 1.
