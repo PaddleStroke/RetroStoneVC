@@ -1,0 +1,4 @@
+Liten triangel
+3 × 3
+Stor triangel
+4 × 4

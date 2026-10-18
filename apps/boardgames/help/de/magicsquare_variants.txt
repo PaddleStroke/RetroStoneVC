@@ -1,0 +1,4 @@
+Kleines Dreieck
+3 × 3
+Großes Dreieck
+4 × 4

@@ -1,0 +1,7 @@
+Quadrados mágicos
+# O objetivo
+Cada linha soma o número da placa de latão. Num quadrado, as linhas são as fileiras, as colunas e as duas diagonais; num triângulo, os três lados, e cada canto conta para os seus dois lados. Alguns números são dados, e a bandeja tem exatamente os que faltam: coloque cada um no seu lugar. Cada desafio tem uma só solução.
+# O fim da partida
+O desafio está resolvido quando cada linha soma o número.
+# Níveis e estrelas
+Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma linha preenchida errada.

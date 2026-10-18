@@ -1,0 +1,4 @@
+Petit triangle
+3 × 3
+Grand triangle
+4 × 4

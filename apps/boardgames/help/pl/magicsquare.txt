@@ -1,0 +1,7 @@
+Kwadraty magiczne
+# Cel gry
+Każda linia sumuje się do liczby na mosiężnej tabliczce. W kwadracie liniami są wiersze, kolumny i obie przekątne; w trójkącie jego trzy boki, a każdy róg liczy się do obu swoich boków. Niektóre liczby są dane, a na tacce leżą dokładnie brakujące: połóż każdą na jej miejscu. Każda łamigłówka ma dokładnie jedno rozwiązanie.
+# Koniec gry
+Łamigłówka jest rozwiązana, gdy każda linia daje tę liczbę.
+# Poziomy i gwiazdki
+Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to źle wypełniona linia.

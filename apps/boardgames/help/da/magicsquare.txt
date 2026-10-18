@@ -1,0 +1,7 @@
+Magiske kvadrater
+# Målet
+Hver linje giver tallet på messingpladen. I et kvadrat er linjerne rækkerne, søjlerne og de to diagonaler; i en trekant de tre sider, hvor hvert hjørne tæller med på begge sine sider. Nogle tal er givet, og bakken har præcis dem, der mangler: læg hvert på sin plads. Hver opgave har præcis én løsning.
+# Spillets afslutning
+Opgaven er løst, når hver linje giver tallet.
+# Baner og stjerner
+Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er en linje, der er udfyldt forkert.

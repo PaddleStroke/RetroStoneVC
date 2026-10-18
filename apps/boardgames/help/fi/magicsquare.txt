@@ -1,0 +1,7 @@
+Taikaneliöt
+# Tavoite
+Jokaisen rivin summa on messinkikyltin luku. Neliössä rivejä ovat vaakarivit, pystyrivit ja kaksi lävistäjää; kolmiossa sen kolme sivua, ja jokainen kulma lasketaan molempiin sivuihinsa. Osa luvuista on annettu, ja lokerossa on juuri puuttuvat: aseta jokainen paikalleen. Jokaisella tehtävällä on täsmälleen yksi ratkaisu.
+# Pelin loppu
+Tehtävä on ratkaistu, kun jokaisen rivin summa on oikea.
+# Tasot ja tähdet
+Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärin täytetty rivi.

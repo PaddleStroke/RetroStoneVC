@@ -1,0 +1,7 @@
+Magiske kvadrater
+# Målet
+Hver linje blir tallet på messingskiltet. I et kvadrat er linjene radene, kolonnene og de to diagonalene; i en trekant de tre sidene, der hvert hjørne teller på begge sidene sine. Noen tall er gitt, og brettet med brikker har nøyaktig dem som mangler: legg hver på sin plass. Hvert puslespill har nøyaktig én løsning.
+# Slutten på spillet
+Puslespillet er løst når hver linje blir tallet.
+# Nivåer og stjerner
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en linje som er fylt ut galt.

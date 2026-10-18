@@ -1,0 +1,7 @@
+Magic Squares
+# The aim
+Every line adds up to the target on the brass plate. In a square, the lines are its rows, its columns and its two diagonals; in a triangle, its three sides, each corner counting on both of its sides. Some numbers are given, and the tray holds exactly the missing ones: put each in its place. Every puzzle has exactly one solution.
+# The end of the game
+The puzzle is solved when every line makes the target.
+# Levels and stars
+No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a line filled in wrong.

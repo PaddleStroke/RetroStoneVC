@@ -1,0 +1,7 @@
+Carrés magiques
+# Le but
+Chaque ligne fait le total inscrit sur la plaque de laiton. Dans un carré, les lignes sont ses rangées, ses colonnes et ses deux diagonales ; dans un triangle, ses trois côtés, chaque coin comptant pour ses deux côtés. Certains nombres sont donnés, et le plateau contient exactement ceux qui manquent : mets chacun à sa place. Chaque énigme a une seule solution.
+# La fin de la partie
+L'énigme est résolue quand chaque ligne fait le total.
+# Niveaux et étoiles
+Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est une ligne remplie de travers.

@@ -1,0 +1,7 @@
+Magische Quadrate
+# Das Ziel
+Jede Linie ergibt die Zahl auf dem Messingschild. In einem Quadrat sind die Linien seine Zeilen, Spalten und beiden Diagonalen; in einem Dreieck seine drei Seiten, wobei jede Ecke für ihre beiden Seiten zählt. Einige Zahlen sind vorgegeben, und im Kasten liegen genau die fehlenden: Setze jede an ihren Platz. Jedes Rätsel hat genau eine Lösung.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn jede Linie die Zahl ergibt.
+# Level und Sterne
+Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist eine falsch ausgefüllte Linie.

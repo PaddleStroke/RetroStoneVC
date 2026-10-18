@@ -1,0 +1,7 @@
+Cuadrados mágicos
+# El objetivo
+Cada línea suma el número de la placa de latón. En un cuadrado, las líneas son sus filas, sus columnas y sus dos diagonales; en un triángulo, sus tres lados, y cada esquina cuenta para sus dos lados. Algunos números están dados y la bandeja tiene justo los que faltan: pon cada uno en su sitio. Cada acertijo tiene una sola solución.
+# El final de la partida
+El acertijo está resuelto cuando cada línea suma el número.
+# Niveles y estrellas
+Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una línea completada mal.

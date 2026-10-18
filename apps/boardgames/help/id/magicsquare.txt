@@ -1,0 +1,7 @@
+Persegi Ajaib
+# Tujuan
+Setiap garis berjumlah sama dengan angka di pelat kuningan. Pada persegi, garisnya adalah baris, kolom, dan kedua diagonalnya; pada segitiga, ketiga sisinya, dan setiap sudut dihitung pada kedua sisinya. Beberapa angka sudah diberikan, dan baki berisi tepat angka yang hilang: letakkan masing-masing di tempatnya. Setiap teka-teki punya tepat satu solusi.
+# Akhir permainan
+Teka-teki selesai ketika setiap garis mencapai angka itu.
+# Level dan bintang
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah garis yang diisi salah.

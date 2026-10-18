@@ -1,0 +1,7 @@
+Magické čtverce
+# Cíl hry
+Každá řada dává v součtu číslo na mosazné destičce. Ve čtverci jsou řadami jeho řádky, sloupce a obě úhlopříčky; v trojúhelníku jeho tři strany, přičemž každý roh se počítá do obou svých stran. Některá čísla jsou daná a v zásobníku jsou přesně ta chybějící: polož každé na své místo. Každá úloha má právě jedno řešení.
+# Konec hry
+Úloha je vyřešená, když každá řada dává to číslo.
+# Úrovně a hvězdy
+Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatně vyplněná řada.

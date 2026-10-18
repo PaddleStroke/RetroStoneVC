@@ -1,0 +1,4 @@
+Liten trekant
+3 × 3
+Stor trekant
+4 × 4

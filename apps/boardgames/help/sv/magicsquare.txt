@@ -1,0 +1,7 @@
+Magiska kvadrater
+# Målet
+Varje linje blir talet på mässingsskylten. I en kvadrat är linjerna raderna, kolumnerna och de två diagonalerna; i en triangel de tre sidorna, där varje hörn räknas på båda sina sidor. Några tal är givna, och brickfacket har precis dem som fattas: lägg vart och ett på sin plats. Varje pussel har exakt en lösning.
+# Partiets slut
+Pusslet är löst när varje linje blir talet.
+# Banor och stjärnor
+Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en linje som fyllts i fel.
