@@ -368,7 +368,12 @@ static void draw_heroes(const world *w,int st_t,int sx,int sy){
  (void)st_t;
 }
 
-/* the title's player slots: each joined player's icon, in its colours (hu_title_sprites calls it) */
+/* the title's player slots: each joined player's icon, in its colours (ht_title_sprites calls it) */
+static void slot_icon(int p, int cx, int cy, int t, void *user)
+{
+    (void)user;
+    spr(SPR_HERO_ICON, cx - 8, cy - 8 + hu_bob(t + p * 16, 64, 1), 3, player_pal(p));
+}
 /* the results of 2-4 players: ranked by score */
 static void standing(const world *w, hu_standing *s)
 {
@@ -390,28 +395,13 @@ static int hint_row(int i)
     return i < 0 ? 8 : 10 + 2 * i;
 }
 
-/* A phone held upright (ht_narrow): BEST and the hints wrapped in the columns shown, above the tags' row 18. As the
- * kit's screen (hint_row) when that fits; else (Japanese: 5 lines of tall glyphs and a tall BEST) compact, one row
- * under the logo, which goes up a row (screen_text). Draws them if draw; returns the last row used. */
-static int title_block(int best, int compact, int draw)
+/* A phone held upright (ht_narrow): the title on house_tall.h's standard rows (the slots on row 15, the controls'
+ * hint above the prompt, BEST, the join line, the credits) */
+static ht_title tall_title(void)
 {
-    const char *hint[3] = {TR(HINT_MOVE), TR(HINT_DROP), TR(HINT_POINTS)};
-    char s[64];
-    int next = 6, packed = hint_row(1) == hint_row(0) + 1, last = 0;
-    if (best > 0) {
-        rs_strf(s, sizeof s, HTR(BEST_N), best);
-        int r = compact ? next + hu_tall(s) : hint_row(-1);
-        if (draw) hu_text(ht_center(s, 0), r, s);
-        next = r + 1;
-    }
-    for (int i = 0; i < 3; i++) {
-        int r = compact ? next + hu_tall(hint[i]) : i ? last + (packed ? 1 : 2) : hint_row(0);
-        last = draw ? ht_text(r, hint[i], 0) : r + ht_text_rows(hint[i], 0) - 1;
-        next = last + 1;
-    }
-    return last;
+    ht_title c = {NULL, MAX_PLAYERS, 15, 0, TR(HINT_MOVE)};
+    return c;
 }
-static int title_compact(int best) { return title_block(best, 0, 0) > 17; }
 
 /* the BG screens; PLAY and DEAD are the same screen */
 static void screen_text(const world *w, int state, int st_t, int best, int new_best, const hu_standing *rs)
@@ -423,10 +413,8 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         hu_clear();
         if (state == ST_TITLE){
             const char *hint[3] = {TR(HINT_MOVE), TR(HINT_DROP), TR(HINT_POINTS)};
-            if (narrow) {                       /* BEST and the hints wrapped, centred in the columns shown */
-                int compact = title_compact(best);
-                ht_logo("BISCUIT BANDIT", title_ramps, 2, compact ? 1 : 2, 0);
-                title_block(best, compact, 1);
+            if (narrow) {                       /* BISCUIT over BANDIT when it does not fit on one line */
+                ht_logo("BISCUIT BANDIT", title_ramps, 2, 2, 0);
             } else {
                 hu_logo("BISCUIT BANDIT", title_ramps, 2, 2, 0);
                 for (int i = 0; i < 3; i++) hu_text(hu_center(hint[i], 0), hint_row(i), hint[i]);
@@ -453,17 +441,10 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         shown_best = best;
         shown_cols = cols;
     }
-    /* narrow: the kit's rows from 18 down in the columns shown (ht_title_draw: the prompt on our row 20, the join line,
-     * the credits; BEST by the hints, as below), the tags over the heroes on row 18 */
+    /* narrow: house_tall.h's title on its standard rows, every frame (the blinking prompt) */
     if (state == ST_TITLE && narrow) {
-        ht_title tc = {NULL, MAX_PLAYERS, 18, 20};
-        ht_title_draw(&tc, st_t, 0, &title_at);
-        hu_clear_rows(18, 1);
-        for (int p = 0; p < w->players; p++) {
-            char tag[16];
-            rs_strf(tag, sizeof tag, HTR(PLAYER_TAG), p + 1);
-            hu_text((w->h[p].x - 8) / 8, 18, tag);
-        }
+        ht_title tc = tall_title();
+        ht_title_draw(&tc, st_t, best, &title_at);
         return;
     }
     /* the title, every frame: the prompt (blinking), the player slots, BEST, the join line, the credits */
@@ -502,7 +483,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     screen_text(w, state, st_t, best, new_best, &rs);
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;     /* the panel slides up, ease-out */
     rs_bg_scroll(RS_BG1, 0, -slide);
-    hu_pause(paused, 13);
+    ht_pause(paused, 13);               /* (house_tall.h: zoomed, PAUSED in the columns shown) */
 
     int rise = belt_rise();
 
@@ -545,8 +526,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         }
     }
     if (state == ST_TITLE && ht_narrow()) {
-        int g = hu_title_glyph(NULL, NULL);
-        if (g >= 0) hu_glyph(g, title_at.glyph_x, title_at.glyph_y, (st_t / 30) % 2, 3);
+        ht_title tc = tall_title();
+        ht_title_sprites(&tc, &title_at, st_t, slot_icon, NULL);   /* the prompt's glyph, the slots' icons */
     } else if(state==ST_TITLE){int x,y;int glyph=hu_title_glyph(&x,&y);if(glyph>=0)hu_glyph(glyph,x,20*8-4,(st_t/30)%2,3);}
     /* widescreen: the oven the cookies come out of, in front of them (a lower OAM index), just right of the stage;
      * the shake moves it left only, so that its mouth always hides a cookie at x 320 (the cookies do not shake) */
@@ -554,7 +535,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     /* Leftward slats move only with world time, freezing on the title and pause (widescreen: from the screen's left
      * edge, on the same 32-px rhythm) */
     for(int x=-(rs_screen_margin()+31)/32*32;x<320;x+=32)spr(SPR_BELT+(w->t/3)%4,x+sx,44-rise+sy,1,-1);
-    draw_heroes(w,st_t,sx,sy);
+    /* (a zoomed title: the slots show who joined; the heroes stay off its rows until the run) */
+    if (!(state == ST_TITLE && ht_narrow())) draw_heroes(w, st_t, sx, sy);
     for(int i=0;i<ITEM_MAX;i++){
       const drop*d=&w->items[i];if(!d->active)continue;
       int ix=d->x,iy=d->y>>16;
