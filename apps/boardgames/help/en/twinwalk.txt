@@ -1,0 +1,13 @@
+Twin Walkers
+# The aim
+Two little walkers must reach their exits, the star mats of their colours, and stand on them at the same time.
+# A move
+Each move sends both walkers one tile at once. The red walker goes the way you choose. The blue walker mirrors it: the same way up or down, the other way left or right.
+A wall, a gap or the other walker stops one walker; the other still goes.
+- A cracked tile falls away once a walker steps off it.
+- A door is open while a walker stands on a plate of its colour.
+- On ice, a walker slides on until something stops it.
+# The end of the game
+The puzzle is solved when both walkers stand on their exits.
+# Levels and stars
+Solved in the fewest moves possible: 3 stars; with up to half as many moves again: 2 stars; otherwise 1.

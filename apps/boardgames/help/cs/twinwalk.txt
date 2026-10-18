@@ -1,0 +1,13 @@
+Chodící dvojčata
+# Cíl hry
+Dva malí chodci musí dojít ke svým východům, rohožím s hvězdou ve své barvě, a stát na nich současně.
+# Tah
+Každý tah posune oba chodce zároveň o jedno pole. Červený jde zvoleným směrem. Modrý ho zrcadlí: nahoru a dolů stejně, doleva a doprava opačně.
+Zeď, díra nebo druhý chodec zastaví jednoho z nich; druhý jde dál.
+- Popraskané pole se propadne, jakmile z něj chodec sejde.
+- Dveře jsou otevřené, dokud chodec stojí na desce jejich barvy.
+- Po ledu chodec klouže, dokud ho něco nezastaví.
+# Konec hry
+Hádanka je vyřešena, když oba chodci stojí na svých východech.
+# Úrovně a hvězdy
+Vyřešeno nejmenším možným počtem tahů: 3 hvězdy; nejvýše o polovinu více tahů: 2 hvězdy; jinak 1.

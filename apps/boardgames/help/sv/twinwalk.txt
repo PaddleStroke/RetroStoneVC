@@ -1,0 +1,13 @@
+Tvillingvandrare
+# Målet
+Två små vandrare ska nå sina utgångar, stjärnmattorna i deras färg, och stå på dem samtidigt.
+# Ett drag
+Varje drag flyttar båda vandrarna en ruta samtidigt. Den röda går åt det håll du väljer. Den blå speglar den: samma håll upp eller ner, motsatt håll åt vänster eller höger.
+En vägg, ett hål eller den andra vandraren stoppar den ena; den andra går ändå.
+- En sprucken ruta rasar så fort en vandrare kliver av den.
+- En dörr är öppen medan en vandrare står på en platta i dess färg.
+- På is glider en vandrare vidare tills något stoppar den.
+# Partiets slut
+Pusslet är löst när båda vandrarna står på sina utgångar.
+# Banor och stjärnor
+Löst med så få drag som möjligt: 3 stjärnor; med upp till hälften fler drag: 2 stjärnor; annars 1.

@@ -1,0 +1,13 @@
+Camminatori gemelli
+# Lo scopo
+Due piccoli camminatori devono raggiungere le loro uscite, i tappeti con la stella del loro colore, e starci sopra nello stesso momento.
+# Una mossa
+Ogni mossa sposta entrambi i camminatori di una casella insieme. Il rosso va nella direzione scelta. Il blu lo imita come in uno specchio: uguale in su o in giù, al contrario a sinistra o a destra.
+Un muro, un buco o l'altro camminatore ferma uno dei due; l'altro va comunque.
+- Una casella crepata crolla appena un camminatore la lascia.
+- Una porta è aperta finché un camminatore sta su una piastra del suo colore.
+- Sul ghiaccio un camminatore scivola finché qualcosa non lo ferma.
+# La fine della partita
+Il rompicapo è risolto quando entrambi i camminatori sono sulle loro uscite.
+# Livelli e stelle
+Risolto con il minimo di mosse possibile: 3 stelle; con fino a metà mosse in più: 2 stelle; altrimenti 1.

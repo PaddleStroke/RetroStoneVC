@@ -1,0 +1,13 @@
+Bliźniaczy wędrowcy
+# Cel gry
+Dwaj mali wędrowcy muszą dojść do swoich wyjść, mat z gwiazdą w swoim kolorze, i stanąć na nich jednocześnie.
+# Ruch
+Każdy ruch przesuwa obu wędrowców o jedno pole naraz. Czerwony idzie w wybranym kierunku. Niebieski odbija go jak w lustrze: w górę i w dół tak samo, w lewo i w prawo odwrotnie.
+Ściana, dziura lub drugi wędrowiec zatrzymuje jednego z nich; drugi idzie dalej.
+- Pęknięte pole zapada się, gdy tylko wędrowiec z niego zejdzie.
+- Drzwi są otwarte, dopóki wędrowiec stoi na płycie ich koloru.
+- Na lodzie wędrowiec sunie dalej, aż coś go zatrzyma.
+# Koniec gry
+Zagadka jest rozwiązana, gdy obaj wędrowcy stoją na swoich wyjściach.
+# Poziomy i gwiazdki
+Rozwiązane najmniejszą możliwą liczbą ruchów: 3 gwiazdki; najwyżej o połowę więcej ruchów: 2 gwiazdki; inaczej 1.

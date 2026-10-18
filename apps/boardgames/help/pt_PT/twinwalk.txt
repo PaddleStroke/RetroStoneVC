@@ -1,0 +1,13 @@
+Caminhantes gémeos
+# O objetivo
+Dois pequenos caminhantes têm de chegar às suas saídas, os tapetes com estrela da sua cor, e estar em cima delas ao mesmo tempo.
+# Uma jogada
+Cada jogada move os dois caminhantes uma casa ao mesmo tempo. O vermelho vai na direção escolhida. O azul imita-o como num espelho: igual para cima ou para baixo, ao contrário para a esquerda ou a direita.
+Uma parede, um buraco ou o outro caminhante trava um deles; o outro anda na mesma.
+- Uma casa rachada desaba assim que um caminhante sai dela.
+- Uma porta fica aberta enquanto um caminhante estiver numa placa da sua cor.
+- No gelo, um caminhante desliza até algo o travar.
+# O fim do jogo
+O quebra-cabeças está resolvido quando os dois caminhantes estão nas suas saídas.
+# Níveis e estrelas
+Resolvido com o mínimo de jogadas possível: 3 estrelas; com até metade a mais de jogadas: 2 estrelas; senão, 1.

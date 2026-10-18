@@ -1,0 +1,13 @@
+Kaksoskulkijat
+# Tavoite
+Kahden pienen kulkijan on päästävä uloskäynneilleen, oman värisilleen tähtimatoille, ja seistävä niillä yhtä aikaa.
+# Siirto
+Jokainen siirto liikuttaa molempia kulkijoita yhden ruudun yhtä aikaa. Punainen kulkee valitsemaasi suuntaan. Sininen peilaa sitä: ylös tai alas samaan suuntaan, vasemmalle tai oikealle päinvastoin.
+Seinä, aukko tai toinen kulkija pysäyttää toisen; toinen liikkuu silti.
+- Haljennut ruutu putoaa pois heti, kun kulkija astuu siltä.
+- Ovi on auki, kun kulkija seisoo sen värisellä laatalla.
+- Jäällä kulkija liukuu, kunnes jokin pysäyttää sen.
+# Pelin loppu
+Tehtävä on ratkaistu, kun molemmat kulkijat seisovat uloskäynneillään.
+# Tasot ja tähdet
+Ratkaistu vähimmällä mahdollisella siirtomäärällä: 3 tähteä; enintään puolitoista kertaa niin monella siirrolla: 2 tähteä; muuten 1.

@@ -1,0 +1,13 @@
+Pejalan Kembar
+# Tujuan
+Dua pejalan kecil harus mencapai pintu keluarnya, keset berbintang dengan warna masing-masing, dan berdiri di atasnya bersamaan.
+# Satu langkah
+Setiap langkah menggerakkan kedua pejalan satu petak sekaligus. Yang merah berjalan ke arah yang kamu pilih. Yang biru menirunya seperti di cermin: ke atas atau ke bawah sama, ke kiri atau ke kanan berlawanan.
+Tembok, lubang, atau pejalan lainnya menghentikan salah satu; yang lain tetap berjalan.
+- Petak retak runtuh begitu pejalan meninggalkannya.
+- Pintu terbuka selama ada pejalan berdiri di pelat berwarna sama.
+- Di atas es, pejalan terus meluncur sampai ada yang menghentikannya.
+# Akhir permainan
+Teka-teki selesai saat kedua pejalan berdiri di pintu keluarnya.
+# Level dan bintang
+Selesai dengan langkah sesedikit mungkin: 3 bintang; dengan langkah paling banyak satu setengah kalinya: 2 bintang; selain itu 1.

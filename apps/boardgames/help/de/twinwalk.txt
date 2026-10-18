@@ -1,0 +1,13 @@
+Zwillingsläufer
+# Das Ziel
+Zwei kleine Läufer müssen ihre Ausgänge erreichen, die Sternmatten in ihrer Farbe, und gleichzeitig darauf stehen.
+# Ein Zug
+Jeder Zug bewegt beide Läufer zugleich um ein Feld. Der rote Läufer geht in die gewählte Richtung. Der blaue spiegelt ihn: nach oben oder unten gleich, nach links oder rechts umgekehrt.
+Eine Wand, ein Loch oder der andere Läufer hält einen Läufer auf; der andere geht trotzdem.
+- Ein rissiges Feld bricht weg, sobald ein Läufer es verlässt.
+- Eine Tür ist offen, solange ein Läufer auf einer Platte ihrer Farbe steht.
+- Auf Eis rutscht ein Läufer weiter, bis ihn etwas aufhält.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn beide Läufer auf ihren Ausgängen stehen.
+# Level und Sterne
+Gelöst mit den wenigsten möglichen Zügen: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1.

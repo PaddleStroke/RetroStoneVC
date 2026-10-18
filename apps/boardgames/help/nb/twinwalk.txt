@@ -1,0 +1,13 @@
+Tvillingvandrere
+# Målet
+To små vandrere skal nå utgangene sine, stjernemattene i sin farge, og stå på dem samtidig.
+# Et trekk
+Hvert trekk flytter begge vandrerne én rute samtidig. Den røde går dit du velger. Den blå speiler den: samme vei opp eller ned, motsatt vei til venstre eller høyre.
+En vegg, et hull eller den andre vandreren stopper den ene; den andre går likevel.
+- En sprukken rute faller bort så snart en vandrer går av den.
+- En dør er åpen mens en vandrer står på en plate i dørens farge.
+- På is glir en vandrer videre til noe stopper den.
+# Slutten på spillet
+Oppgaven er løst når begge vandrerne står på utgangene sine.
+# Nivåer og stjerner
+Løst med færrest mulige trekk: 3 stjerner; med opptil halvparten flere trekk: 2 stjerner; ellers 1.

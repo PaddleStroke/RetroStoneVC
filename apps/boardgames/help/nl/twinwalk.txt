@@ -1,0 +1,13 @@
+Tweelinglopers
+# Het doel
+Twee kleine lopers moeten hun uitgangen bereiken, de sterrenmatjes in hun kleur, en er tegelijk op staan.
+# Een zet
+Elke zet verplaatst beide lopers tegelijk één vakje. De rode gaat de gekozen kant op. De blauwe spiegelt hem: omhoog of omlaag hetzelfde, links of rechts andersom.
+Een muur, een gat of de andere loper houdt één loper tegen; de andere loopt toch.
+- Een gebarsten vakje valt weg zodra een loper eraf stapt.
+- Een deur is open zolang een loper op een plaat van haar kleur staat.
+- Op ijs glijdt een loper door tot iets hem tegenhoudt.
+# Het einde van het spel
+De puzzel is opgelost als beide lopers op hun uitgang staan.
+# Levels en sterren
+Opgelost met zo weinig mogelijk zetten: 3 sterren; met tot de helft meer zetten: 2 sterren; anders 1.

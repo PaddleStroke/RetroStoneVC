@@ -1,0 +1,13 @@
+Andarilhos gêmeos
+# O objetivo
+Dois pequenos andarilhos precisam chegar às suas saídas, os tapetes com estrela da sua cor, e ficar sobre elas ao mesmo tempo.
+# Uma jogada
+Cada jogada move os dois andarilhos uma casa ao mesmo tempo. O vermelho vai na direção escolhida. O azul o imita como num espelho: igual para cima ou para baixo, ao contrário para a esquerda ou a direita.
+Uma parede, um buraco ou o outro andarilho para um deles; o outro anda mesmo assim.
+- Uma casa rachada desaba assim que um andarilho sai dela.
+- Uma porta fica aberta enquanto um andarilho estiver numa placa da sua cor.
+- No gelo, um andarilho desliza até algo pará-lo.
+# O fim da partida
+O quebra-cabeça está resolvido quando os dois andarilhos estão em suas saídas.
+# Níveis e estrelas
+Resolvido com o mínimo de jogadas possível: 3 estrelas; com até metade a mais de jogadas: 2 estrelas; senão, 1.

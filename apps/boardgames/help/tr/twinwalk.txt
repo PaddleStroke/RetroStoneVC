@@ -1,0 +1,13 @@
+İkiz yürüyüşçüler
+# Amaç
+İki küçük yürüyüşçü, kendi renklerindeki yıldızlı paspaslara, yani çıkışlarına ulaşmalı ve aynı anda üzerlerinde durmalı.
+# Bir hamle
+Her hamle iki yürüyüşçüyü aynı anda bir kare ilerletir. Kırmızı, seçtiğin yöne gider. Mavi onu aynadaki gibi izler: yukarı ve aşağı aynı yöne, sola ve sağa ters yöne.
+Bir duvar, bir boşluk ya da öbür yürüyüşçü birini durdurur; öbürü yine de gider.
+- Çatlak bir kare, üzerindeki yürüyüşçü ayrılınca çöker.
+- Bir kapı, onun rengindeki bir levhanın üzerinde bir yürüyüşçü durdukça açıktır.
+- Buzda bir yürüyüşçü, bir şey onu durdurana kadar kayar.
+# Oyunun sonu
+İki yürüyüşçü de kendi çıkışında durunca bulmaca çözülür.
+# Seviyeler ve yıldızlar
+Mümkün olan en az hamleyle çözülürse 3 yıldız; en fazla yarısı kadar fazla hamleyle 2 yıldız; yoksa 1.

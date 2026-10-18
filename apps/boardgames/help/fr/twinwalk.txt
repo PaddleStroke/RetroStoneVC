@@ -1,0 +1,13 @@
+Marcheurs jumeaux
+# Le but
+Deux petits marcheurs doivent rejoindre leurs sorties, les tapis à étoile de leur couleur, et s'y tenir en même temps.
+# Un coup
+Chaque coup fait avancer les deux marcheurs d'une case à la fois. Le rouge va dans le sens choisi. Le bleu fait comme dans un miroir : même sens vers le haut ou le bas, sens inverse vers la gauche ou la droite.
+Un mur, un trou ou l'autre marcheur arrête un marcheur ; l'autre avance quand même.
+- Une case fissurée s'effondre dès qu'un marcheur la quitte.
+- Une porte est ouverte tant qu'un marcheur se tient sur une plaque de sa couleur.
+- Sur la glace, un marcheur glisse jusqu'à ce que quelque chose l'arrête.
+# La fin de la partie
+Le casse-tête est résolu quand les deux marcheurs sont sur leurs sorties.
+# Niveaux et étoiles
+Résolu avec le moins de coups possible : 3 étoiles ; jusqu'à moitié plus de coups : 2 étoiles ; sinon 1.

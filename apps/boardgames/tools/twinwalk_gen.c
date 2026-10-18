@@ -1,0 +1,268 @@
+/*
+ * Twin Walkers' levels: src/games/twinwalk_levels.h. Our own levels: no published or commercial set is used. Each
+ * chapter has its kind of map (its size, its special tiles: plain walls, larger floors, crumbling tiles, plates and
+ * doors, ice, all of them) and makes many with the rules' maker (twk_make, from fixed seeds: walls laid with a
+ * symmetry, then changed a pair at a time while the fewest moves grow; each one aimed at a par spread over the
+ * chapter's range). A map is kept when its special tiles all matter (twk_make checks it) and when it was not met
+ * before (nor its mirror). The look, for a hand-laid feel: the walls in a mirror or half-turn symmetry (a few maps
+ * left free), floor no walker can ever reach walled up (a whole symmetric pair at a time), no map with much floor
+ * wasted, walls neither too few nor too many, the walkers' starts and exits spread over the floor; of the maps near
+ * each place on the curve the best-looking one is kept, the chapter's last map (its showpiece) the best-looking of its
+ * hardest few. The difficulty: the fewest moves, and a little for the states the search went through. Chapter 1 starts
+ * from the very easiest (a first look). Deterministic (fixed seeds).
+ *   gcc -O2 -Iapps/boardgames/src -o /tmp/twkgen apps/boardgames/tools/twinwalk_gen.c -lm && \
+ *       /tmp/twkgen > apps/boardgames/src/games/twinwalk_levels.h
+ * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
+ */
+#define TWK_GEN
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "games/twinwalk_rules.c"
+
+#define PER (TWK_LEVELS / TWK_CHAPTERS)
+#define TEXT (TWK_CELLS + TWK_MAXH + 1)
+
+typedef struct {
+    char text[TEXT];
+    int par, states;
+    double diff, look;
+} cand;
+
+/* a chapter: its sizes (w x h, up to grow more each way), walls, special tiles; lo..hi: the pars aimed at; makes:
+ * the maps made */
+typedef struct { int w, h, grow, walls, crumble, plates, ice, lo, hi, iters, makes; } chapter;
+
+static const chapter CH[TWK_CHAPTERS] = {
+    {4, 4, 2, 20, 0, 0, 0, 2, 10, 120, 500},    /* plain walls, small */
+    {6, 6, 2, 22, 0, 0, 0, 9, 17, 220, 420},    /* plain walls, larger floors, longer ways */
+    {6, 6, 1, 18, 4, 0, 0, 9, 18, 240, 420},    /* crumbling tiles */
+    {6, 7, 1, 18, 0, 1, 0, 10, 20, 260, 560},   /* plates and doors */
+    {6, 7, 1, 14, 0, 0, 6, 10, 20, 260, 420},   /* ice */
+    {7, 8, 1, 16, 3, 2, 4, 14, 26, 300, 520},   /* all of them */
+};
+
+static int by_diff(const void *a, const void *b)
+{
+    double d = ((const cand *)a)->diff - ((const cand *)b)->diff;
+    return d < 0 ? -1 : d > 0 ? 1 : strcmp(((const cand *)a)->text, ((const cand *)b)->text);
+}
+
+static char (*kept)[TEXT];
+static int nkept;
+
+static void mirror_text(const char *t, char *mir)   /* each row read from the right, the walkers' roles kept */
+{
+    strcpy(mir, t);
+    for (char *row = mir; *row;) {
+        char *end = strchr(row, '|');
+        int n = end ? (int)(end - row) : (int)strlen(row);
+        for (int i = 0; i < n / 2; i++) { char c = row[i]; row[i] = row[n - 1 - i]; row[n - 1 - i] = c; }
+        row += n + (end ? 1 : 0);
+        if (!end) break;
+    }
+}
+
+static int met(const char *t)                   /* a text met before; its mirror too */
+{
+    char mir[TEXT];
+    mirror_text(t, mir);
+    for (int i = 0; i < nkept; i++)
+        if (!strcmp(kept[i], t) || !strcmp(kept[i], mir)) return 1;
+    strcpy(kept[nkept++], t);
+    return 0;
+}
+
+/* floor no walker reaches walled up, a symmetric pair at a time (when both are out of reach): kept if the par stays */
+static void wall_unseen(twk_map *m, int par)
+{
+    int cells = m->w * m->h;
+    int16_t *far = malloc(sizeof *far * (size_t)cells * cells);
+    uint8_t seen[TWK_CELLS];
+    twk_state s = {{(uint8_t)m->start[0], (uint8_t)m->start[1]}, 0};
+    if (!far) return;
+    if (search(m, &s, NULL, NULL, far, seen) >= 0) {
+        twk_map t = *m;
+        for (int sym = 1; sym <= 3; sym++) {    /* the map's own symmetry, the first that fits its walls */
+            int ok = 1;
+            for (int c = 0; c < cells && ok; c++) {
+                int o[2], no = orbit(m->w, m->h, sym, c, o);
+                if (no == 2 && (m->t[o[0]] == TWK_WALL) != (m->t[o[1]] == TWK_WALL)) ok = 0;
+            }
+            if (!ok && sym < 3) continue;
+            for (int c = 0; c < cells; c++) {
+                int o[2], no = orbit(m->w, m->h, ok ? sym : 0, c, o), all = 1;
+                for (int i = 0; i < no; i++)
+                    if (seen[o[i]] || m->t[o[i]] == TWK_WALL || o[i] == m->exit[0] || o[i] == m->exit[1]) all = 0;
+                if (all)
+                    for (int i = 0; i < no; i++) { t.t[o[i]] = TWK_WALL; t.grp[o[i]] = 0; }
+            }
+            break;
+        }
+        number_crumbles(&t);
+        if (par_of(&t) == par) *m = t;
+    }
+    free(far);
+}
+
+/* the rows and columns of wall alone round the map cut away */
+static void crop(twk_map *m)
+{
+    int x0 = m->w, y0 = m->h, x1 = -1, y1 = -1;
+    for (int c = 0; c < m->w * m->h; c++)
+        if (m->t[c] != TWK_WALL) {
+            int x = c % m->w, y = c / m->w;
+            if (x < x0) x0 = x;
+            if (x > x1) x1 = x;
+            if (y < y0) y0 = y;
+            if (y > y1) y1 = y;
+        }
+    if (x1 < 0) return;
+    twk_map t = *m;
+    t.w = x1 - x0 + 1;
+    t.h = y1 - y0 + 1;
+    memset(t.t, 0, sizeof t.t);
+    memset(t.grp, 0, sizeof t.grp);
+    for (int y = 0; y < t.h; y++)
+        for (int x = 0; x < t.w; x++) {
+            t.t[x + y * t.w] = m->t[x + x0 + (y + y0) * m->w];
+            t.grp[x + y * t.w] = m->grp[x + x0 + (y + y0) * m->w];
+        }
+    for (int i = 0; i < 2; i++) {
+        t.start[i] = m->start[i] % m->w - x0 + (m->start[i] / m->w - y0) * t.w;
+        t.exit[i] = m->exit[i] % m->w - x0 + (m->exit[i] / m->w - y0) * t.w;
+    }
+    number_crumbles(&t);
+    *m = t;
+}
+
+/* how good a map looks:its walls' symmetry (mirror or half turn), a fair share of walls, little floor out of reach,
+ * the starts and the exits far apart */
+static double look_of(const twk_map *m)
+{
+    int cells = m->w * m->h, best = 0, walls = 0;
+    for (int sym = 1; sym <= 3; sym++) {
+        int same = 0;
+        for (int c = 0; c < cells; c++) {
+            int o[2], no = orbit(m->w, m->h, sym, c, o);
+            if ((m->t[c] == TWK_WALL) == (m->t[o[no - 1]] == TWK_WALL)) same++;
+        }
+        if (same > best) best = same;
+    }
+    for (int c = 0; c < cells; c++) walls += m->t[c] == TWK_WALL;
+    double sym = (double)best / cells, wf = (double)walls / cells;
+    double look = 4 * sym - 6 * fabs(wf - 0.28);
+    if (wf > 0.45) look -= 3;
+    int open = 0;                               /* wide open squares of floor: a bare look */
+    for (int y = 0; y + 1 < m->h; y++)
+        for (int x = 0; x + 1 < m->w; x++) {
+            int c = x + y * m->w;
+            open += m->t[c] != TWK_WALL && m->t[c + 1] != TWK_WALL && m->t[c + m->w] != TWK_WALL &&
+                    m->t[c + m->w + 1] != TWK_WALL;
+        }
+    look -= 3.0 * open / cells;
+    int16_t *far = malloc(sizeof *far * (size_t)cells * cells);
+    uint8_t seen[TWK_CELLS];
+    twk_state s = {{(uint8_t)m->start[0], (uint8_t)m->start[1]}, 0};
+    if (far && search(m, &s, NULL, NULL, far, seen) >= 0) {
+        int unseen = 0;
+        for (int c = 0; c < cells; c++) unseen += m->t[c] != TWK_WALL && !seen[c];
+        look -= 8.0 * unseen / cells;
+    }
+    free(far);
+    int w = m->w;                               /* the starts and the exits spread: not all huddled */
+    double spread = 0;
+    int pts[4] = {m->start[0], m->start[1], m->exit[0], m->exit[1]};
+    for (int i = 0; i < 4; i++)
+        for (int j = i + 1; j < 4; j++)
+            spread += abs(pts[i] % w - pts[j] % w) + abs(pts[i] / w - pts[j] / w);
+    look += 0.08 * spread / (m->w + m->h);
+    return look;
+}
+
+int main(void)
+{
+    kept = malloc(sizeof *kept * 8000);
+    cand *c = malloc(sizeof *c * 1200);
+    if (!kept || !c) return 1;
+    printf("/* Twin Walkers' levels: made by tools/twinwalk_gen.c (our own maps, found by its search; do not edit).\n"
+           " * Each map's rows from the top split by '|' (twinwalk.h), and its par: the fewest moves. */\n");
+    static char out[TWK_LEVELS][TEXT];
+    static int outpar[TWK_LEVELS];
+    for (int ch = 0; ch < TWK_CHAPTERS; ch++) {
+        const chapter *C = &CH[ch];
+        int n = 0;
+        for (int k = 0; k < C->makes; k++) {
+            uint32_t seed = 1000003u * (uint32_t)(ch + 1) + 7919u * (uint32_t)k;
+            twk_spec sp = {C->w, C->h, -1, C->walls, C->crumble, C->plates, C->ice, 0, 0, C->iters, 0};
+            uint32_t rs = pr_seed(seed ^ 0xabcdefu);
+            int big = k * (C->grow + 1) / C->makes;    /* the sizes grow along the chapter's makes */
+            sp.w += big;
+            sp.h += big + (pr_below(&rs, 3) == 0);
+            if (sp.w > 8) sp.w = 8;
+            if (sp.h > 10) sp.h = 10;
+            if (pr_below(&rs, 6) == 0) sp.sym = 0;     /* a few left free */
+            sp.lo = sp.hi = C->lo + k * (C->hi - C->lo + 1) / C->makes;
+            if (C->plates > 1) sp.plates = 1 + pr_below(&rs, C->plates);
+            twk_map m;
+            if (!twk_make(&m, &sp, seed)) continue;
+            int par = par_of(&m);
+            wall_unseen(&m, par);
+            crop(&m);
+            if (m.w < C->w - 1 || m.h < C->h - 1) continue;   /* walled up to a corner of what it was */
+            int walls = 0;
+            for (int q = 0; q < m.w * m.h; q++) walls += m.t[q] == TWK_WALL;
+            if (walls * 100 > 52 * m.w * m.h) continue;   /* more wall than floor: a heavy look */
+            int states;
+            twk_state s0 = {{(uint8_t)m.start[0], (uint8_t)m.start[1]}, 0};
+            if (twk_solve(&m, &s0, NULL, &states) != par) continue;
+            cand *x = &c[n];
+            twk_text(&m, x->text);
+            if (met(x->text)) continue;
+            x->par = par;
+            x->states = states;
+            x->diff = par + 0.6 * log((double)states + 1);
+            x->look = look_of(&m);
+            n++;
+            if (n >= 1200) break;
+        }
+        qsort(c, (size_t)n, sizeof *c, by_diff);
+        fprintf(stderr, "chapter %d: %d maps, par %d..%d\n", ch + 1, n, n ? c[0].par : 0, n ? c[n - 1].par : 0);
+        if (n < PER) { fprintf(stderr, "too few\n"); return 1; }
+        int used[1200] = {0}, prev = -1;
+        for (int i = 0; i < PER; i++) {         /* evenly over the difficulties; the best-looking near each place */
+            int at = ch == 0 && i == 0 ? 0 : (int)((double)i * (n - 1) / (PER - 1) + 0.5), pick = -1;
+            int win = ch == 0 && i < 3 ? 1 : n / (PER * 2) + 1;
+            if (i == PER - 1) { at = n - 1; win = n / 8 + 1; }   /* the showpiece: the best-looking hardest few */
+            double best = -1e9;
+            for (int j = at - win; j <= at + win; j++) {
+                if (j <= prev || j < 0 || j >= n || used[j]) continue;
+                if (i == PER - 1 && j < at - win) continue;
+                if (c[j].look > best) { best = c[j].look; pick = j; }
+            }
+            if (pick < 0)
+                for (int j = prev + 1; j < n && pick < 0; j++)
+                    if (!used[j]) pick = j;
+            if (pick < 0) { fprintf(stderr, "chapter %d: ran out\n", ch + 1); return 1; }
+            used[pick] = 1;
+            prev = pick;
+            strcpy(out[ch * PER + i], c[pick].text);
+            outpar[ch * PER + i] = c[pick].par;
+        }
+    }
+    printf("const char *const twk_levels[TWK_LEVELS] = {\n");
+    for (int i = 0; i < TWK_LEVELS; i++) printf("    \"%s\",\n", out[i]);
+    printf("};\n\nconst uint8_t twk_level_par[TWK_LEVELS] = {");
+    for (int i = 0; i < TWK_LEVELS; i++) printf("%s%d,", i % 25 ? " " : "\n    ", outpar[i]);
+    printf("\n};\n");
+    for (int ch = 0; ch < TWK_CHAPTERS; ch++) {
+        fprintf(stderr, "ch%d pars:", ch + 1);
+        for (int i = 0; i < PER; i++) fprintf(stderr, " %d", outpar[ch * PER + i]);
+        fprintf(stderr, "\n");
+    }
+    free(kept);
+    free(c);
+    return 0;
+}

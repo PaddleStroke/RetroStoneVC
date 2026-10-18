@@ -1,0 +1,13 @@
+Tvillingevandrere
+# Målet
+To små vandrere skal nå deres udgange, stjernemåtterne i deres farve, og stå på dem på samme tid.
+# Et træk
+Hvert træk flytter begge vandrere ét felt på én gang. Den røde går den vej, du vælger. Den blå spejler den: samme vej op eller ned, modsat vej til venstre eller højre.
+En mur, et hul eller den anden vandrer stopper den ene; den anden går stadig.
+- Et revnet felt falder væk, så snart en vandrer træder af det.
+- En dør er åben, mens en vandrer står på en plade i dens farve.
+- På is glider en vandrer videre, til noget stopper den.
+# Spillets afslutning
+Opgaven er løst, når begge vandrere står på deres udgange.
+# Baner og stjerner
+Løst med færrest mulige træk: 3 stjerner; med op til halvanden gang så mange træk: 2 stjerner; ellers 1.

@@ -1,0 +1,13 @@
+Caminantes gemelos
+# El objetivo
+Dos pequeños caminantes deben llegar a sus salidas, las alfombras con estrella de su color, y estar en ellas a la vez.
+# Una jugada
+Cada jugada mueve a los dos caminantes una casilla a la vez. El rojo va en la dirección elegida. El azul lo imita como en un espejo: igual hacia arriba o abajo, al revés hacia la izquierda o la derecha.
+Un muro, un hueco o el otro caminante detiene a uno; el otro sigue.
+- Una casilla agrietada se hunde en cuanto un caminante sale de ella.
+- Una puerta está abierta mientras un caminante pisa una placa de su color.
+- Sobre el hielo, un caminante resbala hasta que algo lo detiene.
+# El final de la partida
+El rompecabezas está resuelto cuando los dos caminantes están en sus salidas.
+# Niveles y estrellas
+Resuelto con el mínimo de jugadas posible: 3 estrellas; con hasta la mitad más de jugadas: 2 estrellas; si no, 1.
