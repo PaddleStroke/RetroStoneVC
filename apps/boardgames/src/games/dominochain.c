@@ -12,7 +12,7 @@
  * with how many are left (the one chosen on the gold disc). Tap a free wooden square: the piece chosen goes there,
  * turned the way the chain would hit it. Tap a piece put: it turns; after its last way, it goes back to the stock.
  * Small dots show the squares the chain reaches now and stops at. Undo takes back one change, all the way to the
- * start. The bar: the pieces put, and at its right end the par (the fewest) by a small domino. Solved: gold light
+ * start. The bar: the pieces put, and at its right end the par (the fewest) by its flag. Solved: gold light
  * runs down the fallen chain to the bell.
  */
 #include <math.h>
@@ -33,9 +33,9 @@
 #define RISE_MS 380
 #define WIN_MS 1400
 #define FRAME 0.3f
-#define KZ 0.55f                                /* a unit of height up the screen, of a square */
-#define SH 0.10f                                /* and across it */
-#define TOP 0.62f                               /* room above the board for the pieces standing, of a square */
+#define KZ 0.34f                                /* a unit of height up the screen, of a square (one tilt for all) */
+#define SH 0.0f                                 /* and across it */
+#define TOP 0.45f                               /* room above the board for the pieces standing, of a square */
 
 enum { T_PUSH, T_HINT, T_KIND };                /* the tools: the push, the lamp, then the stock's kinds */
 
@@ -53,7 +53,7 @@ static struct { int on; Uint32 t0; } rise, win;
 static box last_box;
 static float bx0, by0, q;                       /* the board's first square's top left on the screen, a square */
 static int made_q = -1, made_serial = -1, made_small = -1;
-static SDL_Texture *t_board, *t_face[3], *t_bell, *t_small;
+static SDL_Texture *t_board, *t_face[3], *t_bell, *t_par;
 
 /* ---- pictures ---------------------------------------------------------------------------------------------------- */
 /* a domino's face, w x h: its colour, a rim, a line across the middle, pips (a and b on its halves) */
@@ -196,16 +196,34 @@ static void paint_board(const dmc_map *m, int s, int f, uint8_t *o)
     float t = fmaxf(1, 0.025f * s);
     for (int c = 0; c < m->w * m->h; c++) {
         float x = f + c % m->w * s, y = f + c / m->w * s;
-        if (m->t[c] == DMC_FELT) {
+        if (m->t[c] == DMC_FELT) {              /* a gap sunk in the floor: felt deep down, its walnut walls */
+            int gx = c % m->w, gy = c / m->w;
+            int up = gy > 0 && m->t[c - m->w] == DMC_FELT, left = gx > 0 && m->t[c - 1] == DMC_FELT;
+            int right = gx < m->w - 1 && m->t[c + 1] == DMC_FELT, down = gy < m->h - 1 && m->t[c + m->w] == DMC_FELT;
             art_felt(o, W, H, (int)x, (int)y, (int)x + s, (int)y + s);
-            static const uint8_t dark[3] = {10, 20, 14};
-            float e = 0.08f * s;
-            art_tint_rect(o, W, H, x, y, x + s, y + e, dark, 0.45f);
-            art_tint_rect(o, W, H, x, y, x + e, y + s, dark, 0.35f);
+            for (int py = (int)y; py < (int)y + s; py++)
+                for (int px = (int)x; px < (int)x + s; px++) {
+                    float u = (px - x + 0.5f) / s, v = (py - y + 0.5f) / s, k = 0.62f;
+                    uint8_t *p = o + 4 * ((size_t)py * W + px);
+                    for (int i = 0; i < 3; i++) p[i] = (uint8_t)(p[i] * k);
+                    const uint8_t *wall = NULL;
+                    float lit = 1, a = 0;
+                    if (!up && v < 0.26f) { wall = WALNUT; lit = 0.55f + 0.6f * (1 - v / 0.26f); a = 1; }
+                    else if (!left && u < 0.1f) { wall = WALNUT; lit = 0.45f; a = 1; }
+                    else if (!right && u > 0.93f) { wall = WALNUT; lit = 0.7f; a = 1; }
+                    if (wall) {
+                        uint8_t w3[3];
+                        float g = 1 + 0.08f * art_noise(px, py * 3);
+                        for (int i = 0; i < 3; i++) w3[i] = (uint8_t)clampf(wall[i] * lit * g, 0, 255);
+                        pzk_over(p, w3, a);
+                    }
+                    if (!down && v > 0.95f) pzk_over(p, PUZ_INK, 0.55f);   /* the near lip's edge */
+                    if (!up && v < 0.035f) pzk_over(p, PUZ_INK, 0.6f);     /* the far lip's edge */
+                }
             continue;
         }
-        art_tint_rect(o, W, H, x, y, x + s, y + t, PUZ_INK, 0.16f);   /* the squares ruled faintly */
-        art_tint_rect(o, W, H, x, y, x + t, y + s, PUZ_INK, 0.16f);
+        art_tint_rect(o, W, H, x, y, x + s, y + t, PUZ_INK, 0.24f);   /* the squares ruled faintly */
+        art_tint_rect(o, W, H, x, y, x + t, y + s, PUZ_INK, 0.24f);
         if (m->t[c] == DMC_START) {             /* a brass arrow under the start, its way */
             int d = m->o[c];
             float cx = x + s / 2.0f, cy = y + s / 2.0f, ux = (float)DX[d], uy = (float)DY[d], vx = -uy, vy = ux;
@@ -253,9 +271,10 @@ static void layout(box b)
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
         made_small = small;
-        ui_free(&t_small);
-        paint_token(small, ui_buf(small, small));
-        t_small = ui_tex(small, small, ui_buf(small, small));
+        ui_free(&t_par);                        /* the par's flag, as the other puzzles show it */
+        memset(ui_buf(small, small), 0, (size_t)small * small * 4);
+        art_icon(ICON_PAR, small, ui_buf(small, small));
+        t_par = ui_tex(small, small, ui_buf(small, small));
     }
     int last = 0;
     for (int k = 0; k < DMC_KINDS; k++)
@@ -438,14 +457,14 @@ static void draw_box(float cx, float cy, float fx, float fy, float t, float w, f
     static const int F[5][4] = {{1, 3, 7, 5}, {2, 0, 4, 6}, {3, 2, 6, 7}, {0, 1, 5, 4}, {4, 5, 7, 6}};
     float nf[3] = {fx * cp, fy * cp, -sp}, nz[3] = {fx * sp, fy * sp, cp}, ns[3] = {sx, sy, 0};
     const float *N[5] = {nf, NULL, ns, NULL, nz};
-    float L[3] = {-0.33f, 0.3f, 0.89f}, view[3] = {-SH, KZ, 1};   /* the light: from the top left, in front */
+    float L[3] = {-0.3f, -0.25f, 0.92f}, view[3] = {-SH, KZ, 1};   /* the light: from above, the top left */
     for (int k = 0; k < 5; k++) {
         float n[3];
         if (k == 1) { n[0] = -nf[0]; n[1] = -nf[1]; n[2] = -nf[2]; }
         else if (k == 3) { n[0] = -ns[0]; n[1] = -ns[1]; n[2] = 0; }
         else { n[0] = N[k][0]; n[1] = N[k][1]; n[2] = N[k][2]; }
         if (n[0] * view[0] + n[1] * view[1] + n[2] * view[2] <= 0.001f) continue;
-        float lit = 0.6f + 0.42f * fmaxf(0, n[0] * L[0] + n[1] * L[1] + n[2] * L[2]);
+        float lit = 0.8f + 0.22f * fmaxf(0, n[0] * L[0] + n[1] * L[1] + n[2] * L[2]);
         SDL_Vertex v[4];
         int broad = (k == 0 || k == 1) && tex;
         for (int j = 0; j < 4; j++) {
@@ -566,8 +585,8 @@ static void draw_piece(int c, int part, float t, int shadow)
         turn_mini(c, corner, in, part, &mx, &my, &fx, &fy);
         float phi = tipped(c, t, &way, &wob, part, 3);
         if (wob != 0) phi = wob;
-        if (shadow) draw_shadow(mx - fx * 0.06f, my - fy * 0.06f, fx, fy, 0.12f, 0.34f, 0.5f, phi);
-        else draw_box(mx - fx * 0.06f, my - fy * 0.06f, fx, fy, 0.12f, 0.34f, 0.5f, phi, body, NULL, 1);
+        if (shadow) draw_shadow(mx - fx * 0.06f, my - fy * 0.06f, fx, fy, 0.12f, 0.3f, 0.48f, phi);
+        else draw_box(mx - fx * 0.06f, my - fy * 0.06f, fx, fy, 0.12f, 0.3f, 0.48f, phi, body, face, 1);
     } else if (p == DMC_SPLIT) {
         float phi = tipped(c, t, &way, &wob, 0, 1);
         if (way < 0) way = 2;
@@ -771,7 +790,7 @@ static void key(SDL_Keycode k)
 static void bar(int player, box b)
 {
     (void)player;
-    pzt_bar_two(b, NULL, G.s.placed, t_small, par(), G.done && G.s.placed <= par());
+    pzt_bar_two_cream(b, NULL, G.s.placed, t_par, par(), G.done && !run.on && G.s.placed <= par());
 }
 
 /* ---- the shell's pictures: the board and its pieces seen from above ---------------------------------------------- */
