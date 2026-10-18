@@ -1,0 +1,9 @@
+Teka-teki Cincin
+# Tujuan
+Dua atau tiga cincin manik-manik saling bersilangan dan berbagi manik di tempat persilangannya. Susun manik-manik agar masing-masing duduk di atas warna yang ditandai di sekeliling tempatnya.
+# Langkah
+Putar sebuah cincin satu langkah manik, ke arah mana saja: seret di sepanjang cincin, atau ketuk salah satu panahnya. Semua manik di cincin ikut berputar, termasuk yang dibagi, sehingga memutar satu cincin mengacak cincin lainnya.
+# Akhir permainan
+Saat setiap manik duduk di warnanya sendiri, teka-teki terpecahkan.
+# Level dan bintang
+Terpecahkan dengan langkah sesedikit mungkin: 3 bintang; dengan hingga setengahnya lagi: 2 bintang; selain itu 1.

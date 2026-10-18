@@ -1,0 +1,9 @@
+Ringpuslespil
+# Målet
+To eller tre ringe af perler krydser hinanden og deler perlerne, hvor de krydser. Sorter perlerne, så hver perle sidder på den farve, der er markeret rundt om dens plads.
+# Et træk
+Drej en ring ét perletrin, den ene eller den anden vej: træk langs den, eller tryk på en af dens pile. Alle ringens perler drejer med, også de delte, så når én ring drejes, kommer den anden i uorden.
+# Spillets afslutning
+Når hver perle sidder på sin egen farve, er opgaven løst.
+# Baner og stjerner
+Løst med færrest mulige træk: 3 stjerner; med op til halvt så mange træk mere: 2 stjerner; ellers 1.

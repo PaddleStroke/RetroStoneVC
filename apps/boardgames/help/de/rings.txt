@@ -1,0 +1,9 @@
+Ringe-Puzzle
+# Das Ziel
+Zwei oder drei Perlenringe kreuzen sich und teilen sich die Perlen an den Kreuzungen. Ordne die Perlen so, dass jede auf der Farbe sitzt, die um ihren Platz markiert ist.
+# Ein Zug
+Drehe einen Ring um eine Perle weiter, in die eine oder andere Richtung: ziehe an ihm entlang oder tippe auf einen seiner Pfeile. Alle Perlen des Rings drehen sich mit, auch die geteilten, und bringen so den anderen Ring durcheinander.
+# Das Ende der Partie
+Sitzt jede Perle auf ihrer Farbe, ist das Rätsel gelöst.
+# Level und Sterne
+Gelöst mit den wenigsten möglichen Zügen: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1.

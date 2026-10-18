@@ -1,0 +1,9 @@
+Rompecabezas de anillos
+# El objetivo
+Dos o tres anillos de cuentas se cruzan y comparten las cuentas donde se cruzan. Ordena las cuentas para que cada una quede sobre el color marcado alrededor de su sitio.
+# Una jugada
+Gira un anillo un paso, en un sentido u otro: arrástralo a lo largo, o toca una de sus flechas. Todas las cuentas del anillo giran con él, también las compartidas, así que girar un anillo desordena el otro.
+# El final de la partida
+Cuando cada cuenta está sobre su color, el rompecabezas está resuelto.
+# Niveles y estrellas
+Resuelto con el mínimo de jugadas posible: 3 estrellas; con hasta la mitad más: 2 estrellas; si no, 1.

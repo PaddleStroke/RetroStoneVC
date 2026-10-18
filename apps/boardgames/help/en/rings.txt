@@ -1,0 +1,9 @@
+Ring Puzzle
+# The aim
+Two or three rings of beads cross each other and share the beads where they cross. Sort the beads so that each one sits on the colour marked round its place.
+# A move
+Turn a ring by one bead's step, either way: drag along it, or tap one of its arrows. Every bead on the ring moves with it, the shared ones too, so turning one ring stirs up the other.
+# The end of the game
+When every bead sits on its own colour, the puzzle is solved.
+# Levels and stars
+Solved in the fewest moves possible: 3 stars; with up to half as many moves again: 2 stars; otherwise 1.

@@ -1,0 +1,9 @@
+Quebra-cabeça dos anéis
+# O objetivo
+Dois ou três anéis de contas se cruzam e dividem as contas onde se cruzam. Arrume as contas para que cada uma fique sobre a cor marcada em volta do seu lugar.
+# Uma jogada
+Gire um anel um passo, para um lado ou para o outro: arraste ao longo dele ou toque em uma das suas setas. Todas as contas do anel giram com ele, as divididas também, então girar um anel bagunça o outro.
+# O fim da partida
+Quando cada conta está sobre a sua cor, o quebra-cabeça está resolvido.
+# Níveis e estrelas
+Resolvido com o menor número de jogadas possível: 3 estrelas; com até metade a mais: 2 estrelas; senão, 1.

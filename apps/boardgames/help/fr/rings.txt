@@ -1,0 +1,9 @@
+Casse-tête des anneaux
+# Le but
+Deux ou trois anneaux de perles se croisent et partagent les perles là où ils se croisent. Range les perles pour que chacune soit sur la couleur marquée autour de sa place.
+# Un coup
+Fais tourner un anneau d'un cran, dans un sens ou dans l'autre : fais-le glisser le long de lui, ou touche une de ses flèches. Toutes les perles de l'anneau tournent avec lui, celles partagées aussi : tourner un anneau dérange l'autre.
+# La fin de la partie
+Quand chaque perle est sur sa couleur, le casse-tête est résolu.
+# Niveaux et étoiles
+Résolu avec le moins de coups possible : 3 étoiles ; jusqu'à moitié plus de coups : 2 étoiles ; sinon 1.

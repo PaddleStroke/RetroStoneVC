@@ -1,0 +1,9 @@
+Rengaspulma
+# Tavoite
+Kaksi tai kolme helmirengasta risteää ja jakaa helmet risteyskohdissa. Järjestä helmet niin, että jokainen on sen värin päällä, joka on merkitty sen paikan ympärille.
+# Siirto
+Käännä rengasta yhden helmen verran, kumpaan suuntaan tahansa: vedä sitä pitkin tai napauta yhtä sen nuolista. Kaikki renkaan helmet liikkuvat mukana, myös jaetut, joten yhden renkaan kääntäminen sotkee toisen.
+# Pelin loppu
+Kun jokainen helmi on omalla värillään, pulma on ratkaistu.
+# Tasot ja tähdet
+Ratkaistu pienimmällä mahdollisella siirtomäärällä: 3 tähteä; enintään puolet enemmän siirtoja: 2 tähteä; muuten 1.

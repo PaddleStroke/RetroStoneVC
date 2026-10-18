@@ -1,0 +1,9 @@
+Ringpuzzel
+# Het doel
+Twee of drie ringen van kralen kruisen elkaar en delen de kralen waar ze kruisen. Zet de kralen zo dat elke kraal op de kleur ligt die rond haar plek is aangegeven.
+# Een zet
+Draai een ring één kraal verder, de ene of de andere kant op: sleep erlangs of tik op een van zijn pijlen. Alle kralen van de ring draaien mee, ook de gedeelde, dus een ring draaien brengt de andere in de war.
+# Het einde van het spel
+Ligt elke kraal op haar eigen kleur, dan is de puzzel opgelost.
+# Levels en sterren
+Opgelost in zo weinig mogelijk zetten: 3 sterren; met tot de helft meer zetten: 2 sterren; anders 1.

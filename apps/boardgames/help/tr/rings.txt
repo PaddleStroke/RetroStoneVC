@@ -1,0 +1,9 @@
+Halka Bulmacası
+# Amaç
+İki ya da üç boncuk halkası birbirini keser ve kesiştikleri yerlerdeki boncukları paylaşır. Boncukları, her biri yerinin çevresinde işaretli renge oturacak şekilde diz.
+# Hamle
+Bir halkayı bir boncuk adımı, istediğin yöne çevir: halka boyunca sürükle ya da oklarından birine dokun. Halkadaki bütün boncuklar, ortak olanlar da, onunla döner; bu yüzden bir halkayı çevirmek diğerini karıştırır.
+# Oyunun sonu
+Her boncuk kendi rengine oturunca bulmaca çözülür.
+# Seviyeler ve yıldızlar
+Mümkün olan en az hamleyle çözmek: 3 yıldız; yarısı kadar fazla hamleyle: 2 yıldız; yoksa 1.

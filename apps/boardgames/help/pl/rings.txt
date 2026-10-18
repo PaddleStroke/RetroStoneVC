@@ -1,0 +1,9 @@
+Łamigłówka z pierścieniami
+# Cel gry
+Dwa lub trzy pierścienie z koralików krzyżują się i dzielą koraliki w miejscach skrzyżowań. Ułóż koraliki tak, aby każdy leżał na kolorze zaznaczonym wokół swojego miejsca.
+# Ruch
+Obróć pierścień o jeden koralik, w jedną lub drugą stronę: przeciągnij wzdłuż niego albo dotknij jednej z jego strzałek. Wszystkie koraliki pierścienia obracają się z nim, także wspólne, więc obrót jednego pierścienia miesza drugi.
+# Koniec gry
+Gdy każdy koralik leży na swoim kolorze, łamigłówka jest rozwiązana.
+# Poziomy i gwiazdki
+Rozwiązana najmniejszą możliwą liczbą ruchów: 3 gwiazdki; do połowy więcej ruchów: 2 gwiazdki; w przeciwnym razie 1.

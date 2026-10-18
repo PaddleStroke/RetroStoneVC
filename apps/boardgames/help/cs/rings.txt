@@ -1,0 +1,9 @@
+Prstencový hlavolam
+# Cíl hry
+Dva nebo tři prstence korálků se kříží a v místech křížení sdílejí korálky. Seřaď korálky tak, aby každý ležel na barvě vyznačené kolem jeho místa.
+# Tah
+Otoč prstencem o jeden korálek, na jednu či druhou stranu: táhni podél něj, nebo klepni na jednu z jeho šipek. Všechny korálky prstence se otočí s ním, i ty sdílené, takže otočení jednoho prstence rozhází ten druhý.
+# Konec hry
+Když každý korálek leží na své barvě, hlavolam je vyřešen.
+# Úrovně a hvězdy
+Vyřešeno nejmenším možným počtem tahů: 3 hvězdy; až o polovinu více tahů: 2 hvězdy; jinak 1.

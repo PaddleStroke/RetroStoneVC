@@ -1,0 +1,9 @@
+Ringpussel
+# Målet
+Två eller tre ringar av pärlor korsar varandra och delar på pärlorna där de korsas. Sortera pärlorna så att var och en sitter på färgen som är markerad runt dess plats.
+# Ett drag
+Vrid en ring ett pärlsteg, åt ena eller andra hållet: dra längs den eller tryck på en av dess pilar. Alla pärlor på ringen följer med, även de delade, så att vrida en ring rör om i den andra.
+# Partiets slut
+När varje pärla sitter på sin egen färg är pusslet löst.
+# Banor och stjärnor
+Löst med så få drag som möjligt: 3 stjärnor; med upp till hälften fler drag: 2 stjärnor; annars 1.

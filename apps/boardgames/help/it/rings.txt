@@ -1,0 +1,9 @@
+Rompicapo degli anelli
+# Lo scopo
+Due o tre anelli di perline si incrociano e condividono le perline dove si incrociano. Riordina le perline in modo che ognuna stia sul colore segnato intorno al suo posto.
+# Una mossa
+Gira un anello di un passo, in un senso o nell'altro: trascinalo lungo il suo giro, o tocca una delle sue frecce. Tutte le perline dell'anello girano con lui, anche quelle condivise, e così scompigliano l'altro anello.
+# La fine della partita
+Quando ogni perlina sta sul suo colore, il rompicapo è risolto.
+# Livelli e stelle
+Risolto con il minor numero di mosse possibile: 3 stelle; fino a metà mosse in più: 2 stelle; altrimenti 1.
