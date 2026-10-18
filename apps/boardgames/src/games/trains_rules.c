@@ -422,11 +422,12 @@ int trs_script(trs_game *g, const char *s)
  * weighted at random, turns costing more (straighter lines), over a straight track at right angles where crossings
  * are wanted. Then a setting drawn at random sends the trains (their colours not yet known) to stations, and each
  * train takes the colour of the station it reached: the puzzle can be solved. The first setting: one at the par
- * sought from every setting that works. */
+&
 typedef struct {
     float wt[TRS_CELLS];
     uint8_t reserved[TRS_CELLS];                /* a portal's or a station's square inside, kept for its own line */
     int crossings, cross_cost;
+    int sym;                                    /* each line laid with its mirror image */
     uint32_t rs;
 } lay_ctx;
 
@@ -444,6 +445,21 @@ static int inward(const trs_map *m, int c)      /* a border square's side toward
 
 static int plain_track(const trs_map *m, int c) { return m->kind[c] == TRS_TRACK && bits(m->open[c]) == 2; }
 
+static int mir(const trs_map *m, int c) { return m->w - 1 - c % m->w + c / m->w * m->w; }
+static int mir_side(int d) { return d == TRS_LEFT ? TRS_RIGHT : d == TRS_RIGHT ? TRS_LEFT : d; }
+
+/* a square a line may be laid over: empty, not kept for another line (allow: the one it may use); with a mirror,
+ * its image too */
+static int free_sq(const trs_map *m, const lay_ctx *L, int n, int allow)
+{
+    for (int k = 0; k < (L->sym ? 2 : 1); k++) {
+        int q = k ? mir(m, n) : n;
+        if (m->kind[q] != TRS_EMPTY) return 0;
+        if (L->reserved[q] && q != allow && !(L->sym && allow >= 0 && q == mir(m, allow))) return 0;
+    }
+    return 1;
+}
+
 /* the cheapest line from one of the starts (square sc[i], stepping the way sd[i]) to the target: square `tcell`
  * entered the way `tdir` (-1 any), or (TG_TRACK) a plain track entered by a free side, not the start's square; the
  * line laid; 0 none */
@@ -460,10 +476,10 @@ static int lay(trs_map *m, lay_ctx *L, const int *sc, const int *sd, const float
     int bv = -1, bn = -1, bsrc = -1;
     /* a state: square c reached stepping the way d (c an empty square laid as track, or a track crossed); prev: the
      * state before, -2 - i from start i */
-#define FREE(n) (m->kind[n] == TRS_EMPTY && (!L->reserved[n] || (n) == allow))
+#define FREE(n) free_sq(m, L, n, allow)
 #define IS_TARGET(n, d, src) ((tk == TG_CELL && (n) == tcell && (tdir < 0 || (d) == tdir)) ||                      \
                               (tk == TG_TRACK && plain_track(m, n) && !(m->open[n] >> (((d) + 2) & 3) & 1) &&       \
-                               (n) != (src)))
+                               (n) != (src) && (!L->sym || mir(m, n) != (n))))
     for (int i = 0; i < ns; i++) {
         int n = trs_neighbour(m, sc[i], sd[i]);
         if (n < 0) continue;
@@ -490,7 +506,7 @@ static int lay(trs_map *m, lay_ctx *L, const int *sc, const int *sd, const float
             if (cross[u] && t) continue;
             int nd = (d + t + 4) & 3, n = trs_neighbour(m, c, nd);
             if (n < 0) continue;
-            float cost = dist[u] + 1 + (t ? 0.7f : 0);
+            float cost = dist[u] + 1 + (t ? 1.1f : 0);
             if (IS_TARGET(n, nd, scell)) {
                 if (cost < best) { best = cost; bv = u; bn = n; bsrc = -1; }
                 continue;
@@ -516,7 +532,7 @@ static int lay(trs_map *m, lay_ctx *L, const int *sc, const int *sd, const float
         seen[path[i] / 4] = 1;
     }
     if (seen[bn] || seen[sc[start]]) return 0;
-    int a = sc[start], d = sd[start];
+    int a = sc[start], d = sd[start], sa[V + 1], sb[V + 1], sdir[V + 1], scr[V + 1], nst = 0;
     for (int i = np - 1; i >= -1; i--) {         /* each step: a to b, the way d */
         int b = i >= 0 ? path[i] / 4 : bn, bd = i >= 0 ? path[i] % 4 : -1;
         if (i < 0) {                            /* the last step into the target: from a */
@@ -525,14 +541,21 @@ static int lay(trs_map *m, lay_ctx *L, const int *sc, const int *sd, const float
                 if (trs_neighbour(m, a, k) == b) dd = k;
             d = dd;
         } else d = bd;
-        m->open[a] |= (uint8_t)(1u << d);
-        m->open[b] |= (uint8_t)(1u << ((d + 2) & 3));
-        if (i >= 0) {
-            if (m->kind[b] == TRS_TRACK) m->kind[b] = TRS_CROSS;
-            else m->kind[b] = TRS_TRACK;
-        }
+        sa[nst] = a;
+        sb[nst] = b;
+        sdir[nst] = d;
+        scr[nst++] = i >= 0 ? (m->kind[b] == TRS_TRACK ? 2 : 1) : 0;   /* 1 a new track, 2 a crossing, 0 the end */
         a = b;
     }
+    for (int k = 0; k < (L->sym ? 2 : 1); k++)  /* the line, then its mirror image */
+        for (int i = 0; i < nst; i++) {
+            int A = k ? mir(m, sa[i]) : sa[i], B = k ? mir(m, sb[i]) : sb[i], D = k ? mir_side(sdir[i]) : sdir[i];
+            m->open[A] |= (uint8_t)(1u << D);
+            m->open[B] |= (uint8_t)(1u << ((D + 2) & 3));
+            if (k && B == sb[i]) continue;       /* a square on the middle: itself */
+            if (scr[i] == 2) m->kind[B] = TRS_CROSS;
+            else if (scr[i] == 1) m->kind[B] = TRS_TRACK;
+        }
     return 1;
 }
 
@@ -597,6 +620,122 @@ static int lay_tunnel(trs_map *m, lay_ctx *L, const int *sc, const int *sd, cons
     return n && lay(m, L, bs, bd, b0, n, tk, tcell, tdir, allow);
 }
 
+/* the squares' distances along the track from the portals (through the tunnels too): a switch's natural stem faces
+ * the nearer side */
+static void track_dist(const trs_map *m, int *dist)
+{
+    int q[TRS_CELLS], n = 0, W = m->w * m->h;
+    for (int c = 0; c < W; c++) dist[c] = -1;
+    for (int c = 0; c < W; c++)
+        if (m->kind[c] == TRS_PORTAL) { dist[c] = 0; q[n++] = c; }
+    for (int h = 0; h < n; h++) {
+        int c = q[h];
+        for (int d = 0; d < 4; d++) {
+            int b = trs_neighbour(m, c, d);
+            if ((m->open[c] >> d & 1) && b >= 0 && dist[b] < 0) { dist[b] = dist[c] + 1; q[n++] = b; }
+        }
+        if (m->kind[c] == TRS_TUNNEL) {
+            int t = twin(m, c);
+            if (t >= 0 && dist[t] < 0) { dist[t] = dist[c] + 1; q[n++] = t; }
+        }
+    }
+}
+
+/* a laid network made a puzzle's: the switches and their stems (facing the portals, at random; mirrored), the
+ * toggles, the trains' portals; 0: not a network */
+static int finish(trs_map *m, const trs_spec *sp, lay_ctx *L)
+{
+    int W = m->w * m->h, dist[TRS_CELLS];
+    track_dist(m, dist);
+    m->ns = m->ne = 0;
+    m->together = sp->together;
+    for (int c = 0; c < W; c++) {
+        int n = bits(m->open[c]);
+        if (m->kind[c] == TRS_TRACK && n == 3) {
+            m->kind[c] = TRS_SWITCH;
+            int x = c % m->w, d = -1;
+            if (L->sym && 2 * x + 1 > m->w) d = mir_side(m->k[mir(m, c)]);   /* the mirror of its twin's */
+            else if (L->sym && 2 * x + 1 == m->w) {   /* on the middle: its stem up or down */
+                for (int k = 0; k < 4; k += 2)
+                    if (m->open[c] >> k & 1) d = k;
+            } else if (pr_below(&L->rs, 100) < sp->natural) {
+                int near = 0, far = 0, dn = -1, df = -1;   /* the odd one out: one side nearer, or one farther */
+                for (int k = 0; k < 4; k++) {
+                    int b = trs_neighbour(m, c, k);
+                    if (!(m->open[c] >> k & 1) || b < 0) continue;
+                    if (dist[b] >= 0 && dist[b] < dist[c]) { near++; dn = k; }
+                    else { far++; df = k; }
+                }
+                d = near == 1 ? dn : far == 1 ? df : -1;
+            }
+            if (d < 0 || !(m->open[c] >> d & 1))
+                do d = pr_below(&L->rs, 4); while (!(m->open[c] >> d & 1));
+            m->k[c] = (uint8_t)d;
+            if (m->ns >= TRS_MAXS) return 0;
+            m->sw[m->ns++] = (uint8_t)c;
+        } else if (m->kind[c] == TRS_TRACK && n != 2) return 0;
+        if (m->kind[c] == TRS_PORTAL) {
+            if (m->ne >= TRS_MAXE) return 0;
+            m->portal[m->ne++] = (uint8_t)c;
+        }
+        if (m->kind[c] == TRS_TUNNEL && n != 1) return 0;
+        if (m->kind[c] == TRS_CROSS && m->open[c] != 15) return 0;
+        if ((m->kind[c] == TRS_PORTAL || m->kind[c] == TRS_STATION) && n != 1) return 0;
+        if (m->kind[c] == TRS_EMPTY && n) return 0;
+    }
+    for (int c = 0; c < W; c++)                 /* every side met */
+        for (int d = 0; d < 4; d++)
+            if (m->open[c] >> d & 1) {
+                int b = trs_neighbour(m, c, d);
+                if (b < 0 || !(m->open[b] >> ((d + 2) & 3) & 1)) return 0;
+            }
+    if (m->ns < sp->switches || m->ns < 1 || !m->ne) return 0;
+    int crosses = 0;
+    for (int c = 0; c < W; c++) crosses += m->kind[c] == TRS_CROSS;
+    if (crosses < sp->crossings) return 0;
+    int ord[TRS_MAXS], nt = 0;                  /* the toggles (a mirrored pair: both) */
+    for (int i = 0; i < m->ns; i++)
+        if (!L->sym || 2 * (m->sw[i] % m->w) + 1 <= m->w) ord[nt++] = i;
+    pr_shuffle(&L->rs, ord, nt);
+    for (int t = 0; t < sp->toggles && t < nt; t++) {
+        int c = m->sw[ord[t]];
+        m->toggle[c] = 1;
+        if (L->sym) m->toggle[mir(m, c)] = 1;
+    }
+    /* the trains: a portal each at least, together a portal each exactly */
+    m->nt = sp->together || !sp->toggles ? m->ne : sp->trains;   /* no toggles: a portal's trains would all go alike */
+    if (m->nt > TRS_MAXT || m->nt < m->ne) return 0;
+    int from[TRS_MAXT];
+    for (int i = 0; i < m->nt; i++) from[i] = i < m->ne ? i : pr_below(&L->rs, m->ne);
+    pr_shuffle(&L->rs, from, m->nt);
+    for (int i = 0; i < m->nt; i++) { m->tfrom[i] = (uint8_t)from[i]; m->tcol[i] = WILD; }
+    return 1;
+}
+
+/* a place on the border for a portal or a station (half: on the left half, mirrored later; mid: on the middle) */
+static int border_place(trs_map *m, lay_ctx *L, int is_port, int half, int mid, const int *placed)
+{
+    int W = m->w * m->h;
+    for (int tries = 0; tries < 200; tries++) {
+        int e = pr_below(&L->rs, 10), q, wx = half ? m->w / 2 - 1 : m->w - 2;
+        if (wx < 1) wx = 1;
+        if (mid) q = m->w / 2 + (is_port ? 0 : (m->h - 1) * m->w);
+        else if (is_port)
+            q = e < 6 ? 1 + pr_below(&L->rs, wx) : (e < 8 || half ? 0 : m->w - 1) + pr_below(&L->rs, m->h / 2) * m->w;
+        else q = e < 6 ? 1 + pr_below(&L->rs, wx) + (m->h - 1) * m->w
+                       : (e < 8 || half ? 0 : m->w - 1) + (m->h / 2 + pr_below(&L->rs, (m->h + 1) / 2)) * m->w;
+        if (half && !mid && 2 * (q % m->w) + 1 >= m->w) continue;
+        if (inward(m, q) < 0 || placed[q]) continue;
+        int in = trs_neighbour(m, q, inward(m, q)), near = 0;
+        for (int o = 0; o < W; o++)
+            if (placed[o] && abs(o % m->w - q % m->w) + abs(o / m->w - q / m->w) < 2) near = 1;
+        if (half && !mid && abs(mir(m, q) % m->w - q % m->w) < 2) near = 1;   /* its mirror too close */
+        if (near || L->reserved[in]) continue;
+        return q;
+    }
+    return -1;
+}
+
 /* the network, its portals and stations, the trains' portals; 0: it could not be laid */
 static int network(trs_map *m, const trs_spec *sp, lay_ctx *L)
 {
@@ -604,48 +743,56 @@ static int network(trs_map *m, const trs_spec *sp, lay_ctx *L)
     m->w = sp->w;
     m->h = sp->h;
     m->together = sp->together;
-    int W = m->w * m->h, port[TRS_MAXE], stat[TRS_COLOURS], np = sp->portals, nst = sp->stations;
+    L->sym = sp->sym && (m->w & 1) && !sp->tunnels;
+    int W = m->w * m->h, port[TRS_MAXE], stat[TRS_COLOURS], np = sp->portals, nst = sp->stations, prim[16];
     for (int c = 0; c < W; c++) L->wt[c] = (float)pr_below(&L->rs, 100) / 60;
+    if (L->sym)
+        for (int c = 0; c < W; c++)
+            if (2 * (c % m->w) + 1 < m->w) L->wt[mir(m, c)] = L->wt[c];
     memset(L->reserved, 0, sizeof L->reserved);
-    /* the portals mostly along the top and the upper sides, the stations along the bottom and the lower sides */
+    /* the portals mostly along the top and the upper sides, the stations along the bottom and the lower sides;
+     * mirrored: in pairs, an odd one on the middle */
     int placed[TRS_CELLS] = {0};
-    for (int k = 0; k < np + nst; k++) {
-        int is_port = k < np, c = -1;
-        for (int tries = 0; tries < 200 && c < 0; tries++) {
-            int e = pr_below(&L->rs, 10), q;
-            if (is_port) q = e < 6 ? 1 + pr_below(&L->rs, m->w - 2) : (e < 8 ? 0 : m->w - 1) + pr_below(&L->rs, m->h / 2) * m->w;
-            else q = e < 6 ? 1 + pr_below(&L->rs, m->w - 2) + (m->h - 1) * m->w
-                           : (e < 8 ? 0 : m->w - 1) + (m->h / 2 + pr_below(&L->rs, (m->h + 1) / 2)) * m->w;
-            if (inward(m, q) < 0 || placed[q]) continue;
-            int in = trs_neighbour(m, q, inward(m, q)), near = 0;
-            for (int o = 0; o < W; o++)
-                if (placed[o] && abs(o % m->w - q % m->w) + abs(o / m->w - q / m->w) < 2) near = 1;
-            if (near || L->reserved[in]) continue;
-            c = q;
-            L->reserved[in] = 1;
+    for (int pass = 0, k = 0; pass < 2; pass++) {
+        int n = pass ? nst : np, *out = pass ? stat : port;
+        for (int i = 0; i < n; i++) {
+            int mid = L->sym && (n & 1) && i == 0, c = border_place(m, L, !pass, L->sym, mid, placed);
+            if (c < 0) return 0;
+            int cs[2] = {c, mir(m, c)};
+            for (int j = 0; j < (L->sym && !mid ? 2 : 1); j++) {
+                if (i + j >= n || placed[cs[j]]) return 0;
+                placed[cs[j]] = 1;
+                L->reserved[trs_neighbour(m, cs[j], inward(m, cs[j]))] = 1;
+                m->kind[cs[j]] = pass ? TRS_STATION : TRS_PORTAL;
+                out[i + j] = cs[j];
+                prim[k + i + j] = j == 0;
+            }
+            if (L->sym && !mid) i++;
         }
-        if (c < 0) return 0;
-        placed[c] = 1;
-        m->kind[c] = is_port ? TRS_PORTAL : TRS_STATION;
-        if (is_port) port[k] = c;
-        else stat[k - np] = c;
+        k += n;
     }
     int sc[TRS_CELLS * 4], sd[TRS_CELLS * 4];
     float s0[TRS_CELLS * 4] = {0};
     int tunnels = sp->tunnels, pair = 0;
     /* the first line */
     {
-        int p = port[0], s = stat[0], in = trs_neighbour(m, s, inward(m, s));
+        int p = port[0], s = stat[0], in = trs_neighbour(m, s, inward(m, s)), pin;
         sc[0] = p;
         sd[0] = inward(m, p);
-        L->reserved[trs_neighbour(m, p, sd[0])] = 0;
+        pin = trs_neighbour(m, p, sd[0]);
+        L->reserved[pin] = 0;
+        if (L->sym) L->reserved[mir(m, pin)] = 0;
         L->reserved[in] = 0;
         if (!lay(m, L, sc, sd, s0, 1, TG_CELL, s, (inward(m, s) + 2) & 3, in)) return 0;
+        if (L->sym) L->reserved[mir(m, in)] = 0;
     }
-    /* the other stations, the other portals, the loops: in a shuffled order, a tunnel on some */
+    /* the other stations, the other portals, the loops: in a shuffled order, a tunnel on some (mirrored: the
+     * first of each pair; its twin comes with it) */
     int jobs[16], nj = 0;
-    for (int i = 1; i < nst; i++) jobs[nj++] = i;
-    for (int i = 1; i < np; i++) jobs[nj++] = 8 + i;
+    for (int i = 1; i < nst; i++)
+        if (prim[np + i] && !(L->sym && stat[i] == mir(m, stat[0]))) jobs[nj++] = i;
+    for (int i = 1; i < np; i++)
+        if (prim[i] && !(L->sym && port[i] == mir(m, port[0]))) jobs[nj++] = 8 + i;
     for (int i = 0; i < sp->loops; i++) jobs[nj++] = 15;
     pr_shuffle(&L->rs, jobs, nj);
     for (int j = 0; j < nj; j++) {
@@ -656,11 +803,14 @@ static int network(trs_map *m, const trs_spec *sp, lay_ctx *L)
             L->reserved[in] = 0;
             ok = tun ? lay_tunnel(m, L, sc, sd, s0, n, TG_CELL, s, (inward(m, s) + 2) & 3, in, pair)
                      : lay(m, L, sc, sd, s0, n, TG_CELL, s, (inward(m, s) + 2) & 3, in);
+            if (L->sym) L->reserved[mir(m, in)] = 0;
         } else if (job < 15) {                  /* a portal's line joining the track */
             int p = port[job - 8];
             sc[0] = p;
             sd[0] = inward(m, p);
-            L->reserved[trs_neighbour(m, p, sd[0])] = 0;
+            int in = trs_neighbour(m, p, sd[0]);
+            L->reserved[in] = 0;
+            if (L->sym) L->reserved[mir(m, in)] = 0;
             ok = tun ? lay_tunnel(m, L, sc, sd, s0, 1, TG_TRACK, -1, -1, -1, pair)
                      : lay(m, L, sc, sd, s0, 1, TG_TRACK, -1, -1, -1);
         } else {                                /* a loop: from a branch back onto the track */
@@ -673,38 +823,8 @@ static int network(trs_map *m, const trs_spec *sp, lay_ctx *L)
         if (!ok) return 0;
         if (tun) { tunnels--; pair++; }
     }
-    /* the switches: each track square with three sides, its stem at random */
-    for (int c = 0; c < W; c++) {
-        if (m->kind[c] == TRS_TRACK && bits(m->open[c]) == 3) {
-            m->kind[c] = TRS_SWITCH;
-            int d;
-            do d = pr_below(&L->rs, 4); while (!(m->open[c] >> d & 1));
-            m->k[c] = (uint8_t)d;
-            if (m->ns >= TRS_MAXS) return 0;
-            m->sw[m->ns++] = (uint8_t)c;
-        }
-        if (m->kind[c] == TRS_PORTAL) m->portal[m->ne++] = (uint8_t)c;
-        if (m->kind[c] == TRS_TUNNEL && bits(m->open[c]) != 1) return 0;
-        if (m->kind[c] == TRS_CROSS && m->open[c] != 15) return 0;
-        if ((m->kind[c] == TRS_PORTAL || m->kind[c] == TRS_STATION) && bits(m->open[c]) != 1) return 0;
-    }
-    if (m->ns < sp->switches || m->ns < 1) return 0;
-    int crosses = 0;
-    for (int c = 0; c < W; c++) crosses += m->kind[c] == TRS_CROSS;
-    if (crosses < sp->crossings) return 0;
-    int ord[TRS_MAXS];                          /* the toggles */
-    for (int i = 0; i < m->ns; i++) ord[i] = i;
-    pr_shuffle(&L->rs, ord, m->ns);
-    for (int t = 0; t < sp->toggles && t < m->ns; t++) m->toggle[m->sw[ord[t]]] = 1;
     if (pair < sp->tunnels) return 0;
-    /* the trains: a portal each at least, together a portal each exactly */
-    m->nt = sp->together || !sp->toggles ? m->ne : sp->trains;   /* no toggles: a portal's trains would all go alike */
-    if (m->nt > TRS_MAXT || m->nt < m->ne) return 0;
-    int from[TRS_MAXT];
-    for (int i = 0; i < m->nt; i++) from[i] = i < m->ne ? i : pr_below(&L->rs, m->ne);
-    pr_shuffle(&L->rs, from, m->nt);
-    for (int i = 0; i < m->nt; i++) { m->tfrom[i] = (uint8_t)from[i]; m->tcol[i] = WILD; }
-    return 1;
+    return finish(m, sp, L);
 }
 
 /* every setting that works: bit c of ok[] (2^ns bits); how the others fail (fails[TRS_*]) */
@@ -759,8 +879,8 @@ static int colour_and_set(trs_map *m, const trs_spec *sp, lay_ctx *L, trs_qualit
         }
         int visited = 0;
         for (int s = 0; s < m->ns; s++) visited += used[m->sw[s]];
-        if (visited < m->ns) continue;          /* a switch no train goes over: dropped */
-        int want = m->nt < sp->stations ? m->nt : sp->stations;
+        if (visited < m->ns - m->ns / 3) continue;   /* switches no train goes over: a few at most */
+        int want = m->nt < ns_ ? m->nt : ns_;
         if (!sp->toggles && want > m->ne) want = m->ne;
         if (want > 3) want = 3;
         if (bits(seen) < want) continue;
@@ -820,10 +940,10 @@ int trs_make(trs_map *m, const trs_spec *sp, uint32_t seed)
 void trs_variant(int variant, trs_spec *sp)
 {
     static const trs_spec V[TRS_VARIANTS] = {
-        /* w h portals stations trains switches loops toggles crossings tunnels together lo hi tries */
-        {5, 6, 1, 3, 2, 2, 0, 0, 0, 0, 0, 1, 2, 300},
-        {6, 7, 2, 3, 3, 3, 0, 1, 0, 0, 0, 2, 3, 300},
-        {6, 8, 2, 4, 4, 4, 1, 1, 1, 0, 0, 3, 6, 800},
+        /* w h portals stations trains switches loops toggles crossings tunnels together lo hi tries sym natural */
+        {5, 7, 1, 3, 2, 2, 0, 0, 0, 0, 0, 1, 2, 300, 1, 80},
+        {7, 7, 2, 3, 3, 3, 0, 1, 0, 0, 0, 2, 3, 400, 1, 60},
+        {6, 8, 2, 4, 4, 4, 1, 1, 1, 0, 0, 3, 6, 800, 0, 50},
     };
     *sp = V[variant < 0 || variant >= TRS_VARIANTS ? 0 : variant];
 }

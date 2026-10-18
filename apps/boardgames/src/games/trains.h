@@ -93,6 +93,8 @@ typedef struct {
     int together;
     int lo, hi;                                 /* the par sought */
     int tries;                                  /* the networks laid at most */
+    int sym;                                    /* 1: the network mirrored left to right (an odd width) */
+    int natural;                                /* percent: a switch's stem facing the portals (else at random) */
 } trs_spec;
 
 int  trs_parse(trs_map *m, const char *text);   /* 0: not a map */

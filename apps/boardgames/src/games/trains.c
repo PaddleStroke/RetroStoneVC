@@ -54,6 +54,8 @@ static struct {
 static Uint32 flip_t0[TRS_MAXS];
 static uint16_t flip_from;                      /* each switch's setting before its last flip (the lever swinging) */
 static int hint_sw = -1, hint_go, down = -1, serial;
+static int park[TRS_MAXT];                      /* trains stopped at a station before this one there: it waits so
+                                                 * many squares back, one behind the other */
 static float wave[TRS_CELLS];                   /* a square's distance along the track from the portals */
 
 static box last_box;
@@ -515,6 +517,21 @@ static int par(void) { return G.par > 0 ? G.par : 0; }
 static int level_stars(void) { return pzk_stars(ui_par_stars(G.moves, par()), G.hints, G.fails); }
 static int perfect(void) { return solved() && G.moves <= par() && !G.hints && !G.fails; }
 
+static void plan_park(void)
+{
+    for (int i = 0; i < G.m.nt; i++) {
+        park[i] = 0;
+        if (R.len[i] < 2) continue;
+        int c = R.cell[i][R.len[i] - 1], t = R.start[i] + R.len[i] - 1;
+        if (G.m.kind[c] != TRS_STATION) continue;
+        for (int j = 0; j < G.m.nt; j++) {
+            if (j == i || R.len[j] < 2 || R.cell[j][R.len[j] - 1] != c) continue;
+            int tj = R.start[j] + R.len[j] - 1;
+            if (tj < t || (tj == t && j < i)) park[i]++;
+        }
+    }
+}
+
 static void go(void)
 {
     Uint32 now = ui_ms();
@@ -522,6 +539,7 @@ static void go(void)
     if (solved() || run.on) { ui_sound(SND_DENY); return; }
     run.set = G.set;
     trs_go(&G, &R);
+    plan_park();
     run.on = 1;
     run.t0 = now;
     run.tau0 = -0.35f;                          /* a moment's pause, then off they go */
@@ -575,6 +593,7 @@ static int script(const char *moves)
     calm();
     if (solved()) {                             /* the trains at their stations, the light at once */
         trs_simulate(&G.m, G.set, &R);
+        plan_park();
         run.on = 1;
         run.set = G.set;
         run.ms = 1;
@@ -619,7 +638,9 @@ static void pose(int i, float tau, float *x, float *y, float *deg, float *alpha)
         at_piece(c, 4, low_side(G.m.open[c]), 0.5f, x, y, deg, alpha);
         return;
     }
-    if (l > n - 1) l = (float)(n - 1);
+    float end = n - 1 - (float)park[i];         /* behind the trains already there */
+    if (end < 0) end = 0;
+    if (l > end) l = end;
     int k = (int)l;
     float f = l - k;
     if (k >= n - 1) { k = n - 2; f = 1; }
