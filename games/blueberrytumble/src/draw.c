@@ -87,12 +87,13 @@ static int dew_t[MAX_PLAYERS] = {99, 99, 99, 99};       /* frames since each pla
 static int32_t dew_id[MAX_PLAYERS];
 static int cam_d16;                         /* the camera follows the profile under player 1 (px x 16) */
 static int hud_lines;                       /* a tall screen: BG1's top lines pinned at the screen's top (not saved) */
+static int ui_pin;                          /* the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels) */
 static rs_color soil_col;                   /* a tall screen: the backdrop below the stage (not saved: set each frame) */
 static const bt_course *view_course;        /* the course drawn this frame (the sprites' profile) */
 static int relayout, relayout_pause;        /* transient: a state of another width was loaded (state_audit.txt) */
 static int narrow;                          /* a zoomed tall screen narrower than the kit (draw_frame: ht_narrow) */
 static ht_title_out title_out;              /* the narrow title's glyph and slots, set by screen_text every title frame */
-static const ht_title title_cfg = {NULL, MAX_PLAYERS, HU_ROW_SLOTS, 0};   /* (the verb: TR(VERB), set where used) */
+static const ht_title title_cfg = {NULL, MAX_PLAYERS, HT_ROW_SLOTS, 0};   /* (the verb: TR(VERB), set where used) */
 
 /* ---- colour helpers ------------------------------------------------------------------------------------------------- */
 static rs_color rgb(uint32_t h) { return RS_HEX(h); }
@@ -186,6 +187,7 @@ static void raster_out(int line)
         rs_bg_window(RS_BG4, RS_WIN1);
     }
     if (hud_lines && line == top + hud_lines) rs_bg_window(RS_BG1, RS_WIN1);   /* past the HUD's band */
+    if (ui_pin) rs_bg_window(RS_BG1, ht_pin_line(ui_pin, line) ? 0 : RS_WIN1);     /* the pinned UI */
     int k = line < 0 && top < 0 ? -line * 88 / -top : 0;    /* 0 at the stage's top .. 88 at the screen's */
     if (line >= RS_SCREEN_H) rs_pal_set(0, soil_col);
     else rs_pal_set(0, hu_scale_color(line_col[(line & 4) ? 4 : 0], 256 - k));
@@ -854,6 +856,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     int hy = tall && play ? rs_screen_top() : 0;
     hud_lines = tall && play && w->players >= 3 ? 16 : 0;      /* the chips' tags (BG1's top rows) */
     rs_bg_pin(RS_BG1, 0, hud_lines, 0);
+    ui_pin = !ht_narrow() ? HT_PIN_OFF : state == ST_TITLE ? HT_PIN_TITLE : state == ST_OVER ? HT_PIN_PANEL : HT_PIN_OFF;
+    if (ui_pin) ht_pin(ui_pin);                 /* the title and the panels at the same place on every game's screen */
 
     screen_text(w, state, st_t, best, new_best, attempt, &rs);
     if (state == ST_OVER && st_t == RETRY_LOCK) shown_state = -1;      /* redraw once: the retry line appears */
