@@ -350,9 +350,12 @@ static void layout(box b)
     last_box = b;
     load_symbols();
     float side = fminf(b.w, b.h);
-    cs = floorf(side * 0.95f / 3.45f);
-    ccx = b.x + b.w / 2;
-    ccy = b.y + b.h / 2 + 0.02f * side;
+    /* the cube and its shadow in the middle of the room: a turning corner reaches 1.8 cs above the cube's middle, the
+     * shadow 1.95 cs below it (3.75 cs in all, which bounds the scale in landscape); the picture, seen from the right
+     * and above, leans 0.05 cs left */
+    cs = floorf(fminf(side * 0.95f / 3.45f, b.h / 3.75f));
+    ccx = b.x + b.w / 2 + 0.05f * cs;
+    ccy = b.y + b.h / 2 - 0.075f * cs;
     /* the turning cube stays within 1.8 cs of its middle (a corner, sqrt 3 out, a little nearer the eye) */
     int W = 2 * (int)ceilf(1.8f * cs) + 4;
     SDL_RendererInfo ri;
@@ -848,12 +851,14 @@ static void bar(int player, box b)
 {
     (void)player;
     float u = ui.unit, dh = 0.46f * u, cy = b.y + b.h / 2;
+    int ink = ui_ink_dark();
     float after = ui_bar_number(b, NULL, tcb_moves(&G));
     float right = b.x + b.w;
     if (par() > 0) {
         float w = ui_number_w(par(), dh), sz = 0.6f * u;
         int glow = solved() && tcb_moves(&G) <= par();
         if (glow) ui_mark_gold(right - w - 0.12f * u - sz / 2, cy, 2.2f * sz);
+        if (t_flag) SDL_SetTextureColorMod(t_flag, ink ? 50 : 255, ink ? 46 : 255, ink ? 40 : 255);
         if (t_flag) ui_put(t_flag, right - w - 0.12f * u - sz, cy - sz / 2, sz, sz);
         ui_number(right - w / 2, cy, dh, par(), 1);
         right -= w + 0.12f * u + sz + 0.3f * u;
@@ -862,7 +867,8 @@ static void bar(int player, box b)
     int sec = (int)(ms / 1000), mn = sec / 60;
     sec %= 60;
     if (mn > 99) mn = 99;
-    static const uint8_t cream[3] = {236, 222, 190};
+    static const uint8_t cream_[3] = {236, 222, 190}, ink_[3] = {46, 40, 30};   /* the light theme's bar: ink */
+    const uint8_t *cream = ink ? ink_ : cream_;
     float wm = ui_number_w(mn, dh), wd = ui_number_w(0, dh), gap = 0.16f * u, total = wm + gap + 2 * wd;
     float mid = (after + right) / 2, x = mid - total / 2;
     if (x < after + 0.25f * u || x + total > right) return;   /* no room: the clock left out */
