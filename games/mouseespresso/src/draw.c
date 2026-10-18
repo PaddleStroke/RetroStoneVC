@@ -10,6 +10,7 @@
 #include "house_ui.h"
 #include "game_text.h"
 #include "paint.h"
+#include "house_tall.h"    /* a phone held upright: the title and the panels in the columns shown */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -50,8 +51,14 @@ static rs_color tall_scale(rs_color c,int k){   /* darker by k/256, rounded (sof
 }
 #define TALL_PLANKS 112                 /* the back wall's row of planks alone (between the windows and the rail) */
 static int hud_pinned;                  /* the HUD's lines pinned at the screen's top (draw_frame; not saved) */
+/* a tall screen showing fewer than 320 columns: the title's logo in the UI rows LOGO_ROW.. (the band behind the mice
+ * on the counter, else unused), pinned above the stage: logo_pin its first line (a stage line, < 0; 0: none) */
+#define LOGO_ROW 18
+static int logo_pin,logo_lines;         /* draw_frame, before every picture; not saved (logo_lines: its glyphs' lines) */
 static void raster_out(int line){
  int top=rs_screen_top(),beam=top+HUD_LINES;
+ if(logo_pin && line==logo_pin)rs_bg_enable(RS_BG1,1);
+ if(logo_pin && line==logo_pin+logo_lines)rs_bg_enable(RS_BG1,0);
  if(line==top){rs_bg_enable(RS_BG1,hud_pinned);rs_bg_enable(RS_BG2,0);rs_bg_enable(RS_BG3,0);}
  if(line==beam && line<0){rs_bg_enable(RS_BG1,0);rs_bg_enable(RS_BG2,1);rs_bg_enable(RS_BG3,1);}
  if(line==RS_SCREEN_H)for(int l=0;l<3;l++)rs_bg_enable(l,0);
@@ -205,6 +212,66 @@ static void title_ui(int t,int best){
  /* the hint, centred (half a column left of the true centre: the English keeps its column 4) */
  int hx=(38-hu_width(TR(HINT_TITLE),0))/2;hu_text(hx<0?0:hx,16,TR(HINT_TITLE));hu_title_sprites(t,icon,NULL);
 }
+/* the rows s takes wrapped in the columns shown (maxw: its lines' width), with the row above its first line when that
+ * line's accents or CJK glyphs take it */
+static int narrow_rows(const char *s,int maxw){
+ char l[HT_MAXL][HT_LINE];int n=ht_wrap(s,maxw,l,HT_MAXL),r=n>0 && hu_tall(l[0]);
+ for(int i=0;i<n;i++)r+=i?ht_line_rows(l[i]):1;
+ return r;
+}
+/* The title on a tall screen showing fewer than 320 columns (house_tall.h), in the zoomed view of the run: the logo on
+ * two lines in the UI rows LOGO_ROW .. 28 (the band behind the mice on the counter), pinned above the stage
+ * (draw_frame); in the stage's rows 0..17, from the top: the hint, the slots, the prompt, BEST, the join line (wrapped),
+ * the credits on two lines, up to 2 rows between them while they fit (the last ones first); the counter and the mice left clear */
+static int title_narrow(int t,int best){
+ int rows=ht_logo("MOUSE ESPRESSO",title_ramps,2,LOGO_ROW-1,0);
+ /* the kit centres the logo on the 320 columns: its rows turned to centre it in the columns shown (whole tiles) */
+ int mw=rs_bg_map_w(RS_BG1),dc=ht_fdiv8(ht_mid_x()-RS_SCREEN_W/2+4);
+ for(int r=LOGO_ROW;dc && r<LOGO_ROW+rows-1;r++){
+  uint16_t row[128];for(int c=0;c<mw;c++)row[c]=rs_bg_get(RS_BG1,c,r);
+  for(int c=0;c<mw;c++)rs_bg_put(RS_BG1,c,r,row[((c-dc)%mw+mw)%mw]);
+ }
+ char join[160],who[64]="",bs[64]="",prompt[96];int n=hu_players(),cols=ht_ncols();
+ for(int p=n;p<4;p++){size_t k=strlen(who);if(p>n)k+=(size_t)snprintf(who+k,sizeof who-k," / ");if(k<sizeof who)rs_strf(who+k,sizeof who-k,HTR(PLAYER_TAG),p+1);}
+ if(n<4)rs_strf(join,sizeof join,n>1?TR(JOIN_LEAVE_SHORT):TR(JOIN_SHORT),who);
+ else rs_strf(join,sizeof join,"%s",TR(FULL_LEAVE));
+ rs_strf(prompt,sizeof prompt,hu_str(HS_PRESS_TO),TR(VERB));
+ if(best>0)rs_strf(bs,sizeof bs,hu_str(HS_BEST_N),best);
+ /* the items and their rows: the hint, the slots, the prompt (the A glyph left of it), BEST, the join line, the credits */
+ const char *text[6]={TR(HINT_TITLE),NULL,prompt,bs,join,NULL};
+ int h[6]={narrow_rows(text[0],cols),1,narrow_rows(prompt,cols-3),best>0?narrow_rows(bs,cols):0,narrow_rows(join,cols),2};
+ int sum=0,gaps=-1;for(int i=0;i<6;i++)if(h[i]){sum+=h[i];gaps++;}
+ int spare=LOGO_ROW-sum,base=spare<=0?0:spare/gaps>2?2:spare/gaps,extra=base<2 && spare>0?spare-base*gaps:0;
+ ht_title tc={TR(VERB),MAX_PLAYERS,0,0};ht_title_out o;memset(&o,0,sizeof o);
+ int x0,x1;ht_px(&x0,&x1);
+ for(int i=0,r=0,g=0;i<6;r+=h[i]?h[i]+base+(g++>=gaps-extra):0,i++){   /* the extra rows: the last gaps first */
+  if(!h[i])continue;
+  if(i==5){const char *cr1="(C) 2026 8BCRAFT",*cr2="RETROSTONE VC";hu_text(ht_center(cr1,0),r,cr1);hu_text(ht_center(cr2,0),r+1,cr2);continue;}
+  if(i==1){                                                 /* the slots, their tags when there is room */
+   tc.top=r;ht_slots(&tc,&o);
+   if((x1-x0)/4>=44)for(int p=0;p<n;p++){char s[16];rs_strf(s,sizeof s,HTR(PLAYER_TAG),p+1);hu_text(ht_fdiv8(o.slot_cx[p]-28),r,s);}
+   continue;
+  }
+  char l[HT_MAXL][HT_LINE];int nl=ht_wrap(text[i],i==2?cols-3:cols,l,HT_MAXL),first=r+hu_tall(l[0]);
+  if(i!=2){ht_text(first,text[i],0);continue;}
+  int px=ht_center_w(hu_width(l[0],0)+2);                   /* the prompt, blinking; the A glyph (16 px) left of it */
+  o.glyph_x=px*8-4;o.glyph_y=first*8-4;
+  if(hu_blink(t))for(int k=0,rr=first;k<nl;k++){if(k && hu_tall(l[k]))rr++;hu_text(k?ht_center(l[k],0):px+2,rr,l[k]);rr++;}
+ }
+ ht_title_sprites(&tc,&o,t,icon,NULL);
+ return rows-1;
+}
+/* ht_gameover_panel (house_tall.h) with the panel wide enough for the retry line too (ht_over_w leaves it out);
+ * returns the retry line's row */
+static int over_panel(int new_best,const char *retry){
+ int w=ht_over_w(new_best,NULL),rw=hu_width(retry,0)+2,cols=ht_ncols(),r=ht_gameover_retry_row(NULL);
+ if(rw>w)w=rw>cols?cols:rw;
+ int x=ht_center_w(w),bottom=r+ht_text_rows(retry,1)+1;
+ hu_panel(x,9,w,bottom-9+1);
+ const char *lab[3]={hu_str(HS_SCORE),hu_str(new_best?HS_NEW_BEST:HS_BEST),hu_str(HS_MEDAL)};
+ for(int i=0;i<3;i++)hu_box_text(ht_center(lab[i],0),ht_over_label_row(i),lab[i]);
+ return r;
+}
 void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paused){
  nviews=rs_viewport_layout(1,0,VP);hu_clear();rs_oam_clear();rs_brightness(paused?9:15);
  view *v=&V[0];rs_viewport *vp=&VP[0];v->mx=v->my=0;v->zx=v->zy=256;v->cx=w->scroll-draw_wide_left();
@@ -212,15 +279,24 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  for(int y=0;y<240;y++){int k=y*256/240,d=(y&4)?4:0;v->sky[y]=RS_RGB8(192+14*k/256+d,172+16*k/256+d/2,150+12*k/256+d);}
  background(v,vp);int next=1;foreground(w,v,vp,&next);
  vp->sx[0]=vp->sx[1]=vp->sy[0]=vp->sy[1]=0;vp->layers=7;vp->objs=1;
- if(state==ST_TITLE)title_ui(st_t,best);
- /* a tall screen: the run fills the display's height, the columns shown from TALL_BEHIND px behind the first mouse,
-  * the HUD on the ceiling's beam (BG1's top HUD_LINES pinned at the screen's top); the title and the panels show
-  * every column */
+ /* a tall screen: ONE zoomed view, the display's height, the columns shown from TALL_BEHIND px behind the first mouse,
+  * on the title and the panels too (laid out in the columns shown: house_tall.h); the HUD on the ceiling's beam while
+  * the mice fly (BG1's top HUD_LINES pinned at the screen's top); the title's logo pinned above the stage */
  int run=state==ST_PLAY || state==ST_DEAD,hud=tall() && run;
- rs_screen_fill(run);
- if(hud)rs_screen_focus_x(hero_start_x(w->players,0)-TALL_BEHIND+(rs_screen_visible_x1()-rs_screen_visible_x0())/2);
+ rs_screen_fill(run || tall());
+ if(tall())rs_screen_focus_x(hero_start_x(w->players,0)-TALL_BEHIND+(rs_screen_visible_x1()-rs_screen_visible_x0())/2);
  else rs_screen_focus_x(-1);
- rs_bg_pin(RS_BG1,0,hud?HUD_LINES:0,0);hud_pinned=hud;
+ int narrow=ht_narrow();             /* the zoomed screen shows fewer columns than the kit's 320 */
+ logo_pin=0;
+ if(state==ST_TITLE && narrow){       /* the logo's glyphs (1 or 2 lines) 16 lines above the stage, under the beam */
+  logo_lines=title_narrow(st_t,best)*8;
+  logo_pin=-(logo_lines+16);if(logo_pin<=rs_screen_top()+HUD_LINES)logo_pin=rs_screen_top()+HUD_LINES+1;
+  rs_bg_pin(RS_BG1,LOGO_ROW*8,logo_lines,logo_pin+rs_screen_origin_y());
+ }else{
+  rs_bg_pin(RS_BG1,0,hud?HUD_LINES:0,0);
+  if(state==ST_TITLE)title_ui(st_t,best);
+ }
+ hud_pinned=hud;
  int vx0=rs_screen_visible_x0()-rs_screen_origin_x(),vx1=rs_screen_visible_x1()-rs_screen_origin_x();
  int hy=hud?rs_screen_top():0,hc=hud?((vx0+vx1)/2-160)/8:0;   /* the HUD's top, its centre's offset in columns */
  if(run){
@@ -230,12 +306,22 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
    if(hud)hu_text((vx0+4)/8+p*((vx1-vx0)/8)/4,4,text);   /* (a tall screen: under the corner buttons, in the columns shown) */
    else hu_text(p*10,1,text);
   }
-  if(paused)hu_big(hu_center(HTR(PAUSED),1),13,HTR(PAUSED),HU_BIG_FREE);
+  if(paused && narrow)ht_big(13,HTR(PAUSED),HU_BIG_FREE);    /* centred in the columns shown */
+  else if(paused)hu_big(hu_center(HTR(PAUSED),1),13,HTR(PAUSED),HU_BIG_FREE);
  }
  if(state==ST_TITLE || state==ST_PLAY || state==ST_DEAD)scene(w,w->t,v,vp);
  if(state==ST_OVER){
   hu_standing rank;ranking(w,&rank);int slide=hu_slide_in(st_t,20,200);
-  if(w->players==1){
+  if(narrow && w->players==1){         /* zoomed: the panels narrower, in the columns shown (house_tall.h) */
+   static const int medals[4]=MEDAL_SCORES;
+   ht_banner(4,HTR(GAME_OVER));int r=over_panel(new_best,HTR(BACK_TITLE));
+   ht_gameover_sprites(w->h[0].score,best,hu_medal_of(w->h[0].score,medals),st_t,slide);
+   ht_retry_line_at(r,st_t,RETRY_LOCK,HTR(BACK_TITLE));
+  }else if(narrow){
+   ht_results_panel(&rank,NULL);ht_results_sprites(&rank,st_t,slide);
+   for(int i=0;i<rank.n;i++){int x,y;ht_results_icon_pos(&rank,i,&x,&y);spr(SPR_HERO_ICON,x-8+hu_ui_x(),y-8+slide,3,ppal(rank.order[i]),vp);}
+   ht_retry_line_at(hu_results_retry_row(&rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));
+  }else if(w->players==1){
    static const int medals[4]=MEDAL_SCORES;hu_banner(4,HTR(GAME_OVER));hu_gameover_panel(1,new_best,w->h[0].score,0);
    hu_gameover_sprites(1,w->h[0].score,0,best,hu_medal_of(w->h[0].score,medals),st_t,slide);hu_retry_line(st_t,RETRY_LOCK,HTR(BACK_TITLE));
   }else{

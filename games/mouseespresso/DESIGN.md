@@ -188,6 +188,17 @@ most of the course ahead (199 px of the 248 at 4:3 on a 1080x2520 phone, 217 on 
 - **The HUD on the beam**: BG1's top 44 lines pinned at the screen's top (`rs_bg_pin`) while the mice fly, the score
   sprites at `rs_screen_top()`, centred in the columns shown; 2-4 players: the tags on row 4, under the frontend's corner
   buttons, spread over the columns shown.
-- **Fill or fit**: the title and the panels show every column (`rs_screen_fill(0)`), the run fills the height.
+- **One view** (the owner, on his phone: "when in menu the view is different from when in game"): the title, the
+  pause, the game-over panel and the 2-4 players' results stay in the run's zoomed view (`rs_screen_fill(1)`, the same
+  columns from `TALL_BEHIND` px behind the first mouse: the title is the run's first frame), never the full width. Play
+  is one shared screen for 1-4 players, so nothing needs every column. When fewer than 320 columns show
+  (`ht_narrow()`), the screens are laid out in them with games/common/src/house_tall.h: the game-over panel narrower
+  (each value under its label, wide enough for the retry line), the ranking, the banners, PAUSED centred. The title
+  (draw.c `title_narrow`): the logo on two lines (one at 720x1440) is drawn in the UI rows 18..28, the band behind the
+  mice resting on the counter (else unused), turned by whole tiles to centre it in the columns shown, and pinned
+  (`rs_bg_pin`) 16 lines above the stage, the raster showing BG1 there; the stage's rows 0..17 hold, from the top, the
+  hint, the players' slots, the prompt, BEST, the join line (each wrapped) and the credits on two lines, up to two rows
+  between them while they fit (the long Polish, Greek or Japanese lines: fewer); the counter and the mice stay clear.
+  Checked in en, de, el, fr, ja, pl, ru, tr and uk at 1080x2520 (231 columns), 1080x2340 and 720x1440.
 - Landscape and 4:3 are the same pixels as before (checked at 2340x1080 and 320x240). The frontend's touch zone (hold
   anywhere) is the whole screen.
