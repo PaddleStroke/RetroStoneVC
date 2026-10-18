@@ -1,6 +1,8 @@
 /*
  * Peg Solitaire's levels, made by chance and chosen: src/games/pegsolitaire_levels.h. Our own positions: no published
- * problem is used. Two kinds:
+ * problem is used. Three kinds:
+ *   - pictures: symmetric positions grown as one clump from the board's middle (or gaps opened in a full board),
+ *     their goal a hole the symmetry keeps, solved by the rules' search (see picture() below); preferred;
  *   - positions played backwards from one marble in a goal hole (the rules' ps_random: a goal drawn, then jumps undone
  *     at random), so each has a known way to one marble in its goal; graded by the marbles and by how often a player
  *     jumping at random gets there (300 games: the rarer, the harder);
@@ -10,7 +12,8 @@
  *     no jump changes) is the start's.
  * Mirror and rotation duplicates are dropped. Six chapters by the marbles at the start (3..6, 7..10, 11..14, 15..19,
  * 20..26, 27 and more), the English board and the small triangle first, the others from the second and third
- * chapters; 25 each, chosen evenly over the chapter's grades, easiest first; the full boards end their chapters.
+ * chapters; 25 each, chosen evenly over the chapter's grades, easiest first, a picture taken when one is near that
+ * grade; the full boards end their chapters.
  *   gcc -O2 -Iapps/boardgames/src -o /tmp/psgen apps/boardgames/tools/pegsolitaire_gen.c \
  *       apps/boardgames/src/games/pegsolitaire_rules.c -lm \
  *       && /tmp/psgen > apps/boardgames/src/games/pegsolitaire_levels.h
@@ -29,9 +32,10 @@
 #define PLAYS 300
 #define TRIED (1 << 20)
 #define FULL_BUDGET 30000000L
+#define PIC_BUDGET 500000L                      /* a picture's search: the hard ones are dropped, not waited for */
 
 typedef struct {
-    int board, goal, pegs, succ;
+    int board, goal, pegs, succ, pic, used;
     uint64_t mask;
     float grade;
     char sol[PS_MAXH * 5 + 1];
@@ -225,6 +229,118 @@ static int full_board(int board, level *L)
     return 0;
 }
 
+/* ---- the pictures: symmetric positions ------------------------------------------------------------------------- */
+/* A position drawn as a picture: its marbles symmetric (a mirror, both mirrors, a half turn or all eight turns of
+ * the crosses; one of the triangles' three mirrors), grown as one clump from the board's middle (or, for the full
+ * chapters, the board filled and symmetric gaps opened), its goal a hole the symmetry keeps in place, nearest the
+ * middle; kept when the rules' search finds the way to one marble in that goal. */
+static const int GROUPS[7][3] = {{1, 0, 0}, {2, 0, 0}, {3, 0, 0}, {4, 0, 0}, {5, 0, 0}, {1, 2, 0}, {1, 2, 4}};
+static const int TRI_GROUPS[4] = {1, 2, 5, 3};  /* the triangles' three mirrors, and their third of a turn */
+
+static int orbit(const psgame *g, const int *gen, int c, int *out)
+{
+    int n = 0;
+    out[n++] = c;
+    for (int i = 0; i < n; i++)
+        for (int k = 0; k < 3 && gen[k]; k++) {
+            int d = turn_cell(g, gen[k], out[i]);
+            if (d < 0) return 0;
+            int dup = 0;
+            for (int j = 0; j < n; j++) dup |= out[j] == d;
+            if (!dup) out[n++] = d;
+        }
+    return n;
+}
+
+static int picture(int board, int want, level *L)
+{
+    psgame g;
+    ps_board(&g, board);
+    int gen[3] = {0, 0, 0};
+    if (g.tri) gen[0] = TRI_GROUPS[pr_below(&rng, 4)];
+    else memcpy(gen, GROUPS[pr_below(&rng, 7)], sizeof gen);
+    int cells[PS_MAXH], n = 0, orb[8];
+    float mx = 0, my = 0;
+    for (int c = 0; c < PS_CELLS; c++)
+        if (g.hole[c]) {
+            if (!orbit(&g, gen, c, orb)) return 0;       /* the board does not have this symmetry */
+            cells[n++] = c;
+            mx += c % PS_SIDE;
+            my += c / PS_SIDE;
+        }
+    mx /= n;
+    my /= n;
+    int dense = want > g.holes / 2;
+    uint8_t on[PS_CELLS];
+    for (int c = 0; c < PS_CELLS; c++) on[c] = dense ? g.hole[c] : 0;
+    int count = dense ? g.holes : 0, target = dense ? g.holes - want : want, grown = 0;
+    /* a clump (of marbles, or of gaps) grown from near the middle: each step an orbit next to it */
+    while (grown < target) {
+        int pick[PS_MAXH], np = 0;
+        for (int i = 0; i < n; i++) {
+            int c = cells[i], x = c % PS_SIDE, y = c / PS_SIDE, near = 0;
+            if (on[c] != dense) continue;
+            if (!grown) near = hypotf(x - mx, y - my) < 1.6f;
+            else
+                for (int dy = -1; dy <= 1; dy++)
+                    for (int dx = -1; dx <= 1; dx++) {
+                        int X = x + dx, Y = y + dy;
+                        if ((dx || dy) && X >= 0 && Y >= 0 && X < PS_SIDE && Y < PS_SIDE && g.hole[Y * PS_SIDE + X] &&
+                            on[Y * PS_SIDE + X] != dense)
+                            near = 1;
+                    }
+            if (near) pick[np++] = c;
+        }
+        if (!np) return 0;
+        int k = orbit(&g, gen, pick[pr_below(&rng, np)], orb);
+        if (grown + k > target + 1) {           /* too big: another try with the smallest orbit at hand */
+            int best = -1, bk = 99;
+            for (int i = 0; i < np; i++) {
+                int kk = orbit(&g, gen, pick[i], orb);
+                if (kk < bk) { bk = kk; best = pick[i]; }
+            }
+            if (grown + bk > target + 1) break;
+            k = orbit(&g, gen, best, orb);
+        }
+        for (int j = 0; j < k; j++) on[orb[j]] = !dense;
+        grown += k;
+        count += dense ? -k : k;
+    }
+    if (count < LO[0] || count > HI[PS_CHAPTERS - 1] || count > g.holes - 2) return 0;
+    /* the goal: a hole the symmetry keeps (an orbit of one), nearest the middle; then the solving */
+    int goals[PS_MAXH], ng = 0;
+    for (int i = 0; i < n; i++)
+        if (orbit(&g, gen, cells[i], orb) == 1) goals[ng++] = cells[i];
+    if (!ng) return 0;
+    for (int i = 1; i < ng; i++)
+        for (int j = i; j > 0; j--) {
+            float da = hypotf(goals[j] % PS_SIDE - mx, goals[j] / PS_SIDE - my);
+            float db = hypotf(goals[j - 1] % PS_SIDE - mx, goals[j - 1] / PS_SIDE - my);
+            if (da >= db) break;
+            int t = goals[j];
+            goals[j] = goals[j - 1];
+            goals[j - 1] = t;
+        }
+    memcpy(g.peg, on, sizeof g.peg);
+    memcpy(g.start, on, sizeof g.start);
+    g.pegs = count;
+    for (int i = 0, tries = 0; i < ng && tries < 2; i++) {
+        uint8_t one[PS_CELLS] = {0};
+        one[goals[i]] = 1;
+        if (klass(&g, g.peg) != klass(&g, one)) continue;
+        tries++;
+        g.goal = goals[i];
+        psmove path[PS_MAXH];
+        if (ps_solve(&g, g.goal, path, PIC_BUDGET) != 1) continue;
+        memcpy(g.sol, path, sizeof path);
+        g.nsol = g.pegs - 1;
+        finish(L, &g);
+        L->pic = 1;
+        return 1;
+    }
+    return 0;
+}
+
 static int cmp(const void *a, const void *b)
 {
     float d = ((const level *)a)->grade - ((const level *)b)->grade;
@@ -255,8 +371,9 @@ int main(void)
         if (full_board(b, &full[nfull])) nfull++;
     static const char *const head[] = {
         "/*",
-        " * Peg Solitaire's levels: our own positions, made by tools/pegsolitaire_gen.c (played backwards from one",
-        " * marble in the goal hole, and the classic full boards solved by search), six chapters of 25 by the marbles",
+        " * Peg Solitaire's levels: our own positions, made by tools/pegsolitaire_gen.c (symmetric pictures solved by",
+        " * search, positions played backwards from one marble in the goal hole, the classic full boards solved by",
+        " * search), six chapters of 25 by the marbles",
         " * at the start, each from the easiest. Each: its board, its goal hole (a cell of the 9 x 9 grid), its marbles",
         " * (bit i: the board's hole i, in cell order) and a way to one marble in the goal; then (in the comment) the",
         " * marbles, how many of 300 games played at random end in the goal, its grade.",
@@ -267,7 +384,22 @@ int main(void)
     for (size_t i = 0; i < sizeof head / sizeof head[0]; i++) printf("%s\n", head[i]);
     int number = 0;
     for (int ch = 0; ch < PS_CHAPTERS; ch++) {
-        int nc = 0;
+        int nc = 0, npic = 0;
+        /* the pictures first (fewer tries for the big chapters: their searches are long) */
+        for (long tries = 0, most = ch < 4 ? 20000 : 3000; nc < CANDS / 2 && tries < most; tries++) {
+            int board;
+            do board = pr_below(&rng, PS_BOARDS);
+            while (!(BOARDS[ch] >> board & 1));
+            int want = LO[ch] + pr_below(&rng, HI[ch] - LO[ch] + 1);
+            level L;
+            memset(&L, 0, sizeof L);
+            if (!picture(board, want, &L) || L.pegs < LO[ch] || L.pegs > HI[ch]) continue;
+            psgame h;
+            ps_set(&h, L.board, L.goal, L.mask, NULL);
+            if (tried(key_of(&h))) continue;
+            cand[nc++] = L;
+        }
+        npic = nc;
         for (long tries = 0; nc < CANDS && tries < 300000; tries++) {
             int board;
             do board = pr_below(&rng, PS_BOARDS);
@@ -279,6 +411,7 @@ int main(void)
             ps_random(&g, board, pr_next(&rng), want - 1);
             if (g.pegs != want) continue;
             if (tried(key_of(&g))) continue;
+            memset(&cand[nc], 0, sizeof cand[nc]);
             finish(&cand[nc++], &g);
         }
         qsort(cand, (size_t)nc, sizeof(level), cmp);
@@ -286,19 +419,34 @@ int main(void)
         level *ends[PS_BOARDS];
         for (int i = 0; i < nfull; i++)
             if (full[i].pegs >= LO[ch] && full[i].pegs <= HI[ch]) ends[nf++] = &full[i];
-        fprintf(stderr, "chapter %d: %d candidates, grades %.1f..%.1f, %d full boards\n", ch + 1, nc,
-                nc ? cand[0].grade : 0, nc ? cand[nc - 1].grade : 0, nf);
+        fprintf(stderr, "chapter %d: %d candidates (%d pictures), grades %.1f..%.1f, %d full boards\n", ch + 1, nc,
+                npic, nc ? cand[0].grade : 0, nc ? cand[nc - 1].grade : 0, nf);
         int take = PER - nf;
         if (nc < take) {
             fprintf(stderr, "chapter %d: too few candidates\n", ch + 1);
             return 1;
         }
         for (int i = 0; i < PER; i++) {
-            const level *L = i < take ? &cand[take > 1 ? (int)((long)(nc - 1) * i / (take - 1)) : 0] : ends[i - take];
+            const level *L = ends[i < take ? 0 : i - take];
+            if (i < take) {                     /* evenly over the grades, a picture near there first */
+                int at = take > 1 ? (int)((long)(nc - 1) * i / (take - 1)) : 0, pick = -1;
+                for (int d = 0; pick < 0 && d <= 12; d++)
+                    for (int sgn = -1; sgn <= 1 && pick < 0; sgn += 2) {
+                        int j = at + sgn * d;
+                        if (j >= 0 && j < nc && !cand[j].used && cand[j].pic) pick = j;
+                    }
+                for (int d = 0; pick < 0 && d < nc; d++)
+                    for (int sgn = -1; sgn <= 1 && pick < 0; sgn += 2) {
+                        int j = at + sgn * d;
+                        if (j >= 0 && j < nc && !cand[j].used) pick = j;
+                    }
+                cand[pick].used = 1;
+                L = &cand[pick];
+            }
             printf("    {%s, %d, 0x%llxull,\n     ", NAME[L->board], L->goal, (unsigned long long)L->mask);
             print_sol(L->sol);
             printf("}, /* %d: %s, %d marbles, %d of %d at random, %.1f%s */\n", ++number, WORD[L->board], L->pegs,
-                   L->succ, PLAYS, L->grade, i < take ? "" : ", the full board");
+                   L->succ, PLAYS, L->grade, i >= take ? ", the full board" : L->pic ? ", a picture" : "");
         }
     }
     printf("};\n");
