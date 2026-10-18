@@ -65,11 +65,13 @@ static void raster_out(int line)
     }
 }
 
+static int ui_pin;                        /* the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels) */
 static void raster(int line, void *user)
 {
     (void)user;
     if (line < 0 || line >= RS_SCREEN_H) {
         raster_out(line);
+        if (ui_pin) rs_bg_enable(RS_BG1, ht_pin_line(ui_pin, line));
         return;
     }
     if (line == 0 && rs_screen_height() > RS_SCREEN_H) {  /* back from raster_out: the stage's own settings */
@@ -77,6 +79,7 @@ static void raster(int line, void *user)
         rs_bg_scroll(RS_BG2, seabed_x, 0);
         rs_pal_load(RS_PAL_BG(PAL_SEABED), ls_seabed_pal, 16);
     }
+    if (ui_pin) rs_bg_enable(RS_BG1, ht_pin_line(ui_pin, line));
     rs_pal_set(0, line_col[line]);
     if (line == 0) rs_math(RS_MATH_ADD, RS_MATH_BG4, 0);
     else if (line == RAYS_END) rs_math(RS_MATH_OFF, 0, 0);
@@ -561,6 +564,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     if (redraw_pause && paused) hu_pause(0, 13);  /* the UI layer was set up again (a state of another width) */
     redraw_pause = 0;
     ht_pause_dx(paused, 13, ui_dx);              /* (house_tall.h: PAUSED centred on the columns shown) */
+    ui_pin = !ht_narrow() ? HT_PIN_OFF : state == DS_TITLE ? HT_PIN_TITLE : state == DS_OVER ? HT_PIN_PANEL : HT_PIN_OFF;
+    ht_pin(ui_pin);                              /* the title and the panels at the same place on every game's screen */
 
     rs_oam_clear();
     /* front to back: UI, squids, ink and weights, caps, bubbles */
