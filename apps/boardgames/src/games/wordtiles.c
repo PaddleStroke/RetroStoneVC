@@ -396,7 +396,8 @@ static void paint_knob(int kind, int s, uint8_t *o)
         return;
     }
     }
-    art_fig_paint(o, s, f, CREAM, NULL, 0, 0.1f);
+    static const uint8_t white[3] = {255, 255, 255};   /* tinted as the shell's icons (UI_TINT): cream, or ink */
+    art_fig_paint(o, s, f, white, NULL, 0, 0.1f);
 }
 
 /* the score's disc: turned walnut */
@@ -900,7 +901,7 @@ static void draw_knobs(void)
                  : P->phase == WP_FINAL ? UI_LIT : ok ? UI_LIT : UI_DIM;
     for (int k = K_RECALL; k < KNOBS; k++) {
         if (k == K_PLAY) ui_button(T.kx[k], T.ky[k], d, ICON_TICK, st[k]);
-        else ui_button_paint(T.kx[k], T.ky[k], d, paint_knob, k, 1, st[k]);
+        else ui_button_paint(T.kx[k], T.ky[k], d, paint_knob, k, 1, st[k] | (k == K_CHALLENGE ? 0 : UI_TINT));
     }
     /* the bag and the tiles still in it */
     float bs = 0.9f * T.kd;
