@@ -187,6 +187,34 @@ static void paint_window(uint8_t *o, int cols, int rows, int s, int f, const uin
     free(m);
 }
 
+/* the key group's mark, d x d: an inlaid dot of red lacquer (kind 0: to kill) or gold (1: to save), domed, rimmed */
+static void paint_mark(int kind, int d, uint8_t *o)
+{
+    static const float TONE[2][3] = {{200, 50, 38}, {250, 198, 78}}, RIM[2] = {0.55f, 0.3f};
+    const float *t = TONE[kind != 0];
+    float R = 0.47f * d, m = d / 2.0f;
+    for (int py = 0; py < d; py++)
+        for (int px = 0; px < d; px++) {
+            float col[3] = {0, 0, 0}, cov = 0;
+            for (int s = 0; s < 9; s++) {           /* 3 x 3 samples a pixel */
+                float x = (px + (s % 3 + 0.5f) / 3 - m) / R, y = (py + (s / 3 + 0.5f) / 3 - m) / R, r2 = x * x + y * y;
+                if (r2 >= 1) continue;
+                float z = sqrtf(1 - r2), lit = (-0.45f * x - 0.55f * y + 0.7f * z) / 1.0f;   /* up to the left */
+                float k = 0.62f + 0.5f * fmaxf(0, lit), rim = clampf((sqrtf(r2) - 1) * R / 1.3f + 1, 0, 1);
+                float hl = 0.55f * powf(fmaxf(0, lit), 24);
+                for (int j = 0; j < 3; j++) {
+                    float v = clampf(t[j] * k, 0, 255);
+                    v += (255 - v) * hl;
+                    col[j] += v * (1 - RIM[kind != 0] * rim);
+                }
+                cov += 1;
+            }
+            uint8_t *p = o + 4 * ((size_t)py * d + px);
+            for (int j = 0; j < 3; j++) p[j] = (uint8_t)(cov > 0 ? col[j] / cov : 0);
+            p[3] = (uint8_t)(255 * cov / 9 + 0.5f);
+        }
+}
+
 /* the goal's picture: the key stone (White to kill, Black to save) in its glow */
 static void paint_goal(int kind, int size, uint8_t *o)
 {
@@ -199,7 +227,7 @@ static void paint_goal(int kind, int size, uint8_t *o)
     grid_token(kind == GPZ_KILL ? 1 : 0, d, st);
     art_blend(o, size, size, st, d, d, (size - d) / 2, (size - d) / 2);
     int md = d / 3;                             /* its dot, as on the board */
-    art_disc(md, kind == GPZ_KILL ? RED : GOLD, 1, 0, st);
+    paint_mark(kind == GPZ_KILL ? 0 : 1, md, st);
     art_blend(o, size, size, st, md, md, (size - md) / 2, (size - md) / 2);
     free(st);
 }
@@ -230,11 +258,10 @@ static void layout(box b)
         int rs = (int)fmaxf(8, 0.46f * s);
         static const uint8_t WHITE[3] = {255, 255, 255};
         ui_free(&t_ring);
-        static const uint8_t MARK[2][3] = {{226, 40, 30}, {250, 196, 60}};
         int md = (int)fmaxf(6, 0.24f * s);
         for (int k = 0; k < 2; k++) {
             ui_free(&t_mark[k]);
-            art_disc(md, MARK[k], 1, 0, ui_buf(md, md));
+            paint_mark(k, md, ui_buf(md, md));
             t_mark[k] = ui_tex(md, md, ui_buf(md, md));
         }
         art_ring(rs, 0.70f, WHITE, 1, ui_buf(rs, rs));
@@ -446,7 +473,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
     int md = (int)fmaxf(3, 0.26f * s);            /* the white group's dots */
     uint8_t *dot = malloc((size_t)md * md * 4);
     if (!dot) return;
-    art_disc(md, RED, 1, 0, dot);
+    paint_mark(0, md, dot);
     for (int i = 0; i < 5; i++)
         art_blend(rgba, size, size, dot, md, md, pic.x0 + white[i][0] * s + (s - md) / 2,
                   pic.y0 + white[i][1] * s + (s - md) / 2);
