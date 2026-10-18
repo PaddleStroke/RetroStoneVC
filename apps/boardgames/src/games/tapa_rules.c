@@ -623,7 +623,7 @@ int tpa_clue(const tpa_game *g, int c)
         if (g->st[o] == TPA_SHADE) on |= 1u << i;
         else if (g->st[o] == TPA_EMPTY) open |= 1u << i;
     }
-    if (same_runs(on, g->p.count[c], g->p.num[c])) return 2;
+    if (same_runs(on, g->p.count[c], g->p.num[c])) return open ? 0 : 2;   /* kept only once its ring is all decided */
     for (unsigned b = 0; b < 256; b++)          /* a way the empty cells round it could still make its runs */
         if ((b & on) == on && !(b & ~(on | open)) && same_runs(b, g->p.count[c], g->p.num[c])) return 0;
     return 1;

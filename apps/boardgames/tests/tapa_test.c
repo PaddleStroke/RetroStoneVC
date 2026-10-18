@@ -108,7 +108,10 @@ int main(void)
         tpa_decode("3:....3,....", &F.p);      /* a clue 3 in the middle */
         CHECK(tpa_clue(&F, 4) == 0 && !tpa_free(&F, 4));
         F.st[0] = F.st[1] = F.st[2] = TPA_SHADE;
-        CHECK(tpa_clue(&F, 4) == 2 && tpa_solved(&F));
+        CHECK(tpa_clue(&F, 4) == 0 && tpa_solved(&F));   /* its runs there, its ring still open: not faded yet */
+        F.st[3] = F.st[5] = F.st[6] = F.st[7] = F.st[8] = TPA_DOT;
+        CHECK(tpa_clue(&F, 4) == 2);
+        F.st[3] = F.st[5] = F.st[7] = F.st[8] = TPA_EMPTY;
         F.st[6] = TPA_SHADE;
         CHECK(tpa_clue(&F, 4) == 1 && !tpa_solved(&F));
         F.st[6] = TPA_EMPTY;
@@ -116,6 +119,13 @@ int main(void)
         CHECK(tpa_clue(&F, 4) == 0);
         F.st[3] = F.st[5] = F.st[6] = F.st[7] = F.st[8] = TPA_DOT;
         CHECK(tpa_clue(&F, 4) == 1);
+        memset(&F, 0, sizeof F);             /* a clue 0: not faded until every cell round it has its dot */
+        tpa_decode("3:....0,....", &F.p);
+        CHECK(tpa_clue(&F, 4) == 0);
+        F.st[0] = F.st[1] = F.st[2] = F.st[3] = F.st[5] = F.st[6] = F.st[7] = TPA_DOT;
+        CHECK(tpa_clue(&F, 4) == 0);
+        F.st[8] = TPA_DOT;
+        CHECK(tpa_clue(&F, 4) == 2);
         memset(&F, 0, sizeof F);
         tpa_decode("3:.........", &F.p);
         F.st[0] = F.st[1] = F.st[3] = F.st[4] = TPA_SHADE;

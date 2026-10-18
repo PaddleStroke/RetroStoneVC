@@ -75,7 +75,8 @@ int  tpa_hold_state(const tpa_game *g, int c);
 int  tpa_paint(tpa_game *g, const int *cells, int n, int state);
 int  tpa_hint(tpa_game *g);
 int  tpa_undo(tpa_game *g);
-/* a clue against the player's shading: 1 broken (its runs cannot be its numbers any more), 2 kept, 0 else */
+/* a clue against the player's shading: 1 broken (its runs cannot be its numbers any more), 2 kept (its runs there
+ * and none of its neighbours left empty: each shaded or a dot), 0 else */
 int  tpa_clue(const tpa_game *g, int c);
 int  tpa_square(const tpa_game *g, int c);      /* a shaded cell of an all shaded 2 x 2 */
 int  tpa_solved(const tpa_game *g);

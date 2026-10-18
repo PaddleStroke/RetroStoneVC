@@ -9,9 +9,10 @@
  * along a row or a column to do the same to a stretch (the cells as the first one was). The keys: the arrows move a
  * frame, Enter shades, Space puts a dot, Tab (or I) gives a hint. The shell's tools: what a tap does (shade, or a dot:
  * tap it to swap tap and hold), and the hint (a wrong cell put right, else the next cell reasoning finds, in gold
- * light). A clue whose ring can no longer give its runs turns red, one whose runs are all there fades; an all shaded
- * 2 x 2 glows red. Undo takes back one action, all the way to the start. The bar: the moves. Solved: a wave of gold
- * light runs over the grid; the stars count the hints and the mistakes (bench.h).
+ * light). A clue whose ring can no longer give its runs turns red; one whose runs are all there, with each of its
+ * neighbours decided (shaded or a dot), fades. An all shaded 2 x 2 glows red. Undo takes back one action, all the way
+ * to the start. The bar: the moves. Solved: a wave of gold light runs over the grid; the stars count the hints and
+ * the mistakes (bench.h).
  * The shell's level screen chooses a level (150 in six chapters, made by tools/tapa_gen.c: tapa_levels.h), or its die
  * tab a puzzle made at random (the variants).
  */
