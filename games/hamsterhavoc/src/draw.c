@@ -41,6 +41,7 @@ static int star_sx, star_sy, deco_sx, deco_sy;
 #define HUD_LINES  32
 #define HUD_ROW2   20
 static int hud_lines;
+static int ui_pin;                          /* the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels) */
 static int hud_bottom(void) { return rs_screen_height() > RS_SCREEN_H ? HUD_ROW2 : 0; }
 #define PLANET_X   72           /* the ringed planet above the stage: its centre, stage x ... */
 #define PLANET_PX  360          /* ... the decor's (stage x of the margin's planet, on a wide screen) */
@@ -53,8 +54,7 @@ static int hud_bottom(void) { return rs_screen_height() > RS_SCREEN_H ? HUD_ROW2
 #define TPLANET_X  210          /* the ringed planet, stage x, above the stage (behind the saucer's lane) */
 #define TPLANET_Y  (-78)        /* its top line */
 #define TWAVE_ROW  13
-#define TTITLE_MICE_Y (-40)     /* the title: the mice marching above the logo, the ship under it (stage y) */
-#define TTITLE_SHIP_Y 113
+#define TTITLE_MICE_Y (-40)     /* the title: the mice marching above the logo (stage y, before the pin) */
 static int maps_tall = -1;      /* the layout the BG maps were set up for (saved: a state brings its maps) */
 int draw_tall(void) { return rs_screen_height() >= ZOOM_H; }
 
@@ -75,6 +75,7 @@ static void raster_out(int line)
         rs_obj_window(line < 0 && hud_lines ? 0 : RS_WIN1);
     }
     if (hud_lines && line == top + hud_lines) rs_bg_window(RS_BG1, RS_WIN1);     /* past the HUD's band ... */
+    if (ui_pin) rs_bg_window(RS_BG1, ht_pin_line(ui_pin, line) ? 0 : RS_WIN1);     /* the pinned UI */
     if (hud_lines && line == top + HUD_ROW2 + 16) rs_obj_window(RS_WIN1);        /* ... and its second row's digits */
     if (line < 0) {
         int k = -line * 120 / -top;                         /* 0 at the stage's top .. 120 at the screen's */
@@ -419,7 +420,7 @@ static void text_centered(int row, const char *s, int big)
 }
 
 /* ---- the portrait screens: the house's uniform portrait UI (house_tall.h, its default rows) ------------------------ */
-static const ht_title narrow_title = {NULL, MAX_PLAYERS, HU_ROW_SLOTS, 0, NULL};   /* (PRESS A TO PLAY) */
+static const ht_title narrow_title = {NULL, MAX_PLAYERS, HT_ROW_SLOTS, 0, NULL};   /* (PRESS A TO PLAY) */
 static ht_title_out narrow_out;         /* (set by screen_text every title frame, before the sprites: not saved) */
 
 /* the HUD at the screen's top (sprites): 1 player the score centred; 2 the halves of the middle; 3-4 two rows, each
@@ -551,6 +552,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     /* a tall screen (DESIGN.md "Tall screen"): during a run the score chips and the tags at the screen's top */
     hud_lines = !tall && rs_screen_height() > RS_SCREEN_H && (state == ST_PLAY || state == ST_DEAD) ? HUD_LINES : 0;
     rs_bg_pin(RS_BG1, 0, hud_lines, 0);
+    ui_pin = !ht_narrow() ? HT_PIN_OFF : state == ST_TITLE ? HT_PIN_TITLE : state == ST_OVER ? HT_PIN_PANEL : HT_PIN_OFF;
+    if (ui_pin) ht_pin(ui_pin);                 /* the title and the panels at the same place on every game's screen */
     if (ht_narrow()) ht_pause(paused, 13);
     else hu_pause(paused, 13);
 
@@ -586,13 +589,14 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     }
     if (state == ST_TITLE && ht_narrow()) ht_title_sprites(&narrow_title, &narrow_out, st_t, slot_icon, NULL);
     if (state == ST_TITLE && tall) {
-        /* the mice marching above the logo, the hamster's ship bobbing under it (house_tall.h's rows kept clear) */
+        /* the mice marching above the logo (pinned with it: house_tall.h ht_pin_dy), the hamster's ship bobbing under
+         * the slots (ht_title_out gap_y0..1) */
         int b = hu_bob(st_t, 64, READY_BOB), f = (st_t / 30) % 2, step = ((st_t / 30) % 8) - 4;
         step = step < 0 ? -step : step;
         for (int i = 0; i < 5; i++)
             spr((i == 2 ? SPR_MOUSE_C : i & 1 ? SPR_MOUSE_B : SPR_MOUSE_A) + f, 160 - 8 + (i - 2) * 24 + step - 2,
-                TTITLE_MICE_Y, 2, -1, i > 2 ? RS_SPR_HFLIP : 0);
-        spr(SPR_SHIP + (st_t % 150 < 8), 160 - 16, TTITLE_SHIP_Y + b, 2, 0, 0);
+                TTITLE_MICE_Y + ht_pin_dy(HT_PIN_TITLE), 2, -1, i > 2 ? RS_SPR_HFLIP : 0);
+        spr(SPR_SHIP + (st_t % 150 < 8), 160 - 16, (narrow_out.gap_y0 + narrow_out.gap_y1) / 2 - 14 + b, 2, 0, 0);
     } else if (state == ST_TITLE) {
         if (!ht_narrow()) hu_title_sprites(st_t, slot_icon, NULL);   /* the prompt's glyph, the joined players popping in */
         /* the hamster's ship bobs under the logo, two space mice march beside it */
