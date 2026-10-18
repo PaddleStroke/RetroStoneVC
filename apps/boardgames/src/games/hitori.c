@@ -38,7 +38,7 @@ static int serial;
 
 static box last_box;
 static int made_key = -1, made_small = -1;
-static SDL_Texture *t_board, *t_tile, *t_ring, *t_small;
+static SDL_Texture *t_board, *t_tile, *t_ring, *t_shade, *t_small;
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* an ebony tile within a cell (a picture size x size): dark, rounded and bevelled */
@@ -58,6 +58,18 @@ static void tile_pic(int size, uint8_t *o)
     puz_bevel(b, w, w, 0.12f * w, fmaxf(2, 0.09f * w), 0.34f);
     art_blend(o, size, size, b, w, w, in, in);
     free(b);
+}
+
+/* a tile's shadow on the plank: the tile's rounded square, soft-edged (drawn a little down and right of it) */
+static void shade_pic(int size, uint8_t *o)
+{
+    float c = size / 2.0f, h = 0.4f * size, r = 0.12f * size, soft = 0.09f * size;
+    for (int y = 0; y < size; y++)
+        for (int x = 0; x < size; x++) {
+            float dx = fmaxf(fabsf(x + 0.5f - c) - (h - r), 0), dy = fmaxf(fabsf(y + 0.5f - c) - (h - r), 0);
+            float d = hypotf(dx, dy) - r, t = clampf(0.5f - d / soft, 0, 1);
+            o[4 * ((size_t)y * size + x) + 3] = (uint8_t)(t * t * (3 - 2 * t) * 120);
+        }
 }
 
 /* an ink ring round a cell's number */
@@ -118,6 +130,8 @@ static void layout(box b)
         t_tile = pic_tex(tile_pic, geo.cs);
         ui_free(&t_ring);
         t_ring = pic_tex(ring_pic, geo.cs);
+        ui_free(&t_shade);
+        t_shade = pic_tex(shade_pic, geo.cs);
     }
     bench_small(&t_small, &made_small, token);
 }
@@ -210,6 +224,7 @@ static void draw(void)
         int v = G.p.num[c];
         if (G.st[c] == HTO_SHADE) {
             float s = bench_pop(&pop, c, 0.25f);
+            ui_put_c(t_shade, mx + 0.05f * q * s, my + 0.07f * q * s, q * s, q * s);   /* laid on the plank */
             ui_put_c(t_tile, mx, my, q * s, q * s);
             if (!solved && hto_touching(&G, c)) ui_fill(x, y, (float)q, (float)q, 214, 60, 44, 120);
             ui_number_ex(mx, my + 0.02f * q, 0.5f * q * s, v, EBONY_DIGIT, 150, UI_NUM_TIGHT);
