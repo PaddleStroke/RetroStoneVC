@@ -812,7 +812,7 @@ static void release(float x, float y)
         ui_animate();
         if (ui_tool_hit(x, y) != t) return;
         if (t == B_EYE) {
-            symbols = !symbols;
+            if (!ui_replaying()) symbols = !symbols;   /* (played again: it is already as it was left) */
             uint8_t b = (uint8_t)symbols;
             ui_save_set("twistycube/symbols", &b, 1);
             ui_sound(SND_TAP);

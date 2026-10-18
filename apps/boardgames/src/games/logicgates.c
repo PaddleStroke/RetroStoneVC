@@ -1252,7 +1252,7 @@ static void start_random(int variant)
     (void)variant;                              /* one variant: the sizes are the setup screen's */
     choice_load();
     uint32_t seed = (uint32_t)ui_random(0x7fffffff) + 1u;
-    int card = ui_over() && !setup && G.level < 0 && G.L.cols;
+    int card = ui_over() && (ui_replaying() || (!setup && G.level < 0 && G.L.cols));   /* (replayed: none yet) */
     if (card && seed == rnd_seed) {             /* replay */
         lg_restart(&G);
         calm();
@@ -2457,7 +2457,7 @@ static void setup_press(float x, float y)
     for (int k = 0; k < LG_COMPONENTS; k++)
         if (in_box(SU.part[k], x, y, sl)) {
             ui_sound(SND_TAP);
-            rnd_comp ^= 1u << k;
+            if (!ui_replaying()) rnd_comp ^= 1u << k;   /* (played again: already the choice kept) */
             choice_save();
             ui_animate();
             return;
