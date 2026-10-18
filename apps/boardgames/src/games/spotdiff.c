@@ -390,6 +390,8 @@ static void bar(int player, box b)
         art_ring(hollow_px, 0.62f, PUZ_CREAM, 0.45f, o);
         t_hollow = ui_tex(hollow_px, hollow_px, o);
     }
+    if (ui_ink_dark()) SDL_SetTextureColorMod(t_hollow, 92, 70, 52);   /* the light theme: the hollow rings in ink */
+    else SDL_SetTextureColorMod(t_hollow, 255, 255, 255);
     for (int k = 0; k < n; k++) {
         float cx = r.x + (k + 0.5f) * d * 1.22f;
         if (k < G.nfound) {
