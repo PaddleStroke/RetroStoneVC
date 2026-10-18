@@ -51,7 +51,9 @@ static float fit;                               /* pixels a grid unit, the whole
 static float zoom = 1, cx, cy;                  /* the view: zoom (1: the whole map), its middle (grid units) */
 static float tzoom = 1, tcx, tcy;               /* where it is going */
 static Uint32 view_t;
-static float zmax = 8;
+static float zmax = 8, zmin = 1;                /* zmin: the map covers the window (its edges never show) */
+static float hx, hy, hz = 1;                    /* the level's own view: its places framed */
+static int need_home;                           /* a new quiz: its view once the window is known */
 
 static int flash_r = -1, label_r = -1, reveal_r = -1, found_r = -1;
 static Uint32 flash_t0, label_t0, reveal_t0, found_t0;
@@ -99,7 +101,7 @@ static void to_grid(float sx, float sy, float *gx, float *gy)
 
 static void view_set(float x, float y, float z)   /* at once (a finger) */
 {
-    z = clampf(z, 1, zmax);
+    z = clampf(z, zmin, zmax);
     clamp_view(&x, &y, z);
     cx = tcx = x;
     cy = tcy = y;
@@ -108,7 +110,7 @@ static void view_set(float x, float y, float z)   /* at once (a finger) */
 
 static void view_go(float x, float y, float z)    /* eased there (a button, a key) */
 {
-    tzoom = clampf(z, 1, zmax);
+    tzoom = clampf(z, zmin, zmax);
     tcx = x;
     tcy = y;
     clamp_view(&tcx, &tcy, tzoom);
@@ -119,7 +121,7 @@ static void view_go(float x, float y, float z)    /* eased there (a button, a ke
 /* zoom by k keeping the point under (sx, sy) where it is */
 static void zoom_at(float sx, float sy, float k, int eased)
 {
-    float gx, gy, z = clampf(tzoom * k, 1, zmax);
+    float gx, gy, z = clampf(tzoom * k, zmin, zmax);
     to_grid(sx, sy, &gx, &gy);
     float s = scale_of(z);
     float x = gx - (sx - view.x - view.w / 2) / s, y = gy - (sy - view.y - view.h / 2) / s;
@@ -309,8 +311,48 @@ static int map_use(int map)
         }
         if (!pass) nfidx_main = nfidx;
     }
-    zmax = map < 6 ? 10 : 7;                    /* the world and the continents: more */
     return 1;
+}
+
+/* the zoom's limits and the level's own view, for the window as it is now: the map always covers the window (its
+ * edges never show: a wide map pans sideways in portrait); the places asked framed (their box and a margin, held in
+ * the window, a little tighter), the land filling the window all round as the map covers it */
+static void frame_home(void)
+{
+    if (loaded < 0 || view.w <= 0 || view.h <= 0) return;
+    fit = fminf(view.w / M.w, view.h / M.h);
+    zmin = fmaxf(view.w / M.w, view.h / M.h) / fit;
+    zmax = fmaxf(zmin * 4, loaded < 6 ? 10 : 7);   /* the world and the continents: more */
+    float x0 = 1e9f, y0 = 1e9f, x1 = -1e9f, y1 = -1e9f;
+    for (int pass = 0; pass < 2 && x1 < x0; pass++)   /* the main map's places first, the insets' if none */
+        for (int i = 0; i < Q.n; i++) {
+            const mq_reg *g = &M.reg[Q.ask[i]];
+            if (!pass && (g->flags & MQ_IN_INSET)) continue;
+            /* its biggest piece (Spain without the Canaries, the United States without Hawaii) */
+            float best = -1, bx0 = g->lx, by0 = g->ly, bx1 = g->lx, by1 = g->ly;
+            for (int j = 0; j < g->nring; j++) {
+                const mq_ring *R = &M.ring[g->ring0 + j];
+                const float *p = M.rp + 2 * R->first;
+                float a = 0, rx0 = 1e9f, ry0 = 1e9f, rx1 = -1e9f, ry1 = -1e9f;
+                for (int k = 0, l = R->count - 1; k < R->count; l = k++) {
+                    a += p[2 * l] * p[2 * k + 1] - p[2 * k] * p[2 * l + 1];
+                    rx0 = fminf(rx0, p[2 * k]), ry0 = fminf(ry0, p[2 * k + 1]);
+                    rx1 = fmaxf(rx1, p[2 * k]), ry1 = fmaxf(ry1, p[2 * k + 1]);
+                }
+                if (R->outer && fabsf(a) > best) best = fabsf(a), bx0 = rx0, by0 = ry0, bx1 = rx1, by1 = ry1;
+            }
+            x0 = fminf(x0, bx0), y0 = fminf(y0, by0), x1 = fmaxf(x1, bx1), y1 = fmaxf(y1, by1);
+        }
+    if (x1 < x0) x0 = y0 = 0, x1 = (float)M.w, y1 = (float)M.h;
+    float m = 0.06f * fmaxf(x1 - x0, y1 - y0) + 0.01f * fmaxf(M.w, M.h);
+    x0 -= m, y0 -= m, x1 += m, y1 += m;
+    /* the places held in the window (a little tighter: the margin may crop), never less than the map covering it */
+    float sc = fmaxf(view.w / (x1 - x0), view.h / (y1 - y0)), sf = fminf(view.w / (x1 - x0), view.h / (y1 - y0));
+    float s = fminf(sc, 1.15f * sf);
+    hz = clampf(s / fit, zmin, zmax * 0.6f > zmin ? zmax * 0.6f : zmin);
+    hx = (x0 + x1) / 2;
+    hy = (y0 + y1) / 2;
+    clamp_view(&hx, &hy, hz);
 }
 
 /* ---- starting ---------------------------------------------------------------------------------------------------- */
@@ -346,7 +388,9 @@ static void begin(int map, const char *codes)
                                         : 0;
     prompt_key = -1;
     if (room.w > 0) layout(room);
-    view_set(M.w / 2.0f, M.h / 2.0f, 1);
+    frame_home();
+    need_home = view.w <= 0;
+    view_set(hx, hy, hz);
 }
 
 static void start(int level)                    /* a designed level */
@@ -487,7 +531,7 @@ static void tool(int t)
     float mx = view.x + view.w / 2, my = view.y + view.h / 2;
     if (t == 0) zoom_at(mx, my, 1.8f, 1);
     else if (t == 1) zoom_at(mx, my, 1 / 1.8f, 1);
-    else view_go(M.w / 2.0f, M.h / 2.0f, 1);
+    else view_go(hx, hy, hz);
     ui_sound(SND_TAP);
 }
 
@@ -560,7 +604,7 @@ static void finger(int id, int phase, float x, float y)
     if (phase == FINGER_MOVE) {
         if (nfg == 2) {
             float d = fmaxf(1, hypotf(fg[1].x - fg[0].x, fg[1].y - fg[0].y));
-            float z = clampf(g_z0 * d / g_d0, 1, zmax), s = scale_of(z);
+            float z = clampf(g_z0 * d / g_d0, zmin, zmax), s = scale_of(z);
             float mx = (fg[0].x + fg[1].x) / 2, my = (fg[0].y + fg[1].y) / 2;
             view_set(g_mx - (mx - view.x - view.w / 2) / s, g_my - (my - view.y - view.h / 2) / s, z);
         } else {
@@ -600,7 +644,7 @@ static void key(SDL_Keycode k)
         zoom_at(cur.on ? cur.x : view.x + view.w / 2, cur.on ? cur.y : view.y + view.h / 2, 1.8f, 1);
     } else if (k == SDLK_MINUS || k == SDLK_KP_MINUS || k == SDLK_PAGEDOWN) {
         zoom_at(cur.on ? cur.x : view.x + view.w / 2, cur.on ? cur.y : view.y + view.h / 2, 1 / 1.8f, 1);
-    } else if (k == SDLK_HOME || k == SDLK_0) view_go(M.w / 2.0f, M.h / 2.0f, 1);
+    } else if (k == SDLK_HOME || k == SDLK_0) view_go(hx, hy, hz);
 }
 
 /* the cursor held: it glides, and at the window's edge the map follows */
@@ -644,7 +688,13 @@ static void layout(box b)
         }
     }
     if (loaded >= 0) {
-        fit = fminf(view.w / M.w, view.h / M.h);
+        frame_home();
+        zoom = clampf(zoom, zmin, zmax);
+        tzoom = clampf(tzoom, zmin, zmax);
+        if (need_home && view.w > 0) {
+            need_home = 0;
+            view_set(hx, hy, hz);
+        }
         clamp_view(&cx, &cy, zoom);
         clamp_view(&tcx, &tcy, tzoom);
     }
@@ -948,8 +998,9 @@ static void draw(void)
         (reveal_r >= 0 && now < reveal_t0 + REVEAL_MS) || (found_r >= 0 && now < found_t0 + FILL_MS))
         ui_animate();
     ui_tool_paint(0, paint_tool, 0, 0.62f, UI_TINT | (tzoom >= zmax - 0.01f ? UI_DIM : 0));
-    ui_tool_paint(1, paint_tool, 1, 0.62f, UI_TINT | (tzoom <= 1.01f ? UI_DIM : 0));
-    ui_tool_paint(2, paint_tool, 2, 0.62f, UI_TINT | (tzoom <= 1.01f ? UI_DIM : 0));
+    ui_tool_paint(1, paint_tool, 1, 0.62f, UI_TINT | (tzoom <= zmin * 1.01f ? UI_DIM : 0));
+    int home = fabsf(tzoom - hz) < 0.01f * hz && fabsf(tcx - hx) < 1 && fabsf(tcy - hy) < 1;
+    ui_tool_paint(2, paint_tool, 2, 0.62f, UI_TINT | (home ? UI_DIM : 0));
 }
 
 /* the bar: the places found, the misses; the best time kept for this quiz (a star, the time) */
