@@ -72,17 +72,20 @@ static void raster_out(int line)
     }
 }
 
+static int ui_pin;                      /* the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels) */
 static void raster(int line, void *user)
 {
     (void)user;
     if (line < 0 || line >= RS_SCREEN_H) {
         raster_out(line);
+        if (ui_pin) rs_bg_enable(RS_BG1, ht_pin_line(ui_pin, line));
         return;
     }
     if (line == 0 && rs_screen_height() > RS_SCREEN_H) {  /* back from raster_out: the stage's own settings */
         rs_bg_enable(RS_BG1, 1);
         rs_bg_scroll(RS_BG3, (-hu_shake_x()) & (map_w() * 8 - 1), (-bg3_top - hu_shake_y()) & 255);
     }
+    if (ui_pin) rs_bg_enable(RS_BG1, ht_pin_line(ui_pin, line));
     rs_pal_set(0, line_col[line]);
     rs_pal_set(RS_PAL_BG(PAL_FAR) + IDX_STAR_A, star_a[line]);
     rs_pal_set(RS_PAL_BG(PAL_FAR) + IDX_STAR_B, star_b[line]);
@@ -395,8 +398,8 @@ static const char *stars_note(const world *w, char *s, int n)
 
 /* the narrow title (house_tall.h, its standard rows): the slots' row; the unicorn on its cloud in the sky above the
  * logo (clear of the title's rows) */
-#define HT_TITLE_TOP 15
-#define HT_TITLE_FEET (-14)     /* the title unicorn's feet (its cloud's top) */
+#define HT_TITLE_TOP HT_ROW_SLOTS
+#define HT_TITLE_FEET (-14)     /* the title unicorn's feet (its cloud's top), UI y (pinned with the logo: ht_pin_dy) */
 
 /* the BG screens; PLAY and DEAD are the same screen */
 static void screen_text(const world *w, int state, int st_t, int best, int new_best, const hu_standing *rs)
@@ -513,6 +516,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     int ui_dx = zoom && climb && ht_narrow() ? ht_mid_x() - RS_SCREEN_W / 2 : 0;
     rs_bg_scroll(RS_BG1, -ui_dx, -slide);
     ht_pause_dx(paused, 13, ui_dx);             /* (house_tall.h: PAUSED centred on the columns shown) */
+    ui_pin = !ht_narrow() || !zoom ? HT_PIN_OFF : state == ST_TITLE ? HT_PIN_TITLE : state == ST_OVER ? HT_PIN_PANEL : HT_PIN_OFF;
+    ht_pin(ui_pin);                             /* the title and the panels at the same place on every game's screen */
 
     rs_oam_clear();
     /* front to back: the UI, the unicorns, the clouds, the moon */
@@ -562,7 +567,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
             hu_title_sprites(st_t, slot_icon, NULL);   /* the prompt's glyph, the joined players popping in */
         }
         /* the unicorn bobs on its little cloud under the logo */
-        int b = hu_bob(st_t, 64, READY_BOB), feet = (narrow ? HT_TITLE_FEET : 124) + b;
+        int b = hu_bob(st_t, 64, READY_BOB), feet = (narrow ? HT_TITLE_FEET + ht_pin_dy(HT_PIN_TITLE) : 124) + b;
         spr(SPR_UNI_IDLE + (st_t / 24) % 2, CENTER_X - 16, feet - 30, 2, 0, 0);
         if (st_t % 50 < 14) spr(SPR_SPARKLE + ((st_t / 50) % 3) * 2 + (st_t % 50 > 7), CENTER_X + 10, feet - 34, 2, 0, 0);
         draw_cloud(CENTER_X, feet, 48, 1, 2, 0, 0);
