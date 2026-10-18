@@ -175,13 +175,43 @@ static inline void pzt_bar_two(box b, SDL_Texture *left_pic, int left, SDL_Textu
     ui_number(x + rw / 2, cy, dh, right, 1);
 }
 
-/* the same, the right picture a cream one (the par's flag): dark ink on the light theme's ivory table */
+/* a cream picture (a flag, a game's own light mark) in the shell's ink wherever its light digits are inked (the light
+ * theme's bar and white panels: ui_ink_dark()); pzt_cream_end(t) after drawing it */
+static inline void pzt_cream_ink(SDL_Texture *t)
+{
+    if (t && ui_ink_dark()) SDL_SetTextureColorMod(t, 48, 43, 35);   /* cream x this: the ink */
+}
+
+static inline void pzt_cream_end(SDL_Texture *t)
+{
+    if (t) SDL_SetTextureColorMod(t, 255, 255, 255);
+}
+
+/* pzt_bar_two, its pictures cream ones (cream: 1 the left one, 2 the right one, 3 both): inked on a light bar */
+static inline void pzt_bar_two_ex(box b, SDL_Texture *left_pic, int left, SDL_Texture *right_pic, int right, int glow,
+                                  int cream)
+{
+    if (cream & 1) pzt_cream_ink(left_pic);
+    if (cream & 2) pzt_cream_ink(right_pic);
+    pzt_bar_two(b, left_pic, left, right_pic, right, glow);
+    if (cream & 1) pzt_cream_end(left_pic);
+    if (cream & 2) pzt_cream_end(right_pic);
+}
+
+/* the same, the right picture a cream one (the par's flag) */
 static inline void pzt_bar_two_cream(box b, SDL_Texture *left_pic, int left, SDL_Texture *right_pic, int right,
                                      int glow)
 {
-    if (right_pic && !TH.dark) SDL_SetTextureColorMod(right_pic, 48, 43, 35);   /* cream x this: the ink */
-    pzt_bar_two(b, left_pic, left, right_pic, right, glow);
-    if (right_pic) SDL_SetTextureColorMod(right_pic, 255, 255, 255);
+    pzt_bar_two_ex(b, left_pic, left, right_pic, right, glow, 2);
+}
+
+/* one count (puz_bar_moves), its picture a cream one */
+static inline float pzt_bar_one_cream(box b, SDL_Texture *pic, int n)
+{
+    pzt_cream_ink(pic);
+    float x = puz_bar_moves(b, pic, n);
+    pzt_cream_end(pic);
+    return x;
 }
 
 #endif
