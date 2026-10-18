@@ -13,6 +13,7 @@
 #include "game.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "house_tall.h"
 #include "game_text.h"
 #include <stdio.h>
 #include <string.h>
@@ -47,20 +48,13 @@ static int hud_bottom(void) { return rs_screen_height() > RS_SCREEN_H ? HUD_ROW2
 #define PLANET_H   64
 
 /* The portrait playfield (game.h, DESIGN.md "Tall screen"): a zoomed screen of ZOOM_H lines whose middle 188..220
- * columns show. The UI is laid out in the narrow columns NC0 .. NC0 + NCOLS - 1 (x 72..247: inside the 188 columns of
- * a 9:21 phone, whatever the phone), the HUD as sprites at the screen's top, the title's logo stacked and pinned at
- * the screen's top (rs_bg_pin). */
-#define NC0        9
-#define NCOLS      22
+ * columns show. The title, the banners and the panels are the house's uniform portrait UI (house_tall.h, its default
+ * rows), the HUD as sprites at the screen's top. */
 #define TPLANET_X  210          /* the ringed planet, stage x, above the stage (behind the saucer's lane) */
 #define TPLANET_Y  (-78)        /* its top line */
-#define TLOGO_ROWS 13           /* the stacked logo: UI rows 0..12, pinned at screen line TLOGO_Y */
-#define TLOGO_Y    6
 #define TWAVE_ROW  13
-#define TTITLE_MICE_Y 28        /* the title's sprites between the logo and the slots (stage y) */
-#define TTITLE_SHIP_Y 76           /* WAVE n under the formation (it flies in at the screen's top) */
-static int ui_band;             /* the title's logo band pinned at the screen's top (lines); 0: none (set by
-                                 * draw_frame before every picture, not saved) */
+#define TTITLE_MICE_Y (-40)     /* the title: the mice marching above the logo, the ship under it (stage y) */
+#define TTITLE_SHIP_Y 113
 static int maps_tall = -1;      /* the layout the BG maps were set up for (saved: a state brings its maps) */
 int draw_tall(void) { return rs_screen_height() >= ZOOM_H; }
 
@@ -114,7 +108,6 @@ static void raster_tall(int line)
         if (line < 0) rs_bg_window(RS_BG4, 0);
         rs_obj_window(line < 0 ? 0 : RS_WIN1);
     }
-    if (ui_band && line == top + TLOGO_Y) rs_bg_window(RS_BG1, 0);     /* the title's logo, pinned from there */
     if (line >= 0) {
         raster_out(line);                                   /* the moon's deep cheese */
         return;
@@ -126,7 +119,7 @@ static void raster_tall(int line)
     rs_pal_set(0, RS_RGB8(r + 4 * dd, gg + 2 * dd, b + 4 * dd));
     rs_bg_scroll(RS_BG4, (star_sx - 200) & pm, (star_sy + 240) & 255);
     int d = line - TPLANET_Y;
-    if (d == 0 && !ui_band) {                               /* (not behind the title's logo) */
+    if (d == 0) {
         rs_bg_window(RS_BG3, RS_WIN2_OUT);
         rs_bg_scroll(RS_BG3, (deco_sx + PLANET_PX - TPLANET_X) & pm, (PLANET_Y0 - line) & 255);
     }
@@ -415,215 +408,19 @@ static void boss_palette(const world *w)
 /* ---- the BG screens -------------------------------------------------------------------------------------------- */
 static void text_centered(int row, const char *s, int big)
 {
+    if (ht_narrow()) {                                  /* portrait: in the columns shown (house_tall.h) */
+        if (big) ht_big(row, s, HU_BIG_FREE);
+        else ht_text(row, s, 0);
+        return;
+    }
     if (big && hu_width(s, 1) > 38) big = 0;           /* a long translation: the small letters */
     if (big) hu_big(hu_center(s, 1), row, s, HU_BIG_FREE);
     else hu_text(hu_center(s, 0), row, s);
 }
 
-/* ---- the portrait screens: the kit's layouts again in the NCOLS narrow columns ---------------------------------- */
-/* s cut at its spaces into lines of at most cols columns (at most 3; the last takes the rest) */
-static int nsplit(const char *s, int cols, char l[3][96], int big)
-{
-    int n = 0;
-    l[0][0] = 0;
-    while (*s) {
-        while (*s == ' ') s++;
-        const char *e = strchr(s, ' ');
-        int len = e ? (int)(e - s) : (int)strlen(s);
-        if (!len) break;
-        char buf[96];
-        snprintf(buf, sizeof buf, "%s%s%.*s", l[n], l[n][0] ? " " : "", len, s);
-        if (l[n][0] && hu_width(buf, big) > cols && n < 2) snprintf(l[++n], 96, "%.*s", len, s);
-        else snprintf(l[n], 96, "%s", buf);
-        s += len;
-    }
-    return l[0][0] ? n + 1 : 0;
-}
-
-/* s centred in the narrow columns from row on, wrapped (small letters; box: on a panel); returns the rows used */
-static int nlines(int row, const char *s, int cols, int box)
-{
-    char l[3][96];
-    int n = nsplit(s, cols, l, 0), st = 1;
-    for (int i = 1; i < n; i++)
-        if (hu_tall(l[i])) st = 2;
-    for (int i = 0; i < n; i++) {
-        if (box) hu_box_text(hu_center(l[i], 0), row + i * st, l[i]);
-        else hu_text(hu_center(l[i], 0), row + i * st, l[i]);
-    }
-    return n ? (n - 1) * st + 1 : 0;
-}
-
-/* a message: big letters when they fit the narrow columns, else small ones, wrapped */
-static void ntext(int row, const char *s, int big)
-{
-    if (big && hu_width(s, 1) <= NCOLS) hu_big(hu_center(s, 1), row, s, HU_BIG_FREE);
-    else nlines(row, s, NCOLS, 0);
-}
-
-/* hu_banner in the narrow columns: its big letters if they fit, else a panel of small lines */
-static void nbanner(int y, const char *title)
-{
-    int w = hu_width(title, 1) + 2;
-    if (w <= NCOLS) {
-        int acc = hu_tall(title);                   /* accents (and CJK): one more row on top */
-        if (w < 16) w = 16;
-        hu_panel(20 - w / 2, y - acc, w, 4 + acc);
-        hu_big(hu_center(title, 1), y + 1, title, HU_BIG_BANNER);
-        return;
-    }
-    char l[3][96];
-    int n = nsplit(title, NCOLS - 2, l, 0);
-    hu_panel(NC0, y, NCOLS, n * 2 + 2);
-    nlines(y + 1 + (n == 1), title, NCOLS - 2, 1);
-}
-
-/* the stacked logo: hu_logo at UI row 0, then its words moved to lines 5 rows apart, each centred (the map entries
- * moved: the logo's tiles stay) */
-static void nlogo(const char *title)
-{
-    hu_logo(title, title_ramps, 2, 0, 0);
-    int layer = hu_cfg()->layer, len = (int)strlen(title), sc = (len * 22 - 2 <= 304) ? 4 : 3, adv = 5 * sc + 2;
-    int x0 = (320 - (len * adv - 2)) / 2, cut[4], nw = 1;
-    cut[0] = 0;
-    for (int i = 0; i < len && nw < 3; i++)
-        if (title[i] == ' ') cut[nw++] = (x0 + i * adv + adv / 2) / 8;
-    cut[nw] = 40;
-    uint16_t save[8][40], blank = rs_bg_get(layer, 0, 0);
-    for (int y = 0; y < 8; y++)
-        for (int x = 0; x < 40; x++) {
-            save[y][x] = rs_bg_get(layer, x, y);
-            rs_bg_put(layer, x, y, blank);
-        }
-    for (int k = 0; k < nw; k++) {
-        int a = cut[k + 1], b = cut[k];
-        for (int x = cut[k]; x < cut[k + 1]; x++)
-            for (int y = 0; y < 8; y++)
-                if (save[y][x] != blank) {
-                    if (x < a) a = x;
-                    if (x + 1 > b) b = x + 1;
-                }
-        int dx = 20 - (a + b) / 2;
-        for (int y = 0; y < 8; y++)
-            for (int x = a; x < b; x++)
-                if (save[y][x] != blank && x + dx >= 0 && x + dx < 40) rs_bg_put(layer, x + dx, y + k * 5, save[y][x]);
-    }
-}
-
-/* the title's rows, from the bottom: the credits (24, 25: above the moon), the join line ending on row 22, BEST, the
- * prompt, the slots (the kit's hu_title_draw in the narrow columns) */
-typedef struct tall_title { int slots, prompt, best, join; } tall_title;
-static void tall_title_rows(tall_title *r, char *prompt, char *join, int size)
-{
-    char who[64];
-    int n = hu_players();
-    rs_strf(prompt, (size_t)size, HTR(PRESS_TO), HTR(PLAY));
-    if (n < MAX_PLAYERS) {
-        who[0] = 0;
-        for (int p = n; p < MAX_PLAYERS; p++) {
-            size_t k = strlen(who);
-            if (p > n) k += (size_t)snprintf(who + k, sizeof who - k, " / ");
-            if (k < sizeof who) rs_strf(who + k, sizeof who - k, HTR(PLAYER_TAG), p + 1);
-        }
-        rs_strf(join, (size_t)size, hu_str(n > 1 ? HS_JOIN_LEAVE : HS_JOIN), who);
-    } else {
-        rs_strf(join, (size_t)size, hu_strn(HS_FULL, n), n);
-    }
-    char l[3][96];
-    int jn = nsplit(join, NCOLS, l, 0), jst = jn > 1 && (hu_tall(l[1]) || (jn > 2 && hu_tall(l[2]))) ? 2 : 1;
-    r->join = 23 - ((jn - 1) * jst + 1);
-    r->best = r->join - 2;
-    int pn = nsplit(prompt, NCOLS - 4, l, 0), pst = pn > 1 && hu_tall(l[1]) ? 2 : 1;
-    r->prompt = r->best - 1 - ((pn - 1) * pst + 1);
-    r->slots = r->prompt - 3;
-}
-
-static void tall_title_draw(int t, int best)
-{
-    char s[160], prompt[160], join[160];
-    tall_title r;
-    tall_title_rows(&r, prompt, join, sizeof prompt);
-    hu_clear_rows(r.slots, 30 - r.slots);
-    for (int p = 0; p < hu_players(); p++) {
-        rs_strf(s, sizeof s, HTR(PLAYER_TAG), p + 1);
-        hu_text(10 + 5 * p, r.slots, s);
-    }
-    if (hu_blink(t)) nlines(r.prompt, prompt, NCOLS - 4, 0);
-    if (best > 0) {
-        rs_strf(s, sizeof s, HTR(BEST_N), best);
-        hu_text(hu_center(s, 0), r.best, s);
-    }
-    nlines(r.join, join, NCOLS, 0);
-    hu_text(hu_center("(C) 2026 8BCRAFT", 0), 24, "(C) 2026 8BCRAFT");
-    hu_text(hu_center("RETROSTONE VC", 0), 25, "RETROSTONE VC");
-}
-
-static void tall_title_sprites(int t)
-{
-    char prompt[160], join[160], l[3][96];
-    tall_title r;
-    tall_title_rows(&r, prompt, join, sizeof prompt);
-    if (nsplit(prompt, NCOLS - 4, l, 0))
-        hu_glyph(HU_BTN_A, hu_center(l[0], 0) * 8 - 20, r.prompt * 8 - 4, (t / 30) % 2, 3);
-    for (int p = 0; p < hu_players(); p++) {
-        int cx = (10 + 5 * p) * 8 + 28, cy = r.slots * 8 + 4, a = hu_player_age(p);
-        if (a < 24) {                                   /* it pops in, with sparkles (as the kit's) */
-            hu_sparkle(cx + 8, cy - 14, (a / 6) & 1, 3);
-            hu_sparkle(cx - 14, cy - 2, (a / 6 + 1) & 1, 3);
-        }
-        slot_icon(p, cx, cy + (a < 16 ? 12 - hu_ease_back(a, 16, 12) : 0), t, NULL);
-    }
-}
-
-/* the game-over panel (1 player) in the narrow columns: the labels on the left, the values right-aligned */
-#define TGO_RIGHT 240
-static void tall_gameover_panel(const world *w, int new_best)
-{
-    char s[64];
-    nbanner(4, HTR(GAME_OVER));
-    hu_panel(NC0, 9, NCOLS, 17);
-    hu_box_text(NC0 + 1, 11, HTR(SCORE));
-    hu_box_text(NC0 + 1, 14, new_best ? HTR(NEW_BEST) : HTR(BEST));
-    hu_box_text(NC0 + 1, 17, HTR(MEDAL));
-    rs_strf(s, sizeof s, TR(WAVE_N), w->wave);
-    hu_box_text(hu_center(s, 0), 20, s);
-}
-
-static int ndigits(int n)
-{
-    int d = 1;
-    while (n >= 10) { n /= 10; d++; }
-    return d;
-}
-
-static void tall_gameover_sprites(int score, int best, int medal, int t, int oy)
-{
-    hu_number(score, TGO_RIGHT - ndigits(score) * 6, 11 * 8 - 4 + oy, 3);
-    hu_number(best, TGO_RIGHT - ndigits(best) * 6, 14 * 8 - 4 + oy, 3);
-    if (medal) {
-        hu_medal(medal, TGO_RIGHT - 24, 16 * 8 - 4 + oy, 3);
-        if ((t / 20) % 3 == 0) hu_sparkle(TGO_RIGHT - 30, 16 * 8 - 4 + oy, (t / 10) % 2, 3);
-    } else {
-        hu_box_text(TGO_RIGHT / 8 - 2, 17, "-");
-    }
-}
-
-/* the ranking (2-4 players) in the narrow columns: the kit's rows and sprites, a narrower panel and banner */
-static void tall_results_panel(const hu_standing *s)
-{
-    char t[96], tag[16];
-    int win = hu_winner(s);
-    if (win >= 0) rs_strf(t, sizeof t, HTR(WINS), win + 1);
-    else snprintf(t, sizeof t, "%s", HTR(DRAW));
-    nbanner(3, t);
-    hu_panel(NC0, 8, NCOLS, 3 * s->n + 4);
-    for (int i = 0; i < s->n; i++) {
-        int row = hu_results_row(s, i);
-        hu_box_text(NC0 + 1, row, hu_str(HS_RANK_1 + (s->rank[i] & 3)));
-        rs_strf(tag, sizeof tag, HTR(PLAYER_TAG), (s->order[i] & 3) + 1);
-        hu_box_text(14, row, tag);
-    }
-}
+/* ---- the portrait screens: the house's uniform portrait UI (house_tall.h, its default rows) ------------------------ */
+static const ht_title narrow_title = {NULL, MAX_PLAYERS, HU_ROW_SLOTS, 0, NULL};   /* (PRESS A TO PLAY) */
+static ht_title_out narrow_out;         /* (set by screen_text every title frame, before the sprites: not saved) */
 
 /* the HUD at the screen's top (sprites): 1 player the score centred; 2 the halves of the middle; 3-4 two rows, each
  * with the player's head (no tags: they would reach the app's back and pause buttons in the corners) */
@@ -666,26 +463,20 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         int tall = draw_tall();
         hu_clear();
         if (state == ST_TITLE) {
-            if (tall) nlogo("HAMSTER HAVOC");
+            if (ht_narrow()) ht_logo("HAMSTER HAVOC", title_ramps, 2, 2, 0);    /* HAMSTER over HAVOC */
             else hu_logo("HAMSTER HAVOC", title_ramps, 2, 2, 0);
         }
         if ((state == ST_PLAY || state == ST_DEAD) && w->players >= 3 && !tall) hu_score_tags(w->players, hud_bottom());
         if (state == ST_PLAY || state == ST_DEAD) {
             if (w->landed) {
-                if (tall) ntext(13, TR(LANDED), 1);
-                else text_centered(13, TR(LANDED), 1);
+                text_centered(13, TR(LANDED), 1);
             } else if (w->phase == PH_INTRO) {
                 /* WAVE n above the formation (in the middle it covered the mice); the mothership's waves keep the
                  * middle, under the ship */
                 int boss = world_is_boss(w);
                 rs_strf(s, sizeof s, TR(WAVE_N), w->wave);
-                if (tall) {
-                    ntext(boss ? 12 : TWAVE_ROW, s, 1);
-                    if (boss) ntext(15, TR(BOSS), 1);
-                } else {
-                    text_centered(boss ? 12 : WAVE_ROW, s, 1);
-                    if (boss) text_centered(15, TR(BOSS), 1);
-                }
+                text_centered(boss ? 12 : tall ? TWAVE_ROW : WAVE_ROW, s, 1);
+                if (boss) text_centered(15, TR(BOSS), 1);
             }
             if (w->msg && !w->landed) {
                 const char *m = w->msg == MSG_DOUBLE ? TR(POWER_DOUBLE) :
@@ -696,32 +487,37 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
                     rs_strf(s, sizeof s, "%s %s", tag, m);
                     m = s;
                 }
-                if (tall) ntext(18, m, 0);
-                else text_centered(18, m, 0);
+                text_centered(18, m, 0);
             }
         }
-        if (state == ST_OVER && tall) {
-            if (w->players == 1) tall_gameover_panel(w, new_best);
-            else tall_results_panel(rs);
-        } else if (state == ST_OVER) {
-            if (w->players == 1) {
+        if (state == ST_OVER) {
+            rs_strf(s, sizeof s, TR(WAVE_N), w->wave);
+            if (w->players == 1 && ht_narrow()) {      /* portrait: in the columns shown (house_tall.h) */
+                ht_banner(4, HTR(GAME_OVER));
+                ht_gameover_panel(new_best, s, HTR(BACK_TITLE));
+            } else if (w->players == 1) {
                 hu_banner(4, HTR(GAME_OVER));
                 hu_gameover_panel(1, new_best, w->h[0].score, 0);
-                rs_strf(s, sizeof s, TR(WAVE_N), w->wave);
                 hu_gameover_note(s);
+            } else if (ht_narrow()) {
+                ht_results_panel(rs, NULL);            /* P2 WINS! and the ranking */
             } else {
-                hu_results_panel(rs, NULL);            /* P2 WINS! and the ranking */
+                hu_results_panel(rs, NULL);
             }
         }
         shown_key = key;
         shown_best = best;
     }
     if (state == ST_TITLE) {
-        if (draw_tall()) tall_title_draw(st_t, best);
+        if (ht_narrow()) ht_title_draw(&narrow_title, st_t, best, &narrow_out);
         else hu_title_draw(st_t, best);
     }
     if (state == ST_OVER) {
-        if (w->players == 1) hu_retry_line_at(draw_tall() ? 23 : 19, st_t, RETRY_LOCK, HTR(BACK_TITLE));
+        char s[64];
+        rs_strf(s, sizeof s, TR(WAVE_N), w->wave);
+        if (w->players == 1 && ht_narrow()) ht_retry_line_at(ht_gameover_retry_row(s), st_t, RETRY_LOCK, HTR(BACK_TITLE));
+        else if (w->players == 1) hu_retry_line_at(19, st_t, RETRY_LOCK, HTR(BACK_TITLE));
+        else if (ht_narrow()) ht_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
         else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
     }
 }
@@ -754,11 +550,9 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     rs_bg_scroll(RS_BG1, 0, -slide);
     /* a tall screen (DESIGN.md "Tall screen"): during a run the score chips and the tags at the screen's top */
     hud_lines = !tall && rs_screen_height() > RS_SCREEN_H && (state == ST_PLAY || state == ST_DEAD) ? HUD_LINES : 0;
-    /* the portrait title: the stacked logo at the screen's top */
-    ui_band = tall && state == ST_TITLE ? TLOGO_ROWS * 8 : 0;
-    if (tall) rs_bg_pin(RS_BG1, 0, ui_band, TLOGO_Y);
-    else rs_bg_pin(RS_BG1, 0, hud_lines, 0);
-    hu_pause(paused, 13);
+    rs_bg_pin(RS_BG1, 0, hud_lines, 0);
+    if (ht_narrow()) ht_pause(paused, 13);
+    else hu_pause(paused, 13);
 
     rs_oam_clear();
     /* front to back: the UI, the play, the decor sprites */
@@ -774,31 +568,33 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         }
     }
     if (state == ST_OVER) {
-        if (w->players == 1 && tall) {
-            tall_gameover_sprites(w->h[0].score, best, hu_medal_of(w->h[0].score, medals), st_t, slide);
+        int narrow = ht_narrow();
+        if (w->players == 1 && narrow) {
+            ht_gameover_sprites(w->h[0].score, best, hu_medal_of(w->h[0].score, medals), st_t, slide);
         } else if (w->players == 1) {
             hu_gameover_sprites(1, w->h[0].score, 0, best, hu_medal_of(w->h[0].score, medals), st_t, slide);
         } else {
-            hu_results_sprites(&rs, st_t, slide);
+            if (narrow) ht_results_sprites(&rs, st_t, slide);
+            else hu_results_sprites(&rs, st_t, slide);
             for (int i = 0; i < rs.n; i++) {
                 int cx, cy;
-                hu_results_icon_pos(&rs, i, &cx, &cy);
+                if (narrow) ht_results_icon_pos(&rs, i, &cx, &cy);
+                else hu_results_icon_pos(&rs, i, &cx, &cy);
                 spr(SPR_ICON, cx - 8, cy - 8 + slide, 3, player_pal(rs.order[i]), 0);
             }
         }
     }
+    if (state == ST_TITLE && ht_narrow()) ht_title_sprites(&narrow_title, &narrow_out, st_t, slot_icon, NULL);
     if (state == ST_TITLE && tall) {
-        tall_title_sprites(st_t);
-        /* between the logo and the slots: a row of mice marching, the hamster's ship bobbing under it, a seed */
+        /* the mice marching above the logo, the hamster's ship bobbing under it (house_tall.h's rows kept clear) */
         int b = hu_bob(st_t, 64, READY_BOB), f = (st_t / 30) % 2, step = ((st_t / 30) % 8) - 4;
         step = step < 0 ? -step : step;
         for (int i = 0; i < 5; i++)
             spr((i == 2 ? SPR_MOUSE_C : i & 1 ? SPR_MOUSE_B : SPR_MOUSE_A) + f, 160 - 8 + (i - 2) * 24 + step - 2,
                 TTITLE_MICE_Y, 2, -1, i > 2 ? RS_SPR_HFLIP : 0);
         spr(SPR_SHIP + (st_t % 150 < 8), 160 - 16, TTITLE_SHIP_Y + b, 2, 0, 0);
-        spr(SPR_SEED, 160 - 4, TTITLE_SHIP_Y - 14 - (st_t % 60) / 2 + b, 2, 0, 0);
     } else if (state == ST_TITLE) {
-        hu_title_sprites(st_t, slot_icon, NULL);   /* the prompt's glyph, the joined players popping in */
+        if (!ht_narrow()) hu_title_sprites(st_t, slot_icon, NULL);   /* the prompt's glyph, the joined players popping in */
         /* the hamster's ship bobs under the logo, two space mice march beside it */
         int b = hu_bob(st_t, 64, READY_BOB);
         spr(SPR_SHIP + (st_t % 150 < 8), 160 - 16, TITLE_SHIP_Y + b, 2, 0, 0);

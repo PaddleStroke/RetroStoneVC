@@ -129,11 +129,12 @@ sky going deeper toward the top (8-bit steps, dithered: no seam), the stars shif
 behind the saucer's lane (draw.c `raster_tall`); the UI and the moon's layers are hidden there. The HUD is sprites at
 the screen's top: the score centred; 2 players in the two halves of the middle; 3-4 in two rows, each with its
 player's head, clear of the app's back and pause buttons in the corners. The title and the panels stay in the same
-zoomed view, laid out again in 22 columns (x 72..247): the logo's two words stacked and pinned at the screen's top
-(`rs_bg_pin`), a row of mice and the ship between it and the slots (5 columns apart), the prompt and the join line
-wrapped, the credits on two lines; the game-over panel with its values right-aligned; the ranking's narrower panel;
-banners that do not fit in big letters are small and wrapped. (games/common may get shared narrow-view helpers: these
-are the game's own until then.)
+zoomed view, as the house's uniform portrait UI (games/common/src/house_tall.h, its default rows only, as every
+zoomed game): the logo as HAMSTER over HAVOC (`ht_logo`, row 2), the slots, the prompt, BEST, the join line and the
+credits (`ht_title_draw` from `HU_ROW_SLOTS`), WAVE n and the messages (`ht_big`, `ht_text`), PAUSED (`ht_pause`),
+GAME OVER (`ht_banner`), the game-over panel with the wave as its note (`ht_gameover_*`), the ranking
+(`ht_results_*`). Only the title's scene is the game's: a row of mice marching above the logo (stage y -40), the
+hamster's ship bobbing under it (stage y 113).
 A save state holds its playfield: a state of the other one (the phone turned, the app restarts the game from a state
 at the new size) goes back to the title, the same players. A display less tall than 320x440 (a tablet) gets a shorter
 screen and every column: the landscape playfield, the stage low, the lines past it drawn as before (`raster_out`).
