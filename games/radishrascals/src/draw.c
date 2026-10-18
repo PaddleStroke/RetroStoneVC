@@ -60,12 +60,14 @@ static int layout(int n,rs_viewport *out){
 #define DECOR_B_X 672        /* chunk B: its x 672..1023 at the same map x */
 #define BAND_A 96            /* lines below the stage from chunk A (its y 144..239), then chunk B (its y 104..) */
 static int title_below;   /* transient (draw_frame): a zoomed title, its farmer on the lawn below the stage */
+static int ui_pin;        /* transient (draw_frame): the UI layer pinned on the screen (house_tall.h ht_pin) */
 static void raster_out(int line){
  int top=rs_screen_top();
  if(line==top || line==RS_SCREEN_H){
   rs_window(0,rs_screen_left(),rs_screen_right());rs_bg_window(RS_BG1,RS_WIN1);rs_bg_window(RS_BG2,RS_WIN1);
   rs_bg_window(RS_BG3,line<0?RS_WIN1:0);rs_obj_window(line<0 || title_below?0:RS_WIN1);
  }
+ if(ui_pin)rs_bg_window(RS_BG1,ht_pin_line(ui_pin,line)?0:RS_WIN1);   /* the pinned UI (the title, the panels) */
  if(line<0){rs_pal_set(0,hu_lerp_color(V[0].sky[0],RS_RGB8(192,222,222),-line*256/-top));return;}
  int d=line-RS_SCREEN_H;
  if(d<BAND_A)rs_bg_scroll(RS_BG3,DECOR_COL*8,(144+d-line)&255);
@@ -158,6 +160,8 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   * UI laid out in the columns shown, house_tall.h); the split play (2-4 views) shows every column. Set before the UI
   * is drawn: the visible columns (ht_narrow) follow it. */
  rs_screen_fill(nviews==1 && (state==ST_PLAY || state==ST_DEAD || tall()));
+ ui_pin=!ht_narrow() || multi?HT_PIN_OFF:state==ST_TITLE?HT_PIN_TITLE:state==ST_OVER?HT_PIN_PANEL:HT_PIN_OFF;
+ ht_pin(ui_pin);   /* the title and the panels at the same place on every game's screen */
  int narrow=nviews==1 && ht_narrow();title_below=narrow && state==ST_TITLE;
  hu_clear();rs_oam_clear();rs_brightness(paused?9:15);int next=1;
  if(wide()){rs_bg_fill(RS_BG2,0);memset(fg_slot,0,sizeof fg_slot);}

@@ -6,3 +6,4 @@ main.SV             the battery save's copy (best scores, medals): stays in the 
 draw.fg_tile        widescreen: per-frame scratch (the frame's foreground tiles, shared by identical ones), rebuilt every frame
 draw.fg_slot        widescreen: per-frame scratch (its hash table), cleared every frame
 draw.title_below    a tall screen: per-frame scratch (a zoomed title shows sprites below the stage), set by draw_frame before the raster
+draw.ui_pin         a tall screen: the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels), set by draw_frame before every picture (the raster shows it there)
