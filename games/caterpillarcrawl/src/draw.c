@@ -48,9 +48,9 @@ static int hud_top;
 #define ZOOM_H 512
 #define UV_MIN_H 352
 static int uv, plot_x = GRID_X, plot_y = GRID_Y, pano_off, ui_y;
+static int ui_pin;                          /* the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels) */
 #define PLOT_W (uv ? GRID_H : GRID_W)       /* the plot on the screen, in cells */
 #define PLOT_H (uv ? GRID_W : GRID_H)
-#define UV_CAT_Y 121                        /* the title caterpillar's line on the stage (under the house_tall.h logo) */
 
 int draw_zoom(void) { return rs_screen_zoom(ZOOM_H); }
 
@@ -93,6 +93,7 @@ static void raster(int line, void *user)
         rs_obj_window(line < 0 && hud_top ? 0 : RS_WIN1);   /* the HUD's sprites at the screen's top (hud) */
     }
     if (hud_top && line == rs_screen_top() + HUD_LINES) rs_obj_window(RS_WIN1);
+    if (ui_pin) rs_bg_window(RS_BG1, ht_pin_line(ui_pin, line) ? 0 : RS_WIN1);     /* the pinned UI */
     int band = line >= 0 ? line / 32 : -((31 - line) / 32);     /* floor(line / 32) */
     rs_bg_scroll(RS_BG4, (lawn_sx + band * 168) & (rs_bg_map_w(RS_BG4) * 8 - 1), (lawn_sy - band * 32) & 255);
 }
@@ -436,10 +437,10 @@ static void slot_icon(int p, int cx, int cy, int t, void *user)
     spr(SPR_ICON, cx - 8, cy - 8 + hu_bob(t + p * 16, 64, 1), 2, player_pal(p), 0);
 }
 
-/* the title: a caterpillar inching along under the logo (its segments ripple) */
-static void title_caterpillar(int t)
+/* the title: a caterpillar inching along under the logo (its segments ripple), its segments' top at cy */
+static void title_caterpillar(int t, int cy)
 {
-    int x0 = 160 - 40, cy = uv ? UV_CAT_Y : TITLE_CAT_Y;
+    int x0 = 160 - 40;
     for (int i = 0; i < 5; i++) {
         int bob = hu_bob(t * 2 + i * 14, 64, 2);
         if (i == 4) spr(SPR_HEAD + ((t % 180) < 40 ? 7 : 0), x0 + i * 14 - 4, cy - 6 + bob, 2, 0, 0);
@@ -450,7 +451,7 @@ static void title_caterpillar(int t)
 }
 
 /* ---- portrait: the title and the panels in the columns shown (house_tall.h, its default rows) --------------------- */
-static const ht_title narrow_title = {NULL, MAX_PLAYERS, HU_ROW_SLOTS, 0, NULL};   /* (the verb: TR(VERB), set where used) */
+static const ht_title narrow_title = {NULL, MAX_PLAYERS, HT_ROW_SLOTS, 0, NULL};   /* (the verb: TR(VERB), set where used) */
 static ht_title_out narrow_out;         /* (set by screen_text every title frame, before the sprites: not saved) */
 
 /* 2-4 players: ranked by rounds won */
@@ -595,6 +596,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     /* the panel slides up, ease-out (portrait: from the screen's bottom) */
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, uv ? 360 : 200) : 0;
     rs_bg_scroll(RS_BG1, 0, -slide);
+    ui_pin = !ht_narrow() ? HT_PIN_OFF : state == ST_TITLE ? HT_PIN_TITLE : state == ST_OVER ? HT_PIN_PANEL : HT_PIN_OFF;
+    ht_pin(ui_pin);                     /* the title and the panels at the same place on every game's screen */
     if (ht_narrow()) ht_pause(paused, 13);
     else hu_pause(paused, 13);
 
@@ -623,7 +626,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     if (state == ST_TITLE) {
         if (ht_narrow()) ht_title_sprites(&narrow_title, &narrow_out, st_t, slot_icon, NULL);   /* (house_tall.h) */
         else hu_title_sprites(st_t, slot_icon, NULL);   /* the prompt's glyph, the joined players popping in */
-        title_caterpillar(st_t);
+        /* (zoomed: between the slots and the prompt, house_tall.h ht_title_out gap_y0..1) */
+        title_caterpillar(st_t, ht_narrow() ? (narrow_out.gap_y0 + narrow_out.gap_y1) / 2 - 8 : TITLE_CAT_Y);
     } else if (state != ST_OVER) {
         draw_world(w, sx, sy);
     }
