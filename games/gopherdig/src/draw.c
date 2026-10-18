@@ -133,9 +133,10 @@ static int shown_cols(void) { return 2 * (20 - (rs_screen_visible_x0() - rs_scre
 #define HUD_PIN_Y   12
 #define TALL_ABOVE  92                       /* the lines above the stage at ZOOM_H (draw_init) */
 static int hud_pinned;                       /* set by draw_frame each frame (not saved: drawn again first) */
+static int ui_pin;                           /* the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels) */
 static int narrow;                           /* a zoomed tall screen narrower than the kit (draw_frame: ht_narrow) */
 static ht_title_out title_out;               /* the narrow title's glyph and slots, set by screen_text every title frame */
-static const ht_title title_cfg = {NULL, MAX_PLAYERS, HU_ROW_SLOTS, 0};   /* (the verb: TR(VERB), set where used) */
+static const ht_title title_cfg = {NULL, MAX_PLAYERS, HT_ROW_SLOTS, 0};   /* (the verb: TR(VERB), set where used) */
 
 static void raster(int line, void *user)
 {
@@ -145,7 +146,10 @@ static void raster(int line, void *user)
          * window 1 over the whole width hides BG1 off the stage; the stage's lines show it again, and the pinned
          * HUD's band at the screen's top */
         int top = rs_screen_top() + HUD_PIN_Y;
-        if ((line < 0 || line >= RS_SCREEN_H) && !(hud_pinned && line >= top && line < top + HUD_LINES)) {
+        int out = line < 0 || line >= RS_SCREEN_H;
+        int hide = ui_pin ? out && !ht_pin_line(ui_pin, line)      /* (the pinned UI: its band) */
+                          : out && !(hud_pinned && line >= top && line < top + HUD_LINES);
+        if (hide) {
             rs_window(0, rs_screen_left(), rs_screen_right());
             rs_bg_window(RS_BG1, RS_WIN1);
         } else {
@@ -995,6 +999,8 @@ void draw_frame(const world *W, int state, int st_t, int best, int new_best, int
     hud_pinned = tall() && zoom;
     rs_screen_fill(!multi);
     rs_bg_pin(RS_BG1, 0, hud_pinned ? HUD_LINES : 0, HUD_PIN_Y);
+    ui_pin = !ht_narrow() || multi ? HT_PIN_OFF : state == ST_TITLE ? HT_PIN_TITLE : state == ST_OVER ? HT_PIN_PANEL : HT_PIN_OFF;
+    if (ui_pin) ht_pin(ui_pin);                 /* the title and the panels at the same place on every game's screen */
     int hy = hud_pinned ? rs_screen_top() + HUD_PIN_Y : 0;     /* the HUD's sprites: stage y of the pinned band */
 
     if (!multi) {
@@ -1037,7 +1043,7 @@ void draw_frame(const world *W, int state, int st_t, int best, int new_best, int
         } else {
             if (narrow) ht_title_sprites(&title_cfg, &title_out, st_t, slot_icon, NULL);
             else hu_title_sprites(st_t, slot_icon, NULL);
-            rs_spr(RS_SCREEN_W / 2 - 12, (narrow ? 112 : 92) + hu_bob(st_t, 64, READY_BOB), gm_spr[SPR_IDLE + (st_t / 40) % 2].tile, 24, 24,
+            rs_spr(RS_SCREEN_W / 2 - 12, (narrow ? (title_out.gap_y0 + title_out.gap_y1) / 2 - 12 : 92) + hu_bob(st_t, 64, READY_BOB), gm_spr[SPR_IDLE + (st_t / 40) % 2].tile, 24, 24,
                    gm_spr[SPR_IDLE].pal, 2, 0);
         }
         s.budget = SPR_BUDGET - rs_oam_next();

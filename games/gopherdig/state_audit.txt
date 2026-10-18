@@ -10,3 +10,4 @@ draw.slot_tall      a tall screen's ring slots (which row each holds): a cache o
 draw.hud_pinned     a tall screen: the 1-player HUD pinned at the screen's top, set by draw_frame before every picture
 draw.narrow         a zoomed tall screen narrower than the kit (house_tall.h ht_narrow), set by draw_frame before every use
 draw.title_out      the narrow title's glyph and slots (ht_title_draw), set every title frame before ht_title_sprites
+draw.ui_pin         a tall screen: the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels), set by draw_frame before every picture (the raster shows it there)
