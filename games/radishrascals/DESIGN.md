@@ -121,8 +121,14 @@ old 320-column strip.
   wheelbarrow, each band taken at its own x (no tiled stripes, the bands cut in plain lawn). BG1, BG2 and the
   sprites are hidden past the stage (window 1); line 0 puts the stage's settings back, so a 240-line screen is
   unchanged.
-- **Fill or fit**: one garden in play fills the display's height; the title, the panels and the split screens (2-4
-  players) show every column (`rs_screen_fill(0)`), the split views over the stage's 240 lines with the sky above
-  them and the two decor bands below (three more viewports: no layer above, BG3 below).
+- **One view**: the title, the game-over and results panels and the pause stay zoomed like the play (never the
+  letterboxed full width), laid out in the columns shown by games/common/src/house_tall.h: the logo as RADISH over
+  RASCALS (draw.c `tall_logo`: each word in its own ramp), the hint wrapped under it, the slots, the prompt and the
+  rest of the title stacked below, GAME OVER and the score panel narrower (each value under its label), the ranking
+  narrower, PAUSED centred (`ht_big`). `rs_screen_fill` is set first in `draw_frame` (the visible columns follow it).
+- **Split play fits**: only the split screens (2-4 players playing) show every column (`rs_screen_fill(0)`): each
+  view is a whole garden of the 4:3 split's size (159 or 320 px wide), its side beds and their rabbits at its edges,
+  so zoomed (204 columns) the side beds would be cut off. The split views sit over the stage's 240 lines with the
+  sky above them and the two decor bands below (three more viewports: no layer above, BG3 below).
 - Landscape and 4:3 are the same pixels as before (checked at 2340x1080 and 320x240). A touch's y is taken from the
   stage's origin (`rs_screen_origin_y`), so the beds are tapped where they are.

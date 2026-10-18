@@ -3,6 +3,7 @@
 #include "assets.h"
 #include "house_ui.h"
 #include "game_text.h"
+#include "house_tall.h"   /* a phone held upright: the title and the panels in the columns shown */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -146,10 +147,24 @@ static void foreground(const world *w,int p,const view *v,const rs_viewport *vp,
   int id=0;if(ink && wide())id=fg_find(tile,next);else if(ink){id=(*next)++;rs_tiles_load8(VR_BG2+id,tile,1);}rs_bg_put(RS_BG2,v->mx+c,v->my+r,RS_MAP(id,PAL_GROUND,0,0,0));
  }
 }
+/* zoomed (ht_narrow): the logo as RADISH over RASCALS when it does not fit on one line, each word in its own ramp
+ * (house_tall.h's ht_logo draws the second word as a title of its own, so its ramp takes the first word's palette
+ * entries: here it is " RASCALS ", the kit's second word, centred). Returns the rows it takes. */
+static int tall_logo(int ty){
+ if((int)strlen(TITLE)*17-2<=ht_ncols()*8){hu_logo(TITLE,title_ramps,2,ty,0);return 6;}
+ hu_config *c=(hu_config*)hu_cfg();int base=c->logo_tile;
+ c->logo_tile=base+hu_logo("RADISH",title_ramps,2,ty,0);hu_logo(" RASCALS ",title_ramps,2,ty+6,0);c->logo_tile=base;
+ return 12;
+}
 static void icon(int p,int cx,int cy,int t,void *user){(void)user;rs_viewport vp={0};vp.w=320;vp.h=240;spr(SPR_HERO_ICON,cx-8,cy-8+hu_bob(t+p*16,64,1),2,ppal(p),&vp);}
 void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paused){
  int multi=w->players>1 && (state==ST_PLAY || state==ST_DEAD);nviews=layout(multi?w->players:1,VP);
  if(nviews==1){VP[0].x=0;VP[0].w=RS_SCREEN_W;}       /* one view: the 320-px stage (widescreen: centred) */
+ /* a tall screen (DESIGN.md "Tall screen"): one view stays zoomed (the play, the title, the panels: one look, the
+  * UI laid out in the columns shown, house_tall.h); the split play (2-4 views) shows every column. Set before the UI
+  * is drawn: the visible columns (ht_narrow) follow it. */
+ rs_screen_fill(nviews==1 && (state==ST_PLAY || state==ST_DEAD || tall()));
+ int narrow=nviews==1 && ht_narrow();
  hu_clear();rs_oam_clear();rs_brightness(paused?9:15);int next=1;
  if(wide()){rs_bg_fill(RS_BG2,0);memset(fg_slot,0,sizeof fg_slot);}
  /* widescreen, views side by side: the kit checks text in the screen's UI columns and writes it from column 0 on, so
@@ -178,14 +193,23 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
    if(multi){char score[64],tag[16];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),p+1);snprintf(score,sizeof score,"%s %d",tag,h->score);hu_text(ux+(vp->w/8-hu_width(score,0))/2,v->my+1,score);}
    else hu_number(h->score,vp->w/2,8+(tall()?rs_screen_top():0),3);   /* (a tall screen: at the screen's top) */
    if(paused){const char *s=HTR(PAUSED);int cols=vp->w/8;  /* 2x, or 1x when 2x is wider than the view */
-    if(pbig && hu_width(s,1)<=cols)hu_big(ux+(cols-hu_width(s,1))/2,v->my+vp->h/16,s,HU_BIG_FREE);else hu_text(ux+(cols-hu_width(s,0))/2,v->my+vp->h/16+1,s);}
+    if(narrow)ht_big(v->my+vp->h/16,s,HU_BIG_FREE);   /* (zoomed: in the columns shown) */
+    else if(pbig && hu_width(s,1)<=cols)hu_big(ux+(cols-hu_width(s,1))/2,v->my+vp->h/16,s,HU_BIG_FREE);else hu_text(ux+(cols-hu_width(s,0))/2,v->my+vp->h/16+1,s);}
   }hu_view_oam_end(vp);
  }
  if(!multi){
   rs_viewport *vp=&VP[0];int scores[4];for(int p=0;p<w->players;p++)scores[p]=w->h[p].score;hu_standing rank;hu_rank(&rank,w->players,scores,scores);
   int slide=state==ST_OVER?hu_slide_in(st_t,20,200):0;
-  if(state==ST_TITLE){hu_logo(TITLE,title_ramps,2,2,0);hu_title_draw(st_t,best);hu_text(hu_center(TR(HINT),0),9,TR(HINT));hu_title_sprites(st_t,icon,NULL);theme_title(w,st_t,&V[0],vp);}
-  if(state==ST_OVER){
+  if(state==ST_TITLE && narrow){
+   /* zoomed: RADISH over RASCALS, the hint wrapped under them, the slots, the prompt and the rest below */
+   int r=ht_text(2+tall_logo(1),TR(HINT),0);
+   ht_title tc={TR(VERB),MAX_PLAYERS,r+2,0};ht_title_out at;ht_title_draw(&tc,st_t,best,&at);ht_title_sprites(&tc,&at,st_t,icon,NULL);
+   theme_title(w,st_t,&V[0],vp);
+  }else if(state==ST_TITLE){hu_logo(TITLE,title_ramps,2,2,0);hu_title_draw(st_t,best);hu_text(hu_center(TR(HINT),0),9,TR(HINT));hu_title_sprites(st_t,icon,NULL);theme_title(w,st_t,&V[0],vp);}
+  if(state==ST_OVER && narrow){   /* zoomed: the panels in the columns shown */
+   if(w->players==1){static const int medals[4]=MEDAL_SCORES;ht_banner(4,HTR(GAME_OVER));ht_gameover_panel(new_best,NULL,HTR(BACK_TITLE));ht_gameover_sprites(w->h[0].score,best,hu_medal_of(w->h[0].score,medals),st_t,slide);ht_retry_line_at(ht_gameover_retry_row(NULL),st_t,RETRY_LOCK,HTR(BACK_TITLE));}
+   else{ht_results_panel(&rank,NULL);ht_results_sprites(&rank,st_t,slide);for(int i=0;i<rank.n;i++){int x,y;ht_results_icon_pos(&rank,i,&x,&y);spr(SPR_HERO_ICON,x-8,y-8+slide,3,ppal(rank.order[i]),vp);}ht_retry_line_at(hu_results_retry_row(&rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));}
+  }else if(state==ST_OVER){
    if(w->players==1){static const int medals[4]=MEDAL_SCORES;hu_banner(4,HTR(GAME_OVER));hu_gameover_panel(1,new_best,w->h[0].score,0);hu_gameover_sprites(1,w->h[0].score,0,best,hu_medal_of(w->h[0].score,medals),st_t,slide);hu_retry_line(st_t,RETRY_LOCK,HTR(BACK_TITLE));}
    else{hu_results_panel(&rank,NULL);hu_results_sprites(&rank,st_t,slide);for(int i=0;i<rank.n;i++){int x,y;hu_results_icon_pos(&rank,i,&x,&y);spr(SPR_HERO_ICON,x-8,y-8+slide,3,ppal(rank.order[i]),vp);}hu_retry_line_at(hu_results_retry_row(&rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));}
   }rs_bg_scroll(RS_BG1,0,-slide);rs_bg_scroll(RS_BG2,0,0);rs_bg_scroll(RS_BG3,vp->sx[2],vp->sy[2]);rs_viewports(0,NULL,0);
@@ -202,9 +226,8 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   rs_viewports(all[n+2].h>0?n+3:n+2,all,RS_HEX(0x29364a));
  }else rs_viewports(nviews,VP,RS_HEX(0x29364a));
  /* a tall screen (DESIGN.md "Tall screen"): one garden fills the display's height (the sides cropped), the lawn's
-  * decor below it; the title, the panels and the split screens show every column */
+  * decor below it (rs_screen_fill above) */
  if(tall())tall_decor();
- rs_screen_fill(nviews==1 && (state==ST_PLAY || state==ST_DEAD));
  shown_state=state;shown_best=best;
 }
 /* Touch (DESIGN.md "Controls"): the four beds of player 1's view are the tap zones; a touch acts on the nearest bed
