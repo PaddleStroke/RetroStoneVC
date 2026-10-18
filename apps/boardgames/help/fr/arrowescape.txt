@@ -1,0 +1,11 @@
+Flèches en fuite
+# Le but
+Vider le plateau : toutes les tuiles doivent en sortir.
+# Un coup
+Touche une tuile : elle glisse hors du plateau dans le sens de sa flèche, si rien ne se trouve entre sa pointe et le bord. Une tuile longue se déplace d'un bloc, sa flèche à l'avant.
+Si une autre tuile barre le chemin, la tuile touchée la heurte et reste à sa place : c'est une erreur.
+Une tuile sur un disque de laiton qui ne peut pas sortir tourne d'un quart de tour dans le sens des aiguilles d'une montre, sans erreur.
+# La fin de la partie
+Quand la dernière tuile est sortie, le plateau est vide.
+# Niveaux et étoiles
+Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1.

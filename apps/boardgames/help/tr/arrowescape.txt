@@ -1,0 +1,11 @@
+Oklar dışarı
+# Amaç
+Tahtayı boşalt: her taş tahtadan çıkmalı.
+# Bir hamle
+Bir taşa dokun: ucuyla kenar arasında hiçbir şey yoksa okunun gösterdiği yöne kayıp tahtadan çıkar. Uzun bir taş bütün olarak hareket eder, oku öndedir.
+Yolda başka bir taş varsa, dokunduğun taş ona çarpar ve yerinde kalır: bu bir hatadır.
+Pirinç bir disk üzerindeki taş çıkamıyorsa, bunun yerine saat yönünde çeyrek tur döner, hata sayılmaz.
+# Oyunun sonu
+Son taş da çıkınca tahta boşalır.
+# Seviyeler ve yıldızlar
+İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1.

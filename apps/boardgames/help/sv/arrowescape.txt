@@ -1,0 +1,11 @@
+Pilar ut
+# Målet
+Töm brädet: varje bricka måste ut ur det.
+# Ett drag
+Tryck på en bricka: den glider av brädet åt det håll pilen pekar, om inget står mellan spetsen och kanten. En lång bricka flyttar sig i ett stycke, med pilen främst.
+Står en annan bricka i vägen stöter den tryckta brickan i den och blir kvar: det är ett fel.
+En bricka på en mässingsskiva som inte kan komma ut vrider sig i stället ett kvarts varv medurs, utan fel.
+# Partiets slut
+När den sista brickan är ute är brädet tomt.
+# Banor och stjärnor
+Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1.

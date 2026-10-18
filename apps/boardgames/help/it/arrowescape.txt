@@ -1,0 +1,11 @@
+Frecce in fuga
+# Lo scopo
+Svuota il tavoliere: tutte le tessere devono uscirne.
+# Una mossa
+Tocca una tessera: scivola fuori dal tavoliere nel verso della sua freccia, se tra la punta e il bordo non c'è nulla. Una tessera lunga si muove tutta insieme, con la freccia davanti.
+Se un'altra tessera è d'intralcio, quella toccata la urta e resta dov'era: è un errore.
+Una tessera su un disco d'ottone che non può uscire gira invece di un quarto di giro in senso orario, senza errore.
+# La fine della partita
+Quando esce l'ultima tessera, il tavoliere è vuoto.
+# Livelli e stelle
+Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1.

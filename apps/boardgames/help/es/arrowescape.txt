@@ -1,0 +1,11 @@
+Flechas fuera
+# El objetivo
+Vacía el tablero: todas las fichas deben salir de él.
+# Una jugada
+Toca una ficha: se desliza fuera del tablero hacia donde apunta su flecha, si no hay nada entre su punta y el borde. Una ficha larga se mueve entera, con la flecha delante.
+Si otra ficha está en medio, la ficha tocada choca con ella y se queda donde estaba: eso es un error.
+Una ficha sobre un disco de latón que no puede salir gira un cuarto de vuelta en el sentido de las agujas del reloj, sin error.
+# El final de la partida
+Cuando sale la última ficha, el tablero queda vacío.
+# Niveles y estrellas
+Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1.

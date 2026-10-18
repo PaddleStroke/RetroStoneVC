@@ -1,0 +1,11 @@
+Pijlen weg
+# Het doel
+Maak het bord leeg: elke tegel moet eraf.
+# Een zet
+Tik op een tegel: hij schuift van het bord in de richting van zijn pijl, als er niets tussen zijn punt en de rand staat. Een lange tegel beweegt in zijn geheel, de pijl voorop.
+Staat er een andere tegel in de weg, dan botst de getikte tegel ertegen en blijft hij staan: dat is een fout.
+Een tegel op een koperen schijf die niet weg kan, draait in plaats daarvan een kwartslag met de klok mee, zonder fout.
+# Het einde van het spel
+Als de laatste tegel weg is, is het bord leeg.
+# Levels en sterren
+Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1.

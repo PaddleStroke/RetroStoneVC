@@ -1,0 +1,11 @@
+Strzałki precz
+# Cel gry
+Opróżnij planszę: każdy klocek musi z niej zjechać.
+# Ruch
+Dotknij klocka: zjeżdża z planszy w stronę swojej strzałki, jeśli między jej grotem a krawędzią nic nie stoi. Długi klocek jedzie cały, ze strzałką z przodu.
+Jeśli na drodze stoi inny klocek, dotknięty klocek uderza w niego i zostaje na miejscu: to błąd.
+Klocek na mosiężnej tarczy, który nie może zjechać, obraca się zamiast tego o ćwierć obrotu zgodnie z ruchem wskazówek zegara, bez błędu.
+# Koniec gry
+Gdy zjedzie ostatni klocek, plansza jest pusta.
+# Poziomy i gwiazdki
+Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1.
