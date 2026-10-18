@@ -613,13 +613,16 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
 }
 
 /* ---- save states (main.c) ---- */
-/* a state saved at another width brings maps of another size: set them up for this width, redraw the UI */
+/* a state saved at another width brings maps of another size: set them up for this width, redraw the UI; one of another
+ * height (the phone turned: house_tall.h ht_shape_reset) the same, the UI laid out for this screen (PAUSED too) */
 void draw_state_loaded(void)
 {
+    int shape = ht_shape_reset();
     /* (and one saved with the other playfield, portrait or landscape: the shelters elsewhere) */
-    if (rs_bg_map_w(RS_BG2) == map_w() && maps_tall == draw_tall()) return;
+    if (!shape && rs_bg_map_w(RS_BG2) == map_w() && maps_tall == draw_tall()) return;
     maps_setup();
     shown_key = -1;
+    hu_pause(0, 13);                            /* (the new map lost it: drawn again on the next frame) */
 }
 
 #define S(v) rs_state_var("draw." #v, &(v), sizeof(v))
