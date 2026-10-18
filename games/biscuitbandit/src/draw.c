@@ -327,10 +327,18 @@ void draw_init(void)
 }
 
 /* After a state was loaded (rs_game.state_loaded): the width is not in a state, and one saved at another width brings
- * that width's maps. Set up this width's (the UI is drawn again on the next frame, PAUSED too). Same width: nothing. */
+ * that width's maps. Set up this width's (the UI is drawn again on the next frame, PAUSED too). Same width: nothing.
+ * A state of another height (the phone turned: house_tall.h ht_shape_reset): the same, and the sky's colours, the
+ * furnishings (a tall screen's BG4, shown by the raster only) and the floor's palette (maps_setup) of this screen. */
 void draw_relayout(void)
 {
-    if (laid_w == rs_screen_width()) return;
+    int shape = ht_shape_reset();
+    if (shape) {
+        rs_bg_enable(RS_BG4, 0);
+        if (tall()) decor_init();
+        sky_gradient();
+    }
+    if (!shape && laid_w == rs_screen_width()) return;
     maps_setup();
     shown_state = -1;                   /* screen_text clears the UI layer and draws it again */
     hu_pause(0, 13);                    /* ... and PAUSED, if it shows (draw_frame: hu_pause(paused)) */
