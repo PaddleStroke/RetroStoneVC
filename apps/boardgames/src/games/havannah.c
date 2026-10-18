@@ -114,6 +114,9 @@ static int script(const char *s)
 
 /* the end waits for the winning stone to land and its shape to light up */
 static int busy(void) { return anim.on || (shine.on && (Sint32)(ui_ms() - shine.t0) < SHINE_MS); }
+/* a stone still landing, by the clock (not by the last frame drawn): a press or a key at a given time is taken or
+ * refused alike, live and when a kept game is played again (whose frames fall at other times) */
+static int landing(void) { return anim.on && ui_ms() - anim.t0 < (Uint32)(anim.swap ? SWAP_MS : PLACE_MS); }
 
 /* ---- the geometry: cells (q, r) from the middle, the hexagon of "radius" c = n - 1 ------------------------------ */
 static void at(const view *v, float q, float r, float *x, float *y)
@@ -434,7 +437,7 @@ static void aim(int cell, int loud)
 
 static void press(float x, float y)
 {
-    if (status() != GS_PLAY || anim.on) return;
+    if (status() != GS_PLAY || landing()) return;
     fing.x = x, fing.y = y, fing.dx = fing.dy = 0;
     if (ghost.on && ui_loupe_small(V.s)) {
         float gx, gy;
@@ -477,7 +480,7 @@ static void release(float x, float y)
 /* the arrows move the ghost a cell (as seen on the screen), Return or Space plays it */
 static void key(SDL_Keycode k)
 {
-    if (status() != GS_PLAY || anim.on || (ui_bot_seats() >> turn() & 1)) return;
+    if (status() != GS_PLAY || landing() || (ui_bot_seats() >> turn() & 1)) return;
     if (k == SDLK_RETURN || k == SDLK_SPACE || k == SDLK_KP_ENTER) {
         if (ghost.on) play(ghost.cell);
         else ui_sound(SND_DENY);
