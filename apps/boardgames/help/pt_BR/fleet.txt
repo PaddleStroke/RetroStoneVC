@@ -1,0 +1,11 @@
+Frota escondida
+# O objetivo
+Encontre a frota escondida no mar: navios retos, de uma a quatro casas.
+- O número ao lado de uma linha ou acima de uma coluna diz quantas de suas casas têm navio.
+- Os navios nunca se tocam, nem pelo canto.
+- Algumas casas aparecem desde o início: água ou uma parte de navio (um navio de uma casa, uma ponta, um meio).
+Cada grade tem uma única solução, encontrada só pelo raciocínio. Segure uma casa para marcá-la como água.
+# O fim da partida
+A grade está resolvida quando todos os navios estão no lugar: uma onda de luz dourada passa pelo mar.
+# Níveis e estrelas
+Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma casa errada que você tira com Desfazer.

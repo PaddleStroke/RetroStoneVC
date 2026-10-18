@@ -1,0 +1,11 @@
+Verborgen vloot
+# Het doel
+Vind de vloot die in de zee verborgen ligt: rechte schepen van één tot vier vakjes lang.
+- Het getal naast een rij of boven een kolom zegt hoeveel vakjes ervan een schip bevatten.
+- Schepen raken elkaar nooit, zelfs niet met een hoek.
+- Enkele vakjes zijn vanaf het begin zichtbaar: water of een deel van een schip (een schip van één vakje, een uiteinde, een middenstuk).
+Elke puzzel heeft precies één oplossing, te vinden door alleen te redeneren. Houd een vakje vast om het als water te markeren.
+# Het einde van het spel
+De puzzel is opgelost als alle schepen op hun plaats liggen: een golf van gouden licht loopt over de zee.
+# Levels en sterren
+Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is een verkeerd vakje dat je met Ongedaan maken terugneemt.

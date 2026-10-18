@@ -1,0 +1,11 @@
+Gizli Filo
+# Amaç
+Denize gizlenmiş filoyu bul: bir ile dört kare uzunluğunda düz gemiler.
+- Bir satırın yanındaki ya da bir sütunun üstündeki sayı, kaç karesinde gemi olduğunu söyler.
+- Gemiler hiçbir zaman birbirine değmez, köşeden bile.
+- Bazı kareler baştan görünür: su ya da bir gemi parçası (tek karelik gemi, uç, orta).
+Her bulmacanın tek bir çözümü vardır ve yalnızca akıl yürüterek bulunur. Bir kareyi su olarak işaretlemek için parmağını üzerinde tut.
+# Oyunun sonu
+Bütün gemiler yerine oturunca bulmaca çözülür: denizin üzerinden altın rengi bir ışık dalgası geçer.
+# Seviyeler ve yıldızlar
+İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, Geri al ile kaldırdığın yanlış bir karedir.

@@ -1,0 +1,11 @@
+Armada Tersembunyi
+# Tujuan
+Temukan armada yang tersembunyi di laut: kapal-kapal lurus sepanjang satu sampai empat kotak.
+- Angka di samping baris atau di atas kolom menunjukkan berapa kotaknya yang berisi kapal.
+- Kapal tidak pernah bersentuhan, bahkan di sudut pun tidak.
+- Beberapa kotak terlihat sejak awal: air, atau bagian kapal (kapal satu kotak, ujung, tengah).
+Setiap teka-teki punya tepat satu jawaban yang ditemukan hanya dengan bernalar. Tahan sebuah kotak untuk menandainya sebagai air.
+# Akhir permainan
+Teka-teki selesai jika semua kapal sudah di tempatnya: gelombang cahaya emas melintasi laut.
+# Level dan bintang
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah kotak salah yang kamu batalkan dengan Urungkan.

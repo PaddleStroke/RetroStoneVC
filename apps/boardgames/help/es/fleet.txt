@@ -1,0 +1,11 @@
+Flota oculta
+# El objetivo
+Encuentra la flota escondida en el mar: barcos rectos de una a cuatro casillas.
+- El número junto a una fila o sobre una columna dice cuántas de sus casillas son de barco.
+- Los barcos nunca se tocan, ni siquiera por una esquina.
+- Algunas casillas se ven desde el principio: agua o una parte de un barco (un barco de una casilla, un extremo, un centro).
+Cada tablero tiene una sola solución, que se encuentra solo razonando. Mantén pulsada una casilla para marcarla como agua.
+# El final de la partida
+El tablero está resuelto cuando todos los barcos están en su sitio: una ola de luz dorada recorre el mar.
+# Niveles y estrellas
+Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una casilla equivocada que quitas con Deshacer.

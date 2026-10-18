@@ -1,0 +1,11 @@
+Piilotettu laivasto
+# Tavoite
+Etsi mereen piilotettu laivasto: suoria laivoja, yhdestä neljään ruutua pitkiä.
+- Luku rivin vieressä tai sarakkeen yläpuolella kertoo, montako sen ruutua on laivaa.
+- Laivat eivät koskaan kosketa toisiaan, eivät edes kulmittain.
+- Osa ruuduista näkyy alusta asti: vettä tai laivan osa (yhden ruudun laiva, pää, keskiosa).
+Jokaisessa tehtävässä on täsmälleen yksi ratkaisu, joka löytyy pelkällä päättelyllä. Pidä sormea ruudussa merkitäksesi sen vedeksi.
+# Pelin loppu
+Tehtävä on ratkaistu, kun kaikki laivat ovat paikoillaan: kultaisen valon aalto kulkee meren yli.
+# Tasot ja tähdet
+Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä ruutu, jonka perut Kumoa-painikkeella.

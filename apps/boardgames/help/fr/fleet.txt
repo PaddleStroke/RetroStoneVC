@@ -1,0 +1,11 @@
+Flotte cachée
+# Le but
+Trouve la flotte cachée dans la mer : des navires droits, longs d'une à quatre cases.
+- Le nombre à côté d'une ligne ou au-dessus d'une colonne dit combien de ses cases sont occupées par un navire.
+- Les navires ne se touchent jamais, pas même par un coin.
+- Quelques cases sont montrées au départ : de l'eau, ou une partie de navire (un navire d'une case, un bout, un milieu).
+Chaque grille a une seule solution, qu'on trouve par le seul raisonnement. Garde le doigt sur une case pour la marquer comme de l'eau.
+# La fin de la partie
+La grille est résolue quand tous les navires sont en place : une vague de lumière dorée parcourt la mer.
+# Niveaux et étoiles
+Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est une case fausse que tu reprends avec Annuler.

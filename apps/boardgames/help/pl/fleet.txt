@@ -1,0 +1,11 @@
+Ukryta flota
+# Cel gry
+Znajdź flotę ukrytą w morzu: proste statki o długości od jednego do czterech pól.
+- Liczba obok wiersza lub nad kolumną mówi, ile jej pól zajmują statki.
+- Statki nigdy się nie stykają, nawet rogiem.
+- Niektóre pola widać od początku: wodę albo część statku (statek jednopolowy, koniec, środek).
+Każda łamigłówka ma dokładnie jedno rozwiązanie, które znajdziesz samym rozumowaniem. Przytrzymaj pole, aby oznaczyć je jako wodę.
+# Koniec gry
+Łamigłówka jest rozwiązana, gdy wszystkie statki są na miejscu: przez morze przebiega fala złotego światła.
+# Poziomy i gwiazdki
+Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to źle oznaczone pole cofnięte przyciskiem Cofnij.

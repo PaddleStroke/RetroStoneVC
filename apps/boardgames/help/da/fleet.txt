@@ -1,0 +1,11 @@
+Skjult flåde
+# Målet
+Find flåden, der er gemt i havet: lige skibe, et til fire felter lange.
+- Tallet ved en række eller over en søjle fortæller, hvor mange af dens felter der er skib.
+- Skibe rører aldrig hinanden, heller ikke på skrå.
+- Nogle felter vises fra start: vand eller en del af et skib (et skib på ét felt, en ende, en midte).
+Hver opgave har præcis én løsning, som findes ved ren logik. Hold på et felt for at markere det som vand.
+# Spillets afslutning
+Opgaven er løst, når alle skibe er på plads: en bølge af gyldent lys løber over havet.
+# Baner og stjerner
+Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et forkert felt, som du tager tilbage med Fortryd.

@@ -1,0 +1,11 @@
+Frota escondida
+# O objetivo
+Encontra a frota escondida no mar: navios retos, de uma a quatro casas.
+- O número ao lado de uma linha ou por cima de uma coluna diz quantas das suas casas têm navio.
+- Os navios nunca se tocam, nem pelo canto.
+- Algumas casas veem-se desde o início: água ou uma parte de navio (um navio de uma casa, uma ponta, um meio).
+Cada grelha tem uma única solução, encontrada só pelo raciocínio. Mantém o dedo numa casa para a marcar como água.
+# O fim do jogo
+A grelha está resolvida quando todos os navios estão no lugar: uma onda de luz dourada percorre o mar.
+# Níveis e estrelas
+Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é uma casa errada que tiras com Anular.

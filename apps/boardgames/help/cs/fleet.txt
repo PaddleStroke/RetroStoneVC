@@ -1,0 +1,11 @@
+Skrytá flotila
+# Cíl hry
+Najdi flotilu skrytou v moři: rovné lodě dlouhé jedno až čtyři políčka.
+- Číslo vedle řádku nebo nad sloupcem říká, kolik jeho políček patří lodím.
+- Lodě se nikdy nedotýkají, ani rohem.
+- Některá políčka jsou vidět od začátku: voda nebo část lodi (loď o jednom políčku, konec, střed).
+Každý hlavolam má právě jedno řešení, které najdeš jen úvahou. Podrž prst na políčku a označíš ho jako vodu.
+# Konec hry
+Hlavolam je vyřešen, když jsou všechny lodě na svém místě: mořem proběhne vlna zlatého světla.
+# Úrovně a hvězdy
+Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatné políčko, které vezmeš zpět tlačítkem Vrátit.

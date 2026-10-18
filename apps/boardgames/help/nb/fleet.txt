@@ -1,0 +1,11 @@
+Skjult flåte
+# Målet
+Finn flåten som er gjemt i havet: rette skip, fra én til fire ruter lange.
+- Tallet ved en rad eller over en kolonne sier hvor mange av rutene som er skip.
+- Skip berører aldri hverandre, ikke engang på skrå.
+- Noen ruter vises fra start: vann eller en del av et skip (et skip på én rute, en ende, en midtdel).
+Hver oppgave har nøyaktig én løsning, som finnes ved ren logikk. Hold på en rute for å merke den som vann.
+# Slutten på spillet
+Oppgaven er løst når alle skipene er på plass: en bølge av gyllent lys går over havet.
+# Nivåer og stjerner
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en feil rute som du tar tilbake med Angre.

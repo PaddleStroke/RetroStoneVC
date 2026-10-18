@@ -1,0 +1,11 @@
+Gömd flotta
+# Målet
+Hitta flottan som är gömd i havet: raka skepp, en till fyra rutor långa.
+- Talet vid en rad eller ovanför en kolumn anger hur många av dess rutor som är skepp.
+- Skepp rör aldrig varandra, inte ens i ett hörn.
+- Några rutor syns från början: vatten eller en del av ett skepp (ett skepp på en ruta, en ände, en mitt).
+Varje pussel har exakt en lösning, som hittas med enbart logik. Håll på en ruta för att markera den som vatten.
+# Partiets slut
+Pusslet är löst när alla skepp är på plats: en våg av gyllene ljus sveper över havet.
+# Banor och stjärnor
+Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en felaktig ruta som du tar tillbaka med Ångra.
