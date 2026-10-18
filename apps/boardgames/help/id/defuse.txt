@@ -1,12 +1,12 @@
 Jinakkan Bom
 # Tujuan
-Jinakkan bom sebelum pengatur waktunya mencapai nol: nyalakan semua LED hijaunya sekaligus, atau putuskan dayanya. Jika LED merah detonator menyala, walau sesaat, bom meledak.
+Jinakkan bom sebelum pengatur waktunya mencapai nol: nyalakan lampu hijau DISARM, atau padamkan lampu oranye POWER. Jika lampu merah DETONATE menyala saat bom masih berdaya, walau sesaat, bom meledak.
 # Satu langkah
-Satu langkah membalik sebuah sakelar, memotong sebuah kabel, atau menekan sebuah tombol. Setiap kawat lalu membawa 1 (bercahaya emas) atau 0, dan LED merah harus tetap padam setelah setiap langkah: urutannya penting.
+Satu langkah membalik sebuah sakelar atau memotong sebuah kabel. Semuanya satu rangkaian yang diberi daya oleh baterai: satu langkah sering mengubah ketiga lampu sekaligus, jadi urutannya penting.
 - Kabel yang dipotong membawa 0 setelah potongan, untuk selamanya.
-- Tombol memberi 1 hanya selama ditekan.
-- Baterai selalu memberi 1. Cip memori memberi 1 selamanya begitu masukannya pernah bernilai 1.
-- NOT membalik masukannya. AND memberi 1 jika kedua masukan bernilai 1, OR jika salah satunya, XOR jika tepat satu. NAND dan NOR membalik AND dan OR.
-- Jika soket daya membawa 0, bom itu mati.
+- NOT membalik masukannya. AND memberi 1 jika semua masukan bernilai 1, OR jika salah satunya, XOR jika tepat satu. NAND dan NOR membalik AND dan OR.
+- Flip-flop berganti keadaan setiap kali masukannya naik dari 0 ke 1.
+- Kapasitor terisi satu langkah tiap detik selama masukannya 1; saat penuh ia melepaskan denyut singkat. Masukan 0 mengosongkannya.
+- Pengatur waktu papan menghitung mundur sendiri; di nol ia memberi 1.
 # Level dan bintang
 3 bintang: langkah sesedikit mungkin, tanpa petunjuk. 2 bintang: hingga setengah lagi lebih banyak langkah, atau dengan petunjuk. Selain itu 1.

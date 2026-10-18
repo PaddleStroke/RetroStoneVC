@@ -1,8 +1,8 @@
 /*
  * Defuse the Bomb: the rules (defuse.h). The circuit is read and drawn by Logic Gates' rules (logicgates_rules.c);
- * here: the roles, the values of a state, the moves (a press: held, then let go), the solver (a search over the
- * states: the switches, the cuts, the latches; a move that lights DETONATE is never taken), the hint, undo, the
- * notation, and the generator of the levels' tool and the die tab.
+ * here: the roles, the values of a state, the moves and the ticks (the capacitors' charges and pulses, the flip-flops
+ * turning over, the board timer), the solver (the fewest moves, the ticks passing between them, never a change that
+ * lights DETONATE), the hint, undo, the notation, the rating, and the generator of the levels' tool and the die tab.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -14,6 +14,8 @@
 #ifdef DF_NO_LEVELS                            /* (the levels' tool: it makes them) */
 const char *const df_levels[DF_LEVELS];
 const uint8_t df_pars[DF_LEVELS];
+const char *const df_pool[DF_RANDOM][DF_POOL];
+const uint8_t df_pool_pars[DF_RANDOM][DF_POOL];
 #else
 #include "games/defuse_levels.h"
 #endif
@@ -41,32 +43,16 @@ static int node_at(const lg_level *L, int col, int row)
     return -1;
 }
 
-/* per level: each part's switch or latch number, each wire's cable number (-1: none) */
-static int8_t SWX[LG_NODES], LTX[LG_NODES], CTX[LG_WIRES];
-static const df_level *indexed;
-
-static void index_of(const df_level *D)
-{
-    if (indexed == D) return;
-    memset(SWX, -1, sizeof SWX);
-    memset(LTX, -1, sizeof LTX);
-    memset(CTX, -1, sizeof CTX);
-    for (int i = 0; i < D->nsw; i++) SWX[D->sw[i]] = (int8_t)i;
-    for (int i = 0; i < D->nlatch; i++) LTX[D->latch[i]] = (int8_t)i;
-    for (int i = 0; i < D->L.ncut; i++) CTX[D->L.cut[i]] = (int8_t)i;
-    indexed = D;
-}
-
-uint32_t df_bit_switch(const df_level *D, int i) { (void)D; return 1u << i; }
-uint32_t df_bit_cut(const df_level *D, int i) { return 1u << (D->nsw + i); }
-static uint32_t bit_latch(const df_level *D, int i) { return 1u << (D->nsw + D->ncut + i); }
+static int8_t CTX[LG_WIRES];                    /* each wire's cable number (-1: none), for the level last indexed */
+static const lg_level *indexed;
 
 int df_parse(const char *src, df_level *D, char *err, int errsize)
 {
     memset(D, 0, sizeof *D);
-    indexed = NULL;
+    indexed = NULL;                             /* (a new circuit at this address: its cables looked up again) */
     const char *sep = strchr(src, '~'), *lg = sep ? sep + 1 : src;
-    int pc = -1, pr = -1, bc[LG_NODES], br[LG_NODES], nb = 0, mc[LG_NODES], mr[LG_NODES], nm = 0;
+    struct { char k; int col, row, n; } R[LG_NODES];
+    int nr = 0;
     D->secs = DF_SECS;
     for (const char *s = src; sep && s < sep;) {
         if (*s == ' ') { s++; continue; }
@@ -75,81 +61,90 @@ int df_parse(const char *src, df_level *D, char *err, int errsize)
             if (D->secs < 10 || D->secs > 600) return fail(err, errsize, "a bad timer");
             continue;
         }
-        int c, r;
-        if ((*s != 'P' && *s != 'B' && *s != 'M') || !cell_of(s + 1, &c, &r)) return fail(err, errsize, "a bad role");
-        if (*s == 'P') { pc = c; pr = r; }
-        else if (*s == 'B') { bc[nb] = c; br[nb++] = r; }
-        else { mc[nm] = c; mr[nm++] = r; }
-        if (nb >= LG_NODES || nm >= LG_NODES) return fail(err, errsize, "too many roles");
+        if (nr >= LG_NODES || !strchr("PZFC", *s) || !cell_of(s + 1, &R[nr].col, &R[nr].row))
+            return fail(err, errsize, "a bad role");
+        R[nr].k = *s;
         s += 3;
+        R[nr].n = 0;
+        if (*s == ':') R[nr].n = (int)strtol(s + 1, (char **)&s, 10);
+        nr++;
     }
     if (!lg_parse(lg, &D->L, err, errsize)) return 0;
     lg_level *L = &D->L;
     if (L->nrt) return fail(err, errsize, "a route switch");
-    D->det = D->plug = D->battery = -1;
+    D->det = D->disarm = D->power = D->battery = D->timer = -1;
+    memset(D->idx, -1, sizeof D->idx);
     for (int i = 0; i < L->nn; i++) {
         const lg_node *n = &L->n[i];
         int role = DF_GATE;
-        if (n->kind == LG_SWITCH) role = n->locked ? (n->init ? DF_BATTERY : -1) : DF_SW;
+        if (n->kind == LG_SWITCH) role = n->locked ? (n->init ? DF_BATTERY : DF_TIMER) : DF_SW;
         else if (n->kind == LG_ALARM) role = DF_DET;
-        else if (n->kind == LG_LAMP) role = n->col == pc && n->row == pr ? DF_PLUG : DF_LED;
-        if (role < 0) return fail(err, errsize, "a switch locked at 0");
-        if (role == DF_DET) {
-            if (D->det >= 0) return fail(err, errsize, "two DETONATE LEDs");
-            D->det = i;
-        }
-        if (role == DF_PLUG) D->plug = i;
-        if (role == DF_BATTERY) {
-            if (D->battery >= 0) return fail(err, errsize, "two batteries");
-            D->battery = i;
-        }
+        else if (n->kind == LG_LAMP) role = DF_DISARM;
         D->role[i] = (uint8_t)role;
     }
-    for (int k = 0; k < nb; k++) {
-        int i = node_at(L, bc[k], br[k]);
-        if (i < 0 || D->role[i] != DF_SW || L->n[i].init) return fail(err, errsize, "a button not a switch at 0");
-        D->role[i] = DF_BUTTON;
-    }
-    for (int k = 0; k < nm; k++) {
-        int i = node_at(L, mc[k], mr[k]);
-        if (i < 0 || L->n[i].kind != LG_NOT) return fail(err, errsize, "a latch not a NOT");
-        D->role[i] = DF_LATCH;
-        D->latch[D->nlatch++] = i;
-    }
-    if (pc >= 0 && D->plug < 0) return fail(err, errsize, "no power socket there");
-    if (D->det < 0) return fail(err, errsize, "no DETONATE");
-    for (int i = 0; i < L->nsw; i++)
-        if (D->role[L->sw[i]] != DF_BATTERY) D->sw[D->nsw++] = L->sw[i];
-    D->ncut = L->ncut;
-    D->nbits = D->nsw + D->ncut + D->nlatch;
-    if (D->nbits > DF_BITS) return fail(err, errsize, "too many switches, cables and latches");
-    /* the disarm LEDs lettered from the left as drawn */
-    int led[LG_NODES];
-    for (int i = 0; i < L->nn; i++)
-        if (D->role[i] == DF_LED) {
-            int j = D->nled++;
-            while (j > 0 && L->n[led[j - 1]].x > L->n[i].x) { led[j] = led[j - 1]; j--; }
-            led[j] = i;
+    for (int k = 0; k < nr; k++) {
+        int i = node_at(L, R[k].col, R[k].row);
+        if (i < 0) return fail(err, errsize, "a role on an empty cell");
+        int kind = L->n[i].kind;
+        if (R[k].k == 'P' && kind == LG_LAMP) D->role[i] = DF_POWER;
+        else if (R[k].k == 'Z' && D->role[i] == DF_TIMER) D->timer_ticks = R[k].n;
+        else if (R[k].k == 'F' && kind == LG_NOT && D->nff < DF_MAXFF) {
+            D->role[i] = DF_FLIP;
+            D->ff0[D->nff] = R[k].n & 1;
+            D->idx[i] = (int8_t)D->nff;
+            D->ff[D->nff++] = i;
+        } else if (R[k].k == 'C' && kind == LG_NOT && D->ncap < DF_MAXCAP && R[k].n >= 2 && R[k].n <= 15) {
+            D->role[i] = DF_CAP;
+            D->size[i] = (uint8_t)R[k].n;
+            D->idx[i] = (int8_t)D->ncap;
+            D->cap[D->ncap++] = i;
+        } else {
+            return fail(err, errsize, "a role that does not fit its part");
         }
-    if (D->nled < 1 || D->nled > 4) return fail(err, errsize, "1 to 4 disarm LEDs");
-    for (int k = 0; k < D->nled; k++) D->letter[led[k]] = (uint8_t)k;
+    }
+    for (int i = 0; i < L->nn; i++) {
+        int r = D->role[i];
+        int *slot = r == DF_DET ? &D->det : r == DF_DISARM ? &D->disarm : r == DF_POWER ? &D->power :
+                    r == DF_BATTERY ? &D->battery : r == DF_TIMER ? &D->timer : NULL;
+        if (!slot) continue;
+        if (*slot >= 0) return fail(err, errsize, "two of a one-only part");
+        *slot = i;
+    }
+    if (D->det < 0 || D->disarm < 0 || D->power < 0) return fail(err, errsize, "POWER, DISARM and DETONATE needed");
+    if (D->timer >= 0 && (D->timer_ticks < 1 || D->timer_ticks > 60)) return fail(err, errsize, "a board timer's ticks");
+    for (int i = 0; i < L->nsw; i++)
+        if (D->role[L->sw[i]] == DF_SW) {
+            if (D->nsw >= DF_MAXSW) return fail(err, errsize, "too many switches");
+            D->idx[L->sw[i]] = (int8_t)D->nsw;
+            D->sw[D->nsw++] = L->sw[i];
+        }
+    D->ncut = L->ncut;
+    if (D->ncut > DF_MAXCUT) return fail(err, errsize, "too many cables");
     return 1;
 }
 
-static uint32_t start_of(const df_level *D)
+df_state df_start(const df_level *D)
 {
-    uint32_t s = 0;
+    df_state s;
+    memset(&s, 0, sizeof s);
     for (int i = 0; i < D->nsw; i++)
-        if (D->L.n[D->sw[i]].init) s |= df_bit_switch(D, i);
+        if (D->L.n[D->sw[i]].init) s.sw |= (uint8_t)(1u << i);
+    for (int k = 0; k < D->nff; k++)
+        if (D->ff0[k]) s.ff |= (uint8_t)(1u << k);
+    s.tmr = D->timer >= 0 ? (uint8_t)D->timer_ticks : 0;
     return s;
 }
 
 /* ---- the values ---------------------------------------------------------------------------------------------------- */
-void df_eval(const df_level *D, uint32_t st, int press, df_values *v)
+
+void df_eval(const df_level *D, df_state *st, const uint8_t *before, unsigned fire, df_values *v)
 {
-    index_of(D);
     const lg_level *L = &D->L;
-    v->next = st;
+    if (indexed != L) {
+        memset(CTX, -1, sizeof CTX);
+        for (int i = 0; i < L->ncut; i++) CTX[L->cut[i]] = (int8_t)i;
+        indexed = L;
+    }
     for (int i = 0; i < L->nn; i++) {
         const lg_node *n = &L->n[i];
         uint8_t in[3] = {0, 0, 0};
@@ -157,133 +152,252 @@ void df_eval(const df_level *D, uint32_t st, int press, df_values *v)
             int w = n->in[s];
             uint8_t x = v->out[L->w[w].from];
             v->wsrc[w] = x;
-            if (CTX[w] >= 0 && (st & df_bit_cut(D, CTX[w]))) x = 0;
+            if (CTX[w] >= 0 && (st->cut >> CTX[w] & 1)) x = 0;
             v->wend[w] = x;
             in[s] = x;
         }
+        int k = D->idx[i];
         switch (D->role[i]) {
-        case DF_SW: v->out[i] = (st >> SWX[i]) & 1; break;
-        case DF_BUTTON: v->out[i] = press == SWX[i]; break;
+        case DF_SW: v->out[i] = st->sw >> k & 1; break;
         case DF_BATTERY: v->out[i] = 1; break;
-        case DF_LATCH: {
-            uint32_t b = bit_latch(D, LTX[i]);
-            v->out[i] = in[0] || (st & b);
-            if (in[0]) v->next |= b;
+        case DF_TIMER: v->out[i] = st->tmr == 0; break;
+        case DF_FLIP:
+            v->ffin[k] = in[0];
+            if (before && in[0] && !before[k]) st->ff ^= (uint8_t)(1u << k);
+            v->out[i] = st->ff >> k & 1;
             break;
-        }
+        case DF_CAP:
+            v->capin[k] = in[0];
+            v->out[i] = fire >> k & 1;
+            break;
         case DF_GATE: v->out[i] = (uint8_t)lg_gate(n->kind, in, n->nin); break;
         default: v->out[i] = in[0];
         }
     }
-    v->powered = D->plug < 0 || v->out[D->plug];
+    v->powered = v->out[D->power];
     v->det = v->powered && v->out[D->det];
-    v->lit = 0;
-    for (int i = 0; i < L->nn; i++) v->lit += D->role[i] == DF_LED && v->out[i] && v->powered;
-    v->win = !v->det && (!v->powered || v->lit == D->nled);
+    v->disarm = v->powered && v->out[D->disarm];
+    v->win = !v->det && (!v->powered || v->disarm);
 }
 
-int df_step(const df_level *D, uint32_t st, df_move m, uint32_t *next, df_values *held)
+static int outcome(const df_values *v) { return v->det ? DF_LOST : v->win ? DF_WON : DF_SAFE; }
+
+static void step(df_steps *st, const df_values *v, int origin)
 {
-    df_values v;
-    uint32_t ns = st;
-    if (m.kind == DF_MFLIP) {
-        if (m.idx >= D->nsw || D->role[D->sw[m.idx]] != DF_SW) return -1;
-        ns ^= df_bit_switch(D, m.idx);
-    } else if (m.kind == DF_MCUT) {
-        if (m.idx >= D->ncut || (st & df_bit_cut(D, m.idx))) return -1;
-        ns |= df_bit_cut(D, m.idx);
-    } else if (m.kind == DF_MPRESS) {
-        if (m.idx >= D->nsw || D->role[D->sw[m.idx]] != DF_BUTTON) return -1;
-        df_values h;
-        df_eval(D, st, m.idx, &h);
-        if (held) *held = h;
-        ns = h.next;
-        if (h.det || h.win) {
-            *next = ns;
-            return h.det ? DF_LOST : DF_WON;
+    if (!st || st->n >= DF_STEPS) return;
+    st->v[st->n] = *v;
+    st->origin[st->n++] = origin;
+}
+
+int df_tick(const df_level *D, df_state *s, df_steps *st)
+{
+    df_values b, v;
+    if (st) st->n = 0;
+    df_eval(D, s, NULL, 0, &b);
+    int origin = -1;
+    if (s->tmr > 0 && --s->tmr == 0) origin = D->timer;
+    unsigned fire = 0;
+    for (int k = 0; k < D->ncap; k++) {
+        if (!b.capin[k]) { s->ch[k] = 0; continue; }
+        if (++s->ch[k] >= D->size[D->cap[k]]) {
+            fire |= 1u << k;
+            s->ch[k] = 0;
+            origin = D->cap[k];
         }
+    }
+    df_eval(D, s, b.ffin, fire, &v);
+    step(st, &v, origin);
+    int r = outcome(&v);
+    if (r != DF_SAFE || !fire) return r;
+    df_values e;                                /* the pulse ends */
+    df_eval(D, s, v.ffin, 0, &e);
+    step(st, &e, origin);
+    return outcome(&e);
+}
+
+int df_move_do(const df_level *D, df_state *s, df_move m, df_steps *st)
+{
+    if (m.kind == DF_MWAIT) return df_tick(D, s, st);
+    df_values b, v;
+    if (st) st->n = 0;
+    df_eval(D, s, NULL, 0, &b);
+    int origin;
+    if (m.kind == DF_MFLIP) {
+        if (m.idx >= D->nsw) return -1;
+        s->sw ^= (uint8_t)(1u << m.idx);
+        origin = D->sw[m.idx];
+    } else if (m.kind == DF_MCUT) {
+        if (m.idx >= D->ncut || (s->cut >> m.idx & 1)) return -1;
+        s->cut |= (uint8_t)(1u << m.idx);
+        origin = -2 - D->L.cut[m.idx];          /* (a wire: -2 - its number) */
     } else {
         return -1;
     }
-    df_eval(D, ns, -1, &v);
-    *next = v.next;
-    return v.det ? DF_LOST : v.win ? DF_WON : DF_SAFE;
+    df_eval(D, s, b.ffin, 0, &v);
+    step(st, &v, origin);
+    return outcome(&v);
 }
 
-int df_moves(const df_level *D, uint32_t st, df_move *m)
+int df_moves(const df_level *D, const df_state *s, df_move *m)
 {
     int n = 0;
-    for (int i = 0; i < D->nsw; i++)
-        m[n++] = (df_move){(uint8_t)(D->role[D->sw[i]] == DF_BUTTON ? DF_MPRESS : DF_MFLIP), (uint8_t)i};
+    for (int i = 0; i < D->nsw; i++) m[n++] = (df_move){DF_MFLIP, (uint8_t)i};
     for (int i = 0; i < D->ncut; i++)
-        if (!(st & df_bit_cut(D, i))) m[n++] = (df_move){DF_MCUT, (uint8_t)i};
+        if (!(s->cut >> i & 1)) m[n++] = (df_move){DF_MCUT, (uint8_t)i};
     return n;
 }
 
-/* a breadth-first search from st over the states the safe moves reach */
-int df_solve(const df_level *D, uint32_t st, df_move *first)
+/* ---- the solver: the fewest moves, then the fewest ticks (a cheapest-first search; a state is its switches, cuts,
+ * flip-flops, charges, the board timer and the moves made since the last tick) ----------------------------------- */
+static uint64_t pack(const df_state *s, int quick)
 {
+    uint64_t k = s->sw | (uint64_t)s->cut << 8 | (uint64_t)s->ff << 16 | (uint64_t)s->tmr << 20 | (uint64_t)quick << 27;
+    for (int i = 0; i < DF_MAXCAP; i++) k |= (uint64_t)(s->ch[i] & 15) << (30 + 4 * i);
+    return k + 1;                               /* (0: an empty slot) */
+}
+
+static df_state unpack(uint64_t k, int *quick)
+{
+    df_state s;
+    k--;
+    s.sw = (uint8_t)k;
+    s.cut = (uint8_t)(k >> 8);
+    s.ff = (uint8_t)(k >> 16 & 15);
+    s.tmr = (uint8_t)(k >> 20 & 127);
+    *quick = (int)(k >> 27 & 7);
+    for (int i = 0; i < DF_MAXCAP; i++) s.ch[i] = (uint8_t)(k >> (30 + 4 * i) & 15);
+    return s;
+}
+
+#define SLOTS (1 << 17)
+#define COST(m, t) ((uint32_t)(m) << 12 | (uint32_t)(t))
+typedef struct { uint64_t key; uint32_t cost; uint16_t first; uint8_t done; } slot;
+typedef struct { uint32_t cost, at; } heapit;
+
+static int frozen;                              /* the rating's: no time passes */
+
+static uint32_t find(slot *H, uint64_t key)
+{
+    uint32_t h = (uint32_t)((key * 0x9e3779b97f4a7c15ull) >> 47) & (SLOTS - 1);
+    while (H[h].key && H[h].key != key) h = (h + 1) & (SLOTS - 1);
+    return h;
+}
+
+static void push(heapit *Q, int *n, heapit x)
+{
+    int i = (*n)++;
+    while (i > 0 && Q[(i - 1) / 2].cost > x.cost) { Q[i] = Q[(i - 1) / 2]; i = (i - 1) / 2; }
+    Q[i] = x;
+}
+
+static heapit pop(heapit *Q, int *n)
+{
+    heapit top = Q[0], x = Q[--*n];
+    int i = 0;
+    for (;;) {
+        int c = 2 * i + 1;
+        if (c >= *n) break;
+        if (c + 1 < *n && Q[c + 1].cost < Q[c].cost) c++;
+        if (Q[c].cost >= x.cost) break;
+        Q[i] = Q[c];
+        i = c;
+    }
+    if (*n) Q[i] = x;
+    return top;
+}
+
+static int solve_q(const df_level *D, const df_state *s0, int quick0, df_move *first, int *ticks)
+{
+    df_state t = *s0;
     df_values v;
-    df_eval(D, st, -1, &v);
-    if (v.win) return 0;
-    uint32_t N = 1u << D->nbits;
-    uint8_t *seen = calloc(N / 8 + 1, 1);
-    uint32_t *q = malloc(sizeof(uint32_t) * N);
-    uint16_t *fm = malloc(sizeof(uint16_t) * N);
-    int res = -1;
-    if (!seen || !q || !fm) goto done;
-    int head = 0, tail = 0, depth = 0;
-    q[tail++] = st;
-    seen[st >> 3] |= (uint8_t)(1 << (st & 7));
-    while (head < tail && res < 0) {
-        int end = tail;
-        for (; head < end && res < 0; head++) {
-            uint32_t s = q[head];
-            df_move ms[LG_NODES + LG_WIRES];
-            int nm = df_moves(D, s, ms);
-            for (int k = 0; k < nm; k++) {
-                uint32_t ns;
-                int r = df_step(D, s, ms[k], &ns, NULL);
-                if (r < 0 || r == DF_LOST) continue;
-                uint16_t f = depth ? fm[s] : (uint16_t)(ms[k].kind << 8 | ms[k].idx);
-                if (r == DF_WON) {
-                    res = depth + 1;
-                    if (first) *first = (df_move){(uint8_t)(f >> 8), (uint8_t)(f & 255)};
-                    break;
-                }
-                if (seen[ns >> 3] & (1 << (ns & 7))) continue;
-                seen[ns >> 3] |= (uint8_t)(1 << (ns & 7));
-                fm[ns] = f;
-                q[tail++] = ns;
+    df_eval(D, &t, NULL, 0, &v);
+    if (v.win) { if (ticks) *ticks = 0; return 0; }
+    /* (the tables kept between searches, made once; only the slots used are cleared after) */
+    static slot *H;
+    static heapit *Q;
+    static uint32_t *used;
+    if (!H) H = calloc(SLOTS, sizeof(slot));
+    if (!Q) Q = malloc(sizeof(heapit) * SLOTS * 2);
+    if (!used) used = malloc(sizeof(uint32_t) * SLOTS);
+    int res = -1, nq = 0, stored = 0, limit = D->secs > 8 ? D->secs - 4 : D->secs;
+    uint32_t best = 0xffffffffu;
+    uint16_t best_first = 0;
+    if (!H || !Q || !used) return -1;
+    uint32_t h = find(H, pack(s0, quick0));
+    used[stored++] = h;
+    H[h] = (slot){pack(s0, quick0), 0, 0xffff, 0};
+    push(Q, &nq, (heapit){0, h});
+    while (nq) {
+        heapit it = pop(Q, &nq);
+        slot *sl = &H[it.at];
+        if (sl->done || it.cost != sl->cost) continue;
+        if (it.cost >= best) break;
+        sl->done = 1;
+        int q;
+        df_state s = unpack(sl->key, &q);
+        df_move ms[DF_MAXSW + DF_MAXCUT + 1];
+        int nm = q < DF_QUICK ? df_moves(D, &s, ms) : 0;
+        if (!frozen && (int)(it.cost & 4095) < limit) ms[nm++] = (df_move){DF_MWAIT, 0};
+        for (int k = 0; k < nm; k++) {
+            df_state ns = s;
+            int r = df_move_do(D, &ns, ms[k], NULL);
+            if (r < 0 || r == DF_LOST) continue;
+            int wait = ms[k].kind == DF_MWAIT;
+            uint32_t c = it.cost + (wait ? 1 : 1u << 12);
+            uint16_t f = sl->first == 0xffff ? (uint16_t)(ms[k].kind << 8 | ms[k].idx) : sl->first;
+            if (r == DF_WON) {
+                if (c < best) { best = c; best_first = f; }
+                continue;
             }
+            uint64_t key = pack(&ns, wait ? 0 : q + 1);
+            uint32_t at = find(H, key);
+            if (H[at].key && (H[at].done || H[at].cost <= c)) continue;
+            if (!H[at].key) {
+                if (stored >= SLOTS * 3 / 4 || nq >= SLOTS * 2 - 1) goto done;   /* too big: given up */
+                H[at].key = key;
+                used[stored++] = at;
+            }
+            H[at].cost = c;
+            H[at].first = f;
+            H[at].done = 0;
+            if (nq >= SLOTS * 2 - 1) goto done;
+            push(Q, &nq, (heapit){c, at});
         }
-        depth++;
+    }
+    if (best != 0xffffffffu) {
+        res = (int)(best >> 12);
+        if (ticks) *ticks = (int)(best & 4095);
+        if (first) *first = (df_move){(uint8_t)(best_first >> 8), (uint8_t)(best_first & 255)};
     }
 done:
-    free(seen);
-    free(q);
-    free(fm);
+    for (int i = 0; i < stored; i++) H[used[i]] = (slot){0, 0, 0, 0};
     return res;
 }
 
+int df_solve(const df_level *D, const df_state *s, df_move *first, int *ticks)
+{
+    return solve_q(D, s, 0, first, ticks);
+}
+
 /* ---- the game ------------------------------------------------------------------------------------------------------ */
-void df_load(df_game *g, const df_level *D, uint32_t start, int level, int par)
+void df_load(df_game *g, const df_level *D, int level, int par)
 {
     if (&g->D != D) g->D = *D;
     indexed = NULL;
     g->level = level;
     g->par = par;
-    g->start = start;
+    g->start = df_start(&g->D);
     df_restart(g);
 }
 
 void df_restart(df_game *g)
 {
-    g->state = g->start;
+    g->s = g->start;
     g->nh = 0;
+    g->ticks = 0;
     g->hinted = 0;
     g->over = 0;
-    df_eval(&g->D, g->state, -1, &g->v);
+    df_eval(&g->D, &g->s, NULL, 0, &g->v);
 }
 
 int df_open(df_game *g, int level)
@@ -291,34 +405,42 @@ int df_open(df_game *g, int level)
     if (level < 0 || level >= DF_LEVELS || !df_levels[level]) return 0;
     static df_level D;
     if (!df_parse(df_levels[level], &D, NULL, 0)) return 0;
-    df_load(g, &D, start_of(&D), level, df_pars[level]);
+    df_load(g, &D, level, df_pars[level]);
     return 1;
 }
 
-int df_play(df_game *g, df_move m)
+static int after(df_game *g, int r)
 {
-    if (g->over) return -1;
-    uint32_t ns;
-    int r = df_step(&g->D, g->state, m, &ns, NULL);
-    if (r < 0) return -1;
-    g->state = ns;
-    if (g->nh < DF_HIST) g->hist[g->nh] = m;
-    g->nh++;
-    df_eval(&g->D, g->state, -1, &g->v);
+    df_eval(&g->D, &g->s, NULL, 0, &g->v);
+    if (r == DF_LOST) g->v.det = 1;             /* (it blew at a pulse: shown so) */
     if (r != DF_SAFE) g->over = r;
     return r;
 }
 
-/* undo: the moves played again from the start but the last (the latches set as they were) */
+int df_play(df_game *g, df_move m)
+{
+    if (g->over || m.kind == DF_MWAIT) return m.kind == DF_MWAIT && !g->over ? df_pass(g) : -1;
+    df_state before = g->s;
+    int r = df_move_do(&g->D, &g->s, m, NULL);
+    if (r < 0) return -1;
+    if (g->nh < DF_HIST) g->hist[g->nh] = before;
+    g->nh++;
+    return after(g, r);
+}
+
+int df_pass(df_game *g)
+{
+    if (g->over) return -1;
+    g->ticks++;
+    return after(g, df_tick(&g->D, &g->s, NULL));
+}
+
 int df_undo(df_game *g)
 {
     if (!g->nh || g->over == DF_LOST || g->nh > DF_HIST) return 0;
-    int n = g->nh - 1, hinted = g->hinted;
-    df_move h[DF_HIST];
-    memcpy(h, g->hist, sizeof h);
-    df_restart(g);
-    for (int i = 0; i < n; i++) df_play(g, h[i]);
-    g->hinted = hinted;
+    g->s = g->hist[--g->nh];
+    g->over = 0;
+    df_eval(&g->D, &g->s, NULL, 0, &g->v);
     return 1;
 }
 
@@ -339,7 +461,7 @@ int df_stars(const df_game *g)
 int df_hint(const df_game *g, df_move *m)
 {
     if (g->over) return 0;
-    return df_solve(&g->D, g->state, m) > 0;
+    return df_solve(&g->D, &g->s, m, NULL) >= 0 && !g->v.win;   /* (0 moves: time alone wins, a wait) */
 }
 
 int df_script(df_game *g, const char *s)
@@ -347,8 +469,14 @@ int df_script(df_game *g, const char *s)
     while (*s) {
         if (*s == ' ') { s++; continue; }
         char c = *s++;
+        int n = 0, digits = 0;
+        while (*s >= '0' && *s <= '9') { n = n * 10 + *s++ - '0'; digits++; }
         if (c == 'u') { if (!df_undo(g)) return 0; continue; }
         if (c == 'x') { df_restart(g); continue; }
+        if (c == 'w') {
+            for (int k = 0; k < (digits ? n : 1) && !g->over; k++) df_pass(g);
+            continue;
+        }
         if (c == 'h') {
             df_move m;
             if (!df_hint(g, &m)) return 0;
@@ -358,15 +486,16 @@ int df_script(df_game *g, const char *s)
         if (c == '=') {
             df_restart(g);
             df_move m;
-            for (int k = 0; k < 64 && !g->over && df_solve(&g->D, g->state, &m) > 0; k++) df_play(g, m);
+            for (int k = 0; k < 200 && !g->over; k++) {
+                if (df_solve(&g->D, &g->s, &m, NULL) < 0) return 0;
+                if (m.kind == DF_MWAIT) df_pass(g);
+                else df_play(g, m);
+            }
             if (g->over != DF_WON) return 0;
             continue;
         }
-        if (c != 's' && c != 'b' && c != 'c') return 0;
-        int n = 0;
-        if (*s < '1' || *s > '9') return 0;
-        while (*s >= '0' && *s <= '9') n = n * 10 + *s++ - '0';
-        df_move m = {(uint8_t)(c == 's' ? DF_MFLIP : c == 'b' ? DF_MPRESS : DF_MCUT), (uint8_t)(n - 1)};
+        if ((c != 's' && c != 'c') || n < 1) return 0;
+        df_move m = {(uint8_t)(c == 's' ? DF_MFLIP : DF_MCUT), (uint8_t)(n - 1)};
         if (df_play(g, m) < 0) return 0;
     }
     return 1;
@@ -375,129 +504,213 @@ int df_script(df_game *g, const char *s)
 /* ---- the rating ---------------------------------------------------------------------------------------------------- */
 static uint64_t mix(uint64_t h, uint64_t v) { return (h ^ v) * 0x100000001b3ull; }
 
-static const df_spec *rate_spec;           /* df_make's: a start not for it, given up early */
-static int spec_ok(const df_level *D, const df_spec *sp, const df_rating *r);
+/* how far towards DISARM a state is: its conditions lit (an AND's inputs), POWER out the most */
+static int progress(const df_level *D, const df_values *v)
+{
+    if (!v->powered) return 10;
+    const lg_node *n = &D->L.n[D->disarm];
+    int w = n->in[0], src = D->L.w[w].from, p = 0;
+    const lg_node *a = &D->L.n[src];
+    if (D->role[src] == DF_GATE && a->kind == LG_AND) {
+        for (int k = 0; k < a->nin; k++) p += v->wend[a->in[k]];
+        return p + (v->wend[w] ? 1 : 0);
+    }
+    return v->wend[w] ? 2 : 0;
+}
 
-int df_rate(const df_level *D, uint32_t start, df_rating *r)
+/* the best way's actions from s (moves and waits), each the solver's next */
+static int best_way(const df_level *D, const df_state *s0, df_move *way, int cap)
+{
+    df_state s = *s0;
+    int n = 0, q = 0;
+    while (n < cap) {
+        df_move m;
+        if (solve_q(D, &s, q, &m, NULL) <= 0) break;
+        way[n++] = m;
+        int r = df_move_do(D, &s, m, NULL);
+        q = m.kind == DF_MWAIT ? 0 : q + 1;
+        if (r != DF_SAFE) break;
+    }
+    return n;
+}
+
+/* the best way's moves in every order (its waits kept in their places): the orders that still win */
+static void orders(const df_level *D, const df_state *s0, const df_move *way, int n, int *ways, int *all)
+{
+    int ns = 0;
+    df_move mv[16];
+    for (int i = 0; i < n && ns < 16; i++)
+        if (way[i].kind != DF_MWAIT) mv[ns++] = way[i];
+    *ways = *all = 0;
+    if (ns > 7) { *ways = 1; *all = 2; return; }
+    int perm[7], used[7];
+    /* every arrangement (repeats of one move counted once: an arrangement kept when no earlier one matches) */
+    int total = 1;
+    for (int i = 2; i <= ns; i++) total *= i;
+    static df_move seen[5040][7];
+    int nseen = 0;
+    for (int p = 0; p < total; p++) {
+        int x = p;
+        memset(used, 0, sizeof used);
+        for (int i = 0; i < ns; i++) {
+            int k = x % (ns - i);
+            x /= ns - i;
+            int j = -1;
+            while (k >= 0) { j++; if (!used[j]) k--; }
+            used[j] = 1;
+            perm[i] = j;
+        }
+        df_move seq[7];
+        for (int i = 0; i < ns; i++) seq[i] = mv[perm[i]];
+        int dup = 0;
+        for (int a = 0; a < nseen && !dup; a++) dup = !memcmp(seen[a], seq, sizeof(df_move) * (size_t)ns);
+        if (dup) continue;
+        memcpy(seen[nseen++], seq, sizeof(df_move) * (size_t)ns);
+        df_state s = *s0;
+        int r = DF_SAFE, k = 0;
+        for (int i = 0; i < n && r == DF_SAFE; i++)
+            r = df_move_do(D, &s, way[i].kind == DF_MWAIT ? way[i] : seq[k++], NULL);
+        (*all)++;
+        if (r == DF_WON) (*ways)++;
+    }
+}
+
+int df_rate(const df_level *D, const df_state *start, df_rating *r)
 {
     memset(r, 0, sizeof *r);
+    df_state s = *start;
     df_values v;
-    df_eval(D, start, -1, &v);
-    if (v.det || v.win || D->nbits > 15) return 0;
-    df_move first;
-    r->par = df_solve(D, start, &first);
+    df_eval(D, &s, NULL, 0, &v);
+    if (v.det || v.win) return 0;
+    r->par = df_solve(D, start, NULL, &r->ticks);
     if (r->par <= 0) return 0;
     const lg_level *L = &D->L;
-    r->vars = D->nbits;
-    for (int i = 0; i < L->nn; i++) r->gates += D->role[i] == DF_GATE || D->role[i] == DF_LATCH;
+    r->vars = D->nsw + D->ncut;
+    for (int i = 0; i < L->nn; i++) r->gates += D->role[i] == DF_GATE || D->role[i] == DF_FLIP || D->role[i] == DF_CAP;
     r->depth = L->maxdepth;
     r->crossings = L->crossings;
-    /* the first moves: blowing, leaving no way, tempting */
-    df_move ms[LG_NODES + LG_WIRES];
-    int nm = df_moves(D, start, ms), best_lit = -1, greedy = -1;
+    /* the first moves */
+    df_move ms[DF_MAXSW + DF_MAXCUT + 1];
+    int nm = df_moves(D, start, ms), gp = progress(D, &v), best_p = gp, greedy = -1;
     r->moves_first = nm;
     for (int k = 0; k < nm; k++) {
-        uint32_t ns;
-        df_values h;
-        int res = df_step(D, start, ms[k], &ns, &h);
-        df_values after;
-        df_eval(D, ns, -1, &after);
-        int lit = ms[k].kind == DF_MPRESS ? h.lit : after.lit;
-        if (res == DF_LOST) r->lose_first++;
-        else if (res == DF_SAFE && df_solve(D, ns, NULL) < 0) r->dead_first++;
-        if (lit > best_lit) { best_lit = lit; greedy = k; }
+        df_state ns = *start;
+        int res = df_move_do(D, &ns, ms[k], NULL);
+        if (res == DF_LOST) { r->lose_first++; continue; }
+        int p = solve_q(D, &ns, 1, NULL, NULL);
+        if (res == DF_SAFE && p < 0) r->dead_first++;
+        if (res == DF_WON || (res == DF_SAFE && p == r->par - 1)) r->nsol++;
+        df_values a;
+        df_eval(D, &ns, NULL, 0, &a);
+        int pr = res == DF_WON ? 20 : progress(D, &a);
+        if (pr > best_p) { best_p = pr; greedy = k; }
     }
-    if (greedy >= 0 && best_lit > v.lit) {
-        uint32_t ns;
-        int res = df_step(D, start, ms[greedy], &ns, NULL);
-        r->greedy_trap = res == DF_LOST || (res == DF_SAFE && df_solve(D, ns, NULL) < 0);
+    {
+        df_state ns = *start;                   /* waiting first */
+        int res = df_tick(D, &ns, NULL);
+        if (res == DF_WON || (res == DF_SAFE && df_solve(D, &ns, NULL, NULL) == r->par)) r->nsol++;
     }
-    /* the best way's moves, one of them made first */
-    uint32_t s = start;
+    if (greedy >= 0) {
+        df_state ns = *start;
+        int res = df_move_do(D, &ns, ms[greedy], NULL);
+        r->greedy_ok = res == DF_WON || (res == DF_SAFE && solve_q(D, &ns, 1, NULL, NULL) == r->par - 1);
+    }
+    /* the orders of the best way's moves */
     df_move way[64];
-    int nw = 0;
-    while (nw < 64) {
-        df_move m;
-        if (df_solve(D, s, &m) <= 0) break;
-        way[nw++] = m;
-        uint32_t ns;
-        if (df_step(D, s, m, &ns, NULL) != DF_SAFE) break;
-        s = ns;
+    int n = best_way(D, start, way, 64);
+    orders(D, start, way, n, &r->ways, &r->orders);
+    /* time: the bomb left alone (its deadline); the way without time (frozen) */
+    df_state w = *start;
+    for (int t = 1; t <= 40; t++) {
+        int res = df_tick(D, &w, NULL);
+        if (res == DF_LOST) { r->deadline = t; break; }
+        if (res == DF_WON) break;
     }
-    for (int k = 1; k < nw; k++) {
-        uint32_t ns;
-        if (df_step(D, start, way[k], &ns, NULL) == DF_LOST) r->order_trap = 1;
+    frozen = 1;
+    int fp = df_solve(D, start, NULL, NULL);
+    frozen = 0;
+    r->timing = fp != r->par || r->deadline > 0;
+    /* the controls reaching two lamps or more (through the wires) */
+    int reach[LG_NODES];
+    for (int i = L->nn - 1; i >= 0; i--) {
+        reach[i] = D->role[i] == DF_DET ? 1 : D->role[i] == DF_DISARM ? 2 : D->role[i] == DF_POWER ? 4 : 0;
+        for (int w2 = 0; w2 < L->nw; w2++)
+            if (L->w[w2].from == i) reach[i] |= reach[L->w[w2].to];
     }
-    /* the ways in: how many first moves start a best way */
-    for (int k = 0; k < nm; k++) {
-        uint32_t ns;
-        int res = df_step(D, start, ms[k], &ns, NULL);
-        if (res == DF_WON || (res == DF_SAFE && df_solve(D, ns, NULL) == r->par - 1)) r->nsol++;
+    int many = 0, ctl = 0;
+    for (int k = 0; k < D->nsw; k++) {
+        int m = reach[D->sw[k]];
+        ctl++;
+        many += (m & 1) + (m >> 1 & 1) + (m >> 2 & 1) >= 2;
     }
-    r->score = 1.6f * r->par + 0.5f * r->vars + 0.35f * r->gates + 0.4f * r->depth +
-               2.5f * r->lose_first / (float)nm + 1.0f * r->dead_first + 1.5f * r->order_trap +
-               1.0f * r->greedy_trap - 0.6f * (r->nsol - 1);
-    if (rate_spec && !spec_ok(D, rate_spec, r)) return 0;
-    /* every variable matters, no gate stuck; the key: what every state shows */
-    uint32_t N = 1u << D->nbits, nv = (uint32_t)D->nbits;
+    for (int k = 0; k < D->ncut; k++) {
+        int m = reach[L->w[L->cut[k]].to];
+        ctl++;
+        many += (m & 1) + (m >> 1 & 1) + (m >> 2 & 1) >= 2;
+    }
+    r->shared = ctl ? 100 * many / ctl : 0;
+    /* no gate stuck (states sampled), and the key: what the samples show */
+    uint32_t seed = 12345;
     uint8_t seen0[LG_NODES] = {0}, seen1[LG_NODES] = {0};
-    uint32_t matters = 0;
-    int dead_power = D->plug < 0;              /* a power socket that can go dark (else it is for show) */
     uint64_t key = 0xcbf29ce484222325ull;
-    for (uint32_t s = 0; s < N; s++) {
-        df_eval(D, s, -1, &v);
-        int sig = v.det | v.win << 1 | v.powered << 2 | v.lit << 3;
-        dead_power |= !v.powered;
-        key = mix(key, (uint64_t)sig);
+    for (int t = 0; t < 256; t++) {
+        df_state x;
+        memset(&x, 0, sizeof x);
+        x.sw = (uint8_t)pr_next(&seed);
+        x.cut = (uint8_t)(pr_next(&seed) & ((1u << D->ncut) - 1));
+        x.ff = (uint8_t)(pr_next(&seed) & 15);
+        x.tmr = (uint8_t)(pr_next(&seed) & 1);
+        unsigned fire = pr_next(&seed) & 7;
+        df_values a;
+        df_eval(D, &x, NULL, fire & ((1u << D->ncap) - 1), &a);
+        key = mix(key, (uint64_t)(a.det | a.disarm << 1 | a.powered << 2));
         for (int i = 0; i < L->nn; i++) {
-            if (v.out[i]) seen1[i] = 1;
+            if (a.out[i]) seen1[i] = 1;
             else seen0[i] = 1;
         }
-        for (uint32_t b = 0; b < nv; b++) {
-            if (matters >> b & 1) continue;
-            df_values u;
-            df_eval(D, s ^ (1u << b), -1, &u);
-            if ((u.det | u.win << 1 | u.powered << 2 | u.lit << 3) != sig) matters |= 1u << b;
-        }
-        for (int k = 0; k < D->nsw; k++) {      /* a button: pressed in this state */
-            if (D->role[D->sw[k]] != DF_BUTTON) continue;
-            df_values u;
-            df_eval(D, s, k, &u);
-            for (int i = 0; i < L->nn; i++) {
-                if (u.out[i]) seen1[i] = 1;
-                else seen0[i] = 1;
-            }
-            if ((u.det | u.win << 1 | u.powered << 2 | u.lit << 3) != sig || u.next != s) matters |= 1u << k;
-            key = mix(key, (uint64_t)(u.det | u.win << 1) + 7);
-        }
     }
-    if (!dead_power) return -1;
-    for (int b = 0; b < D->nbits; b++)
-        if (!(matters >> b & 1)) return -1;    /* a switch, a cable or a latch that never matters */
     for (int i = 0; i < L->nn; i++)
-        if ((D->role[i] == DF_GATE || D->role[i] == DF_LATCH) && !(seen0[i] && seen1[i])) return -1;
-    r->key = mix(key, start);
+        if (D->role[i] == DF_GATE && !(seen0[i] && seen1[i])) return -1;
+    if (!seen1[D->det] || !seen1[D->disarm] || !seen0[D->power]) return -1;
+    r->key = mix(mix(key, pack(start, 0)), (uint64_t)D->timer_ticks);
+    float lose = (r->lose_first + r->dead_first) / (float)(nm ? nm : 1);
+    r->score = 1.4f * r->par + 3.0f * lose + 2.5f / (float)(r->nsol ? r->nsol : 1) +
+               3.0f * (r->orders > 0 ? 1 - r->ways / (float)r->orders : 0) + 1.5f * r->timing + 0.25f * r->gates +
+               0.2f * r->vars + 1.0f * !r->greedy_ok;
+    return 1;
+}
+
+int df_spec_ok(const df_spec *sp, const df_rating *r)
+{
+    if (r->par < sp->par_lo || r->par > sp->par_hi) return 0;
+    if (r->ticks > (sp->secs ? sp->secs : DF_SECS) - 15) return 0;
+    if (r->lose_first + r->dead_first >= r->moves_first) return 0;   /* (some way in) */
+    if (sp->timing && !r->timing) return 0;
+    if (sp->easy) return r->lose_first + r->dead_first > 0;
+    if (r->lose_first + r->dead_first < 1) return 0;   /* a trap */
+    if (r->orders < 2 || r->ways >= r->orders) return 0;   /* an order that matters */
+    if (r->greedy_ok) return 0;                 /* the obvious move does not work */
+    if (r->shared < 60) return 0;               /* one network: most controls reach two lamps */
     return 1;
 }
 
 /* ---- the generator ------------------------------------------------------------------------------------------------- */
 typedef struct {
-    int kind, role, nin, depth, init, row, col;
-    int src[3], cut[3];
+    int kind, role, nin, depth, init, row, col, size;
+    int src[3], cut[3], uses;
     float x;
-    uint32_t supp;                              /* the sources it depends on (bit: a source's node) */
+    uint32_t supp;
 } gnode;
-typedef struct { int node, used, ttl; } gsig;
 
 static int range(uint32_t *s, int lo, int hi) { return hi > lo ? lo + pr_below(s, hi - lo + 1) : lo; }
 static const char *const KIND[LG_KINDS] = {"s", "NOT", "AND", "OR", "XOR", "NAND", "NOR", "y", "L", "A"};
 
-static int pick_kind(uint32_t *s, unsigned kinds)
+static int pick_two(uint32_t *s, unsigned kinds)
 {
     int k[8], n = 0;
     for (int i = LG_AND; i <= LG_NOR; i++)
         if (kinds >> i & 1) k[n++] = i;
-    return n ? k[pr_below(s, n)] : -1;
+    return n ? k[pr_below(s, n)] : LG_AND;
 }
 
 static int put(char *out, int size, int len, const char *txt)
@@ -508,165 +721,206 @@ static int put(char *out, int size, int len, const char *txt)
     return len + n;
 }
 
+/* a signal to take: one not used yet mostly (fan: % of a used one), near x when x >= 0 */
+static float deep_w = 0.2f;                    /* how much deeper signals are preferred */
+static int take_ex(uint32_t *s, gnode *N, int nn, int fan, float x, uint64_t ex)
+{
+    int best = -1;
+    float bd = 1e9f;
+    int want_used = pr_below(s, 100) < fan;
+    for (int t = 0; t < 2; t++) {
+        for (int i = 0; i < nn; i++) {
+            if ((ex >> i & 1) || N[i].role == DF_DET || N[i].role == DF_DISARM || N[i].role == DF_POWER) continue;
+            if (!t && (N[i].uses > 0) != want_used) continue;
+            float d = (x >= 0 ? fabsf(N[i].x - x) : 0) + pr_below(s, 100) / 60.0f - deep_w * N[i].depth;
+            if (d < bd) { bd = d; best = i; }
+        }
+        if (best >= 0) break;
+    }
+    return best;
+}
+
+static int take(uint32_t *s, gnode *N, int nn, int fan, float x, int not)
+{
+    return take_ex(s, N, nn, fan, x, not >= 0 ? 1ull << not : 0);
+}
+
+static gnode *add(gnode *N, int *nn, int kind, int role, int a, int b)
+{
+    gnode *g = &N[*nn];
+    memset(g, 0, sizeof *g);
+    g->kind = kind;
+    g->role = role;
+    g->src[0] = a;
+    g->nin = 1;
+    g->depth = N[a].depth + 1;
+    g->x = N[a].x;
+    g->supp = N[a].supp;
+    N[a].uses++;
+    if (b >= 0) {
+        g->src[1] = b;
+        g->nin = 2;
+        if (N[b].depth + 1 > g->depth) g->depth = N[b].depth + 1;
+        g->x = (N[a].x + N[b].x) / 2;
+        g->supp |= N[b].supp;
+        N[b].uses++;
+    }
+    (*nn)++;
+    return g;
+}
+
 static int grow(uint32_t *s, const df_spec *sp, char *out, int size)
 {
+    deep_w = 0.2f;
     gnode N[LG_NODES];
-    gsig q[2 * LG_NODES];
-    int nn = 0, nq = 0;
-    memset(N, 0, sizeof N);
-    int nsw = range(s, sp->sw_lo, sp->sw_hi), nsrc = nsw + sp->btn + (sp->battery || sp->plug ? 1 : 0);
-    if (nsrc > LG_COLS) return 0;
+    int nn = 0;
+    int nsw = range(s, sp->sw_lo, sp->sw_hi), nsrc = nsw + 1 + (sp->timer ? 1 : 0);
     int order[LG_COLS];
     for (int i = 0; i < nsrc; i++) order[i] = i;
     pr_shuffle(s, order, nsrc);
     for (int i = 0; i < nsrc; i++) {
         int k = order[i];
-        int role = k < nsw ? DF_SW : k < nsw + sp->btn ? DF_BUTTON : DF_BATTERY;
-        N[nn] = (gnode){.kind = LG_SWITCH, .role = role, .x = (float)i, .init = role == DF_SW ? pr_below(s, 2) : role == DF_BATTERY};
-        N[nn].supp = 1u << nn;
-        q[nq++] = (gsig){nn++, 0, 0};
-    }
-    /* the latches, each over a button (its signal still free for a gate beside: the press's danger) */
-    int nl = 0;
-    for (int i = 0; i < nq && nl < sp->latches; i++) {
-        if (N[q[i].node].role != DF_BUTTON) continue;
         gnode *g = &N[nn];
-        *g = (gnode){.kind = LG_NOT, .role = DF_LATCH, .nin = 1, .depth = 1, .x = N[q[i].node].x + 0.1f};
-        g->src[0] = q[i].node;
-        g->supp = N[q[i].node].supp;
-        q[i].used = 1;
-        q[i].ttl = 3;
-        memmove(q + i + 2, q + i + 1, sizeof(gsig) * (size_t)(nq - i - 1));
-        q[i + 1] = (gsig){nn++, 0, 0};
-        nq++;
-        nl++;
-        i++;
-    }
-    int leds = range(s, sp->leds_lo, sp->leds_hi), k = leds + 1 + (sp->plug ? 1 : 0);
-    int G = range(s, sp->gates_lo, sp->gates_hi), gates = 0;
-    unsigned two = sp->kinds & ~(1u << LG_NOT);
-    for (int step = 0;; step++) {
-        int un = 0;
-        for (int i = 0; i < nq; i++) un += !q[i].used;
-        if (un == k && gates >= G) break;
-        if (step > 150 || un < k || nn >= LG_NODES - 6) return 0;
-        int need = un - k, spare = G - gates - need, act;
-        int can_not = sp->kinds >> LG_NOT & 1;
-        if (need > 0 && (spare <= 0 || pr_below(s, 100) < 55)) act = 1;   /* a join */
-        else if (spare > 0 && can_not && pr_below(s, 100) < 45) act = 2;   /* a NOT */
-        else if (spare > 0 && two) act = 3;                                /* a branching */
-        else if (need < 0) return 0;
-        else continue;
-        int a = pr_below(s, nq);
-        for (int i = 0; i < nq; i++)            /* the battery's signal taken first, half the time */
-            if (!q[i].used && N[q[i].node].role == DF_BATTERY && act != 2 && pr_below(s, 2)) a = i;
-        if (q[a].used) continue;
-        int in[3] = {a, 0, 0}, nin = 1, kind;
-        if (act == 2) {
-            int fk = N[q[a].node].kind;
-            if (fk == LG_NOT || N[q[a].node].role == DF_LATCH || N[q[a].node].role == DF_BATTERY) continue;
-            kind = LG_NOT;
-        } else if (act == 3) {
-            int b = pr_below(s, 2) ? a - 1 : a + 1;
-            if (b < 0 || b >= nq || q[b].node == q[a].node) continue;
-            if (!q[b].used && need <= 0) continue;   /* (a neighbour still free: a join, not a branching) */
-            in[nin++] = b;
-            kind = pick_kind(s, two);
-        } else {
-            if (!two) continue;
-            int dir = pr_below(s, 2) ? -1 : 1;
-            for (int pass = 0; pass < 2 && nin < 2; pass++, dir = -dir)
-                for (int b = a + dir; b >= 0 && b < nq && nin < 2; b += dir)
-                    if (!q[b].used) in[nin++] = b;
-            if (nin < 2) continue;
-            kind = pick_kind(s, two);
-        }
-        if (kind < 0) return 0;
-        int depth = 0;
-        float x = 0;
-        uint32_t supp = 0;
-        for (int j = 0; j < nin; j++) {
-            const gnode *f = &N[q[in[j]].node];
-            if (f->depth > depth) depth = f->depth;
-            x += f->x;
-            supp |= f->supp;
-        }
-        if (nin == 2 && in[1] < in[0]) { int t = in[0]; in[0] = in[1]; in[1] = t; }
-        if (++depth > sp->depth_hi) continue;
-        gnode *g = &N[nn];
-        *g = (gnode){.kind = kind, .role = DF_GATE, .nin = nin, .depth = depth, .x = x / nin, .supp = supp};
-        for (int j = 0; j < nin; j++) g->src[j] = q[in[j]].node;
-        gsig q2[2 * LG_NODES];
-        int m = 0, placed = 0;
-        for (int i = 0; i < nq; i++) {
-            int taken = 0;
-            for (int j = 0; j < nin; j++) taken |= in[j] == i;
-            gsig t = q[i];
-            if (taken && (act != 3 || i == a)) {
-                if (!placed) { q2[m++] = (gsig){nn, 0, 0}; placed = 1; }
-                continue;
-            }
-            if (taken) { t.used = 1; t.ttl = 3; }
-            if (t.used && --t.ttl <= 0) continue;
-            q2[m++] = t;
-        }
-        memcpy(q, q2, sizeof(gsig) * (size_t)m);
-        nq = m;
+        memset(g, 0, sizeof *g);
+        g->kind = LG_SWITCH;
+        g->role = k < nsw ? DF_SW : k == nsw ? DF_BATTERY : DF_TIMER;
+        g->init = g->role == DF_SW ? pr_below(s, 2) : g->role == DF_BATTERY;
+        g->x = (float)i;
+        g->supp = 1u << nn;
+        g->size = g->role == DF_TIMER ? range(s, 6, 15) : 0;
         nn++;
-        gates++;
     }
-    /* the outputs on the signals left: DETONATE, the power socket (on a signal from the battery), the LEDs */
-    int top = 0, idx[LG_NODES], ni = 0;
-    for (int i = 0; i < nn; i++)
-        if (N[i].depth > top) top = N[i].depth;
-    for (int i = 0; i < nq; i++)
-        if (!q[i].used) idx[ni++] = i;
+    /* the inner parts, in a random order */
+    int nff = range(s, sp->ff_lo, sp->ff_hi), ncap = range(s, sp->cap_lo, sp->cap_hi);
+    int G = range(s, sp->gates_lo, sp->gates_hi), todo[LG_NODES], nt = 0;
+    for (int i = 0; i < G; i++) {
+        int one = (sp->kinds >> LG_NOT & 1) && pr_below(s, 100) < 22;
+        todo[nt++] = one ? LG_NOT : pick_two(s, sp->kinds);
+    }
+    for (int i = 0; i < nff; i++) todo[nt++] = 100;
+    for (int i = 0; i < ncap; i++) todo[nt++] = 101;
+    pr_shuffle(s, todo, nt);
+    for (int t = 0; t < nt; t++) {
+        if (nn >= LG_NODES - 10) return 0;
+        int k = todo[t];
+        int a = take(s, N, nn, sp->fan, -1, -1);
+        if (a < 0) return 0;
+        if (k >= 100 || k == LG_NOT) {
+            if (k == LG_NOT && N[a].kind == LG_NOT && N[a].role == DF_GATE) continue;   /* (NOT NOT) */
+            if (k == 101 && N[a].role == DF_BATTERY) continue;
+            gnode *g = add(N, &nn, LG_NOT, k == 100 ? DF_FLIP : k == 101 ? DF_CAP : DF_GATE, a, -1);
+            if (k == 100) g->init = pr_below(s, 2);
+            if (k == 101) g->size = range(s, 3, 6);
+        } else {
+            int b = take(s, N, nn, sp->fan, N[a].x, a);
+            if (b < 0) return 0;
+            if ((N[a].role == DF_BATTERY || N[b].role == DF_BATTERY) && k != LG_XOR) k = LG_AND;   /* (no gate stuck) */
+            add(N, &nn, k, DF_GATE, a, b);
+        }
+        if (N[nn - 1].depth > 4) return 0;
+    }
+    /* the lamps, each from a gate of two signals or more (shared ones first): POWER an OR of two branches from the
+     * battery (one move seldom puts it out), DISARM an AND of its conditions, DETONATE an OR or an AND */
     int bat = -1;
     for (int i = 0; i < nn; i++)
         if (N[i].role == DF_BATTERY) bat = i;
-    int plug_at = -1;
-    if (sp->plug) {
-        int c[LG_NODES], nc = 0;
-        for (int j = 0; j < ni; j++)
-            if (N[q[idx[j]].node].supp >> bat & 1) c[nc++] = j;
-        if (!nc) return 0;
-        plug_at = c[pr_below(s, nc)];
-    } else if (bat >= 0) {                      /* the battery used somewhere */
-        int used = 0;
+    int pb[2] = {-1, -1};
+    for (int h = 0; h < 2; h++) {
+        float pd = -1e9f;
         for (int i = 0; i < nn; i++)
-            for (int j = 0; j < N[i].nin; j++) used |= N[i].src[j] == bat;
-        for (int j = 0; j < ni; j++) used |= q[idx[j]].node == bat;
-        if (!used) return 0;
+            if ((N[i].supp >> bat & 1) && i != pb[0] && N[i].role != DF_CAP && N[i].kind != LG_SWITCH &&
+                (!h || (N[i].supp & ~N[pb[0]].supp & ~(1u << bat)))) {   /* (the second branch fed by another switch) */
+                float d = N[i].depth + pr_below(s, 100) / 40.0f - 1.5f * N[i].uses;
+                if (d > pd) { pd = d; pb[h] = i; }
+            }
+        if (pb[h] < 0) {                        /* a branch made: the battery through an AND with a signal */
+            int b = take(s, N, nn, 30, N[bat].x, bat);
+            if (b < 0 || N[b].role == DF_CAP) return 0;
+            add(N, &nn, LG_AND, DF_GATE, bat, b);
+            pb[h] = nn - 1;
+        }
     }
-    int det_at;
-    do det_at = pr_below(s, ni); while (det_at == plug_at);
-    for (int j = 0; j < ni; j++) {
-        int src = q[idx[j]].node;
-        if (N[src].role == DF_BATTERY && j != plug_at) return 0;   /* a LED always lit, DETONATE always lit */
-        if (N[src].role == DF_BUTTON) return 0;                     /* a LED lit only while pressed */
-        N[nn] = (gnode){.kind = j == det_at ? LG_ALARM : LG_LAMP, .role = j == det_at ? DF_DET : j == plug_at ? DF_PLUG : DF_LED,
-                        .nin = 1, .depth = top + 1, .x = N[src].x, .src = {src, 0, 0}};
-        nn++;
+    add(N, &nn, LG_OR, DF_GATE, pb[0], pb[1]);
+    int pw = nn - 1;
+    int conds = range(s, sp->conds > 1 ? 2 : 1, sp->conds > 1 ? sp->conds : 1);
+    int dc[3] = {-1, -1, -1};
+    deep_w = 1.2f;                              /* (the conditions and DETONATE from deep in the network) */
+    for (int c = 0; c < conds; c++) {
+        uint64_t ex = 1ull << pw;
+        for (int j = 0; j < c; j++) ex |= 1ull << dc[j];
+        for (int i = 0; i < nn; i++)
+            if (N[i].role == DF_CAP) ex |= 1ull << i;
+        dc[c] = take_ex(s, N, nn, c ? 50 : 30, c ? N[dc[0]].x : -1, ex);
+        if (dc[c] < 0) return 0;
     }
-    /* the cables: on the gates', the LEDs' and the socket's inputs (not DETONATE's own: no puzzle left) */
+    int da = dc[0];
+    if (conds > 1) {
+        gnode *g = add(N, &nn, LG_AND, DF_GATE, dc[0], dc[1]);
+        if (conds > 2 && dc[2] >= 0 && dc[2] != dc[1]) {
+            g->src[2] = dc[2];
+            g->nin = 3;
+            N[dc[2]].uses++;
+            if (N[dc[2]].depth + 1 > g->depth) g->depth = N[dc[2]].depth + 1;
+            g->supp |= N[dc[2]].supp;
+        }
+        da = nn - 1;
+    }
+    uint64_t ex = 1ull << pw | 1ull << da | 1ull << bat;
+    int e1 = take_ex(s, N, nn, 70, -1, ex), e2 = e1 >= 0 ? take_ex(s, N, nn, 70, N[e1].x, ex | 1ull << e1) : -1;
+    if (e1 < 0 || e2 < 0) return 0;
+    add(N, &nn, pr_below(s, 3) ? LG_AND : LG_OR, DF_GATE, e1, e2);
+    int de = nn - 1;
+    deep_w = 0.2f;
+    int lamp_src[3] = {pw, da, de};
+    /* every signal used: one left over joins DETONATE's or DISARM's gate through a gate */
+    for (int guard = 0; guard < 20; guard++) {
+        int u = -1;
+        for (int i = 0; i < nn && u < 0; i++)
+            if (!N[i].uses && i != pw && i != da && i != de) u = i;
+        if (u < 0) break;
+        if (nn >= LG_NODES - 4) return 0;
+        int l = 1 + pr_below(s, 2), kind = l == 1 ? LG_AND : pick_two(s, sp->kinds & ~(1u << LG_NOT));
+        if (N[u].role == DF_CAP || N[u].role == DF_BATTERY) l = 2, kind = N[u].role == DF_BATTERY ? LG_AND : LG_OR;
+        gnode *t = &N[lamp_src[l]];
+        if (t->role == DF_GATE && t->nin == 2 && t->kind != LG_XOR && (l == 2 || t->kind == LG_AND) &&
+            N[u].depth < t->depth) {   /* a third input to the lamp's gate (no row more) */
+            t->src[2] = u;
+            t->nin = 3;
+            t->supp |= N[u].supp;
+            N[u].uses++;
+            continue;
+        }
+        add(N, &nn, kind, DF_GATE, u, lamp_src[l]);
+        lamp_src[l] = nn - 1;
+    }
+    for (int l = 0; l < 3; l++)
+        if (N[lamp_src[l]].role == DF_CAP && l != 2) return 0;   /* a lamp lit an instant only */
+    for (int l = 0; l < 3; l++)
+        if (N[lamp_src[l]].role == DF_BATTERY || N[lamp_src[l]].role == DF_TIMER) return 0;
+    int top = 0;
+    for (int i = 0; i < nn; i++)
+        if (N[i].depth > top) top = N[i].depth;
+    const int ROLE[3] = {DF_POWER, DF_DISARM, DF_DET};
+    for (int l = 0; l < 3; l++) {
+        gnode *g = add(N, &nn, l == 2 ? LG_ALARM : LG_LAMP, ROLE[l], lamp_src[l], -1);
+        g->depth = top + 1;
+    }
+    /* the cables: on the gates', flip-flops' and capacitors' inputs (none on a lamp's: too easy) */
     int fuses = range(s, sp->fuses_lo, sp->fuses_hi), nf = 0;
-    if (sp->plug && bat >= 0 && fuses > 0)  /* the power: a cable on the battery's way (never right at the socket: too easy) */
-        for (int i = 0; i < nn && !nf; i++)
-            for (int j = 0; j < N[i].nin && !nf; j++)
-                if (N[i].src[j] == bat && N[i].role != DF_PLUG) { N[i].cut[j] = 1; nf++; }
     for (int t = 0; t < 120 && nf < fuses; t++) {
         int i = pr_below(s, nn);
-        if (N[i].kind == LG_SWITCH || N[i].role == DF_DET || N[i].role == DF_LATCH || N[i].role == DF_PLUG) continue;
+        if (N[i].kind == LG_SWITCH || N[i].role == DF_DET || N[i].role == DF_DISARM || N[i].role == DF_POWER) continue;
         int j = pr_below(s, N[i].nin);
         if (!N[i].cut[j]) { N[i].cut[j] = 1; nf++; }
     }
     if (nf < sp->fuses_lo) return 0;
     /* the cells: the row by depth, the columns in the order of their places */
+    if (top + 1 >= LG_ROWS) return 0;
     for (int r = 0; r <= top + 1; r++) {
         int id[LG_NODES], n = 0;
         for (int i = 0; i < nn; i++)
             if (N[i].depth == r) id[n++] = i;
-        if (n > LG_COLS || r >= LG_ROWS) return 0;
+        if (n > LG_COLS) return 0;
         for (int a = 1; a < n; a++)
             for (int b = a; b > 0 && N[id[b - 1]].x > N[id[b]].x; b--) { int t = id[b]; id[b] = id[b - 1]; id[b - 1] = t; }
         for (int c = 0; c < n; c++) { N[id[c]].row = r; N[id[c]].col = c; }
@@ -678,14 +932,18 @@ static int grow(uint32_t *s, const df_spec *sp, char *out, int size)
     for (int i = 0; i < nn; i++) {
         const gnode *g = &N[i];
         char c = (char)('a' + g->col), r = (char)('1' + g->row);
-        if (g->role == DF_PLUG) { snprintf(tok, sizeof tok, "P%c%c ", c, r); len = put(out, size, len, tok); }
-        if (g->role == DF_BUTTON) { snprintf(tok, sizeof tok, "B%c%c ", c, r); len = put(out, size, len, tok); }
-        if (g->role == DF_LATCH) { snprintf(tok, sizeof tok, "M%c%c ", c, r); len = put(out, size, len, tok); }
+        tok[0] = 0;
+        if (g->role == DF_POWER) snprintf(tok, sizeof tok, "P%c%c ", c, r);
+        if (g->role == DF_TIMER) snprintf(tok, sizeof tok, "Z%c%c:%d ", c, r, g->size);
+        if (g->role == DF_FLIP) snprintf(tok, sizeof tok, "F%c%c:%d ", c, r, g->init);
+        if (g->role == DF_CAP) snprintf(tok, sizeof tok, "C%c%c:%d ", c, r, g->size);
+        len = put(out, size, len, tok);
     }
     len = put(out, size, len, "~");
     for (int i = 0; i < nn; i++) {
         const gnode *g = &N[i];
-        const char *name = g->kind == LG_SWITCH ? (g->role == DF_BATTERY ? "K" : g->init ? "S" : "s") : KIND[g->kind];
+        const char *name = g->kind == LG_SWITCH ? (g->role == DF_BATTERY ? "K" : g->role == DF_TIMER ? "k" : g->init ? "S" : "s")
+                                                : KIND[g->kind];
         snprintf(tok, sizeof tok, " %s@%c%d", name, 'a' + g->col, g->row + 1);
         len = put(out, size, len, tok);
         for (int j = 0; j < g->nin; j++) {
@@ -698,32 +956,15 @@ static int grow(uint32_t *s, const df_spec *sp, char *out, int size)
     return len < size - 1;
 }
 
-static int spec_ok(const df_level *D, const df_spec *sp, const df_rating *r)
-{
-    unsigned have = 0;
-    for (int i = 0; i < D->L.nn; i++)
-        if (D->role[i] == DF_GATE) have |= 1u << D->L.n[i].kind;
-    if ((have & sp->need) != sp->need) return 0;
-    if (r->par < sp->par_lo || r->par > sp->par_hi) return 0;
-    if (sp->trap && !r->order_trap && !r->greedy_trap) return 0;
-    if (sp->dead && !r->dead_first) return 0;
-    if (r->lose_first == 0) return 0;           /* something always blows */
-    if (r->lose_first == r->moves_first) return 0;
-    if (sp->cross >= 0 && D->L.crossings > sp->cross) return 0;
-    return 1;
-}
-
 /* the text's switches set to a start (bit i: switch i on) */
-static void set_start(char *out, const df_level *D, uint32_t st)
+static void set_start(char *out, const df_level *D, unsigned st)
 {
     for (int i = 0; i < D->nsw; i++) {
         const lg_node *n = &D->L.n[D->sw[i]];
-        if (D->role[D->sw[i]] != DF_SW) continue;
         char pat[8];
         snprintf(pat, sizeof pat, "@%c%d", 'a' + n->col, n->row + 1);
         for (char *p = strstr(out, pat); p; p = strstr(p + 1, pat))
-            if (p > out && (p[-1] == 's' || p[-1] == 'S') && (p - 1 == out || p[-2] == ' ') &&
-                (p[3] == ' ' || !p[3])) {
+            if (p > out && (p[-1] == 's' || p[-1] == 'S') && p[-2] == ' ' && (p[3] == ' ' || !p[3])) {
                 p[-1] = st >> i & 1 ? 'S' : 's';
                 break;
             }
@@ -737,30 +978,30 @@ int df_make(uint32_t seed, const df_spec *sp, int tries, char *out, int size, df
     for (int t = 0; t < tries; t++) {
         if (!grow(&s, sp, out, size)) continue;
         if (!df_parse(out, &D, NULL, 0)) continue;
-        if (D.nbits > 15 || D.nsw > 8) continue;
         if (sp->cross >= 0 && D.L.crossings > sp->cross) continue;
-        /* the start: a setting of the switches safe and not won, its par in range (one of them at random) */
-        uint32_t ok[256], nok = 0, mask = 0;
-        for (int i = 0; i < D.nsw; i++)
-            if (D.role[D.sw[i]] == DF_SW) mask |= 1u << i;
-        for (uint32_t st = 0; st < (1u << D.nsw); st++) {
-            if (st & ~mask) continue;
+        /* the starts: every setting of the switches safe and not won whose par is in range (the solver's), a few of
+         * them rated from a random one on */
+        unsigned n = 1u << D.nsw, first = (unsigned)pr_below(&s, (int)n), good[64];
+        int ng = 0;
+        for (unsigned k = 0; k < n && ng < 64; k++) {
+            unsigned st = (first + k) % n;
+            df_state s0 = df_start(&D), x;
+            s0.sw = (uint8_t)st;
+            x = s0;
             df_values v;
-            df_eval(&D, st, -1, &v);
+            df_eval(&D, &x, NULL, 0, &v);
             if (v.det || v.win) continue;
-            int p = df_solve(&D, st, NULL);
-            if (p >= sp->par_lo && p <= sp->par_hi) ok[nok++] = st;
+            int p = df_solve(&D, &s0, NULL, NULL);
+            if (p >= sp->par_lo && p <= sp->par_hi) good[ng++] = st;
         }
-        if (!nok) continue;
-        int first = pr_below(&s, (int)nok);
-        for (uint32_t k = 0; k < nok; k++) {    /* from a random one on, the first that makes a good puzzle */
-            uint32_t st = ok[(first + k) % nok];
-            rate_spec = sp;
-            int ok = df_rate(&D, st, r);
-            rate_spec = NULL;
-            if (ok < 0) break;                  /* (the circuit's fault: every start alike) */
-            if (!ok) continue;
-            set_start(out, &D, st);
+        for (int k = 0; k < ng && k < 6; k++) {
+            df_state s0 = df_start(&D);
+            s0.sw = (uint8_t)good[k];
+            int res = df_rate(&D, &s0, r);
+            if (res < 0) break;
+            if (!res) continue;
+            if (!df_spec_ok(sp, r)) continue;
+            set_start(out, &D, good[k]);
             return 1;
         }
     }
@@ -780,45 +1021,36 @@ int df_text_with_layout(const char *src, const df_level *D, char *out, int size)
     return 1;
 }
 
-/* ---- the die tab ------------------------------------------------------------------------------------------------------ */
+/* ---- the die tab --------------------------------------------------------------------------------------------------- */
 void df_random_spec(int size, df_spec *sp)
 {
     memset(sp, 0, sizeof *sp);
     sp->kinds = 1u << LG_AND | 1u << LG_OR | 1u << LG_NOT;
-    sp->depth_hi = 4;
-    sp->cross = 2;
-    sp->trap = 0;                               /* (the levels teach the traps; random play: something blows) */
+    sp->fan = 35;
+    sp->cross = 4;
     switch (size) {
     case 0:
-        sp->sw_lo = 3; sp->sw_hi = 4; sp->gates_lo = 2; sp->gates_hi = 4; sp->leds_lo = 1; sp->leds_hi = 2;
-        sp->fuses_hi = 1; sp->par_lo = 2; sp->par_hi = 4;
+        sp->sw_lo = 3; sp->sw_hi = 4; sp->gates_lo = 3; sp->gates_hi = 4; sp->conds = 2; sp->fuses_hi = 1;
+        sp->ff_hi = 1; sp->par_lo = 2; sp->par_hi = 4;
         break;
     case 1:
-        sp->kinds |= 1u << LG_XOR | 1u << LG_NAND;
-        sp->sw_lo = 3; sp->sw_hi = 4; sp->gates_lo = 3; sp->gates_hi = 5; sp->leds_lo = 2; sp->leds_hi = 2;
-        sp->fuses_lo = 1; sp->fuses_hi = 2; sp->battery = 1; sp->plug = 1; sp->par_lo = 2; sp->par_hi = 6;
+        sp->kinds |= 1u << LG_XOR;
+        sp->sw_lo = 3; sp->sw_hi = 4; sp->gates_lo = 4; sp->gates_hi = 5; sp->conds = 2; sp->fuses_lo = 1;
+        sp->fuses_hi = 2; sp->ff_hi = 1; sp->cap_hi = 1; sp->par_lo = 3; sp->par_hi = 5;
         break;
     default:
         sp->kinds |= 1u << LG_XOR | 1u << LG_NAND | 1u << LG_NOR;
-        sp->sw_lo = 4; sp->sw_hi = 5; sp->gates_lo = 4; sp->gates_hi = 7; sp->leds_lo = 3; sp->leds_hi = 3;
-        sp->fuses_lo = 1; sp->fuses_hi = 2; sp->battery = 1; sp->btn = 1; sp->latches = 1; sp->par_lo = 3; sp->par_hi = 8;
-        sp->depth_hi = 5;
-        sp->cross = 3;
+        sp->sw_lo = 4; sp->sw_hi = 5; sp->gates_lo = 5; sp->gates_hi = 6; sp->conds = 3; sp->fuses_lo = 1;
+        sp->fuses_hi = 2; sp->ff_lo = 1; sp->ff_hi = 1; sp->cap_lo = 1; sp->cap_hi = 1; sp->timer = 1;
+        sp->par_lo = 4; sp->par_hi = 7; sp->secs = 90;
     }
 }
 
 int df_random(df_game *g, int size, uint32_t seed)
 {
-    df_spec sp;
-    df_rating r;
-    char txt[DF_TEXT];
-    df_random_spec(size < 0 ? 0 : size >= DF_RANDOM ? DF_RANDOM - 1 : size, &sp);
-    for (int k = 0; k < 40; k++)
-        if (df_make(seed + 7919u * (uint32_t)k, &sp, 150, txt, sizeof txt, &r)) {
-            static df_level D;
-            if (!df_parse(txt, &D, NULL, 0)) continue;
-            df_load(g, &D, start_of(&D), -1, r.par);
-            return 1;
-        }
-    return 0;
+    int z = size < 0 ? 0 : size >= DF_RANDOM ? DF_RANDOM - 1 : size, k = (int)(pr_seed(seed) % DF_POOL);
+    static df_level D;
+    if (!df_pool[z][k] || !df_parse(df_pool[z][k], &D, NULL, 0)) return 0;
+    df_load(g, &D, -1, df_pool_pars[z][k]);
+    return 1;
 }

@@ -1,12 +1,12 @@
 Disinnesca la bomba
 # Lo scopo
-Disinnesca la bomba prima che il timer arrivi a zero: accendi insieme tutti i suoi LED verdi, oppure togli l'alimentazione. Se il LED rosso del detonatore si accende, anche solo per un istante, la bomba esplode.
+Disinnesca la bomba prima che il timer arrivi a zero: accendi la lampada verde DISARM, oppure spegni la lampada arancione POWER. Se la lampada rossa DETONATE si accende mentre la bomba è alimentata, anche solo per un istante, esplode.
 # Una mossa
-Una mossa scatta un interruttore, taglia un cavo o preme un pulsante. Ogni filo porta allora 1 (brilla d'oro) o 0, e il LED rosso deve restare spento dopo ogni mossa: l'ordine conta.
+Una mossa scatta un interruttore o taglia un cavo. Tutto è un solo circuito alimentato dalla batteria: una mossa cambia spesso tutte e tre le lampade insieme, quindi l'ordine conta.
 - Un cavo tagliato porta 0 oltre il taglio, per sempre.
-- Un pulsante dà 1 solo mentre è premuto.
-- La batteria dà sempre 1. Un chip di memoria dà 1 per sempre appena il suo ingresso è stato 1.
-- NOT inverte il suo ingresso. AND dà 1 quando entrambi gli ingressi sono 1, OR quando lo è uno dei due, XOR quando lo è uno solo. NAND e NOR invertono AND e OR.
-- Quando la presa di alimentazione porta 0, la bomba è morta.
+- NOT inverte il suo ingresso. AND dà 1 quando tutti gli ingressi sono 1, OR quando lo è uno di essi, XOR quando lo è uno solo. NAND e NOR invertono AND e OR.
+- Un flip-flop cambia stato ogni volta che il suo ingresso passa da 0 a 1.
+- Un condensatore si carica di un passo al secondo finché il suo ingresso è 1; pieno, emette un breve impulso. L'ingresso a 0 lo svuota.
+- Il timer della scheda conta alla rovescia da solo; a zero dà 1.
 # Livelli e stelle
 3 stelle: il minor numero di mosse possibile, senza aiuti. 2 stelle: fino alla metà di mosse in più, o con un aiuto. Altrimenti 1.

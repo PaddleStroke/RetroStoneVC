@@ -1,12 +1,12 @@
 Désamorcer la bombe
 # Le but
-Désamorce la bombe avant que son minuteur n'atteigne zéro : allume toutes ses LED vertes en même temps, ou coupe son alimentation. Si la LED rouge du détonateur s'allume, même un instant, la bombe explose.
+Désamorce la bombe avant que son minuteur n'atteigne zéro : allume la lampe verte DISARM, ou éteins la lampe orange POWER. Si la lampe rouge DETONATE s'allume pendant que la bombe est alimentée, même un instant, elle explose.
 # Un coup
-Un coup bascule un interrupteur, coupe un câble ou appuie sur un bouton-poussoir. Chaque fil porte alors 1 (il brille en or) ou 0, et la LED rouge doit rester éteinte après chaque coup : leur ordre compte.
+Un coup bascule un interrupteur ou coupe un câble. Tout est un seul circuit alimenté par la pile : un coup change souvent les trois lampes à la fois, alors l'ordre de tes coups compte.
 - Un câble coupé porte 0 au-delà de la coupure, pour de bon.
-- Un bouton-poussoir donne 1 seulement pendant qu'il est enfoncé.
-- La pile donne toujours 1. Une puce mémoire donne 1 pour de bon dès que son entrée a valu 1.
-- NOT inverse son entrée. AND donne 1 quand ses deux entrées valent 1, OR quand l'une d'elles vaut 1, XOR quand une seule vaut 1. NAND et NOR inversent AND et OR.
-- Quand la prise d'alimentation porte 0, la bombe est morte.
+- NOT inverse son entrée. AND donne 1 quand toutes ses entrées valent 1, OR quand l'une d'elles vaut 1, XOR quand une seule vaut 1. NAND et NOR inversent AND et OR.
+- Une bascule change d'état chaque fois que son entrée passe de 0 à 1.
+- Un condensateur se charge d'un cran par seconde tant que son entrée vaut 1 ; plein, il envoie une brève impulsion. Son entrée à 0 le vide.
+- La minuterie de la carte décompte toute seule ; à zéro, elle donne 1.
 # Niveaux et étoiles
 3 étoiles : le moins de coups possible, sans indice. 2 étoiles : jusqu'à moitié plus de coups, ou avec un indice. Sinon 1.

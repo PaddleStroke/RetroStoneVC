@@ -1,14 +1,16 @@
 /*
  * Defuse the Bomb in RetroStone Board, for one player (the rules: defuse_rules.c, defuse.h; the circuit's text, its
- * gates and its drawing are Logic Gates'): a red bomb casing, a seven-segment timer at its top beside the power lamp,
- * and under it a green circuit board with gold traces: chunky toggle switches, red push buttons and the battery at
- * the bottom, Logic Gates' gates (their brass shapes and names) on black chips, memory chips, coloured jumper cables
- * to cut, and at the top the disarm LEDs (green, lettered A to D), the red DETONATE LED and the power socket.
- * After each move the change runs along the wires, a bright pulse at its front, wire after wire (STEP_MS each); a
- * press runs twice (the button held, then let go). DETONATE lit: the flash, the board shaking, a fireball and smoke,
- * the board scorched; the restart tool lit (a tap on the board starts again). The timer at 0: the same. Disarmed:
- * the timer stops, turns green and the LEDs flash green; then the shell's stars card. The timer only runs while the
- * game is on the screen (frames drawn: a gap, or the clock leaping far, is not counted: Mental Math's way).
+ * gates and its drawing are Logic Gates'): a red bomb casing, its seven-segment main timer at the top, and under it
+ * one dense green circuit board with gold traces: chunky toggle switches, the battery and the board timer (its own
+ * two red digits) at the bottom, Logic Gates' gates (their brass shapes and names) on black chips, flip-flops (a
+ * state lamp), capacitors (a blue can, a gauge of their charge, a flash when they fire), coloured jumper cables to
+ * cut, and at the top the bomb's module: POWER, DISARM and DETONATE on one black plate.
+ * After each change (a move, a tick of the board's own time) it runs along the wires, a bright pulse at its front,
+ * wire after wire (STEP_MS each); a capacitor's pulse runs twice (fired, then over). DETONATE lit: it throbs, then
+ * the flash, the board shaking, a fireball and smoke, the board scorched; the restart tool lit (a tap on the board
+ * starts again). The main timer at 0: the same. Disarmed: the timer stops, turns green and DISARM flashes; then the
+ * shell's stars card. The clock (and the ticks: a second each) only runs while the game is on the screen (frames
+ * drawn: a gap, or the clock leaping far, is not counted: Mental Math's way).
  * The board art stays itself in both themes; only the label on the table follows the theme.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
@@ -24,7 +26,7 @@
 
 #define STEP_MS 190                             /* the change along one wire */
 #define FLIP_MS 150
-#define HOLD_MS 160                             /* a button held down, its change landed, before it is let go */
+#define HOLD_MS 160                             /* a capacitor's pulse shown, before it ends */
 #define CUT_MS 720
 #define MEND_MS 360
 #define HINT_MS 2400
@@ -38,7 +40,6 @@ static df_game G;
 
 /* ---- the layout ----------------------------------------------------------------------------------------------- */
 static box B, CS, BAND, PB, panel;              /* the room; the casing; its timer band; the circuit board */
-static float lamp_x, lamp_y, lamp_d;            /* the power lamp on the casing */
 static int wide;
 static float ox, oy, cw, ch, tw, gs = 1, shx, shy;   /* grid (x, y) at (ox + x cw, oy - y ch); the shake */
 enum { T_RESET, T_HINT, TOOLS };
@@ -376,23 +377,74 @@ static void paint_chip(int w, int h, uint8_t *o)
         }
 }
 
-/* a memory chip (w x h): a chip, a little window lit amber once it holds a 1, and a hold bar over it */
-static void paint_latch(int on, int w, int h, uint8_t *o)
+/* a flip-flop (w x h): a chip, two arrows turning over on its left (it flips), its state lamp on the right (green: 1) */
+static void paint_flip(int on, int w, int h, uint8_t *o)
 {
     paint_chip(w, h, o);
-    float cx = 0.5f * w, cy = 0.56f * h, r = 0.2f * fminf(w, 1.6f * h);
-    const uint8_t amber[3] = {255, 178, 40}, dark[3] = {74, 46, 18}, steel[3] = {170, 176, 186};
-    art_style st = style(on ? amber : dark, on ? 0.25f : 0.5f, fmaxf(1, 0.03f * h));
+    float r = 0.17f * fminf(w, 1.7f * h), cy = 0.56f * h, lx = 0.68f * w, ax = 0.32f * w;
+    const uint8_t green[3] = {110, 255, 120}, dark[3] = {24, 60, 30}, white[3] = {236, 236, 228};
+    art_style st = style(on ? green : dark, on ? 0.25f : 0.5f, fmaxf(1, 0.03f * h));
     fig *f = fig_new();
-    fig_ellipse(f, ART_PART, cx, cy, r, r);
+    fig_ellipse(f, ART_PART, lx, cy, r, r);
     fig_over(f, &st, w, h, o);
-    art_style ss = style(steel, 0.5f, fmaxf(1, 0.025f * h));
-    f = fig_new();                              /* a clamp's two jaws round it: it holds */
-    float t = 0.12f * r;
-    fig_rect(f, ART_PART, cx - 1.55f * r, cy - 0.25f * r, cx - 1.15f * r, cy + 0.25f * r);
-    fig_rect(f, ART_PART, cx + 1.15f * r, cy - 0.25f * r, cx + 1.55f * r, cy + 0.25f * r);
-    fig_rect(f, ART_PART, cx - 1.55f * r, cy - t, cx - 1.05f * r, cy + t);
+    art_style sw = style(white, 0, 0);
+    for (int i = 0; i < 3; i++) sw.mark[i] = white[i];
+    f = fig_new();                              /* an arrow up, an arrow down, side by side */
+    float a = 0.9f * r, t = 0.22f * r;
+    for (int k = 0; k < 2; k++) {
+        float x = ax + (k ? 0.55f : -0.55f) * a, dir = k ? 1.0f : -1.0f, tip = cy + dir * a, base = cy - dir * 0.2f * a;
+        const float head[] = {x, tip, x - 0.55f * a, tip - dir * 0.6f * a, x + 0.55f * a, tip - dir * 0.6f * a};
+        fig_poly(f, ART_MARK, head, 3);
+        fig_rect(f, ART_MARK, x - t, fminf(base, tip - dir * 0.6f * a), x + t, fmaxf(base, tip - dir * 0.6f * a));
+    }
+    fig_over(f, &sw, w, h, o);
+}
+
+/* a capacitor (w x h): a chip, an upright blue can on its left (its minus stripe), the charge gauge's frame on its
+ * right (its steps drawn live) */
+static void paint_cap(int w, int h, uint8_t *o)
+{
+    paint_chip(w, h, o);
+    const uint8_t blue[3] = {40, 92, 186}, stripe[3] = {214, 226, 240}, top[3] = {178, 186, 198};
+    float cx = 0.32f * w, rw = 0.17f * w, y0 = 0.18f * h, y1 = 0.92f * h;
+    art_style sb = style(blue, 0.6f, fmaxf(1, 0.03f * h));
+    fig *f = fig_new();
+    fig_rect(f, ART_PART, cx - rw, y0 + 0.08f * h, cx + rw, y1);
+    fig_ellipse(f, ART_PART, cx, y0 + 0.08f * h, rw, 0.08f * h);
+    fig_over(f, &sb, w, h, o);
+    art_style ss = style(stripe, 0.2f, 0);
+    f = fig_new();
+    fig_rect(f, ART_PART, cx + 0.45f * rw, y0 + 0.14f * h, cx + 0.8f * rw, y1 - 0.04f * h);
     fig_over(f, &ss, w, h, o);
+    art_style st = style(top, 0.5f, 1);
+    f = fig_new();
+    fig_ellipse(f, ART_PART, cx, y0 + 0.08f * h, 0.8f * rw, 0.06f * h);
+    fig_over(f, &st, w, h, o);
+    for (int y = (int)(0.16f * h); y < (int)(0.9f * h); y++)   /* the gauge's well */
+        for (int x = (int)(0.6f * w); x < (int)(0.84f * w); x++) {
+            uint8_t *p = o + 4 * ((size_t)y * w + x);
+            p[0] = 10; p[1] = 12; p[2] = 14;
+        }
+}
+/* the gauge's well on a capacitor drawn x0..x1, y0..y1 (as paint_cap places it) */
+static void cap_well(float x, float y, float w, float h, float *wx, float *wy, float *ww, float *wh)
+{
+    *wx = x + 0.6f * w;
+    *wy = y + 0.16f * h;
+    *ww = 0.24f * w;
+    *wh = 0.74f * h;
+}
+
+/* the board timer's plate (w x h): dark steel, a black window for its two digits (drawn live), a lamp under it */
+static void paint_timer_plate(int w, int h, uint8_t *o)
+{
+    const uint8_t steel[3] = {64, 66, 74};
+    paint_plate(o, w, h, steel, 1.0f, 0.03f);
+    for (int y = (int)(0.12f * h); y < (int)(0.58f * h); y++)
+        for (int x = (int)(0.08f * w); x < (int)(0.92f * w); x++) {
+            uint8_t *p = o + 4 * ((size_t)y * w + x);
+            p[0] = 22; p[1] = 10; p[2] = 10;
+        }
 }
 
 /* a toggle switch's plate (w x h): dark steel, a hex nut in its middle, a little lamp at its top (lit: on) */
@@ -432,23 +484,6 @@ static void paint_lever(int w, int h, uint8_t *o)
     fig_free(f);
 }
 
-/* a push button (d x d): a square black base, four screws, a red cap (down: darker, smaller) */
-static void paint_button(int down, int d, uint8_t *o)
-{
-    const uint8_t base[3] = {44, 46, 52}, screw[3] = {150, 156, 166}, cap_up[3] = {226, 44, 36},
-                  cap_dn[3] = {150, 26, 22};
-    paint_plate(o, d, d, base, 1.0f, 0.03f);
-    art_style ss = style(screw, 0.6f, 1);
-    fig *f = fig_new();
-    for (int k = 0; k < 4; k++) fig_ellipse(f, ART_PART, (k & 1 ? 0.84f : 0.16f) * d, (k & 2 ? 0.84f : 0.16f) * d, 0.06f * d, 0.06f * d);
-    fig_over(f, &ss, d, d, o);
-    float r = (down ? 0.3f : 0.34f) * d, cy = (down ? 0.52f : 0.48f) * d;
-    art_style sc = style(down ? cap_dn : cap_up, down ? 0.3f : 0.7f, fmaxf(1, 0.03f * d));
-    f = fig_new();
-    fig_ellipse(f, ART_PART, 0.5f * d, cy, r, r);
-    fig_over(f, &sc, d, d, o);
-}
-
 /* the battery (w x h): an upright cell, its plus end at the top (its output), a gold band, a plus sign */
 static void paint_battery(int w, int h, uint8_t *o)
 {
@@ -479,14 +514,35 @@ static void paint_battery(int w, int h, uint8_t *o)
     fig_over(f, &sw, w, h, o);
 }
 
-/* a LED (w x h): a dark base with two legs, the dome over it (DF_LED green, DF_DET red); on the dome its letter, or
- * DETONATE's spark */
-static void paint_led(int role, int letter, int lit, int w, int h, uint8_t *o)
+/* the power symbol (a ring open at the top, a bar through the gap) in rgb, centred, r its radius */
+static void power_sign(uint8_t *o, int w, int h, float cx, float cy, float r, const uint8_t rgb[3])
+{
+    float t = 0.24f * r;
+    for (int y = 0; y < h; y++)
+        for (int x = 0; x < w; x++) {
+            float dx = x + 0.5f - cx, dy = y + 0.5f - cy, d = sqrtf(dx * dx + dy * dy), a = 0;
+            float ang = atan2f(dx, -dy);                    /* 0 at the top */
+            if (fabsf(d - r) < t && fabsf(ang) > 0.6f) a = clampf(t - fabsf(d - r), 0, 1);
+            if (fabsf(dx) < t * 0.8f && dy < 0.15f * r && dy > -1.25f * r) a = fmaxf(a, clampf(t * 0.8f - fabsf(dx), 0, 1));
+            if (a <= 0) continue;
+            uint8_t *p = o + 4 * (y * w + x);
+            for (int i = 0; i < 3; i++) p[i] = (uint8_t)(p[i] * (1 - a) + rgb[i] * a);
+            p[3] = (uint8_t)fmaxf(p[3], 255 * a);
+        }
+}
+
+/* a module lamp (w x h): a dark base with two legs, the dome over it, its sign on the dome: POWER amber (the power
+ * sign), DISARM green (a tick), DETONATE red (a spark) */
+static void paint_led(int role, int lit, int w, int h, uint8_t *o)
 {
     memset(o, 0, (size_t)w * h * 4);
     static const uint8_t base[3] = {40, 42, 48}, leg[3] = {190, 196, 206};
-    const uint8_t g_on[3] = {120, 255, 140}, g_off[3] = {24, 74, 40}, r_on[3] = {255, 84, 60}, r_off[3] = {96, 22, 18};
-    const uint8_t *dome = role == DF_DET ? (lit ? r_on : r_off) : lit ? g_on : g_off;
+    static const uint8_t ON[3][3] = {{255, 186, 50}, {120, 255, 140}, {255, 84, 60}},
+                         OFF[3][3] = {{92, 62, 26}, {24, 74, 40}, {96, 22, 18}},
+                         INK_ON[3][3] = {{120, 60, 0}, {14, 70, 30}, {120, 10, 0}},
+                         INK_OFF[3][3] = {{214, 170, 120}, {200, 236, 210}, {220, 120, 100}};
+    int c = role == DF_POWER ? 0 : role == DF_DISARM ? 1 : 2;
+    const uint8_t *dome = lit ? ON[c] : OFF[c], *ink = lit ? INK_ON[c] : INK_OFF[c];
     float xc = w / 2.0f, sb = 0.22f * h, r = fminf(0.46f * w, 0.36f * h);
     art_style sl = style(leg, 0.5f, 1);
     fig *f = fig_new();
@@ -513,10 +569,21 @@ static void paint_led(int role, int letter, int lit, int w, int h, uint8_t *o)
     fig_poly(f, ART_PART, p, n / 2);
     fig_over(f, &sg, w, h, o);
     float cy = y0 - 0.95f * r;
-    if (role == DF_DET) {                       /* a spark: an eight-pointed star */
-        const uint8_t ink_on[3] = {120, 10, 0}, ink_off[3] = {220, 120, 100};
-        art_style sm = style(lit ? ink_on : ink_off, 0, 0);
-        for (int i = 0; i < 3; i++) sm.mark[i] = (lit ? ink_on : ink_off)[i];
+    art_style sm = style(ink, 0, 0);
+    for (int i = 0; i < 3; i++) sm.mark[i] = ink[i];
+    if (c == 0) {
+        power_sign(o, w, h, xc, cy + 0.05f * r, 0.42f * r, ink);
+    } else if (c == 1) {                        /* a tick */
+        f = fig_new();
+        float t = 0.13f * r;
+        const float a1[] = {xc - 0.5f * r, cy, xc - 0.5f * r + 2 * t, cy - t, xc - 0.12f * r + t, cy + 0.32f * r - t,
+                            xc - 0.12f * r, cy + 0.32f * r + t};
+        const float a2[] = {xc - 0.12f * r, cy + 0.32f * r + t, xc - 0.12f * r - t, cy + 0.32f * r - 2 * t,
+                            xc + 0.5f * r - t, cy - 0.45f * r, xc + 0.5f * r + t, cy - 0.3f * r};
+        fig_poly(f, ART_MARK, a1, 4);
+        fig_poly(f, ART_MARK, a2, 4);
+        fig_over(f, &sm, w, h, o);
+    } else {                                    /* a spark: an eight-pointed star */
         f = fig_new();
         float q[32];
         for (int i = 0; i < 16; i++) {
@@ -526,13 +593,8 @@ static void paint_led(int role, int letter, int lit, int w, int h, uint8_t *o)
         }
         fig_poly(f, ART_MARK, q, 16);
         fig_over(f, &sm, w, h, o);
-    } else {
-        const uint8_t on_ink[3] = {14, 70, 30}, off_ink[3] = {226, 240, 228};
-        char s[2] = {(char)('A' + letter), 0};
-        engrave(o, w, h, s, xc, cy, 1.15f * r, 1.5f * r, lit ? on_ink : off_ink, NULL);
     }
-    /* the dome's shine */
-    for (int y = 0; y < h; y++)
+    for (int y = 0; y < h; y++)                 /* the dome's shine */
         for (int x = 0; x < w; x++) {
             float dx = (x + 0.5f - (xc - 0.42f * r)) / (0.26f * r), dy = (y + 0.5f - (cy - 0.45f * r)) / (0.4f * r);
             float a = 1 - (dx * dx + dy * dy);
@@ -542,63 +604,6 @@ static void paint_led(int role, int letter, int lit, int w, int h, uint8_t *o)
             for (int i = 0; i < 3; i++) q[i] = (uint8_t)(q[i] + (255 - q[i]) * a);
         }
 }
-
-/* the power symbol (a ring open at the top, a bar through the gap) in rgb, centred, r its radius */
-static void power_sign(uint8_t *o, int w, int h, float cx, float cy, float r, const uint8_t rgb[3])
-{
-    float t = 0.24f * r;
-    for (int y = 0; y < h; y++)
-        for (int x = 0; x < w; x++) {
-            float dx = x + 0.5f - cx, dy = y + 0.5f - cy, d = sqrtf(dx * dx + dy * dy), a = 0;
-            float ang = atan2f(dx, -dy);                    /* 0 at the top */
-            if (fabsf(d - r) < t && fabsf(ang) > 0.6f) a = clampf(t - fabsf(d - r), 0, 1);
-            if (fabsf(dx) < t * 0.8f && dy < 0.15f * r && dy > -1.25f * r) a = fmaxf(a, clampf(t * 0.8f - fabsf(dx), 0, 1));
-            if (a <= 0) continue;
-            uint8_t *p = o + 4 * (y * w + x);
-            for (int i = 0; i < 3; i++) p[i] = (uint8_t)(p[i] * (1 - a) + rgb[i] * a);
-            p[3] = (uint8_t)fmaxf(p[3], 255 * a);
-        }
-}
-
-/* the power socket (w x h): a black block, two brass contacts, the power sign over it (lit: amber, the bomb fed) */
-static void paint_plug(int lit, int w, int h, uint8_t *o)
-{
-    memset(o, 0, (size_t)w * h * 4);
-    const uint8_t block[3] = {36, 36, 40}, brass[3] = {214, 170, 70}, amber[3] = {255, 176, 40},
-                  dim[3] = {120, 110, 96};
-    float xc = 0.5f * w, bw = 0.42f * w, top = 0.48f * h, bot = 0.96f * h;
-    art_style sb = style(block, 0.5f, fmaxf(1, 0.03f * w));
-    fig *f = fig_new();
-    fig_rect(f, ART_PART, xc - bw, top, xc + bw, bot);
-    fig_render(f, &sb, w, h, o);
-    fig_free(f);
-    art_style sc = style(brass, 0.6f, 1);
-    f = fig_new();
-    for (int k = 0; k < 2; k++) fig_rect(f, ART_PART, xc + (k ? 0.12f : -0.28f) * bw * 2, top + 0.22f * (bot - top),
-                                         xc + (k ? 0.28f : -0.12f) * bw * 2, top + 0.55f * (bot - top));
-    fig_over(f, &sc, w, h, o);
-    power_sign(o, w, h, xc, 0.26f * h, fminf(0.2f * h, 0.3f * w), lit ? amber : dim);
-}
-
-/* the casing's power lamp (d x d): a black bezel, an amber dome (lit: the bomb fed), the power sign on it */
-static void paint_power_lamp(int lit, int d, uint8_t *o)
-{
-    memset(o, 0, (size_t)d * d * 4);
-    const uint8_t bezel[3] = {30, 26, 26}, on[3] = {255, 186, 50}, off[3] = {92, 62, 26}, ink_on[3] = {120, 60, 0},
-                  ink_off[3] = {200, 160, 110};
-    float c = d / 2.0f;
-    art_style sb = style(bezel, 0.5f, fmaxf(1, 0.03f * d));
-    fig *f = fig_new();
-    fig_ellipse(f, ART_PART, c, c, 0.48f * d, 0.48f * d);
-    fig_render(f, &sb, d, d, o);
-    fig_free(f);
-    art_style sd = style(lit ? on : off, lit ? 0.3f : 0.6f, fmaxf(1, 0.02f * d));
-    f = fig_new();
-    fig_ellipse(f, ART_PART, c, c, 0.36f * d, 0.36f * d);
-    fig_over(f, &sd, d, d, o);
-    power_sign(o, d, d, c, c + 0.02f * d, 0.17f * d, lit ? ink_on : ink_off);
-}
-static void p_power(int k, int w, int h, uint8_t *o) { (void)h; paint_power_lamp(k, w, o); }
 
 /* a cable's terminal (d x d): a brass post seen from above, slotted (lit: gold) */
 static void paint_post(int lit, int d, uint8_t *o)
@@ -830,7 +835,8 @@ static void paint_toggle_pic(int on, int w, int h, uint8_t *o)   /* a whole togg
     free(l);
 }
 
-static void paint_emblem(int c, int size, uint8_t *o)   /* switches; cables; the battery; XOR; buttons; DETONATE */
+/* the chapters' pictures: one network (a toggle), cables, flip-flops, capacitors, the board timer, DETONATE */
+static void paint_emblem(int c, int size, uint8_t *o)
 {
     memset(o, 0, (size_t)size * size * 4);
     int w = (int)(0.8f * size), h = (int)(0.8f * size);
@@ -839,29 +845,29 @@ static void paint_emblem(int c, int size, uint8_t *o)   /* switches; cables; the
     switch (c) {
     case 0: paint_toggle_pic(1, w, h, b); break;
     case 1: paint_cable_pic(1, w, h, b); break;
-    case 2: w = (int)(0.5f * size); paint_battery(w, h, b); break;
-    case 3: paint_gate(LG_XOR, 1, w, h, fmaxf(2, 0.07f * size), 0, b); break;
-    case 4: paint_button(0, w, b); h = w; break;
-    default: paint_led(DF_DET, 0, 1, w, h, b);
+    case 2: h = (int)(0.56f * size); paint_flip(1, w, h, b); break;
+    case 3: h = (int)(0.56f * size); paint_cap(w, h, b); break;
+    case 4: w = (int)(0.62f * size); paint_timer_plate(w, h, b); break;
+    default: paint_led(DF_DET, 1, w, h, b);
     }
     art_blend(o, size, size, b, w, h, (size - w) / 2, (size - h) / 2);
     free(b);
 }
 
-static void token(int player, int size, uint8_t *rgba)   /* a disarm LED, lit */
+static void token(int player, int size, uint8_t *rgba)   /* DISARM, lit */
 {
     (void)player;
     memset(rgba, 0, (size_t)size * size * 4);
     int w = (int)(0.7f * size), h = (int)(0.96f * size);
     uint8_t *b = calloc((size_t)w * h, 4);
     if (!b) return;
-    paint_led(DF_LED, 0, 1, w, h, b);
+    paint_led(DF_DISARM, 1, w, h, b);
     art_blend(rgba, size, size, b, w, h, (size - w) / 2, (size - h) / 2);
     free(b);
 }
 
-/* the menu's card and the die tab's (the difficulties: 2, 3 or 4 disarm LEDs): the casing, its timer, the board, a
- * cable, the LEDs */
+/* the menu's card and the die tab's: the casing, its timer, the board with its module of three lamps on a black plate
+ * and chips under them (the difficulties: one, two or three chips: a gate, a flip-flop, a capacitor) */
 static void thumb(int variant, int size, uint8_t *rgba)
 {
     float S = (float)size;
@@ -873,14 +879,16 @@ static void thumb(int variant, int size, uint8_t *rgba)
     if (!b) return;
     paint_pcb(pw2, ph2, b);
     art_blend(rgba, size, size, b, pw2, ph2, (int)(0.08f * S), (int)(0.36f * S));
-    /* the digits: 0:42 (the menu), 1:00 (the die tab) */
-    int dw = (int)(0.11f * S), dh = (int)(0.16f * S);
+    int dw = (int)(0.11f * S), dh = (int)(0.16f * S);   /* the digits: 0:42 (the menu), 1:00 (the die tab) */
     int dig[3] = {variant < 0 ? 0 : 1, variant < 0 ? 4 : 0, variant < 0 ? 2 : 0};
     const float xs[3] = {0.27f, 0.47f, 0.62f};
     for (int k = 0; k < 3; k++) {
         memset(b, 0, (size_t)size * size * 4);
         paint_digit(SEG[dig[k]], dw, dh, b);
-        for (int i = 0; i < dw * dh; i++) { b[4 * i + 1] = (uint8_t)(b[4 * i + 1] * 0.2f); b[4 * i + 2] = (uint8_t)(b[4 * i + 2] * 0.16f); }
+        for (int i = 0; i < dw * dh; i++) {
+            b[4 * i + 1] = (uint8_t)(b[4 * i + 1] * 0.2f);
+            b[4 * i + 2] = (uint8_t)(b[4 * i + 2] * 0.16f);
+        }
         art_blend(rgba, size, size, b, dw, dh, (int)(xs[k] * S), (int)(0.11f * S));
     }
     for (int k = 0; k < 2; k++) {               /* the colon */
@@ -891,35 +899,40 @@ static void thumb(int variant, int size, uint8_t *rgba)
                 p[0] = 255; p[1] = 52; p[2] = 40;
             }
     }
-    /* the traces: up from the bottom into each LED */
-    int nl = variant < 0 ? 2 : 2 + variant, n = nl + 1;
-    float t = fmaxf(2, 0.03f * S);
-    for (int k = 0; k < n; k++) {
-        float x = (0.16f + 0.68f * (k + 0.5f) / n) * S;
-        puz_ink_rect(rgba, size, size, x - t / 2, 0.55f * S, x + t / 2, 0.86f * S, k == 0 ? LIT : TRACE, 1);
-    }
-    /* a red cable over the last trace */
-    if (variant < 0) {
-        int cw2 = (int)(0.3f * S), chh = (int)(0.2f * S);
+    /* the traces: a bus across, up into the three lamps, down to the chips */
+    float t = fmaxf(2, 0.028f * S), lx[3] = {0.3f * S, 0.5f * S, 0.7f * S};
+    puz_ink_rect(rgba, size, size, 0.2f * S, 0.66f * S - t / 2, 0.8f * S, 0.66f * S + t / 2, LIT, 1);
+    for (int k = 0; k < 3; k++)
+        puz_ink_rect(rgba, size, size, lx[k] - t / 2, 0.52f * S, lx[k] + t / 2, 0.86f * S, k == 2 ? TRACE : LIT, 1);
+    int pl = (int)(0.6f * S), ph3 = (int)(0.14f * S);   /* the module's plate */
+    for (int y = (int)(0.4f * S); y < (int)(0.4f * S) + ph3; y++)
+        for (int x = (int)(0.2f * S); x < (int)(0.2f * S) + pl; x++) {
+            uint8_t *p = rgba + 4 * (y * size + x);
+            p[0] = 26; p[1] = 26; p[2] = 30;
+        }
+    int lw = (int)(0.17f * S), lh = (int)(1.3f * lw);
+    const int R[3] = {DF_POWER, DF_DISARM, DF_DET};
+    for (int k = 0; k < 3; k++) {
         memset(b, 0, (size_t)size * size * 4);
-        paint_cable_pic(0, cw2, chh, b);
-        art_blend(rgba, size, size, b, cw2, chh, (int)(0.56f * S), (int)(0.62f * S));
+        paint_led(R[k], k < 2, lw, lh, b);
+        art_blend(rgba, size, size, b, lw, lh, (int)(lx[k] - lw / 2.0f), (int)(0.53f * S - lh));
     }
-    int lw = (int)fminf(0.2f * S, 0.62f * S / n), lh = (int)(1.3f * lw);
-    for (int k = 0; k < n; k++) {
-        float x = (0.16f + 0.68f * (k + 0.5f) / n) * S;
-        int det = k == n - 1;
+    int nchip = variant < 0 ? 2 : variant + 1, cw2 = (int)(0.2f * S), ch2 = (int)(0.13f * S);
+    for (int k = 0; k < nchip; k++) {
+        float x = (0.5f + (k - (nchip - 1) / 2.0f) * 0.24f) * S;
         memset(b, 0, (size_t)size * size * 4);
-        paint_led(det ? DF_DET : DF_LED, k, !det && k == 0, lw, lh, b);
-        art_blend(rgba, size, size, b, lw, lh, (int)(x - lw / 2.0f), (int)(0.58f * S - lh));
+        if (k == 1) paint_flip(1, cw2, ch2, b);
+        else if (k == 2) paint_cap(cw2, ch2, b);
+        else paint_gate(LG_AND, 1, cw2, ch2, t, 0, b);
+        art_blend(rgba, size, size, b, cw2, ch2, (int)(x - cw2 / 2.0f), (int)(0.72f * S));
     }
     free(b);
 }
 
 /* ---- the textures ------------------------------------------------------------------------------------------------- */
-static SDL_Texture *t_casing, *t_pcb, *t_chip, *t_gate[LG_KINDS][2][2], *t_plate[2], *t_lever, *t_button[2],
-    *t_battery, *t_latch[2], *t_led[2][4][2], *t_plug[2], *t_post[2], *t_dot, *t_glow, *t_puff, *t_power[2], *t_digit[11],
-    *t_emblem[DF_CHAPTERS], *t_bar_sw, *t_bar_star;
+static SDL_Texture *t_casing, *t_pcb, *t_chip, *t_gate[LG_KINDS][2][2], *t_plate[2], *t_lever, *t_battery, *t_flip[2],
+    *t_cap, *t_tmr, *t_led[3][2], *t_post[2], *t_dot, *t_glow, *t_puff, *t_digit[11], *t_emblem[DF_CHAPTERS], *t_bar_sw,
+    *t_bar_star;
 static long long made_room = -1;
 static int made_parts = -1, made_shared = -1, made_digits = -1, made_bar = -1;
 static float pw, ph, sw_w, sw_h, tg_w, tg_h, lamp_w, lamp_h, post_d, cable_t, gate_w[2], gate_h, dig_w, dig_h;
@@ -945,10 +958,10 @@ static SDL_Texture *made(SDL_Texture **t, int w, int h, void (*paint)(int, int, 
 static void p_chip(int k, int w, int h, uint8_t *o) { (void)k; paint_chip(w, h, o); }
 static void p_plate(int k, int w, int h, uint8_t *o) { paint_plate_sw(k, w, h, o); }
 static void p_lever(int k, int w, int h, uint8_t *o) { (void)k; paint_lever(w, h, o); }
-static void p_button(int k, int w, int h, uint8_t *o) { (void)h; paint_button(k, w, o); }
 static void p_battery(int k, int w, int h, uint8_t *o) { (void)k; paint_battery(w, h, o); }
-static void p_latch(int k, int w, int h, uint8_t *o) { paint_latch(k, w, h, o); }
-static void p_plug(int k, int w, int h, uint8_t *o) { paint_plug(k, w, h, o); }
+static void p_flip(int k, int w, int h, uint8_t *o) { paint_flip(k, w, h, o); }
+static void p_cap(int k, int w, int h, uint8_t *o) { (void)k; paint_cap(w, h, o); }
+static void p_tmr(int k, int w, int h, uint8_t *o) { (void)k; paint_timer_plate(w, h, o); }
 static void p_post(int k, int w, int h, uint8_t *o) { (void)h; paint_post(k, w, o); }
 static void p_digit(int k, int w, int h, uint8_t *o) { paint_digit(k < 10 ? SEG[k] : 0x7f, w, h, o); }
 
@@ -964,13 +977,14 @@ static SDL_Texture *gate_tex(int k, int lit, int w3)
     return *t;
 }
 
-static SDL_Texture *led_tex(int role, int letter, int lit)
+static SDL_Texture *led_tex(int role, int lit)
 {
-    SDL_Texture **t = &t_led[role == DF_DET][role == DF_DET ? 0 : letter & 3][lit];
+    int c = role == DF_POWER ? 0 : role == DF_DISARM ? 1 : 2;
+    SDL_Texture **t = &t_led[c][lit];
     int w = (int)lamp_w, h = (int)lamp_h;
     uint8_t *b;
     if (!*t && (b = calloc((size_t)w * h, 4))) {
-        paint_led(role, letter, lit, w, h, b);
+        paint_led(role, lit, w, h, b);
         *t = tex_buf(w, h, b);
     }
     return *t;
@@ -981,16 +995,16 @@ static void free_parts(void)
     ui_free(&t_chip);
     ui_free(&t_lever);
     ui_free(&t_battery);
+    ui_free(&t_cap);
+    ui_free(&t_tmr);
     for (int k = 0; k < LG_KINDS; k++)
         for (int i = 0; i < 4; i++) ui_free(&t_gate[k][i / 2][i % 2]);
     for (int i = 0; i < 2; i++) {
         ui_free(&t_plate[i]);
-        ui_free(&t_button[i]);
-        ui_free(&t_latch[i]);
-        ui_free(&t_plug[i]);
+        ui_free(&t_flip[i]);
         ui_free(&t_post[i]);
     }
-    for (int i = 0; i < 16; i++) ui_free(&t_led[i / 8][i / 2 % 4][i % 2]);
+    for (int i = 0; i < 6; i++) ui_free(&t_led[i / 2][i % 2]);
 }
 
 static void part_sizes(void)
@@ -1070,8 +1084,6 @@ static void room_textures(void)
     if (made_digits != (int)dig_h) {
         made_digits = (int)dig_h;
         for (int i = 0; i < 11; i++) ui_free(&t_digit[i]);
-        ui_free(&t_power[0]);
-        ui_free(&t_power[1]);
     }
 }
 
@@ -1081,28 +1093,22 @@ static void fit(void)
     float u = ui.unit, m = fmaxf(4, 0.025f * fminf(B.w, B.h));
     CS = (box){floorf(B.x + m), floorf(B.y + m), floorf(B.w - 2 * m), floorf(B.h - 2 * m)};
     float in = fmaxf(6, 0.04f * fminf(CS.w, CS.h));
-    if (wide) {                                 /* lying: the timer in a column on the left, the lamp under it */
+    if (wide) {                                 /* lying: the timer in a column on the left */
         float col = floorf(clampf(0.27f * CS.w, 3.2f * u, 0.4f * CS.w)), bw = col - 1.6f * in;
         BAND = (box){floorf(CS.x + 1.5f * in), floorf(CS.y + 2.6f * in), floorf(bw - 0.6f * in), 0};
         BAND.h = floorf(fminf(BAND.w / 2.6f, 2.1f * u));
-        lamp_d = floorf(0.75f * BAND.h);
-        lamp_x = BAND.x + BAND.w / 2;
-        lamp_y = BAND.y + BAND.h + 0.5f * in + lamp_d;
         PB = (box){CS.x + col + 0.4f * in, CS.y + in, 0, CS.h - 2 * in};
         PB.w = floorf(CS.x + CS.w - in - PB.x);
     } else {
-        float bh = clampf(0.15f * CS.h, 1.25f * u, 2.1f * u), bw = fminf(CS.w - 2 * in - 2.4f * bh, 4.2f * bh);
-        BAND = (box){floorf(CS.x + (CS.w - bw) / 2 + 0.5f * bh), floorf(CS.y + in), floorf(bw), floorf(bh)};
-        lamp_d = floorf(0.66f * bh);
-        lamp_x = BAND.x - 0.7f * bh;
-        lamp_y = BAND.y + bh / 2;
+        float bh = clampf(0.13f * CS.h, 1.2f * u, 1.9f * u), bw = fminf(CS.w - 2 * in - 1.6f * bh, 3.8f * bh);
+        BAND = (box){floorf(CS.x + (CS.w - bw) / 2), floorf(CS.y + in), floorf(bw), floorf(bh)};
         PB = (box){CS.x + in, floorf(BAND.y + bh + 0.6f * in), CS.w - 2 * in, 0};
         PB.h = floorf(CS.y + CS.h - in - PB.y);
     }
     panel = PB;
     room_textures();
     if (!G.D.L.nn) return;
-    float mm = 0.06f * fminf(PB.w, PB.h), iw = PB.w - 2 * mm, ih = PB.h - 2 * mm;
+    float mm = 0.05f * fminf(PB.w, PB.h), iw = PB.w - 2 * mm, ih = PB.h - 2 * mm;
     lg_part_size(&G.D.L, iw, ih, &cw, &ch);
     cw = floorf(cw);
     ch = floorf(ch);
@@ -1110,7 +1116,7 @@ static void fit(void)
     for (int k = 0; k + 1 < G.D.L.layers; k++) gaps += G.D.L.ly[k + 1] - G.D.L.ly[k] - LG_NH;
     gs = 1;
     if (gaps > 0 && ih > span * ch) {
-        float most = 2.2f * LG_NH * (G.D.L.layers - 1) / gaps;
+        float most = 2.0f * LG_NH * (G.D.L.layers - 1) / gaps;
         gs = fmaxf(1, fminf(1 + (ih - span * ch) / (gaps * ch), most));
     }
     span += gaps * (gs - 1);
@@ -1149,9 +1155,10 @@ typedef struct {
     float wst[LG_WIRES];                        /* when the change sets off along each wire (ms after t0) */
     float arr[LG_NODES];                        /* when each part shows its new value */
     float end;
-    int origin, held;                           /* the part moved; a button held down in this one */
+    int origin, pulse;                          /* the part moved (or firing); a capacitor's pulse in this one */
 } wave;
-static wave WV[2];
+#define WAVES DF_STEPS
+static wave WV[WAVES];
 static int nwv;
 static Uint32 now_ms;
 static struct { int wire; Uint32 t; int mend; } snip = {-1, 0, 0};
@@ -1170,7 +1177,7 @@ static void wave_make(wave *v, const df_values *a, const df_values *b, int origi
     v->b = *b;
     v->t0 = t0 ? t0 : 1;
     v->origin = origin;
-    v->held = 0;
+    v->pulse = 0;
     v->end = 0;
     for (int w = 0; w < L->nw; w++) v->wst[w] = 0;
     for (int i = 0; i < L->nn; i++) {
@@ -1206,7 +1213,7 @@ static int out_of(int i)                         /* a part's output as shown */
     return wave_t(v) >= v->arr[i] ? v->b.out[i] : v->a.out[i];
 }
 static int blown(void) { return G.over == DF_LOST && boom_t && now_ms >= boom_t; }
-static int powered_shown(void) { return !blown() && (G.D.plug < 0 || out_of(G.D.plug)); }
+static int powered_shown(void) { return !blown() && out_of(G.D.power); }
 
 static float front(int w)
 {
@@ -1291,23 +1298,21 @@ static int busy(void)
     return G.over == DF_LOST && boom_t && (int)(now_ms - boom_t) < BOOM_MS;
 }
 
-/* the move's waves from what showed before; its outcome: the explosion's time, or the win's */
-static void moved(const df_values *before, const df_values *held, int origin, int cutw, int r)
+/* a change's waves (its steps: a move's one; a tick's pulse and its end) from what showed before; its outcome: the
+ * explosion's time, or the win's */
+static void moved(const df_values *before, const df_steps *st, int cutw, int r)
 {
     Uint32 t0 = ui_ms();
     nwv = 0;
-    if (held) {                                 /* pressed: the change of the button held, then of it let go */
-        wave_make(&WV[0], before, held, origin, -1, t0);
-        WV[0].held = 1;
-        nwv = 1;
-        if (!(held->det || held->win)) {
-            wave_make(&WV[1], held, &G.v, origin, -1, t0 + (Uint32)(WV[0].end + HOLD_MS));
-            nwv = 2;
-        }
-    } else {
-        wave_make(&WV[0], before, &G.v, origin, cutw, t0);
-        nwv = 1;
+    const df_values *a = before;
+    for (int k = 0; k < st->n && k < WAVES; k++) {
+        wave_make(&WV[k], a, &st->v[k], st->origin[k] >= 0 ? st->origin[k] : -1, k ? -1 : cutw, t0);
+        WV[k].pulse = st->n > 1 && k == 0;
+        t0 = WV[k].t0 + (Uint32)(WV[k].end + HOLD_MS);
+        a = &st->v[k];
+        nwv++;
     }
+    if (!nwv) return;
     const wave *last = &WV[nwv - 1];
     if (r == DF_LOST) {
         boom_at = G.D.det;
@@ -1325,21 +1330,55 @@ static void boom_sound(void)
     ui_sound_later(SND_DICE, 140);
 }
 
+static int same(const df_values *a, const df_values *b) { return !memcmp(a->out, b->out, sizeof a->out); }
+
+/* a tick: the capacitors charge (a pulse when one fills), the board timer counts down; what changes runs */
+static void tick_once(void)
+{
+    df_values before = G.v;
+    df_steps st;
+    G.ticks++;
+    int r = df_tick(&G.D, &G.s, &st);
+    df_eval(&G.D, &G.s, NULL, 0, &G.v);
+    if (r == DF_LOST) G.v.det = 1;
+    if (r != DF_SAFE) G.over = r;
+    int any = r != DF_SAFE;
+    for (int k = 0; k < st.n; k++) any |= !same(&before, &st.v[k]);
+    if (any) {
+        snip.wire = -1;
+        flip.node = -1;
+        moved(&before, &st, -1, r);
+        if (st.origin[0] >= 0 && G.D.role[st.origin[0]] == DF_CAP) ui_sound(SND_DROP);
+        else if (st.origin[0] >= 0) ui_sound(SND_TAP);
+    }
+    ui_animate();
+}
+
+/* the ticks the clock has reached */
+static void sync_ticks(void)
+{
+    for (int guard = 0; guard < 600 && !G.over && G.ticks < (int)(clk.ms / DF_TICK_MS); guard++) tick_once();
+}
+
 static int undo(void)
 {
     if (G.over == DF_LOST) return 0;
     df_values before = G.v;
     int was = G.nh;
-    df_move m = was > 0 && was <= DF_HIST ? G.hist[was - 1] : (df_move){0, 0};
+    df_state prev = G.s;
     if (!df_undo(&G)) return 0;
     calm();
-    int cutw = m.kind == DF_MCUT ? G.D.L.cut[m.idx] : -1;
-    moved(&before, NULL, m.kind == DF_MCUT ? -1 : G.D.sw[m.idx], -1, DF_SAFE);
+    int cutw = -1;
+    for (int k = 0; k < G.D.ncut; k++)
+        if ((prev.cut >> k & 1) && !(G.s.cut >> k & 1)) cutw = G.D.L.cut[k];
+    df_steps st = {1, {G.v}, {-1}};
+    moved(&before, &st, -1, DF_SAFE);
     if (cutw >= 0) {
         snip.wire = cutw;
         snip.t = WV[0].t0;
         snip.mend = 1;
     }
+    (void)was;
     clk.stop = 0;
     return 1;
 }
@@ -1354,17 +1393,18 @@ static void restart(void)
 static void do_move(df_move m, int node, int wire)
 {
     if (G.over) return;
-    df_values before = G.v, held;
-    uint32_t ns;
-    int press = m.kind == DF_MPRESS;
-    if (press && df_step(&G.D, G.state, m, &ns, &held) < 0) { ui_sound(SND_DENY); return; }
+    df_values before = G.v;
+    df_state probe = G.s;
+    df_steps st;
+    if (df_move_do(&G.D, &probe, m, &st) < 0) { ui_sound(SND_DENY); return; }
     int r = df_play(&G, m);
     if (r < 0) { ui_sound(SND_DENY); return; }
     hint.on = 0;
     deny_reset = 0;
     snip.wire = -1;
     flip.node = -1;
-    moved(&before, press ? &held : NULL, node, wire, r);
+    st.origin[0] = node;
+    moved(&before, &st, wire, r);
     if (m.kind == DF_MCUT) {
         snip.wire = wire;
         snip.t = WV[0].t0;
@@ -1374,22 +1414,24 @@ static void do_move(df_move m, int node, int wire)
     } else {
         flip.node = node;
         flip.t = WV[0].t0;
-        ui_sound(press ? SND_TAP : SND_MOVE);
+        ui_sound(SND_MOVE);
     }
 }
 
-/* the notation (defuse.h): the moves as taps would make them (the last one's change runs: --at catches it); "w30":
- * the timer 30 seconds on */
+/* the notation (defuse.h): the moves as taps would make them (the last change runs: --at catches it); "w5": five
+ * seconds pass (five ticks) */
 static int script(const char *moves)
 {
     now_ms = ui_ms();
     for (const char *s = moves; *s;) {
         if (*s == ' ') { s++; continue; }
         char c = *s++;
-        int n = 0;
-        while (*s >= '0' && *s <= '9') n = n * 10 + *s++ - '0';
+        int n = 0, digits = 0;
+        while (*s >= '0' && *s <= '9') { n = n * 10 + *s++ - '0'; digits++; }
         if (c == 'w') {
-            clk.ms += (Uint32)n * 1000u;
+            clk.ms = (G.ticks + (digits ? n : 1)) * (Uint32)DF_TICK_MS;
+            sync_ticks();
+            if (left_ms() <= 0 && !G.over) df_blow(&G);
             continue;
         }
         if (c == 'u') { if (!undo()) return 0; continue; }
@@ -1405,14 +1447,15 @@ static int script(const char *moves)
             char eq[2] = "=";
             if (!df_script(&G, eq)) return 0;
             calm();
+            clk.ms = (Uint32)G.ticks * DF_TICK_MS;
             win_t = ui_ms() - WIN_MS;
             clk.stop = 1;
             continue;
         }
-        if ((c != 's' && c != 'b' && c != 'c') || n < 1 || G.over) return 0;
-        df_move m = {(uint8_t)(c == 's' ? DF_MFLIP : c == 'b' ? DF_MPRESS : DF_MCUT), (uint8_t)(n - 1)};
+        if ((c != 's' && c != 'c') || n < 1 || G.over) return 0;
+        df_move m = {(uint8_t)(c == 's' ? DF_MFLIP : DF_MCUT), (uint8_t)(n - 1)};
         if (c == 'c' && m.idx >= G.D.ncut) return 0;
-        if (c != 'c' && m.idx >= G.D.nsw) return 0;
+        if (c == 's' && m.idx >= G.D.nsw) return 0;
         int was = G.nh;
         do_move(m, c == 'c' ? -1 : G.D.sw[m.idx], c == 'c' ? G.D.L.cut[m.idx] : -1);
         if (G.nh == was) return 0;
@@ -1795,7 +1838,7 @@ static void draw_cables(void)
         cable_geo c = cable_at(W);
         float f = front(w);
         int la = lit_at(w, W->ta - 1e-3f, f) && !blown(), lb = lit_at(w, W->tb + 1e-3f, f) && !blown();
-        int k = cable_no(w), cut = (G.state & df_bit_cut(&G.D, k)) != 0;
+        int k = cable_no(w), cut = G.s.cut >> k & 1;
         const uint8_t *col = CABLE[k % 4];
         float open = cut ? 1 : 0, q = -1;
         if (snip.wire == w) {
@@ -1867,17 +1910,61 @@ static void leads(int i, float yb, float top)   /* a part's inputs' leads, up in
     }
 }
 
+/* two seven-segment digits (a number 0..99) d high, centred, in rgb faded a; their unlit segments faint behind */
+static void digits2(float cx, float cy, float dh, int n, const uint8_t rgb[3], float a)
+{
+    float dw = 0.56f * dh, gap = 0.12f * dw, x = cx - dw - gap / 2;
+    int d[2] = {n / 10 % 10, n % 10};
+    for (int k = 0; k < 2; k++) {
+        SDL_Texture *g = made(&t_digit[10], (int)dig_w, (int)dig_h, p_digit, 10),
+                    *t = made(&t_digit[d[k]], (int)dig_w, (int)dig_h, p_digit, d[k]);
+        if (!g || !t) return;
+        SDL_SetTextureColorMod(g, rgb[0], rgb[1], rgb[2]);
+        SDL_SetTextureAlphaMod(g, 26);
+        ui_put(g, x + k * (dw + gap), cy - dh / 2, dw, dh);
+        SDL_SetTextureAlphaMod(g, 255);
+        SDL_SetTextureColorMod(t, rgb[0], rgb[1], rgb[2]);
+        SDL_SetTextureAlphaMod(t, (Uint8)clampf(255 * a, 0, 255));
+        ui_put(t, x + k * (dw + gap), cy - dh / 2, dw, dh);
+        SDL_SetTextureAlphaMod(t, 255);
+        SDL_SetTextureColorMod(t, 255, 255, 255);
+    }
+}
+
+/* the bomb's module: one black plate behind the three lamps of the top row (POWER, DISARM, DETONATE) */
+static void draw_module(void)
+{
+    float x0 = 1e9f, x1 = -1e9f, yb = 0;
+    const int R[3] = {G.D.power, G.D.disarm, G.D.det};
+    for (int k = 0; k < 3; k++) {
+        const lg_node *N = &G.D.L.n[R[k]];
+        x0 = fminf(x0, PX(N->x));
+        x1 = fmaxf(x1, PX(N->x));
+        yb = PY(N->y);
+    }
+    float m = 0.62f * lamp_w, top = yb - lamp_h - 0.16f * lamp_h, bot = yb + 0.1f * lamp_h;
+    ui_shadow_flat((x0 + x1) / 2 + 0.03f * lamp_w, (top + bot) / 2 + 0.06f * lamp_w, x1 - x0 + 2 * m, bot - top, 0.6f);
+    ui_fill(x0 - m, top, x1 - x0 + 2 * m, bot - top, 14, 14, 18, 255);
+    ui_fill(x0 - m + 2, top + 2, x1 - x0 + 2 * m - 4, bot - top - 4, 30, 30, 36, 255);
+    ui_fill(x0 - m + 2, top + 2, x1 - x0 + 2 * m - 4, 0.08f * (bot - top), 70, 70, 80, 255);   /* its top edge's light */
+    float s = fmaxf(2, 0.09f * lamp_w);         /* four screws */
+    for (int k = 0; k < 4; k++) {
+        float sx = k & 1 ? x1 + m - 2.2f * s : x0 - m + 2.2f * s, sy = k & 2 ? bot - 2.2f * s : top + 2.2f * s;
+        SDL_SetTextureColorMod(t_dot, 170, 176, 186);
+        ui_put_c(t_dot, sx, sy, 2 * s, 2 * s);
+    }
+    SDL_SetTextureColorMod(t_dot, 255, 255, 255);
+}
+
 static void draw_node(int i)
 {
     const lg_node *N = &G.D.L.n[i];
-    int role = G.D.role[i];
+    int role = G.D.role[i], k = G.D.idx[i];
     float cx = PX(N->x), yt = PY(N->y + LG_NH), yb = PY(N->y);
     int out = out_of(i) && !blown();
     switch (role) {
     case DF_SW: {
-        int k = 0;
-        while (k < G.D.nsw && G.D.sw[k] != i) k++;
-        int on = (int)(G.state >> k & 1);
+        int on = G.s.sw >> k & 1;
         float p = (float)on;
         if (flip.node == i && now_ms - flip.t < FLIP_MS) {
             float q = puz_ease((now_ms - flip.t) / (float)FLIP_MS);
@@ -1893,15 +1980,19 @@ static void draw_node(int i)
         ui_put_rot(lv, cx, py0, lw, h, ext >= 0 ? 0 : 180);
         break;
     }
-    case DF_BUTTON: {
-        int down = 0;
-        const wave *v = cur_wave();
-        if (v && v->held && v->origin == i && nwv && (nwv == 1 ? 1 : now_ms < WV[1].t0)) down = 1;
-        if (v && v->held && v->origin == i && nwv == 1 && wave_t(v) > v->end + HOLD_MS) down = 0;
-        float d = floorf(fminf(0.76f * cw, 1.1f * ph));
-        ui_shadow_flat(cx + 0.05f * d, yt + 0.55f * d + 0.06f * d, d, d, 0.5f);
-        ui_put(made(&t_button[down], (int)d, (int)d, p_button, down), cx - d / 2, yt, d, d);
-        if (down) ui_animate();
+    case DF_TIMER: {                            /* the board timer: its ticks left, red; at 0, a green 00 */
+        float w = tg_w, h = tg_h;
+        ui_shadow_flat(cx + 0.05f * w, yt + h / 2 + 0.06f * w, w, h, 0.5f);
+        ui_put(made(&t_tmr, (int)w, (int)h, p_tmr, 0), cx - w / 2, yt, w, h);
+        static const uint8_t red[3] = {255, 50, 40}, green[3] = {80, 255, 120};
+        int left = G.s.tmr, near = left > 0 && left <= 3;
+        float a = near ? 0.7f + 0.3f * sinf(now_ms * 0.02f) : 1;
+        if (near) ui_animate();
+        digits2(cx, yt + 0.35f * h, fminf(0.36f * h, 0.62f * w), left, left ? red : green, blown() ? 0.2f : a);
+        static const uint8_t amber[3] = {255, 170, 40};
+        float ly = yt + 0.78f * h, ld = 0.2f * w;
+        if (out) glow(cx, ly, 3 * ld, 0.8f, amber);
+        ui_fill(cx - ld / 2, ly - ld / 2, ld, ld, out ? 255 : 70, out ? 180 : 50, out ? 60 : 20, 255);
         break;
     }
     case DF_BATTERY: {
@@ -1910,30 +2001,54 @@ static void draw_node(int i)
         ui_put(made(&t_battery, (int)w, (int)h, p_battery, 0), cx - w / 2, yt, w, h);
         break;
     }
-    case DF_LED: case DF_DET: {
+    case DF_POWER: case DF_DISARM: case DF_DET: {
         float gy = yb - 0.62f * lamp_h;
-        static const uint8_t green[3] = {90, 255, 120}, red[3] = {255, 60, 40};
-        int lit = out && powered_shown();
+        static const uint8_t green[3] = {90, 255, 120}, red[3] = {255, 60, 40}, amber[3] = {255, 170, 40};
+        int lit = role == DF_POWER ? out : out && powered_shown();
         float gd = 2.1f * lamp_w;
         if (lit && role == DF_DET && G.over == DF_LOST) {   /* about to blow: throbbing */
             gd *= 1.3f + 0.45f * sinf(now_ms * 0.045f);
             ui_animate();
         }
-        if (lit) glow(cx, gy, gd, role == DF_DET ? 0.95f : 0.8f, role == DF_DET ? red : green);
-        ui_put(led_tex(role, G.D.letter[i], lit), cx - lamp_w / 2, yb - lamp_h, lamp_w, lamp_h);
+        if (lit) glow(cx, gy, gd, 0.85f, role == DF_DET ? red : role == DF_DISARM ? green : amber);
+        ui_put(led_tex(role, lit), cx - lamp_w / 2, yb - lamp_h, lamp_w, lamp_h);
         break;
     }
-    case DF_PLUG: {
-        static const uint8_t amber[3] = {255, 170, 40};
-        if (out) glow(cx, yb - 0.75f * lamp_h, 1.6f * lamp_w, 0.5f, amber);
-        ui_put(made(&t_plug[out], (int)lamp_w, (int)lamp_h, p_plug, out), cx - lamp_w / 2, yb - lamp_h, lamp_w, lamp_h);
-        break;
-    }
-    case DF_LATCH: {
+    case DF_FLIP: {
         ui_put(made(&t_chip, (int)pw, (int)ph, p_chip, 0), cx - pw / 2, yt, pw, ph);
         leads(i, yb, yt + 0.8f * ph);
-        float lw2 = floorf(0.9f * pw), lh2 = floorf(0.9f * ph);
-        ui_put(made(&t_latch[out], (int)lw2, (int)lh2, p_latch, out), cx - lw2 / 2, yt + 0.05f * ph, lw2, lh2);
+        float w2 = floorf(0.92f * pw), h2 = floorf(0.92f * ph);
+        static const uint8_t green[3] = {90, 255, 120};
+        if (out) glow(cx + 0.18f * w2, yt + 0.52f * ph, 0.9f * h2, 0.6f, green);
+        ui_put(made(&t_flip[out], (int)w2, (int)h2, p_flip, out), cx - w2 / 2, yt + 0.04f * ph, w2, h2);
+        break;
+    }
+    case DF_CAP: {                              /* the capacitor: its charge as a gauge of steps; firing, a flash */
+        float w2 = floorf(0.94f * pw), h2 = floorf(0.94f * ph), x = cx - w2 / 2, y = yt + 0.03f * ph;
+        leads(i, yb, yt + 0.8f * ph);
+        ui_put(made(&t_cap, (int)w2, (int)h2, p_cap, 0), x, y, w2, h2);
+        float wx, wy, ww, wh;
+        cap_well(x, y, w2, h2, &wx, &wy, &ww, &wh);
+        int n = G.D.size[i], c = G.s.ch[k];
+        const wave *v = cur_wave();
+        int firing = v && v->pulse && v->origin == i && wave_t(v) < v->end + HOLD_MS;
+        if (firing) { c = n; ui_animate(); }
+        float sh = wh / n;
+        for (int s = 0; s < n; s++) {           /* from the bottom up */
+            float sy = wy + wh - (s + 1) * sh;
+            int full = s < c;
+            Uint8 r = full ? (firing ? 255 : 255) : 50, g = full ? (firing ? 250 : (Uint8)(150 + 80 * s / n)) : 40,
+                  b = full ? (firing ? 220 : 40) : 30;
+            ui_fill(wx + 1, sy + 1, ww - 2, sh - 2, r, g, b, 255);
+        }
+        if (firing) {
+            static const uint8_t white[3] = {255, 250, 220};
+            glow(cx, y + h2 / 2, 2.2f * w2, 0.9f, white);
+        } else if (c && c == n - 1) {           /* one step from firing: it hums */
+            static const uint8_t amber[3] = {255, 180, 60};
+            glow(wx + ww / 2, wy + wh / 2, 1.6f * w2, 0.25f + 0.2f * sinf(now_ms * 0.03f), amber);
+            ui_animate();
+        }
         break;
     }
     default: {
@@ -1945,7 +2060,7 @@ static void draw_node(int i)
     }
 }
 
-/* ---- the timer, the power lamp on the casing ----------------------------------------------------------------- */
+/* ---- the timer ------------------------------------------------------------------------------------------------ */
 static void draw_timer(void)
 {
     int left = left_ms(), secs = (left + 999) / 1000;
@@ -1964,7 +2079,8 @@ static void draw_timer(void)
     float xs[3] = {x, x + dw + gap + colon, x + 2 * dw + 2 * gap + colon};
     glow(x0 + BAND.w / 2, cy, 1.2f * BAND.w, 0.12f * a, c);
     for (int k = 0; k < 3; k++) {
-        SDL_Texture *g = made(&t_digit[10], (int)dw, (int)dh, p_digit, 10), *d = made(&t_digit[digs[k]], (int)dw, (int)dh, p_digit, digs[k]);
+        SDL_Texture *g = made(&t_digit[10], (int)dw, (int)dh, p_digit, 10),
+                    *d = made(&t_digit[digs[k]], (int)dw, (int)dh, p_digit, digs[k]);
         SDL_SetTextureColorMod(g, c[0], c[1], c[2]);
         SDL_SetTextureAlphaMod(g, 22);
         ui_put(g, xs[k], cy - dh / 2, dw, dh);
@@ -1981,12 +2097,6 @@ static void draw_timer(void)
         float yy = cy + (k ? 0.2f : -0.2f) * dh;
         ui_fill(cxp - dd / 2, yy - dd / 2, dd, dd, c[0], c[1], c[2], (Uint8)(blink ? 60 : 255 * a));
     }
-    /* the power lamp, left of the window: amber while the bomb is fed */
-    static const uint8_t amber[3] = {255, 170, 40};
-    float px = lamp_x + shx, py = lamp_y + shy, pd = lamp_d;
-    int fed = powered_shown() && !(won && G.D.plug >= 0 && !G.v.powered);
-    if (fed) glow(px, py, 2.2f * pd, 0.6f, amber);
-    ui_put_c(made(&t_power[fed], (int)pd, (int)pd, p_power, fed), px, py, pd, pd);
 }
 
 /* ---- the end: disarmed (green flashes), blown (flash, shake, fireball, smoke, scorch) ----------------------------- */
@@ -1997,18 +2107,15 @@ static void win_flash(void)
     if (q < 1) ui_animate();
     float pulse = 0.5f + 0.5f * cosf(q * 3 * 6.2831853f);
     static const uint8_t green[3] = {90, 255, 130};
-    for (int i = 0; i < G.D.L.nn; i++) {
-        if (G.D.role[i] != DF_LED) continue;
-        const lg_node *N = &G.D.L.n[i];
-        float cx = PX(N->x), cy = PY(N->y) - 0.62f * lamp_h;
-        glow(cx, cy, lamp_w * (2.4f + 1.4f * pulse), q < 1 ? 0.5f + 0.5f * pulse : 0.8f, green);
-        if (q >= 1) continue;
-        ui_put(led_tex(DF_LED, G.D.letter[i], 1), cx - lamp_w / 2, PY(N->y) - lamp_h, lamp_w, lamp_h);
-    }
+    const lg_node *N = &G.D.L.n[G.D.disarm];
+    float cx = PX(N->x), cy = PY(N->y) - 0.62f * lamp_h;
+    glow(cx, cy, lamp_w * (2.6f + 1.8f * pulse), q < 1 ? 0.5f + 0.5f * pulse : 0.85f, green);
+    ui_put(led_tex(DF_DISARM, 1), cx - lamp_w / 2, PY(N->y) - lamp_h, lamp_w, lamp_h);
     if (q < 0.5f) {
         SDL_SetTextureColorMod(t_glow, 120, 255, 150);
         SDL_SetTextureAlphaMod(t_glow, (Uint8)(90 * (1 - 2 * q)));
-        ui_put_c(t_glow, PB.x + PB.w / 2, PB.y + PB.h / 2, 1.6f * fmaxf(PB.w, PB.h) * (0.4f + q), 1.6f * fmaxf(PB.w, PB.h) * (0.4f + q));
+        float d = 1.6f * fmaxf(PB.w, PB.h) * (0.4f + q);
+        ui_put_c(t_glow, PB.x + PB.w / 2, PB.y + PB.h / 2, d, d);
         SDL_SetTextureAlphaMod(t_glow, 255);
         SDL_SetTextureColorMod(t_glow, 255, 255, 255);
     }
@@ -2103,7 +2210,11 @@ static void hint_mark(void)
     if (dt < HINT_MS) ui_animate();
     if (dt < HINT_MS && dt / 300 % 2) return;
     float x, y, d = 1.3f * fminf(cw, ch);
-    if (hint.m.kind == DF_MCUT) {
+    if (hint.m.kind == DF_MWAIT) {             /* wait: the timer glows (time must pass first) */
+        x = BAND.x + BAND.w / 2;
+        y = BAND.y + BAND.h / 2;
+        d = 1.1f * BAND.w;
+    } else if (hint.m.kind == DF_MCUT) {
         cable_geo c = cable_at(&G.D.L.w[G.D.L.cut[hint.m.idx]]);
         cable_point(&c, 0.5f, &x, &y);
         d *= 0.8f;
@@ -2142,12 +2253,13 @@ static void draw(void)
     if (!G.over) {
         clock_frame();
         ui_animate();                           /* (the timer runs) */
+        sync_ticks();                           /* (the board's own time: capacitors, the board timer) */
         int sec = (left_ms() + 999) / 1000;
         if (sec != last_sec) {
             if (last_sec > 0 && sec <= 10 && sec > 0) ui_sound_soft(SND_TAP, 0.45f);
             last_sec = sec;
         }
-        if (left_ms() <= 0) {                   /* time's up */
+        if (left_ms() <= 0 && !G.over) {       /* time's up */
             df_blow(&G);
             clk.stop = 1;
             boom_at = -1;
@@ -2164,6 +2276,7 @@ static void draw(void)
     draw_timer();
     ui_put(t_pcb, PB.x + shx, PB.y + shy, PB.w, PB.h);
     draw_wires();
+    draw_module();
     for (int i = 0; i < G.D.L.nn; i++) draw_node(i);
     draw_cables();
     pulses();
@@ -2212,20 +2325,18 @@ static void press(float x, float y)
     for (int pass = 0; pass < 2; pass++) {
         for (int i = 0; i < G.D.L.nn; i++) {
             int r = G.D.role[i];
-            if (r != DF_SW && r != DF_BUTTON) continue;
+            if (r != DF_SW) continue;
             float x0, y0, x1, y1, g = (pass ? 0.14f : 0.02f) * cw;
             node_box(i, &x0, &y0, &x1, &y1);
             if (x < x0 - g || x > x1 + g || y < y0 - g || y > y1 + g) continue;
-            int k = 0;
-            while (G.D.sw[k] != i) k++;
-            do_move((df_move){(uint8_t)(r == DF_BUTTON ? DF_MPRESS : DF_MFLIP), (uint8_t)k}, i, -1);
+            do_move((df_move){DF_MFLIP, (uint8_t)G.D.idx[i]}, i, -1);
             return;
         }
         if (pass) break;
         float d;
         int best = cable_hit(x, y, &d);
         if (best >= 0 && d < 0.4f * fminf(cw, ch) + cable_t) {
-            if (G.state & df_bit_cut(&G.D, best)) { ui_sound(SND_DENY); return; }
+            if (G.s.cut >> best & 1) { ui_sound(SND_DENY); return; }
             do_move((df_move){DF_MCUT, (uint8_t)best}, -1, G.D.L.cut[best]);
             return;
         }

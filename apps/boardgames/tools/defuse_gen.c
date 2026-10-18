@@ -1,25 +1,26 @@
 /*
  * Defuse the Bomb's levels, made by chance and chosen: src/games/defuse_levels.h. Our own levels: no published set
- * is used. Band by band (the plan below), the rules' generator (df_make, defuse.h) grows circuits of the band's
- * size and parts, and keeps a circuit when it is a puzzle:
- *   - the start is safe and not won; a way to win exists (the solver: every state the safe moves reach), its par in
- *     the band's range;
- *   - something always blows (a first move lights DETONATE), but not every first move;
- *   - from the NOT traps on: a trap (a move of the best way, made first, blows; or the move that lights most LEDs at
- *     once is the one that blows, or leaves no way to win); with the cables, some first cuts leave no way at all;
- *   - every switch, cable and memory chip matters, no gate is stuck;
- *   - a clear drawing (Logic Gates' router) with few crossings;
- *   - no repeats (the same values in every state: the same puzzle).
- * From each band's candidates the levels are taken evenly over their difficulty (df_rate), then laid out from the
- * easiest; each one's drawing is searched at length (lg_route_best) and stored after its text.
- * The chapters, one idea each: 1 (40 levels: the free edition's) switches, AND and OR (its first ten drawn by hand
- * below, each visibly its own), then NOT and its traps (the order of the moves); 2 cuttable wires (for good); 3 the
- * battery and the bomb's power socket (cut the power, or light the LEDs); 4 XOR; 5 push buttons and memory chips; 6
- * everything, the biggest. One or two disarm LEDs up to chapter 3, three from chapter 4, four in chapter 6.
+ * is used. Band by band (the plan below), the rules' generator (df_make, defuse.h) grows ONE circuit (the switches
+ * and the battery feeding gates, flip-flops, capacitors, a board timer, shared by the three lamps: POWER, DISARM and
+ * DETONATE) and keeps it when the solver finds it a puzzle (df_rate, df_spec_ok):
+ *   - the start safe and not won, a way to win, its fewest moves (par) in the band's range, in time;
+ *   - a trap: a first move that blows or leaves no way to win (only the first three levels may do without);
+ *   - an order that matters: some order of the best way's moves loses;
+ *   - the obvious move (the one lighting most of DISARM at once) not the right one;
+ *   - one network: most controls reach two lamps or more; no gate stuck; POWER can go out;
+ *   - from the capacitors on: time matters (a wait is needed, or the bomb blows by itself when left alone);
+ *   - a clear drawing (Logic Gates' router), no repeats.
+ * Its difficulty: the par, the first moves that lose, how few first moves start a best way, how many orders lose,
+ * time, the size (df_rating's score). From each band's candidates the levels are taken evenly over it, from the
+ * easiest; each drawing is searched at length (lg_route_best) and stored after its text.
+ * The die tab's puzzles come from the spare candidates (DF_POOL of each difficulty: chapters 1-2, 3-4, 5-6), drawn the
+ * same way: a search for a good one takes seconds on a phone.
+ * The chapters (20 levels each; the free edition plays the first two): 1 one network (AND, OR, NOT; DISARM of one or
+ * two conditions); 2 cables cut for good; 3 flip-flops; 4 capacitors (time); 5 the board timer and XOR; 6 everything.
  *   gcc -O2 -DDF_NO_LEVELS -Iapps/boardgames/src -o /tmp/dfgen apps/boardgames/tools/defuse_gen.c \
  *       apps/boardgames/src/games/defuse_rules.c apps/boardgames/src/games/logicgates_rules.c -lm \
  *       && /tmp/dfgen > apps/boardgames/src/games/defuse_levels.h
- * (deterministic: fixed seeds; -DDF_NO_LEVELS: the rules built without the levels, made here)
+ * (deterministic: fixed seeds; -DDF_NO_LEVELS: the rules built without the levels, made here; stats on stderr)
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -29,76 +30,49 @@
 #include "games/defuse.h"
 
 #define K(x) (1u << LG_##x)
+#define AON (K(AND) | K(OR) | K(NOT))
 
-typedef struct {
-    int n;                                      /* levels */
-    df_spec sp;
-} band;
-
-/* chapter 1's first ten, drawn by hand, one idea each (the switches' places only: the router draws them): a lamp
- * and DETONATE; every disarm LED at once; OR (one input is enough); AND (both); a gate into a gate, a switch already
- * on; a switch to turn off first (the order); one switch for two lamps; power led round through an OR before a cut;
- * a diamond of ORs (one switch lights both); and a showpiece, mirrored: the middle switch off first, then both sides */
-static const char *const hand[] = {
-    "~ s@a1 s@b1 L@a2(a1) A@b2(b1)",
-    "~ s@a1 s@b1 s@c1 L@a2(a1) A@b2(b1) L@c2(c1)",
-    "~ s@a1 s@b1 s@c1 A@a3(a1) OR@b2(b1,c1) L@b3(b2)",
-    "~ s@a1 s@b1 s@c1 s@d1 AND@a2(a1,b1) L@a3(a2) L@b3(c1) A@c3(d1)",
-    "~ s@a1 s@b1 s@c1 S@d1 OR@a2(a1,b1) AND@a3(a2,c1) L@a4(a3) AND@b2(b1,d1) A@b4(b2)",
-    "~ S@a1 s@b1 s@c1 AND@a2(a1,b1) OR@b2(a1,c1) A@a3(a2) L@b3(b2) L@c3(b1)",
-    "~ s@a1 s@b1 S@c1 AND@a2(a1,b1) OR@b2(b1,c1) AND@c2(a1,c1) L@a3(a2) L@b3(b2) A@c3(c2)",
-    "~ S@a1 s@b1 S@c1 s@d1 s@e1 OR@a2(c1,e1) AND@a3(a1,a2) AND@b2(b1,d1) AND@c2(c1,d1) L@a4(a3) L@b4(b2) A@c4(c2)",
-    "~ s@a1 s@b1 s@c1 S@d1 OR@a2(a1,b1) OR@b2(b1,c1) AND@a3(a2,b2) AND@c2(a1,c1) AND@d2(b1,d1) OR@c3(c2,d2) "
-    "L@a4(a3) A@c4(c3)",
-    "~ s@a1 s@b1 S@c1 s@d1 s@e1 AND@a2(a1,b1) AND@b2(b1,c1) AND@c2(c1,d1) AND@d2(d1,e1) OR@b3(b2,c2) L@a4(a2) "
-    "A@b4(b3) L@c4(d2)",
-};
-#define HAND ((int)(sizeof hand / sizeof hand[0]))
+typedef struct { int n; df_spec sp; } band;
 
 static band plan[] = {
-    /* chapter 1 after the ten by hand: switches, AND, OR; then NOT */
-    {10, {.sw_lo = 3, .sw_hi = 4, .gates_lo = 2, .gates_hi = 3, .kinds = K(AND) | K(OR), .leds_lo = 1, .leds_hi = 2,
-          .par_lo = 2, .par_hi = 4, .depth_hi = 3, .cross = 1}},
-    {20, {.sw_lo = 3, .sw_hi = 4, .gates_lo = 2, .gates_hi = 4, .kinds = K(AND) | K(OR) | K(NOT), .need = K(NOT),
-          .leds_lo = 1, .leds_hi = 2, .par_lo = 2, .par_hi = 4, .trap = 1, .depth_hi = 3, .cross = 1}},
-    /* chapter 2: cuttable wires */
-    {10, {.sw_lo = 2, .sw_hi = 3, .gates_lo = 2, .gates_hi = 4, .kinds = K(AND) | K(OR) | K(NOT), .leds_lo = 1,
-          .leds_hi = 2, .fuses_lo = 1, .fuses_hi = 2, .par_lo = 2, .par_hi = 4, .trap = 1, .depth_hi = 3, .cross = 1}},
-    {12, {.sw_lo = 3, .sw_hi = 4, .gates_lo = 3, .gates_hi = 5, .kinds = K(AND) | K(OR) | K(NOT), .leds_lo = 2,
-          .leds_hi = 2, .fuses_lo = 2, .fuses_hi = 3, .par_lo = 3, .par_hi = 5, .trap = 1, .dead = 1, .depth_hi = 4,
-          .cross = 2}},
-    /* chapter 3: the battery and the power socket */
-    {10, {.sw_lo = 3, .sw_hi = 4, .gates_lo = 2, .gates_hi = 4, .kinds = K(AND) | K(OR) | K(NOT), .leds_lo = 1,
-          .leds_hi = 2, .fuses_lo = 1, .fuses_hi = 2, .battery = 1, .plug = 1, .par_lo = 2, .par_hi = 4, .trap = 1,
-          .depth_hi = 3, .cross = 2}},
-    {12, {.sw_lo = 4, .sw_hi = 5, .gates_lo = 3, .gates_hi = 5, .kinds = K(AND) | K(OR) | K(NOT), .leds_lo = 2,
-          .leds_hi = 2, .fuses_lo = 1, .fuses_hi = 3, .battery = 1, .plug = 1, .par_lo = 2, .par_hi = 5, .trap = 1,
-          .depth_hi = 4, .cross = 2}},
-    /* chapter 4: XOR */
-    {10, {.sw_lo = 3, .sw_hi = 4, .gates_lo = 3, .gates_hi = 5, .kinds = K(AND) | K(OR) | K(NOT) | K(XOR),
-          .need = K(XOR), .leds_lo = 2, .leds_hi = 3, .fuses_hi = 1, .par_lo = 3, .par_hi = 5, .trap = 1,
-          .depth_hi = 4, .cross = 2}},
-    {12, {.sw_lo = 4, .sw_hi = 5, .gates_lo = 4, .gates_hi = 6, .kinds = K(AND) | K(OR) | K(NOT) | K(XOR),
-          .need = K(XOR), .leds_lo = 3, .leds_hi = 3, .fuses_lo = 1, .fuses_hi = 2, .battery = 1, .par_lo = 4,
-          .par_hi = 6, .trap = 1, .depth_hi = 4, .cross = 2}},
-    /* chapter 5: push buttons and memory chips */
-    {10, {.sw_lo = 2, .sw_hi = 3, .btn = 1, .latches = 1, .gates_lo = 2, .gates_hi = 4,
-          .kinds = K(AND) | K(OR) | K(NOT), .leds_lo = 2, .leds_hi = 3, .fuses_hi = 1, .par_lo = 3, .par_hi = 5,
-          .trap = 1, .depth_hi = 4, .cross = 2}},
-    {12, {.sw_lo = 2, .sw_hi = 4, .btn = 2, .latches = 2, .gates_lo = 3, .gates_hi = 6,
-          .kinds = K(AND) | K(OR) | K(NOT) | K(XOR), .leds_lo = 3, .leds_hi = 3, .fuses_hi = 2, .par_lo = 4,
-          .par_hi = 7, .trap = 1, .depth_hi = 4, .cross = 2}},
-    /* chapter 6: everything */
-    {10, {.sw_lo = 3, .sw_hi = 5, .btn = 1, .latches = 1, .gates_lo = 4, .gates_hi = 7,
-          .kinds = K(AND) | K(OR) | K(NOT) | K(XOR) | K(NAND) | K(NOR), .leds_lo = 3, .leds_hi = 3, .fuses_lo = 1,
-          .fuses_hi = 3, .battery = 1, .plug = 1, .par_lo = 3, .par_hi = 7, .trap = 1, .depth_hi = 5, .cross = 3,
-          .secs = 90}},
-    {12, {.sw_lo = 4, .sw_hi = 5, .gates_lo = 5, .gates_hi = 8, .kinds = K(AND) | K(OR) | K(NOT) | K(XOR) | K(NAND) | K(NOR),
-          .leds_lo = 4, .leds_hi = 4, .fuses_lo = 1, .fuses_hi = 3, .battery = 1, .par_lo = 5, .par_hi = 8, .trap = 1,
-          .depth_hi = 5, .cross = 3, .secs = 90}},
+    /* 1: one network; the first three teach */
+    {3, {.sw_lo = 2, .sw_hi = 3, .gates_lo = 2, .gates_hi = 3, .kinds = K(AND) | K(OR), .conds = 1, .fan = 40,
+         .par_lo = 1, .par_hi = 2, .easy = 1, .cross = 1}},
+    {8, {.sw_lo = 3, .sw_hi = 3, .gates_lo = 3, .gates_hi = 4, .kinds = AON, .conds = 2, .fan = 40, .par_lo = 2,
+         .par_hi = 3, .cross = 2}},
+    {9, {.sw_lo = 3, .sw_hi = 4, .gates_lo = 4, .gates_hi = 5, .kinds = AON, .conds = 2, .fan = 45, .par_lo = 2,
+         .par_hi = 4, .cross = 3}},
+    /* 2: cables */
+    {10, {.sw_lo = 3, .sw_hi = 4, .gates_lo = 3, .gates_hi = 5, .kinds = AON, .conds = 2, .fuses_lo = 1, .fuses_hi = 2,
+          .fan = 45, .par_lo = 2, .par_hi = 4, .cross = 3}},
+    {10, {.sw_lo = 3, .sw_hi = 4, .gates_lo = 4, .gates_hi = 6, .kinds = AON, .conds = 2, .fuses_lo = 2, .fuses_hi = 3,
+          .fan = 50, .par_lo = 2, .par_hi = 5, .cross = 3}},
+    /* 3: flip-flops */
+    {10, {.sw_lo = 2, .sw_hi = 3, .gates_lo = 3, .gates_hi = 4, .kinds = AON, .conds = 2, .fuses_hi = 1, .ff_lo = 1,
+          .ff_hi = 1, .fan = 45, .par_lo = 2, .par_hi = 5, .cross = 3}},
+    {10, {.sw_lo = 3, .sw_hi = 4, .gates_lo = 3, .gates_hi = 5, .kinds = AON | K(XOR), .conds = 2, .fuses_hi = 2,
+          .ff_lo = 1, .ff_hi = 2, .fan = 50, .par_lo = 2, .par_hi = 6, .cross = 4}},
+    /* 4: capacitors */
+    {10, {.sw_lo = 3, .sw_hi = 3, .gates_lo = 3, .gates_hi = 4, .kinds = AON, .conds = 2, .fuses_hi = 1, .cap_lo = 1,
+          .cap_hi = 1, .fan = 45, .par_lo = 2, .par_hi = 5, .timing = 1, .cross = 3}},
+    {10, {.sw_lo = 3, .sw_hi = 4, .gates_lo = 3, .gates_hi = 5, .kinds = AON, .conds = 2, .fuses_hi = 2, .ff_hi = 1,
+          .cap_lo = 1, .cap_hi = 2, .fan = 50, .par_lo = 2, .par_hi = 6, .timing = 1, .cross = 4}},
+    /* 5: the board timer, XOR */
+    {10, {.sw_lo = 3, .sw_hi = 4, .gates_lo = 3, .gates_hi = 5, .kinds = AON | K(XOR), .need = K(XOR), .conds = 2,
+          .fuses_hi = 1, .ff_hi = 1, .timer = 1, .fan = 45, .par_lo = 2, .par_hi = 5, .timing = 1, .cross = 4}},
+    {10, {.sw_lo = 3, .sw_hi = 4, .gates_lo = 4, .gates_hi = 6, .kinds = AON | K(XOR), .need = K(XOR), .conds = 3,
+          .fuses_hi = 2, .ff_hi = 1, .cap_hi = 1, .timer = 1, .fan = 50, .par_lo = 3, .par_hi = 6, .timing = 1,
+          .cross = 4}},
+    /* 6: everything */
+    {10, {.sw_lo = 3, .sw_hi = 5, .gates_lo = 3, .gates_hi = 5, .kinds = AON | K(XOR) | K(NAND) | K(NOR), .conds = 3,
+          .fuses_lo = 1, .fuses_hi = 2, .ff_lo = 1, .ff_hi = 1, .cap_lo = 1, .cap_hi = 1, .timer = 1, .fan = 50,
+          .par_lo = 3, .par_hi = 7, .timing = 1, .cross = 5, .secs = 90}},
+    {10, {.sw_lo = 4, .sw_hi = 5, .gates_lo = 4, .gates_hi = 6, .kinds = AON | K(XOR) | K(NAND) | K(NOR), .conds = 3,
+          .fuses_lo = 1, .fuses_hi = 2, .ff_lo = 0, .ff_hi = 2, .cap_lo = 1, .cap_hi = 1, .timer = 1, .fan = 55,
+          .par_lo = 3, .par_hi = 8, .timing = 1, .cross = 6, .secs = 90}},
 };
 #define BANDS ((int)(sizeof plan / sizeof plan[0]))
-#define CAND 8                                  /* candidates per level kept */
+#define CAND 6                                  /* candidates per level */
 
 typedef struct { char txt[DF_TEXT]; df_rating r; } cand;
 
@@ -108,115 +82,139 @@ static int by_score(const void *a, const void *b)
     return x < y ? -1 : x > y;
 }
 
-static uint64_t keys[DF_LEVELS * CAND * 2];
-static int nkeys;
+static uint64_t keys[DF_LEVELS * CAND * 4], shapes[DF_LEVELS * CAND * 4];
+static int nkeys, nshapes;
+#define POOLMAX 400
+static cand pool[DF_RANDOM][POOLMAX];
+static int npool[DF_RANDOM];
 
-static int known(uint64_t k)
+static int known(const uint64_t *a, int n, uint64_t k)
 {
-    for (int i = 0; i < nkeys; i++)
-        if (keys[i] == k) return 1;
+    for (int i = 0; i < n; i++)
+        if (a[i] == k) return 1;
     return 0;
 }
 
-/* the circuit's shape: its text without the switches' start nor which lamp is which (S as s, A as L); 64 bits */
+/* the circuit's shape: its text without the switches' start (S as s) */
 static uint64_t shape_of(const char *txt)
 {
     uint64_t h = 0xcbf29ce484222325ull;
     const char *s = strchr(txt, '~');
-    for (s = s ? s : txt; *s && *s != '|'; s++) {
-        char c = *s == 'S' ? 's' : *s == 'A' && s[1] == '@' ? 'L' : *s;
-        h = (h ^ (uint8_t)c) * 0x100000001b3ull;
-    }
+    for (s = s ? s : txt; *s && *s != '|'; s++) h = (h ^ (uint8_t)(*s == 'S' ? 's' : *s)) * 0x100000001b3ull;
     return h;
 }
-static uint64_t shapes[DF_LEVELS * CAND * 2];
-static int nshapes;
 
-static int shape_count(uint64_t k)
-{
-    int n = 0;
-    for (int i = 0; i < nshapes; i++) n += shapes[i] == k;
-    return n;
-}
-
-int main(void)
+int main(int argc, char **argv)
 {
     static cand C[DF_LEVELS * CAND], chosen[DF_LEVELS];
     static df_level D;
-    int total = HAND;
+    int tries_max = argc > 1 ? atoi(argv[1]) : 6000;
+    int total = 0;
     for (int b = 0; b < BANDS; b++) total += plan[b].n;
     if (total != DF_LEVELS) {
         fprintf(stderr, "the plan has %d levels, not %d\n", total, DF_LEVELS);
         return 1;
     }
     int out = 0, bad = 0;
-    for (int i = 0; i < HAND; i++) {          /* the ten by hand first, as written (no generated repeat of them) */
-        cand *c = &chosen[out++];
-        char err[96];
-        snprintf(c->txt, sizeof c->txt, "%s", hand[i]);
-        if (!df_parse(c->txt, &D, err, sizeof err)) { fprintf(stderr, "hand %d: %s\n", i + 1, err); return 1; }
-        uint32_t st = 0;
-        for (int k = 0; k < D.nsw; k++)
-            if (D.L.n[D.sw[k]].init) st |= df_bit_switch(&D, k);
-        if (df_rate(&D, st, &c->r) <= 0) { fprintf(stderr, "hand %d: no puzzle\n", i + 1); return 1; }
-        shapes[nshapes++] = shape_of(c->txt);
-        keys[nkeys++] = c->r.key;
-    }
     for (int b = 0; b < BANDS; b++) {
-        int want = plan[b].n * CAND, nc = 0;
-        uint32_t seed = 1000003u * (uint32_t)(b + 3);   /* the seeds the bands had before the ten by hand */
-        for (int t = 0; t < 20000 && nc < want; t++) {
+        int want = plan[b].n * CAND, nc = 0, t;
+        uint32_t seed = 1000003u * (uint32_t)(b + 1);
+        for (t = 0; t < tries_max * (b >= BANDS - 3 ? 3 : 1) && nc < want; t++) {
             cand *c = &C[nc];
-            if (!df_make(seed + (uint32_t)t, &plan[b].sp, 60, c->txt, sizeof c->txt, &c->r)) continue;
-            if (known(c->r.key)) continue;
+            if (!df_make(seed + (uint32_t)t, &plan[b].sp, 30, c->txt, sizeof c->txt, &c->r)) continue;
             uint64_t sh = shape_of(c->txt);
-            if (shape_count(sh) >= 1) continue;  /* one puzzle a circuit */
-            shapes[nshapes++] = sh;
+            if (known(keys, nkeys, c->r.key) || known(shapes, nshapes, sh)) continue;
             keys[nkeys++] = c->r.key;
+            shapes[nshapes++] = sh;
             nc++;
         }
-        if (nc < plan[b].n) {
-            fprintf(stderr, "band %d: %d candidates only\n", b, nc);
-            bad = 1;
-            if (!nc) continue;
-        }
+        fprintf(stderr, "band %d: %d candidates (%d seeds)\n", b, nc, t);
+        if (nc < plan[b].n) { bad = 1; if (!nc) continue; }
         qsort(C, (size_t)nc, sizeof C[0], by_score);
+        static int taken[DF_LEVELS * CAND];
+        memset(taken, 0, sizeof taken);
         for (int i = 0; i < plan[b].n; i++) {   /* evenly over the difficulty */
             int k = plan[b].n > 1 ? i * (nc - 1) / (plan[b].n - 1) : 0;
             if (k >= nc) k = nc - 1;
             chosen[out++] = C[k];
+            taken[k] = 1;
         }
-        fprintf(stderr, "band %d: %d candidates, scores %.1f..%.1f\n", b, nc, C[0].r.score, C[nc - 1].r.score);
+        int g = b < 5 ? 0 : b < 9 ? 1 : 2;     /* the rest: the die tab's, by difficulty */
+        for (int k = 0; k < nc && b > 0; k++)
+            if (!taken[k] && npool[g] < POOLMAX) pool[g][npool[g]++] = C[k];
     }
     if (bad) return 1;
-    /* each chapter from its easiest (the bands kept in order), then its drawings searched */
     printf("/* Defuse the Bomb's levels: made by tools/defuse_gen.c (do not edit). Each one: the roles, then Logic\n"
            " * Gates' text of the circuit with its stored drawing (defuse.h); then the pars. */\n");
     printf("const char *const df_levels[DF_LEVELS] = {\n");
     static uint8_t pars[DF_LEVELS];
+    float st[DF_CHAPTERS][8] = {{0}};
     for (int i = 0; i < DF_LEVELS; i++) {
         char full[DF_TEXT + LG_LAYOUT], err[96];
         if (!df_parse(chosen[i].txt, &D, err, sizeof err)) { fprintf(stderr, "level %d: %s\n", i + 1, err); return 1; }
-        lg_route_best(&D.L, 300);
+        lg_route_best(&D.L, 200);
         if (!df_text_with_layout(chosen[i].txt, &D, full, sizeof full) || !df_parse(full, &D, err, sizeof err)) {
             fprintf(stderr, "level %d: its drawing: %s\n", i + 1, err);
             return 1;
         }
         df_rating r;
-        df_values v;
-        df_eval(&D, 0, -1, &v);
-        uint32_t st = 0;
-        for (int k = 0; k < D.nsw; k++)
-            if (D.L.n[D.sw[k]].init) st |= df_bit_switch(&D, k);
-        if (df_rate(&D, st, &r) <= 0 || r.par != chosen[i].r.par) { fprintf(stderr, "level %d: rated anew\n", i + 1); return 1; }
+        df_state s0 = df_start(&D);
+        if (df_rate(&D, &s0, &r) <= 0 || r.par != chosen[i].r.par) { fprintf(stderr, "level %d: rated anew\n", i + 1); return 1; }
         pars[i] = (uint8_t)r.par;
         printf("    \"%s\",\n", full);
-        fprintf(stderr, "%3d ch%d par %d vars %d gates %d leds %d lose %d/%d dead %d order %d greedy %d sol %d x%d %.1f\n",
-                i + 1, df_chapter(i) + 1, r.par, r.vars, r.gates, D.nled, r.lose_first, r.moves_first,
-                r.dead_first, r.order_trap, r.greedy_trap, r.nsol, D.L.crossings, r.score);
+        float lose = (r.lose_first + r.dead_first) / (float)r.moves_first;
+        fprintf(stderr, "%3d ch%d par %d ticks %2d lose %d+%d/%d ways %d/%d first %d greedy %d timing %d dl %2d shared %3d "
+                        "gates %d x%d %.1f\n", i + 1, df_chapter(i) + 1, r.par, r.ticks, r.lose_first, r.dead_first,
+                r.moves_first, r.ways, r.orders, r.nsol, r.greedy_ok, r.timing, r.deadline, r.shared, r.gates,
+                D.L.crossings, r.score);
+        float *a = st[df_chapter(i)];
+        a[0] += r.par;
+        a[1] += lose;
+        a[2] += r.nsol;
+        a[3] += r.orders ? 1 - r.ways / (float)r.orders : 0;
+        a[4] += r.timing;
+        a[5] += r.shared;
+        a[6] += r.gates;
+        a[7] += r.score;
     }
     printf("};\nconst uint8_t df_pars[DF_LEVELS] = {");
     for (int i = 0; i < DF_LEVELS; i++) printf("%s%d", !i ? "\n    " : i % 30 ? ", " : ",\n    ", pars[i]);
     printf("\n};\n");
+    fprintf(stderr, "chapter: par, first moves losing, first actions that win, orders losing, timing, shared, parts, score\n");
+    for (int c = 0; c < DF_CHAPTERS; c++) {
+        float n = DF_PER_CHAPTER, *a = st[c];
+        fprintf(stderr, "ch%d: par %.1f  lose %2.0f%%  ways-in %.1f  bad orders %2.0f%%  timing %3.0f%%  shared %3.0f%%  "
+                        "parts %.1f  score %.1f\n", c + 1, a[0] / n, 100 * a[1] / n, a[2] / n, 100 * a[3] / n,
+                100 * a[4] / n, a[5] / n, a[6] / n, a[7] / n);
+    }
+    /* the die tab's: from each difficulty's spare candidates, evenly over their difficulty, drawn at length too */
+    static uint8_t ppars[DF_RANDOM][DF_POOL];
+    printf("const char *const df_pool[DF_RANDOM][DF_POOL] = {\n");
+    for (int g = 0; g < DF_RANDOM; g++) {
+        if (npool[g] < DF_POOL) { fprintf(stderr, "pool %d: %d only\n", g, npool[g]); return 1; }
+        qsort(pool[g], (size_t)npool[g], sizeof pool[g][0], by_score);
+        printf("  {\n");
+        for (int i = 0; i < DF_POOL; i++) {
+            const cand *c = &pool[g][i * (npool[g] - 1) / (DF_POOL - 1)];
+            char full[DF_TEXT + LG_LAYOUT], err[96];
+            if (!df_parse(c->txt, &D, err, sizeof err)) { fprintf(stderr, "pool %d: %s\n", g, err); return 1; }
+            lg_route_best(&D.L, 100);
+            df_rating r;
+            if (!df_text_with_layout(c->txt, &D, full, sizeof full) || !df_parse(full, &D, err, sizeof err)) return 1;
+            df_state s0 = df_start(&D);
+            if (df_rate(&D, &s0, &r) <= 0 || r.par != c->r.par) { fprintf(stderr, "pool %d: rated anew\n", g); return 1; }
+            ppars[g][i] = (uint8_t)r.par;
+            printf("    \"%s\",\n", full);
+        }
+        printf("  },\n");
+        fprintf(stderr, "pool %d: %d spare, %d kept\n", g, npool[g], DF_POOL);
+    }
+    printf("};\nconst uint8_t df_pool_pars[DF_RANDOM][DF_POOL] = {\n");
+    for (int g = 0; g < DF_RANDOM; g++) {
+        printf("    {");
+        for (int i = 0; i < DF_POOL; i++) printf("%s%d", i ? ", " : "", ppars[g][i]);
+        printf("},\n");
+    }
+    printf("};\n");
     return 0;
 }

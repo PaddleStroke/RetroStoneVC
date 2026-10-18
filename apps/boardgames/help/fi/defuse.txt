@@ -1,12 +1,12 @@
 Pommin purku
 # Tavoite
-Pura pommi ennen kuin sen ajastin ehtii nollaan: sytytä kaikki sen vihreät merkkivalot yhtä aikaa tai katkaise sen virta. Jos punainen laukaisuvalo syttyy edes hetkeksi, pommi räjähtää.
+Pura pommi ennen kuin sen ajastin ehtii nollaan: sytytä vihreä DISARM-valo tai sammuta oranssi POWER-valo. Jos punainen DETONATE-valo syttyy pommin ollessa virrassa, edes hetkeksi, pommi räjähtää.
 # Siirto
-Siirto kääntää kytkimen, katkaisee kaapelin tai painaa painonappia. Jokainen johto kuljettaa silloin arvoa 1 (se hehkuu kultaisena) tai 0, ja punaisen valon on pysyttävä sammuneena jokaisen siirron jälkeen: järjestyksellä on väliä.
+Siirto kääntää kytkimen tai katkaisee kaapelin. Kaikki on yksi pariston syöttämä piiri: siirto muuttaa usein kaikkia kolmea valoa kerralla, joten järjestyksellä on väliä.
 - Katkaistu kaapeli kuljettaa katkaisukohdan jälkeen 0, lopullisesti.
-- Painonappi antaa 1 vain, kun sitä painetaan.
-- Paristo antaa aina 1. Muistisiru antaa 1 lopullisesti heti, kun sen tulo on ollut 1.
-- NOT kääntää tulonsa. AND antaa 1, kun molemmat tulot ovat 1, OR, kun jompikumpi on, XOR, kun tasan toinen on. NAND ja NOR kääntävät AND:n ja OR:n.
-- Kun virtaliitin kuljettaa 0, pommi on kuollut.
+- NOT kääntää tulonsa. AND antaa 1, kun kaikki tulot ovat 1, OR, kun jokin on, XOR, kun tasan yksi on. NAND ja NOR kääntävät AND:n ja OR:n.
+- Kiikku vaihtaa tilaa aina, kun sen tulo nousee 0:sta 1:een.
+- Kondensaattori latautuu askeleen sekunnissa, kun sen tulo on 1; täynnä se antaa lyhyen pulssin. Tulo 0:ssa tyhjentää sen.
+- Piirilevyn ajastin laskee itsestään alaspäin; nollassa se antaa 1.
 # Tasot ja tähdet
 3 tähteä: vähin mahdollinen määrä siirtoja ilman vihjettä. 2 tähteä: enintään puolet enemmän siirtoja tai vihjeen kanssa. Muuten 1.

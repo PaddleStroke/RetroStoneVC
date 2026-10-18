@@ -1,12 +1,12 @@
 Desarmar a bomba
 # O objetivo
-Desarma a bomba antes que o temporizador chegue a zero: acende todos os LED verdes ao mesmo tempo, ou corta-lhe a alimentação. Se o LED vermelho do detonador acender, mesmo por um instante, a bomba explode.
+Desarma a bomba antes que o temporizador chegue a zero: acende a lâmpada verde DISARM ou apaga a lâmpada laranja POWER. Se a lâmpada vermelha DETONATE acender enquanto a bomba tem energia, mesmo por um instante, ela explode.
 # Uma jogada
-Uma jogada muda um interruptor, corta um cabo ou carrega num botão. Cada fio leva então 1 (brilha dourado) ou 0, e o LED vermelho tem de ficar apagado depois de cada jogada: a ordem conta.
+Uma jogada muda um interruptor ou corta um cabo. Tudo é um só circuito alimentado pela pilha: uma jogada muda muitas vezes as três lâmpadas ao mesmo tempo, por isso a ordem conta.
 - Um cabo cortado leva 0 para lá do corte, para sempre.
-- Um botão dá 1 só enquanto está carregado.
-- A pilha dá sempre 1. Um chip de memória dá 1 para sempre assim que a sua entrada valeu 1.
-- NOT inverte a sua entrada. AND dá 1 quando as duas entradas valem 1, OR quando uma delas vale, XOR quando só uma vale. NAND e NOR invertem AND e OR.
-- Quando a tomada de alimentação leva 0, a bomba está morta.
+- NOT inverte a sua entrada. AND dá 1 quando todas as entradas valem 1, OR quando alguma vale, XOR quando só uma vale. NAND e NOR invertem AND e OR.
+- Um flip-flop muda de estado sempre que a sua entrada passa de 0 para 1.
+- Um condensador carrega um passo por segundo enquanto a sua entrada vale 1; cheio, dispara um impulso curto. A entrada a 0 esvazia-o.
+- O temporizador da placa conta para trás sozinho; no zero, dá 1.
 # Níveis e estrelas
 3 estrelas: o menor número de jogadas possível, sem pistas. 2 estrelas: até metade mais de jogadas, ou com uma pista. Caso contrário, 1.

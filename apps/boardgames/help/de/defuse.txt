@@ -1,12 +1,12 @@
 Bombe entschärfen
 # Das Ziel
-Entschärfe die Bombe, bevor ihr Zeitzünder null erreicht: Bring alle grünen LEDs gleichzeitig zum Leuchten oder unterbrich ihre Stromversorgung. Leuchtet die rote Zünder-LED auf, auch nur einen Augenblick, explodiert die Bombe.
+Entschärfe die Bombe, bevor ihr Zeitzünder null erreicht: Bring die grüne Lampe DISARM zum Leuchten oder lösche die orange Lampe POWER. Leuchtet die rote Lampe DETONATE auf, solange die Bombe Strom hat, auch nur einen Augenblick, explodiert sie.
 # Ein Zug
-Ein Zug legt einen Schalter um, schneidet ein Kabel durch oder drückt einen Taster. Jede Leitung führt dann 1 (sie leuchtet golden) oder 0, und die rote LED muss nach jedem Zug dunkel bleiben: Die Reihenfolge zählt.
+Ein Zug legt einen Schalter um oder schneidet ein Kabel durch. Alles ist ein einziger Stromkreis an der Batterie: Ein Zug ändert oft alle drei Lampen zugleich, darum zählt die Reihenfolge.
 - Ein durchgeschnittenes Kabel führt hinter dem Schnitt 0, für immer.
-- Ein Taster gibt nur 1, solange er gedrückt ist.
-- Die Batterie gibt immer 1. Ein Speicherchip gibt für immer 1, sobald sein Eingang einmal 1 war.
-- NOT kehrt seinen Eingang um. AND gibt 1, wenn beide Eingänge 1 sind, OR, wenn einer es ist, XOR, wenn genau einer es ist. NAND und NOR kehren AND und OR um.
-- Führt die Stromsteckdose 0, ist die Bombe tot.
+- NOT kehrt seinen Eingang um. AND gibt 1, wenn alle Eingänge 1 sind, OR, wenn einer es ist, XOR, wenn genau einer es ist. NAND und NOR kehren AND und OR um.
+- Ein Flipflop kippt jedes Mal um, wenn sein Eingang von 0 auf 1 steigt.
+- Ein Kondensator lädt sich jede Sekunde um eine Stufe, solange sein Eingang 1 ist; voll, gibt er einen kurzen Impuls ab. Ist sein Eingang 0, entlädt er sich.
+- Der Platinen-Timer zählt von selbst herunter; bei null gibt er 1.
 # Level und Sterne
 3 Sterne: so wenige Züge wie möglich, ohne Tipp. 2 Sterne: bis zur Hälfte mehr Züge oder mit Tipp. Sonst 1.

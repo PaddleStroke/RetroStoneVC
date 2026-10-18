@@ -1,12 +1,12 @@
 Desarmér bomben
 # Målet
-Desarmér bomben, før dens tidsur når nul: tænd alle dens grønne lysdioder på én gang, eller afbryd dens strøm. Lyser den røde detonator-lysdiode, bare et øjeblik, springer bomben.
+Desarmér bomben, før dens tidsur når nul: tænd den grønne lampe DISARM, eller sluk den orange lampe POWER. Lyser den røde lampe DETONATE, mens bomben har strøm, bare et øjeblik, springer den.
 # Et træk
-Et træk slår en kontakt om, klipper et kabel over eller trykker på en trykknap. Hver ledning fører så 1 (den gløder gyldent) eller 0, og den røde lysdiode skal forblive slukket efter hvert træk: rækkefølgen tæller.
+Et træk slår en kontakt om eller klipper et kabel over. Det hele er ét kredsløb fra batteriet: et træk ændrer ofte alle tre lamper på én gang, så rækkefølgen tæller.
 - Et overklippet kabel fører 0 efter klippet, for altid.
-- En trykknap giver kun 1, mens den er trykket ned.
-- Batteriet giver altid 1. En hukommelseschip giver 1 for altid, når dens indgang én gang har været 1.
-- NOT vender sin indgang om. AND giver 1, når begge indgange er 1, OR, når en af dem er, XOR, når præcis én er. NAND og NOR vender AND og OR om.
-- Når strømstikket fører 0, er bomben død.
+- NOT vender sin indgang om. AND giver 1, når alle indgange er 1, OR, når en af dem er, XOR, når præcis én er. NAND og NOR vender AND og OR om.
+- En flip-flop skifter, hver gang dens indgang går fra 0 til 1.
+- En kondensator lades et trin op hvert sekund, mens dens indgang er 1; fuld sender den en kort puls. Dens indgang på 0 tømmer den.
+- Printets timer tæller selv ned; ved nul giver den 1.
 # Baner og stjerner
 3 stjerner: så få træk som muligt, uden ledetråd. 2 stjerner: op til halvanden gang så mange træk, eller med en ledetråd. Ellers 1.

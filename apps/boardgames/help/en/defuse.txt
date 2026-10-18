@@ -1,12 +1,12 @@
 Defuse the Bomb
 # The aim
-Disarm the bomb before its timer reaches zero: light all its green LEDs at once, or cut off its power. If the red detonator LED lights up, even for a moment, the bomb explodes.
+Disarm the bomb before its timer reaches zero: light the green DISARM lamp, or put out the amber POWER lamp. If the red DETONATE lamp lights while the bomb has power, even for an instant, it explodes.
 # A move
-A move flips a switch, cuts a cable or presses a push button. Each wire then carries 1 (glowing gold) or 0, and the red LED must stay dark after every move: their order matters.
+A move flips a switch or cuts a cable. Everything is one circuit fed by the battery: a move often changes all three lamps at once, so the order of your moves matters.
 - A cut cable carries 0 beyond the cut, for good.
-- A push button gives 1 only while it is pressed.
-- The battery always gives 1. A memory chip gives 1 for good once its input has been 1.
-- NOT reverses its input. AND gives 1 when both inputs are 1, OR when either is, XOR when exactly one is. NAND and NOR reverse AND and OR.
-- When the power socket carries 0, the bomb is dead.
+- NOT reverses its input. AND gives 1 when all its inputs are 1, OR when any is, XOR when exactly one is. NAND and NOR reverse AND and OR.
+- A flip-flop turns over each time its input goes from 0 to 1.
+- A capacitor charges a step each second while its input is 1; full, it fires a short pulse. Its input at 0 empties it.
+- The board timer counts down by itself; at zero it gives 1.
 # Levels and stars
 3 stars: the fewest moves possible, with no hint. 2 stars: up to half as many moves again, or with a hint. Otherwise 1.

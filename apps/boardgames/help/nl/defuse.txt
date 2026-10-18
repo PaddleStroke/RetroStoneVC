@@ -1,12 +1,12 @@
 Bom ontmantelen
 # Het doel
-Maak de bom onschadelijk voordat de timer op nul staat: laat alle groene ledjes tegelijk branden, of sluit de stroom af. Gaat het rode ontstekingsledje aan, al is het maar even, dan ontploft de bom.
+Maak de bom onschadelijk voordat de timer op nul staat: laat de groene lamp DISARM branden, of doof de oranje lamp POWER. Gaat de rode lamp DETONATE aan terwijl de bom stroom heeft, al is het maar even, dan ontploft hij.
 # Een zet
-Een zet zet een schakelaar om, knipt een kabel door of drukt een drukknop in. Elke draad voert dan 1 (hij gloeit goud) of 0, en het rode ledje moet na elke zet uit blijven: de volgorde telt.
+Een zet zet een schakelaar om of knipt een kabel door. Alles is één stroomkring aan de batterij: een zet verandert vaak alle drie de lampen tegelijk, dus de volgorde telt.
 - Een doorgeknipte kabel voert achter de knip 0, voorgoed.
-- Een drukknop geeft alleen 1 zolang hij ingedrukt is.
-- De batterij geeft altijd 1. Een geheugenchip geeft voorgoed 1 zodra zijn ingang 1 is geweest.
-- NOT keert zijn ingang om. AND geeft 1 als beide ingangen 1 zijn, OR als een van beide het is, XOR als er precies één het is. NAND en NOR keren AND en OR om.
-- Voert de stroomaansluiting 0, dan is de bom dood.
+- NOT keert zijn ingang om. AND geeft 1 als alle ingangen 1 zijn, OR als er één het is, XOR als er precies één het is. NAND en NOR keren AND en OR om.
+- Een flipflop klapt om telkens als zijn ingang van 0 naar 1 gaat.
+- Een condensator laadt elke seconde een stap op zolang zijn ingang 1 is; vol geeft hij een korte puls. Zijn ingang op 0 maakt hem leeg.
+- De timer op de print telt vanzelf af; bij nul geeft hij 1.
 # Levels en sterren
 3 sterren: zo weinig mogelijk zetten, zonder hint. 2 sterren: tot de helft meer zetten, of met een hint. Anders 1.

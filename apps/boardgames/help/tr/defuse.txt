@@ -1,12 +1,12 @@
 Bombayı Etkisiz Kıl
 # Amaç
-Zamanlayıcı sıfıra inmeden bombayı etkisiz kıl: tüm yeşil LED'lerini aynı anda yak ya da gücünü kes. Kırmızı fünye LED'i bir an bile yanarsa bomba patlar.
+Zamanlayıcı sıfıra inmeden bombayı etkisiz kıl: yeşil DISARM lambasını yak ya da turuncu POWER lambasını söndür. Kırmızı DETONATE lambası bombanın gücü varken bir an bile yanarsa bomba patlar.
 # Bir hamle
-Bir hamle bir anahtarı çevirir, bir kabloyu keser ya da bir düğmeye basar. Her tel o zaman 1 (altın gibi parlar) ya da 0 taşır ve kırmızı LED her hamleden sonra sönük kalmalıdır: sıra önemlidir.
+Bir hamle bir anahtarı çevirir ya da bir kabloyu keser. Hepsi pilden beslenen tek bir devredir: bir hamle çoğu zaman üç lambayı birden değiştirir, bu yüzden sıra önemlidir.
 - Kesilen kablo, kesiğin ötesinde kalıcı olarak 0 taşır.
-- Bir düğme yalnızca basılıyken 1 verir.
-- Pil her zaman 1 verir. Bir bellek çipi, girişi bir kez 1 olunca kalıcı olarak 1 verir.
-- NOT girişini tersine çevirir. AND iki girişi de 1 iken 1 verir, OR biri 1 iken, XOR tam olarak biri 1 iken. NAND ve NOR, AND ile OR'u tersine çevirir.
-- Güç soketi 0 taşıdığında bomba ölüdür.
+- NOT girişini tersine çevirir. AND tüm girişleri 1 iken 1 verir, OR biri 1 iken, XOR tam olarak biri 1 iken. NAND ve NOR, AND ile OR'u tersine çevirir.
+- Bir flip-flop, girişi 0'dan 1'e her çıktığında durum değiştirir.
+- Bir kondansatör, girişi 1 olduğu sürece her saniye bir adım dolar; dolunca kısa bir darbe verir. Girişi 0 olursa boşalır.
+- Kart zamanlayıcısı kendi kendine geri sayar; sıfırda 1 verir.
 # Seviyeler ve yıldızlar
 3 yıldız: mümkün olan en az hamle, ipucu olmadan. 2 yıldız: yarısı kadar fazla hamleye kadar ya da bir ipucuyla. Aksi halde 1.
