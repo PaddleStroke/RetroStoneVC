@@ -114,8 +114,13 @@ its top, one behind.
   more than it slides during a jump (70 px at the fastest).
 - **The HUD at the screen's top**: the score (sprites at `rs_screen_top()`); 2-4 players: a row of each player's icon
   and height (no corner tags there).
-- **Fill or fit**: the title, the panels and 2-4 players (the unicorns spread over the band) show every column
-  (`rs_screen_fill(0)`).
+- **One view**: the title and the panels stay zoomed like the play (never the letterboxed full width), laid out in
+  the columns shown by games/common/src/house_tall.h: the logo as UNICORN over HOP (`ht_logo`), the unicorn on its
+  cloud under it, the title's lines wrapped and stacked from row 19 (the slots closer), GAME OVER and the score panel
+  narrower (each value under its label, the stars caught under them, the panel as wide as the retry line: draw.c
+  `over_panel`), the ranking narrower. Climbing, the UI layer is scrolled so that its middle is on the columns shown:
+  PAUSED and RAINBOW! (1x when its 2x line is wider than the columns) follow the unicorn. Only 2-4 players climbing
+  show every column (`rs_screen_fill(0)`): the unicorns spread over the whole band.
 - **Decor**: the raster (draw.c `raster_out`) carries the gradient on (its top colour deepening toward the screen's
   top, the horizon's colour below), the stars and the decor layers go on (their maps wrap, as when the camera climbs),
   the UI layer is hidden there, and the start scene's land goes on below the stage (its last row repeated); the

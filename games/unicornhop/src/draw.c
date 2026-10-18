@@ -14,6 +14,7 @@
 #include "assets.h"
 #include "house_ui.h"
 #include "game_text.h"
+#include "house_tall.h"             /* a phone held upright: the title and the panels in the columns shown */
 #include <stdio.h>
 #include <string.h>
 
@@ -40,6 +41,8 @@ static const skydef SKIES[4] = {
 
 static rs_color line_col[RS_SCREEN_H], star_a[RS_SCREEN_H], star_b[RS_SCREEN_H];
 static int shown_state = -1, shown_best = -1, shown_rainbow, bg3_content = -1, bg3_on, bg3_top;
+static int shown_cols = -1;             /* the columns shown when the UI was drawn (narrow: ht_ncols, playing 1; else 0) */
+static ht_title_out title_at;           /* where the narrow title put its glyph and slots (drawn every title frame) */
 
 static int map_w(void);
 
@@ -382,27 +385,68 @@ static void standing(const world *w, hu_standing *s)
     hu_rank(s, w->players, val, val);
 }
 
+/* the game-over note: the stars caught (NULL: none) */
+static const char *stars_note(const world *w, char *s, int n)
+{
+    if (!w->h[0].stars) return NULL;
+    rs_strf(s, n, TRN(STARS_N, w->h[0].stars), w->h[0].stars);
+    return s;
+}
+
+/* ht_gameover_panel (house_tall.h), the panel as wide as the retry line too (ht_over_w leaves it out: "A: EKRAN
+ * TYTUŁOWY" spilt over the panel's sides in Polish) */
+static void over_panel(int new_best, const char *note, const char *retry)
+{
+    int w = ht_over_w(new_best, note), cols = ht_ncols(), rw = hu_width(retry, 0) + 4, r = ht_gameover_retry_row(note);
+    if (rw > w) w = rw > cols ? cols : rw;
+    int x = ht_center_w(w), bottom = r + ht_text_rows(retry, 1) + 1;
+    hu_panel(x, 9, w, bottom - 9 + 1);
+    const char *lab[3] = {hu_str(HS_SCORE), hu_str(new_best ? HS_NEW_BEST : HS_BEST), hu_str(HS_MEDAL)};
+    for (int i = 0; i < 3; i++) hu_box_text(ht_center(lab[i], 0), ht_over_label_row(i), lab[i]);
+    if (note) ht_text(ht_over_label_row(2) + 5, note, 1);
+}
+
+/* the narrow title (house_tall.h): the slots' row, under the unicorn on its cloud */
+#define HT_TITLE_TOP 19
+#define HT_TITLE_FEET 128       /* the title unicorn's feet (the logo on two lines above it) */
+
 /* the BG screens; PLAY and DEAD are the same screen */
 static void screen_text(const world *w, int state, int st_t, int best, int new_best, const hu_standing *rs)
 {
     int screen = state == ST_DEAD ? ST_PLAY : state;
     int rainbow = screen == ST_PLAY && w->rainbow_t >= 0 && w->rainbow_t < RAINBOW_SHOW / 2;
+    /* a phone held upright (ht_narrow, DESIGN.md "Tall screen"): the same in the columns shown (house_tall.h); playing,
+     * the UI layer is scrolled to the columns shown (draw_frame): laid out on the stage's middle */
+    int narrow = ht_narrow(), cols = narrow ? (screen == ST_PLAY ? 1 : ht_ncols()) : 0;
+    char note[64];
     if (screen != shown_state || (state == ST_OVER && st_t == RETRY_LOCK) || best != shown_best ||
-        rainbow != shown_rainbow) {
+        rainbow != shown_rainbow || cols != shown_cols) {
         hu_clear();
-        if (state == ST_TITLE) hu_logo("UNICORN HOP", title_ramps, 2, 2, 0);
+        if (state == ST_TITLE) {
+            if (narrow) ht_logo("UNICORN HOP", title_ramps, 2, 0, 0);      /* UNICORN over HOP */
+            else hu_logo("UNICORN HOP", title_ramps, 2, 2, 0);
+        }
         if (screen == ST_PLAY && w->players >= 3 && rs_screen_height() == RS_SCREEN_H)
             hu_score_tags(w->players, 0);       /* P1..P4 by the corner chips (a tall screen: icons, draw_frame) */
-        if (rainbow) hu_big(hu_center(TR(RAINBOW), 1), 5, TR(RAINBOW), HU_BIG_FREE);
+        if (rainbow) {
+            if (narrow && hu_width(TR(RAINBOW), 1) > ht_ncols())                /* 1x when 2x is wider than shown */
+                hu_text(hu_center(TR(RAINBOW), 0), 6, TR(RAINBOW));
+            else
+                hu_big(hu_center(TR(RAINBOW), 1), 5, TR(RAINBOW), HU_BIG_FREE);
+        }
         if (state == ST_OVER) {
             if (w->players == 1) {
-                hu_banner(4, HTR(GAME_OVER));
-                hu_gameover_panel(1, new_best, w->h[0].score, 0);
-                if (w->h[0].stars) {                                            /* the stars caught */
-                    char s[64];
-                    rs_strf(s, sizeof s, TRN(STARS_N, w->h[0].stars), w->h[0].stars);
-                    hu_gameover_note(s);
+                const char *n = stars_note(w, note, sizeof note);              /* the stars caught */
+                if (narrow) {
+                    ht_banner(4, HTR(GAME_OVER));
+                    over_panel(new_best, n, HTR(BACK_TITLE));
+                } else {
+                    hu_banner(4, HTR(GAME_OVER));
+                    hu_gameover_panel(1, new_best, w->h[0].score, 0);
+                    if (n) hu_gameover_note(n);
                 }
+            } else if (narrow) {
+                ht_results_panel(rs, NULL);
             } else {
                 hu_results_panel(rs, NULL);                                     /* P2 WINS! and the ranking */
             }
@@ -410,11 +454,27 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         shown_state = screen;
         shown_best = best;
         shown_rainbow = rainbow;
+        shown_cols = cols;
     }
-    if (state == ST_TITLE) hu_title_draw(st_t, best);
+    if (state == ST_TITLE) {
+        if (narrow) {
+            ht_title tc = {TR(VERB), MAX_PLAYERS, HT_TITLE_TOP, 0};
+            ht_title_draw(&tc, st_t, best, &title_at);
+        } else {
+            hu_title_draw(st_t, best);
+        }
+    }
     if (state == ST_OVER) {
-        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_TITLE));
-        else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
+        if (w->players == 1) {
+            if (narrow)
+                ht_retry_line_at(ht_gameover_retry_row(stars_note(w, note, sizeof note)), st_t, RETRY_LOCK,
+                                 HTR(BACK_TITLE));
+            else
+                hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_TITLE));
+        } else {
+            if (narrow) ht_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
+            else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
+        }
     }
 }
 
@@ -449,22 +509,26 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         rs_math(RS_MATH_OFF, 0, 0);
     }
 
+    /* a tall screen (game.h ZOOM_H, DESIGN.md "Tall screen"): the zoomed view, always: the title and the panels too,
+     * laid out in the columns shown (screen_text, house_tall.h); one unicorn climbing: the columns shown centred on it
+     * (it rides its cloud, it jumps straight up: the view follows it smoothly), its score at the screen's top; 2-4
+     * players climbing show every column (the unicorns spread over the band) */
+    int climb = state == ST_PLAY || state == ST_DEAD;
+    int zoom = rs_screen_height() > RS_SCREEN_H && (w->players == 1 || !climb);
+    rs_screen_fill(zoom);
+    rs_screen_focus_x(zoom && climb ? (w->h[0].x >> 16) + rs_screen_origin_x() : -1);
+    int vx0 = rs_screen_visible_x0() - rs_screen_origin_x(), vx1 = rs_screen_visible_x1() - rs_screen_origin_x();
+
     screen_text(w, state, st_t, best, new_best, &rs);
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;     /* the panel slides up, ease-out */
-    rs_bg_scroll(RS_BG1, 0, -slide);
+    /* (zoomed, climbing: the UI layer's middle, PAUSED and RAINBOW!, on the columns shown) */
+    int ui_dx = zoom && climb && ht_narrow() ? ht_mid_x() - RS_SCREEN_W / 2 : 0;
+    rs_bg_scroll(RS_BG1, -ui_dx, -slide);
     hu_pause(paused, 13);
-
-    /* a tall screen (game.h ZOOM_H, DESIGN.md "Tall screen"): one unicorn climbing fills the display's height, the
-     * columns shown centred on it (it rides its cloud, it jumps straight up: the view follows it smoothly), its score
-     * at the screen's top; the title, the panels and 2-4 players show every column */
-    int zoom = rs_screen_height() > RS_SCREEN_H && w->players == 1 && (state == ST_PLAY || state == ST_DEAD);
-    rs_screen_fill(zoom);
-    rs_screen_focus_x(zoom ? (w->h[0].x >> 16) + rs_screen_origin_x() : -1);
-    int vx0 = rs_screen_visible_x0() - rs_screen_origin_x(), vx1 = rs_screen_visible_x1() - rs_screen_origin_x();
 
     rs_oam_clear();
     /* front to back: the UI, the unicorns, the clouds, the moon */
-    if (zoom) {
+    if (zoom && climb) {
         hu_number(w->h[0].score, (vx0 + vx1) / 2 - hu_ui_x(), rs_screen_top() + 10, 3);
     } else if ((state == ST_PLAY || state == ST_DEAD) && rs_screen_height() > RS_SCREEN_H) {
         /* a tall screen, 2-4 players: the heights in a row at the screen's top, each after its player's icon */
@@ -478,7 +542,18 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         for (int p = 0; p < w->players; p++) v[p] = w->players == 1 ? w->h[p].score : w->h[p].height;
         hu_score_chips(w->players, v, 0);       /* 1: the score; 2-4: the heights (the race up) */
     }
-    if (state == ST_OVER) {
+    if (state == ST_OVER && ht_narrow()) {        /* a phone held upright: the panels in the columns shown */
+        if (w->players == 1) {
+            ht_gameover_sprites(w->h[0].score, best, hu_medal_of(w->h[0].score, medals), st_t, slide);
+        } else {
+            ht_results_sprites(&rs, st_t, slide);
+            for (int i = 0; i < rs.n; i++) {
+                int cx, cy;
+                ht_results_icon_pos(&rs, i, &cx, &cy);
+                spr(SPR_UNI_ICON, cx - 8 + hu_ui_x(), cy - 8 + slide, 3, player_pal(rs.order[i]), 0);
+            }
+        }
+    } else if (state == ST_OVER) {
         if (w->players == 1) {
             hu_gameover_sprites(1, w->h[0].score, 0, best, hu_medal_of(w->h[0].score, medals), st_t, slide);
         } else {
@@ -491,9 +566,15 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         }
     }
     if (state == ST_TITLE) {
-        hu_title_sprites(st_t, slot_icon, NULL);   /* the prompt's glyph, the joined players popping in */
+        int narrow = ht_narrow();
+        if (narrow) {                              /* the narrow title's glyph and slots (screen_text) */
+            ht_title tc = {TR(VERB), MAX_PLAYERS, HT_TITLE_TOP, 0};
+            ht_title_sprites(&tc, &title_at, st_t, slot_icon, NULL);
+        } else {
+            hu_title_sprites(st_t, slot_icon, NULL);   /* the prompt's glyph, the joined players popping in */
+        }
         /* the unicorn bobs on its little cloud under the logo */
-        int b = hu_bob(st_t, 64, READY_BOB), feet = 124 + b;
+        int b = hu_bob(st_t, 64, READY_BOB), feet = (narrow ? HT_TITLE_FEET : 124) + b;
         spr(SPR_UNI_IDLE + (st_t / 24) % 2, CENTER_X - 16, feet - 30, 2, 0, 0);
         if (st_t % 50 < 14) spr(SPR_SPARKLE + ((st_t / 50) % 3) * 2 + (st_t % 50 > 7), CENTER_X + 10, feet - 34, 2, 0, 0);
         draw_cloud(CENTER_X, feet, 48, 1, 2, 0, 0);
@@ -526,7 +607,7 @@ void draw_state_loaded(void)
 void draw_state(void)
 {
     S(line_col); S(star_a); S(star_b); S(shown_state); S(shown_best); S(shown_rainbow); S(bg3_content); S(bg3_on);
-    S(bg3_top); S(camd);
+    S(bg3_top); S(camd); S(shown_cols); S(title_at);
     RS_STATE_RASTER(raster);
 }
 #undef S
