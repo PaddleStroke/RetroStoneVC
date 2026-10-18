@@ -157,7 +157,9 @@ well, the rules are the same). One full view draws the whole height: the well la
   `rs_bg_pin`; the depth's digits at `rs_screen_top()` + 12 + their y). The controls hint, too wide for the columns
   shown, takes a line per part (its parts are " - " apart in every language); a checkpoint's panel stays in them.
   The UI layer is hidden off the stage elsewhere (window 1 in the raster).
-- **Fill or fit**: one gopher digging fills the display's height; the title, the game-over panel and the split screens
+- **Fill or fit**: one gopher digging fills the display's height; the title, pause and the game-over panels stay
+  zoomed like it, their text laid out in the columns shown (games/common/src/house_narrow.h: the logo's words
+  stacked, lines wrapped, a narrower ranking); only the split screens (2-4 wells side by side need every column)
   show every column (`rs_screen_fill(0)`). The split screen keeps its views on the stage (`view_layout` clamps the
   tall layouts), the sky above them and the earth below, darker with depth (two more viewports with no layer: the
   raster's colours).
