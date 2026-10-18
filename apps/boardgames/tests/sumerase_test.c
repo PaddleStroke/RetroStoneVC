@@ -1,7 +1,8 @@
 /*
  * Sum Erase's rules: the 150 designed levels (each read back, one solution by a plain search, the solver's solution
- * the one stored, the chapters growing), puzzles made from many seeds for every variant (one solution, at their level,
- * made fast), a small puzzle by hand, the player's cells, the mistakes, hints and undo, and whole games from a seed.
+ * the one stored, the chapters growing, only three small easy ones first), puzzles made from many seeds for every
+ * variant (one solution, at their level, made fast), a small puzzle by hand, the player's cells, the mistakes, hints
+ * and undo, and whole games from a seed.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -58,7 +59,9 @@ static void test_levels(void)
         if (i % 25) CHECK(p.n >= last_n);       /* within a chapter the sizes grow */
         last_n = p.n;
         for (int j = 0; j < i; j++) CHECK(strcmp(sme_levels[j], sme_levels[i]));
-        if (i < 10) CHECK(p.n == 3 && lv == BENCH_EASY);   /* a gentle start */
+        if (i < 3) CHECK(p.n == 3 && lv == BENCH_EASY);    /* a gentle start, and short */
+        if (i >= 3) CHECK(p.n >= 5);
+        if (i >= 25) CHECK(lv >= BENCH_MEDIUM);    /* past the first chapter, more than the easy ways */
     }
     CHECK(grades[0] && grades[1] && grades[2]);
     printf("levels: %d easy, %d medium, %d hard\n", grades[0], grades[1], grades[2]);

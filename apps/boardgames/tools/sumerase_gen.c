@@ -5,9 +5,13 @@
  *   - its grade (bench.h: easy, medium, hard), checked to have one solution by a plain search;
  *   - the work it asks of the solver: the passes of its reasoning, and how often the medium ways were needed;
  *   - near-duplicates dropped (the same grid turned or mirrored).
- * Each chapter has its makes (a size, the digits used, a level, how many, and the part of the make's candidates,
- * ranked by that work, they are picked from evenly): 3 x 3 with small digits at the easy level first, up to 9 x 9 at
- * the hard level. Then each chapter goes from its smallest and easiest to its biggest and hardest.
+ * Each chapter has three makes (a size, the digits used, a level, how many, and the part of the make's candidates,
+ * ranked by that work, they are picked from evenly): its opening (three 3 x 3 grids of small digits first, then two
+ * of the chapter's easiest), then two makes of its real puzzles: 5 x 5 and 6 x 6 at the easy level in the first
+ * chapter, the medium ways from the second, the hard ones from the third, up to 9 x 9. Then each chapter goes from its
+ * smallest and easiest to its biggest and hardest. The per-level table and the chapters' summary (sizes, grades, the
+ * solver's passes and medium finds, the trivial ones: easy and 4 x 4 or less) go to stderr (-DREPORT: the same for the
+ * levels in sumerase_levels.h).
  * Deterministic (fixed seeds): run it again after a change to the maker and check the diff.
  *   gcc -O2 -Iapps/boardgames/src -o /tmp/smegen apps/boardgames/tools/sumerase_gen.c \
  *       apps/boardgames/src/games/sumerase_rules.c && /tmp/smegen > apps/boardgames/src/games/sumerase_levels.h
@@ -33,13 +37,17 @@ typedef struct {
 } cand;
 
 typedef struct { int n, maxd, level, count; float lo, hi; } make;
-static const make CHAPTER[SME_CHAPTERS][2] = {
-    {{3, 5, BENCH_EASY, 10, 0, 1}, {4, 6, BENCH_EASY, 15, 0, 1}},
-    {{4, 9, BENCH_EASY, 10, 0.2f, 1}, {5, 9, BENCH_EASY, 15, 0, 1}},
-    {{5, 9, BENCH_MEDIUM, 12, 0, 0.8f}, {6, 9, BENCH_EASY, 13, 0.3f, 1}},
-    {{6, 9, BENCH_MEDIUM, 15, 0.1f, 1}, {7, 9, BENCH_MEDIUM, 10, 0, 0.8f}},
-    {{7, 9, BENCH_HARD, 10, 0, 0.7f}, {8, 9, BENCH_MEDIUM, 15, 0.2f, 1}},
-    {{8, 9, BENCH_HARD, 15, 0.1f, 1}, {9, 9, BENCH_HARD, 10, 0.2f, 1}},
+#define MAKES 3                                 /* a chapter: its opening (its easiest), then two makes */
+#define E_ BENCH_EASY
+#define M_ BENCH_MEDIUM
+#define H_ BENCH_HARD
+static const make CHAPTER[SME_CHAPTERS][MAKES] = {
+    {{3, 5, E_, 3, 0, 0.2f}, {5, 9, E_, 10, 0.3f, 1}, {6, 9, E_, 12, 0.3f, 1}},
+    {{5, 9, M_, 2, 0, 0.3f}, {6, 9, M_, 11, 0, 1}, {7, 9, M_, 12, 0, 0.8f}},
+    {{7, 9, M_, 2, 0.3f, 0.6f}, {7, 9, M_, 11, 0.5f, 1}, {7, 9, H_, 12, 0, 0.7f}},
+    {{8, 9, M_, 2, 0.3f, 0.6f}, {8, 9, M_, 11, 0.5f, 1}, {8, 9, H_, 12, 0, 0.8f}},
+    {{8, 9, H_, 2, 0, 0.4f}, {9, 9, M_, 11, 0.5f, 1}, {9, 9, H_, 12, 0, 0.6f}},
+    {{9, 9, H_, 2, 0.3f, 0.5f}, {9, 9, H_, 11, 0.4f, 0.8f}, {9, 9, H_, 12, 0.6f, 1}},
 };
 
 /* the grid whichever way it lies: the smallest of its eight (turned, mirrored), digits and erasures */
@@ -117,19 +125,62 @@ static void survey(int n, int maxd, int level)
     }
 }
 
+/* ---- the difficulty metrics: the size, the grade, the solver's passes (rounds of its reasoning over every line) and
+ * its medium finds. Trivial: the easy ways on a grid of 4 x 4 or less, or in two passes. ------------------------- */
+static int trivial(const cand *c) { return c->grade == BENCH_EASY && (c->p.n <= 4 || c->passes <= 2); }
+
+static void table(const cand *c, int n)
+{
+    fprintf(stderr, "lvl size grade passes mediums\n");
+    for (int i = 0; i < n; i++)
+        fprintf(stderr, "%4d %4d %5d %6ld %7ld\n", i + 1, c[i].p.n, c[i].grade, c[i].passes, c[i].mediums);
+    fprintf(stderr, "chapter: size mean (min..max), grades easy/medium/hard, passes mean, medium finds mean; trivial "
+                    "(easy, and 4 x 4 or less or two passes)\n");
+    for (int ch = 0; ch * 25 < n; ch++) {
+        double s = 0, ps = 0, md = 0;
+        int lo = 99, hi = 0, g[3] = {0}, t = 0, k = 0;
+        for (int i = ch * 25; i < n && i < ch * 25 + 25; i++, k++) {
+            s += c[i].p.n, ps += c[i].passes, md += c[i].mediums, g[c[i].grade < 3 ? c[i].grade : 2]++;
+            t += trivial(&c[i]);
+            lo = c[i].p.n < lo ? c[i].p.n : lo;
+            hi = c[i].p.n > hi ? c[i].p.n : hi;
+        }
+        fprintf(stderr, "  %d: size %.1f (%d..%d)  grades %d/%d/%d  passes %.1f  mediums %.1f  trivial %d/%d\n", ch + 1,
+                s / k, lo, hi, g[0], g[1], g[2], ps / k, md / k, t, k);
+    }
+}
+
+#ifdef REPORT                                   /* -DREPORT: the metrics of the levels in sumerase_levels.h */
+#include "games/sumerase_levels.h"
+static int report(void)
+{
+    static cand lv[SME_LEVELS];
+    for (int i = 0; i < SME_LEVELS; i++) {
+        sme_decode(sme_levels[i], &lv[i].p, lv[i].sol);
+        lv[i].grade = sme_effort(&lv[i].p, &lv[i].passes, &lv[i].mediums);
+    }
+    table(lv, SME_LEVELS);
+    return 0;
+}
+#endif
+
 static const char *const GRADE[] = {"easy", "medium", "hard"};
 
 int main(int argc, char **argv)
 {
+#ifdef REPORT
+    (void)argc, (void)argv;
+    return report();
+#endif
     if (argc == 5 && !strcmp(argv[1], "survey")) {
         survey(atoi(argv[2]), atoi(argv[3]), atoi(argv[4]));
         return 0;
     }
     for (int ch = 0; ch < SME_CHAPTERS; ch++) {
         int first = nchosen;
-        for (int p = 0; p < 2 && CHAPTER[ch][p].count; p++) {
+        for (int p = 0; p < MAKES && CHAPTER[ch][p].count; p++) {
             const make *m = &CHAPTER[ch][p];
-            int k = make_pool(m, 1000u * (uint32_t)(ch * 2 + p + 1));
+            int k = make_pool(m, 1000u * (uint32_t)(ch * MAKES + p + 1));
             fprintf(stderr, "chapter %d, make %d (%dx%d 1..%d %s): %d candidates\n", ch + 1, p + 1, m->n, m->n, m->maxd,
                     GRADE[m->level], k);
             for (int i = 0; i < m->count; i++) {
@@ -151,6 +202,7 @@ int main(int argc, char **argv)
                 *b = t;
             }
     }
+    table(chosen, nchosen);
     printf("/*\n"
            " * Sum Erase's levels: our own, made by tools/sumerase_gen.c (the game's maker; each checked to have one\n"
            " * solution), six chapters of 25 from the easiest. Each: \"<n>:\" and a character a cell, row by row: '1'..'9'\n"
