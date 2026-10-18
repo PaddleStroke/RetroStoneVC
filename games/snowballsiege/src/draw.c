@@ -938,11 +938,13 @@ void draw_frame(const world *w, const camera *cam, int state, int st_t, int best
 }
 
 /* ---- save states (main.c) ---- */
-/* a state saved at another width brings a UI map of another size: set the maps up again, redraw the UI */
+/* a state saved at another width brings a UI map of another size: set the maps up again, redraw the UI; a state of
+ * another height (the phone turned: house_tall.h ht_shape_reset): the same, with the windows the tall raster set off */
 void draw_state_loaded(void)
 {
+    int shape = ht_shape_reset();
     if (tall()) clouds_setup();                 /* (a state saved on a screen without them) */
-    if (rs_bg_map_w(RS_BG1) == map_w()) return;
+    if (!shape && rs_bg_map_w(RS_BG1) == map_w()) return;
     maps_setup();
 }
 
