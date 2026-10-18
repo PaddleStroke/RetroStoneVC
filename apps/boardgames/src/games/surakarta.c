@@ -275,10 +275,10 @@ static void draw(void)
     ui_put(t_board, L.x - L.fr, L.y - L.fr, n, n);
     if (G.ply) {
         const skmove *m = &G.move[G.ply - 1];
-        lines_mark_last(&L, AT + sk_x(m->from), AT + sk_y(m->from));
-        lines_mark_last(&L, AT + sk_x(m->to), AT + sk_y(m->to));
+        lines_mark_last_round(&L, AT + sk_x(m->from), AT + sk_y(m->from));
+        lines_mark_last_round(&L, AT + sk_x(m->to), AT + sk_y(m->to));
     }
-    if (sel >= 0) lines_mark_select(&L, AT + sk_x(sel), AT + sk_y(sel));
+    if (sel >= 0) lines_mark_select_round(&L, AT + sk_x(sel), AT + sk_y(sel));
     int ms = anim.on ? (int)(ui_ms() - anim.t0) : 0, run = anim.on && anim.m.circuit >= 0;
     if (anim.on) {
         if (ms >= anim.run_ms + (run ? FADE_MS * 2 : 0)) anim.on = 0, run = 0;

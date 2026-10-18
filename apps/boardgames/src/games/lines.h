@@ -165,4 +165,19 @@ static inline void lines_mark_select(const lines_geo *g, int gx, int gy)
     ui_mark_select(x - g->sq / 2.0f, y - g->sq / 2.0f, (float)g->sq, (float)g->sq);
 }
 
+/* the same two round, on a point (a board of lines and points: no square drawn round a point) */
+static inline void lines_mark_last_round(const lines_geo *g, int gx, int gy)
+{
+    float x, y;
+    lines_xy(g, gx, gy, &x, &y);
+    ui_mark_last_round(x, y, 0.96f * g->sq);
+}
+
+static inline void lines_mark_select_round(const lines_geo *g, int gx, int gy)
+{
+    float x, y;
+    lines_xy(g, gx, gy, &x, &y);
+    ui_mark_select_round(x, y, 0.96f * g->sq);
+}
+
 #endif

@@ -325,10 +325,10 @@ static void draw(void)
     ui_put(t_board, L.x - L.fr, L.y - L.fr, n, n);
     if (G.ply) {
         bcmove m = G.move[G.ply - 1];
-        if (m.from >= 0) lines_mark_last(&L, bc_x(m.from), bc_y(m.from));
-        lines_mark_last(&L, bc_x(m.to), bc_y(m.to));
+        if (m.from >= 0) lines_mark_last_round(&L, bc_x(m.from), bc_y(m.from));
+        lines_mark_last_round(&L, bc_x(m.to), bc_y(m.to));
     }
-    if (sel >= 0) lines_mark_select(&L, bc_x(sel), bc_y(sel));
+    if (sel >= 0) lines_mark_select_round(&L, bc_x(sel), bc_y(sel));
     float t = 1;
     if (anim.on) {
         int ms = anim.m.from < 0 ? PLACE_MS : anim.m.over >= 0 ? JUMP_MS : STEP_MS;
