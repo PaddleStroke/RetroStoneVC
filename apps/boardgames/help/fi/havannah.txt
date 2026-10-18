@@ -1,0 +1,12 @@
+Rengas ja haarukka
+# Tavoite
+Muodosta ensimmäisenä kivistäsi ketju, joka on yksi kolmesta kuviosta. Kivet ovat samassa ketjussa, kun niiden ruudut koskettavat toisiaan sivulla.
+- Rengas: silmukka vähintään yhden ruudun ympärillä. Sisällä olevat ruudut saavat olla tyhjiä tai sisältää kumman tahansa värisiä kiviä.
+- Silta: ketju, joka yhdistää kaksi kuudesta kulmaruudusta.
+- Haarukka: ketju, joka yhdistää kolme kuudesta sivusta. Kulmaruutu ei kuulu mihinkään sivuun.
+# Vuoro
+Aseta yksi kivi mihin tahansa tyhjään ruutuun. Kivet eivät koskaan liiku eikä niitä lyödä. Valkoinen aloittaa.
+# Vaihto
+Vaihdon kanssa musta voi ensimmäisellä siirrollaan ottaa valkoisen ensimmäisen kiven: se muuttuu mustaksi paikallaan. Sitten valkoinen pelaa uudelleen.
+# Pelin loppu
+Ensimmäinen kuvio voittaa. Jos lauta täyttyy ilman kuviota, peli päättyy tasapeliin.

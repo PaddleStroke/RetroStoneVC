@@ -1,0 +1,12 @@
+Kruh a vidlice
+# Cíl hry
+Jako první vytvoř řetězem svých kamenů jeden ze tří tvarů. Kameny tvoří řetěz, když se jejich pole dotýkají hranou.
+- Kruh: smyčka kolem alespoň jednoho pole. Pole uvnitř mohou být prázdná nebo obsazená kameny kterékoli barvy.
+- Most: řetěz spojující dvě ze šesti rohových polí.
+- Vidlice: řetěz spojující tři ze šesti stran. Rohové pole nepatří k žádné straně.
+# Tah
+Polož jeden kámen na libovolné prázdné pole. Kameny se nikdy nehýbou a nikdy se nezajímají. Začíná bílý.
+# Výměna
+S výměnou může černý svým prvním tahem místo položení kamene převzít první kámen bílého: kámen na svém místě zčerná. Potom hraje znovu bílý.
+# Konec hry
+Vyhrává první vytvořený tvar. Když se deska zaplní bez tvaru, hra končí remízou.

@@ -1,0 +1,12 @@
+Ring en vork
+# Het doel
+Maak als eerste een van drie vormen met een keten van je stenen. Stenen vormen een keten als hun velden elkaar langs een zijde raken.
+- Ring: een lus om minstens één veld. De velden erbinnen mogen leeg zijn of stenen van beide kleuren hebben.
+- Brug: een keten die twee van de zes hoekvelden verbindt.
+- Vork: een keten die drie van de zes zijden verbindt. Een hoekveld hoort bij geen enkele zijde.
+# Een beurt
+Zet één steen op een willekeurig leeg veld. Stenen bewegen nooit en worden nooit geslagen. Wit begint.
+# De ruil
+Met ruil mag Zwart bij zijn eerste zet in plaats daarvan de eerste steen van Wit overnemen: die wordt zwart op zijn plek. Daarna speelt Wit opnieuw.
+# Het einde van de partij
+De eerste vorm wint. Raakt het bord vol zonder vorm, dan eindigt de partij in remise.

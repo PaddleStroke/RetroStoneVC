@@ -1,0 +1,12 @@
+Halka ve Çatal
+# Amaç
+Taşlarından oluşan bir zincirle üç şekilden birini ilk kuran sen ol. Hücreleri bir kenardan değen taşlar zincir oluşturur.
+- Halka: en az bir hücreyi çevreleyen bir döngü. İçerideki hücreler boş olabilir ya da iki renkten taş içerebilir.
+- Köprü: altı köşe hücresinden ikisini birleştiren bir zincir.
+- Çatal: altı kenardan üçünü birleştiren bir zincir. Köşe hücresi hiçbir kenara ait değildir.
+# Bir tur
+Boş herhangi bir hücreye bir taş koy. Taşlar asla hareket etmez ve asla alınmaz. Beyaz başlar.
+# Takas
+Takaslı oyunda Siyah ilk hamlesinde taş koymak yerine Beyaz'ın ilk taşını alabilir: taş yerinde siyaha döner. Sonra Beyaz yeniden oynar.
+# Oyunun sonu
+İlk kurulan şekil kazanır. Tahta hiçbir şekil olmadan dolarsa oyun berabere biter.

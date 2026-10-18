@@ -1,0 +1,12 @@
+Anillo y horquilla
+# El objetivo
+Sé el primero en formar una de tres figuras con una cadena de tus piedras. Las piedras forman cadena cuando sus casillas se tocan por un lado.
+- Anillo: un lazo alrededor de al menos una casilla. Las casillas de dentro pueden estar vacías o tener piedras de cualquier color.
+- Puente: una cadena que une dos de las seis casillas de esquina.
+- Horquilla: una cadena que une tres de los seis lados. Una casilla de esquina no pertenece a ningún lado.
+# Un turno
+Pon una piedra en cualquier casilla vacía. Las piedras nunca se mueven ni se capturan. Empiezan las blancas.
+# El cambio
+Con el cambio, las negras pueden, en su primer turno, quedarse con la primera piedra blanca: se vuelve negra en su sitio. Después vuelven a jugar las blancas.
+# El final de la partida
+Gana la primera figura. Si el tablero se llena sin ninguna, la partida termina en tablas.

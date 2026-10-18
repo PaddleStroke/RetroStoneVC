@@ -1,0 +1,12 @@
+Anel e forquilha
+# O objetivo
+Seja o primeiro a formar uma de três figuras com uma corrente das suas pedras. As pedras formam uma corrente quando suas casas se tocam por um lado.
+- Anel: uma volta em torno de pelo menos uma casa. As casas de dentro podem estar vazias ou ter pedras de qualquer cor.
+- Ponte: uma corrente que liga duas das seis casas de canto.
+- Forquilha: uma corrente que liga três dos seis lados. Uma casa de canto não pertence a nenhum lado.
+# A sua vez
+Coloque uma pedra em qualquer casa vazia. As pedras nunca se movem e nunca são capturadas. As brancas começam.
+# A troca
+Com a troca, as pretas podem, na sua primeira jogada, ficar com a primeira pedra das brancas: ela fica preta no lugar. Depois as brancas jogam de novo.
+# O fim da partida
+A primeira figura vence. Se o tabuleiro se encher sem nenhuma, a partida termina empatada.

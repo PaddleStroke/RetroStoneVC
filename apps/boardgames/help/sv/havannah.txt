@@ -1,0 +1,12 @@
+Ring och gaffel
+# Målet
+Bli först med att bilda en av tre figurer med en kedja av dina stenar. Stenar hänger ihop när deras rutor möts längs en kant.
+- Ring: en ögla runt minst en ruta. Rutorna inuti får vara tomma eller ha stenar i vilken färg som helst.
+- Bro: en kedja som förbinder två av de sex hörnrutorna.
+- Gaffel: en kedja som förbinder tre av de sex sidorna. En hörnruta hör inte till någon sida.
+# En tur
+Lägg en sten på valfri tom ruta. Stenar flyttas aldrig och slås aldrig. Vit börjar.
+# Bytet
+Med byte får Svart i sitt första drag i stället ta Vits första sten: den blir svart där den står. Sedan spelar Vit igen.
+# Partiets slut
+Den första figuren vinner. Blir brädet fullt utan någon figur slutar partiet oavgjort.

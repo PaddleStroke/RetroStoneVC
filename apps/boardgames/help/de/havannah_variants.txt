@@ -1,0 +1,4 @@
+6
+8
+6, Tausch
+8, Tausch

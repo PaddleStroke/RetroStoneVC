@@ -1,0 +1,12 @@
+Anneau et fourche
+# Le but
+Être le premier à former l'une des trois figures avec une chaîne de tes pierres. Des pierres forment une chaîne quand leurs cases se touchent par un côté.
+- Anneau : une boucle autour d'au moins une case. Les cases à l'intérieur peuvent être vides ou porter des pierres des deux couleurs.
+- Pont : une chaîne qui relie deux des six cases de coin.
+- Fourche : une chaîne qui relie trois des six bords. Une case de coin n'appartient à aucun bord.
+# Un tour
+Pose une pierre sur n'importe quelle case vide. Les pierres ne bougent jamais et ne sont jamais capturées. Blanc commence.
+# L'échange
+Avec l'échange, Noir peut, à son premier coup, prendre la première pierre de Blanc : elle devient noire, sur place. Puis Blanc rejoue.
+# La fin de la partie
+La première figure gagne. Si le plateau se remplit sans figure, la partie est nulle.

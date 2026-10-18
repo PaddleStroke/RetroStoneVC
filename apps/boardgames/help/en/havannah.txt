@@ -1,0 +1,12 @@
+Ring and Fork
+# The aim
+Be the first to make one of three shapes with a chain of your stones. Stones are chained when their cells touch along an edge.
+- Ring: a loop around at least one cell. The cells inside may be empty or hold stones of either colour.
+- Bridge: a chain joining two of the six corner cells.
+- Fork: a chain joining three of the six sides. A corner cell belongs to no side.
+# A turn
+Place one stone on any empty cell. Stones never move and are never captured. White plays first.
+# The swap
+With the swap, Black's first move may instead take White's first stone: it turns black where it stands. Then White plays again.
+# The end of the game
+The first shape wins. If the board fills up without one, the game is a draw.

@@ -1,0 +1,12 @@
+Anello e forca
+# Lo scopo
+Sii il primo a formare una di tre figure con una catena delle tue pietre. Le pietre formano una catena quando le loro caselle si toccano lungo un lato.
+- Anello: un giro attorno ad almeno una casella. Le caselle all'interno possono essere vuote o avere pietre di qualsiasi colore.
+- Ponte: una catena che unisce due delle sei caselle d'angolo.
+- Forca: una catena che unisce tre dei sei lati. Una casella d'angolo non appartiene a nessun lato.
+# Un turno
+Metti una pietra su una casella vuota qualsiasi. Le pietre non si muovono mai e non vengono mai catturate. Inizia il Bianco.
+# Lo scambio
+Con lo scambio, il Nero alla sua prima mossa può prendere la prima pietra del Bianco: diventa nera dov'è. Poi il Bianco gioca di nuovo.
+# La fine della partita
+Vince la prima figura. Se la tavola si riempie senza nessuna figura, la partita è patta.

@@ -1,0 +1,12 @@
+Ring og gaffel
+# Målet
+Vær først til å lage én av tre figurer med en kjede av steinene dine. Steiner henger sammen når feltene deres berører hverandre langs en kant.
+- Ring: en løkke rundt minst ett felt. Feltene inni kan være tomme eller ha steiner i begge farger.
+- Bro: en kjede som binder sammen to av de seks hjørnefeltene.
+- Gaffel: en kjede som binder sammen tre av de seks sidene. Et hjørnefelt hører ikke til noen side.
+# En tur
+Sett én stein på et hvilket som helst tomt felt. Steiner flyttes aldri og slås aldri. Hvit begynner.
+# Byttet
+Med bytte kan Svart i sitt første trekk i stedet ta Hvits første stein: den blir svart der den står. Så spiller Hvit igjen.
+# Slutten på spillet
+Den første figuren vinner. Blir brettet fullt uten en figur, ender spillet uavgjort.

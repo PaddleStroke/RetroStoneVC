@@ -1,0 +1,12 @@
+Ring og gaffel
+# Målet
+Vær den første til at danne en af tre figurer med en kæde af dine sten. Sten hænger sammen, når deres felter rører hinanden langs en kant.
+- Ring: en løkke rundt om mindst ét felt. Felterne indeni må være tomme eller have sten i begge farver.
+- Bro: en kæde, der forbinder to af de seks hjørnefelter.
+- Gaffel: en kæde, der forbinder tre af de seks sider. Et hjørnefelt hører ikke til nogen side.
+# En tur
+Sæt én sten på et vilkårligt tomt felt. Sten flytter sig aldrig og slås aldrig. Hvid begynder.
+# Byttet
+Med byttet må Sort i sit første træk i stedet tage Hvids første sten: den bliver sort, hvor den står. Derefter spiller Hvid igen.
+# Spillets afslutning
+Den første figur vinder. Fyldes brættet uden en figur, ender spillet uafgjort.
