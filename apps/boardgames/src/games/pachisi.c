@@ -566,7 +566,7 @@ static void draw_shells(int q)
     int value = pa_value(G.ev[e]);
     px_of(cu, cv + (top ? -3.15f : 3.15f), &x, &y);
     if (pa_grace(value)) ui_mark_gold(x, y, 2.6f * cs);
-    ui_number_rot(x, y, 1.15f * cs, value, 1, ui_upside(q) ? 180 : 0);
+    ui_number_rot(x, y, 1.15f * cs, value, 0, ui_upside(q) ? 180 : 0);   /* dark: clear on the pale wood */
 }
 
 /* the last move: the squares it left and reached */
