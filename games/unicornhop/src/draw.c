@@ -393,22 +393,10 @@ static const char *stars_note(const world *w, char *s, int n)
     return s;
 }
 
-/* ht_gameover_panel (house_tall.h), the panel as wide as the retry line too (ht_over_w leaves it out: "A: EKRAN
- * TYTUŁOWY" spilt over the panel's sides in Polish) */
-static void over_panel(int new_best, const char *note, const char *retry)
-{
-    int w = ht_over_w(new_best, note), cols = ht_ncols(), rw = hu_width(retry, 0) + 4, r = ht_gameover_retry_row(note);
-    if (rw > w) w = rw > cols ? cols : rw;
-    int x = ht_center_w(w), bottom = r + ht_text_rows(retry, 1) + 1;
-    hu_panel(x, 9, w, bottom - 9 + 1);
-    const char *lab[3] = {hu_str(HS_SCORE), hu_str(new_best ? HS_NEW_BEST : HS_BEST), hu_str(HS_MEDAL)};
-    for (int i = 0; i < 3; i++) hu_box_text(ht_center(lab[i], 0), ht_over_label_row(i), lab[i]);
-    if (note) ht_text(ht_over_label_row(2) + 5, note, 1);
-}
-
-/* the narrow title (house_tall.h): the slots' row, under the unicorn on its cloud */
-#define HT_TITLE_TOP 19
-#define HT_TITLE_FEET 128       /* the title unicorn's feet (the logo on two lines above it) */
+/* the narrow title (house_tall.h, its standard rows): the slots' row; the unicorn on its cloud in the sky above the
+ * logo (clear of the title's rows) */
+#define HT_TITLE_TOP 15
+#define HT_TITLE_FEET (-14)     /* the title unicorn's feet (its cloud's top) */
 
 /* the BG screens; PLAY and DEAD are the same screen */
 static void screen_text(const world *w, int state, int st_t, int best, int new_best, const hu_standing *rs)
@@ -423,7 +411,7 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         rainbow != shown_rainbow || cols != shown_cols) {
         hu_clear();
         if (state == ST_TITLE) {
-            if (narrow) ht_logo("UNICORN HOP", title_ramps, 2, 0, 0);      /* UNICORN over HOP */
+            if (narrow) ht_logo("UNICORN HOP", title_ramps, 2, 2, 0);      /* UNICORN over HOP */
             else hu_logo("UNICORN HOP", title_ramps, 2, 2, 0);
         }
         if (screen == ST_PLAY && w->players >= 3 && rs_screen_height() == RS_SCREEN_H)
@@ -439,7 +427,7 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
                 const char *n = stars_note(w, note, sizeof note);              /* the stars caught */
                 if (narrow) {
                     ht_banner(4, HTR(GAME_OVER));
-                    over_panel(new_best, n, HTR(BACK_TITLE));
+                    ht_gameover_panel(new_best, n, HTR(BACK_TITLE));
                 } else {
                     hu_banner(4, HTR(GAME_OVER));
                     hu_gameover_panel(1, new_best, w->h[0].score, 0);
@@ -524,7 +512,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     /* (zoomed, climbing: the UI layer's middle, PAUSED and RAINBOW!, on the columns shown) */
     int ui_dx = zoom && climb && ht_narrow() ? ht_mid_x() - RS_SCREEN_W / 2 : 0;
     rs_bg_scroll(RS_BG1, -ui_dx, -slide);
-    hu_pause(paused, 13);
+    ht_pause_dx(paused, 13, ui_dx);             /* (house_tall.h: PAUSED centred on the columns shown) */
 
     rs_oam_clear();
     /* front to back: the UI, the unicorns, the clouds, the moon */
