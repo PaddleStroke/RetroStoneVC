@@ -10,3 +10,4 @@ draw.CY0            foreground(): the canvas's stage y, set every frame from the
 draw.CH             foreground(): the canvas's height, set every frame from the height (a tall screen)
 draw.tile_slot      tile_id(): the ground's tiles shared within one frame (widescreen), cleared every frame
 draw.tile_seen      tile_id(): the pictures of those tiles, rewritten every frame
+draw.ui_pin         a tall screen: the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels), set by draw_frame before every picture (the raster shows it there)

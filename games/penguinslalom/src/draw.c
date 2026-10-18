@@ -2,6 +2,7 @@
 #include "game.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "house_tall.h"   /* a phone held upright: the title and the panels in the house's portrait layout */
 #include "game_text.h"
 #include "sine.h"
 #include <stdio.h>
@@ -17,12 +18,14 @@ static int course_y(int distance){return HERO_LINE+(distance-V.scroll)*3/5;}
  * HUD's band pinned at the top (hud_lines) and on the stage (its map would wrap). */
 static int tall_screen(void){return rs_screen_height()>RS_SCREEN_H;}
 static int hud_lines;
+static int ui_pin;      /* the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels), set by draw_frame */
 static rs_color snow_at(int y){int d=(y&4)?2:0;return RS_RGB8(232+y*8/240+d,241+y*5/240+d/2,238+y*4/240+d/2);}
 static void raster(int line,void *user){
- (void)user;if(line>=0 && line<240){rs_pal_set(0,V.sky[line]);if(line==0 && tall_screen())rs_bg_enable(RS_BG1,1);return;}
+ (void)user;if(line>=0 && line<240){rs_pal_set(0,V.sky[line]);if(line==0 && tall_screen())rs_bg_enable(RS_BG1,1);if(ui_pin)rs_bg_enable(RS_BG1,ht_pin_line(ui_pin,line));return;}
  if(!tall_screen())return;
  if(line==rs_screen_top() || line==RS_SCREEN_H)rs_bg_enable(RS_BG1,line<0 && hud_lines);
  if(hud_lines && line==rs_screen_top()+hud_lines)rs_bg_enable(RS_BG1,0);
+ if(ui_pin)rs_bg_enable(RS_BG1,ht_pin_line(ui_pin,line));   /* the pinned UI */
  rs_pal_set(0,snow_at(line));
 }
 /* Widescreen (DESIGN.md "Widescreen"): a vertical scroller, centred. The 320-px course keeps its stage (origin =
@@ -270,7 +273,7 @@ static void foreground(const world *w){
    uint32_t hh=woods(j,3,5);int y=course_y(-60-j*64),x=(j&1)?24+(int)(hh%64):232+(int)(hh%64);
    if(y>CY0-10 && y<CY0+CH+60)pine(pixels,x,y,9+(int)(hh>>8)%4);
   }
-  int ay=course_y(-330);
+  int ay=course_y(-280);   /* (under the title's credits: house_tall.h anchors them on the screen) */
   if(ay>CY0-10 && ay-40<CY0+CH){
    for(int s=0;s<2;s++){int px=s?202:116;oval(pixels,px+4,ay+2,7,3,3);rect(pixels,px,ay-38,px+3,ay,5);rect(pixels,px+1,ay-38,px+2,ay-1,15);}
    for(int x=120;x<202;x++){
@@ -341,6 +344,11 @@ static int title_spread(void){
  return tall(HTR(BEST_N)) || tall(HTR(PLAYER_TAG)) || tall(TR(HINT)) || tall(TR(JOIN)) || tall(TR(JOIN_LEAVE)) || tall(TR(FULL));
 }
 int title_slot_row(void){return title_spread()?24:25;}
+/* a tall screen: the house's portrait title (house_tall.h, its standard rows: the hint above the prompt) */
+static void title_tall(int t,int best){
+ ht_logo(TITLE,title_ramps,2,HT_ROW_LOGO,0);ht_title tc={TR(VERB),MAX_PLAYERS,HT_ROW_SLOTS,0,TR(HINT)};ht_title_out to;
+ ht_title_draw(&tc,t,best,&to);ht_title_sprites(&tc,&to,t,icon,NULL);
+}
 static void title_ui(int t,int best){
  int sp=title_spread();
  hu_logo(TITLE,title_ramps,2,1,0);hu_title_draw(t,best);
@@ -361,10 +369,12 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  int tall=tall_screen();
  hud_lines=tall && (state==ST_PLAY || state==ST_DEAD)?48:0;
  rs_bg_pin(RS_BG1,0,hud_lines,0);
+ ui_pin=!ht_narrow()?HT_PIN_OFF:state==ST_TITLE?HT_PIN_TITLE:state==ST_OVER?HT_PIN_PANEL:HT_PIN_OFF;
+ if(ui_pin)ht_pin(ui_pin);   /* the title and the panels at the same place on every game's screen */
  for(int y=0;y<240;y++){int d=(y&4)?2:0;V.sky[y]=RS_RGB8(232+y*8/240+d,241+y*5/240+d/2,238+y*4/240+d/2);}
  foreground(w);
  if(state==ST_TITLE){
-  title_ui(st_t,best);
+  if(ht_narrow())title_tall(st_t,best);else title_ui(st_t,best);
   // A live starting course replaces the detached decorative character and props.
   scene(w);
  }else if(state==ST_PLAY || state==ST_DEAD){
@@ -379,6 +389,13 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   scene(w);
  }else if(state==ST_OVER){
   int slide=hu_slide_in(st_t,20,200);
+  if(ht_narrow()){   /* a tall screen: the house's portrait panels (house_tall.h) */
+   if(w->players==1){static const int medals[4]=MEDAL_SCORES;ht_banner(4,HTR(GAME_OVER));ht_gameover_panel(new_best,NULL,HTR(BACK_TITLE));ht_gameover_sprites(w->h[0].score,best,hu_medal_of(w->h[0].score,medals),st_t,slide);ht_retry_line_at(ht_gameover_retry_row(NULL),st_t,RETRY_LOCK,HTR(BACK_TITLE));}
+   else{int scores[4];for(int p=0;p<w->players;p++)scores[p]=w->h[p].score;hu_standing rank;hu_rank(&rank,w->players,scores,scores);
+    ht_results_panel(&rank,NULL);ht_results_sprites(&rank,st_t,slide);
+    for(int i=0;i<rank.n;i++){int x,y;ht_results_icon_pos(&rank,i,&x,&y);spr(SPR_HERO_ICON,x-8,y-8+slide,ppal(rank.order[i]));}
+    ht_retry_line_at(ht_results_retry_row(&rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));}
+  }else
   if(w->players==1){static const int medals[4]=MEDAL_SCORES;hu_banner(4,HTR(GAME_OVER));hu_gameover_panel(1,new_best,w->h[0].score,0);
    hu_gameover_sprites(1,w->h[0].score,0,best,hu_medal_of(w->h[0].score,medals),st_t,slide);hu_retry_line(st_t,RETRY_LOCK,HTR(BACK_TITLE));
   }else{
