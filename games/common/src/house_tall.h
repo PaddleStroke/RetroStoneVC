@@ -23,13 +23,24 @@
 #include "rs_i18n.h"
 
 /* the visible columns, in UI pixels [x0, x1) and whole UI tiles [c0, c1); 4 px in from each side (the phone may show a
- * few columns fewer than rs_screen_visible_x0 .. x1 says: it scales the height and crops the rest) */
+ * few columns fewer than rs_screen_visible_x0 .. x1 says: it scales the height and crops the rest).
+ * ht_view_px: the columns the phone shows now (they follow rs_screen_focus_x). ht_px: as many columns, centred on the
+ * screen's middle, whatever the focus: the title and the panels are laid out there, so that they stay put when a
+ * game moves its camera (a game keeps its view centred, rs_screen_focus_x(-1), while they show). */
 static inline int ht_fdiv8(int v) { return v >= 0 ? v / 8 : -((7 - v) / 8); }
-static inline void ht_px(int *x0, int *x1)
+static inline void ht_view_px(int *x0, int *x1)
 {
     int o = rs_screen_origin_x() + hu_ui_x();
     if (x0) *x0 = rs_screen_visible_x0() - o + 4;
     if (x1) *x1 = rs_screen_visible_x1() - o - 4;
+}
+static inline void ht_px(int *x0, int *x1)
+{
+    int a, b;
+    ht_view_px(&a, &b);
+    int mid = rs_screen_width() / 2 - rs_screen_origin_x() - hu_ui_x(), h = (b - a) / 2;
+    if (x0) *x0 = mid - h;
+    if (x1) *x1 = mid + h;
 }
 static inline void ht_cols(int *c0, int *c1)
 {
@@ -42,11 +53,9 @@ static inline void ht_cols(int *c0, int *c1)
     if (c1) *c1 = b;
 }
 static inline int ht_ncols(void) { int a, b; ht_cols(&a, &b); return b - a; }
-/* a zoomed tall screen showing fewer columns than the kit's layouts need */
-static inline int ht_narrow(void)
-{
-    return rs_screen_height() > RS_SCREEN_H && rs_screen_visible_x1() - rs_screen_visible_x0() < RS_SCREEN_W;
-}
+/* a tall screen (a phone held upright): the house_tall.h layouts, on every phone alike (whether the zoomed view shows
+ * 188 columns or all 320: one look, no switch between two phones); landscape, 4:3: the kit's own */
+static inline int ht_narrow(void) { return rs_screen_height() > RS_SCREEN_H; }
 /* the column that centres w columns in the visible ones; the UI x of their centre */
 static inline int ht_center_w(int w) { int a, b; ht_cols(&a, &b); return a + (b - a - w) / 2; }
 static inline int ht_center(const char *s, int big) { return ht_center_w(hu_width(s, big)); }
@@ -255,7 +264,8 @@ static inline void ht_retry_line_at(int row, int t, int lock, const char *text)
  * apart: the rank (when it fits) and the tag, the hero icon, the value, the medal */
 static inline int ht_results_w(void) { int c = ht_ncols(); return c < 24 ? c : 24; }
 static inline int ht_results_rank(void) { return ht_results_w() >= 21; }
-static inline void ht_results_panel(const hu_standing *s, const char *title)
+/* (extra: more rows at the panel's bottom, for ht_round_panel) */
+static inline void ht_results_panel_ex(const hu_standing *s, const char *title, int extra)
 {
     char t[96];
     if (!title) {
@@ -266,7 +276,7 @@ static inline void ht_results_panel(const hu_standing *s, const char *title)
     }
     ht_banner(3, title);
     int w = ht_results_w(), x = ht_center_w(w), rk = ht_results_rank();
-    hu_panel(x, 8, w, 3 * s->n + 4);
+    hu_panel(x, 8, w, 3 * s->n + 4 + extra);
     for (int i = 0; i < s->n; i++) {
         char tag[16];
         int row = hu_results_row(s, i);
@@ -274,6 +284,17 @@ static inline void ht_results_panel(const hu_standing *s, const char *title)
         rs_strf(tag, sizeof tag, hu_str(HS_PLAYER_TAG), (s->order[i] & 3) + 1);
         hu_box_text(x + (rk ? 5 : 1), row, tag);
     }
+}
+static inline void ht_results_panel(const hu_standing *s, const char *title) { ht_results_panel_ex(s, title, 0); }
+/* between two rounds (a race, a set, a level): the standings so far as ht_results_panel (ht_results_sprites for the
+ * values) and a note under them inside the panel (e.g. RACE 2 / 5, wrapped); returns the row of the line under it
+ * (the continue line: ht_retry_line_at) */
+static inline int ht_round_panel(const hu_standing *s, const char *title, const char *note)
+{
+    int r = hu_results_retry_row(s), k = note ? ht_text_rows(note, 1) + 1 : 0;
+    ht_results_panel_ex(s, title, k);
+    if (note) ht_text(r, note, 1);
+    return r + k;
 }
 /* place i's icon centre, value centre x, medal x (UI pixels) */
 static inline void ht_results_cols(int *icon_cx, int *value_cx, int *medal_x)
@@ -369,10 +390,12 @@ static inline void ht_pause_dx(int paused, int y, int dx)
     hu_pause(paused, y);
     if (!paused || !ht_narrow()) return;
     const char *s = hu_str(HS_PAUSED);
-    int big = hu_width(s, 1) <= ht_ncols(), d = dx >= 0 ? (dx + 4) / 8 : -((4 - dx) / 8);
+    int a, b;
+    ht_view_px(&a, &b);                                 /* the columns shown now (a panned view) */
+    int big = hu_width(s, 1) * 8 <= b - a, w = hu_width(s, big) * 8, x = ht_fdiv8((a + b) / 2 - w / 2 - dx + 4);
     hu_clear_rows(y, 2);
-    if (big) hu_big(ht_center(s, 1) - d, y, s, HU_BIG_FREE);
-    else hu_text(ht_center(s, 0) - d, y + 1, s);
+    if (big) hu_big(x, y, s, HU_BIG_FREE);
+    else hu_text(x, y + 1, s);
 }
 static inline void ht_pause(int paused, int y) { ht_pause_dx(paused, y, 0); }
 
