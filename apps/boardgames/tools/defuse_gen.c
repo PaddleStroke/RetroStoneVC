@@ -12,10 +12,10 @@
  *   - no repeats (the same values in every state: the same puzzle).
  * From each band's candidates the levels are taken evenly over their difficulty (df_rate), then laid out from the
  * easiest; each one's drawing is searched at length (lg_route_best) and stored after its text.
- * The chapters, one idea each: 1 (40 levels: the free edition's) switches, AND and OR, then NOT and its traps (the
- * order of the moves); 2 cuttable wires (for good); 3 the battery and the bomb's power socket (cut the power, or
- * light the LEDs); 4 XOR; 5 push buttons and memory chips; 6 everything, the biggest. One or two disarm LEDs up to
- * chapter 3, three from chapter 4, four in chapter 6.
+ * The chapters, one idea each: 1 (40 levels: the free edition's) switches, AND and OR (its first ten drawn by hand
+ * below, each visibly its own), then NOT and its traps (the order of the moves); 2 cuttable wires (for good); 3 the
+ * battery and the bomb's power socket (cut the power, or light the LEDs); 4 XOR; 5 push buttons and memory chips; 6
+ * everything, the biggest. One or two disarm LEDs up to chapter 3, three from chapter 4, four in chapter 6.
  *   gcc -O2 -DDF_NO_LEVELS -Iapps/boardgames/src -o /tmp/dfgen apps/boardgames/tools/defuse_gen.c \
  *       apps/boardgames/src/games/defuse_rules.c apps/boardgames/src/games/logicgates_rules.c -lm \
  *       && /tmp/dfgen > apps/boardgames/src/games/defuse_levels.h
@@ -35,15 +35,31 @@ typedef struct {
     df_spec sp;
 } band;
 
+/* chapter 1's first ten, drawn by hand, one idea each (the switches' places only: the router draws them): a lamp
+ * and DETONATE; every disarm LED at once; OR (one input is enough); AND (both); a gate into a gate, a switch already
+ * on; a switch to turn off first (the order); one switch for two lamps; power led round through an OR before a cut;
+ * a diamond of ORs (one switch lights both); and a showpiece, mirrored: the middle switch off first, then both sides */
+static const char *const hand[] = {
+    "~ s@a1 s@b1 L@a2(a1) A@b2(b1)",
+    "~ s@a1 s@b1 s@c1 L@a2(a1) A@b2(b1) L@c2(c1)",
+    "~ s@a1 s@b1 s@c1 A@a3(a1) OR@b2(b1,c1) L@b3(b2)",
+    "~ s@a1 s@b1 s@c1 s@d1 AND@a2(a1,b1) L@a3(a2) L@b3(c1) A@c3(d1)",
+    "~ s@a1 s@b1 s@c1 S@d1 OR@a2(a1,b1) AND@a3(a2,c1) L@a4(a3) AND@b2(b1,d1) A@b4(b2)",
+    "~ S@a1 s@b1 s@c1 AND@a2(a1,b1) OR@b2(a1,c1) A@a3(a2) L@b3(b2) L@c3(b1)",
+    "~ s@a1 s@b1 S@c1 AND@a2(a1,b1) OR@b2(b1,c1) AND@c2(a1,c1) L@a3(a2) L@b3(b2) A@c3(c2)",
+    "~ S@a1 s@b1 S@c1 s@d1 s@e1 OR@a2(c1,e1) AND@a3(a1,a2) AND@b2(b1,d1) AND@c2(c1,d1) L@a4(a3) L@b4(b2) A@c4(c2)",
+    "~ s@a1 s@b1 s@c1 S@d1 OR@a2(a1,b1) OR@b2(b1,c1) AND@a3(a2,b2) AND@c2(a1,c1) AND@d2(b1,d1) OR@c3(c2,d2) "
+    "L@a4(a3) A@c4(c3)",
+    "~ s@a1 s@b1 S@c1 s@d1 s@e1 AND@a2(a1,b1) AND@b2(b1,c1) AND@c2(c1,d1) AND@d2(d1,e1) OR@b3(b2,c2) L@a4(a2) "
+    "A@b4(b3) L@c4(d2)",
+};
+#define HAND ((int)(sizeof hand / sizeof hand[0]))
+
 static band plan[] = {
-    /* chapter 1: switches, AND, OR; then NOT */
-    {4, {.sw_lo = 2, .sw_hi = 3, .gates_lo = 0, .gates_hi = 1, .kinds = K(AND) | K(OR), .leds_lo = 1, .leds_hi = 1,
-         .par_lo = 1, .par_hi = 2, .depth_hi = 2, .cross = 0}},
-    {8, {.sw_lo = 3, .sw_hi = 4, .gates_lo = 1, .gates_hi = 3, .kinds = K(AND) | K(OR), .leds_lo = 1, .leds_hi = 2,
-         .par_lo = 2, .par_hi = 3, .depth_hi = 2, .cross = 0}},
+    /* chapter 1 after the ten by hand: switches, AND, OR; then NOT */
     {10, {.sw_lo = 3, .sw_hi = 4, .gates_lo = 2, .gates_hi = 3, .kinds = K(AND) | K(OR), .leds_lo = 1, .leds_hi = 2,
-          .par_lo = 2, .par_hi = 4, .depth_hi = 3, .cross = 2}},
-    {18, {.sw_lo = 3, .sw_hi = 4, .gates_lo = 2, .gates_hi = 4, .kinds = K(AND) | K(OR) | K(NOT), .need = K(NOT),
+          .par_lo = 2, .par_hi = 4, .depth_hi = 3, .cross = 1}},
+    {20, {.sw_lo = 3, .sw_hi = 4, .gates_lo = 2, .gates_hi = 4, .kinds = K(AND) | K(OR) | K(NOT), .need = K(NOT),
           .leds_lo = 1, .leds_hi = 2, .par_lo = 2, .par_hi = 4, .trap = 1, .depth_hi = 3, .cross = 1}},
     /* chapter 2: cuttable wires */
     {10, {.sw_lo = 2, .sw_hi = 3, .gates_lo = 2, .gates_hi = 4, .kinds = K(AND) | K(OR) | K(NOT), .leds_lo = 1,
@@ -127,22 +143,34 @@ int main(void)
 {
     static cand C[DF_LEVELS * CAND], chosen[DF_LEVELS];
     static df_level D;
-    int total = 0;
+    int total = HAND;
     for (int b = 0; b < BANDS; b++) total += plan[b].n;
     if (total != DF_LEVELS) {
         fprintf(stderr, "the plan has %d levels, not %d\n", total, DF_LEVELS);
         return 1;
     }
     int out = 0, bad = 0;
+    for (int i = 0; i < HAND; i++) {          /* the ten by hand first, as written (no generated repeat of them) */
+        cand *c = &chosen[out++];
+        char err[96];
+        snprintf(c->txt, sizeof c->txt, "%s", hand[i]);
+        if (!df_parse(c->txt, &D, err, sizeof err)) { fprintf(stderr, "hand %d: %s\n", i + 1, err); return 1; }
+        uint32_t st = 0;
+        for (int k = 0; k < D.nsw; k++)
+            if (D.L.n[D.sw[k]].init) st |= df_bit_switch(&D, k);
+        if (df_rate(&D, st, &c->r) <= 0) { fprintf(stderr, "hand %d: no puzzle\n", i + 1); return 1; }
+        shapes[nshapes++] = shape_of(c->txt);
+        keys[nkeys++] = c->r.key;
+    }
     for (int b = 0; b < BANDS; b++) {
         int want = plan[b].n * CAND, nc = 0;
-        uint32_t seed = 1000003u * (uint32_t)(b + 1);
+        uint32_t seed = 1000003u * (uint32_t)(b + 3);   /* the seeds the bands had before the ten by hand */
         for (int t = 0; t < 20000 && nc < want; t++) {
             cand *c = &C[nc];
             if (!df_make(seed + (uint32_t)t, &plan[b].sp, 60, c->txt, sizeof c->txt, &c->r)) continue;
             if (known(c->r.key)) continue;
             uint64_t sh = shape_of(c->txt);
-            if (shape_count(sh) >= (b ? 1 : 2)) continue;   /* one puzzle a circuit (two of the tiny first ones) */
+            if (shape_count(sh) >= 1) continue;  /* one puzzle a circuit */
             shapes[nshapes++] = sh;
             keys[nkeys++] = c->r.key;
             nc++;
