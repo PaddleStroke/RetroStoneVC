@@ -907,7 +907,7 @@ int ptp_judge(ptp_map *m, int ch, ptp_report *r)
 }
 
 /* ---- levels and puzzles at random -------------------------------------------------------------------------------- */
-static const int CH_LEN[PTP_CHAPTERS] = {20, 30, 25, 18, 32, 25};
+static const int CH_LEN[PTP_CHAPTERS] = {3, 30, 25, 18, 32, 25};   /* the first: three, every order wins */
 
 int ptp_chapter_of(int level)
 {

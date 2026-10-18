@@ -8,7 +8,9 @@
  * may be won that way too (they bring its new thing in). Never two levels alike: the same template with the same
  * things in the same boxes is met once (mirrored or not). The difficulty: the pins, how few of the orders win, the
  * kinds of things. Each chapter keeps its share spread over its difficulties (the first from the easiest), its last
- * level the hardest of the most crowded ones (a showpiece).
+ * level the hardest of the most crowded ones (a showpiece). The first chapter, where every order wins, is only three
+ * levels (a start: 133 levels in all; the other chapters' candidates are too few to take its share). -DREPORT prints
+ * each level's pins, the share of random orders that win and the naive order's end, and the chapters' means.
  *   gcc -O2 -Iapps/boardgames/src -o /tmp/ptpgen apps/boardgames/tools/pins_gen.c -lm && \
  *       for c in 0 1 2 3 4 5; do /tmp/ptpgen $c > /tmp/ptp$c.txt; done && \
  *       /tmp/ptpgen join /tmp/ptp?.txt > apps/boardgames/src/games/pins_levels.h
@@ -110,7 +112,9 @@ static int join(int argc, char **argv)
                     if (!used[j] && (at < 0 || c[j].look > c[at].look)) at = j;
             } else {
                 at = (int)((double)i * (made - 2) / (want - 1));
-                while (at < made && used[at]) at++;
+                while (at < made && (used[at] || (ch && i >= 2 && made >= 2 * want && c[at].naive_wins))) at++;
+                if (at >= made)                 /* (past the opening the naive order loses, when there is room) */
+                    for (at = 0; at < made && used[at]; at++) {}
             }
             if (at < 0 || at >= made) return 1;
             used[at] = 1;
@@ -122,9 +126,40 @@ static int join(int argc, char **argv)
     return ntaken == PTP_LEVELS ? 0 : 1;
 }
 
+#ifdef REPORT                                   /* -DREPORT: the metrics of the levels in pins_levels.h */
+#include "games/pins_levels.h"
+/* each level: its pins, the share of random orders that win, the naive order (top down) winning; the chapters' means.
+ * Trivial: the naive order wins, or most random orders do (share >= 0.5) */
+static int report(void)
+{
+    double sh[PTP_CHAPTERS] = {0}, np[PTP_CHAPTERS] = {0};
+    int cnt[PTP_CHAPTERS] = {0}, nv[PTP_CHAPTERS] = {0}, triv[PTP_CHAPTERS] = {0};
+    fprintf(stderr, "lvl ch pins share naive\n");
+    for (int l = 0; l < PTP_LEVELS; l++) {
+        ptp_map m;
+        ptp_report r;
+        ptp_parse(&m, ptp_levels[l].text);
+        int c = ptp_chapter_of(l);
+        ptp_judge(&m, c, &r);
+        int naive = r.naive == PTP_WON;
+        fprintf(stderr, "%4d %2d %4d %5.2f %5d\n", l + 1, c + 1, m.np, r.share, naive);
+        sh[c] += r.share, np[c] += m.np, cnt[c]++, nv[c] += naive, triv[c] += naive || r.share >= 0.5;
+    }
+    fprintf(stderr, "chapter: levels, pins mean, share of random orders winning mean, naive wins; trivial (naive wins "
+                    "or share >= 0.5)\n");
+    for (int c = 0; c < PTP_CHAPTERS; c++)
+        fprintf(stderr, "  %d: %2d levels  pins %.1f  share %.2f  naive %d  trivial %d\n", c + 1, cnt[c],
+                cnt[c] ? np[c] / cnt[c] : 0, cnt[c] ? sh[c] / cnt[c] : 0, nv[c], triv[c]);
+    return 0;
+}
+#endif
+
 /* a chapter's candidates (stdout: signature, difficulty, look, naive win, text; sorted by difficulty) */
 int main(int argc, char **argv)
 {
+#ifdef REPORT
+    return report();
+#endif
     if (argc > 1 && !strcmp(argv[1], "join")) return join(argc, argv);
     int ch = argc > 1 ? atoi(argv[1]) : 0, made = 0;
     cand *c = calloc((size_t)TRIES[ch], sizeof *c);

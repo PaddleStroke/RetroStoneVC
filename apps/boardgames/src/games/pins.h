@@ -48,7 +48,7 @@
 #define PTP_EVENTS 48
 #define PTP_TEXT 640
 #define PTP_COLOURS 4                           /* the gems: ruby, emerald, sapphire, amber */
-#define PTP_LEVELS 150
+#define PTP_LEVELS 133                          /* the first chapter (every order wins) only a start */
 #define PTP_CHAPTERS 6
 #define PTP_VARIANTS 3
 #define PTP_WALL_R 256                          /* a wall's half thickness */
