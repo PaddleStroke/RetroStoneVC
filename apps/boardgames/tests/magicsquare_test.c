@@ -40,7 +40,7 @@ static void test_shapes(void)
 
 static void test_levels(void)
 {
-    static const char KINDS[MSQ_CHAPTERS][3] = {"a", "s", "b", "s", "q", "cq"};
+    static const char KINDS[MSQ_CHAPTERS][3] = {"ab", "s", "bc", "s", "q", "cq"};
     for (int i = 0; i < MSQ_LEVELS; i++) {
         msq_puzzle p;
         int ok = msq_decode(msq_levels[i], &p);
@@ -53,7 +53,8 @@ static void test_levels(void)
         int gaps = 0;
         for (int k = 0; k < p.np; k++) gaps += !p.given[k];
         CHECK(gaps >= 2);
-        if (i < 10) CHECK(p.kind == MSQ_TRI3 && p.target <= 12);   /* the numbers 1..6 */
+        if (i < 3) CHECK(p.kind == MSQ_TRI3 && p.target <= 12);    /* the numbers 1..6, a short start */
+        if (i >= 3) CHECK(gaps >= 3);
         for (int j = 0; j < i; j++) CHECK(strcmp(msq_levels[j], msq_levels[i]));
     }
 }
