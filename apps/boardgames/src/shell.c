@@ -921,12 +921,15 @@ static SDL_Texture *die_face(int size, int player, int value)
 /* the dice set to their values and colours (players: one per die, or NULL: all `player`'s), tumbling or at rest */
 static void dice_set(int n, const int *values, const int *players, int player, int tumble)
 {
+    int was = dice.n;
     dice.n = n < 0 ? 0 : n > UI_MAX_DICE ? UI_MAX_DICE : n;
     for (int i = 0; i < dice.n; i++) {
-        dice.v[i] = values[i];
         int p = players ? players[i] : player;
-        dice.player[i] = p < 0 ? 0 : p >= MAX_PLAYERS ? MAX_PLAYERS - 1 : p;
-        dice.tilt[i] = tumble ? (float)(ui_random(31) - 15) : 0;   /* they land a little askew */
+        p = p < 0 ? 0 : p >= MAX_PLAYERS ? MAX_PLAYERS - 1 : p;
+        int same = i < was && dice.v[i] == values[i] && dice.player[i] == p;   /* shown again (a layout, a resume) */
+        dice.v[i] = values[i];
+        dice.player[i] = p;
+        dice.tilt[i] = tumble ? (float)(ui_random(31) - 15) : same ? dice.tilt[i] : 0;   /* they land a little askew */
     }
     if (!tumble) {
         dice.t0 = ui_ms() - DICE_MS;            /* already at rest */
