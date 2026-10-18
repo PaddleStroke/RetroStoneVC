@@ -559,12 +559,16 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
 }
 
 /* ---- save states (main.c) ---- */
-/* a state saved at another width brings maps of another size: set them up for this width, redraw the UI */
+/* a state saved at another width brings maps of another size: set them up for this width, redraw the UI; one of another
+ * height (the phone turned: house_tall.h ht_shape_reset, BG1 and BG2 shown again) the same, and BG4 off (unused) */
 void draw_state_loaded(void)
 {
-    if (rs_bg_map_w(RS_BG2) == map_w() && rs_bg_map_h(RS_BG3) == bg3_rows()) return;   /* (tall: BG3's 128 rows) */
+    int shape = ht_shape_reset();
+    if (shape) rs_bg_enable(RS_BG4, 0);
+    if (!shape && rs_bg_map_w(RS_BG2) == map_w() && rs_bg_map_h(RS_BG3) == bg3_rows()) return;   /* (tall: BG3's 128 rows) */
     maps_setup();
     shown_key = -1;
+    hu_pause(0, 13);                            /* PAUSED: the new map lost it, drawn again on the next frame */
 }
 
 #define S(v) rs_state_var("draw." #v, &(v), sizeof(v))
