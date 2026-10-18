@@ -951,9 +951,10 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
      * columns shown); the title and the panels laid out in them by house_tall.h */
     int zoom = tall(), play = state == ST_PLAY || state == ST_DEAD;
     if (tall()) rs_screen_fill(zoom);
-    /* (the title: the view centred; the game-over panels: the view held where play left it, the panels drawn once) */
+    /* (the title and the game-over panels: the view centred, as house_tall.h lays them out on the screen's middle;
+     * the game-over panels drawn once) */
     if (play || state == ST_TITLE || !zoom) cam_update(w, zoom && play);
-    if (zoom && !play) rs_screen_focus_x(cam_q >> 4);
+    if (zoom && !play) rs_screen_focus_x(state == ST_OVER ? -1 : cam_q >> 4);
     int vx0 = rs_screen_visible_x0(), vis = rs_screen_visible_x1() - vx0, vc = vx0 + vis / 2;
     zoom = zoom && vis < rs_screen_width();     /* (a display that shows every column: the stage's layout) */
     hud_lines = zoom && play ? HUD_LINES : 0;
@@ -964,7 +965,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     screen_text(w, state, st_t, best, new_best, &rs, tv, zoom ? vis / 8 : 40);
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;     /* the panel slides up, ease-out */
     rs_bg_scroll(RS_BG1, zoom && play ? (RS_SCREEN_W / 2 - vc) & pm : 0, -slide);   /* (zoomed: centred on the display) */
-    ht_pause(paused, 13);
+    ht_pause_dx(paused, 13, zoom && play ? vc - RS_SCREEN_W / 2 : 0);   /* (PAUSED on the columns shown) */
 
     rs_oam_clear();
     int ox = (int)(w->hole_cam - w->view_cam);       /* the balls' stage x are the hole's: the pan moves them */
