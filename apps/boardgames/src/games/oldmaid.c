@@ -186,7 +186,7 @@ int oldmaid_show(const char *move)
     return 1;
 }
 
-static int undo(void) { return 0; }             /* every draw shows a hidden card: none taken back */
+/* no undo (game.undo NULL: no button): every draw shows a hidden card: none taken back */
 
 static int script(const char *s)
 {
@@ -297,7 +297,7 @@ static void thumb(int v, int size, uint8_t *rgba)
 static const game oldmaid_game = {
     .id = "oldmaid", .order = 299, .variants = 1,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
-    .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
+    .press = press, .motion = motion, .release = release, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .winners = winners,
     .players = 1 << 2 | 1 << 3 | 1 << 4 | 1 << 5 | 1 << 6, .view = VIEW_HIDDEN,
 };

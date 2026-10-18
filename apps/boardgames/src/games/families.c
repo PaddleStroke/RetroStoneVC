@@ -230,7 +230,7 @@ int families_show(const char *move)
     return 1;
 }
 
-static int undo(void) { return 0; }             /* every answer shows a card: none taken back */
+/* no undo (game.undo NULL: no button): every answer shows a card: none taken back */
 
 static int script(const char *s)
 {
@@ -388,7 +388,7 @@ static void thumb(int v, int size, uint8_t *rgba)
 static const game families_game = {
     .id = "families", .order = 301, .variants = 1,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
-    .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
+    .press = press, .motion = motion, .release = release, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .winners = winners,
     .players = 1 << 2 | 1 << 3 | 1 << 4 | 1 << 5 | 1 << 6, .view = VIEW_HIDDEN,
 };

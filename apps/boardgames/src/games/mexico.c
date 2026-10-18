@@ -202,7 +202,7 @@ static void act(int a)
     choose_default();
 }
 
-static int undo(void) { return 0; }             /* a throw is never taken back; announcing passes the device */
+/* no undo (game.undo NULL: no button): a throw is never taken back; announcing passes the device */
 
 static int script(const char *s)
 {
@@ -488,7 +488,7 @@ static void thumb(int variant, int size, uint8_t *rgba)
 static const game mexico_game = {
     .id = "mexico", .order = 158, .variants = 2,  /* three lives, six lives */
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
-    .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
+    .press = press, .motion = motion, .release = release, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .winners = winners,
     .players = 1 << 2 | 1 << 3 | 1 << 4 | 1 << 5 | 1 << 6, .view = VIEW_HIDDEN,
 };

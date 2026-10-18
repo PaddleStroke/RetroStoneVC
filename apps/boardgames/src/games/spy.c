@@ -246,7 +246,6 @@ static int script(const char *s)
     return ok;
 }
 
-static int undo(void) { return 0; }
 static int turn(void) { return S.slot; }
 static int status(void) { return P.phase == SPY_OVER ? GS_WIN0 : GS_PLAY; }
 static int busy(void) { return pt_look_busy(&K); }
@@ -483,7 +482,7 @@ static void thumb(int v, int size, uint8_t *rgba)
 static const game spy_game = {
     .id = "spy", .order = 390, .variants = SPY_VARIANTS, .variant_first = 2,
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
-    .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
+    .press = press, .motion = motion, .release = release, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .view = VIEW_HIDDEN,
 };
 REGISTER_GAME(spy_game)
