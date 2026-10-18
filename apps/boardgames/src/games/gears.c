@@ -46,7 +46,10 @@ static gea_game G;
 static gea_eval_t E;
 static int serial, sel = 1, tool_down = -1, ntray, tray[GEA_SIZES];
 static double rest[GEA_PEGS];                   /* the angle of a gear that does not turn */
-static Uint32 jam_t0;
+static Uint32 jam_t0, ease_t0;
+static double shown_th[GEA_PEGS], ease_off[GEA_PEGS];   /* the angles shown last; a jump eased away */
+static uint8_t shown_g[GEA_PEGS];
+#define EASE_MS 380
 static int was_jam, last_tick = -1;
 static struct { Uint32 t0; int on; } drop[GEA_PEGS];
 static struct { int on, size; float x, y; Uint32 t0; } lift;   /* a gear going back to the tray */
@@ -380,11 +383,25 @@ static void layout(box b)
 }
 
 /* ---- the position ------------------------------------------------------------------------------------------------- */
+static void angles(double t, double *th);
+
+/* what the board does now; a gear that keeps its place but now meshes another way (a target driven at last, a loop
+ * closed) turns from where it was shown to its new phase over a moment instead of jumping */
 static void evaluate(void)
 {
     gea_eval(&G.m, &G.s, &E);
-    if (E.jam && !was_jam) jam_t0 = ui_ms();
+    Uint32 now = ui_ms();
+    if (E.jam && !was_jam) jam_t0 = now;
     was_jam = E.jam;
+    double th[GEA_PEGS];
+    angles(now / 1000.0, th);
+    for (int i = 0; i < G.m.n; i++) {
+        double d = shown_g[i] && shown_g[i] == G.s.g[i] ? fmod(shown_th[i] - th[i], 2 * PUZ_PI) : 0;
+        if (d > PUZ_PI) d -= 2 * PUZ_PI;
+        if (d < -PUZ_PI) d += 2 * PUZ_PI;
+        ease_off[i] = d;
+    }
+    ease_t0 = now;
 }
 
 static void calm(void)
@@ -399,6 +416,7 @@ static void begin(void)
     serial++;
     calm();
     was_jam = 0;
+    memset(shown_g, 0, sizeof shown_g);
     for (int i = 0; i < GEA_PEGS; i++) rest[i] = 0.37 * i;
     tray_of();
     evaluate();
@@ -612,6 +630,13 @@ static void draw(void)
     Uint32 now = ui_ms();
     double t = now / 1000.0, th[GEA_PEGS];
     angles(t, th);
+    float ek = (float)(int)(now - ease_t0) / EASE_MS;
+    for (int i = 0; i < G.m.n; i++) {
+        if (ek < 1) th[i] += ease_off[i] * (1 - puz_ease(ek));
+        shown_th[i] = th[i];
+        shown_g[i] = G.s.g[i];
+    }
+    if (ek < 1) ui_animate();
     int f = (int)(FRAME * U);
     ui_put(t_board, ox - f, oy - f, SW + 2 * f, SH + 2 * f);
     /* the judder of a jammed train: bursts of a quick shake */
