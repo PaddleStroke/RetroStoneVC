@@ -1,0 +1,8 @@
+Calcul mental
+# Le but
+Réponds à chaque calcul le plus vite possible. Tape le nombre qui manque : dès qu'il a assez de chiffres, il est vérifié. Juste, le calcul suivant arrive ; faux, c'est une erreur et tu réessaies.
+- Certains calculs cachent un nombre avant le signe égal : 7 + ? = 12.
+# La fin de la partie
+La série est finie quand chaque calcul a sa réponse. Ton meilleur temps sur chaque série est gardé.
+# Niveaux et étoiles
+3 étoiles : dans le temps à battre, sans indice ni erreur. 2 étoiles : jusqu'à moitié plus de temps, avec au plus deux indices et erreurs en tout. Sinon 1.

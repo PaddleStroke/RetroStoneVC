@@ -1,0 +1,8 @@
+Mental Math
+# The aim
+Answer every sum as fast as you can. Type the missing number: as soon as it has enough digits, it is checked. Right, the next sum comes; wrong, it counts as a mistake and you try again.
+- Some sums hide a number before the equals sign: 7 + ? = 12.
+# The end of the game
+The drill is over when every sum is answered. Your best time on each drill is kept.
+# Levels and stars
+3 stars: within the time to beat, with no hint and no mistake. 2 stars: up to half as long again, with at most two hints and mistakes together. Otherwise 1.

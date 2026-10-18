@@ -1,0 +1,8 @@
+Hovedregning
+# Målet
+Svar på hvert regnestykke så hurtigt du kan. Skriv det tal, der mangler: så snart det har nok cifre, bliver det tjekket. Rigtigt, så kommer det næste; forkert, så tæller det som en fejl, og du prøver igen.
+- Nogle regnestykker skjuler et tal før lighedstegnet: 7 + ? = 12.
+# Spillets afslutning
+Runden er slut, når alle regnestykker er besvaret. Din bedste tid på hver runde bliver gemt.
+# Baner og stjerner
+3 stjerner: inden for tiden, der skal slås, uden tip og uden fejl. 2 stjerner: op til halvanden gang så lang tid, med højst to tip og fejl i alt. Ellers 1.

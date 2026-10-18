@@ -1,0 +1,8 @@
+Liczenie w pamięci
+# Cel gry
+Odpowiadaj na każde działanie jak najszybciej. Wpisz brakującą liczbę: gdy tylko ma dość cyfr, zostaje sprawdzona. Dobrze, przychodzi następne działanie; źle, liczy się to jako błąd i próbujesz jeszcze raz.
+- Niektóre działania ukrywają liczbę przed znakiem równości: 7 + ? = 12.
+# Koniec gry
+Seria kończy się, gdy każde działanie ma odpowiedź. Twój najlepszy czas w każdej serii jest zapamiętywany.
+# Poziomy i gwiazdki
+3 gwiazdki: w czasie do pobicia, bez podpowiedzi i bez błędu. 2 gwiazdki: do półtora raza dłużej, z najwyżej dwiema podpowiedziami i błędami razem. Inaczej 1.

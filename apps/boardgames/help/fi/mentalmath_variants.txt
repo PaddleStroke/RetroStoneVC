@@ -1,0 +1,6 @@
+Yhteenlasku
+Vähennyslasku
+Sataan asti
+Kertolasku
+Jakolasku
+Kaikki neljä

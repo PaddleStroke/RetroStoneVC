@@ -1,0 +1,8 @@
+Cálculo mental
+# El objetivo
+Responde cada cuenta lo más rápido que puedas. Escribe el número que falta: en cuanto tiene suficientes cifras, se comprueba. Si está bien, llega la siguiente cuenta; si está mal, cuenta como error y vuelves a intentarlo.
+- Algunas cuentas esconden un número antes del signo igual: 7 + ? = 12.
+# El final de la partida
+La serie termina cuando todas las cuentas tienen respuesta. Se guarda tu mejor tiempo en cada serie.
+# Niveles y estrellas
+3 estrellas: dentro del tiempo a batir, sin pistas ni errores. 2 estrellas: hasta la mitad más de tiempo, con dos pistas y errores como mucho en total. Si no, 1.

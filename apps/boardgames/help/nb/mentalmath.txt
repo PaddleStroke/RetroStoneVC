@@ -1,0 +1,8 @@
+Hoderegning
+# Målet
+Svar på hvert regnestykke så fort du kan. Skriv tallet som mangler: så snart det har nok sifre, blir det sjekket. Riktig, så kommer neste regnestykke; feil, så teller det som en feil, og du prøver igjen.
+- Noen regnestykker skjuler et tall før likhetstegnet: 7 + ? = 12.
+# Slutten på spillet
+Runden er over når alle regnestykkene er besvart. Den beste tiden din på hver runde blir lagret.
+# Nivåer og stjerner
+3 stjerner: innenfor tiden som skal slås, uten hint og uten feil. 2 stjerner: opptil halvannen gang så lang tid, med høyst to hint og feil til sammen. Ellers 1.

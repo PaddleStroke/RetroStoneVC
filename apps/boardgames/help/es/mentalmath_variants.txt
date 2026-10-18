@@ -1,0 +1,6 @@
+Sumas
+Restas
+Hasta cien
+Multiplicaciones
+Divisiones
+Las cuatro

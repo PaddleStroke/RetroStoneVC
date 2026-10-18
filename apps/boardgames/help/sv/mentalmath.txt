@@ -1,0 +1,8 @@
+Huvudräkning
+# Målet
+Svara på varje uppgift så snabbt du kan. Skriv talet som fattas: så fort det har tillräckligt många siffror kontrolleras det. Rätt, så kommer nästa uppgift; fel, så räknas det som ett fel och du försöker igen.
+- Vissa uppgifter gömmer ett tal före likhetstecknet: 7 + ? = 12.
+# Partiets slut
+Omgången är slut när alla uppgifter är besvarade. Din bästa tid för varje omgång sparas.
+# Banor och stjärnor
+3 stjärnor: inom tiden att slå, utan ledtråd och utan fel. 2 stjärnor: upp till hälften så lång tid till, med högst två ledtrådar och fel tillsammans. Annars 1.

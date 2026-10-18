@@ -1,0 +1,8 @@
+Cálculo mental
+# O objetivo
+Responde a cada conta o mais depressa que conseguires. Escreve o número que falta: assim que tem algarismos suficientes, é verificado. Certo, vem a conta seguinte; errado, conta como erro e tentas outra vez.
+- Algumas contas escondem um número antes do sinal de igual: 7 + ? = 12.
+# O fim do jogo
+A série acaba quando todas as contas têm resposta. O teu melhor tempo em cada série fica guardado.
+# Níveis e estrelas
+3 estrelas: dentro do tempo a bater, sem pistas nem erros. 2 estrelas: até metade a mais do tempo, com no máximo duas pistas e erros no total. Senão, 1.

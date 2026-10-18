@@ -22,7 +22,7 @@
 #include "games/bench_ui.h"
 #include "games/mathcross.h"
 #include "games/mathcross_levels.h"
-#include "games/pzkit.h"
+#include "games/mathsigns.h"
 #include "shell.h"
 
 enum { T_HINT, TOOLS };
@@ -54,54 +54,16 @@ static bench_flash hint;
 static bench_wave win;
 
 /* ---- painting ---------------------------------------------------------------------------------------------------- */
-/* an operation's sign (MCR_ADD..MCR_EQ) d across, centred at (cx, cy), in ink */
+/* a cell kind's sign (MCR_ADD..MCR_EQ) d across at (cx, cy) */
 static void paint_sign(uint8_t *o, int w, int h, float cx, float cy, float d, int kind, const uint8_t ink[3])
 {
-    float r = 0.065f * d, a = 0.3f * d;
-    switch (kind) {
-    case MCR_ADD:
-        pzk_stroke(o, w, h, cx - a, cy, cx + a, cy, r, ink, 1);
-        pzk_stroke(o, w, h, cx, cy - a, cx, cy + a, r, ink, 1);
-        break;
-    case MCR_SUB: pzk_stroke(o, w, h, cx - a, cy, cx + a, cy, r, ink, 1); break;
-    case MCR_MUL:
-        a *= 0.75f;
-        pzk_stroke(o, w, h, cx - a, cy - a, cx + a, cy + a, r, ink, 1);
-        pzk_stroke(o, w, h, cx - a, cy + a, cx + a, cy - a, r, ink, 1);
-        break;
-    case MCR_DIV:
-        pzk_stroke(o, w, h, cx - a, cy, cx + a, cy, r, ink, 1);
-        pzk_ball(o, w, h, cx, cy - 0.2f * d, 1.25f * r, ink, 1, 0);
-        pzk_ball(o, w, h, cx, cy + 0.2f * d, 1.25f * r, ink, 1, 0);
-        break;
-    case MCR_EQ:
-        pzk_stroke(o, w, h, cx - a, cy - 0.11f * d, cx + a, cy - 0.11f * d, r, ink, 1);
-        pzk_stroke(o, w, h, cx - a, cy + 0.11f * d, cx + a, cy + 0.11f * d, r, ink, 1);
-        break;
-    }
+    msg_sign(o, w, h, cx, cy, d, kind - MCR_ADD + MSG_ADD, ink);
 }
+
+static void paint_hollow(uint8_t *o, int w, int h, float x0, float y0, float s) { msg_hollow(o, w, h, x0, y0, s, s); }
 
 /* a number's digits height for a cell q wide (three digits set smaller) */
 static float digits_h(int v, float q) { return v >= 100 ? 0.4f * q : v >= 10 ? 0.5f * q : 0.56f * q; }
-
-/* a hollow in the wood (x0, y0, side s): darker, its walls shaded at the top left */
-static void paint_hollow(uint8_t *o, int w, int h, float x0, float y0, float s)
-{
-    float rad = 0.16f * s;
-    for (int y = (int)y0; y < (int)(y0 + s) && y < h; y++)
-        for (int x = (int)x0; x < (int)(x0 + s) && x < w; x++) {
-            if (x < 0 || y < 0) continue;
-            float px = x + 0.5f - x0, py = y + 0.5f - y0;
-            float dx = fmaxf(rad - px, px - (s - rad)), dy = fmaxf(rad - py, py - (s - rad)), d;
-            if (dx > 0 && dy > 0) d = rad - hypotf(dx, dy);
-            else d = fminf(fminf(px, s - px), fminf(py, s - py));
-            float a = clampf(d + 0.5f, 0, 1);
-            if (a <= 0) continue;
-            float wall = clampf(1 - fminf(px, py) / (0.2f * s), 0, 1), k = 1 - a * (0.3f + 0.25f * wall);
-            uint8_t *p = o + 4 * ((size_t)y * w + x);
-            for (int i = 0; i < 3; i++) p[i] = (uint8_t)(p[i] * k);
-        }
-}
 
 /* the board: the plank (w x h, frame fr), the grid's corner at (ox, oy), cells q; filled: tiles shown in the gaps (the
  * pictures of the menu: a share of them, 0..1) */

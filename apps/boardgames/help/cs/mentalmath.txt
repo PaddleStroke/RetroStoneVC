@@ -1,0 +1,8 @@
+Počítání zpaměti
+# Cíl hry
+Odpovídej na každý příklad co nejrychleji. Napiš chybějící číslo: jakmile má dost číslic, zkontroluje se. Správně, přijde další příklad; špatně, počítá se to jako chyba a zkusíš to znovu.
+- Některé příklady skrývají číslo před rovnítkem: 7 + ? = 12.
+# Konec hry
+Série končí, když má každý příklad odpověď. Tvůj nejlepší čas v každé sérii se uchová.
+# Úrovně a hvězdy
+3 hvězdy: v čase, který máš překonat, bez nápovědy a bez chyby. 2 hvězdy: až o polovinu déle, nejvýš se dvěma nápovědami a chybami dohromady. Jinak 1.

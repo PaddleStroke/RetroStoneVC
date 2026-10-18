@@ -1,0 +1,8 @@
+Zihinden Hesap
+# Amaç
+Her işlemi olabildiğince hızlı yanıtla. Eksik sayıyı yaz: yeterli basamağa ulaştığı anda denetlenir. Doğruysa sıradaki işlem gelir; yanlışsa hata sayılır ve yeniden denersin.
+- Bazı işlemler eşittir işaretinden önceki bir sayıyı gizler: 7 + ? = 12.
+# Oyunun sonu
+Her işlem yanıtlandığında seri biter. Her serideki en iyi süren saklanır.
+# Seviyeler ve yıldızlar
+3 yıldız: geçilecek süre içinde, ipucusuz ve hatasız. 2 yıldız: bu sürenin bir buçuk katına kadar, toplam en fazla iki ipucu ve hatayla. Yoksa 1.

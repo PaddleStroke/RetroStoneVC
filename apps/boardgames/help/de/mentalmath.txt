@@ -1,0 +1,8 @@
+Kopfrechnen
+# Das Ziel
+Beantworte jede Aufgabe so schnell du kannst. Tippe die fehlende Zahl: Sobald sie genug Ziffern hat, wird sie geprüft. Richtig, kommt die nächste Aufgabe; falsch, zählt es als Fehler und du versuchst es noch einmal.
+- Manche Aufgaben verstecken eine Zahl vor dem Gleichheitszeichen: 7 + ? = 12.
+# Das Ende der Partie
+Die Runde ist vorbei, wenn jede Aufgabe beantwortet ist. Deine beste Zeit für jede Runde wird gespeichert.
+# Level und Sterne
+3 Sterne: innerhalb der Zielzeit, ohne Tipp und ohne Fehler. 2 Sterne: bis zu halb so lang mehr, mit höchstens zwei Tipps und Fehlern zusammen. Sonst 1.

@@ -1,0 +1,8 @@
+Päässälasku
+# Tavoite
+Vastaa jokaiseen laskuun niin nopeasti kuin pystyt. Kirjoita puuttuva luku: heti kun siinä on tarpeeksi numeroita, se tarkistetaan. Oikein, seuraava lasku tulee; väärin, se lasketaan virheeksi ja yrität uudelleen.
+- Jotkin laskut piilottavat luvun ennen yhtäsuuruusmerkkiä: 7 + ? = 12.
+# Pelin loppu
+Kierros päättyy, kun jokaiseen laskuun on vastattu. Paras aikasi jokaisella kierroksella tallennetaan.
+# Tasot ja tähdet
+3 tähteä: lyötävän ajan sisällä, ilman vihjeitä ja virheitä. 2 tähteä: enintään puolitoista kertaa se aika, enintään kaksi vihjettä ja virhettä yhteensä. Muuten 1.

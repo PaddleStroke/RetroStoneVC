@@ -1,0 +1,8 @@
+Berhitung Cepat
+# Tujuan
+Jawab setiap soal secepat mungkin. Ketik angka yang hilang: begitu digitnya cukup, angka itu langsung diperiksa. Jika benar, soal berikutnya muncul; jika salah, itu dihitung sebagai kesalahan dan kamu mencoba lagi.
+- Beberapa soal menyembunyikan angka sebelum tanda sama dengan: 7 + ? = 12.
+# Akhir permainan
+Satu putaran selesai ketika semua soal terjawab. Waktu terbaikmu di setiap putaran disimpan.
+# Level dan bintang
+3 bintang: dalam waktu yang harus dikalahkan, tanpa petunjuk dan tanpa kesalahan. 2 bintang: hingga satu setengah kali waktu itu, dengan paling banyak dua petunjuk dan kesalahan seluruhnya. Selain itu 1.

@@ -1,0 +1,8 @@
+Hoofdrekenen
+# Het doel
+Beantwoord elke som zo snel als je kunt. Typ het getal dat ontbreekt: zodra het genoeg cijfers heeft, wordt het gecontroleerd. Goed, dan komt de volgende som; fout, dan telt het als fout en probeer je het opnieuw.
+- Sommige sommen verbergen een getal vóór het isgelijkteken: 7 + ? = 12.
+# Het einde van het spel
+De reeks is klaar als elke som beantwoord is. Je beste tijd per reeks wordt bewaard.
+# Levels en sterren
+3 sterren: binnen de tijd om te verslaan, zonder hint en zonder fout. 2 sterren: tot de helft langer, met hoogstens twee hints en fouten samen. Anders 1.

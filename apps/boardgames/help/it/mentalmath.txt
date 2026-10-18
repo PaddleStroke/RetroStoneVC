@@ -1,0 +1,8 @@
+Calcolo mentale
+# Lo scopo
+Rispondi a ogni conto il più in fretta possibile. Scrivi il numero che manca: appena ha abbastanza cifre, viene controllato. Giusto, arriva il conto successivo; sbagliato, conta come errore e riprovi.
+- Alcuni conti nascondono un numero prima del segno uguale: 7 + ? = 12.
+# La fine della partita
+La serie finisce quando ogni conto ha la sua risposta. Il tuo miglior tempo su ogni serie viene conservato.
+# Livelli e stelle
+3 stelle: entro il tempo da battere, senza suggerimenti né errori. 2 stelle: fino a metà tempo in più, con al massimo due suggerimenti ed errori in tutto. Altrimenti 1.

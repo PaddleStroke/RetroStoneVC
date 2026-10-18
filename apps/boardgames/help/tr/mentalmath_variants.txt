@@ -1,0 +1,6 @@
+Toplama
+Çıkarma
+Yüze kadar
+Çarpma
+Bölme
+Dördü birden
