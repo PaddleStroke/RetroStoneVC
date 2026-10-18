@@ -25,7 +25,7 @@ static void theme_field(const world *w,int p,const view *v,const rs_viewport *vp
   if(b->state==BED_MISS&&((b->t/3)&1))oval(pixels,x,y-2,rx-3,ry/2,10,vp);
  }
  // The fork thrust follows the pressed direction and returns to the gardener's hand.
- if(h->state<HS_HIT){
+ if(h->state<HS_HIT && title!=2){   /* (a zoomed title: the farmer is on the lawn below) */
   int facing=h->aim==3?-1:1;
   int ax=cx+facing*(v->small?7:12),ay=cy+(v->small?4:7),tx=ax+facing*(v->small?9:15),ty=ay-(v->small?6:12),reach=256;
   if(h->aim==0||h->aim==2){ax=cx+(v->small?5:10);ay=cy+(h->aim==0?(v->small?-1:0):(v->small?6:11));tx=ax;ty=ay+(h->aim==0?-1:1)*(v->small?13:23);}

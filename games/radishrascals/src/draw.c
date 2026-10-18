@@ -59,11 +59,12 @@ static int layout(int n,rs_viewport *out){
 #define DECOR_A_X 240        /* chunk A: the wide garden's x 240..591 in the map's x 320..671 */
 #define DECOR_B_X 672        /* chunk B: its x 672..1023 at the same map x */
 #define BAND_A 96            /* lines below the stage from chunk A (its y 144..239), then chunk B (its y 104..) */
+static int title_below;   /* transient (draw_frame): a zoomed title, its farmer on the lawn below the stage */
 static void raster_out(int line){
  int top=rs_screen_top();
  if(line==top || line==RS_SCREEN_H){
   rs_window(0,rs_screen_left(),rs_screen_right());rs_bg_window(RS_BG1,RS_WIN1);rs_bg_window(RS_BG2,RS_WIN1);
-  rs_bg_window(RS_BG3,line<0?RS_WIN1:0);rs_obj_window(line<0?0:RS_WIN1);
+  rs_bg_window(RS_BG3,line<0?RS_WIN1:0);rs_obj_window(line<0 || title_below?0:RS_WIN1);
  }
  if(line<0){rs_pal_set(0,hu_lerp_color(V[0].sky[0],RS_RGB8(192,222,222),-line*256/-top));return;}
  int d=line-RS_SCREEN_H;
@@ -147,15 +148,8 @@ static void foreground(const world *w,int p,const view *v,const rs_viewport *vp,
   int id=0;if(ink && wide())id=fg_find(tile,next);else if(ink){id=(*next)++;rs_tiles_load8(VR_BG2+id,tile,1);}rs_bg_put(RS_BG2,v->mx+c,v->my+r,RS_MAP(id,PAL_GROUND,0,0,0));
  }
 }
-/* zoomed (ht_narrow): the logo as RADISH over RASCALS when it does not fit on one line, each word in its own ramp
- * (house_tall.h's ht_logo draws the second word as a title of its own, so its ramp takes the first word's palette
- * entries: here it is " RASCALS ", the kit's second word, centred). Returns the rows it takes. */
-static int tall_logo(int ty){
- if((int)strlen(TITLE)*17-2<=ht_ncols()*8){hu_logo(TITLE,title_ramps,2,ty,0);return 6;}
- hu_config *c=(hu_config*)hu_cfg();int base=c->logo_tile;
- c->logo_tile=base+hu_logo("RADISH",title_ramps,2,ty,0);hu_logo(" RASCALS ",title_ramps,2,ty+6,0);c->logo_tile=base;
- return 12;
-}
+#define TITLE_FARMER_X 130   /* a zoomed title's farmer (stage px, its centre): on the lawn below the title's rows */
+#define TITLE_FARMER_Y 282
 static void icon(int p,int cx,int cy,int t,void *user){(void)user;rs_viewport vp={0};vp.w=320;vp.h=240;spr(SPR_HERO_ICON,cx-8,cy-8+hu_bob(t+p*16,64,1),2,ppal(p),&vp);}
 void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paused){
  int multi=w->players>1 && (state==ST_PLAY || state==ST_DEAD);nviews=layout(multi?w->players:1,VP);
@@ -164,7 +158,7 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   * UI laid out in the columns shown, house_tall.h); the split play (2-4 views) shows every column. Set before the UI
   * is drawn: the visible columns (ht_narrow) follow it. */
  rs_screen_fill(nviews==1 && (state==ST_PLAY || state==ST_DEAD || tall()));
- int narrow=nviews==1 && ht_narrow();
+ int narrow=nviews==1 && ht_narrow();title_below=narrow && state==ST_TITLE;
  hu_clear();rs_oam_clear();rs_brightness(paused?9:15);int next=1;
  if(wide()){rs_bg_fill(RS_BG2,0);memset(fg_slot,0,sizeof fg_slot);}
  /* widescreen, views side by side: the kit checks text in the screen's UI columns and writes it from column 0 on, so
@@ -184,7 +178,7 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   for(int y=0;y<vp->h;y++)v->sky[y]=theme_sky(w,y,vp->h);
   if(!wide())background(w,v,vp);
   else{vp->sx[2]=(int16_t)(-v->ox&(HILLSW_W*8-1));vp->sy[2]=(int16_t)-BG_START(vp);}  /* the 4:3 hills' x 0 at the garden's */
-  foreground(w,p,v,vp,state==ST_TITLE || state==ST_OVER,&next);
+  foreground(w,p,v,vp,state==ST_TITLE?(narrow?2:1):state==ST_OVER,&next);   /* (2: a zoomed title, no fork) */
   int ux=v->mx;      /* BG1: the view's first column */
   if(multi && wide())ux=vp->w>=rs_screen_width()?fdiv8(vp->x):-((vp->w/8-wd)/2)+(vp->x>rs_screen_left()?(vp->w+7)/8:0);
   vp->sx[0]=(int16_t)(wide()?ux*8&(map_w()*8-1):ux*8);vp->sx[1]=(int16_t)(v->mx*8);vp->sy[0]=vp->sy[1]=(int16_t)(v->my*8);vp->layers=7;vp->objs=1;hu_view_oam_begin(vp);
@@ -193,7 +187,7 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
    if(multi){char score[64],tag[16];rs_strf(tag,sizeof tag,HTR(PLAYER_TAG),p+1);snprintf(score,sizeof score,"%s %d",tag,h->score);hu_text(ux+(vp->w/8-hu_width(score,0))/2,v->my+1,score);}
    else hu_number(h->score,vp->w/2,8+(tall()?rs_screen_top():0),3);   /* (a tall screen: at the screen's top) */
    if(paused){const char *s=HTR(PAUSED);int cols=vp->w/8;  /* 2x, or 1x when 2x is wider than the view */
-    if(narrow)ht_big(v->my+vp->h/16,s,HU_BIG_FREE);   /* (zoomed: in the columns shown) */
+    if(narrow)ht_pause(1,13);   /* (one zoomed view: house_tall.h's PAUSED) */
     else if(pbig && hu_width(s,1)<=cols)hu_big(ux+(cols-hu_width(s,1))/2,v->my+vp->h/16,s,HU_BIG_FREE);else hu_text(ux+(cols-hu_width(s,0))/2,v->my+vp->h/16+1,s);}
   }hu_view_oam_end(vp);
  }
@@ -201,10 +195,11 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   rs_viewport *vp=&VP[0];int scores[4];for(int p=0;p<w->players;p++)scores[p]=w->h[p].score;hu_standing rank;hu_rank(&rank,w->players,scores,scores);
   int slide=state==ST_OVER?hu_slide_in(st_t,20,200):0;
   if(state==ST_TITLE && narrow){
-   /* zoomed: RADISH over RASCALS, the hint wrapped under them, the slots, the prompt and the rest below */
-   int r=ht_text(2+tall_logo(1),TR(HINT),0);
-   ht_title tc={TR(VERB),MAX_PLAYERS,r+2,0};ht_title_out at;ht_title_draw(&tc,st_t,best,&at);ht_title_sprites(&tc,&at,st_t,icon,NULL);
-   theme_title(w,st_t,&V[0],vp);
+   /* zoomed (house_tall.h, its standard rows): RADISH over RASCALS, the slots, the hint above the prompt, the rest */
+   ht_logo(TITLE,title_ramps,2,2,0);
+   ht_title tc={TR(VERB),MAX_PLAYERS,15,0,TR(HINT)};ht_title_out at;ht_title_draw(&tc,st_t,best,&at);ht_title_sprites(&tc,&at,st_t,icon,NULL);
+   /* the farmer (the scene's beds stay empty, as under the panels) on the lawn under the credits, clear of the rows */
+   farmer(SPR_HERO_IDLE+(st_t/12)%2,TITLE_FARMER_X,TITLE_FARMER_Y+hu_bob(st_t,64,1),ppal(0),0,vp);
   }else if(state==ST_TITLE){hu_logo(TITLE,title_ramps,2,2,0);hu_title_draw(st_t,best);hu_text(hu_center(TR(HINT),0),9,TR(HINT));hu_title_sprites(st_t,icon,NULL);theme_title(w,st_t,&V[0],vp);}
   if(state==ST_OVER && narrow){   /* zoomed: the panels in the columns shown */
    if(w->players==1){static const int medals[4]=MEDAL_SCORES;ht_banner(4,HTR(GAME_OVER));ht_gameover_panel(new_best,NULL,HTR(BACK_TITLE));ht_gameover_sprites(w->h[0].score,best,hu_medal_of(w->h[0].score,medals),st_t,slide);ht_retry_line_at(ht_gameover_retry_row(NULL),st_t,RETRY_LOCK,HTR(BACK_TITLE));}

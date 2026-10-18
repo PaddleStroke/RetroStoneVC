@@ -5,3 +5,4 @@ main.snd_buf        sound_init(): the synthesis buffer (the samples are made at 
 main.SV             the battery save's copy (best scores, medals): stays in the .srm, a state never takes it back
 draw.fg_tile        widescreen: per-frame scratch (the frame's foreground tiles, shared by identical ones), rebuilt every frame
 draw.fg_slot        widescreen: per-frame scratch (its hash table), cleared every frame
+draw.title_below    a tall screen: per-frame scratch (a zoomed title shows sprites below the stage), set by draw_frame before the raster
