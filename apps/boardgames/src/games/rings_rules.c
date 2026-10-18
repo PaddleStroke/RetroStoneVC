@@ -281,7 +281,7 @@ int rg_level(rg_game *g, int level)
 void rg_random(rg_game *g, int variant, uint32_t seed)
 {
     static const uint8_t KIND[RG_VARIANTS] = {RG_TWO, RG_TWO, RG_TRIANGLE}, N[RG_VARIANTS] = {8, 12, 12},
-                         PAT[RG_VARIANTS] = {0, 1, 1}, LO[RG_VARIANTS] = {3, 5, 6}, HI[RG_VARIANTS] = {5, 7, 8};
+                         PAT[RG_VARIANTS] = {0, 1, 1}, LO[RG_VARIANTS] = {4, 6, 7}, HI[RG_VARIANTS] = {6, 8, 9};
     int v = variant < 0 || variant >= RG_VARIANTS ? 0 : variant;
     uint32_t r = pr_seed(seed);
     rg_build(&g->m, KIND[v], N[v]);

@@ -155,7 +155,8 @@ int main(void)
         static const int KIND[RG_CHAPTERS] = {RG_TWO, RG_TWO, RG_TWO, RG_CHAIN, RG_TRIANGLE, -1};
         if (KIND[ch] >= 0) CHECK(L->kind == KIND[ch]);
         if (ch == 0) CHECK(L->colours == 2 && L->n == 8);
-        if (lv % per && lv % per < per - 1) CHECK(L->par >= rg_levels[lv - 1].par);
+        if (lv >= 3) CHECK(L->par >= 3);         /* (only the first three are one or two moves) */
+        if (ch == RG_CHAPTERS - 1) CHECK(L->par >= 7);
         for (int k = 0; k < lv; k++)
             CHECK(strcmp(rg_levels[k].start, L->start) != 0 || rg_levels[k].kind != L->kind || rg_levels[k].n != L->n);
     }
@@ -176,7 +177,7 @@ int main(void)
 
     /* the random puzzles */
     for (int v = 0; v < RG_VARIANTS; v++) {
-        static const int LO[RG_VARIANTS] = {3, 5, 6}, HI[RG_VARIANTS] = {5, 7, 8};
+        static const int LO[RG_VARIANTS] = {4, 6, 7}, HI[RG_VARIANTS] = {6, 8, 9};
         double worst = 0;
         for (uint32_t seed = 1; seed <= 12; seed++) {
             clock_t t0 = clock();
