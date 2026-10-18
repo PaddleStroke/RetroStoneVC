@@ -7,4 +7,4 @@ draw.drawn_width    the width the maps were set up for: a setting of the fronten
 draw.hud_on         a zoomed tall screen: the HUD pinned at the top in a race, set by draw_frame before every picture
 draw.pan            a zoomed tall screen: the display's pan after the ladybug, set by draw_frame before every picture
 draw.hud_y          a zoomed tall screen: the screen line of the pinned HUD, set by draw_frame before every picture
-draw.tu_title_      tall_ui.h: where the title's A glyph goes, set by the title's text every frame before its sprites
+draw.title_out      the narrow title's glyph and slots (ht_title_draw), set every title frame before ht_title_sprites
