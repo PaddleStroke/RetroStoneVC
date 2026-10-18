@@ -588,12 +588,15 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
 }
 
 /* ---- save states (main.c) ---- */
-/* a state saved at another width brings maps of another size: set them up for this width, redraw the UI */
+/* a state saved at another width brings maps of another size: set them up for this width, redraw the UI; a state of
+ * another height (the phone turned: house_tall.h ht_shape_reset): the same, with the UI layer the tall raster hid shown */
 void draw_state_loaded(void)
 {
-    if (rs_bg_map_w(RS_BG2) == map_w()) return;
+    int shape = ht_shape_reset();
+    if (!shape && rs_bg_map_w(RS_BG2) == map_w()) return;
     maps_setup();
     shown_state = -1;
+    hu_pause(0, 13);                            /* PAUSED, if it showed: drawn again on the next frame */
 }
 
 #define S(v) rs_state_var("draw." #v, &(v), sizeof(v))
