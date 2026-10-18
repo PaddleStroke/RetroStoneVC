@@ -315,7 +315,10 @@ static void foreground(const world *w){
  }
 }
 /* Widescreen: a state saved at another width loads at this one (the ground's map for this width; all redrawn) */
-void draw_relayout(void){if(rs_bg_map_w(RS_BG2)!=map_w() || rs_bg_map_h(RS_BG2)!=map_h())rs_bg_setup(RS_BG2,map_w(),map_h(),VR_BG2);}
+void draw_relayout(void){if(rs_bg_map_w(RS_BG2)!=map_w() || rs_bg_map_h(RS_BG2)!=map_h())rs_bg_setup(RS_BG2,map_w(),map_h(),VR_BG2);
+ /* a state of another height (the phone turned: house_tall.h ht_shape_reset): the UI layer the tall screen's raster
+  * hid shown again, BG3 and BG4 off as draw_init leaves them */
+ if(ht_shape_reset()){rs_bg_enable(RS_BG3,0);rs_bg_enable(RS_BG4,0);}}
 static void scene(const world *w){
  // Draw the downhill penguins first when their silhouettes overlap.
  for(int p=w->players-1;p>=0;p--){
