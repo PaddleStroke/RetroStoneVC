@@ -100,6 +100,7 @@ static rs_color hexc(uint32_t h) { return RS_HEX(h); }
 #define HUD_LINES 128
 static int cam_q = (RS_SCREEN_W / 2) << 4;
 static int hud_lines;
+static int ui_pin;                          /* the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels) */
 
 static int tall(void) { return rs_screen_height() > RS_SCREEN_H; }
 
@@ -118,6 +119,7 @@ static void raster_out(int line)
         rs_bg_window(RS_BG3, RS_WIN1);
     }
     if (hud_lines && line == top + hud_lines) rs_bg_window(RS_BG1, RS_WIN1);     /* past the HUD's band */
+    if (ui_pin) rs_bg_window(RS_BG1, ht_pin_line(ui_pin, line) ? 0 : RS_WIN1);     /* the pinned UI */
     if (line < 0) {
         int k = top < 0 ? -line * 72 / -top : 0;            /* 0 at the stage's top .. 72 at the screen's */
         /* (the top colour darkened, an ordered dither between the RGB555 steps: no stripes) */
@@ -959,6 +961,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     zoom = zoom && vis < rs_screen_width();     /* (a display that shows every column: the stage's layout) */
     hud_lines = zoom && play ? HUD_LINES : 0;
     if (tall()) rs_bg_pin(RS_BG1, 0, hud_lines, 0);
+    ui_pin = !ht_narrow() ? HT_PIN_OFF : state == ST_TITLE ? HT_PIN_TITLE : state == ST_OVER ? HT_PIN_PANEL : HT_PIN_OFF;
+    if (ui_pin) ht_pin(ui_pin);                 /* the title and the panels at the same place on every game's screen */
     int pm = map_w() * 8 - 1, pan = (cam_q >> 4) - RS_SCREEN_W / 2;
     rs_bg_scroll(RS_BG2, (int)(w->view_cam & pm), 0);
     rs_bg_scroll(RS_BG3, (int)((w->view_cam / 4 - pan * 3 / 4) & pm), 0);     /* (the pan: the hills at 1/4) */

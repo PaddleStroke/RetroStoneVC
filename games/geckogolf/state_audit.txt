@@ -14,3 +14,4 @@ draw.deep_tiles     the deep soil's tiles: made once by draw_init (deep_make), t
 draw.hud_lines      a tall screen's HUD band (rs_bg_pin): set again by draw_frame before each picture (a setting)
 draw.sky_top        the sky gradient's top colour: a cache made with line_col by sky_gradient (made again after a load)
 draw.title_out      the narrow title's glyph and slots (ht_title_draw), set every title frame before ht_title_sprites
+draw.ui_pin         a tall screen: the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels), set by draw_frame before every picture (the raster shows it there)
