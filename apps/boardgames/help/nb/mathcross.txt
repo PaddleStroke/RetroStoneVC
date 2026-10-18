@@ -1,0 +1,9 @@
+Kryssregning
+# Målet
+Regnestykker går vannrett og loddrett og krysser hverandre i tallene sine. Noen tall mangler, og brettet med brikker har nøyaktig dem. Legg hver brikke på sin plass, slik at hvert regnestykke stemmer. Hvert puslespill har nøyaktig én løsning, som kan finnes med ren logikk.
+- Gange og dele kommer før pluss og minus; ellers regner man fra venstre mot høyre, eller ovenfra og ned.
+- Alle tall er hele tall fra 1 og oppover.
+# Slutten på spillet
+Puslespillet er løst når hvert regnestykke stemmer.
+# Nivåer og stjerner
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er et regnestykke som er fylt ut galt.

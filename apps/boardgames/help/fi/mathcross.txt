@@ -1,0 +1,9 @@
+Ristilaskut
+# Tavoite
+Laskut kulkevat vaaka- ja pystysuunnassa ja risteävät lukujensa kohdalla. Osa luvuista puuttuu, ja lokerossa on juuri ne. Aseta jokainen laatta paikalleen niin, että jokainen lasku pitää paikkansa. Jokaisella tehtävällä on täsmälleen yksi ratkaisu, joka löytyy pelkällä päättelyllä.
+- Kerto- ja jakolasku lasketaan ennen yhteen- ja vähennyslaskua; muuten lasketaan vasemmalta oikealle tai ylhäältä alas.
+- Kaikki luvut ovat kokonaislukuja 1:stä ylöspäin.
+# Pelin loppu
+Tehtävä on ratkaistu, kun jokainen lasku pitää paikkansa.
+# Tasot ja tähdet
+Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärin täytetty lasku.

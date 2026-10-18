@@ -1,0 +1,9 @@
+Silang Hitung
+# Tujuan
+Persamaan berjalan mendatar dan menurun, bersilangan pada angka-angkanya. Beberapa angka hilang, dan baki berisi tepat angka-angka itu. Letakkan setiap ubin di tempatnya sehingga setiap persamaan benar. Setiap teka-teki punya tepat satu solusi, yang ditemukan hanya dengan penalaran.
+- Kali dan bagi dihitung sebelum tambah dan kurang; selain itu dihitung dari kiri ke kanan, atau dari atas ke bawah.
+- Semua angka adalah bilangan bulat mulai dari 1.
+# Akhir permainan
+Teka-teki selesai ketika setiap persamaan benar.
+# Level dan bintang
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah persamaan yang diisi salah.

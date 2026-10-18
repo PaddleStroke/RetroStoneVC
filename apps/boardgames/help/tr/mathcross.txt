@@ -1,0 +1,9 @@
+Çapraz İşlem
+# Amaç
+İşlemler yatay ve dikey uzanır, sayılarında birbirini keser. Bazı sayılar eksik; tepside tam olarak onlar var. Her taşı yerine koy ki her işlem doğru olsun. Her bulmacanın tek bir çözümü var ve yalnızca akıl yürüterek bulunur.
+- Çarpma ve bölme, toplama ve çıkarmadan önce yapılır; gerisi soldan sağa ya da yukarıdan aşağıya hesaplanır.
+- Bütün sayılar 1'den başlayan tam sayılardır.
+# Oyunun sonu
+Her işlem doğru olduğunda bulmaca çözülür.
+# Seviyeler ve yıldızlar
+İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, yanlış doldurulmuş bir işlemdir.

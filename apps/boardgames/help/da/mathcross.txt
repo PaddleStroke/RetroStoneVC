@@ -1,0 +1,9 @@
+Krydsregning
+# Målet
+Regnestykker løber vandret og lodret og krydser hinanden i deres tal. Nogle tal mangler, og bakken har præcis dem. Læg hver brik på sin plads, så hvert regnestykke passer. Hver opgave har præcis én løsning, som findes ved ren logik.
+- Gange og division kommer før plus og minus; ellers regner man fra venstre mod højre eller oppefra og ned.
+- Alle tal er hele tal fra 1 og op.
+# Spillets afslutning
+Opgaven er løst, når hvert regnestykke passer.
+# Baner og stjerner
+Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et regnestykke, der er udfyldt forkert.

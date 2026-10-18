@@ -1,0 +1,9 @@
+Početní křížovka
+# Cíl hry
+Příklady vedou vodorovně i svisle a kříží se na svých číslech. Některá čísla chybí a v zásobníku jsou právě ta. Polož každou destičku na její místo tak, aby každý příklad platil. Každá úloha má právě jedno řešení, které najdeš samotnou úvahou.
+- Násobení a dělení má přednost před sčítáním a odčítáním; jinak se počítá zleva doprava nebo shora dolů.
+- Všechna čísla jsou celá, od 1 výš.
+# Konec hry
+Úloha je vyřešená, když platí každý příklad.
+# Úrovně a hvězdy
+Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatně vyplněný příklad.

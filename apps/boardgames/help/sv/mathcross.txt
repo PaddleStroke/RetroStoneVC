@@ -1,0 +1,9 @@
+Korsräkning
+# Målet
+Uträkningar går vågrätt och lodrätt och korsar varandra i sina tal. Några tal fattas, och brickfacket har precis dem. Lägg varje bricka på sin plats så att varje uträkning stämmer. Varje pussel har exakt en lösning, som går att hitta med enbart logik.
+- Gånger och delat med går före plus och minus; annars räknar man från vänster till höger, eller uppifrån och ned.
+- Alla tal är heltal från 1 och uppåt.
+# Partiets slut
+Pusslet är löst när varje uträkning stämmer.
+# Banor och stjärnor
+Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en uträkning som fyllts i fel.

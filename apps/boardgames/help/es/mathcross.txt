@@ -1,0 +1,9 @@
+Cálculos cruzados
+# El objetivo
+Las igualdades van en horizontal y en vertical y se cruzan en sus números. Faltan algunos números, y la bandeja tiene justo esos. Pon cada ficha en su sitio para que todas las igualdades sean ciertas. Cada tablero tiene una sola solución, que se encuentra razonando.
+- La multiplicación y la división van antes que la suma y la resta; si no, se calcula de izquierda a derecha, o de arriba abajo.
+- Todos los números son enteros a partir de 1.
+# El final de la partida
+El tablero está resuelto cuando todas las igualdades son ciertas.
+# Niveles y estrellas
+Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una igualdad completada mal.

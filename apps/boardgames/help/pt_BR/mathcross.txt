@@ -1,0 +1,9 @@
+Contas cruzadas
+# O objetivo
+As igualdades correm na horizontal e na vertical e se cruzam nos seus números. Faltam alguns números, e a bandeja tem exatamente esses. Coloque cada peça no seu lugar para que todas as igualdades fiquem certas. Cada desafio tem uma só solução, encontrada apenas pelo raciocínio.
+- Vezes e dividido vêm antes de mais e menos; fora isso, calcula-se da esquerda para a direita, ou de cima para baixo.
+- Todos os números são inteiros a partir de 1.
+# O fim da partida
+O desafio está resolvido quando todas as igualdades estão certas.
+# Níveis e estrelas
+Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é uma igualdade preenchida errada.

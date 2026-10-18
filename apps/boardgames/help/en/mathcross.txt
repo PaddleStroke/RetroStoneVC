@@ -1,0 +1,9 @@
+Math Crossword
+# The aim
+Equations run across and down, crossing on their numbers. Some numbers are missing, and the tray holds exactly those. Put every tile in its place so that every equation is true. Every puzzle has exactly one solution, found by reasoning alone.
+- Times and divided come before plus and minus; otherwise work from left to right, or from top to bottom.
+- Every number is a whole number from 1 up.
+# The end of the game
+The puzzle is solved when every equation is true.
+# Levels and stars
+No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is an equation filled in wrong.

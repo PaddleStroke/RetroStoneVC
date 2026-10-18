@@ -1,0 +1,9 @@
+Calcoli incrociati
+# Lo scopo
+Le uguaglianze corrono in orizzontale e in verticale e si incrociano sui loro numeri. Mancano alcuni numeri, e il vassoio contiene proprio quelli. Metti ogni tessera al suo posto in modo che ogni uguaglianza sia giusta. Ogni schema ha una sola soluzione, che si trova solo ragionando.
+- Per e diviso vengono prima di più e meno; per il resto si calcola da sinistra a destra, o dall'alto in basso.
+- Tutti i numeri sono interi a partire da 1.
+# La fine della partita
+Lo schema è risolto quando ogni uguaglianza è giusta.
+# Livelli e stelle
+Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1. Un errore è un'uguaglianza completata in modo sbagliato.

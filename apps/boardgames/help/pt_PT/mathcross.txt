@@ -1,0 +1,9 @@
+Contas cruzadas
+# O objetivo
+As igualdades correm na horizontal e na vertical e cruzam-se nos seus números. Faltam alguns números, e o tabuleiro de peças tem exatamente esses. Põe cada peça no seu lugar para que todas as igualdades fiquem certas. Cada desafio tem uma só solução, encontrada apenas pelo raciocínio.
+- Vezes e a dividir vêm antes de mais e menos; de resto, calcula-se da esquerda para a direita, ou de cima para baixo.
+- Todos os números são inteiros a partir de 1.
+# O fim do jogo
+O desafio está resolvido quando todas as igualdades estão certas.
+# Níveis e estrelas
+Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é uma igualdade preenchida de forma errada.

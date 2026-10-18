@@ -1,0 +1,9 @@
+Kreuzrechnen
+# Das Ziel
+Gleichungen laufen waagrecht und senkrecht und kreuzen sich in ihren Zahlen. Einige Zahlen fehlen, und genau diese liegen im Kasten. Setze jedes Plättchen an seinen Platz, sodass jede Gleichung stimmt. Jedes Rätsel hat genau eine Lösung, die sich allein durch Nachdenken finden lässt.
+- Mal und geteilt kommen vor plus und minus; sonst rechnet man von links nach rechts oder von oben nach unten.
+- Alle Zahlen sind ganze Zahlen ab 1.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn jede Gleichung stimmt.
+# Level und Sterne
+Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist eine falsch ausgefüllte Gleichung.
