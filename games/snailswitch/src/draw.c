@@ -296,18 +296,18 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
 }
 
 /* The view (a tall screen, DESIGN.md "Tall screen"): ONE zoomed view for the play, the title and the panels, the
- * columns shown at the stage's right edge (the things ahead come in there, as at 4:3: every snail sees as far ahead).
- * When a snail would not fit in them with a margin behind (more players, a less tall display), the play shows every
- * column (the warning ahead stays that of 4:3), and the title pans left to show every joined snail, still zoomed. */
+ * play's columns shown at the stage's right edge (the things ahead come in there, as at 4:3: every snail sees as far
+ * ahead). When a snail would not fit in them with a margin behind (more players, a less tall display), the play shows
+ * every column (the warning ahead stays that of 4:3). The title and the panels: the view centred (house_tall.h). */
 static void view(const world*w,int state){
  int play=state==ST_PLAY||state==ST_DEAD;
  if(!tall()){if(!play)rs_screen_fill(0);return;}
  int back=RS_SCREEN_W;for(int p=0;p<w->players;p++)if(w->h[p].x-24<back)back=w->h[p].x-24;
- rs_screen_fill(1);rs_screen_focus_x(RS_SCREEN_W);
+ rs_screen_fill(1);
+ if(!play){rs_screen_focus_x(-1);return;}   /* the title and the panels: centred, as house_tall.h lays them out */
+ rs_screen_focus_x(RS_SCREEN_W);
  int x0=rs_screen_visible_x0();
- if(x0<=back)return;
- if(play)rs_screen_fill(0);
- else if(state==ST_TITLE)rs_screen_focus_x(back+(rs_screen_visible_x1()-x0)/2);
+ if(x0>back)rs_screen_fill(0);
 }
 /* The play's scores: a tall screen's at its top, 3-4 players in two rows there (the tags pinned: BG1's top HUD_LINES).
  * A 240-line screen: the corner chips. */
