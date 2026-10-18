@@ -17,6 +17,7 @@
 #include "bt.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "house_tall.h"
 #include "game_text.h"
 #include <stdio.h>
 #include <string.h>
@@ -89,6 +90,9 @@ static int hud_lines;                       /* a tall screen: BG1's top lines pi
 static rs_color soil_col;                   /* a tall screen: the backdrop below the stage (not saved: set each frame) */
 static const bt_course *view_course;        /* the course drawn this frame (the sprites' profile) */
 static int relayout, relayout_pause;        /* transient: a state of another width was loaded (state_audit.txt) */
+static int narrow;                          /* a zoomed tall screen narrower than the kit (draw_frame: ht_narrow) */
+static ht_title_out title_out;              /* the narrow title's glyph and slots, set by screen_text every title frame */
+static const ht_title title_cfg = {NULL, MAX_PLAYERS, HU_ROW_SLOTS, 0};   /* (the verb: TR(VERB), set where used) */
 
 /* ---- colour helpers ------------------------------------------------------------------------------------------------- */
 static rs_color rgb(uint32_t h) { return RS_HEX(h); }
@@ -638,6 +642,13 @@ static int over_label_col(int new_best)
     return 12 - d;
 }
 
+/* the line under the game-over panel: the metres (and the golden blueberries) */
+static void over_note(const world *w, char *s, int n)
+{
+    if (w->coins[0]) rs_strf(s, (size_t)n, TR(METRES_GOLD), w->metres[0], w->coins[0]);
+    else rs_strf(s, (size_t)n, HTR(METRES_N), w->metres[0]);
+}
+
 /* the biome's name after a gate (row 6) */
 static void gate_name(int32_t pcol)
 {
@@ -665,7 +676,8 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         attempt_on = 0;
         gate_t = 999;
         if (state == ST_TITLE) {
-            hu_logo(GAME_TITLE, title_ramps, 2, 2, 0);
+            if (narrow) ht_logo(GAME_TITLE, title_ramps, 2, 2, 0);
+            else hu_logo(GAME_TITLE, title_ramps, 2, 2, 0);
             logo_on = 1;
         } else if (logo_on) {
             hu_logo_hide();
@@ -685,13 +697,18 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         }
         if (state == ST_OVER) {
             if (w->players == 1) {
-                hu_banner(4, HTR(GAME_OVER));
-                hu_gameover_panel(1, new_best, world_score(w, 0), 0);
-                if (w->coins[0]) rs_strf(s, sizeof s, TR(METRES_GOLD), w->metres[0], w->coins[0]);
-                else rs_strf(s, sizeof s, HTR(METRES_N), w->metres[0]);
-                hu_box_text(over_label_col(new_best), 12, s);
+                over_note(w, s, sizeof s);
+                if (narrow) {
+                    ht_banner(4, HTR(GAME_OVER));
+                    ht_gameover_panel(new_best, s, HTR(BACK_MENU));
+                } else {
+                    hu_banner(4, HTR(GAME_OVER));
+                    hu_gameover_panel(1, new_best, world_score(w, 0), 0);
+                    hu_box_text(over_label_col(new_best), 12, s);
+                }
             } else {
-                hu_results_panel(rs, NULL);     /* P2 WINS! (or DRAW!) and the ranking */
+                if (narrow) ht_results_panel(rs, NULL);
+                else hu_results_panel(rs, NULL);   /* P2 WINS! (or DRAW!) and the ranking */
             }
         }
         shown_state = screen;
@@ -704,7 +721,13 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         relayout = 0;
     }
     /* the title, every frame: PRESS A TO ROLL (blinking), the player slots, BEST, P2 / P3 / P4: PRESS A TO JOIN */
-    if (state == ST_TITLE) hu_title_draw(st_t, best);
+    if (state == ST_TITLE && narrow) {
+        ht_title c = title_cfg;
+        c.verb = TR(VERB);
+        ht_title_draw(&c, st_t, best, &title_out);
+    } else if (state == ST_TITLE) {
+        hu_title_draw(st_t, best);
+    }
     if (screen == ST_PLAY) {
         if (attempt_on) {
             int dx = view_camx - attempt_x0;
@@ -728,8 +751,14 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         if (gate_t < 999) gate_t++;
     }
     if (state == ST_OVER) {
-        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_MENU));
-        else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_MENU));
+        if (w->players == 1 && narrow) {
+            over_note(w, s, sizeof s);
+            ht_retry_line_at(ht_gameover_retry_row(s), st_t, RETRY_LOCK, HTR(BACK_MENU));
+        } else if (w->players == 1) {
+            hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_MENU));
+        } else if (narrow) {
+            ht_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_MENU));
+        } else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_MENU));
     }
 }
 
@@ -804,30 +833,35 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     rs_bg_scroll(RS_BG4, (camx / 4) & (rs_bg_map_w(RS_BG4) * 8 - 1),
                  FAR_TROW * 8 - 60 - cam_up / 8 + cd / 4 + (up ? TALL_FAR_UP : 0));
 
+    /* a tall screen (DESIGN.md "Tall screen"): zoomed, the sides cropped: one berry rolling, the columns shown from
+     * ZOOM_BEHIND px behind it; the title from the screen's left (the berries at the start), its text in the columns
+     * shown; the panels in the middle columns (house_tall.h); 2-4 berries racing show every column; the HUD (the
+     * metres, the golden blueberries, the chips and their tags) at the screen's top */
+    int tall = rs_screen_height() > RS_SCREEN_H, play = state == ST_PLAY || state == ST_DEAD;
+    rs_screen_fill(w->players == 1 || !(play || state == ST_READY));
+    int vx0 = rs_screen_visible_x0(), vw = rs_screen_visible_x1() - vx0;
+    if (vw >= rs_screen_width()) rs_screen_focus_x(-1);
+    else if (state == ST_TITLE) rs_screen_focus_x(vw / 2);
+    else if (state == ST_OVER) rs_screen_focus_x(-1);
+    else rs_screen_focus_x(rs_screen_origin_x() + PIVOT_X - ZOOM_BEHIND + vw / 2);
+    vx0 = rs_screen_visible_x0() - rs_screen_origin_x();     /* the stage x of the first column shown */
+    narrow = ht_narrow();
+    int hy = tall && play ? rs_screen_top() : 0;
+    hud_lines = tall && play && w->players >= 3 ? 16 : 0;      /* the chips' tags (BG1's top rows) */
+    rs_bg_pin(RS_BG1, 0, hud_lines, 0);
+
     screen_text(w, state, st_t, best, new_best, attempt, &rs);
     if (state == ST_OVER && st_t == RETRY_LOCK) shown_state = -1;      /* redraw once: the retry line appears */
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;
     if (state == ST_OVER) rs_bg_scroll(RS_BG1, -hu_ui_x(), -slide);
     if (relayout_pause && paused) hu_pause(0, 13);  /* the UI layer was set up again (a state of another width) */
     relayout_pause = 0;
-    hu_pause(paused, 13);
+    ht_pause(paused, 13);
     if (!paused) {
         fx_update(dx);
         for (int p = 0; p < MAX_PLAYERS; p++)
             if (dew_t[p] < 99) dew_t[p]++;
     }
-
-    /* a tall screen (DESIGN.md "Tall screen"): one berry rolling fills the display's height, the sides cropped, the
-     * columns shown from ZOOM_BEHIND px behind it; the title, the panels and 2-4 berries show every column; the HUD
-     * (the metres, the golden blueberries, the chips and their tags) at the screen's top */
-    int tall = rs_screen_height() > RS_SCREEN_H, play = state == ST_PLAY || state == ST_DEAD;
-    rs_screen_fill(w->players == 1 && (play || state == ST_READY));
-    int vx0 = rs_screen_visible_x0(), vw = rs_screen_visible_x1() - vx0;
-    rs_screen_focus_x(vw < rs_screen_width() ? rs_screen_origin_x() + PIVOT_X - ZOOM_BEHIND + vw / 2 : -1);
-    vx0 = rs_screen_visible_x0() - rs_screen_origin_x();     /* the stage x of the first column shown */
-    int hy = tall && play ? rs_screen_top() : 0;
-    hud_lines = tall && play && w->players >= 3 ? 16 : 0;      /* the chips' tags (BG1's top rows) */
-    rs_bg_pin(RS_BG1, 0, hud_lines, 0);
 
     rs_oam_clear();
     /* front to back: the UI, the berries, the effects, the props */
@@ -850,17 +884,21 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     }
     if (state == ST_OVER) {
         if (w->players == 1) {
-            hu_gameover_sprites(1, world_score(w, 0), 0, best, hu_medal_of(w->metres[0], medals), st_t, slide);
+            if (narrow) ht_gameover_sprites(world_score(w, 0), best, hu_medal_of(w->metres[0], medals), st_t, slide);
+            else hu_gameover_sprites(1, world_score(w, 0), 0, best, hu_medal_of(w->metres[0], medals), st_t, slide);
         } else {
-            hu_results_sprites(&rs, st_t, slide);
+            if (narrow) ht_results_sprites(&rs, st_t, slide);
+            else hu_results_sprites(&rs, st_t, slide);
             for (int i = 0; i < rs.n; i++) {
                 int cx, cy;
-                hu_results_icon_pos(&rs, i, &cx, &cy);
+                if (narrow) ht_results_icon_pos(&rs, i, &cx, &cy);
+                else hu_results_icon_pos(&rs, i, &cx, &cy);
                 spr(SPR_BERRY + ((st_t / 3) & 15), cx - 8 + hu_ui_x(), cy - 8 + slide, 3, hu_player_pal(rs.order[i]));
             }
         }
     }
-    if (state == ST_TITLE) hu_title_sprites(st_t, NULL, NULL);   /* the prompt's A, the joined berries pop in */
+    if (state == ST_TITLE && narrow) ht_title_sprites(&title_cfg, &title_out, st_t, NULL, NULL);
+    else if (state == ST_TITLE) hu_title_sprites(st_t, NULL, NULL);   /* the prompt's A, the joined berries pop in */
     for (int p = w->players - 1; p >= 0; p--) draw_berry(w, p, state, st_t);
     fx_draw();
     draw_props(w, t);

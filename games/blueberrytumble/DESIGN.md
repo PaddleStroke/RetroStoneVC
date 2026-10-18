@@ -265,8 +265,11 @@ camera's rise and the bot are unchanged; landscape and 4:3 are the same pixels.
 - **The HUD at the screen's top**: the metres centred on the columns shown, the golden blueberries at their right
   (sprites at `rs_screen_top()`); 2-4 berries: the top chips there too, their P1..P4 tags (BG1's top 16 lines) pinned
   there (`rs_bg_pin`). Sprites are culled at the screen's edges (`rs_screen_top()` / `bottom()`), not the stage's.
-- **The title, the game-over panels and 2-4 berries** (the trailing berries roll up to 84 px behind the first) show
-  every column (`rs_screen_fill(0)`), the 400 lines fitted to the width.
+- **The title, pause and the game-over panels** stay zoomed like play (the title from the screen's left: the berries
+  at the start), their text in the columns shown (games/common/src/house_tall.h: the logo's words stacked, lines
+  wrapped, each value under its label, a narrower ranking). **2-4 berries racing** (the trailing
+  berries roll up to 84 px behind the first) show every column (`rs_screen_fill(0)`), the 400 lines fitted to the
+  width.
 Touch is the whole screen (games.cfg `touch=all:A`), so nothing else moves.
 
 ## Art and sound

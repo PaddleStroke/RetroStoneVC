@@ -21,3 +21,5 @@ draw.relayout      transient: set by draw_state_loaded() after a state of anothe
 draw.relayout_pause  the same (PAUSED drawn again on the UI layer that was set up again)
 draw.hud_lines     a tall screen: BG1's top lines pinned at the screen's top (rs_bg_pin, a setting not saved), set by draw_frame before each picture
 draw.soil_col      a tall screen: the backdrop below the stage (raster_out), set by draw_frame from the palette before each picture
+draw.narrow         a zoomed tall screen narrower than the kit (house_tall.h ht_narrow), set by draw_frame before every use
+draw.title_out      the narrow title's glyph and slots (ht_title_draw), set every title frame before ht_title_sprites
