@@ -97,13 +97,32 @@ static void pic_into(uint8_t *o, int w, int h, void (*paint)(int, uint8_t *), fl
     free(b);
 }
 
-/* the plank with its bands and its trees (a field's), into a picture laid out by g */
+/* a soft oval of shade on the plank (w x h) round (cx, cy): the ground under a tree, darkest at its middle */
+static void ground_shadow(uint8_t *o, int w, int h, float cx, float cy, float rx, float ry, float alpha)
+{
+    int x0 = (int)fmaxf(0, cx - rx), x1 = (int)fminf((float)w - 1, cx + rx);
+    int y0 = (int)fmaxf(0, cy - ry), y1 = (int)fminf((float)h - 1, cy + ry);
+    for (int y = y0; y <= y1; y++)
+        for (int x = x0; x <= x1; x++) {
+            float dx = (x + 0.5f - cx) / rx, dy = (y + 0.5f - cy) / ry, d = sqrtf(dx * dx + dy * dy);
+            if (d >= 1) continue;
+            float t = d < 0.3f ? 1 : (1 - d) / 0.7f, k = 1 - alpha * t * t * (3 - 2 * t);
+            uint8_t *p = o + 4 * ((size_t)y * w + x);
+            for (int j = 0; j < 3; j++) p[j] = (uint8_t)(p[j] * k);
+        }
+}
+
+/* the plank with its bands and its trees (a field's), into a picture laid out by g: each tree on its own shade */
 static void paint_field(const bench_geo *g, const tn_puzzle *p, uint8_t *o)
 {
     bench_paint_grid(g, o);
     int q = g->cs;
-    for (int c = 0; c < p->n * p->n; c++)
-        if (p->tree[c]) pic_into(o, g->w, g->h, tree_pic, g->ox + c % p->n * q, g->oy + c / p->n * q, q);
+    for (int c = 0; c < p->n * p->n; c++) {
+        if (!p->tree[c]) continue;
+        float x = g->ox + c % p->n * q, y = g->oy + c / p->n * q;
+        ground_shadow(o, g->w, g->h, x + 0.55f * q, y + 0.86f * q, 0.34f * q, 0.09f * q, 0.42f);
+        pic_into(o, g->w, g->h, tree_pic, x, y, q);
+    }
 }
 
 static void paint_board(const bench_geo *g, uint8_t *o) { paint_field(g, &G.p, o); }
@@ -253,7 +272,7 @@ static void draw(void)
         if (G.st[c] != TN_TENT) continue;
         if (!solved && tn_touching(&G, c)) ui_mark_glow(mx, my, 1.25f * q);
         float s = bench_pop(&pop, c, 0.35f);
-        ui_shadow_flat(mx + 0.04f * q, my + 0.22f * q * s, 0.7f * q * s, 0.24f * q * s, 0.55f);
+        ui_shadow_flat(mx + 0.05f * q, my + 0.3f * q * s, 0.76f * q * s, 0.2f * q * s, 0.5f);   /* on the ground, as a tree's */
         ui_put_c(t_tent, mx, my, q * s, q * s);
     }
     bench_marks_back(G.st, real, n * n);
