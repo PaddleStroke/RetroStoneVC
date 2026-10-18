@@ -139,7 +139,6 @@
 #define TITLE_LOGO_X  37
 #define TITLE_SLOT_X  30
 #define TITLE_SLOT_ROW 9        /* the player slots' row on the title (under the logo, over the herd's heads) */
-#define TALL_SLOT_ROW 15        /* ... on a zoomed tall screen (under the logo on its two lines) */
 #define MSG_FRAMES    150       /* the new hornets' names */
 #define HINT_FRAMES   300       /* the controls' hint at the start of a run */
 #define MEDAL_SCORES  {150, 450, 1000, 3000} /* bronze, silver, gold, pearl (1 player; tuned with botskill) */

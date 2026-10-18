@@ -136,7 +136,7 @@ every width (game.h). The stage sits low (`rs_screen_origin_v`: TALL_BELOW 32 li
   scrolled so its centred texts (the hint, the new hornets' names, PAUSED) sit in the middle of the columns shown.
   The title and the panels keep the same view (zoomed, the same columns): their texts and the kit's sprites moved
   onto the columns shown too, the logo on two lines, the lines wrapped, a banner too wide on two lines
-  (src/tall_ui.h); the hornet waits by the logo's first word.
+  (games/common/src/house_tall.h); the hornet waits by the logo's first word.
 - **Above the stage** (draw.c `raster_out`): a far range of the Andes rises behind the near one: BG3 holds the same
   panorama FAR_DY 120 px higher and FAR_DX aside in a hazy palette (PAL_FAR 6: eased toward the horizon, the greens
   turned to rock), fading into the sky's colour over the stage's first FAR_MIST lines (the raster eases PAL_FAR per

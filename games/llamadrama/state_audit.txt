@@ -5,4 +5,4 @@ main.snd_buf        sound_init(): the synthesis buffer (the samples are made at 
 main.SV             the battery save's copy (best scores, medals): stays in the .srm, a state never takes it back
 play.fx_            bot_decide(): its forecast of the hornets (scratch, made again at each decision)
 play.fy_            bot_decide(): the same
-draw.tu_title_      tall_ui.h: where the title's A glyph goes, set by the title's text every frame before its sprites
+draw.title_out      the narrow title's glyph and slots (ht_title_draw), set every title frame before ht_title_sprites
