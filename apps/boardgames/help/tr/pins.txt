@@ -1,0 +1,12 @@
+Pimleri Çek
+# Amaç
+Altın pimler cam bir kutuda renkli topları, gri topları, suyu ve lavı tutuyor. Pimleri doğru sırayla birer birer çek; her top aşağıdaki bir kaba renkli olarak düşsün.
+# Kurallar
+- Gri bir top, ona ilk dokunan renkli topun rengini alır. Hâlâ griyken bir kaba ulaşmamalıdır.
+- Lav dokunduğu her topu yakar ve asla bir kaba ulaşmamalıdır.
+- Su lavı taşa çevirir. Su ve taş bir kaba girebilir.
+- Kenarı renkli bir kap yalnızca o renkteki topları alır.
+# Oyunun sonu
+Her şey durduğunda ve her top bir kaptayken bulmaca çözülmüş olur. Bir top yanarsa ya da bir kaba yanlış bir şey girerse baştan başla.
+# Seviyeler ve yıldızlar
+İpucu ve yeniden başlama yoksa 3 yıldız; ipucu ve yeniden başlama toplam en fazla ikiyse 2 yıldız; aksi hâlde 1.

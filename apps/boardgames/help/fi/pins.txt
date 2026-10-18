@@ -1,0 +1,12 @@
+Vedä tapit
+# Tavoite
+Kultaiset tapit pidättelevät lasilaatikossa värillisiä kuulia, harmaita kuulia, vettä ja laavaa. Vedä tapit yksi kerrallaan oikeassa järjestyksessä niin, että jokainen kuula päätyy värillisenä alhaalla olevaan maljaan.
+# Säännöt
+- Harmaa kuula saa ensimmäisen siihen koskevan värillisen kuulan värin. Se ei saa päätyä maljaan, kun se on vielä harmaa.
+- Laava polttaa jokaisen kuulan, johon se koskee, eikä se saa koskaan päätyä maljaan.
+- Vesi muuttaa laavan kiveksi. Vesi ja kivi saavat päätyä maljaan.
+- Värireunainen malja ottaa vain sen värisiä kuulia.
+# Pelin loppu
+Kun kaikki on pysähtynyt ja jokainen kuula on maljassa, tehtävä on ratkaistu. Jos kuula palaa tai maljaan päätyy jotain väärää, aloita alusta.
+# Tasot ja tähdet
+Ei vihjeitä eikä uusintoja: 3 tähteä; enintään kaksi vihjettä ja uusintaa yhteensä: 2 tähteä; muuten 1.

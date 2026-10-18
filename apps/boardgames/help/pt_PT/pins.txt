@@ -1,0 +1,12 @@
+Puxa os pinos
+# O objetivo
+Pinos dourados seguram bolas coloridas, bolas cinzentas, água e lava numa caixa de vidro. Puxa os pinos um de cada vez, pela ordem certa, para que todas as bolas acabem num copo em baixo, coloridas.
+# As regras
+- Uma bola cinzenta ganha a cor da primeira bola colorida que lhe toca. Não pode chegar a um copo enquanto ainda for cinzenta.
+- A lava queima qualquer bola em que toca e nunca pode chegar a um copo.
+- A água transforma a lava em pedra. A água e a pedra podem cair num copo.
+- Um copo de rebordo colorido só aceita bolas dessa cor.
+# O fim do jogo
+Quando tudo para e cada bola está num copo, o quebra-cabeças está resolvido. Se uma bola arder ou algo errado chegar a um copo, recomeça.
+# Níveis e estrelas
+Sem pistas nem recomeços: 3 estrelas; até duas pistas e recomeços no total: 2 estrelas; caso contrário, 1.

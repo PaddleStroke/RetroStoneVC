@@ -1,0 +1,12 @@
+Dra ut stiften
+# Målet
+Gyllene stift håller tillbaka färgade kulor, grå kulor, vatten och lava i en glaslåda. Dra ut stiften ett i taget i rätt ordning, så att varje kula hamnar färgad i en bägare längst ner.
+# Reglerna
+- En grå kula får färgen från den första färgade kulan som rör vid den. Den får inte nå en bägare medan den fortfarande är grå.
+- Lava bränner varje kula den rör vid och får aldrig nå en bägare.
+- Vatten gör lava till sten. Vatten och sten får hamna i en bägare.
+- En bägare med färgad kant tar bara kulor i den färgen.
+# Partiets slut
+När allt har stannat och varje kula ligger i en bägare är pusslet löst. Brinner en kula eller hamnar något fel i en bägare, börja om.
+# Banor och stjärnor
+Ingen ledtråd och ingen omstart: 3 stjärnor; högst två ledtrådar och omstarter tillsammans: 2 stjärnor; annars 1.
