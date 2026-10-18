@@ -639,7 +639,10 @@ static void draw_rounds(const kpos *p, const fgeo *g)
         float x = g->dx + (i % per - (per - 1) / 2.0f) * 1.25f * d, yy = y + (i / per) * 1.25f * d;
         int done = i < p->round || (i == p->round && (p->phase == KP_ROUND || p->phase == KP_OVER));
         if (i == p->round && !done) ui_mark_gold(x, yy, 2.2f * d);
-        SDL_SetTextureColorMod(t_dot, done ? 250 : 246, done ? 214 : 238, done ? 90 : 220);
+        const uint8_t *k = ct_ink();            /* to come: faint cream (the light table: faint ink); played: gold */
+        int l = ct_light();
+        if (done) SDL_SetTextureColorMod(t_dot, l ? 200 : 250, l ? 150 : 214, l ? 44 : 90);
+        else SDL_SetTextureColorMod(t_dot, k[0], k[1], k[2]);
         SDL_SetTextureAlphaMod(t_dot, done ? 255 : 80);
         ui_put_c(t_dot, x, yy, d, d);
     }
