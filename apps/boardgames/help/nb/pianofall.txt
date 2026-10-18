@@ -1,0 +1,12 @@
+Fallende noter
+# Målet
+Tonene i en sang faller ned banene over pianoets tangenter, hver stolpe like lang som tonen sin. Trykk på tangenten (eller banen dens, like over linjen) når foten av stolpen når den gylne linjen, så klinger tonen.
+# Et trekk
+- Akkurat i tide er perfekt; litt for tidlig eller sent er bra. En tone som passerer linjen uten å bli spilt, er bommet og forblir stum.
+- Hold en lang stolpe nede til den slutter: å slippe for tidlig koster halvparten av poengene.
+- Stolper side om side spilles samtidig.
+- Toner spilt etter hverandre uten bom utgjør komboen din.
+# Slutten på spillet
+Når sangen er slutt, vises tittelen. Presisjonen din sammenligner poengene dine med en perfekt sang.
+# Nivåer og stjerner
+Presisjon på 95 eller mer: 3 stjerner; 80: 2 stjerner; 50: 1 stjerne. Øving spiller sangen saktere, uten stjerner.

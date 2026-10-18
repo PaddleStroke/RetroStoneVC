@@ -1,0 +1,12 @@
+Spadające nuty
+# Cel gry
+Nuty piosenki spadają torami nad klawiszami fortepianu, każdy pasek tak długi jak jego nuta. Naciśnij klawisz (albo jego tor, tuż nad linią), gdy dół paska dotknie złotej linii, a nuta zabrzmi.
+# Ruch
+- Dokładnie w czas to idealnie; trochę za wcześnie lub za późno to dobrze. Nuta, która minie linię niezagrana, przepada i milczy.
+- Trzymaj długi pasek aż do jego końca: puszczenie za wcześnie kosztuje połowę jego punktów.
+- Paski obok siebie gra się razem.
+- Nuty zagrane po kolei bez pudła tworzą twoje kombo.
+# Koniec gry
+Gdy piosenka się skończy, pojawia się jej tytuł. Twoja dokładność porównuje twoje punkty z idealnym wykonaniem.
+# Poziomy i gwiazdki
+Dokładność 95 lub więcej: 3 gwiazdki; 80: 2 gwiazdki; 50: 1 gwiazdka. Ćwiczenie gra piosenkę wolniej, bez gwiazdek.

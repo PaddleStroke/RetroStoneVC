@@ -1,0 +1,12 @@
+Putoavat nuotit
+# Tavoite
+Laulun sävelet putoavat pianon koskettimien yläpuolella olevia ratoja pitkin, jokainen palkki yhtä pitkä kuin sävelensä. Paina kosketinta (tai sen rataa juuri viivan yläpuolella), kun palkin alapää osuu kultaiseen viivaan, niin sävel soi.
+# Siirto
+- Täsmälleen ajallaan on täydellinen, vähän liian aikaisin tai myöhään on hyvä. Soittamatta viivan ohi menevä sävel on huti ja jää äänettömäksi.
+- Pidä pitkä palkki painettuna loppuun asti: liian aikainen irrotus maksaa puolet sen pisteistä.
+- Rinnakkaiset palkit soitetaan yhdessä.
+- Peräkkäin ilman hutia soitetut sävelet ovat kombosi.
+# Pelin loppu
+Kun laulu loppuu, sen nimi tulee näkyviin. Tarkkuutesi vertaa pisteitäsi täydelliseen suoritukseen.
+# Tasot ja tähdet
+Tarkkuus 95 tai enemmän: 3 tähteä; 80: 2 tähteä; 50: 1 tähti. Harjoittelu soittaa laulun hitaammin, ilman tähtiä.

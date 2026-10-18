@@ -1,0 +1,12 @@
+Vallende noten
+# Het doel
+De noten van een lied vallen door de banen boven de toetsen van de piano, elke balk zo lang als zijn noot. Druk op de toets (of op zijn baan, net boven de lijn) wanneer de voet van de balk de gouden lijn raakt, en de noot klinkt.
+# Een zet
+- Precies op tijd is perfect; iets te vroeg of te laat is goed. Een noot die ongespeeld de lijn passeert, is gemist en blijft stil.
+- Houd een lange balk ingedrukt tot zijn einde: te vroeg loslaten kost de helft van zijn punten.
+- Balken naast elkaar speel je samen.
+- Noten die je zonder missers achter elkaar speelt, vormen je combo.
+# Het einde van het spel
+Als het lied uit is, verschijnt de titel. Je nauwkeurigheid vergelijkt je punten met een perfect gespeeld lied.
+# Levels en sterren
+Nauwkeurigheid van 95 of meer: 3 sterren; 80: 2 sterren; 50: 1 ster. Oefenen speelt het lied langzamer, zonder sterren.

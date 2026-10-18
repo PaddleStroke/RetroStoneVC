@@ -1,0 +1,12 @@
+Düşen Notalar
+# Amaç
+Bir şarkının notaları piyanonun tuşları üzerindeki şeritlerden aşağı düşer; her çubuk notası kadar uzundur. Çubuğun alt ucu altın çizgiye değdiğinde tuşa (ya da çizginin hemen üstündeki şeridine) bas, nota çalsın.
+# Bir hamle
+- Tam zamanında basmak mükemmeldir; biraz erken ya da geç basmak iyidir. Çalınmadan çizgiyi geçen nota kaçar ve sessiz kalır.
+- Uzun bir çubuğu sonuna kadar basılı tut: erken bırakmak puanının yarısına mal olur.
+- Yan yana çubuklar birlikte çalınır.
+- Kaçırmadan art arda çalınan notalar kombonu oluşturur.
+# Oyunun sonu
+Şarkı bitince adı görünür. İsabetin, puanlarını kusursuz bir şarkıyla karşılaştırır.
+# Seviyeler ve yıldızlar
+İsabet 95 ya da üstü: 3 yıldız; 80: 2 yıldız; 50: 1 yıldız. Alıştırma şarkıyı daha yavaş çalar, yıldız vermez.

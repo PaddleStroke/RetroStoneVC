@@ -1,0 +1,12 @@
+Padající noty
+# Cíl hry
+Noty písně padají drahami nad klávesami klavíru, každý pruh je dlouhý jako jeho nota. Stiskni klávesu (nebo její dráhu těsně nad čárou), když spodek pruhu dosáhne zlaté čáry, a nota zazní.
+# Tah
+- Přesně včas je výborně, trochu dřív nebo později je dobře. Nota, která přejde čáru nezahraná, je zmeškaná a zůstane potichu.
+- Dlouhý pruh drž až do konce: když ho pustíš moc brzy, přijdeš o polovinu jeho bodů.
+- Pruhy vedle sebe se hrají spolu.
+- Noty zahrané za sebou bez chyby tvoří tvoje kombo.
+# Konec hry
+Když píseň skončí, objeví se její název. Tvoje přesnost porovnává tvé body s dokonalým výkonem.
+# Úrovně a hvězdy
+Přesnost 95 a více: 3 hvězdy; 80: 2 hvězdy; 50: 1 hvězda. Cvičení hraje píseň pomaleji, bez hvězd.

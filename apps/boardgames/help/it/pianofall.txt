@@ -1,0 +1,12 @@
+Note in caduta
+# Lo scopo
+Le note di una canzone cadono lungo le corsie sopra i tasti del pianoforte, ogni barra lunga quanto la sua nota. Premi il tasto (o la sua corsia, appena sopra la linea) quando il piede della barra raggiunge la linea dorata, e la nota suona.
+# Una mossa
+- In perfetto tempo è perfetto; un po' prima o dopo è buono. Una nota che passa la linea senza essere suonata è persa e resta muta.
+- Tieni premuta una barra lunga fino alla sua fine: lasciarla troppo presto costa metà dei suoi punti.
+- Le barre affiancate si suonano insieme.
+- Le note suonate di fila senza errori formano la tua combo.
+# La fine della partita
+Quando la canzone finisce, compare il suo titolo. La tua precisione confronta i tuoi punti con quelli di una canzone perfetta.
+# Livelli e stelle
+Precisione da 95 in su: 3 stelle; 80: 2 stelle; 50: 1 stella. L'allenamento suona la canzone più lenta, senza stelle.

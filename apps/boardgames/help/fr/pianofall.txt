@@ -1,0 +1,12 @@
+Pluie de notes
+# Le but
+Les notes d'une chanson tombent dans les couloirs au-dessus des touches du piano, chaque barre aussi longue que sa note. Appuie sur la touche (ou sur son couloir, juste au-dessus de la ligne) quand le pied de sa barre touche la ligne dorée : la note sonne.
+# Un coup
+- Pile à temps, c'est parfait ; un peu tôt ou un peu tard, c'est bien. Une note qui passe la ligne sans être jouée est manquée et reste muette.
+- Garde une longue barre enfoncée jusqu'à sa fin : la lâcher trop tôt coûte la moitié de ses points.
+- Des barres côte à côte se jouent ensemble.
+- Les notes jouées à la suite sans en manquer font ton combo.
+# La fin de la partie
+Quand la chanson est finie, son titre apparaît. Ta précision compare tes points à ceux d'une chanson parfaite.
+# Niveaux et étoiles
+Précision de 95 ou plus : 3 étoiles ; 80 : 2 étoiles ; 50 : 1 étoile. L'entraînement joue la chanson plus lentement, sans étoiles.

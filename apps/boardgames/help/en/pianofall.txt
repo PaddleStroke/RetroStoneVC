@@ -1,0 +1,12 @@
+Falling Notes
+# The aim
+A song's notes fall down the lanes above the piano's keys, each bar as long as its note. Press the key (or its lane, just above the line) as the foot of its bar reaches the gold line, and the note plays.
+# A move
+- Right on time is perfect; a little early or late is good. A note that passes the line unplayed is missed and stays silent.
+- Hold a long bar down to its end: letting go too soon costs half its points.
+- Bars side by side are played together.
+- Notes played in a row without a miss make your combo.
+# The end of the game
+When the song is over, its title shows. Your accuracy is your points against a perfect song.
+# Levels and stars
+Accuracy 95 or more: 3 stars; 80: 2 stars; 50: 1 star. Practice plays the song slower, without stars.

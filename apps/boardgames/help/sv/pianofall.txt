@@ -1,0 +1,12 @@
+Fallande toner
+# Målet
+En sångs toner faller ner längs banorna ovanför pianots tangenter, varje stapel lika lång som sin ton. Tryck på tangenten (eller dess bana, strax ovanför linjen) när stapelns fot når den gyllene linjen, så klingar tonen.
+# Ett drag
+- Precis i tid är perfekt; lite för tidigt eller sent är bra. En ton som passerar linjen utan att spelas är missad och förblir tyst.
+- Håll en lång stapel nedtryckt till dess slut: att släppa för tidigt kostar hälften av dess poäng.
+- Staplar sida vid sida spelas tillsammans.
+- Toner som spelas i följd utan miss bildar din kombo.
+# Partiets slut
+När sången är slut visas dess titel. Din precision jämför dina poäng med en perfekt sång.
+# Banor och stjärnor
+Precision på 95 eller mer: 3 stjärnor; 80: 2 stjärnor; 50: 1 stjärna. Övning spelar sången långsammare, utan stjärnor.

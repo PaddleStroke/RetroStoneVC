@@ -1,0 +1,12 @@
+Notas em queda
+# O objetivo
+As notas de uma canção caem pelas faixas por cima das teclas do piano, cada barra tão longa como a sua nota. Carrega na tecla (ou na sua faixa, logo acima da linha) quando o pé da barra chega à linha dourada, e a nota soa.
+# Uma jogada
+- Mesmo a tempo é perfeito; um pouco antes ou depois é bom. Uma nota que passa a linha sem ser tocada é perdida e fica em silêncio.
+- Mantém uma barra longa premida até ao fim: largá-la cedo demais custa metade dos seus pontos.
+- Barras lado a lado tocam-se juntas.
+- As notas tocadas seguidas sem falhar formam o teu combo.
+# O fim do jogo
+Quando a canção acaba, aparece o seu título. A tua precisão compara os teus pontos com os de uma canção perfeita.
+# Níveis e estrelas
+Precisão de 95 ou mais: 3 estrelas; 80: 2 estrelas; 50: 1 estrela. O treino toca a canção mais devagar, sem estrelas.

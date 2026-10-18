@@ -1,0 +1,12 @@
+Fallende Noten
+# Das Ziel
+Die Noten eines Liedes fallen in Bahnen über den Tasten des Klaviers herab, jeder Balken so lang wie seine Note. Drücke die Taste (oder ihre Bahn, knapp über der Linie), wenn das untere Ende des Balkens die goldene Linie erreicht: Die Note erklingt.
+# Ein Zug
+- Genau im Takt ist perfekt, etwas zu früh oder zu spät ist gut. Eine Note, die ungespielt über die Linie rutscht, ist verpasst und bleibt stumm.
+- Halte einen langen Balken bis zu seinem Ende gedrückt: Zu frühes Loslassen kostet die Hälfte seiner Punkte.
+- Balken nebeneinander werden zusammen gespielt.
+- Noten, die ohne Fehler nacheinander gespielt werden, bilden deine Kombo.
+# Das Ende der Partie
+Wenn das Lied zu Ende ist, erscheint sein Titel. Deine Genauigkeit vergleicht deine Punkte mit einem perfekten Lied.
+# Level und Sterne
+Genauigkeit ab 95: 3 Sterne; ab 80: 2 Sterne; ab 50: 1 Stern. Das Üben spielt das Lied langsamer, ohne Sterne.

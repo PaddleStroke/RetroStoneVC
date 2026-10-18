@@ -12,8 +12,9 @@
  * Free play (the die tab's last card): the piano alone, no tune and no end. Each finger its own key (chords), the note
  * ringing while the key is held and damped as it is let go; a finger sliding on plays the keys it reaches; the tools
  * move the keyboard an octave down or up (C2 to C7 in all), each C showing its octave's digit.
- * The piano: melody_synth.c renders each note once, played here through an audio device of the game's own (the
- * shell's sounds are its built-in ones only): a small mixer, each note released as the next one starts.
+ * The piano: games/pianokit.h (shared with Falling Notes) renders each note once (pianosynth.h) and plays it through
+ * its own small mixer (the shell's sounds are its built-in ones only), each note of a tune released as the next one
+ * starts.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -21,6 +22,7 @@
 #include <string.h>
 
 #include "games/melody.h"
+#include "games/pianokit.h"
 #include "games/puzzles.h"
 #include "shell.h"
 #include "text.h"
@@ -38,160 +40,34 @@ enum { T_LISTEN, T_HINT, TOOLS };
 
 static mel_game G;
 
-/* ---- the sound: the game's own little mixer -------------------------------------------------------------------- */
-#define VOICES 72
-#define FADE (MEL_RATE / 9)                     /* a note released: it fades in this many samples */
-static SDL_AudioDeviceID adev;
-static int audio;                               /* 0 not tried, 1 open, -1 failed, -2 none (the picture mode) */
-static int16_t *pcm[2][128];
-static int pcm_n[2][128];
-static struct { const int16_t *s; int n, pos, rel; float gain; } V[VOICES];
-
-static void mix(void *u, Uint8 *stream, int bytes)
-{
-    (void)u;
-    int16_t *out = (int16_t *)stream;
-    int n = bytes / 2, quiet = snd_muted;
-    for (int i = 0; i < n; i++) {
-        float v = 0;
-        for (int k = 0; k < VOICES; k++) {
-            if (!V[k].s) continue;
-            if (V[k].pos < 0) { V[k].pos++; continue; }
-            float a = V[k].s[V[k].pos] * V[k].gain;
-            if (V[k].rel >= 0 && V[k].pos >= V[k].rel) {
-                float f = 1 - (float)(V[k].pos - V[k].rel) / FADE;
-                if (f <= 0) { V[k].s = NULL; continue; }
-                a *= f * f;
-            }
-            v += a;
-            if (++V[k].pos >= V[k].n) V[k].s = NULL;
-        }
-        v = quiet ? 0 : v > 32000 ? 32000 : v < -32000 ? -32000 : v;
-        out[i] = (int16_t)v;
-    }
-}
-
-static int audio_on(void)
-{
-    if (audio) return audio > 0;
-    if (!SDL_WasInit(SDL_INIT_AUDIO)) {         /* the picture mode starts no sound */
-        audio = -2;
-        return 0;
-    }
-    SDL_AudioSpec want = {0}, have;
-    want.freq = MEL_RATE;
-    want.format = AUDIO_S16SYS;
-    want.channels = 1;
-    want.samples = 512;
-    want.callback = mix;
-    adev = SDL_OpenAudioDevice(NULL, 0, &want, &have, 0);
-    audio = adev ? 1 : -1;
-    if (adev) SDL_PauseAudioDevice(adev, 0);
-    return audio > 0;
-}
-
-static const int16_t *note_pcm(int pitch, int dull, int *n)
-{
-    pitch &= 127;
-    if (!pcm[dull][pitch]) {
-        int len = mel_synth_len(pitch, dull);
-        int16_t *b = malloc((size_t)len * sizeof *b);
-        if (!b) return NULL;
-        mel_synth(pitch, dull, b, len);
-        pcm_n[dull][pitch] = len;
-        pcm[dull][pitch] = b;
-    }
-    *n = pcm_n[dull][pitch];
-    return pcm[dull][pitch];
-}
-
-static int sound_ready(void) { return !snd_muted && audio_on(); }
-
-/* what sounds stops: the notes waiting dropped, the ones ringing released */
-static void hush_locked(void)
-{
-    for (int k = 0; k < VOICES; k++) {
-        if (!V[k].s) continue;
-        if (V[k].pos < 0) V[k].s = NULL;
-        else if (V[k].rel < 0 || V[k].rel > V[k].pos) V[k].rel = V[k].pos;
-    }
-}
-
-static int voice_add(const int16_t *s, int n, int delay, int rel, float gain)
-{
-    int k = 0;
-    for (int i = 0; i < VOICES; i++)
-        if (!V[i].s) { k = i; break; } else if (V[i].pos > V[k].pos) k = i;
-    V[k].s = s;
-    V[k].n = n;
-    V[k].pos = -delay;
-    V[k].rel = rel;
-    V[k].gain = gain;
-    return k;
-}
-
-static void hush(void)
-{
-    if (audio <= 0) return;
-    SDL_LockAudioDevice(adev);
-    hush_locked();
-    SDL_UnlockAudioDevice(adev);
-}
-
-static void sound_note(int pitch, int dull)
-{
-    if (!sound_ready()) return;
-    int n;
-    const int16_t *s = note_pcm(pitch, dull, &n);
-    if (!s) return;
-    SDL_LockAudioDevice(adev);
-    hush_locked();
-    voice_add(s, n, 0, -1, 1);
-    SDL_UnlockAudioDevice(adev);
-}
+/* ---- the sound: the piano kit's mixer (games/pianokit.h), shared with Falling Notes ------------------------------ */
+static void hush(void) { pk_hush(); }
+static void sound_note(int pitch, int dull) { pk_sound_note(pitch, dull); }
 
 /* free play: a key's note added to those ringing (a chord), until the key is let go (sound_off); its voice, or -1 */
-static int sound_on(int pitch, const int16_t **sample)
-{
-    *sample = NULL;
-    if (!sound_ready()) return -1;
-    int n;
-    const int16_t *s = note_pcm(pitch, 0, &n);
-    if (!s) return -1;
-    SDL_LockAudioDevice(adev);
-    int k = voice_add(s, n, 0, -1, 0.62f);
-    SDL_UnlockAudioDevice(adev);
-    *sample = s;
-    return k;
-}
+static int sound_on(int pitch, const int16_t **sample) { return pk_sound_on(pitch, 0, 0.62f, -1, sample); }
 
-static void sound_off(int k, const int16_t *sample)   /* (that voice, if it still sounds that note: not taken since) */
-{
-    if (k < 0 || audio <= 0) return;
-    SDL_LockAudioDevice(adev);
-    if (V[k].s == sample && V[k].pos >= 0 && V[k].rel < 0) V[k].rel = V[k].pos;
-    SDL_UnlockAudioDevice(adev);
-}
+static void sound_off(int k, const int16_t *sample) { pk_sound_off(k, sample); }
 
 /* the whole tune, from delay_ms on: each note released a moment after the next one starts */
 static void sound_tune(int delay_ms)
 {
-    if (!sound_ready()) return;
+    if (!pk_sound_ready()) return;
     const int16_t *s[MEL_MAX];
     int len[MEL_MAX];
     for (int i = 0; i < G.n; i++)
-        if (!(s[i] = note_pcm(G.p[i], 0, &len[i]))) return;
-    SDL_LockAudioDevice(adev);
-    hush_locked();
+        if (!(s[i] = pk_note_pcm(G.p[i], 0, &len[i]))) return;
+    pk_lock();
+    pk_hush_locked();
     for (int i = 0; i < G.n; i++) {
         int at = (delay_ms + mel_ms(&G, i)) * (MEL_RATE / 1000);
         int rel = i + 1 < G.n ? (mel_len_ms(&G, i) + 40) * (MEL_RATE / 1000) : -1;
-        voice_add(s[i], len[i], at, rel, 0.9f);
+        pk_voice_add(s[i], len[i], at, rel, 0.9f);
     }
-    SDL_UnlockAudioDevice(adev);
+    pk_unlock();
 }
 
-static int silent(void) { return snd_muted || audio == -1; }
+static int silent(void) { return pk_silent(); }
 
 /* ---- the state on the screen ------------------------------------------------------------------------------------ */
 static struct { int on; Uint32 t0; } play;      /* the tune playing (its lights): from t0 */
@@ -301,89 +177,9 @@ static int key_at(float x, float y)
     return -1;
 }
 
-/* ---- the pictures --------------------------------------------------------------------------------------------- */
-static const uint8_t IVORY[3] = {246, 238, 218}, IVORY_GOLD[3] = {252, 214, 122}, EBONY[3] = {30, 26, 26},
-                     EBONY_GOLD[3] = {196, 146, 54}, GOLD[3] = {255, 204, 96}, INK[3] = {64, 42, 28};
-
-static uint8_t px8(float v) { return (uint8_t)clampf(v, 0, 255); }
-
-/* the corners at the bottom rounded: the pixel's alpha */
-static float round_bottom(int x, int y, int w, int h, float r)
-{
-    float cx = x + 0.5f < r ? r : x + 0.5f > w - r ? w - r : x + 0.5f, cy = h - r;
-    if (y + 0.5f < cy || (x + 0.5f >= r && x + 0.5f <= w - r)) return 1;
-    return clampf(r + 0.5f - hypotf(x + 0.5f - cx, y + 0.5f - cy), 0, 1);
-}
-
-/* an ivory key, w x h: shaded under the case at its back, its front edge (the lip) showing below, its sides; down
- * (pressed): its front edge shorter, a little darker; gold: lit */
-static void paint_white(int w, int h, int down, int gold, uint8_t *o)
-{
-    const uint8_t *c = gold ? IVORY_GOLD : IVORY;
-    float lipf = down ? 0.02f : 0.05f, r = 0.12f * w;
-    for (int y = 0; y < h; y++)
-        for (int x = 0; x < w; x++) {
-            float t = (y + 0.5f) / h, k = 0.9f + 0.1f * t;
-            k *= 0.78f + 0.22f * clampf(t / 0.05f, 0, 1);   /* the shadow of the case's lip */
-            if (t > 1 - lipf) k *= 0.8f - 0.25f * (t - (1 - lipf)) / lipf;   /* the front face */
-            if (x < 1 || x >= w - 1) k *= 0.82f;
-            else if (x < 0.1f * w) k *= 1.02f;
-            if (down) k *= 0.92f;
-            float g = 3 * art_noise(x, y * 3);
-            uint8_t *p = o + 4 * (y * w + x);
-            for (int i = 0; i < 3; i++) p[i] = px8(c[i] * k + g);
-            p[3] = (uint8_t)(255 * round_bottom(x, y, w, h, r));
-        }
-}
-
-/* an ebony key: its top face darker at the back, a sheen towards the front, bevelled sides, its front face lighter */
-static void paint_black(int w, int h, int down, int gold, uint8_t *o)
-{
-    const uint8_t *c = gold ? EBONY_GOLD : EBONY;
-    float lipf = down ? 0.05f : 0.1f, r = 0.1f * w, side = fmaxf(1, 0.13f * w);
-    for (int y = 0; y < h; y++)
-        for (int x = 0; x < w; x++) {
-            float t = (y + 0.5f) / h, face = 1 - lipf, k = 0.85f + 0.45f * t, add = 0;
-            if (t > face) {                     /* the front face, sloping */
-                k = 1.9f - 0.6f * (t - face) / lipf;
-                add = gold ? 10 : 22;
-            } else if (t > 0.72f * face && t < 0.86f * face) {
-                add = (gold ? 16 : 9) * sinf(ART_PI * (t / face - 0.72f) / 0.14f);   /* the sheen */
-            }
-            if (x < side) { k *= 1.35f; add += 6; }
-            else if (x >= w - side) k *= 0.75f;
-            if (down) k *= 0.9f;
-            uint8_t *p = o + 4 * (y * w + x);
-            for (int i = 0; i < 3; i++) p[i] = px8(c[i] * k + add + 2 * art_noise(x * 2, y));
-            p[3] = (uint8_t)(255 * round_bottom(x, y, w, h, r));
-        }
-}
-
-/* the case: walnut, the fallboard's edge above the keys with a strip of red felt, the keys' bed (dark) */
-static void paint_case(int iw, int ih, int f, int lp, uint8_t *o)
-{
-    int w = iw + 2 * f, h = ih + 2 * f;
-    art_plank(iw, ih, f, o);
-    for (int y = f; y < f + ih; y++)
-        for (int x = f; x < f + iw; x++) {
-            uint8_t *p = o + 4 * (y * w + x);
-            int yy = y - f;
-            if (yy < lp - lp / 5) {             /* the fallboard's edge: dark walnut, lit along its top */
-                float k = 0.42f + 0.18f * (yy < 2 ? 1 : 0) - 0.1f * yy / lp;
-                for (int i = 0; i < 3; i++) p[i] = px8(p[i] * k);
-            } else if (yy < lp) {               /* the felt */
-                float n = 6 * art_noise(x * 3, y * 3);
-                p[0] = px8(122 + n);
-                p[1] = px8(26 + n / 3);
-                p[2] = px8(30 + n / 3);
-            } else {                            /* the bed under the keys */
-                p[0] = 22;
-                p[1] = 16;
-                p[2] = 12;
-            }
-        }
-    (void)h;
-}
+/* ---- the pictures (the keys, the case, the note, the badge: games/pianokit.h) ------------------------------------ */
+#define INK PK_INK
+#define GOLD PK_GOLD
 
 /* a note's head, an oval tilted, ebony or gold, d across */
 static void paint_head(int d, int gold, uint8_t *o)
@@ -402,84 +198,11 @@ static void paint_head(int d, int gold, uint8_t *o)
                   0.05f, 0.5f);
 }
 
-/* an eighth note (its head, its stem, its flag) painted into a picture w x h, in the square (x, y, s) */
-static void paint_glyph(uint8_t *o, int w, int h, float x, float y, float s, const uint8_t rgb[3], const uint8_t ink[3])
-{
-    int q = (int)s;
-    if (q < 4) return;
-    uint8_t *b = calloc((size_t)q * q, 4);
-    if (!b) return;
-    art_fig *f = art_fig_new();
-    float xy[48];
-    for (int i = 0; i < 24; i++) {
-        float a = 2 * ART_PI * i / 24, ex = 0.2f * cosf(a), ey = 0.135f * sinf(a), r = -0.38f;
-        xy[2 * i] = 0.36f + ex * cosf(r) - ey * sinf(r);
-        xy[2 * i + 1] = 0.8f + ex * sinf(r) + ey * cosf(r);
-    }
-    art_poly(f, ART_PART, xy, 24);
-    art_rect(f, ART_PART, 0.505f, 0.1f, 0.55f, 0.8f);
-    const float flag[] = {0.505f, 0.08f, 0.55f, 0.08f, 0.59f, 0.16f, 0.66f, 0.23f, 0.74f, 0.31f, 0.79f, 0.41f,
-                          0.79f, 0.52f, 0.74f, 0.64f, 0.72f, 0.62f, 0.745f, 0.52f, 0.73f, 0.43f, 0.67f, 0.36f,
-                          0.59f, 0.31f, 0.505f, 0.28f};
-    art_poly(f, ART_PART, flag, 14);
-    art_fig_paint(b, q, f, rgb, ink, 0.03f, 0.4f);
-    art_blend(o, w, h, b, q, q, (int)x, (int)y);
-    free(b);
-}
-
-/* a little keyboard painted into a picture: its case at (x, y), w wide, n white keys from C, the keys lit (bits:
- * pitches from C4) */
-static void paint_keyboard(uint8_t *o, int pw, int ph, int x, int y, int w, int n, uint32_t lit)
-{
-    int q = (w - 2) / n, f = q > 12 ? q / 6 : 2, khh = (int)(3.6f * q), lp = q / 2 + 1;
-    if (q < 3) return;
-    int iw = n * q, ih = lp + khh, cw = iw + 2 * f, ch = ih + 2 * f;
-    uint8_t *c = calloc((size_t)cw * ch, 4), *k = calloc((size_t)q * khh, 4);
-    int bq = (int)(0.6f * q), bhh = (int)(0.62f * khh);
-    uint8_t *b = calloc((size_t)(bq > 0 ? bq : 1) * (bhh > 0 ? bhh : 1), 4);
-    if (c && k && b && bq > 1) {
-        paint_case(iw, ih, f, lp, c);
-        for (int i = 0; i < n; i++) {
-            int pitch = MEL_LOW + i / 7 * 12 + (const int[7]){0, 2, 4, 5, 7, 9, 11}[i % 7];
-            paint_white(q - 1, khh, 0, lit >> (pitch - MEL_LOW) & 1, k);
-            for (int yy = 0; yy < khh; yy++)
-                memcpy(c + 4 * ((size_t)(f + lp + yy) * cw + f + i * q), k + 4 * (size_t)yy * (q - 1), (size_t)(q - 1) * 4);
-        }
-        for (int i = 0; i + 1 < n; i++) {
-            int m = i % 7;
-            if (m == 2 || m == 6) continue;
-            int pitch = MEL_LOW + i / 7 * 12 + (const int[7]){1, 3, 0, 6, 8, 10, 0}[m];
-            paint_black(bq, bhh, 0, lit >> (pitch - MEL_LOW) & 1, b);
-            art_blend(c, cw, ch, b, bq, bhh, f + (i + 1) * q - bq / 2, f + lp);
-        }
-        art_blend(o, pw, ph, c, cw, ch, x, y);
-    }
-    free(c);
-    free(k);
-    free(b);
-}
-
-static void paint_badge(int d, uint8_t *o)   /* sound off: a crossed-out speaker on a dark disc */
-{
-    art_disc(d, (const uint8_t[3]){28, 22, 18}, 0.85f, 0, o);
-    int q = (int)(0.66f * d);
-    uint8_t *ic = calloc((size_t)q * q, 4);
-    if (!ic) return;
-    art_icon(ICON_MUTE, q, ic);
-    for (int i = 0; i < q * q; i++) {
-        ic[4 * i] = 246;
-        ic[4 * i + 1] = 238;
-        ic[4 * i + 2] = 220;
-    }
-    art_blend(o, d, d, ic, q, q, (d - q) / 2, (d - q) / 2);
-    free(ic);
-}
-
 static void token(int player, int size, uint8_t *rgba)   /* an ivory disc, a note on it */
 {
     (void)player;
     art_counter(COUNTER_DISC, 0, size, rgba);
-    paint_glyph(rgba, size, size, 0.2f * size, 0.18f * size, 0.62f * size, (const uint8_t[3]){34, 28, 26},
+    pk_paint_glyph(rgba, size, size, 0.2f * size, 0.18f * size, 0.62f * size, (const uint8_t[3]){34, 28, 26},
                 (const uint8_t[3]){12, 10, 10});
 }
 
@@ -491,25 +214,19 @@ static void make_textures(void)
     if (made_kw != w || made_kh != h) {
         made_kw = w;
         made_kh = h;
-        for (int s = 0; s < 4; s++) {
-            ui_free(&t_white[s]);
-            ui_free(&t_black[s]);
-            paint_white(w, h, s & 1, s >> 1, ui_buf(w, h));
-            t_white[s] = ui_tex(w, h, ui_buf(w, h));
-            paint_black(b, bhh, s & 1, s >> 1, ui_buf(b, bhh));
-            t_black[s] = ui_tex(b, bhh, ui_buf(b, bhh));
-        }
+        pk_key_textures(w, h, b, bhh, t_white, t_black);
+
         int d = (int)fmaxf(4, 0.62f * ui.unit);
         ui_free(&t_note_small);
         memset(ui_buf(d, d), 0, (size_t)d * d * 4);
-        paint_glyph(ui_buf(d, d), d, d, 0, 0, (float)d, PUZ_CREAM, (const uint8_t[3]){120, 110, 96});
+        pk_paint_glyph(ui_buf(d, d), d, d, 0, 0, (float)d, PUZ_CREAM, (const uint8_t[3]){120, 110, 96});
         t_note_small = ui_tex(d, d, ui_buf(d, d));
     }
     int iw = W * (int)kw, ih = (int)lip + h, f = (int)fr;
     if ((int)tex_sig(iw, ih, f) != made_w) {
         made_w = (int)tex_sig(iw, ih, f);
         ui_free(&t_case);
-        paint_case(iw, ih, f, (int)lip, ui_buf(iw + 2 * f, ih + 2 * f));
+        pk_paint_case(iw, ih, f, (int)lip, ui_buf(iw + 2 * f, ih + 2 * f));
         t_case = ui_tex(iw + 2 * f, ih + 2 * f, ui_buf(iw + 2 * f, ih + 2 * f));
     }
     int ssig = (int)tex_sig((int)sw, (int)sh, (int)(lg * 8));
@@ -531,7 +248,7 @@ static void make_textures(void)
         t_dot = ui_tex(dd, dd, ui_buf(dd, dd));
         int bd = (int)fmaxf(8, 0.62f * ui.unit);
         ui_free(&t_badge);
-        paint_badge(bd, ui_buf(bd, bd));
+        pk_paint_badge(bd, ui_buf(bd, bd));
         t_badge = ui_tex(bd, bd, ui_buf(bd, bd));
     }
 }
@@ -733,24 +450,6 @@ static float key_depth(int pitch, Uint32 now, int sounding)
     return d;
 }
 
-/* a key's picture, dp of the way down: the down picture over the up one, a little lower and darker */
-static void put_key(SDL_Texture *up, SDL_Texture *dn, float x, float y, float w, float h, float dp)
-{
-    float sink = floorf(dp * fmaxf(1, 0.014f * kh) + 0.5f);   /* its back sinks under the case: the key shorter */
-    y += sink;
-    h -= sink;
-    Uint8 c = (Uint8)(255 - 26 * dp);
-    SDL_SetTextureColorMod(up, c, c, c);
-    ui_put(up, x, y, w, h);
-    SDL_SetTextureColorMod(up, 255, 255, 255);
-    if (dp > 0) {
-        SDL_SetTextureColorMod(dn, c, c, c);
-        SDL_SetTextureAlphaMod(dn, (Uint8)(255 * dp));
-        ui_put(dn, x, y, w, h);
-        SDL_SetTextureAlphaMod(dn, 255);
-        SDL_SetTextureColorMod(dn, 255, 255, 255);
-    }
-}
 
 static void draw_keys(Uint32 now, int sounding, float glow)
 {
@@ -769,9 +468,9 @@ static void draw_keys(Uint32 now, int sounding, float glow)
                 float k = 1 - 0.7f * dp;
                 ui_fill(x + 0.12f * k * w, y, w, h + 0.015f * k * kh, 0, 0, 0, (Uint8)(38 - 14 * dp));
                 ui_fill(x + 0.06f * k * w, y, w, h + 0.008f * k * kh, 0, 0, 0, (Uint8)(38 - 14 * dp));
-                put_key(t_black[s], t_black[s | 1], x, y, w, h, dp);
+                pk_put_key(t_black[s], t_black[s | 1], x, y, w, h, dp, kh);
             } else {
-                put_key(t_white[s], t_white[s | 1], x, y, w - 1, h, dp);
+                pk_put_key(t_white[s], t_white[s | 1], x, y, w - 1, h, dp, kh);
             }
             y += floorf(dp * fmaxf(1, 0.014f * kh) + 0.5f);
             if (wrong) {
@@ -1084,23 +783,23 @@ static void thumb(int variant, int size, uint8_t *rgba)
     memset(rgba, 0, (size_t)size * size * 4);
     if (variant < 0) {                          /* the menu: a keyboard, three keys lit, a note above */
         int w = (int)(0.94f * size);
-        paint_keyboard(rgba, size, size, (size - w) / 2, (int)(0.42f * size), w, 8,
+        pk_paint_keyboard(rgba, size, size, (size - w) / 2, (int)(0.42f * size), w, 8, 3.6f,
                        1u << 4 | 1u << 7 | 1u << 11);
-        paint_glyph(rgba, size, size, 0.3f * size, 0.02f * size, 0.42f * size, GOLD, (const uint8_t[3]){150, 96, 30});
+        pk_paint_glyph(rgba, size, size, 0.3f * size, 0.02f * size, 0.42f * size, GOLD, (const uint8_t[3]){150, 96, 30});
         return;
     }
     if (variant == MEL_FREE) {                  /* free play: a bigger keyboard, a chord held, no notes */
         int w = (int)(0.86f * size);            /* (its case: a little wider than its keys) */
-        paint_keyboard(rgba, size, size, (int)(0.05f * size), (int)(0.22f * size), w, 7, 1u << 0 | 1u << 4 | 1u << 7);
+        pk_paint_keyboard(rgba, size, size, (int)(0.05f * size), (int)(0.22f * size), w, 7, 3.6f, 1u << 0 | 1u << 4 | 1u << 7);
         return;
     }
     /* random play: a keyboard, as many notes above it as the phrases are long */
     int w = (int)(0.9f * size), n = variant == MEL_SHORT ? 2 : variant == MEL_MEDIUM ? 3 : 5;
-    paint_keyboard(rgba, size, size, (size - w) / 2, (int)(0.46f * size), w, 8, variant == MEL_SHORT ? 1u << 4 :
+    pk_paint_keyboard(rgba, size, size, (size - w) / 2, (int)(0.46f * size), w, 8, 3.6f, variant == MEL_SHORT ? 1u << 4 :
                    variant == MEL_MEDIUM ? 1u << 4 | 1u << 9 : 1u << 0 | 1u << 4 | 1u << 7 | 1u << 9 | 1u << 12);
     float s = (n > 3 ? 0.24f : 0.3f) * size, step = (0.86f * size - s) / (n > 1 ? n - 1 : 1);
     for (int i = 0; i < n; i++)
-        paint_glyph(rgba, size, size, 0.05f * size + i * step, (0.06f + 0.08f * (i % 2)) * size, s, GOLD,
+        pk_paint_glyph(rgba, size, size, 0.05f * size + i * step, (0.06f + 0.08f * (i % 2)) * size, s, GOLD,
                     (const uint8_t[3]){150, 96, 30});
 }
 
@@ -1111,7 +810,7 @@ static void chapter_icon(int chapter, int size, uint8_t *rgba)   /* a keyboard, 
                                     1u << 0 | 1u << 3 | 1u << 5 | 1u << 7, 1u << 0 | 1u << 1 | 1u << 4 | 1u << 6 | 1u << 7,
                                     1u << 1 | 1u << 2 | 1u << 3 | 1u << 5 | 1u << 6 | 1u << 7};
     int w = (int)(0.96f * size), c = chapter < 0 ? 0 : chapter > 5 ? 5 : chapter;
-    paint_keyboard(rgba, size, size, (size - w) / 2, (int)(0.1f * size), w, 5, LIT[c]);
+    pk_paint_keyboard(rgba, size, size, (size - w) / 2, (int)(0.1f * size), w, 5, 3.6f, LIT[c]);
 }
 
 static const game melody_game = {

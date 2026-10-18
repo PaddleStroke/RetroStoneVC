@@ -1,0 +1,12 @@
+Not Berjatuhan
+# Tujuan
+Nada-nada sebuah lagu jatuh di lajur di atas tuts piano, setiap batang sepanjang nadanya. Tekan tuts (atau lajurnya, tepat di atas garis) saat ujung bawah batang menyentuh garis emas, dan nadanya berbunyi.
+# Satu langkah
+- Tepat waktu itu sempurna; sedikit terlalu cepat atau lambat itu bagus. Nada yang melewati garis tanpa dimainkan terlewat dan tetap senyap.
+- Tahan batang panjang sampai ujungnya: melepas terlalu cepat mengurangi separuh poinnya.
+- Batang yang berdampingan dimainkan bersamaan.
+- Nada yang dimainkan berturut-turut tanpa terlewat menjadi kombomu.
+# Akhir permainan
+Saat lagu selesai, judulnya muncul. Akurasimu membandingkan poinmu dengan lagu yang dimainkan sempurna.
+# Level dan bintang
+Akurasi 95 atau lebih: 3 bintang; 80: 2 bintang; 50: 1 bintang. Latihan memainkan lagu lebih lambat, tanpa bintang.

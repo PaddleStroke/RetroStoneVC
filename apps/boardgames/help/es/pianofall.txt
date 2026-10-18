@@ -1,0 +1,12 @@
+Notas que caen
+# El objetivo
+Las notas de una canción caen por los carriles sobre las teclas del piano, cada barra tan larga como su nota. Pulsa la tecla (o su carril, justo encima de la línea) cuando el pie de su barra llega a la línea dorada, y la nota suena.
+# Una jugada
+- Justo a tiempo es perfecto; un poco antes o después es bien. Una nota que cruza la línea sin tocarse se pierde y queda en silencio.
+- Mantén pulsada una barra larga hasta su final: soltarla antes cuesta la mitad de sus puntos.
+- Las barras una al lado de otra se tocan a la vez.
+- Las notas tocadas seguidas sin fallar forman tu combo.
+# El final de la partida
+Cuando termina la canción, aparece su título. Tu precisión compara tus puntos con los de una canción perfecta.
+# Niveles y estrellas
+Precisión de 95 o más: 3 estrellas; 80: 2 estrellas; 50: 1 estrella. La práctica toca la canción más despacio, sin estrellas.

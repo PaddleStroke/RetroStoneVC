@@ -1,0 +1,12 @@
+Faldende toner
+# Målet
+En sangs toner falder ned ad banerne over klaverets tangenter, hver bjælke lige så lang som sin tone. Tryk på tangenten (eller dens bane, lige over linjen), når bjælkens fod når den gyldne linje, så klinger tonen.
+# Et træk
+- Præcis til tiden er perfekt; lidt for tidligt eller sent er godt. En tone, der passerer linjen uden at blive spillet, er misset og forbliver tavs.
+- Hold en lang bjælke nede til dens ende: at slippe for tidligt koster halvdelen af dens point.
+- Bjælker side om side spilles sammen.
+- Toner spillet i træk uden at misse udgør din kombo.
+# Spillets afslutning
+Når sangen er slut, vises dens titel. Din præcision sammenligner dine point med en perfekt sang.
+# Baner og stjerner
+Præcision på 95 eller mere: 3 stjerner; 80: 2 stjerner; 50: 1 stjerne. Øvning spiller sangen langsommere, uden stjerner.
