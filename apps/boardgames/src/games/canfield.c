@@ -37,6 +37,7 @@ static void layout(box b)
         s->y = i <= CN_RESERVE ? t.cy : t.ty;
         s->fan = i <= CN_RESERVE ? SF_COLUMN : i == CN_WASTE ? SF_WASTE : SF_PILE;
         s->room = t.room;
+        s->tight = i == CN_RESERVE;             /* the reserve's backs close together */
     }
 }
 

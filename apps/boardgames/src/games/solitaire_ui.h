@@ -44,6 +44,8 @@ typedef struct {
     int fan, first;                             /* first: the pile shows its bottom card (Spider's foundations) */
     int bare;                                   /* a column or a fan: no place drawn when it is empty (a fan of La
                                                  * Belle Lucie: never filled again) */
+    int tight;                                  /* a column: its cards close, at the game's own steps, never spread (a
+                                                 * reserve of backs: Canfield's) */
 } solspot;
 
 typedef struct solui {
@@ -97,7 +99,7 @@ static inline float solui_reach(const solui *u, const solpos *p, float *room)
     float e = 0;
     *room = 1e9f;
     for (int i = 0; i < p->npiles; i++) {
-        if (u->at[i].fan != SF_COLUMN) continue;
+        if (u->at[i].fan != SF_COLUMN || u->at[i].tight) continue;
         int n = p->n[i], down = p->down[i] < n ? p->down[i] : n, up = n - down;
         float r = down * SOLUI_SPREAD_DOWN + (up > 1 ? up - 1 : 0) * SOLUI_SPREAD_UP;
         if (r > e) e = r;
@@ -124,6 +126,7 @@ static inline void solui_steps(const solui *u, const solpos *p, int pile, float 
 {
     float down, up;
     solui_spread(u, &down, &up);
+    if (u->at[pile].tight && u->base_up > 0) down = u->base_down, up = u->base_up;
     ct_column_steps(p->n[pile], p->down[pile], u->at[pile].room, u->w, down, up, dd, du);
 }
 
