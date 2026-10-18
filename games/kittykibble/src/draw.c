@@ -15,6 +15,7 @@
 #include "game.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "house_tall.h"
 #include "game_text.h"
 #include <stdio.h>
 #include <string.h>
@@ -26,6 +27,14 @@ static const rs_color title_ramps[2][3] = {
 #define MAZE_COL0   6           /* the maze's first map column (MAZE_X = 6 * 8 + 4: the layer scrolls by 4) */
 #define MAZE_ROW0   3           /* its first map row (MAZE_Y = 3 * 8 + 4) */
 #define TITLE_KIT_Y 92
+/* zoomed (ht_narrow, DESIGN.md "Tall screen"): the logo on two lines (KITTY over KIBBLE), the kitten under it, the
+ * slots, the prompt and the rest below (house_tall.h), the UI lifted NARROW_LIFT lines (the credits clear of the
+ * bowls under the stage); the vacuums glide on the floor between the bowls and the table, under the stage */
+#define NARROW_LOGO  3
+#define NARROW_LIFT  8
+#define NARROW_KIT_Y 116
+#define NARROW_VAC_Y 262
+#define NARROW_SLOTS 19
 #define BOTTOM_CHIPS 222        /* 3-4 players: the bottom chips' digits, under the maze */
 
 static int shown_key = -1, shown_best = -1, shown_room = -1;
@@ -408,13 +417,20 @@ static int screen_key(const world *w, int state, int st_t)
     return key;
 }
 
+/* zoomed (DESIGN.md "Tall screen"): the title laid out in the columns shown (house_tall.h), its A glyph and slots */
+static const ht_title narrow_title = {NULL, MAX_PLAYERS, NARROW_SLOTS, 0};
+static ht_title_out narrow_out;         /* (set by screen_text every frame, before the sprites: not saved) */
+
 static void screen_text(const world *w, int state, int st_t, int best, int new_best, const hu_standing *rs)
 {
-    int key = screen_key(w, state, st_t);
+    int key = screen_key(w, state, st_t), narrow = ht_narrow();
     if (key != shown_key || best != shown_best) {
         char s[64];
         hu_clear();
-        if (state == ST_TITLE) hu_logo("KITTY KIBBLE", title_ramps, 2, 2, 0);
+        if (state == ST_TITLE) {
+            if (narrow) ht_logo("KITTY KIBBLE", title_ramps, 2, NARROW_LOGO, 0);     /* KITTY over KIBBLE */
+            else hu_logo("KITTY KIBBLE", title_ramps, 2, 2, 0);
+        }
         if ((state == ST_PLAY || state == ST_DEAD) && w->players >= 3 && !tall())  /* (tall: hud_tall's kittens) */
             hu_score_tags(w->players, BOTTOM_CHIPS);
         if (state == ST_PLAY || state == ST_DEAD) {
@@ -433,10 +449,13 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         }
         if (state == ST_OVER) {
             if (w->players == 1) {
-                hu_banner(4, HTR(GAME_OVER));
+                if (narrow) ht_banner(4, HTR(GAME_OVER));      /* (zoomed: in the columns shown) */
+                else hu_banner(4, HTR(GAME_OVER));
                 hu_gameover_panel(1, new_best, w->k[0].score, 0);
                 rs_strf(s, sizeof s, TR(ROOM_N), w->room);
                 hu_gameover_note(s);
+            } else if (narrow) {
+                ht_results_panel(rs, NULL);            /* the same, in the columns shown */
             } else {
                 hu_results_panel(rs, NULL);            /* P2 WINS! and the ranking */
             }
@@ -444,9 +463,13 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         shown_key = key;
         shown_best = best;
     }
-    if (state == ST_TITLE) hu_title_draw(st_t, best);
+    if (state == ST_TITLE) {
+        if (narrow) ht_title_draw(&narrow_title, st_t, best, &narrow_out);
+        else hu_title_draw(st_t, best);
+    }
     if (state == ST_OVER) {
         if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_TITLE));
+        else if (narrow) ht_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
         else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
     }
 }
@@ -454,15 +477,16 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
 /* the title: the kitten bobbing under the logo with a ball of yarn, the four vacuums gliding by below */
 static void title_sprites(int t)
 {
-    int b = hu_bob(t, 64, READY_BOB);
-    spr(SPR_KIT_DOWN + (t / 32) % 2, 160 - 16, TITLE_KIT_Y + b, 2, 0, 0);
-    spr(SPR_YARN + (t / 16) % 2, 160 + 2, TITLE_KIT_Y + 2, 2, -1, 0);
+    int narrow = ht_narrow(), b = hu_bob(t, 64, READY_BOB), ky = narrow ? NARROW_KIT_Y : TITLE_KIT_Y;
+    int vy = narrow ? NARROW_VAC_Y : TITLE_KIT_Y + 26;
+    spr(SPR_KIT_DOWN + (t / 32) % 2, 160 - 16, ky + b, 2, 0, 0);
+    spr(SPR_YARN + (t / 16) % 2, 160 + 2, ky + 2, 2, -1, 0);
     int span = rs_screen_right() - rs_screen_left() + 120, x0 = rs_screen_left() - 60;
     static const int base[VACUUMS] = {SPR_DASH, SPR_SNEAK, SPR_PATROL, SPR_WOBBLE};
     int lap = (t / 2) % (2 * span), dir = lap < span ? 1 : -1, pos = lap < span ? lap : 2 * span - lap;
     for (int i = 0; i < VACUUMS; i++) {
         int x = x0 + pos - dir * i * 22;
-        spr(base[i] + (t / 6 + i) % 2, x, TITLE_KIT_Y + 26, 2, -1, dir < 0 ? RS_SPR_HFLIP : 0);
+        spr(base[i] + (t / 6 + i) % 2, x, vy, 2, -1, dir < 0 ? RS_SPR_HFLIP : 0);
     }
 }
 
@@ -479,12 +503,13 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     maze_put(w, state != ST_TITLE);
     wall_palette(w);
 
-    /* a tall screen (DESIGN.md "Tall screen"): the play (and one player's game-over panel) zoomed, the sides cropped;
-     * the title and the 2-4 players' results show every column */
-    rs_screen_fill(state == ST_PLAY || state == ST_DEAD || (state == ST_OVER && w->players == 1));
+    /* a tall screen (DESIGN.md "Tall screen"): every screen zoomed, the sides cropped (one look in portrait: the title
+     * and the panels laid out in the columns shown, house_tall.h); elsewhere the same setting as before */
+    rs_screen_fill(tall() || state == ST_PLAY || state == ST_DEAD || (state == ST_OVER && w->players == 1));
     screen_text(w, state, st_t, best, new_best, &rs);
     /* the panel slides up, ease-out (a tall screen: from the screen's bottom) */
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200 + rs_screen_bottom() - RS_SCREEN_H) : 0;
+    if (state == ST_TITLE && ht_narrow()) slide = -NARROW_LIFT;      /* zoomed: the title's UI a little higher */
     ui_slide = slide;
     rs_bg_scroll(RS_BG1, 0, -slide);
     hu_pause(paused, 13);
@@ -503,16 +528,24 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         if (w->players == 1) {
             hu_gameover_sprites(1, w->k[0].score, 0, best, hu_medal_of(w->k[0].score, medals), st_t, slide);
         } else {
-            hu_results_sprites(&rs, st_t, slide);
+            int narrow = ht_narrow();
+            if (narrow) ht_results_sprites(&rs, st_t, slide);
+            else hu_results_sprites(&rs, st_t, slide);
             for (int i = 0; i < rs.n; i++) {
                 int cx, cy;
-                hu_results_icon_pos(&rs, i, &cx, &cy);
+                if (narrow) ht_results_icon_pos(&rs, i, &cx, &cy);
+                else hu_results_icon_pos(&rs, i, &cx, &cy);
                 spr(SPR_KIT_ICON, cx - 8, cy - 8 + slide, 3, player_pal(rs.order[i]), 0);
             }
         }
     }
     if (state == ST_TITLE) {
-        hu_title_sprites(st_t, slot_icon, NULL);   /* the prompt's glyph, the joined players popping in */
+        if (ht_narrow()) {
+            ht_title_out o = narrow_out;        /* lifted with the UI */
+            o.glyph_y += slide;
+            o.slot_cy += slide;
+            ht_title_sprites(&narrow_title, &o, st_t, slot_icon, NULL);
+        } else hu_title_sprites(st_t, slot_icon, NULL);   /* the prompt's glyph, the joined players popping in */
         title_sprites(st_t);
     } else if (state != ST_OVER) {
         draw_world(w);

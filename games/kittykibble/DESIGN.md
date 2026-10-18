@@ -147,9 +147,15 @@ crops the sides, 232 columns on a 9:21 phone (1080x2520), 250 on a 1080x2340 one
 - **The HUD at the screen's top** (`hud_tall`, sprites at `rs_screen_top()`): one player's score centred; 2-4 players
   a kitten in each one's colours by its score, P1 / P2 left and right, P3 / P4 on a second row (the landscape
   corners), 30 columns clear of the app's back and pause buttons. The BG tags of 3-4 players are not drawn there.
-- **Fill or fit**: the play and one player's game-over panel fill the display's height; the title and the 2-4
-  players' results show every column (`rs_screen_fill(0)`). The room's name and P2 CAUGHT! keep to the columns
-  shown (`panel_max`). The game-over panel slides up from the screen's bottom (BG1 shown only on the lines that
+- **One look**: every screen stays zoomed (`rs_screen_fill(1)` on a tall screen: the title, play, pause, the game
+  over and the 2-4 players' results), never the full width letterboxed. When fewer than 320 columns show
+  (`ht_narrow`), the title and the panels are laid out in them with games/common/src/house_tall.h: the logo as KITTY
+  over KIBBLE, the kitten and its yarn under it, the slots, the prompt, BEST, the join line and the credits stacked
+  and wrapped (`ht_title_draw`), the UI lifted 8 lines (`NARROW_LIFT`: the credits clear of the bowls under the
+  stage) and the four vacuums gliding on the floor between the bowls and the table (stage y 262); GAME OVER on a
+  banner as wide as its text (`ht_banner`, 1x on a panel when 2x does not fit: Greek), the ranking narrower
+  (`ht_results_*`). The taps (start, back to the title) are anywhere: unchanged. The room's name and P2 CAUGHT! keep
+  to the columns shown (`panel_max`). The game-over panel slides up from the screen's bottom (BG1 shown only on the lines that
   show its map's first 240, never wrapped: `ui_lines`); BG2 is hidden past the stage (window 2). Sprites are culled
   at the screen's edges, not the stage's.
 - Landscape and 4:3 are the same pixels as before (checked at 2340x1080 and 320x240: the title, play, 2-4 players,
