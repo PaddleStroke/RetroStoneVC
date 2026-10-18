@@ -61,7 +61,10 @@ One look across the app, like the Arcade games' house kit:
   games (their names in `help/<lang>/_menu.txt`, a line each by section number, over the games). The shell's
   `SECTION_OF` table files a game by its id (unlisted: strategy); in Puzzles and Logic the games go in the table's
   order, in the other sections by `order`. The section numbers never change (the tab and the stats are kept by them):
-  a new one takes the next number, `SEC_SHOWN` places its tab. `--tab n` (a section number) in the picture mode.
+  a new one takes the next number, `SEC_SHOWN` places its tab. `--tab n` (a section number) in the picture mode. The
+  tabs make one row: centred when they all fit, else at least `TAB_MIN` times as wide as high, the row scrolling
+  sideways (dragged, flung, the mouse wheel; the tab chosen slid into view), half a tab and a fade at an edge with
+  more past it.
 - **The app's pages** (`src/pages.c`, `pages.h`): a ribbon at the bottom (a rail at the left on a wide screen) with
   Stats, Games and Settings, each page its big title (`text_title`: bold capitals, condensed). Games (the start page)
   is the menu: the day streak at its top left (a tap: Stats), a search at its top right (`SDL_StartTextInput`: the

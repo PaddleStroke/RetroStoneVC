@@ -250,7 +250,9 @@ static struct {
     int nseats;
     box online;                                 /* after them, the online chip (greyed: coming later; w 0: none) */
     float sec_y[SECTIONS], sec_x, sec_w, sec_h;   /* the menu's headings (sec_y -1: an empty section) */
-    box tabs[SECTIONS];                         /* the menu's tabs, one a section with games */
+    box tabs[SECTIONS];                         /* the menu's tabs, one a section with games (in the row: menu.tx
+                                                 * scrolls them; tab_row: the row's window) */
+    box tab_row;
     int ntabs, tab_sec[SECTIONS];
 } L;
 
@@ -293,7 +295,12 @@ static struct {
     int grabbing, moved, axis;                  /* axis: the drag's, 1 sideways (the tabs), 2 up and down */
     int tab;                                    /* the section shown (its tab) */
     Uint32 t;                                   /* the last drag or fling step */
-} menu;
+    /* the tabs' row, when they do not all fit: scrolled by tx (0..tmax), dragged (tgrab: the press was on the row;
+     * tmoved: it went sideways, no tab chosen), flung (tvel), or sliding to tgoal (-1: none) to show the tab chosen */
+    float tx, tmax, tgoal, tvel, tgrab_x, tgrab_tx;
+    int tgrab, tmoved, tkey;                    /* tkey: the row as laid out (another: the tab chosen shown at once) */
+    Uint32 tt;
+} menu = {.tgoal = -1};
 
 /* the level screen (a game with levels): the chapters' tabs, the chapter's levels as tiles */
 #define MAX_LEVELS 2048
@@ -2506,6 +2513,43 @@ static int found(int i)
 
 int shell_search_hits(void) { return search_hits; }
 
+/* the menu's tabs: one row. All of them in it when they fit (centred); else at least TAB_MIN times as wide as high,
+ * from the room's margin, the row scrolled sideways (dragged, flung, the mouse wheel; the arrows' tab brought into
+ * view), faded at an edge with more tabs past it */
+#define TAB_MIN 1.15f
+
+/* the tab chosen brought into the row's view (with a neighbour's edge beside it): at once, or sliding there */
+static void tabs_show(int now)
+{
+    menu.tgoal = -1;
+    menu.tvel = 0;
+    if (menu.tmax <= 0) {
+        menu.tx = 0;
+        return;
+    }
+    for (int k = 0; k < L.ntabs; k++) {
+        if (L.tab_sec[k] != menu.tab) continue;
+        box b = L.tabs[k], r = L.tab_row;
+        float pad = 0.75f * r.h, lo = b.x - r.x - pad, hi = b.x + b.w + pad - (r.x + r.w);
+        float to = clampf(fminf(fmaxf(menu.tx, hi), lo), 0, menu.tmax);
+        if (now || instant) menu.tx = to;
+        else if (fabsf(to - menu.tx) >= 0.5f) {
+            menu.tgoal = to;
+            menu.tt = SDL_GetTicks();
+            need_frame = 1;
+        }
+        return;
+    }
+}
+
+static void tabs_scroll(float d)                /* the row moved by d pixels (the wheel) */
+{
+    menu.tgoal = -1;
+    menu.tvel = 0;
+    menu.tx = clampf(menu.tx + d, 0, menu.tmax);
+    need_frame = 1;
+}
+
 /* the menu (all the games) or the picker (one game's variants): cards in a grid */
 static void layout_cards(int n)
 {
@@ -2528,13 +2572,31 @@ static void layout_cards(int n)
         float th = floorf(fminf(ui.w, ui.h) * 0.12f), tg = floorf(g * 0.4f), ty = floorf(pages_games_top());
         float tw = floorf(fminf((room.w - 2 * m - (L.ntabs - 1) * tg) / (L.ntabs ? L.ntabs : 1), 2.2f * th));
         float tx = room.x + (room.w - (L.ntabs * tw + (L.ntabs - 1) * tg)) / 2;
+        menu.tmax = 0;
+        if (tw < floorf(TAB_MIN * th)) {        /* too many to fit: the row scrolls, k whole tabs in view and half
+                                                 * of the next one at the edge (more that way) */
+            int k = (int)((room.w - m) / (TAB_MIN * th + tg) - 0.5f);
+            k = k < 1 ? 1 : k;
+            tw = floorf(fminf((room.w - m - k * tg) / (k + 0.5f), 2.2f * th));
+            tx = room.x + m;
+            menu.tmax = fmaxf(0, 2 * m + L.ntabs * tw + (L.ntabs - 1) * tg - room.w);
+        }
         for (int k = 0; k < L.ntabs; k++) L.tabs[k] = (box){floorf(tx + k * (tw + tg)), ty, tw, th};
+        L.tab_row = (box){room.x, ty, room.w, th};
         L.snd_r = floorf(th * 0.45f);           /* (the buttons' size: the shared pictures') */
         head = ty + th + floorf(g * 0.5f);
         if (pages_search()) {                   /* searching: every tab's games, no tabs */
             L.ntabs = 0;
+            menu.tmax = 0;
             head = ty;
         }
+        int key = (int)room.w * 100000 + (int)tw * 10 + L.ntabs;   /* another row: the tab chosen in view at once */
+        if (key != menu.tkey) {
+            menu.tkey = key;
+            tabs_show(1);
+        }
+        menu.tx = clampf(menu.tx, 0, menu.tmax);
+        if (menu.tgoal >= 0) menu.tgoal = clampf(menu.tgoal, 0, menu.tmax);
         tab_textures((int)tw, (int)th);
     }
     float below = top;                          /* where the pills and the cards may start */
@@ -4660,6 +4722,69 @@ static int pick_head_press(float x, float y)
     return 0;
 }
 
+/* a picture in the tabs' row, its columns faded towards an edge of the window lo..hi that has more past it: over fl
+ * pixels at the left, fr at the right (0: no fade), in strips of a few columns; nothing outside the window */
+static void put_faded(SDL_Texture *t, float x, float y, float w, float h, float lo, float hi, float fl, float fr)
+{
+    if (!t || w <= 0 || x >= hi || x + w <= lo) return;
+    int tw, th;
+    Uint8 a0;
+    SDL_QueryTexture(t, NULL, NULL, &tw, &th);
+    SDL_GetTextureAlphaMod(t, &a0);
+    const float cut[4] = {lo, lo + fl, hi - fr, hi};
+    for (int seg = 0; seg < 3; seg++) {         /* the left fade, the middle, the right fade */
+        float s0 = fmaxf(x, cut[seg]), s1 = fminf(x + w, cut[seg + 1]);
+        if (s1 <= s0) continue;
+        float step = seg == 1 ? s1 - s0 : fmaxf(2, (seg ? fr : fl) / 12);
+        for (float a = s0; a < s1 - 0.01f; a += step) {
+            int c0 = (int)lroundf((a - x) * tw / w), c1 = (int)lroundf((fminf(s1, a + step) - x) * tw / w);
+            if (c1 <= c0) continue;
+            float mid = x + (c0 + c1) * 0.5f * w / tw;
+            float f = seg == 0 ? (mid - lo) / fl : seg == 2 ? (hi - mid) / fr : 1;
+            SDL_SetTextureAlphaMod(t, (Uint8)(a0 * clampf(f, 0, 1)));
+            SDL_Rect src = {c0, 0, c1 - c0, th};
+            SDL_FRect dst = {x + c0 * w / tw, y, (c1 - c0) * w / tw, h};
+            SDL_RenderCopyF(ui.r, t, &src, &dst);
+        }
+    }
+    SDL_SetTextureAlphaMod(t, a0);
+}
+
+/* the menu's tabs: the row scrolled (its fling, its slide to the tab chosen), each tab and its picture */
+static void draw_tabs(void)
+{
+    Uint32 now = SDL_GetTicks();
+    float dt = fminf(50, (float)(now - menu.tt));
+    if (menu.tmax > 0 && !menu.tgrab && (menu.tvel != 0 || menu.tgoal >= 0)) {
+        menu.tt = now;
+        if (menu.tgoal >= 0) {                  /* sliding to the tab chosen: eased, about a fifth of a second */
+            menu.tx += (menu.tgoal - menu.tx) * fminf(1, dt / 70);
+            if (fabsf(menu.tgoal - menu.tx) < 0.5f) menu.tx = menu.tgoal, menu.tgoal = -1;
+        } else {                                /* the fling: slows down, stops at the ends */
+            menu.tx = clampf(menu.tx + menu.tvel * dt, 0, menu.tmax);
+            menu.tvel *= powf(0.995f, dt);
+            if (fabsf(menu.tvel) < 0.02f || menu.tx <= 0 || menu.tx >= menu.tmax) menu.tvel = 0;
+        }
+        need_frame = 1;
+    }
+    box r = L.tab_row;
+    float fade = menu.tmax > 0 ? floorf(0.4f * r.h) : 0;
+    float fl = menu.tx > 0.5f ? fade : 0, fr = menu.tx < menu.tmax - 0.5f ? fade : 0;
+    for (int k = 0; k < L.ntabs; k++) {
+        box b = L.tabs[k];
+        b.x -= menu.tx;
+        int s = L.tab_sec[k];
+        float d = floorf(b.h * 0.66f);
+        if (menu.tmax <= 0) {                   /* all of them in the row */
+            ui_put(s == menu.tab ? t_tab_on : t_tab, b.x, b.y, b.w, b.h);
+            ui_put_c(t_tabicon[s], b.x + b.w / 2, b.y + b.h / 2, d, d);
+            continue;
+        }
+        put_faded(s == menu.tab ? t_tab_on : t_tab, b.x, b.y, b.w, b.h, r.x, r.x + r.w, fl, fr);
+        put_faded(t_tabicon[s], b.x + (b.w - d) / 2, b.y + (b.h - d) / 2, d, d, r.x, r.x + r.w, fl, fr);
+    }
+}
+
 static void draw_cards(void)
 {
     int n = screen == SCR_MENU ? ngames : games[cur]->variants;
@@ -4667,13 +4792,7 @@ static void draw_cards(void)
         draw_axes();
         n = 0;
     }
-    for (int k = 0; k < L.ntabs && screen == SCR_MENU; k++) {   /* the tabs */
-        box b = L.tabs[k];
-        int s = L.tab_sec[k];
-        float d = floorf(b.h * 0.66f);
-        ui_put(s == menu.tab ? t_tab_on : t_tab, b.x, b.y, b.w, b.h);
-        ui_put_c(t_tabicon[s], b.x + b.w / 2, b.y + b.h / 2, d, d);
-    }
+    if (screen == SCR_MENU && L.ntabs) draw_tabs();
     if (screen == SCR_PICK && games[cur]->levels) draw_level_tabs(LV.nch);   /* random play's picker */
     for (int k = 0; k < L.npills; k++) {       /* the picker: how many play */
         box b = L.pills[k];
@@ -5070,6 +5189,7 @@ static void menu_tab(int s)
     uint8_t b = (uint8_t)s;                     /* the menu opens there next time */
     ui_save_set("shell/tab", &b, 1);
     layout();
+    tabs_show(0);                               /* its tab in the row's view */
 }
 
 static void menu_step(int d)                    /* the tab on the left (-1) or the right (1) */
@@ -5210,6 +5330,17 @@ static void press(float x, float y)
         if (L.online.w > 0 && in_box(L.online, x, y)) {   /* online play: only the note (no seat changes) */
             snd_play(SND_TAP);
             pages_soon();
+            return;
+        }
+        if (screen == SCR_MENU && L.ntabs && menu.tmax > 0 && in_box(L.tab_row, x, y)) {   /* the row that scrolls:
+                                                                                         * a tab on release */
+            menu.tgrab = 1;
+            menu.tmoved = menu.tvel != 0;       /* a tap that stops a fling chooses nothing */
+            menu.tvel = 0;
+            menu.tgoal = -1;
+            menu.tgrab_x = x;
+            menu.tgrab_tx = menu.tx;
+            menu.tt = SDL_GetTicks();
             return;
         }
         for (int k = 0; k < L.ntabs && screen == SCR_MENU; k++) {
@@ -5354,6 +5485,16 @@ static void motion(float x, float y)
         pages_motion(x, y);
         return;
     }
+    if (screen == SCR_MENU && menu.tgrab) {     /* the tabs' row dragged sideways */
+        if (!menu.tmoved && fabsf(x - menu.tgrab_x) > fminf(ui.w, ui.h) * 0.02f) menu.tmoved = 1;
+        if (!menu.tmoved) return;
+        float s = clampf(menu.tgrab_tx - (x - menu.tgrab_x), 0, menu.tmax);
+        Uint32 t = SDL_GetTicks();
+        if (t > menu.tt) menu.tvel = 0.5f * menu.tvel + 0.5f * (s - menu.tx) / (float)(t - menu.tt);
+        menu.tt = t;
+        menu.tx = s;
+        return;
+    }
     if (screen == SCR_MENU && menu.grabbing) {
         if (!menu.moved && hypotf(x - menu.grab_x, y - menu.grab_y) > fminf(ui.w, ui.h) * 0.02f) {
             menu.moved = 1;
@@ -5387,7 +5528,7 @@ static void release(float x, float y)
     int mine = PT.game, stray = PT.stray;      /* the pointer's: the game's, or nobody's */
     PT.game = PT.stray = 0;
     if (FV.open) {
-        menu.grabbing = LV.grabbing = held_press = 0;
+        menu.grabbing = menu.tgrab = LV.grabbing = held_press = 0;
         return;
     }
     if (help.open) {
@@ -5396,6 +5537,25 @@ static void release(float x, float y)
     }
     if (screen == SCR_LEVELS) {
         if (LV.grabbing) levels_release(x, y);
+        return;
+    }
+    if (screen == SCR_MENU && menu.tgrab) {     /* the tabs' row: a tap chooses a tab, a drag flies on if quick */
+        menu.tgrab = 0;
+        if (menu.tmoved) {
+            if (SDL_GetTicks() - menu.tt > 80) menu.tvel = 0;
+            menu.tt = SDL_GetTicks();
+            need_frame = 1;
+            return;
+        }
+        for (int k = 0; k < L.ntabs && page == PAGE_GAMES; k++) {
+            box b = L.tabs[k];
+            b.x -= menu.tx;
+            if (!in_box(b, x, y) || !in_box(L.tab_row, x, y)) continue;
+            snd_play(SND_TAP);
+            menu_tab(L.tab_sec[k]);
+            tabs_show(0);                       /* a tab half out of view: all of it */
+            return;
+        }
         return;
     }
     if (screen == SCR_MENU && pages_release(x, y)) return;
@@ -6764,10 +6924,18 @@ int main(int argc, char **argv)
                 case SDL_WINDOWEVENT:
                     if (e.window.event == SDL_WINDOWEVENT_FOCUS_GAINED) pages_foreground();
                     break;
-                case SDL_MOUSEWHEEL:
+                case SDL_MOUSEWHEEL: {
+                    int wx, wy;
+                    float mx, my;
+                    SDL_GetMouseState(&wx, &wy);
+                    to_pixels(wx, wy, &mx, &my);
                     if (help.open) help_scroll(-e.wheel.y * help.px * 3);
+                    else if (screen == SCR_MENU && page == PAGE_GAMES && L.ntabs && menu.tmax > 0 &&
+                             (e.wheel.x || in_box(L.tab_row, mx, my)))   /* over the tabs (or sideways): the row */
+                        tabs_scroll((e.wheel.x - e.wheel.y) * L.tab_row.h);
                     else if (screen == SCR_MENU) menu_wheel(-e.wheel.y * (L.card + L.label) * 0.4f);
                     break;
+                }
                 }
             } while (SDL_PollEvent(&e));
         }
