@@ -921,11 +921,19 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
 /* After a state was loaded (rs_game.state_loaded): the width is not in a state, and one saved at another width brings
  * the maps of that width. Set up those of this one: the scenery (scene.c), the UI layer (its 320 columns move
  * over), the trunks (redrawn a quarter of the map apart, before the bot reads them). In versus the timer bars are
- * drawn again on the next frame (where the views of this width want them; the same place at the same width). */
+ * drawn again on the next frame (where the views of this width want them; the same place at the same width).
+ * A state of another height (the phone turned: house_tall.h ht_shape_reset): the same, the UI drawn again for this
+ * screen, and the far layer's and the trunk's windows as scene_init sets them (raster_out hid the layers). */
 void draw_relayout(const world *w, int state)
 {
+    int shape = ht_shape_reset();
+    if (shape) {
+        rs_bg_window(RS_BG4, RS_WIN1);
+        rs_bg_window(RS_BG2, RS_WIN2);
+        shown_state = -1;                       /* screen_text clears the UI layer and draws it again */
+    }
     /* a state of this size: nothing to do (it saves the same bytes; a tall screen's BG2 is taller: bg2_rows) */
-    if (laid_w == rs_screen_width() && rs_bg_map_h(RS_BG2) == bg2_rows()) return;
+    if (!shape && laid_w == rs_screen_width() && rs_bg_map_h(RS_BG2) == bg2_rows()) return;
     laid_w = rs_screen_width();
     scene_relayout();
     if (rs_bg_map_w(RS_BG1) != map_w()) {
