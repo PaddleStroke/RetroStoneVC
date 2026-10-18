@@ -163,8 +163,9 @@ static const struct { const char *id; int section; } SECTION_OF[] = {
     {"chesspuzzles", SEC_PUZZLE}, {"goproblems", SEC_PUZZLE}, {"shogimate", SEC_PUZZLE},
     /* the logic grids, easy to hard: the sudokus, the number puzzles, then the pencil-and-paper grids */
     {"sudoku", SEC_LOGIC}, {"diagonalsudoku", SEC_LOGIC}, {"killersudoku", SEC_LOGIC}, {"jigsawsudoku", SEC_LOGIC},
-    {"mentalmath", SEC_LOGIC}, {"mathpz", SEC_LOGIC}, {"mathsigns", SEC_LOGIC}, {"sumerase", SEC_LOGIC},
-    {"mathcross", SEC_LOGIC}, {"calcudoku", SEC_LOGIC}, {"kakuro", SEC_LOGIC}, {"futoshiki", SEC_LOGIC},
+    {"mentalmath", SEC_LOGIC}, {"mathpz", SEC_LOGIC}, {"balance", SEC_LOGIC}, {"sumerase", SEC_LOGIC},
+    {"mathcross", SEC_LOGIC}, {"magicsquare", SEC_LOGIC},
+    {"calcudoku", SEC_LOGIC}, {"kakuro", SEC_LOGIC}, {"futoshiki", SEC_LOGIC},
     {"skyscrapers", SEC_LOGIC}, {"binairo", SEC_LOGIC}, {"nonogram", SEC_LOGIC}, {"tents", SEC_LOGIC},
     {"queens", SEC_LOGIC}, {"starbattle", SEC_LOGIC}, {"fleet", SEC_LOGIC}, {"lightup", SEC_LOGIC},
     {"knightstour", SEC_LOGIC}, {"numberpath", SEC_LOGIC}, {"hashi", SEC_LOGIC}, {"dominosa", SEC_LOGIC},
