@@ -6,6 +6,7 @@
 #include "game.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "house_tall.h"            /* a phone held upright: the title and the panels in the house's portrait layout */
 #include "game_text.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -51,6 +52,7 @@ static void rect(uint8_t *p,int x0,int y0,int x1,int y1,int color,const rs_viewp
 #define VR_BG4 (VR_BG3+128)     /* the tall screen's decor tiles, after the beach's (at most 896) */
 #define BG4_MAX 896
 static int hud_lines;           /* the HUD's band of BG1 at the top (several players), set by draw_frame each picture */
+static int ui_pin;              /* the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels), set by draw_frame */
 static int laid_h;              /* the height BG4's decor was drawn for (a state of another height: drawn again) */
 static int tall(void){return rs_screen_height()>RS_SCREEN_H;}
 static int bg2_sx(void){return (V[0].mx*8-VP[0].x)&(rs_bg_map_w(RS_BG2)*8-1);}
@@ -65,6 +67,7 @@ static void raster_out(int line){
  if(line==top+HUD_Y){rs_obj_window(0);if(hud_lines)rs_bg_window(RS_BG1,0);}   /* the HUD's band: its digits, the scores' row */
  if(hud_lines && line==top+HUD_Y+hud_lines)rs_bg_window(RS_BG1,RS_WIN1);
  if(line==top+HUD_Y+HUD_LINES)rs_obj_window(RS_WIN1);
+ if(ui_pin){rs_bg_window(RS_BG1,ht_pin_line(ui_pin,line)?0:RS_WIN1);rs_obj_window(ht_pin_line(ui_pin,line)?0:RS_WIN1);}   /* the pinned UI, its sprites */
  if(line<0){int k=top<0?-line*256/-top:0;rs_pal_set(0,hu_lerp_color(V[0].sky[0],RS_RGB8(104,170,214),k));return;}
  rs_pal_set(0,theme_pal[2]);   /* the court's sand, flat (a gradient would band) */
 }
@@ -168,12 +171,16 @@ static void foreground(const world *w,int p,const view *v,const rs_viewport *vp,
   int id=0;if(ink){id=(*next)++;rs_tiles_load8(VR_BG2+id,tile,1);}rs_bg_put(RS_BG2,v->mx+c,v->my+r,RS_MAP(id,PAL_GROUND,0,0,0));
  }
 }
-static void icon(int p,int cx,int cy,int t,void *user){(void)user;rs_viewport vp={0};vp.w=320;vp.h=240;spr(SPR_HERO_ICON,cx-8,cy-8+hu_bob(t+p*16,64,1),2,ppal(p),&vp);}
+/* player p's icon, its top-left at stage x, y: anywhere on the screen (a tall screen: the title and the panels pinned) */
+static void icon_at(int p,int x,int y,int prio){const gm_sprite_def *s=&gm_spr[SPR_HERO_ICON];rs_spr(x,y,s->tile,s->w,s->h,ppal(p),prio,0);}
+static void icon(int p,int cx,int cy,int t,void *user){(void)user;icon_at(p,cx-8,cy-8+hu_bob(t+p*16,64,1),2);}
 void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paused){
  int multi=w->players>1 && (state==ST_PLAY || state==ST_DEAD);nviews=rs_viewport_layout(1,0,VP);
  if(tall()){VP[0].y=0;VP[0].h=RS_SCREEN_H;}   /* a tall screen: the view is the court's 240 lines (raster_out) */
  /* a tall screen: the beach's decor in the margins (BG4), the scores' row of several players at the top (BG1 row 1) */
  rs_bg_enable(RS_BG4,tall());hud_lines=tall() && multi?8:0;rs_bg_pin(RS_BG1,8,hud_lines,HUD_Y);
+ ui_pin=!ht_narrow() || multi?HT_PIN_OFF:state==ST_TITLE?HT_PIN_TITLE:state==ST_OVER?HT_PIN_PANEL:HT_PIN_OFF;
+ if(ui_pin)ht_pin(ui_pin);   /* the title and the panels at the same place on every game's screen */
  hu_clear();rs_oam_clear();rs_brightness(paused?9:15);int next=1;
  for(int p=0;p<nviews;p++){
   view *v=&V[p];rs_viewport *vp=&VP[p];const hero *h=&w->h[p];
@@ -196,8 +203,14 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  if(!multi){
   rs_viewport *vp=&VP[0];int scores[4];for(int p=0;p<w->players;p++)scores[p]=w->h[p].score;hu_standing rank;hu_rank(&rank,w->players,scores,scores);
   int slide=state==ST_OVER?hu_slide_in(st_t,20,200):0;
-  if(state==ST_TITLE){hu_logo(TITLE,title_ramps,2,2,0);hu_title_draw(st_t,best);hu_text(hu_center(TR(HINT),0),16,TR(HINT));hu_title_sprites(st_t,icon,NULL);theme_title(st_t,vp);}
-  if(state==ST_OVER){
+  if(state==ST_TITLE && tall()){   /* a tall screen: the house's portrait title (house_tall.h, its standard rows), the crab under the slots */
+   ht_logo(TITLE,title_ramps,2,HT_ROW_LOGO,0);ht_title tc={HTR(PLAY),MAX_PLAYERS,HT_ROW_SLOTS,0,TR(HINT)};ht_title_out to;
+   ht_title_draw(&tc,st_t,best,&to);ht_title_sprites(&tc,&to,st_t,icon,NULL);theme_title(st_t,vp,to.gap_y1-124,to.gap_y0);
+  }else if(state==ST_TITLE){hu_logo(TITLE,title_ramps,2,2,0);hu_title_draw(st_t,best);hu_text(hu_center(TR(HINT),0),16,TR(HINT));hu_title_sprites(st_t,icon,NULL);theme_title(st_t,vp,0,0);}
+  if(state==ST_OVER && tall()){   /* a tall screen: the house's portrait panels (house_tall.h) */
+   if(w->players==1){static const int medals[4]=MEDAL_SCORES;ht_banner(4,HTR(GAME_OVER));ht_gameover_panel(new_best,NULL,HTR(BACK_TITLE));ht_gameover_sprites(w->h[0].score,best,hu_medal_of(w->h[0].score,medals),st_t,slide);ht_retry_line_at(ht_gameover_retry_row(NULL),st_t,RETRY_LOCK,HTR(BACK_TITLE));}
+   else{ht_results_panel(&rank,NULL);ht_results_sprites(&rank,st_t,slide);for(int i=0;i<rank.n;i++){int x,y;ht_results_icon_pos(&rank,i,&x,&y);icon_at(rank.order[i],x-8,y-8+slide,3);}ht_retry_line_at(ht_results_retry_row(&rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));}
+  }else if(state==ST_OVER){
    if(w->players==1){static const int medals[4]=MEDAL_SCORES;hu_banner(4,HTR(GAME_OVER));hu_gameover_panel(1,new_best,w->h[0].score,0);hu_gameover_sprites(1,w->h[0].score,0,best,hu_medal_of(w->h[0].score,medals),st_t,slide);hu_retry_line(st_t,RETRY_LOCK,HTR(BACK_TITLE));}
    else{hu_results_panel(&rank,NULL);hu_results_sprites(&rank,st_t,slide);for(int i=0;i<rank.n;i++){int x,y;hu_results_icon_pos(&rank,i,&x,&y);spr(SPR_HERO_ICON,x-8,y-8+slide,3,ppal(rank.order[i]),vp);}hu_retry_line_at(hu_results_retry_row(&rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));}
   }

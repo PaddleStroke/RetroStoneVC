@@ -69,4 +69,6 @@ static void theme_scene(const world *w,int p,int t,const view *v,const rs_viewpo
  theme_shells(w,vp);
 }
 static void theme_hud(const hero *h,char *text,size_t n){rs_strf(text,n,TR(SHELLS_N),h->apples);}
-static void theme_title(int t,const rs_viewport *vp){spr(SPR_COCONUT,152,75+hu_bob(t,64,3),2,-1,vp);spr(SPR_HERO_IDLE+(t/8)%2,144,96,2,0,vp);spr(SPR_SHELL,100,97,2,-1,vp);spr(SPR_SHELL+1,199,97,2,-1,vp);}
+/* the title's crab under its coconut, two shells beside it; dy: moved down (a tall screen: between the slots and the
+ * text under them), the coconut only from line top down */
+static void theme_title(int t,const rs_viewport *vp,int dy,int top){if(75+dy-3>=top)spr(SPR_COCONUT,152,75+dy+hu_bob(t,64,3),2,-1,vp);spr(SPR_HERO_IDLE+(t/8)%2,144,96+dy,2,0,vp);spr(SPR_SHELL,100,97+dy,2,-1,vp);spr(SPR_SHELL+1,199,97+dy,2,-1,vp);}
