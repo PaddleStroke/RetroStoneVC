@@ -114,6 +114,18 @@ static void test_clock(void)
     mmh_clock_start(&c, 10, 10);                  /* the picture mode: its clock jumps, the real time does not */
     mmh_clock_frame(&c, 60010, 20);
     CHECK(mmh_clock_ms(&c, 60010, 20) == 60000);
+    /* a game kept, played again on its own clock (fast: the real time barely moves), landing 10 minutes on, then
+     * back on the real clock (2^30 ms later): only the drill's own time counts */
+    uint32_t r0 = 1000000u - 0x40000000u;
+    mmh_clock_start(&c, r0, 500);
+    for (uint32_t t = r0; t != r0 + 4000; t += 50) mmh_clock_frame(&c, t, 501);
+    mmh_clock_frame(&c, r0 + 9000, 502);         /* a pause between two taps: counted */
+    CHECK(mmh_clock_ms(&c, r0 + 9000, 502) == 9000);
+    mmh_clock_frame(&c, r0 + 609000, 503);       /* the record's end: every animation landed */
+    CHECK(mmh_clock_ms(&c, r0 + 609000, 503) == 9000);
+    mmh_clock_frame(&c, 1000000u, 520);          /* the app's clock again */
+    mmh_clock_frame(&c, 1000016u, 536);
+    CHECK(mmh_clock_ms(&c, 1000016u, 536) == 9016);
 }
 
 int main(void)

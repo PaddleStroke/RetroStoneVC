@@ -74,6 +74,7 @@ int  mmh_script(mmh_game *g, const char *moves);
  * game's clock, ms) and the real time (real: ms; a gap of more than MMH_AWAY_MS between two frames drawn is the game
  * not on the screen: another screen, the rules, the app in the background), and that gap is not counted */
 #define MMH_AWAY_MS 250
+#define MMH_LEAP_MS 300000                      /* the game's clock leaping more between two frames: not counted */
 typedef struct { uint32_t t0, last, real, end; int on, over; } mmh_clock;
 void     mmh_clock_start(mmh_clock *c, uint32_t now, uint32_t real);
 void     mmh_clock_frame(mmh_clock *c, uint32_t now, uint32_t real);   /* a frame drawn (or the player acting) */
