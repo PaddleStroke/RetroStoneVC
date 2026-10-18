@@ -28,6 +28,7 @@ static int wide(void){return rs_screen_width()>RS_SCREEN_W;}
 /* a tall screen (portrait, zoomed: DESIGN.md "Tall screen") */
 static int tall(void){return rs_screen_height()>RS_SCREEN_H;}
 static int hud_lines;                  /* the HUD's band of BG1 at the screen's top (rs_bg_pin; set before each picture) */
+static int ui_pin;                     /* the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels) */
 static const rs_color title_ramps[2][3]={
  {RS_HEX(0xffe8a0),RS_HEX(0xf1b750),RS_HEX(0x99623c)},
  {RS_HEX(0xebc8fc),RS_HEX(0xbb83d0),RS_HEX(0x76509a)}};
@@ -44,6 +45,7 @@ static void raster_out(int line) {
   rs_obj_window(line==top?0:RS_WIN1);
  }
  if(hud_lines && line==top+hud_lines)rs_bg_window(RS_BG1,RS_WIN1);   /* past the HUD's band */
+ if(ui_pin)rs_bg_window(RS_BG1,ht_pin_line(ui_pin,line)?0:RS_WIN1);   /* the pinned UI */
  if(line<0)rs_pal_set(0,hu_scale_color(V[0].sky[0],256-(-line*100/-top)-((line&4)?4:0)));   /* the house dither */
  else {
   int d=line-RS_SCREEN_H,n=bot-RS_SCREEN_H,k=n>0?d*120/n:0;
@@ -289,11 +291,11 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   rs_viewport *vp=&VP[0];hu_standing rank;ranking(w,&rank);
   int slide=state==ST_OVER?hu_slide_in(st_t,20,200):0;
   if(state==ST_TITLE && narrow) {
-   /* zoomed: the house layout (house_tall.h, its default rows), the hint under the slots; the moth, the lantern and
+   /* zoomed: the house layout (house_tall.h, its default rows, the hint above the prompt); the moth, the lantern and
     * the leaves up in the sky above the stage (decor), the moon and the stars around them */
    ht_logo("MOTH AROUND",title_ramps,2,2,0);
-   ht_title tc={TR(VERB),MAX_PLAYERS,15,0};ht_title_out at;
-   ht_title_draw(&tc,st_t,best,&at);ht_text(17,TR(HINT_TITLE),0);ht_title_sprites(&tc,&at,st_t,icon,NULL);
+   ht_title tc={TR(VERB),MAX_PLAYERS,HT_ROW_SLOTS,0,TR(HINT_TITLE)};ht_title_out at;
+   ht_title_draw(&tc,st_t,best,&at);ht_title_sprites(&tc,&at,st_t,icon,NULL);
    int dy=title_sky_dy();
    spr(SPR_HERO_IDLE+(st_t/8)%2,112,87+dy+hu_bob(st_t,64,3),2,0,vp);
    spr(SPR_LANTERN+(st_t/12)%2,166,78+dy,2,-1,vp);
@@ -344,6 +346,8 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  /* a tall screen: the HUD's band of BG1 at the screen's top during a run */
  hud_lines=tall() && play?HUD_LINES:0;
  rs_bg_pin(RS_BG1,0,hud_lines,0);
+ ui_pin=!ht_narrow() || multi?HT_PIN_OFF:state==ST_TITLE?HT_PIN_TITLE:state==ST_OVER?HT_PIN_PANEL:HT_PIN_OFF;
+ if(ui_pin) ht_pin(ui_pin);   /* the title and the panels at the same place on every game's screen */
  shown_state=state;shown_best=best;
 }
 #define S(v) rs_state_var("draw." #v,&(v),sizeof(v))
