@@ -54,7 +54,7 @@ static SDL_Texture *t_tray, *t_tile[6], *t_small, *t_plaque;
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* a tile of colour c (1..5: COLOURS), d x d: lacquered wood, bevelled, its mark inlaid */
-static void paint_tile(int c, int d, uint8_t *o)
+static void paint_tile_1x(int c, int d, uint8_t *o)
 {
     int P = 3 * d;
     uint8_t *plank = malloc((size_t)P * P * 4);
@@ -66,6 +66,27 @@ static void paint_tile(int c, int d, uint8_t *o)
     hue_lacquer(o, d, d, COLOURS[c - 1]);
     puz_bevel(o, d, d, 0.12f * d, fmaxf(1.5f, 0.1f * d), 0.38f);
     hue_mark_on(o, d, d, COLOURS[c - 1], d * 0.5f, d * 0.5f, (int)(0.5f * d));
+}
+
+/* the tile painted twice as big and brought down 2 x 2 pixels to one: the mark's and the bevel's edges smooth */
+static void paint_tile(int c, int d, uint8_t *o)
+{
+    int D = 2 * d;
+    uint8_t *b = malloc((size_t)D * D * 4);
+    if (!b) { paint_tile_1x(c, d, o); return; }
+    paint_tile_1x(c, D, b);
+    for (int y = 0; y < d; y++)
+        for (int x = 0; x < d; x++) {
+            const uint8_t *s[4] = {b + 4 * ((size_t)(2 * y) * D + 2 * x), b + 4 * ((size_t)(2 * y) * D + 2 * x + 1),
+                                   b + 4 * ((size_t)(2 * y + 1) * D + 2 * x), b + 4 * ((size_t)(2 * y + 1) * D + 2 * x + 1)};
+            int a = s[0][3] + s[1][3] + s[2][3] + s[3][3];
+            uint8_t *p = o + 4 * ((size_t)y * d + x);
+            for (int i = 0; i < 3; i++)
+                p[i] = a ? (uint8_t)((s[0][i] * s[0][3] + s[1][i] * s[1][3] + s[2][i] * s[2][3] + s[3][i] * s[3][3]
+                                      + a / 2) / a) : 0;
+            p[3] = (uint8_t)((a + 2) / 4);
+        }
+    free(b);
 }
 
 /* the tray: the walnut frame, its floor sunk in shade (w x h) */
