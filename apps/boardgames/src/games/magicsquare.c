@@ -7,7 +7,8 @@
  *
  * Drag a tile from the tray to a hollow (a tile already there goes back), from a hollow to another (they swap) or off
  * the board (back to the tray); or tap a tile, then a hollow (or the other way); a tap on a placed tile sends it back.
- * A line filled and right shows a gold light at its end; filled and wrong, a red one (a mistake, for the stars). The
+ * A line filled and right lights gold (a triangle's grooves, a pointer out of a square's row, column or diagonal);
+ * filled and wrong, red (a mistake, for the stars). The
  * shell's tool: the hint (a wrong tile put right, else a hollow on the line nearest done). The keys: the arrows move a
  * frame over the hollows and the tray, Return taps what it frames. Undo takes back one action, all the way to the
  * start. Solved: gold light runs round the figure; the stars count the hints and the mistakes (ui_logic_stars).
@@ -64,10 +65,10 @@ static void figure_of(const msq_puzzle *p, figure *f)
 {
     if (p->kind == MSQ_SQ3 || p->kind == MSQ_SQ4) {
         int n = p->kind == MSQ_SQ3 ? 3 : 4;
-        float band = 0.17f, side = 0.72f, x0 = (1 - side) / 2, y0 = band + (0.97f - band - side) / 2;
+        float band = 0.16f, side = 0.66f, x0 = (1 - side) / 2, y0 = band + 0.025f;  /* room below for the pointers */
         f->q = side / n;
         for (int i = 0; i < p->np; i++) f->x[i] = x0 + (i % n + 0.5f) * f->q, f->y[i] = y0 + (i / n + 0.5f) * f->q;
-        f->plate_x = 0.5f, f->plate_y = band / 2 + 0.02f, f->plate_w = 0.3f;
+        f->plate_x = 0.5f, f->plate_y = 0.095f, f->plate_w = 0.26f;
         return;
     }
     int k = p->kind == MSQ_TRI3 ? 3 : p->kind == MSQ_TRI4 ? 4 : 5, in = k - 2;
@@ -386,17 +387,24 @@ static void draw(void)
     for (int l = 0; l < G.p.nl; l++) {          /* the lines filled: right (gold), wrong (red) */
         int st = msq_line_state(&G, l);
         if (!st || solved) continue;
-        int a = G.p.line[l][0], z = G.p.line[l][G.p.len[l] - 1];
-        float dx = L.px[z] - L.px[a], dy = L.py[z] - L.py[a], len = hypotf(dx, dy) + 1e-3f, mx, my;
-        if (square()) {                         /* a light just past the line's end */
-            mx = L.px[z] + dx / len * 0.72f * q, my = L.py[z] + dy / len * 0.72f * q;
-        } else {                                /* outside the side's middle */
-            float cx = (L.px[0] + L.px[1] + L.px[2]) / 3, cy = (L.py[0] + L.py[1] + L.py[2]) / 3;
-            float sx = (L.px[a] + L.px[z]) / 2, sy = (L.py[a] + L.py[z]) / 2, nl = hypotf(sx - cx, sy - cy) + 1e-3f;
-            mx = sx + (sx - cx) / nl * 0.75f * q, my = sy + (sy - cy) / nl * 0.75f * q;
+        pzk_rgba c = st > 0 ? (pzk_rgba){236, 194, 96, 255} : (pzk_rgba){214, 60, 44, 235};
+        if (!square()) {                        /* a triangle's side: its grooves between the places lit */
+            for (int j = 0; j + 1 < G.p.len[l]; j++) {
+                int a = G.p.line[l][j], b = G.p.line[l][j + 1];
+                float dx = L.px[b] - L.px[a], dy = L.py[b] - L.py[a], len = hypotf(dx, dy) + 1e-3f, r = 0.5f * q / len;
+                if (r < 0.5f)
+                    pzk_line(L.px[a] + dx * r, L.py[a] + dy * r, L.px[b] - dx * r, L.py[b] - dy * r, 0.14f * q,
+                             0.05f * q, c, 0);
+            }
+            continue;
         }
-        if (st > 0) ui_mark_gold(mx, my, 0.9f * q), ui_mark_gold(mx, my, 0.5f * q);
-        else ui_mark_glow(mx, my, 0.9f * q);
+        int a = G.p.line[l][0], z = G.p.line[l][G.p.len[l] - 1];   /* a square's line: a pointer out of its end */
+        float dx = L.px[z] - L.px[a], dy = L.py[z] - L.py[a], len = hypotf(dx, dy) + 1e-3f;
+        dx /= len, dy /= len;
+        float edge = 0.5f * q / fmaxf(fabsf(dx), fabsf(dy)), x0 = L.px[z] + dx * (edge + 0.06f * q),
+              y0 = L.py[z] + dy * (edge + 0.06f * q), x1 = x0 + dx * 0.34f * q, y1 = y0 + dy * 0.34f * q;
+        pzk_line(x0, y0, x1, y1, 0.13f * q, 0.04f * q, c, 0);
+        pzk_dot(x1, y1, 0.2f * q, 0.04f * q, c, 0);
     }
     if (sel_gap >= 0) {
         int pl = G.gaps[sel_gap];
