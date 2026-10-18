@@ -304,6 +304,42 @@ static void paint_field(uint8_t *o, int w, int f, float sp)
         }
 }
 
+/* a glossy marble of colour c (0 ivory, 1 ebony), d x d: a lit sphere (the light up to the left), a sharp highlight
+ * and a soft one, a thin darker rim, its soft shadow down to the right; each pixel sampled 3 x 3 */
+static void paint_marble(int c, int d, uint8_t *o)
+{
+    static const float BASE[2][3] = {{240, 230, 208}, {58, 52, 49}}, RIM[2] = {0.5f, 0.7f};
+    static const float AMB[2] = {0.52f, 0.32f}, DIF[2] = {0.58f, 0.85f};
+    float R = 0.45f * d, mx = 0.475f * d, my = 0.47f * d, L[3] = {-0.45f, -0.6f, 0.66f}, HV[3] = {-0.45f, -0.6f, 1.66f};
+    float ln = sqrtf(L[0] * L[0] + L[1] * L[1] + L[2] * L[2]), hn = sqrtf(HV[0] * HV[0] + HV[1] * HV[1] + HV[2] * HV[2]);
+    for (int i = 0; i < 3; i++) L[i] /= ln, HV[i] /= hn;
+    for (int py = 0; py < d; py++)
+        for (int px = 0; px < d; px++) {
+            float col[3] = {0, 0, 0}, cov = 0;
+            for (int sy = 0; sy < 3; sy++)
+                for (int sx = 0; sx < 3; sx++) {
+                    float x = (px + (sx + 0.5f) / 3 - mx) / R, y = (py + (sy + 0.5f) / 3 - my) / R, r2 = x * x + y * y;
+                    if (r2 >= 1) continue;
+                    float z = sqrtf(1 - r2), nl = x * L[0] + y * L[1] + z * L[2], nh = x * HV[0] + y * HV[1] + z * HV[2];
+                    float k = AMB[c] + DIF[c] * fmaxf(0, nl) + 0.1f * fmaxf(0, y);   /* the light, and the table's below */
+                    float sp = 0.9f * powf(fmaxf(0, nh), 70) + 0.14f * powf(fmaxf(0, nh), 6);
+                    float rim = clampf((sqrtf(r2) - 1) * R / 1.6f + 1, 0, 1) * RIM[c];   /* the last 1.6 pixels */
+                    for (int j = 0; j < 3; j++) {
+                        float v = clampf(BASE[c][j] * k, 0, 255);
+                        v += (255 - v) * sp;
+                        col[j] += v * (1 - rim) + BASE[c][j] * 0.4f * rim;
+                    }
+                    cov += 1;
+                }
+            uint8_t *p = o + 4 * ((size_t)py * d + px);
+            float sx = (px + 0.5f - mx - 0.06f * d) / R, sy = (py + 0.5f - my - 0.08f * d) / R;   /* the shadow */
+            float sa = 0.42f * clampf((1.04f - sqrtf(sx * sx + sy * sy)) / 0.22f, 0, 1), a = cov / 9;
+            float out = a + sa * (1 - a);
+            for (int j = 0; j < 3; j++) p[j] = (uint8_t)(out > 0 ? clampf(col[j] / 9 / out, 0, 255) : 0);
+            p[3] = (uint8_t)(255 * out + 0.5f);
+        }
+}
+
 static void paint_board(uint8_t *o, int w, int f)
 {
     int qq = (w - 2 * f) / 9;
@@ -329,10 +365,10 @@ static void layout(box b)
         int d = (int)lroundf(MARBLE * s), t = (int)lroundf(TRAY * s);
         for (int c = 0; c < 2; c++) {
             ui_free(&t_marble[c]);
-            art_counter(COUNTER_STONE, c, d, ui_buf(d, d));
+            paint_marble(c, d, ui_buf(d, d));
             t_marble[c] = ui_tex(d, d, ui_buf(d, d));
             ui_free(&t_tray[c]);
-            art_counter(COUNTER_STONE, c, t, ui_buf(t, t));
+            paint_marble(c, t, ui_buf(t, t));
             t_tray[c] = ui_tex(t, t, ui_buf(t, t));
         }
     }
@@ -341,7 +377,7 @@ static void layout(box b)
         made_small = small;
         for (int c = 0; c < 2; c++) {
             ui_free(&t_small[c]);
-            art_counter(COUNTER_STONE, c, small, ui_buf(small, small));
+            paint_marble(c, small, ui_buf(small, small));
             t_small[c] = ui_tex(small, small, ui_buf(small, small));
         }
     }
@@ -540,17 +576,15 @@ static void release(float x, float y)
 /* the marbles the player pushed off: a marble of the other colour, how many */
 static void bar(int player, box b) { ui_bar_count(b, t_small[colour(!player)], shown_taken(player)); }
 
-static void token(int player, int size, uint8_t *rgba) { art_counter(COUNTER_STONE, colour(player), size, rgba); }
+static void token(int player, int size, uint8_t *rgba) { paint_marble(colour(player), size, rgba); }
 
-/* a marble (or its shadow) painted on a card at (x, y) pixels, d across */
+/* a marble painted on a card at (x, y) pixels, d across (its shadow with it: the shadows' pass paints nothing) */
 static void thumb_marble(uint8_t *rgba, int size, int c, float x, float y, int d, int shadow)
 {
+    if (shadow) return;
     uint8_t *one = ui_buf(d, d);
-    if (shadow) art_flat_shadow(d, one);
-    else art_counter(COUNTER_STONE, c, d, one);
-    int ox = (int)lroundf(x - d / 2.0f), oy = (int)lroundf(y - d / 2.0f);
-    if (shadow) { ox += d / 20; oy += d / 12; }  /* towards the lower right, as on the board */
-    art_blend(rgba, size, size, one, d, d, ox, oy);
+    paint_marble(c, d, one);
+    art_blend(rgba, size, size, one, d, d, (int)lroundf(x - d / 2.0f), (int)lroundf(y - d / 2.0f));
 }
 
 /* the menu's card: a game under way, a marble in each tray; the picker's: each starting layout */
