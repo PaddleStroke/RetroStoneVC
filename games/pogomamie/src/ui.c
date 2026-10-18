@@ -141,7 +141,7 @@ void ui_frame(const world *w, int state, int st_t, int best_m, int best_score, i
         }
     }
     if (redraw && paused) hu_pause(0, 13);        /* ... and PAUSED, if it shows */
-    ht_pause(paused, 13);
+    ht_pause_dx(paused, 13, draw_ui_dx());
     /* widescreen: the UI centred on the screen (the stage origin is 0: the UI layer scrolls by -hu_ui_x()) */
     rs_bg_scroll(RS_BG1, -hu_ui_x() - draw_ui_dx(), state == DS_OVER ? -hu_slide_in(st_t, 20, 200) : 0);
 }

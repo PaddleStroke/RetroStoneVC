@@ -1010,7 +1010,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     int slide = state == DS_OVER ? hu_slide_in(st_t, 20, 200) : 0;
     rs_bg_scroll(RS_BG1, -ui_off, -slide);       /* the UI centred on the screen (widescreen) or the view (zoomed) */
     if (redraw_ui && paused) hu_pause(0, 13);     /* the UI layer was set up again (a state of another width) */
-    ht_pause(paused, 13);
+    ht_pause_dx(paused, 13, ui_off - hu_ui_x());    /* (the UI layer centred on the view) */
 
     rs_oam_clear();
     /* front to back: the HUD and the UI, the photo, the band, the fox, the ducks, the lines, the loose ducklings

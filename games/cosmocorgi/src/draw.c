@@ -750,7 +750,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     screen_text(w, state, st_t, best, new_best, &rs);
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;     /* the panel slides up, ease-out */
     rs_bg_scroll(RS_BG1, -hu_ui_x() - ui_dx, -slide);  /* the UI centred on the screen (widescreen), or the view */
-    ht_pause(paused, 13);
+    ht_pause_dx(paused, 13, ui_dx);
 
     rs_oam_clear();
     /* front to back: the UI, the play */
