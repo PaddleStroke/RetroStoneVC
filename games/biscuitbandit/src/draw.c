@@ -9,6 +9,7 @@
 #include "assets.h"
 #include "house_ui.h"
 #include "game_text.h"
+#include "house_tall.h"             /* a phone held upright: the title and the panels in the columns shown */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -23,6 +24,8 @@ static const rs_color title_ramps[2][3] = {
 
 static rs_color line_col[RS_SCREEN_H];
 static int shown_state = -1, shown_best = -1;
+static int shown_cols = -1;             /* the columns shown when the UI was drawn (a tall screen: ht_ncols, else 0) */
+static ht_title_out title_at;           /* where the narrow title put its A glyph (drawn every title frame) */
 
 /* A tall screen (rs_screen_zoom: a phone held upright; DESIGN.md "Tall screen", game.h ZOOM_H): the lines past the
  * stage's 240. Above: the cafe's wall carried on up, shaded under the ceiling (the backdrop; the UI and the floor
@@ -387,29 +390,81 @@ static int hint_row(int i)
     return i < 0 ? 8 : 10 + 2 * i;
 }
 
+/* A phone held upright (ht_narrow): BEST and the hints wrapped in the columns shown, above the tags' row 18. As the
+ * kit's screen (hint_row) when that fits; else (Japanese: 5 lines of tall glyphs and a tall BEST) compact, one row
+ * under the logo, which goes up a row (screen_text). Draws them if draw; returns the last row used. */
+static int title_block(int best, int compact, int draw)
+{
+    const char *hint[3] = {TR(HINT_MOVE), TR(HINT_DROP), TR(HINT_POINTS)};
+    char s[64];
+    int next = 6, packed = hint_row(1) == hint_row(0) + 1, last = 0;
+    if (best > 0) {
+        rs_strf(s, sizeof s, HTR(BEST_N), best);
+        int r = compact ? next + hu_tall(s) : hint_row(-1);
+        if (draw) hu_text(ht_center(s, 0), r, s);
+        next = r + 1;
+    }
+    for (int i = 0; i < 3; i++) {
+        int r = compact ? next + hu_tall(hint[i]) : i ? last + (packed ? 1 : 2) : hint_row(0);
+        last = draw ? ht_text(r, hint[i], 0) : r + ht_text_rows(hint[i], 0) - 1;
+        next = last + 1;
+    }
+    return last;
+}
+static int title_compact(int best) { return title_block(best, 0, 0) > 17; }
+
 /* the BG screens; PLAY and DEAD are the same screen */
 static void screen_text(const world *w, int state, int st_t, int best, int new_best, const hu_standing *rs)
 {
     int screen = state == ST_DEAD ? ST_PLAY : state;
-    if (screen != shown_state || (state == ST_OVER && st_t == RETRY_LOCK) || best != shown_best) {
+    /* a phone held upright (ht_narrow, DESIGN.md "Tall screen"): the same in the columns shown (house_tall.h) */
+    int narrow = ht_narrow(), cols = narrow ? ht_ncols() : 0;
+    if (screen != shown_state || (state == ST_OVER && st_t == RETRY_LOCK) || best != shown_best || cols != shown_cols) {
         hu_clear();
         if (state == ST_TITLE){
             const char *hint[3] = {TR(HINT_MOVE), TR(HINT_DROP), TR(HINT_POINTS)};
-            hu_logo("BISCUIT BANDIT", title_ramps, 2, 2, 0);
-            for (int i = 0; i < 3; i++) hu_text(hu_center(hint[i], 0), hint_row(i), hint[i]);
+            if (narrow) {                       /* BEST and the hints wrapped, centred in the columns shown */
+                int compact = title_compact(best);
+                ht_logo("BISCUIT BANDIT", title_ramps, 2, compact ? 1 : 2, 0);
+                title_block(best, compact, 1);
+            } else {
+                hu_logo("BISCUIT BANDIT", title_ramps, 2, 2, 0);
+                for (int i = 0; i < 3; i++) hu_text(hu_center(hint[i], 0), hint_row(i), hint[i]);
+            }
         }
         if (screen == ST_PLAY && w->players >= 3 && !tall())
             hu_score_tags(w->players, 0);       /* P1..P4 by the corner chips (a tall screen: icons, draw_frame) */
         if (state == ST_OVER) {
             if (w->players == 1) {
-                hu_banner(4, HTR(GAME_OVER));
-                hu_gameover_panel(1, new_best, w->h[0].score, 0);
+                if (narrow) {
+                    ht_banner(4, HTR(GAME_OVER));
+                    ht_gameover_panel(new_best, NULL, HTR(BACK_TITLE));
+                } else {
+                    hu_banner(4, HTR(GAME_OVER));
+                    hu_gameover_panel(1, new_best, w->h[0].score, 0);
+                }
+            } else if (narrow) {
+                ht_results_panel(rs, NULL);
             } else {
                 hu_results_panel(rs, NULL);                                     /* P2 WINS! and the ranking */
             }
         }
         shown_state = screen;
         shown_best = best;
+        shown_cols = cols;
+    }
+    /* narrow: the kit's rows from 18 down in the columns shown (ht_title_draw: the prompt on our row 20, the join line,
+     * the credits; BEST by the hints, as below), the tags over the heroes on row 18 */
+    if (state == ST_TITLE && narrow) {
+        ht_title tc = {NULL, MAX_PLAYERS, 18, 20};
+        ht_title_draw(&tc, st_t, 0, &title_at);
+        hu_clear_rows(18, 1);
+        for (int p = 0; p < w->players; p++) {
+            char tag[16];
+            rs_strf(tag, sizeof tag, HTR(PLAYER_TAG), p + 1);
+            hu_text((w->h[p].x - 8) / 8, 18, tag);
+        }
+        return;
     }
     /* the title, every frame: the prompt (blinking), the player slots, BEST, the join line, the credits */
     /* the prompt goes up to row 20 (the kit's row 21 is over the hero): row 20 is cleared before the kit draws, so
@@ -422,7 +477,10 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         hu_prompt(20,s,st_t);
         if(best>0){rs_strf(s,sizeof s,HTR(BEST_N),best);hu_text(hu_center(s,0),hint_row(-1),s);}
     }
-    if (state == ST_OVER) {
+    if (state == ST_OVER && narrow) {
+        if (w->players == 1) ht_retry_line_at(ht_gameover_retry_row(NULL), st_t, RETRY_LOCK, HTR(BACK_TITLE));
+        else ht_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
+    } else if (state == ST_OVER) {
         if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_TITLE));
         else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
     }
@@ -437,14 +495,15 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     rs_bg_scroll(RS_BG2, -sx, -sy);
     rs_bg_scroll(RS_BG3, -sx, -sy);
     if (tall()) rs_bg_scroll(RS_BG4, -sx, DEC_OFF - sy);
+    /* a tall screen (game.h ZOOM_H, DESIGN.md "Tall screen"): one zoomed view, the display's height filled, the sides
+     * cropped (every landing point stays in the columns shown, the camera centred); the title and the panels too, laid
+     * out in the columns shown (screen_text, house_tall.h) */
+    rs_screen_fill(tall() || state == ST_PLAY || state == ST_DEAD);
     screen_text(w, state, st_t, best, new_best, &rs);
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;     /* the panel slides up, ease-out */
     rs_bg_scroll(RS_BG1, 0, -slide);
     hu_pause(paused, 13);
 
-    /* a tall screen (game.h ZOOM_H, DESIGN.md "Tall screen"): the play fills the display's height, the sides cropped
-     * (every landing point stays in the columns shown); the title and the panels show every column */
-    rs_screen_fill(state == ST_PLAY || state == ST_DEAD);
     int rise = belt_rise();
 
     rs_oam_clear();
@@ -462,7 +521,18 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         for (int p = 0; p < w->players; p++) score[p] = w->h[p].score;
         hu_score_chips(w->players, score, 0);   /* 1: centred; 2: x 80 / 240; 3-4: the corners */
     }
-    if (state == ST_OVER) {
+    if (state == ST_OVER && ht_narrow()) {             /* a phone held upright: the panels in the columns shown */
+        if (w->players == 1) {
+            ht_gameover_sprites(w->h[0].score, best, hu_medal_of(w->h[0].score, medals), st_t, slide);
+        } else {
+            ht_results_sprites(&rs, st_t, slide);
+            for (int i = 0; i < rs.n; i++) {
+                int cx, cy;
+                ht_results_icon_pos(&rs, i, &cx, &cy);
+                spr(SPR_HERO_ICON, cx - 8, cy - 8 + slide, 3, player_pal(rs.order[i]));
+            }
+        }
+    } else if (state == ST_OVER) {
         if (w->players == 1) {
             hu_gameover_sprites(1, w->h[0].score, 0, best, hu_medal_of(w->h[0].score, medals), st_t, slide);
         } else {
@@ -474,7 +544,10 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
             }
         }
     }
-    if(state==ST_TITLE){int x,y;int glyph=hu_title_glyph(&x,&y);if(glyph>=0)hu_glyph(glyph,x,20*8-4,(st_t/30)%2,3);}
+    if (state == ST_TITLE && ht_narrow()) {
+        int g = hu_title_glyph(NULL, NULL);
+        if (g >= 0) hu_glyph(g, title_at.glyph_x, title_at.glyph_y, (st_t / 30) % 2, 3);
+    } else if(state==ST_TITLE){int x,y;int glyph=hu_title_glyph(&x,&y);if(glyph>=0)hu_glyph(glyph,x,20*8-4,(st_t/30)%2,3);}
     /* widescreen: the oven the cookies come out of, in front of them (a lower OAM index), just right of the stage;
      * the shake moves it left only, so that its mouth always hides a cookie at x 320 (the cookies do not shake) */
     if (wide()) spr(SPR_OVEN, 320 + (sx < 0 ? sx : 0), sy, 2, -1);
@@ -501,7 +574,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
 #define S(v) rs_state_var("draw." #v, &(v), sizeof(v))
 void draw_state(void)
 {
-    S(line_col); S(shown_state); S(shown_best); S(laid_w);
+    S(line_col); S(shown_state); S(shown_best); S(laid_w); S(shown_cols); S(title_at);
     RS_STATE_RASTER(raster);
 }
 #undef S

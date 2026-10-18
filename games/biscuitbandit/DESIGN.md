@@ -91,8 +91,12 @@ TALL_BELOW, 40 lines of floor under it).
   repeated, the stage's window frame left as a transom bar; window 1 keeps the shelf's columns out).
 - **The HUD at the screen's top**: the score (sprites at `rs_screen_top()`); 2-4 players: a row of each player's icon
   and score in the columns shown (no corner tags there).
-- **Fill or fit**: the play fills the display's height at every player count; the title and the panels show every
-  column (`rs_screen_fill(0)`).
+- **One view**: the play fills the display's height at every player count, and the title, the panels and PAUSED stay
+  in the same zoomed view (`rs_screen_fill(1)`, never the letterboxed full width), laid out in the columns shown by
+  games/common/src/house_tall.h (draw.c `screen_text`, `title_block`): the logo on one line, BEST and the hints wrapped
+  and centred (as the kit's rows when they fit; else compact under the logo, a row higher: Japanese), the tags over the
+  heroes on row 18, the prompt on row 20, the join line and the credits wrapped at the bottom; GAME OVER and the score
+  panel narrower (each value under its label), the ranking narrower. The camera is fixed: PAUSED stays centred.
 - **Decor**: the raster draws the lines past the stage (draw.c `raster_out`): above, the cafe's wall carried on up (the
   backdrop's top colour, shaded under the ceiling), the raised rail and the tall windows; below, the floor's bricks
   repeated (BG2's last two rows, 16 px), darker with depth. The UI and the floor layers are hidden above; line 0 puts
