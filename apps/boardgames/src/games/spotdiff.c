@@ -53,7 +53,7 @@ static int pop_k = -1;                          /* the ring just put, settling *
 static Uint32 pop_t0;
 static bench_wave win[2];
 static int down_side = -1, down_cell = -1, down_tool = -1;
-static Uint32 clock_ms, clock_seen;           /* the clock: the time spent on the puzzle (only while it shows,
+static Uint32 clock_ms, clock_seen, clock_real;   /* the clock: the time spent on the puzzle (only while it shows,
  * until it is solved), the last look */
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
@@ -256,6 +256,7 @@ static void begin(const sdf_puzzle *p)
     calm();
     clock_ms = 0;
     clock_seen = ui_ms();
+    clock_real = ui_real_ms();
     if (last_box.w > 0) layout(last_box);
 }
 
@@ -320,7 +321,11 @@ static void draw(void)
     if (made_key < 0 || !t_board) layout(last_box);
     if (!t_board) return;
     Uint32 now = ui_ms();
-    if (!sdf_solved(&G) && now - clock_seen < 1500) clock_ms += now - clock_seen;   /* away: the clock waits */
+    Uint32 real = ui_real_ms();                 /* (a kept game played again: its frames far apart, the real time
+                                                 * all but still, jumping where it was away: Mental Math's way) */
+    if (!sdf_solved(&G) && real - clock_real < 1500 && now - clock_seen < 300000)   /* away, or a leap: it waits */
+        clock_ms += now - clock_seen;
+    clock_real = real;
     clock_seen = now;
     ui_put(t_board, bx, by, (float)geo.pw, (float)geo.ph);
     float q = (float)geo.q;
