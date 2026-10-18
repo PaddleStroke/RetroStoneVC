@@ -403,12 +403,57 @@ void cmx_variant(int v, cmx_spec *sp)
 {
     static const cmx_spec V[CMX_VARIANTS] = {
         /* tubes, lo, hi, kinds, start, limits, need */
-        {1 << CMX_RED | 1 << CMX_YELLOW | 1 << CMX_BLUE | 1 << CMX_WHITE, 2, 4, 2, 2, 0, 0, 0},
+        {1 << CMX_RED | 1 << CMX_YELLOW | 1 << CMX_BLUE | 1 << CMX_WHITE, 3, 5, 2, 2, 0, 0, 0},
         {1 << CMX_RED | 1 << CMX_YELLOW | 1 << CMX_BLUE | 1 << CMX_WHITE | 1 << CMX_BLACK, 3, 6, 2, 3, 0, 0, 0},
         {1 << CMX_RED | 1 << CMX_YELLOW | 1 << CMX_BLUE | 1 << CMX_WHITE | 1 << CMX_BLACK | 1 << CMX_ORANGE |
              1 << CMX_GREEN, 5, 9, 3, 4, 0, 0, 0},
     };
     *sp = V[v < 0 || v >= CMX_VARIANTS ? 0 : v];
+}
+
+static int step_ok(const cmx_map *m, const uint8_t *add, int mv)
+{
+    int t = mv >> 1;
+    return mv & 1 ? add[t] > 0 : m->limit[t] == CMX_ANY || add[t] < m->limit[t];
+}
+
+static void step_do(uint8_t *add, int mv, int undo)
+{
+    int t = mv >> 1, d = (mv & 1 ? -1 : 1) * (undo ? -1 : 1);
+    add[t] = (uint8_t)(add[t] + d);
+}
+
+/* a greedy player: each step the drop (or, with depth 2, the two drops) added, or with back taken back, that brings the pot nearest the
+ * target; it stops when none brings it nearer. 1: it solves it (*drops: the drops it ends with) */
+int cmx_greedy(const cmx_map *m, int par, int back, int depth, int *drops)
+{
+    uint8_t add[CMX_TUBES] = {0};
+    float d = cmx_dist(m, add);
+    int nm = 2 * m->n;
+    for (int step = 0; step < 3 * par + 8 && d > CMX_TOL; step++) {
+        int b1 = -1, b2 = -1;
+        float bd = d;
+        for (int m1 = 0; m1 < nm; m1++) {
+            if ((m1 & 1 && !back) || !step_ok(m, add, m1)) continue;
+            step_do(add, m1, 0);
+            for (int m2 = -1; m2 < (depth > 1 ? nm : 0); m2++) {
+                if (m2 >= 0 && ((m2 & 1 && !back) || !step_ok(m, add, m2) || (m2 ^ 1) == m1)) continue;
+                if (m2 >= 0) step_do(add, m2, 0);
+                float e = cmx_dist(m, add);
+                if (m2 >= 0) step_do(add, m2, 1);
+                if (e < bd - 1e-4f) bd = e, b1 = m1, b2 = m2;
+            }
+            step_do(add, m1, 1);
+        }
+        if (b1 < 0) break;
+        step_do(add, b1, 0);
+        if (b2 >= 0) step_do(add, b2, 0);
+        d = bd;
+    }
+    int n = 0;
+    for (int t = 0; t < m->n; t++) n += add[t];
+    if (drops) *drops = n;
+    return d <= CMX_TOL;
 }
 
 #ifndef CMX_GEN                                 /* not in the levels' tool (tools/colourmix_gen.c): it makes them */
@@ -427,16 +472,25 @@ void cmx_random(cmx_game *g, int variant, uint32_t seed)
     cmx_spec sp;
     cmx_variant(variant, &sp);
     uint32_t r = pr_seed(seed);
-    for (int k = 0; k < 30; k++) {
+    cmx_map keep;
+    int kpar = -1, got = 0;
+    /* of a few boards, the first the obvious way (a drop at a time, the nearest) does not mix */
+    for (int k = 0; k < 30 && got < 6; k++) {
         int par;
         if (k && k % 10 == 0 && sp.hi > sp.lo) sp.hi--;
         cmx_make(&g->m, &sp, pr_next(&r), &par);
-        if (par >= 1) {
-            cmx_begin(g);
-            g->par = par;
-            return;
-        }
+        if (par < 1) continue;
+        got++;
+        int obvious = cmx_greedy(&g->m, par, 0, 1, NULL);
+        if (kpar < 0 || !obvious) keep = g->m, kpar = par;
+        if (!obvious) break;
     }
-    cmx_level(g, 0);
+    if (kpar < 1) {
+        cmx_level(g, 0);
+        return;
+    }
+    g->m = keep;
+    cmx_begin(g);
+    g->par = kpar;
 }
 #endif

@@ -2,8 +2,9 @@
  * Colour Mixer's rules: the paints mix as pigments (red and yellow orange, yellow and blue green, red and blue
  * violet, white lighter, black darker, only the ratios counting); drops, tubes running dry, undo, a drop taken back;
  * boards as text both ways; every level's par found again by the search, its recipe exact, no other recipe of as few
- * drops near it; the hints from the start reaching the end in the par; boards made at random (their par, the same
- * from the same seed, the time they take); whole games from a seed (random drops, then hints to the end).
+ * drops near it; past each chapter's opening, not mixed the obvious way; the hints from the start reaching the end in
+ * the par; boards made at random (their par, the same from the same seed, the time they take); whole games from a
+ * seed (random drops, then hints to the end).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -114,6 +115,11 @@ int main(void)
         if (steps != g.par) printf("level %d: the hints took %d steps for par %d\n", l + 1, steps, g.par);
         CHECK(steps == g.par);
         for (int k = 0; k < l; k++) CHECK(strcmp(cmx_levels[k].text, cmx_levels[l].text));
+        if (l % (CMX_LEVELS / CMX_CHAPTERS) >= (l < CMX_LEVELS / CMX_CHAPTERS ? 3 : 2)) {   /* past the opening */
+            int obvious = cmx_greedy(&g.m, g.par, 0, 1, NULL);
+            if (obvious) printf("colourmix: level %d mixed the obvious way\n", l + 1);
+            CHECK(!obvious && g.par >= 3);
+        }
     }
     printf("colourmix: %d levels at par, the hints the slowest %d ms\n", CMX_LEVELS, worst);
 

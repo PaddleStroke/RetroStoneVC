@@ -84,6 +84,9 @@ int   cmx_solve(const cmx_map *m, const uint8_t *add, int most, uint8_t *more);
 int   cmx_rivals(const cmx_map *m, int drops, float de);
 /* a hint: a tube to add a drop from (*take 0), or one to take a drop back from (*take 1); 0 none */
 int   cmx_hint(const cmx_map *m, const cmx_state *s, int *tube, int *take);
+/* a greedy player: each step the drop added (depth 2: or two drops; back: or a drop taken back) that brings the pot
+ * nearest the target, until none brings it nearer; 1: it solves it (*drops, may be NULL: the drops it ends with) */
+int   cmx_greedy(const cmx_map *m, int par, int back, int depth, int *drops);
 int   cmx_take(cmx_game *g, int tube);          /* the last drop from that tube taken back */
 int   cmx_parse(cmx_map *m, const char *text);
 void  cmx_text(const cmx_map *m, char *out);    /* CMX_TEXT bytes */
