@@ -1,0 +1,10 @@
+Norinori
+# Cíl hry
+Vybarvi políčka mřížky, která je rozdělená na ohraničené oblasti.
+- Každá oblast má právě dvě vybarvená políčka.
+- Každé vybarvené políčko se stranou dotýká právě jednoho dalšího vybarveného: vybarvení tvoří kostky domina a žádné dvě se nedotýkají stranou. Kostka může ležet přes stěnu.
+Každý hlavolam má právě jedno řešení, které najdeš jen úvahou. Podrž prst na políčku a dáš do něj tečku: poznámku, že zůstane nevybarvené.
+# Konec hry
+Hlavolam je vyřešen, když platí všechna pravidla: mřížkou proběhne vlna zlatého světla.
+# Úrovně a hvězdy
+Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je špatné políčko, které vezmeš zpět tlačítkem Vrátit.

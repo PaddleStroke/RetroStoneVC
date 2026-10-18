@@ -1,0 +1,10 @@
+Norinori
+# Das Ziel
+Schwärze Felder des Gitters, das in umrandete Bereiche aufgeteilt ist.
+- Jeder Bereich hat genau zwei geschwärzte Felder.
+- Jedes geschwärzte Feld berührt an einer Seite genau ein anderes geschwärztes Feld: Die Schwärzung besteht aus Dominosteinen, und zwei Steine berühren sich nie an einer Seite. Ein Stein darf über einer Wand liegen.
+Jedes Rätsel hat genau eine Lösung, die man allein durch Überlegen findet. Halte ein Feld gedrückt, um einen Punkt hineinzusetzen: eine Notiz, dass es weiß bleibt.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn alle Regeln erfüllt sind: Eine Welle aus goldenem Licht läuft über das Gitter.
+# Level und Sterne
+Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist ein falsches Feld, das du mit Rückgängig zurücknimmst.

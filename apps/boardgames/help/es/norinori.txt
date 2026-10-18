@@ -1,0 +1,10 @@
+Norinori
+# El objetivo
+Sombrea casillas del tablero, que está dividido en regiones con borde.
+- Cada región tiene exactamente dos casillas sombreadas.
+- Cada casilla sombreada toca por un lado exactamente a otra sombreada: el sombreado está hecho de fichas de dominó, y dos fichas nunca se tocan por un lado. Una ficha puede cruzar una pared.
+Cada tablero tiene una sola solución, que se encuentra solo razonando. Mantén pulsada una casilla para poner un punto: una nota de que queda sin sombrear.
+# El final de la partida
+El tablero está resuelto cuando se cumplen todas las reglas: una ola de luz dorada lo recorre.
+# Niveles y estrellas
+Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es una casilla equivocada que quitas con Deshacer.

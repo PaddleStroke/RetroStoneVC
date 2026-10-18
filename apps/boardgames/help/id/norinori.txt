@@ -1,0 +1,10 @@
+Norinori
+# Tujuan
+Hitamkan kotak-kotak di kisi, yang terbagi menjadi daerah-daerah berbingkai.
+- Setiap daerah punya tepat dua kotak hitam.
+- Setiap kotak hitam bersentuhan sisi dengan tepat satu kotak hitam lain: arsiran tersusun dari kartu domino, dan dua domino tidak pernah bersentuhan sisi. Satu domino boleh melintasi dinding.
+Setiap teka-teki punya tepat satu jawaban yang ditemukan hanya dengan bernalar. Tahan sebuah kotak untuk memberi titik: catatan bahwa kotak itu tetap putih.
+# Akhir permainan
+Teka-teki selesai jika semua aturan terpenuhi: gelombang cahaya emas melintasi kisi.
+# Level dan bintang
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah kotak salah yang kamu batalkan dengan Urungkan.

@@ -1,0 +1,10 @@
+Norinori
+# Tavoite
+Varjosta ruudukosta ruutuja; ruudukko on jaettu rajattuihin alueisiin.
+- Jokaisessa alueessa on täsmälleen kaksi varjostettua ruutua.
+- Jokainen varjostettu ruutu koskettaa sivullaan täsmälleen yhtä toista varjostettua: varjostus koostuu dominopaloista, eivätkä kaksi palaa koskaan kosketa toisiaan sivulla. Pala saa olla seinän yli.
+Jokaisessa tehtävässä on täsmälleen yksi ratkaisu, joka löytyy pelkällä päättelyllä. Pidä sormea ruudussa laittaaksesi siihen pisteen: muistiinpano, että se jää varjostamatta.
+# Pelin loppu
+Tehtävä on ratkaistu, kun kaikki säännöt pitävät: kultaisen valon aalto kulkee ruudukon yli.
+# Tasot ja tähdet
+Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1. Virhe on väärä ruutu, jonka perut Kumoa-painikkeella.

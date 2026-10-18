@@ -1,0 +1,10 @@
+Norinori
+# The aim
+Shade cells of the grid, which is divided into outlined regions.
+- Every region has exactly two shaded cells.
+- Every shaded cell touches exactly one other shaded cell side by side: the shading is made of dominoes, and no two dominoes touch side by side. A domino may lie across a wall.
+Every puzzle has exactly one solution, found by reasoning alone. Hold a cell to put a dot in it: a note that it stays unshaded.
+# The end of the game
+The puzzle is solved when every rule is kept: a wave of gold light runs over the grid.
+# Levels and stars
+No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is a wrong cell that you take back with undo.

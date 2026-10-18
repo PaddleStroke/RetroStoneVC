@@ -1,0 +1,10 @@
+Norinori
+# Målet
+Skravér felter i gitteret, som er delt op i indrammede områder.
+- Hvert område har præcis to skraverede felter.
+- Hvert skraveret felt rører præcis ét andet skraveret felt med en side: skraveringen består af dominobrikker, og to brikker rører aldrig hinanden med en side. En brik må ligge hen over en væg.
+Hver opgave har præcis én løsning, som findes ved ren logik. Hold på et felt for at sætte en prik i det: en note om, at det forbliver hvidt.
+# Spillets afslutning
+Opgaven er løst, når alle regler holder: en bølge af gyldent lys løber over gitteret.
+# Baner og stjerner
+Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er et forkert felt, som du tager tilbage med Fortryd.

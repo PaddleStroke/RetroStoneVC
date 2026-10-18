@@ -1,0 +1,10 @@
+Norinori
+# Målet
+Skraver ruter i rutenettet, som er delt inn i innrammede områder.
+- Hvert område har nøyaktig to skraverte ruter.
+- Hver skravert rute berører nøyaktig én annen skravert rute langs en side: skraveringen består av dominobrikker, og to brikker berører aldri hverandre langs en side. En brikke kan ligge over en vegg.
+Hver oppgave har nøyaktig én løsning, som finnes ved ren logikk. Hold på en rute for å sette en prikk i den: et notat om at den forblir hvit.
+# Slutten på spillet
+Oppgaven er løst når alle reglene holder: en bølge av gyllent lys går over rutenettet.
+# Nivåer og stjerner
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er en feil rute som du tar tilbake med Angre.

@@ -1,0 +1,10 @@
+Norinori
+# Målet
+Skugga rutor i rutnätet, som är indelat i inramade områden.
+- Varje område har exakt två skuggade rutor.
+- Varje skuggad ruta rör exakt en annan skuggad ruta med en sida: skuggningen består av dominobrickor, och två brickor rör aldrig varandra med en sida. En bricka får ligga över en vägg.
+Varje pussel har exakt en lösning, som hittas med enbart logik. Håll på en ruta för att sätta en prick i den: en anteckning om att den förblir vit.
+# Partiets slut
+Pusslet är löst när alla regler håller: en våg av gyllene ljus sveper över rutnätet.
+# Banor och stjärnor
+Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är en felaktig ruta som du tar tillbaka med Ångra.

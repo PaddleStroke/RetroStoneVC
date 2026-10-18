@@ -1,0 +1,10 @@
+Norinori
+# Le but
+Noircis des cases de la grille, qui est découpée en régions entourées.
+- Chaque région compte exactement deux cases noircies.
+- Chaque case noircie touche par un côté exactement une autre case noircie : le noircissage est fait de dominos, et deux dominos ne se touchent jamais par un côté. Un domino peut chevaucher un mur.
+Chaque grille a une seule solution, qu'on trouve par le seul raisonnement. Garde le doigt sur une case pour y mettre un point : une note qu'elle reste blanche.
+# La fin de la partie
+La grille est résolue quand toutes les règles sont respectées : une vague de lumière dorée la parcourt.
+# Niveaux et étoiles
+Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est une case fausse que tu reprends avec Annuler.
