@@ -236,12 +236,11 @@ branch and the squirrel are about 5 times their 4:3 size. The stage's 240 lines 
   score digits at `rs_screen_top()` + 10, the distance under them; 2 players at the quarters of the columns shown, 3-4
   players two by two, each with its P1..P4 tag.
 - **The same zoomed view on every screen**: the title, the game-over panel, the results and the pause never fill
-  the width. The title has its own layout in the columns shown (`title_tall`: the UI layer scrolled to the screen's
-  top): the logo on two lines (`logo_two_lines` moves the second word's cells under the first), the players' slots,
-  the prompt with its A, BEST, the join line and the credits wrapped to the columns (at ": " and " - " first), the
-  joined squirrels waiting on the branch. The game-over panel and the results are the kit's, in the stage (they fit
-  the columns shown; the 1-player panel moves right when a long label widens it); a GAME OVER too wide for the
-  columns in big letters (Greek) is written small in its banner.
+  the width. They are the house's uniform portrait UI (games/common/src/house_tall.h, its default rows only, on the
+  stage, as every zoomed game): the logo as NUTTY over BRANCH (`ht_logo`, row 2), the slots, the prompt, BEST, the
+  join line and the credits (`ht_title_draw` from `HU_ROW_SLOTS`), the joined squirrels at the slots (not on the branch: they would cover the prompt);
+  PAUSED (`ht_pause`); GAME OVER (`ht_banner`) and the game-over panel: METRES, BEST, MEDAL each over its value, the
+  nuts as its note (`ht_gameover_panel_ex`); the ranking (`ht_results_*`).
 - **The same game**: the rules never look at the height. The bot reads the stage's 240 lines and the sprites a 4:3
   screen draws: what only the tall screen draws (past the stage's lines, or hidden on a 4:3 screen) is marked
   (`draw_oam_tall`) and the stage's frames take the sprite pool as at 240 (the tall screen's own frames get their

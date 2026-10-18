@@ -35,5 +35,5 @@ draw.tl_bg3x        (the same)
 draw.tl_bg4x        (the same)
 draw.tl_ui0         (the same)
 draw.tl_ui1         (the same)
-draw.tt_glyph_x     a tall screen's title: the prompt's A (title_tall, before the sprites of every frame)
+draw.narrow_out     a tall screen's title: its layout (house_tall.h: the A glyph, the slots), set by screen_text every frame before the sprites
 draw.obj_extra      a tall screen: set while drawing what only a tall screen draws (scratch: 0 between frames)
