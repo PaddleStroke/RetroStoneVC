@@ -33,6 +33,7 @@ uint16_t draw_hills_entry(int row,int col) {
  * raster's lines past the stage, and the HUD's lines pinned at the screen's top (set by draw_frame before every
  * picture: not saved) */
 static int tall_sx,tall_sy,hud_pinned,tall_cam,tall_b3x,tall_b3y,tall_split;
+static int ui_pin;   /* the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels; set by draw_frame) */
 static rs_color tall_earth[2];
 /* the clouds above the stage (a tall screen): bands of BG3's cloud strip, {stage line, x offset, parallax shift} */
 #define CLOUD_BANDS 2
@@ -43,7 +44,7 @@ static const int cloud_band[CLOUD_BANDS][3]={{-86,150,4},{-42,350,3}};
 #define TALL_UP 150
 #define HUD_LINES 56
 #define TALL_BEHIND 40
-/* the zoomed title (house_tall.h's standard layout below the stage's top): the hedgehog in the sky above it (stage y) */
+/* the zoomed title (house_tall.h's standard layout, pinned on the screen): the hedgehog in the sky above it (UI y) */
 #define TITLE_HERO_Y (-56)
 static int tall(void) { return rs_screen_height()>RS_SCREEN_H; }
 static int bg2_rows(void) { return tall()?64:32; }   /* a tall screen: the earth below the stage, rows 30..63 */
@@ -85,8 +86,9 @@ static void raster_out(int line) {
 }
 static void raster(int line,void *user) {
     (void)user;
-    if(line<0||line>=RS_SCREEN_H) { raster_out(line); return; }
+    if(line<0||line>=RS_SCREEN_H) { raster_out(line); if(ui_pin) rs_bg_enable(RS_BG1,ht_pin_line(ui_pin,line)); return; }
     if(line==0) for(int l=0;l<3;l++) rs_bg_enable(l,1);   /* (a tall split screen too: the views' own masks) */
+    if(ui_pin) rs_bg_enable(RS_BG1,ht_pin_line(ui_pin,line));   /* the pinned UI */
     if(line==0 && rs_viewport_current()<0) {
         rs_bg_scroll(RS_BG2,tall_sx,tall_sy);
         if(rs_bg_map_h(RS_BG3)>32) rs_bg_scroll(RS_BG3,tall_b3x,tall_b3y);   /* (after the clouds) */
@@ -320,6 +322,8 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
     else rs_screen_focus_x(-1);
     int narrow=one && ht_narrow();
     rs_bg_pin(RS_BG1,0,hud?HUD_LINES:0,0);
+    ui_pin=!narrow?HT_PIN_OFF:state==ST_TITLE?HT_PIN_TITLE:state==ST_OVER?HT_PIN_PANEL:HT_PIN_OFF;
+    if(ui_pin) ht_pin(ui_pin);   /* the title and the panels at the same place on every game's screen */
     hud_pinned=hud;
     /* BG2: 64 rows for one hedgehog on a tall screen (the earth below the stage), the split screens' 32 */
     int rows=tall() && !(run && w->players>1)?64:32;
@@ -389,7 +393,7 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
         ht_title_out to;
         ht_title_draw(&tc,st_t,best,&to);
         ht_title_sprites(&tc,&to,st_t,slot_icon,NULL);
-        spr(SPR_HERO_IDLE+(st_t/32)%2,ht_mid_x()-16+hu_ui_x(),TITLE_HERO_Y+hu_bob(st_t,64,4),2,-1);
+        spr(SPR_HERO_IDLE+(st_t/32)%2,ht_mid_x()-16+hu_ui_x(),TITLE_HERO_Y+ht_pin_dy(HT_PIN_TITLE)+hu_bob(st_t,64,4),2,-1);   /* (above the pinned logo) */
     } else if(state==ST_TITLE) {
         hu_title_sprites(st_t,slot_icon,NULL);
         spr(SPR_HERO_IDLE+(st_t/32)%2,144+hu_ui_x(),91+hu_bob(st_t,64,4),2,-1);   /* centred with the title (widescreen) */
