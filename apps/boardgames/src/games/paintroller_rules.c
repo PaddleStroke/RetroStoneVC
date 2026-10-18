@@ -505,7 +505,7 @@ void pnr_random(pnr_game *g, int variant, uint32_t seed)
     pnr_variant(variant, &sp);
     uint32_t r = pr_seed(seed);
     int best = -1;
-    for (int k = 0; k < 6 && (k < 2 || best < 4); k++) {
+    for (int k = 0; k < 10 && (k < 2 || best < 7); k++) {
         pnr_map m;
         pnr_make(&m, &sp, pr_next(&r));
         int p = par_of(&m, sp.cap);
