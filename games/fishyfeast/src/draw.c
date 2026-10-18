@@ -23,6 +23,7 @@
 #include "assets.h"
 #include "house_ui.h"
 #include "game_text.h"
+#include "tall_ui.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -668,10 +669,10 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
     if (screen != shown_key || (state == ST_OVER && st_t == RETRY_LOCK) || best != shown_best) {
         hu_clear();
         shown_text = 0;
-        if (state == ST_TITLE) hu_logo("FISHY FEAST", title_ramps, 2, 2, 0);
+        if (state == ST_TITLE) tu_logo("FISHY FEAST", title_ramps, 2, 2, 0);    /* (portrait: on two lines) */
         if (state == ST_OVER) {
             if (w->players == 1) {
-                hu_banner(4, HTR(GAME_OVER));
+                tu_banner(4, HTR(GAME_OVER));
                 hu_gameover_panel(1, new_best, w->own[0].best, 0);
                 if (w->own[0].eaten_by >= 0) {
                     char s[64], nm[24];
@@ -680,13 +681,14 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
                     hu_gameover_note(s);
                 }
             } else {
-                hu_results_panel(rs, NULL);
+                tu_results_panel(rs, NULL);
             }
         }
         shown_key = screen;
         shown_best = best;
     }
-    if (state == ST_TITLE) hu_title_draw(st_t, best);
+    if (state == ST_TITLE && tu_on()) tu_title_draw(st_t, best, TR(VERB), MAX_PLAYERS, 0, 0);
+    else if (state == ST_TITLE) hu_title_draw(st_t, best);
     if (state == ST_OVER) {
         if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_TITLE));
         else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_TITLE));
@@ -763,9 +765,10 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     int extra = rs_screen_height() > RS_SCREEN_H ? 80 : 0;     /* the sprites of the taller views */
     /* a zoomed tall screen (DESIGN.md "Tall screen"): one fish playing fills the display's height, the sides cropped:
      * its camera fits the columns shown and the whole height, the leaderboard at the screen's top (BG1's top lines
-     * pinned, the raster shows them), the mass above it; the title, the panels and a split screen show every column */
+     * pinned, the raster shows them), the mass above it; the title and the panels the same view (laid out in the
+     * columns shown: tall_ui.h); only a split screen (2-4 fish, a view each across the stage) shows every column */
     int solo = (state == ST_PLAY || state == ST_DEAD) && w->players == 1;
-    rs_screen_fill(solo);
+    rs_screen_fill(!multi);
     hud_lines = tall() && solo ? HUD_LINES : 0;
     rs_bg_pin(RS_BG1, 0, hud_lines, HUD_PIN_Y);
     if (hud_lines) {
@@ -811,7 +814,7 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     rs_bg_scroll(RS_BG1, 0, -slide);
     rs_bg_scroll(RS_BG2, t / 3, 0);
     rs_bg_scroll(RS_BG3, 0, 0);
-    hu_pause(paused, 13);
+    tu_pause(paused, 13);
 
     /* the specks */
     specks_clear();
@@ -839,9 +842,11 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
                 }
             }
         } else {
-            hu_title_sprites(st_t, slot_icon, NULL);
+            if (tu_on()) tu_title_sprites(st_t, MAX_PLAYERS, 0, slot_icon, NULL);
+            else hu_title_sprites(st_t, slot_icon, NULL);
             sview k = {rs_screen_left(), 0, rs_screen_width(), RS_SCREEN_H, 0, 0, 65536, 12};
-            draw_fish_at(&k, RS_SCREEN_W / 2 + 6, 112 + hu_bob(st_t, 64, 4), 19, 8, 0, (st_t / 10) & 1, 2);
+            int fy = tu_on() ? 122 : 112;      /* (zoomed: under the logo on its two lines) */
+            draw_fish_at(&k, RS_SCREEN_W / 2 + 6, fy + hu_bob(st_t, 64, 4), 19, 8, 0, (st_t / 10) & 1, 2);
         }
         s.budget = SPR_BUDGET_1 + extra - rs_oam_next();
         draw_world(&s, w, (state == ST_PLAY || state == ST_DEAD) ? 0 : -1, t);
