@@ -245,6 +245,8 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  int hud=tall() && !multi && (state==ST_PLAY || state==ST_DEAD);
  rs_screen_fill(!multi);
  rs_bg_pin(RS_BG1,0,hud?HUD_LINES:0,HUD_PIN_Y);
+ int ui_pin=!ht_narrow() || multi?HT_PIN_OFF:state==ST_TITLE?HT_PIN_TITLE:state==ST_OVER?HT_PIN_PANEL:HT_PIN_OFF;
+ if(ui_pin) ht_pin(ui_pin);   /* the title and the panels at the same place on every game's screen (BG1: 64 rows) */
  hu_clear();rs_oam_clear();rs_brightness(paused?9:15);
  int next=1;
  for(int p=0;p<nviews;p++) {
@@ -320,14 +322,15 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   rs_viewport *vp=&stage;hu_standing rank;ranking(w,&rank);
   int slide=state==ST_OVER?hu_slide_in(st_t,20,200):0;
   if(state==ST_TITLE) {
-   /* (a zoomed tall screen: the house title in the columns shown, house_tall.h; the spider and its flowers under the
-    * logo on its two lines, the hint under the slots) */
-   int tz=ht_narrow(),d=tz?TITLE_TALL_DY:0;ht_title tc={TR(VERB),MAX_PLAYERS,15,0};
-   if(tz) {ht_logo("SPIDER SWING",title_ramps,2,2,0);ht_title_draw(&tc,st_t,best,&title_out);ht_text(19,TR(HINT),0);}
+   /* (a zoomed tall screen: the house title in the columns shown, house_tall.h, its standard rows: the hint above the
+    * prompt; the spider and its flowers between the slots and the text under them: ht_title_out gap_y0..1) */
+   int tz=ht_narrow();ht_title tc={TR(VERB),MAX_PLAYERS,HT_ROW_SLOTS,0,TR(HINT)};
+   if(tz) {ht_logo("SPIDER SWING",title_ramps,2,HT_ROW_LOGO,0);ht_title_draw(&tc,st_t,best,&title_out);}
    else {hu_logo("SPIDER SWING",title_ramps,2,2,0);hu_title_draw(st_t,best);hu_text(hu_center(TR(HINT),0),16,TR(HINT));}
    if(tz) ht_title_sprites(&tc,&title_out,st_t,icon,NULL);else hu_title_sprites(st_t,icon,NULL);
-   spr(SPR_HERO_IDLE+(st_t/24)%2,144,92+d+hu_bob(st_t,64,4),2,0,vp);
-   blossom(w,0,0,89,113+d,0,vp);blossom(w,1,0,231,113+d,0,vp);
+   int sy=tz?(title_out.gap_y0+title_out.gap_y1)/2-16:92;
+   spr(SPR_HERO_IDLE+(st_t/24)%2,144,sy+hu_bob(st_t,64,4),2,0,vp);
+   blossom(w,0,0,89,sy+21,0,vp);blossom(w,1,0,231,sy+21,0,vp);
   }
   if(state==ST_OVER) {
    if(w->players==1) {
