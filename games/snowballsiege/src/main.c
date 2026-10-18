@@ -138,11 +138,11 @@ static void sfx_at(int id, int wx, int vol)
 static void go(int s) { st = s; st_t = 0; }
 
 /* the columns the camera frames: a zoomed screen (a phone held upright, DESIGN.md "Tall screen") shows fewer than
- * the screen's while the field plays (rs_screen_fill(1), the sides cropped); the title and the panels show every
- * column. Elsewhere: the screen's width. Set before the touches and the camera read them (draw_frame sets it too). */
+ * the screen's (rs_screen_fill(1), the sides cropped), on every screen: the title and the panels keep the play's view.
+ * Elsewhere: the screen's width. Set before the touches and the camera read them (draw_frame sets it too). */
 static int view_cols(void)
 {
-    rs_screen_fill(st == ST_PLAY || st == ST_DEAD);
+    rs_screen_fill(1);
     return rs_screen_visible_x1() - rs_screen_visible_x0();
 }
 

@@ -140,9 +140,17 @@ above it for the throws' arcs, TALL_BELOW = 40 of frozen ground below).
   to `camera_init` / `camera_step` instead of the screen's width, so the active critter, the ball (kept CAM_EDGE px
   inside) and where it is heading stay in view; the map's brackets show those columns. Presentation only: the same
   rules and hashes at every size.
-- **Fill or fit**: the field (play and the moment before the panel) fills the display's height; the title, the
-  game-over panel and the 2-4 player results show every column (`rs_screen_fill(0)`). Set each frame (main.c
-  `view_cols`, before the touches and the camera, and draw_frame). The hot-seat matches share one field: no split.
+- **One view**: every screen keeps the play's zoomed view (`rs_screen_fill(1)`, never the letterboxed full width; set
+  each frame in main.c `view_cols`, before the touches and the camera, and draw_frame). The hot-seat matches share
+  one field: no split. When the columns shown are fewer than 320 (`ht_narrow`), the title and the panels are laid
+  out in them with the house kit's games/common/src/house_tall.h: the logo on two lines (draw.c `title_logo_tall`:
+  SIEGE drawn as " SIEGE " so it keeps its red ramp), the four teams under it, the slots closer, the prompt, BEST,
+  the join line (wrapped) and the credits stacked; GAME OVER narrower over a panel with each value under its label
+  (draw.c `over_panel`: wide enough for the retry line), the note and the retry line wrapped; the 2-4 player ranking
+  in the columns shown. Their whole UI layer (BG1's 32 rows) is pinned from screen line UI_PIN_Y (96: `ui_dy()`
+  lines higher than the stage, the sprites raised the same), so the logo and the panels sit in the sky, the field's
+  hills under them and the tallest panels (French, Japanese, Finnish) clear of the stage's bottom; the panel's slide
+  moves the pinned line instead of scrolling the layer. The taps (anywhere: start, back to the title) are unchanged.
 - **The HUD at the screen's top**: the windsock between the frontend's back and pause buttons, the badges (team and
   timer, throwable) and the score just under them, in the columns shown; BG1's rows 0..26 (the stock's "X2", the
   turn's banner, the big messages, the hint, the pause) are pinned from screen line PIN_Y (`rs_bg_pin`), so the texts
