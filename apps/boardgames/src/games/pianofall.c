@@ -53,11 +53,15 @@ static struct { Uint32 anchor, last, real; float base; int done; } clk;
 static float speed(void) { return practice ? PRACTICE : 1.0f; }
 static float song_at(Uint32 now) { return clk.base + (float)(int)(now - clk.anchor) * speed(); }
 static int judged_at(Uint32 now) { return (int)floorf(song_at(now) - offset * speed()); }
-/* the clock between frames: a long gap since the last one drawn is the game away (draw() then moves the song past it) */
+/* away: a long real-time gap since the last frame drawn; or the clock leaping far on (a kept game played again: its
+ * clock runs fast, lands 10 minutes on, then jumps back to the real clock; the picture mode's long jumps) */
+#define LEAP_MS 300000
+static int away(Uint32 now) { return clk.last && (SDL_GetTicks() - clk.real > PAUSE_MS || now - clk.last > LEAP_MS); }
+/* the clock between frames: the game away, the time of the last one drawn (draw() then moves the song past it) */
 static Uint32 clock_now(void)
 {
     Uint32 now = ui_ms();
-    return clk.last && SDL_GetTicks() - clk.real > PAUSE_MS ? clk.last : now;
+    return away(now) ? clk.last : now;
 }
 
 /* ---- what shows: the judgements' lights, the keys played, the fingers ---------------------------------------------- */
@@ -629,7 +633,7 @@ static void draw(void)
     if (!t_case) layout(room);
     Uint32 now = ui_ms();
     if (!clk.done) {                            /* away a while (another screen, the rules): the song waited */
-        if (clk.last && SDL_GetTicks() - clk.real > PAUSE_MS) clk.anchor += now - clk.last;
+        if (away(now)) clk.anchor += now - clk.last;
         clk.last = now;
         clk.real = SDL_GetTicks();
         ui_animate();
