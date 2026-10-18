@@ -632,13 +632,13 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     int sx = hu_shake_x(), sy = hu_shake_y(), t = state == ST_TITLE ? st_t : w->t;
     hu_standing rs;
     standing(w, &rs);
-    /* a tall screen (DESIGN.md "Tall screen"): zoomed throughout, the left columns shown (the herd and the sky ahead
-     * of it): the title, play and the panels one view (house_tall.h lays the title and the panels out in the columns
+    /* a tall screen (DESIGN.md "Tall screen"): zoomed throughout, in play the left columns shown (the herd and the sky ahead
+     * of it), the title and the panels centred: one view (house_tall.h lays the title and the panels out in the columns
      * shown; in play the UI layer is centred on them). x0 .. x1 - 1: the stage columns shown */
-    int zoom = tall();
+    int zoom = tall(), play = state == ST_PLAY || state == ST_DEAD;
     if (tall()) {
         rs_screen_fill(zoom);
-        rs_screen_focus_x(0);
+        rs_screen_focus_x(play ? 0 : -1);      /* (the title and the panels: centred, as house_tall.h lays them out) */
     }
     int x0 = rs_screen_visible_x0() - rs_screen_origin_x(), x1 = rs_screen_visible_x1() - rs_screen_origin_x();
     time_of_day(state == ST_TITLE ? 0 : w->sky);
@@ -648,9 +648,8 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
     screen_text(w, state, st_t, best, new_best, &rs, touch_hint);
     int slide = state == ST_OVER ? hu_slide_in(st_t, 20, 200) : 0;     /* the panel slides up, ease-out */
     /* the UI centred on the screen (widescreen), on the columns shown (zoomed) */
-    int play = state == ST_PLAY || state == ST_DEAD;
     rs_bg_scroll(RS_BG1, -hu_ui_x() + (zoom && play ? STAGE_W / 2 - (x0 + x1) / 2 : 0), -slide);
-    ht_pause(paused, 13);
+    ht_pause_dx(paused, 13, zoom && play ? (x0 + x1) / 2 - STAGE_W / 2 : 0);   /* (PAUSED on the columns shown) */
     /* the hornets, the spit, their effects and the aim dots: in play over the text too (priority 3: the new hornets'
      * names, the hint, the corner tags never hide one); paused or under the game-over panel, behind the UI (2) */
     int play_prio = (state == ST_PLAY || state == ST_DEAD) && !paused ? 3 : 2;
@@ -685,9 +684,9 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
         } else {
             hu_title_sprites(st_t, slot_icon, NULL);   /* the prompt's glyph, the joined players popping in */
         }
-        /* a hornet buzzes about on the right, waiting (zoomed: in the columns shown, by the logo's first word) */
+        /* a hornet buzzes about on the right, waiting (zoomed: in the columns shown, above the logo) */
         int hx = 250 + isin1024(st_t * 5) * 22 / 16384, hy = 112 + isin1024(st_t * 10) * 10 / 16384;
-        if (ht_narrow()) hx = x1 - 28 + isin1024(st_t * 5) * 14 / 16384, hy = 36 + isin1024(st_t * 10) * 10 / 16384;
+        if (ht_narrow()) hx = x1 - 28 + isin1024(st_t * 5) * 14 / 16384, hy = 4 + isin1024(st_t * 10) * 6 / 16384;
         spr(SPR_HORNET + (st_t / 3) % 2, hx - 8, hy - 8, 2, -1, icos1024(st_t * 5) > 0 ? 0 : RS_SPR_HFLIP);
     } else {
         draw_play(w, sx, sy, play_prio);
