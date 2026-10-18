@@ -2078,7 +2078,8 @@ static int axes_on(int g)
 /* the variant the picker shows as chosen last (a game of levels: its random play's); -1 none */
 static int picked(int g)
 {
-    if (games[g]->levels) return in_random(g) ? rvariant[g] : -1;
+    if (games[g]->levels)                       /* (its picker is random play's: its last one, or its first choice) */
+        return in_random(g) || (g == cur && screen == SCR_PICK) ? rvariant[g] : -1;
     return chosen[g] || games[g]->variant_first ? variant[g] : -1;   /* (a game's first choice: as if chosen) */
 }
 
