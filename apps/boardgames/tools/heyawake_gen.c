@@ -2,6 +2,7 @@
  * Heyawake's levels, made by chance and chosen: src/games/heyawake_levels.h. Our own puzzles, from the game's own
  * maker (rooms and a shading by chance, every room's number, then numbers taken away while the solver finishes it at
  * its level; heyawake_rules.c). Each candidate:
+ *   - its taste: rooms of a pleasant shape (few single cells and slivers), and not mostly zeros among the numbers;
  *   - its grade (bench.h: easy, medium, hard), checked to have one solution;
  *   - the work it asks of the solver: the passes of its reasoning (each a round of the ways allowed; a trial's count
  *     too), and how often the medium ways were needed;
@@ -83,12 +84,37 @@ static int seen(const char *key)
     return 0;
 }
 
+/* the taste: rooms of a pleasant shape (one room of a single cell, two from 9 x 9, three at 12 x 12; few slivers: a
+ * room one cell wide and four or more long, one more at 12 x 12), and at most two thirds of the numbers zeros */
+static int tasteful(const hyk_puzzle *p)
+{
+    int n = p->n, x0[HYK_CELLS], y0[HYK_CELLS], x1[HYK_CELLS], y1[HYK_CELLS];
+    int singles = 0, slivers = 0, zeros = 0, nums = 0;
+    for (int r = 0; r < p->rooms; r++) x0[r] = y0[r] = n, x1[r] = y1[r] = -1;
+    for (int c = 0; c < n * n; c++) {
+        int r = p->room[c], x = c % n, y = c / n;
+        if (x < x0[r]) x0[r] = x;
+        if (y < y0[r]) y0[r] = y;
+        if (x > x1[r]) x1[r] = x;
+        if (y > y1[r]) y1[r] = y;
+    }
+    for (int r = 0; r < p->rooms; r++) {
+        int w = x1[r] - x0[r] + 1, h = y1[r] - y0[r] + 1;
+        singles += w * h == 1;
+        slivers += (w == 1 && h >= 4) || (h == 1 && w >= 4);
+        nums += p->num[r] >= 0;
+        zeros += p->num[r] == 0;
+    }
+    return singles <= 1 + (n >= 9) + (n >= 12) && slivers <= n / 3 + (n >= 12) && 3 * zeros <= 2 * nums + 1;
+}
+
 /* one candidate from a seed; 1 when it is of the size and the level and has one solution */
 static int candidate(cand *c, int n, int level, uint32_t seed)
 {
     uint8_t sol[HYK_CELLS];
     hyk_make_ex(n, level, seed, BUDGET, &c->p, sol);
     if (c->p.n != n) return 0;
+    if (!tasteful(&c->p)) return 0;
     c->grade = hyk_effort(&c->p, &c->passes, &c->mediums);
     if (c->grade != level || hyk_count(&c->p, 2) != 1) return 0;
     c->numbers = 0;
