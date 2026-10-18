@@ -1,0 +1,12 @@
+Corridor
+# The aim
+Be the first to bring your pawn to the far side of the board: the edge striped in your colour. Light moves first.
+# A turn
+Move your pawn or place a wall.
+- Step: one square forward, back or sideways, never across a wall.
+- Jump: onto a square with a pawn, jump straight over it. If a wall, the edge or another pawn is behind it, step to its left or right instead.
+- Wall: a wall covers two squares. Walls may not overlap or cross, and no wall may ever cut a pawn off from its goal.
+- Each player has 10 walls, or 5 with four players. Drag one from your bar into a groove, or tap a groove twice.
+- A player who can do nothing passes.
+# The end of the game
+The first pawn to reach its goal wins. If nobody has after 100 turns each, the game is a draw.

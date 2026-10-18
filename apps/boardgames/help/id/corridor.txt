@@ -1,0 +1,12 @@
+Koridor
+# Tujuan
+Jadilah yang pertama membawa pionmu ke sisi seberang papan: tepi bergaris warnamu. Warna terang jalan lebih dulu.
+# Satu giliran
+Gerakkan pionmu atau pasang satu dinding.
+- Langkah: satu petak ke depan, ke belakang, atau ke samping, tidak pernah menembus dinding.
+- Lompat: jika ada pion di depanmu, lompati lurus di atasnya. Jika di belakangnya ada dinding, tepi papan, atau pion lain, pindahlah ke kiri atau kanannya.
+- Dinding: satu dinding menutup dua petak. Dinding tidak boleh bertumpuk atau bersilangan, dan tidak ada dinding yang boleh memutus jalan pion ke tujuannya sama sekali.
+- Setiap pemain punya 10 dinding, atau 5 jika berempat. Seret satu dari bilahmu ke sebuah alur, atau ketuk sebuah alur dua kali.
+- Pemain yang tidak bisa berbuat apa-apa melewatkan giliran.
+# Akhir permainan
+Pion pertama yang mencapai tujuannya menang. Jika belum ada yang sampai setelah masing-masing 100 giliran, permainan seri.

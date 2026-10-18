@@ -1,0 +1,12 @@
+Pasillo
+# El objetivo
+Sé el primero en llevar tu peón al otro lado del tablero: el borde con la raya de tu color. Empiezan las claras.
+# Un turno
+Mueve tu peón o coloca una pared.
+- Paso: una casilla hacia delante, hacia atrás o a un lado, nunca a través de una pared.
+- Salto: si hay un peón delante, sáltalo en línea recta. Si detrás de él hay una pared, el borde u otro peón, ve en cambio a su izquierda o a su derecha.
+- Pared: una pared cubre dos casillas. Las paredes no pueden solaparse ni cruzarse, y ninguna pared puede dejar nunca a un peón sin camino a su meta.
+- Cada jugador tiene 10 paredes, o 5 con cuatro jugadores. Arrastra una desde tu barra hasta una ranura, o toca dos veces una ranura.
+- Quien no puede hacer nada, pasa.
+# El final de la partida
+Gana el primer peón que llega a su meta. Si nadie lo ha logrado tras 100 turnos cada uno, la partida es tablas.

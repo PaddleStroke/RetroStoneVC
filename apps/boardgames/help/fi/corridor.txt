@@ -1,0 +1,12 @@
+Käytävä
+# Tavoite
+Vie ensimmäisenä nappulasi laudan toiselle puolelle: reunaan, jossa on sinun värisi raita. Vaalea aloittaa.
+# Vuoro
+Siirrä nappulaasi tai aseta seinä.
+- Askel: yksi ruutu eteen, taakse tai sivulle, ei koskaan seinän läpi.
+- Hyppy: jos edessäsi on nappula, hyppää sen yli suoraan. Jos sen takana on seinä, reuna tai toinen nappula, mene sen sijaan sen vasemmalle tai oikealle puolelle.
+- Seinä: seinä peittää kaksi ruutua. Seinät eivät saa olla päällekkäin eivätkä ristissä, eikä mikään seinä saa koskaan sulkea nappulan tietä maaliinsa kokonaan.
+- Jokaisella on 10 seinää, neljän pelaajan pelissä 5. Vedä seinä palkistasi uraan tai napauta uraa kahdesti.
+- Pelaaja, joka ei voi tehdä mitään, ohittaa vuoronsa.
+# Pelin loppu
+Ensimmäinen maaliinsa ehtivä nappula voittaa. Jos kukaan ei ole perillä 100 vuoron jälkeen kukin, peli päättyy tasan.
