@@ -64,6 +64,7 @@ static void start(int v)
     ck_new(&G, (uint32_t)ui_random(1 << 30));
     solui_new(&U);
     dealing = 1;
+    pressed = 0;                                /* (a press before this game began is not its tap) */
     hand_at = -1;
 }
 
