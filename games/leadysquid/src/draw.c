@@ -6,6 +6,8 @@
 #include "ls.h"
 #include "assets.h"
 #include "house_ui.h"
+#include "game_text.h"
+#include "house_tall.h"             /* a phone held upright: the title and the panels in the columns shown */
 #include <stdio.h>
 #include <string.h>
 
@@ -418,6 +420,8 @@ static void draw_fx(int prio_front)
 
 /* ---- per frame ---------------------------------------------------------------------------------------------- */
 static int shown_state = -1, shown_best = -1;
+static int shown_cols = -1;              /* the columns shown when the UI was drawn (a tall screen: ht_ncols, else 0) */
+static ht_title_out title_at;            /* where the narrow title put its glyph and slots (drawn every title frame) */
 
 /* the race's ranking (2-4 players): the score, then who lasted longer */
 static void standing(const world *w, hu_standing *s)
@@ -433,13 +437,21 @@ static void standing(const world *w, hu_standing *s)
 
 static void screen_text(const world *w, int state, int st_t, int best, int new_best, const hu_standing *rs)
 {
-    if (state != shown_state || (state == DS_OVER && st_t == RETRY_LOCK) || best != shown_best) {
+    /* a phone held upright (ht_narrow, DESIGN.md "Tall screen"): the same in the columns shown (house_tall.h) */
+    int narrow = ht_narrow(), cols = narrow ? ht_ncols() : 0;
+    if (state != shown_state || (state == DS_OVER && st_t == RETRY_LOCK) || best != shown_best || cols != shown_cols) {
         hu_clear();
         logo_on = 0;
         if (state == DS_TITLE) {
             logo_on = 1;
-            for (int y = 0; y < LOGO_H; y++)
-                for (int x = 0; x < LOGO_W; x++) rs_bg_put(RS_BG1, 4 + x, 2 + y, ls_logo_map[y * LOGO_W + x]);
+            if (narrow)                             /* LEADY over SQUID (the logo's tile columns 0..15, 16..31) */
+                for (int k = 0; k < 2; k++)
+                    for (int y = 1; y < 7; y++)
+                        for (int x = 0; x < LOGO_W / 2; x++)
+                            rs_bg_put(RS_BG1, 13 - k + x, 1 + 6 * k + (y - 1), ls_logo_map[y * LOGO_W + k * LOGO_W / 2 + x]);
+            else
+                for (int y = 0; y < LOGO_H; y++)
+                    for (int x = 0; x < LOGO_W; x++) rs_bg_put(RS_BG1, 4 + x, 2 + y, ls_logo_map[y * LOGO_W + x]);
             rs_pal_load(RS_PAL_BG(PAL_LOGO), ls_logo_pal, 16);
         } else {
             rs_pal_load(RS_PAL_BG(PAL_LOGO), ls_theme_bg_pal[PAL_LOGO - PAL_THEME0], 16);
@@ -449,20 +461,40 @@ static void screen_text(const world *w, int state, int st_t, int best, int new_b
         if (state == DS_OVER) {
             if (w->players == 1) {
                 /* the title on its own banner, as wide as the score panel below it: nothing shows through */
-                hu_banner(4, HTR(GAME_OVER));
-                hu_gameover_panel(1, new_best, w->sq[0].score, 0);
+                if (narrow) {
+                    ht_banner(4, HTR(GAME_OVER));
+                    ht_gameover_panel(new_best, NULL, HTR(BACK_MENU));
+                } else {
+                    hu_banner(4, HTR(GAME_OVER));
+                    hu_gameover_panel(1, new_best, w->sq[0].score, 0);
+                }
+            } else if (narrow) {
+                ht_results_panel(rs, NULL);
             } else {
                 hu_results_panel(rs, NULL);           /* P3 WINS! and the ranking */
             }
         }
         shown_state = state;
         shown_best = best;
+        shown_cols = cols;
     }
     /* the title, every frame: the prompt (blinking), the player slots, BEST, the join line, the credits */
-    if (state == DS_TITLE) hu_title_draw(st_t, best);
+    if (state == DS_TITLE) {
+        if (narrow) {
+            ht_title tc = {TR(VERB), MAX_PLAYERS, 15, 0};
+            ht_title_draw(&tc, st_t, best, &title_at);
+        } else {
+            hu_title_draw(st_t, best);
+        }
+    }
     if (state == DS_OVER) {
-        if (w->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_MENU));
-        else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_MENU));
+        if (w->players == 1) {
+            if (narrow) ht_retry_line_at(ht_gameover_retry_row(NULL), st_t, RETRY_LOCK, HTR(BACK_MENU));
+            else hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_MENU));
+        } else {
+            if (narrow) ht_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_MENU));
+            else hu_retry_line_at(hu_results_retry_row(rs), st_t, RETRY_LOCK, HTR(BACK_MENU));
+        }
     }
 }
 
@@ -508,25 +540,27 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
             back_dx[y] = (int16_t)((sx / 4) & pm);
         }
     }
-    screen_text(w, state, st_t, best, new_best, &rs);
-    /* the game-over panel slides up */
-    int slide = state == DS_OVER ? hu_slide_in(st_t, 20, 200) : 0;
-    rs_bg_scroll(RS_BG1, -hu_ui_x(), -slide);      /* the UI centred on the screen (widescreen) */
-    if (redraw_pause && paused) hu_pause(0, 13);  /* the UI layer was set up again (a state of another width) */
-    redraw_pause = 0;
-    hu_pause(paused, 13);
-
-    /* a tall screen (ls.h ZOOM_H, DESIGN.md "Tall screen"): 1-2 squids swimming fill the display's height, the columns
-     * shown from VIEW_BEHIND px behind the hindmost squid; the title, the panels and 3-4 players show every column */
-    int zoom = rs_screen_height() > RS_SCREEN_H && w->players <= 2 && state != DS_TITLE && state != DS_OVER;
+    /* a tall screen (ls.h ZOOM_H, DESIGN.md "Tall screen"): the zoomed view, always: the title and the panels too, laid
+     * out in the columns shown (screen_text, house_tall.h); 1-2 squids swimming: the columns shown from VIEW_BEHIND px
+     * behind the hindmost squid; 3-4 squids swimming show every column (the race needs them) */
+    int swim = state != DS_TITLE && state != DS_OVER;
+    int zoom = rs_screen_height() > RS_SCREEN_H && (w->players <= 2 || !swim);
     rs_screen_fill(zoom);
     int vx0 = rs_screen_visible_x0() - rs_screen_origin_x(), vw = rs_screen_visible_x1() - rs_screen_visible_x0();
-    if (zoom) {
+    if (zoom && swim) {
         vx0 = squid_start_x(w->players, w->players - 1) - VIEW_BEHIND;
         rs_screen_focus_x(vx0 + vw / 2 + rs_screen_origin_x());
     } else {
         rs_screen_focus_x(-1);
     }
+    screen_text(w, state, st_t, best, new_best, &rs);
+    /* the game-over panel slides up */
+    int slide = state == DS_OVER ? hu_slide_in(st_t, 20, 200) : 0;
+    int ui_dx = zoom && swim ? ht_mid_x() - RS_SCREEN_W / 2 : 0;   /* (zoomed, swimming: PAUSED on the columns shown) */
+    rs_bg_scroll(RS_BG1, -hu_ui_x() - ui_dx, -slide);   /* the UI centred on the screen (widescreen) */
+    if (redraw_pause && paused) hu_pause(0, 13);  /* the UI layer was set up again (a state of another width) */
+    redraw_pause = 0;
+    hu_pause(paused, 13);
 
     rs_oam_clear();
     /* front to back: UI, squids, ink and weights, caps, bubbles */
@@ -543,7 +577,35 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
             number_at(w->sq[p].score, ch.x, ch.y, ch.align, 3);
         }
     }
-    if (state == DS_OVER) {
+    if (state == DS_OVER && ht_narrow()) {          /* a phone held upright: the panels in the columns shown */
+        int oy = slide, ux = hu_ui_x(), cx, y;
+        if (w->players == 1) {
+            ht_gameover_pos(0, &cx, &y);
+            number(w->sq[0].score, cx + ux, y + oy, 3);
+            ht_gameover_pos(1, &cx, &y);
+            number(best, cx + ux, y + oy, 3);
+            ht_gameover_pos(2, &cx, &y);
+            int m = medal_of(w->sq[0].score);
+            if (m) {
+                spr(SPR_MEDAL + m - 1, cx - 12 + ux, y + oy, 3, -1);
+                if ((st_t / 20) % 3 == 0) spr(SPR_SPARKLE + (st_t / 10) % 2, cx + 14 + ux, y + oy, 3, -1);
+            } else {
+                hu_box_text((cx - 4) / 8, y / 8 + 1, "-");
+            }
+        } else {
+            int ix, vx, mx;
+            ht_results_cols(&ix, &vx, &mx);
+            for (int i = 0; i < rs.n; i++) {
+                int ry = hu_results_row(&rs, i) * 8 + oy, m = hu_results_medal(&rs, i);
+                number(rs.value[rs.order[i]], vx + ux, ry - 4, 3);
+                if (m) {
+                    spr(SPR_MEDAL + m - 1, mx + ux, ry - 8, 3, -1);
+                    if (rs.rank[i] == 0 && (st_t / 20) % 3 == 0) spr(SPR_SPARKLE + (st_t / 10) % 2, mx + 18 + ux, ry - 8, 3, -1);
+                }
+                spr(SPR_SQUID_ICON, ix - 8 + ux, ry - 4, 3, rs.order[i] ? hu_player_pal(rs.order[i]) : -1);
+            }
+        }
+    } else if (state == DS_OVER) {
         int oy = slide, ux = hu_ui_x();
         if (w->players == 1) {
             number(w->sq[0].score, 25 * 8 + ux, 11 * 8 - 4 + oy, 3);
@@ -569,7 +631,11 @@ void draw_frame(const world *w, int state, int st_t, int best, int new_best, int
             }
         }
     }
-    if (state == DS_TITLE) {
+    if (state == DS_TITLE && ht_narrow()) {
+        ht_title tc = {TR(VERB), MAX_PLAYERS, 15, 0};
+        spr(SPR_HINT + ((t / 30) % 2), title_at.glyph_x + hu_ui_x(), title_at.glyph_y, 3, -1);
+        ht_title_sprites(&tc, &title_at, st_t, slot_icon, NULL);
+    } else if (state == DS_TITLE) {
         int gx, gy;
         if (hu_title_glyph(&gx, &gy) == HU_BTN_A) spr(SPR_HINT + ((t / 30) % 2), gx + hu_ui_x(), gy, 3, -1);
         hu_title_sprites(st_t, slot_icon, NULL);
@@ -606,7 +672,7 @@ void draw_state_loaded(const world *w)
 void draw_state(void)
 {
     S(back_dx); S(line_col); S(cur_rgb); S(depth); S(drawn_index); S(cleared_col); S(drawn_seed);
-    S(fx_rng); S(logo_on); S(last_dark); S(fx); S(shown_state); S(shown_best); S(cap_theme);
+    S(fx_rng); S(logo_on); S(last_dark); S(fx); S(shown_state); S(shown_best); S(cap_theme); S(shown_cols); S(title_at);
     RS_STATE_RASTER(raster);
     hu_state();                 /* the house UI kit's objects (house_ui.*) */
 }

@@ -166,7 +166,12 @@ is twice as big as on the plain tall screen (v1). The 240 lines of the stage are
   obstacles come in at the right edge of the columns shown (they are generated up to the screen's).
 - **The HUD at the screen's top**: the score in the sky (sprites at `rs_screen_top()`); 2-4 players: a row of each
   player's squid icon and score (no corner tags there).
-- **Fill or fit**: the title, the panels and 3-4 players show every column (`rs_screen_fill(0)`).
+- **One view**: the title and the panels stay zoomed like the play (never the letterboxed full width), laid out in
+  the columns shown by games/common/src/house_tall.h: the logo as LEADY over SQUID, the title's lines wrapped and
+  stacked, the slots closer, GAME OVER and the score panel narrower (each value under its label), the ranking without
+  its rank words (the shells tell). Swimming, PAUSED is centred on the columns shown. Only 3-4 squids swimming show
+  every column (`rs_screen_fill(0)`): the four squids start 72 px apart, so zoomed, the leader would see only 46 px
+  ahead (118 alone).
 - **Decor**: the raster draws the lines past the stage (draw.c `raster_out`): above the water's surface (stage line 0),
   the sky, pale at the horizon and bluer toward the screen's top, a crest of foam on the surface; below the seabed,
   its sand carried on (BG2's last two rows repeated, each copy shifted sideways, darker with depth). The other layers
