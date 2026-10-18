@@ -1,13 +1,15 @@
-Rantai Domino
+Domino Berjatuhan
 # Tujuan
-Serangkaian kartu domino yang berdiri membentang dari domino merah di awal sampai sebuah lonceng kuningan, tetapi ada celah di dalamnya. Isi celah itu dengan bidak dari persediaanmu, lalu dorong: satu dorongan saja harus merobohkan semua bidak di papan dan membunyikan lonceng.
-# Bidak
-Letakkan bidak di petak kayu mana saja yang kosong; tidak ada yang bisa berdiri di atas kain laken. Bidak yang jatuh merobohkan bidak di petak berikutnya pada arahnya.
-- Domino hanya jatuh jika terkena searah panjangnya, tidak pernah dari samping.
+Kartu domino berdiri di petak kayu sebuah papan. Pindahkan beberapa, lalu dorong satu: semua domino harus jatuh, dan domino pemicu merah harus jatuh paling akhir.
+# Satu langkah
+Ambil bidak mana saja kecuali pemicu lalu letakkan di petak kayu yang kosong, atau putar di tempatnya: masing-masing satu langkah. Lalu dorong sebuah domino searah panjangnya.
+- Domino hanya jatuh jika terkena searah panjangnya, lalu merobohkan bidak berikutnya di jalurnya.
 - Belokan membelokkan rantai di sebuah sudut.
-- Domino panjang menjangkau dua petak ke depan, melewati celah atau petak kosong.
 - Pemisah mengirim rantai ke dua arah, ke kiri dan ke kanan.
+- Domino penunda, bertanda jam pasir, jatuh sesaat setelah terkena.
+- Domino panjang menjangkau dua petak ke depan, melewati celah.
+- Penahan tidak pernah jatuh dan menghentikan rantai.
 # Akhir permainan
-Saat satu dorongan merobohkan semuanya dan lonceng berbunyi, teka-teki terpecahkan. Jika tidak, semuanya berdiri lagi untuk percobaan berikutnya.
+Jika ada yang masih berdiri, atau pemicu jatuh terlalu cepat, semuanya berdiri lagi: pindahkan dan dorong lagi.
 # Level dan bintang
-Selesai dengan bidak sesedikit mungkin tanpa petunjuk: 3 bintang; dengan paling banyak dua petunjuk, atau tambahan bidak paling banyak setengah dari jumlah itu: 2 bintang; selain itu 1.
+Selesai dengan langkah sesedikit mungkin: 3 bintang; dengan tambahan langkah paling banyak setengah dari jumlah itu: 2 bintang; selain itu 1.

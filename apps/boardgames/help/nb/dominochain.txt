@@ -1,13 +1,15 @@
-Dominokjede
+Fallende dominobrikker
 # Målet
-En kjede av stående dominobrikker går fra den røde startbrikken til en messingklokke, men den har hull. Fyll hullene med brikker fra lageret ditt, og dytt så: ett eneste dytt må velte alle brikkene på brettet og ringe med klokken.
-# Brikkene
-Sett en brikke på en hvilken som helst ledig trerute; ingenting står på filten. En brikke som faller, velter brikken på neste rute i sin retning.
-- En dominobrikke faller bare når den treffes på langs, aldri fra siden.
+Dominobrikker står på et bretts treruter. Flytt noen av dem, og dytt så til én: alle brikkene må falle, og den røde utløserbrikken må falle sist.
+# Et trekk
+Ta en hvilken som helst brikke unntatt utløseren og sett den på en ledig trerute, eller snu den der den står: hver er ett trekk. Dytt så en brikke på langs.
+- En dominobrikke faller bare når den treffes på langs, og velter neste brikke i sin retning.
 - En sving sender kjeden rundt et hjørne.
-- En lang dominobrikke når to ruter fram, over et hull eller en tom rute.
 - En deler sender kjeden begge veier, til venstre og til høyre.
+- En forsinkerbrikke, merket med et timeglass, faller et øyeblikk etter at den er truffet.
+- En lang dominobrikke når to ruter fram, over et hull.
+- En stopper faller aldri og stanser kjeden.
 # Slutten på spillet
-Når ett dytt velter alt og ringer med klokken, er oppgaven løst. Ellers reiser alt seg igjen til et nytt forsøk.
+Blir noe stående, eller faller utløseren for tidlig, reiser alt seg igjen: flytt og dytt på nytt.
 # Nivåer og stjerner
-Løst med færrest mulig brikker og uten hint: 3 stjerner; med høyst to hint, eller opptil halvparten så mange brikker til: 2 stjerner; ellers 1.
+Løst med færrest mulig trekk: 3 stjerner; med opptil halvparten så mange trekk til: 2 stjerner; ellers 1.

@@ -1,13 +1,15 @@
-Corrente de dominós
+Dominós em cascata
 # O objetivo
-Uma corrente de dominós em pé vai do dominó vermelho de partida até um sino de latão, com buracos. Preenche os buracos com peças da tua reserva e depois empurra: um único empurrão tem de derrubar todas as peças do tabuleiro e tocar o sino.
-# As peças
-Põe uma peça em qualquer casa de madeira livre; nada fica de pé sobre o feltro. Uma peça que cai derruba a peça da casa seguinte no seu caminho.
-- Um dominó só cai se for atingido no sentido do comprimento, nunca de lado.
+Há dominós de pé nas casas de madeira de um tabuleiro. Move alguns e depois empurra um: todos os dominós têm de cair, e o dominó gatilho vermelho tem de cair em último.
+# Uma jogada
+Pega em qualquer peça, exceto o gatilho, e põe-na numa casa de madeira livre, ou roda-a no lugar: cada uma é uma jogada. Depois empurra um dominó no sentido do comprimento.
+- Um dominó só cai se for atingido no sentido do comprimento, e derruba a peça seguinte no seu caminho.
 - Uma curva faz a corrente dobrar uma esquina.
-- Um dominó comprido chega duas casas mais à frente, por cima de um buraco ou de uma casa vazia.
 - Um divisor manda a corrente para os dois lados, para a esquerda e para a direita.
+- Um dominó de atraso, marcado com uma ampulheta, cai um instante depois de ser atingido.
+- Um dominó comprido chega duas casas mais à frente, por cima de um buraco.
+- Um batente nunca cai e trava a corrente.
 # O fim do jogo
-Quando um único empurrão derruba tudo e toca o sino, o quebra-cabeças está resolvido. Senão, tudo volta a ficar de pé para uma nova tentativa.
+Se alguma coisa ficar de pé, ou se o gatilho cair cedo demais, tudo volta a ficar de pé: move e empurra outra vez.
 # Níveis e estrelas
-Resolvido com o mínimo de peças possível e sem ajudas: 3 estrelas; com duas ajudas no máximo, ou com até metade mais de peças: 2 estrelas; senão, 1.
+Resolvido com o mínimo de jogadas possível: 3 estrelas; com até metade mais de jogadas: 2 estrelas; senão, 1.

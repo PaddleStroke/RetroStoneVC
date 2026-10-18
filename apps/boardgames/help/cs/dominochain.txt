@@ -1,13 +1,15 @@
-Řetěz domina
+Padající domino
 # Cíl hry
-Řetěz stojících kostek domina vede od červené startovní kostky ke mosaznému zvonku, ale má mezery. Vyplň mezery díly ze své zásoby a pak strč: jediné strčení musí shodit všechny díly na desce a rozeznít zvonek.
-# Díly
-Postav díl na kterékoli volné dřevěné políčko; na suknu nic nestojí. Padající díl shodí díl na dalším políčku ve svém směru.
-- Kostka domina padá jen tehdy, když ji něco zasáhne podélně, nikdy ze strany.
+Na dřevěných políčkách desky stojí kostky domina. Některé přemísti a pak do jedné strč: všechny kostky musí spadnout a červená spouštěcí kostka musí spadnout jako poslední.
+# Tah
+Vezmi kterýkoli díl kromě spouště a postav ho na volné dřevěné políčko, nebo ho otoč na místě: obojí je jeden tah. Pak strč do kostky podélně.
+- Kostka padá, jen když ji něco zasáhne podélně, a shodí další díl ve svém směru.
 - Zatáčka stočí řetěz za roh.
-- Dlouhá kostka dosáhne o dvě políčka dál, přes mezeru nebo prázdné políčko.
 - Rozdělovač pošle řetěz na obě strany, doleva i doprava.
+- Zpožďovací kostka s přesýpacími hodinami spadne chvilku poté, co ji něco zasáhne.
+- Dlouhá kostka dosáhne o dvě políčka dál, přes mezeru.
+- Zarážka nikdy nespadne a řetěz zastaví.
 # Konec hry
-Když jediné strčení shodí všechno a zvonek zazvoní, hlavolam je vyřešen. Jinak se všechno znovu postaví k dalšímu pokusu.
+Když něco zůstane stát nebo spoušť spadne příliš brzy, všechno se znovu postaví: přemísti a strč znovu.
 # Úrovně a hvězdy
-Vyřešeno nejmenším možným počtem dílů a bez nápovědy: 3 hvězdy; nejvýš se dvěma nápovědami nebo nejvýš o polovinu víc dílů: 2 hvězdy; jinak 1.
+Vyřešeno nejmenším možným počtem tahů: 3 hvězdy; nejvýš o polovinu víc tahů: 2 hvězdy; jinak 1.

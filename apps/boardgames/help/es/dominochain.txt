@@ -1,13 +1,15 @@
-Cadena de dominós
+Dominós en cascada
 # El objetivo
-Una cadena de fichas de dominó en pie va desde la ficha roja de salida hasta una campana de latón, con huecos. Llena los huecos con piezas de tu reserva y empuja: un solo empujón debe derribar todas las piezas del tablero y hacer sonar la campana.
-# Las piezas
-Pon una pieza en cualquier casilla de madera libre; sobre el fieltro no se sostiene nada. Una pieza que cae derriba la pieza de la casilla siguiente en su camino.
-- Un dominó solo cae si lo golpean a lo largo, nunca de lado.
+Unas fichas de dominó están de pie en las casillas de madera de un tablero. Mueve algunas y luego empuja una: todas las fichas deben caer, y la ficha disparadora roja debe caer la última.
+# Una jugada
+Coge cualquier pieza salvo la disparadora y ponla en una casilla de madera libre, o gírala donde está: cada cosa es una jugada. Después empuja una ficha a lo largo.
+- Una ficha solo cae si la golpean a lo largo, y derriba la pieza siguiente en su camino.
 - Una curva hace girar la cadena en una esquina.
-- Un dominó largo llega dos casillas más allá, por encima de un hueco o de una casilla vacía.
 - Un divisor envía la cadena hacia los dos lados, a la izquierda y a la derecha.
+- Una ficha de retardo, marcada con un reloj de arena, cae un momento después de recibir el golpe.
+- Una ficha larga llega dos casillas más allá, por encima de un hueco.
+- Un tope nunca cae y detiene la cadena.
 # El final de la partida
-Cuando un solo empujón lo derriba todo y suena la campana, el rompecabezas está resuelto. Si no, todo vuelve a ponerse en pie para otro intento.
+Si algo queda en pie, o la disparadora cae demasiado pronto, todo vuelve a levantarse: mueve y empuja otra vez.
 # Niveles y estrellas
-Resuelto con el mínimo de piezas posible y sin pistas: 3 estrellas; con dos pistas como mucho, o con hasta la mitad más de piezas: 2 estrellas; si no, 1.
+Resuelto con el mínimo de jugadas posible: 3 estrellas; con hasta la mitad más de jugadas: 2 estrellas; si no, 1.

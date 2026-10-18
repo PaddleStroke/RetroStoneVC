@@ -1,13 +1,15 @@
-Dominoketju
+Kaatuvat dominot
 # Tavoite
-Pystyssä seisovien dominojen ketju kulkee punaisesta aloitusdominosta messinkikelloon, mutta siinä on aukkoja. Täytä aukot varastosi palasilla ja tönäise: yhden tönäisyn on kaadettava laudan kaikki palat ja soitettava kelloa.
-# Palat
-Aseta pala mihin tahansa vapaaseen puuruutuun; huovalla mikään ei seiso. Kaatuva pala kaataa kulkusuunnassaan seuraavan ruudun palan.
-- Domino kaatuu vain, kun siihen osutaan pituussuunnassa, ei koskaan sivulta.
+Dominot seisovat laudan puuruuduilla. Siirrä joitakin niistä ja tönäise sitten yhtä: kaikkien dominoiden on kaaduttava, ja punaisen laukaisijadominon on kaaduttava viimeisenä.
+# Siirto
+Nosta mikä tahansa pala paitsi laukaisija ja aseta se vapaaseen puuruutuun, tai käännä se paikallaan: kumpikin on yksi siirto. Tönäise sitten dominoa sen pituussuunnassa.
+- Domino kaatuu vain, kun siihen osutaan pituussuunnassa, ja kaataa seuraavan palan kulkusuunnassaan.
 - Mutka kääntää ketjun kulman ympäri.
-- Pitkä domino ulottuu kahden ruudun päähän, aukon tai tyhjän ruudun yli.
 - Jakaja lähettää ketjun kumpaankin suuntaan, vasemmalle ja oikealle.
+- Viivedomino, jossa on tiimalasi, kaatuu hetken kuluttua siitä, kun siihen osui.
+- Pitkä domino ulottuu kahden ruudun päähän, aukon yli.
+- Pysäytin ei kaadu koskaan ja pysäyttää ketjun.
 # Pelin loppu
-Kun yksi tönäisy kaataa kaiken ja kello soi, tehtävä on ratkaistu. Muuten kaikki nousee taas pystyyn uutta yritystä varten.
+Jos jotain jää pystyyn tai laukaisija kaatuu liian aikaisin, kaikki nousee taas pystyyn: siirrä ja tönäise uudelleen.
 # Tasot ja tähdet
-Ratkaistu pienimmällä mahdollisella palamäärällä ilman vihjettä: 3 tähteä; enintään kahdella vihjeellä tai enintään puolet enemmän paloja: 2 tähteä; muuten 1.
+Ratkaistu pienimmällä mahdollisella siirtomäärällä: 3 tähteä; enintään puolet enemmän siirtoja: 2 tähteä; muuten 1.

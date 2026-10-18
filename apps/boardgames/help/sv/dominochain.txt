@@ -1,13 +1,15 @@
-Dominokedja
+Fallande dominobrickor
 # Målet
-En kedja av stående dominobrickor går från den röda startbrickan till en mässingsklocka, men den har luckor. Fyll luckorna med brickor ur ditt förråd och knuffa sedan: en enda knuff ska välta alla brickor på brädan och ringa i klockan.
-# Brickorna
-Ställ en bricka på vilken ledig träruta som helst; ingenting står på filten. En bricka som faller välter brickan på nästa ruta i sin riktning.
-- En dominobricka faller bara när den träffas på längden, aldrig från sidan.
+Dominobrickor står på en brädas trärutor. Flytta några av dem och knuffa sedan en: alla brickor ska falla, och den röda utlösarbrickan ska falla sist.
+# Ett drag
+Ta vilken pjäs som helst utom utlösaren och ställ den på en ledig träruta, eller vrid den där den står: varje sådant är ett drag. Knuffa sedan en bricka på längden.
+- En dominobricka faller bara när den träffas på längden, och välter nästa pjäs i sin riktning.
 - En kurva leder kedjan runt ett hörn.
-- En lång dominobricka når två rutor fram, över en lucka eller en tom ruta.
 - En delare skickar kedjan åt båda hållen, till vänster och till höger.
+- En fördröjningsbricka, märkt med ett timglas, faller ett ögonblick efter att den träffats.
+- En lång dominobricka når två rutor fram, över en lucka.
+- En stoppare faller aldrig och hejdar kedjan.
 # Partiets slut
-När en enda knuff välter allt och ringer i klockan är pusslet löst. Annars reser sig allt igen för ett nytt försök.
+Blir något stående, eller faller utlösaren för tidigt, reser sig allt igen: flytta och knuffa igen.
 # Banor och stjärnor
-Löst med så få brickor som möjligt och utan ledtråd: 3 stjärnor; med högst två ledtrådar, eller upp till hälften så många brickor till: 2 stjärnor; annars 1.
+Löst med så få drag som möjligt: 3 stjärnor; med upp till hälften så många drag till: 2 stjärnor; annars 1.

@@ -1,155 +1,104 @@
-/* Domino Chain's levels: made by tools/dominochain_gen.c (our own boards, found by its search; do not edit).
- * Each level: its board (dominochain.h), its stock (dominoes, turns, long dominoes, splitters), its par: the
- * fewest pieces. */
+/* Falling Dominoes' levels: made by tools/dominochain_gen.c (our own boards, found by its search; do not edit).
+ * Each level: its board (dominochain.h), its par (the fewest moves), a shortest way and its push. */
 const dmc_level_t dmc_levels[DMC_LEVELS] = {
-    {"##B|D.v|.#v|1h4", "1000", 1},
-    {"#D#B|#.#v|.v#v|#v#v|#1h4", "1000", 1},
-    {"B##D#|v##v#|v##.#|v##v.|1hh4#", "1000", 1},
-    {"2.h3|v#.v|v##v|v##B|U###", "1000", 1},
-    {"Bhh3|###v|###.|#Rh4|.#.#", "1000", 1},
-    {"#B#D#|#v#v#|.v#v.|#v#.#|#1h4#", "1000", 1},
-    {".D#.|#v##|#v#B|#v#.|#1h4", "1000", 1},
-    {"2h3#|..v.|v#v#|v#v#|v#U#|v###|B###", "1000", 1},
-    {"B###|v###|v..#|.##D|v##v|v##v|1hh4", "1000", 1},
-    {"B.h3|###v|###v|##.v|#R.4", "2000", 2},
-    {"#2h3|#v#v|#.#v|.U#v|###v|###.|###B", "2000", 2},
-    {"B#..|v#D#|v#v#|v#.#|v#.#|1h4#", "2000", 2},
-    {"###B|###v|D##.|v##v|v.#.|1hh4", "2000", 2},
-    {"#2h3#|.v#..|#.#v#|#v#v#|#v#U#|#B###", "2000", 2},
-    {"##..#|2hhhB|.####|.####|v####|1hhhL", "2000", 2},
-    {"#2.h3|#.##v|#.##v|.U##B", "3000", 3},
-    {"###B|D##v|..#v|v##.|1.h4", "3000", 3},
-    {"2hL.#|v####|.####|1h..B", "3000", 3},
-    {"###B|#D#.|#v#.|#v#.|.1h4", "3000", 3},
-    {"B###|v##D|.##.|1.h4|#.#.", "3000", 3},
-    {"#2h3|....|#U#.|###v|###v|###B", "3000", 3},
-    {"2.h3|v##v|.##v|.#.v|B##U", "3000", 3},
-    {"#2h3|#v#v|#.#v|...v|#U#.|###B", "3000", 3},
-    {"#.#.#|Bh..3|####v|####v|#R.h4", "3000", 3},
-    {"2.h3|v##v|v##.|.##v|v##U|B..#", "3000", 3},
-    {"#2hh..#|#v###v#|#U###v#|..###v.|Bhhhh4#", "1100", 2},
-    {"#B####|.v#Rh.|#v###v|#v###v|#.###v|#1hhh4|#.#.##", "1100", 2},
-    {"B..##|v#Rh3|v###v|v###.|1hhh.|#..##", "1100", 2},
-    {"####D|####v|.hhh4|v####|.####|1hhhB|#....", "1100", 2},
-    {"####D|####v|##..v|2hhh.|v####|1h.hB|##..#", "1100", 2},
-    {"B####|.....|v####|v#2hL|v#v##|v#v##|1h.##", "1100", 2},
-    {"B#####|v#R.3#|v.##v#|v###v#|v###v#|..hh4.", "2100", 3},
-    {"##..#|2hhh3|..##v|v###.|B###v|#Rhh.", "2100", 3},
-    {"##.#.|2hL.#|v##B#|.##v#|v##.#|.hh4#", "2100", 3},
-    {"#D###|#v###|#.###|#v.##|#.h.3|#..#v|Bhhh4", "2100", 3},
-    {".###.|.###D|####v|####v|..hh4|v####|1h.hB", "2100", 3},
-    {"#.##.#|2hhh.B|v#####|v###D#|.###v#|1hhh..", "2100", 3},
-    {"###2h3|###.#.|###U#v|#.##.v|Bhhhh.|#.##.#", "2100", 3},
-    {"##..##|#B#Rh3|#v###v|#v###v|#.###v|...hh4", "2100", 3},
-    {"#.##.|2hh.3|v###v|v###U|v.##.|..hB#", "2100", 3},
-    {"2hhh.B|v#..##|v###D#|v###.#|1hhh.#|#.##.#", "2100", 3},
-    {"..##|Bhh3|###.|...4|#.##|#U##", "3100", 4},
-    {"#..##|##Bh.|D###.|v##.v|.###v|1h.h4", "3100", 4},
-    {"#2hh..|#.###v|#v###v|.v##.v|#..Rh4|#B####", "3100", 4},
-    {"2h.##|.#.##|v#v##|v#v.#|.#1hL|v#..#|B####", "3100", 4},
-    {"##..##|#.hhh3|..###v|#U###v|#####v|#B..h4", "3100", 4},
-    {"####B|####.|.hL#v|v#...|.###v|1hhh4|#.##.", "3100", 4},
-    {"####B|....v|Rh.#v|##.#v|##.#v|##v#.|##1h4", "3100", 4},
-    {".###.|.###.|#Rhh3|B###v|.###.|.###v|.hhh4", "3100", 4},
-    {"#D####|#..#.#|#1hh.3|##.#.v|#####.|Bhhhh.", "3100", 4},
-    {"Bhhh..|#...v#|....v.|######|#.##.#|#.##v#|#.R.4#", "1110", 3},
-    {"#.###.#|#.#B#.#|.D#v#..|#v#v#.#|#.#v#.#|###v###|#v#v#.#|#v#v#.#|#1....#", "1110", 3},
-    {"#.##.#|...Rh3|.#..#v|.####.|######|..##.v|.####v|.B.hh.", "1110", 3},
-    {"#.###B#|#.#D#v#|#.#v#v#|#.#.#v#|..###v.|#.#v#.#|#..v.v#|....h4.", "1110", 3},
-    {"2h....|.#v.#.|v#U.#.|.#..#.|#####.|v.##..|v####.|B####.", "1110", 3},
-    {"#.##D#|#.##v#|..##..|B.##..|v.###.|v...v.|v.##v.|1hhh..", "1110", 3},
-    {"#.##.#|#D##.#|.....B|..##.v|.###.v|.v##.v|.v##.v|..hhh4", "1110", 3},
-    {"...hh3|.v##.v|.v...v|.####v|..##.v|.v##.B|#U##.#|..##..", "1110", 3},
-    {"2hhh...|v#.#v#.|v#...#.|v.###..|v#.#.#.|v#.#v#.|B#.#U#.|.#####.", "1110", 3},
-    {".####B|..##..|.####v|.####v|#D##.#|.v....|.v...v|.v##.v|..hhh4", "1110", 3},
-    {"#.##.#|#.h3.#|.v.v..|#v.v.#|##..##|...v..|#v.v.#|#U.v.#|##.B##", "1110", 3},
-    {"#..h3#|#v##v#|.v..v.|#.####|#v##.#|#v..v#|#v##U#|#B##.#", "2110", 4},
-    {"#..#.B#|#.###v#|..###v.|#######|#D.#..#|#v###.#|#v###v#|#v###.#|#.hhh4#", "2110", 4},
-    {"#.##D#|#.##v#|..##..|#B##.#|#v####|.v##..|.v##v.|#1hh.#", "2110", 4},
-    {".Rhh..|#...v#|..##..|######|#.##.#|#.##v#|B.hh4.", "2110", 4},
-    {"#2hhB#|.v##..|.v##..|#v##.#|######|#....#|#.##.#|#..L.#", "2110", 4},
-    {"#.###.#|Bhh.hh3|.#####v|.#####v|#######|.#####.|.#####v|..R.hh.|..###..", "2110", 4},
-    {"##..##|...hL.|v#..#.|.#..#.|######|v####.|v####.|1hhhB.", "2110", 4},
-    {"..2hhh.|.#v#.#.|.#v..#.|##U#.##|.#.#.#.|.#####v|..###.v|.#####B", "2110", 4},
-    {"#.##.#|#...D#|#.##v#|#.##v#|#.##.#|B####.|..##v.|v...v.|.hh.4.", "2110", 4},
-    {"B####.|v####.|v####.|#.##D#|..##v.|..##v.|..hh4.|......", "2110", 4},
-    {"B####.|..##..|v####.|######|..##..|v...D.|v.##v.|..##v.|.hhh4.", "2110", 4},
-    {".#####.|.B.#D..|#v.#v.#|#v.#..#|#.###.#|#v.#v.#|.v.#...|#1hh..#", "2110", 4},
-    {"...hh3.|#..#.v#|..v#.v.|#.U#..#|#######|#.###v#|#..#..#|#.###v#|#.###B#", "2110", 4},
-    {"..hhh3|.....v|..##.v|.v##.v|.U##..|######|.####v|.....v|.####B", "2110", 4},
-    {"#.##.#|.D##..|#v...#|#v##.#|#.h3.#|##..##|Bhh.hh", "1101", 3},
-    {"##v##|##v##|Rh...|..v.B|.#v#.|..1h.|#...#", "1101", 3},
-    {"#.###.#|hh.hh.B|##v#.##|#..hh3#|...#.v.|#.###U#", "1101", 3},
-    {"#2hB.#|#.##.#|.v##..|#.h.h#|##.v##|##.v##|#..v.#|#..U.#", "1101", 3},
-    {".v##..|..##..|#.hhL#|#v##.#|#.h3.#|##.v##|#..v.#|##.B##", "1101", 3},
-    {"##B.##|##v.##|.h4...|.####.|.hhhL.|v#..#.|v#..#.|#####.", "1101", 3},
-    {"..Bhhh3|.#####.|.#####v|.#####v|hh.hhh.|#.v#..#|##v#.##|#.U#..#|##.#.##", "1101", 3},
-    {"#D.#..#|#v###.#|#v.#..#|#v###.#|#1hh..#|##.#v##|#..#v.#|B.hh.hh", "1101", 3},
-    {".#####.|.hhhhhB|v#####.|v#D..#.|.#v#.#.|.h4#...|v.###..|v#####.", "1101", 3},
-    {".Bhhh.|.####v|.####v|..##.v|..2.h.|..v..v|.#v.##|##U.##", "1101", 3},
-    {"##...##|##.#B##|##.#v##|#..#v.#|v#.#.#.|.hL#v..|v#.#v#.|.hhh4..", "1101", 3},
-    {"..###.B|.#####.|..###.v|.#v#.#v|.#.hL#v|.#v#.#v|..1hhh.|.#####.", "1101", 3},
-    {".#####v|..Rhhh.|.#####v|..2h.h.|.#v#.#.|#.v#..#|##v#.##|##v#.##|#.B#..#", "1101", 3},
-    {".####.|.####.|2h....|v.v...|v#v.#.|v#..#.|v..hL.|B#v.#.", "1101", 3},
-    {"###D###|###v###|###v###|#hh..h.|.#####v|.#.#.#v|...#..v|.Bhh.h4", "2101", 4},
-    {"##.#.##|##.#D##|##.#v##|.hhh.hh|v#####.|.#####.|v.#.#..|1hh.B..", "2101", 4},
-    {"..Bhhh.|.##.##v|.#####.|...2hh.|..#.#.v|###v###|##.U.##", "2101", 4},
-    {".B###..|#v###.#|#1hhh.#|#.###v#|..###v.|#.###.#|#.Rh..#|..###v.|#.###v#", "2101", 4},
-    {"##D#.##|##.#.##|#.v#..#|.h.h#..|v#####.|v.###..|1hhh.B.|##.#.##", "2101", 4},
-    {"...B..|v####.|v####.|1hh.hh|#..v.#|##.v##|##.v##|...U..", "2101", 4},
-    {"#h..hh.|.#v..#v|.#v#.#v|..v#..v|.#1hL#.|.#.#.#v|.#####v|.#####B", "2101", 4},
-    {"##..##|##.D##|##..##|##.v##|#hh.h.|.#..#.|.####v|.#..#v|...Bh4", "2101", 4},
-    {"...2h.B|##.v.##|..#v#..|h.h....|#v###.#|#.###.#|#v###.#|#U###.#", "2101", 4},
-    {".Bhhh3|..##.v|.####.|....h.|.#v.#v|##v.##|#.U..#|##..##", "2101", 4},
-    {".####B|.Rh..v|.#.v#.|...v..|...1h.|.####v|..##.v|.#####", "2101", 4},
-    {"..hhh..|.v###v.|#v###v#|..###U.|#######|#v#B#.#|.v#v#..|#v.v..#|#.h4..#", "2211", 4},
-    {"##.#.##|...Bh.h|#.###v#|#.###v#|#.hL.##|#v###.#|.v.#.v.|#v.#.v#|#1hhh.#", "1211", 4},
-    {"....h.h|..#v#v.|#.#.#v#|..###U.|#.#v#.#|B.#v#..|v##v##.|v##v##.|.hh4...", "1211", 4},
-    {"2hh....|v#.v.#.|v##v##.|v#####.|B......|#D#v#.#|.v#v#..|#v#v#.#|#.h...#|###v###", "1211", 4},
-    {"#.###.#|#D###.#|.v###.B|.v.#..v|..###.v|.#####v|.v.2hh.|.v#v#..|#v.v..#|h.h....", "1211", 4},
-    {".#####B|...#D.v|.#.#v#v|.###v#v|.#v#v#v|...h..#|..v#...|.#v#.#v|...hhh4", "1211", 4},
-    {"##.h3##|#.v.v.#|##U#v##|##...##|##.####|#B.#v.#|#v.#v.#|#v.#v.#|..h..hh", "2211", 5},
-    {"##.##.##|#...hh.#|#.#v.#v#|..#v.#v.|#.#v.#v#|..#U.#..|########|#..##.v#|#.####v#|....Bh.h", "1211", 4},
-    {"Bhh#.hh.|.######.|.######v|#hh.hhh.|###v.###|.##v.##.|.##v.##.|.Rh4....|.######.", "2211", 5},
-    {"#.###.#|#.hhhL#|...#...|.v###..|#.###.#|##.Bh.#|.v###v.|#v###v#|#.hhh4#", "3211", 5},
-    {"#.###v#|.Rhh...|..###v.|#.###v#|#.###.#|###.###|Bhh..v.|#..v.v#|#...h4#", "2211", 5},
-    {"#.hh.hh#|#v#..#.#|#.#.U#.#|########|#v####.#|#v####.#|#v...B.#|.v...v..|#1hhh..#|###..###", "2211", 5},
-    {"##..v.##|###.v###|#Rhh...#|#.#.v#.#|....1hh.|.##..##v|.##..##v|.######v|Bh.#.hh.", "2211", 5},
-    {"B..#...|v.###D.|v.###v.|v.###v.|v...h4.|###v###|.##.##.|v.#v#..|.hh.hh#|.#####.", "2211", 5},
-    {"#.###.#|#2hhh.#|#.###v#|#v###v#|#v#.#.#|#.hhL##|.v.#.v.|#####.#|#..Bh.#", "3211", 6},
-    {"#.h.hh#|#v#v#.#|#v#.#.#|.v#v#..|...U...|#######|#v###B#|#v###v#|#v.#.v#|#.hh.4#", "3211", 6},
-    {".Bhhh..|#.#.#v#|#.###.#|..hhL#.|#.###.#|#v###v#|.v###v.|h.hhh4.", "3211", 6},
-    {".hB#...|v..#...|v#####.|v#v#.#.|##.#.#.|...hhL.|v#v#.#.|v#v..#.|v#v#.#.|1h.#...", "2211", 5},
-    {".h.B...|v..#...|.#.#.#.|v#####.|#######|.##D##.|v#.v.#.|v##v##.|v##v##.|.hh.hh#", "3211", 6},
-    {"....h..|#D.v.v#|.v#v#..|#v#v#.#|#1h..##|#.#v#.#|#..#.v#|#.###v#|#.###v#|#.###B#", "3211", 6},
-    {"##v..##|...hhh.|.#v..#v|.#B#.#v|..###.v|#######|.#####.|.#..D#.|.#.#v#v|...#1..", "3211", 6},
-    {"..2hh..|..v#..v|..B#..v|.#####v|.#D#.#v|##v..##|.#v#.#.|..v#..v|#h.h.h.", "3211", 6},
-    {"Bhh.....|###v.###|###v.###|.....h.3|.######v|.######v|.Rh.#hh.|.#....#v|.#.##.#v|##.##.##", "3211", 6},
-    {"..hh3..|#v.#..#|.v.#v..|.v.#v..|#B###.#|#..#..#|#D.#v.#|#..#v.#|#.hh..#|##.#v##", "3211", 6},
-    {"...2hh.h|#.#v.#v#|#.#..#.#|#.#v.#v#|#.....U#|.#.##.#B|.##v.##v|...v...v|.##v.##v|....hhh.", "3211", 6},
-    {"##...D##|B....v..|v..##v..|1h.##...|...###..|##v##v##|##v##v##|...hh.hh", "2211", 5},
-    {".##.##.|h..h..B|..v#v.v|.#v#.#v|.#U###v|.#.#v#v|.#..v#v|...#.h4|..###..", "2211", 5},
-    {"##.h..##|#.v.v..#|#.v.v..#|.##.v##.|....1hhB|##v...##|##.##.##|#..hhL.#|##v...##|##v##.##", "2211", 5},
-    {"##.#.B#|#v#D#v#|#v#v#v#|#.h4.##|..###..|#v.#.v#|#v#.#v#|#.h.h.#|#..#..#", "3211", 6},
-    {"###v.###|#.#v.#.#|#...h.L#|#..v...#|###v.###|.2h.....|#v####.#|#v####.#|..h.#hhB|#..##..#", "2211", 5},
-    {"#2hh..#|.v.#v..|.v.#v..|...#...|..hL#..|##.#v##|##.#v##|#...v.#|##.#v##|..#h.hB", "2211", 5},
-    {"#.h..##|.v#v#..|#v#.#.#|.v#v#..|...U.B.|#####v#|#v###v#|#v###v#|.v###v.|...hh4.", "4211", 6},
-    {".....hh.|.##.v##v|..#.v#.v|.#..v.#v|h.h.4..v|.v......|#v####.#|.U.....v|.######v|.######B", "2211", 5},
-    {"v######.|.h.##...|v#v...#.|v#....#.|v.####..|v..##...|v.v##...|v.v##.D.|B.v##.v.|..1hhh..", "2211", 5},
-    {"h.hhh..|#v....#|..#.#..|#U#####|#.###v#|#.###v#|#B###v#|#v#.#v#|.1.hh..", "4211", 7},
-    {"h.hh...|.v###v.|#v#.#.#|#..2h.#|###v###|#..v..#|#v.B..#|.U###..|.#####.", "4211", 7},
-    {"#2hh.hh#|#v#.v#.#|#B..v..#|###.v###|#.####.#|#.#..#D#|#.#..#v#|....v...|.....h..|##.##.##", "3211", 6},
-    {".#....#.|.hh.....|v.#.v#..|v.#..#..|.######.|.hL.v...|v##.v##.|v#..v.#.|###.v###|#...1hB#", "3211", 6},
-    {".#####.|..###..|2h.#...|v#.#.#.|v#v..#.|#.v#D.#|.#v#v#.|.#B#v#.|v#..v#.|.hhh..h", "4211", 7},
-    {".h.hh#..|v#.##.#.|v.1hhhL.|...##...|########|v..##...|v######.|v.#..#..|.hhh..B.", "4211", 7},
-    {"#.hh.h##|#v#.v#.#|#.#.v#.#|..#.U#..|##.##.##|#v.##..#|#v...B.#|.v.##...|#v...v.#|#1h.h..#", "4211", 7},
-    {"###.###|#hh...#|...v.v.|#..v.v#|#B#.#.#|#v#U###|.v###v.|#.###v#|#1hh..#|##.#.##", "5211", 8},
-    {"##.##.##|2.hh.hh#|....v...|v##.v##.|..#..#..|#Rhh...#|v##..##.|v.####..|.hhhB...", "4211", 7},
-    {"#.####.#|...##.D.|#..##.v#|#.####.#|#.####v#|.h3.....|v#v##.#.|..v##.v.|B.v...v.|...h.h.h", "4211", 7},
-    {"##.##.##|#Bhhhh3#|..#..#..|#.####v#|#..v...#|#Rh...##|#.#v.#.#|#.#v.#v#|#.....v#|....hh..", "4211", 7},
-    {".######.|...Rhhh3|##.##.#v|v.####.v|v#.##.#v|.h..#.h.|v.####..|..h.B...|###..###", "5211", 8},
-    {"#..#..#|.2..h.h|#..#..#|#.###v#|##Rhh.#|.v###..|#v###.#|..hhB..|##.#.##", "5211", 8},
-    {"..v#...|....hh3|..v#..v|.#.#.#v|.#v#.#v|##v#.##|.#.#D#.|.#v#.#v|..B..h.|..###..", "5211", 8},
-    {"#2....#|#v....#|#U.#v.#|B...v..|v#.#.#.|v.###..|v..#...|v..#v..|v#.#v#.|.hhh.h#", "5211", 8},
-    {"###.v###|#...v..#|B....h..|v.#..#v.|v.#.v#..|.h..4.#.|..####..|..####v.|#..##.U#|##.##.##", "5211", 8},
+    {"###S#|#.#.#|.v#v#|Xhh4S", 1, "mbcdbpdbd"},   /* 1 of 26 first moves good, 1 solving */
+    {"###.##|##SS##|##vv.#|Xhh4..", 2, "mdbdamccdbpdbd"},   /* 4 of 33 first moves good, 4 solving */
+    {"###h#|Sh3..|#.v##|#Sv##|#.Y##", 2, "mabdbmdaabpabr"},   /* 4 of 33 first moves good, 4 solving */
+    {"####.|2hS..|v###.|vh##.|v###.|Y###S", 2, "mcbeambdcbpcbl"},   /* 6 of 54 first moves good, 6 solving */
+    {"####..|Xhh3..|##vv##|##Sv##|##.S##", 2, "mdeeamccdepdeu"},   /* 5 of 46 first moves good, 5 solving */
+    {"#.##Y|#.#.v|..##v|#h##v|#SSh4", 2, "mcebambdcepcer"},   /* 5 of 46 first moves good, 5 solving */
+    {"##.#|#Sh3|#h#v|..#v|#.#v|#S#Y", 2, "mbbcambcbbpbbr"},   /* 4 of 38 first moves good, 4 solving */
+    {"#Y#h#|#v#.#|#v#.#|Sv#..|#1hS#", 2, "mdedbmdadepdel"},   /* 4 of 38 first moves good, 4 solving */
+    {".2hhX|#vv.#|#v#.#|#S.S#", 2, "mbdaamcbbdpbdu"},   /* 4 of 38 first moves good, 4 solving */
+    {".###Y|h###v|.###v|S###v|..##v|..Sh4|.####", 2, "mcfaamabcfpcfr"},   /* 7 of 70 first moves good, 7 solving */
+    {"#S#S.|#v#.#|v1hhX|####.", 2, "mbaeamacbapbad"},   /* 3 of 26 first moves good, 3 solving */
+    {"#Y.##|.v.##|#v.##|#v.##|#vS##|h1hS.", 2, "mdfcamafdfpdfl"},   /* 6 of 61 first moves good, 6 solving */
+    {"#.#S#|#.#v#|#.#vv|#.#v#|Xhh4.|###S#", 2, "mdabamecdapdad"},   /* 5 of 52 first moves good, 5 solving */
+    {"Xhh3.|#.#v#|#S#v#|#.vv.|#.#S#", 2, "mdeeamcddepdeu"},   /* 5 of 52 first moves good, 5 solving */
+    {".##.Y|.###v|.###v|h###v|S##.v|.Shh4", 2, "mbfaamadbfpbfr"},   /* 6 of 68 first moves good, 6 solving */
+    {"#2hhS|#v##.|.v##S|#v##h|#Y#..", 2, "meaebmedeapeal"},   /* 4 of 43 first moves good, 4 solving */
+    {"#2hhSh|#v##.#|#v##S#|.Y##.#", 2, "meaebmfaeapeal"},   /* 3 of 30 first moves good, 3 solving */
+    {"#2hhS|#v##.|#v.#.|.v##h|#v##S|#Y##.", 2, "meaebmedeapeal"},   /* 5 of 58 first moves good, 5 solving */
+    {"S####Y|.####v|h####v|.####v|.#.#.v|.Shhh4", 2, "mbfabmacbfpbfr"},   /* 6 of 75 first moves good, 6 solving */
+    {"Sv#.|v#.S|1hhX", 2, "maadambaaapaad"},   /* 2 of 19 first moves good, 2 solving */
+    {".#####S|...2hh+|.##v.#v|.#vv##Y", 2, "mgaaamcdgapddu"},   /* 7 of 70 first moves good, 7 solving */
+    {"#.#v|#S#v|#+h4|#v#.|vv#.|#Y#.|###.", 2, "mbbbamaebbpdad"},   /* 5 of 52 first moves good, 5 solving */
+    {"#v##.#|#v##..|#v##.#|#v##h#|S+h3..|##.v#.|##.Y##", 2, "maeeamedaepbad"},   /* 9 of 98 first moves good, 9 solving */
+    {"#####.|Y#.v#.|v#hv..|1hh+hS", 2, "mfdfamccfdpdbd"},   /* 5 of 58 first moves good, 5 solving */
+    {"#.##v|#.##S|#2hh+|.v##v|#v##v|#v##v|#v##Y|#v###", 2, "mebbameaebpbhu"},   /* 3 of 54 first moves good, 6 solving */
+    {".#####Y|.#####v|.##v#hv|..#v##v|..S+hh4", 2, "mceaamfccepdcd"},   /* 7 of 86 first moves good, 7 solving */
+    {"#.S+h3|#.#vhv|..#v#v|#.#v#v|#.###Y", 2, "mcabamebcapddu"},   /* 6 of 75 first moves good, 6 solving */
+    {".##.|..#S|hhh+|.##v|.##v|Xhh4|#v##", 2, "mdbaambgdbpacr"},   /* 6 of 75 first moves good, 6 solving */
+    {"##v#h##|##v#Y##|##v#v##|##v#v#.|.S+h4..|####.##", 2, "mbegdmeabepcad"},   /* 5 of 64 first moves good, 5 solving */
+    {"Y#####h|v##v##.|v#.v##.|v##v##.|1hh+S..|#.#####", 2, "meegbmgaeepdbd"},   /* 7 of 94 first moves good, 7 solving */
+    {"#2hhX#|hv##.#|#v##.#|#v##.#|#+hhS#|#v##..", 2, "meeebmabeepeel"},   /* 5 of 70 first moves good, 5 solving */
+    {"#v##.#|#S##..|.v##.#|#+hhh#|#v##.#|#v##.#|.1hhhX", 2, "mbbeambabbpedl"},   /* 8 of 115 first moves good, 8 solving */
+    {"##Y#.##|##v#S##|#.v#v##|##v.v##|.v1h+hh", 2, "mebeambeebpebd"},   /* 4 of 58 first moves good, 4 solving */
+    {"#Sh3..#|###v#.#|##.v###|###v###|hhh+hhX", 2, "mbaeamaebapbar"},   /* 4 of 58 first moves good, 4 solving */
+    {"###.##|#2hhhX|#v###.|#v###h|#v###.|#+hhhS|#v###.|.v###.", 2, "mffdamfdffpffl"},   /* 6 of 103 first moves good, 6 solving */
+    {"Xhhh+S|#.##v.|#hhh4#|##h###", 2, "mfabbmcdfapbcr"},   /* 2 of 31 first moves good, 2 solving */
+    {"S#Y.|v.v#|v#v#|v#v#|1h+#|v#v#", 2, "maadamafaapaad"},   /* 2 of 34 first moves good, 2 solving */
+    {".2hhh+h|#v###vv|#v###v#|#v###v#|#Y###S#|#####.#", 2, "mfeaamgbfepfeu"},   /* 2 of 40 first moves good, 2 solving */
+    {"#v####|#Y##.#|#v#..#|#v##.#|.1h+.S|##.v##|##.v##", 2, "rbambaeepdgu"},   /* 2 of 79 first moves good, 1 solving */
+    {"v#####|Y#.v#.|v#.v..|v#.v#.|1hh+.S", 2, "raamaaeepdbd"},   /* 2 of 97 first moves good, 1 solving */
+    {"###.#.#|#h2hhh#|##e#.##|Xh+S...", 2, "mdddambbddpfbl"},   /* 6 of 61 first moves good, 6 solving */
+    {"######.|Y##v##.|e##v##h|1hh+S..|##.####", 2, "medgamgcedpdbd"},   /* 5 of 52 first moves good, 5 solving */
+    {"Y##v##.|v##e#..|v##v##.|+hh4...|S#####.|v.####.", 2, "maegamdaaepdbd"},   /* 10 of 119 first moves good, 20 solving */
+    {"###Y###|##hv.##|#.#v#v#|#.#v#v#|...1d+S", 2, "mgeebmcbgepfcd"},   /* 6 of 68 first moves good, 6 solving */
+    {"####h##|Xhh+S..|###v##.|###e###|#hh4..#", 2, "mebfbmeaebpber"},   /* 5 of 58 first moves good, 5 solving */
+    {"2h+hS.|v#v.#.|v#vd#.|v####.|Y..##.", 2, "meafamdceapccu"},   /* 8 of 97 first moves good, 8 solving */
+    {"###.##|2h+hS.|v#e...|v#vh#.|Y#v.#.", 2, "mebdamddebpceu"},   /* 8 of 97 first moves good, 8 solving */
+    {"#####v#|#.###Y#|#.S#.v#|..v#.v#|dh+hh4.", 2, "mccbbmfaccpccd"},   /* 7 of 86 first moves good, 7 solving */
+    {"###.#|#Xhh3|#.##v|#.##v|#hSh+|#.##e|..##v", 2, "mcedambecepcer"},   /* 6 of 75 first moves good, 6 solving */
+    {"#.##.#|v.##S#|#.##v#|#hhd+#|#.#.v#|Xhhh4.", 2, "mebbamabebpbdr"},   /* 7 of 94 first moves good, 7 solving */
+    {"Sh+hh3|.#e.#v|.#v.#v|..###v|.###hY", 2, "maaabmeeaapccu"},   /* 7 of 94 first moves good, 7 solving */
+    {"2hh+hS|v#.v..|v#dv#.|v#.v..|Y####.", 2, "mfacbmccfapddu"},   /* 8 of 115 first moves good, 8 solving */
+    {"##v###|.2hhhX|#v##.#|#v##..|#v##.#|#+hdh#|#S##.#", 2, "mbgabmcabgpefl"},   /* 6 of 89 first moves good, 6 solving */
+    {".###.|.##.S|.###v|hhhh+|.#v#v|.###v|Xdhh4", 2, "mebaamceebpadr"},   /* 7 of 110 first moves good, 7 solving */
+    {"dSh+hh3|.##v##v|.##v.#v|.##v#.v|.##v##Y", 2, "mbaabmaabapdeu"},   /* 6 of 96 first moves good, 6 solving */
+    {"##.####|##.####|#hhd3h#|##.#v##|Xhhh+hS", 2, "mgecamfcgepbcr"},   /* 3 of 46 first moves good, 3 solving */
+    {"h+hhh3.|#v##.e.|#v###v#|#S###v#|#v###Y#", 2, "mbdgambebdpbdu"},   /* 3 of 50 first moves good, 3 solving */
+    {"Y##v|v#.v|vv#v|v##v|+hd4|S##.", 2, "mafcbmbcafpdad"},   /* 2 of 37 first moves good, 2 solving */
+    {"#####S#|.+hhd3.|#v#.#v#|#v###Y#|#v###v#", 2, "mfeabrabpbeu"},   /* 2 of 42 first moves good, 1 solving */
+    {".#####S|.#.###.|+hh#...|v#####.|1hhhXd.|######.", 2, "mfeabrabpccl"},   /* 2 of 108 first moves good, 1 solving */
+    {"#Y.#|#v.#|#v.#|####|#i.#|#v.#|.1hS|h##.", 2, "mdgcamahdgpdgl"},   /* 7 of 63 first moves good, 7 solving */
+    {".###|Sh3h|#.v.|#.i#|####|#.v#|#.v#|#.Y#", 2, "mabaamdbabpabr"},   /* 7 of 63 first moves good, 7 solving */
+    {".Y.#|#v.#|#v.#|##.#|#i.#|#v.#|h1hS", 2, "mdgaamagdgpdgl"},   /* 7 of 63 first moves good, 7 solving */
+    {"##.#|S#.#|v#.v|i#.#|####|v#.#|v#.#|1hX#", 2, "mabcamdcabpabd"},   /* 6 of 55 first moves good, 6 solving */
+    {"Xhh3..|##.v##|##.vv#|######|##.i##|##.v##|##.S##|###.##", 2, "mdgeamecdgpdgu"},   /* 8 of 80 first moves good, 8 solving */
+    {"###.##|2hhS..|v###..|i####.|######|v####h|v####.|Y####.", 2, "mdbdamffdbpdbl"},   /* 8 of 80 first moves good, 8 solving */
+    {"v2hhX|#v#.#|#v#.#|#####|.i..#|#v#.#|#S#.#", 2, "mbgdbmaabgpbgu"},   /* 7 of 71 first moves good, 7 solving */
+    {"#.#Y#|#.#v#|..#v#|#####|#h#i#|#.#v.|Shh4.", 2, "magbambeagpagr"},   /* 7 of 71 first moves good, 7 solving */
+    {".Shh3.|h###v#|..##i#|######|.###v#|.###v#|.###Y#", 2, "mbaaamabbapbar"},   /* 7 of 71 first moves good, 7 solving */
+    {"###.|S##.|v##.|i#v.|####|v##.|v##.|1hhX", 2, "mabdamcdabpabd"},   /* 6 of 62 first moves good, 6 solving */
+    {"#2hhS|#v#..|#i##.|#####|.v##.|#v##h|#Y##.", 2, "meadbmefeapeal"},   /* 6 of 62 first moves good, 6 solving */
+    {"####.#|.Shhh3|.####v|.####i|######|.####v|h####v|.###.Y", 2, "mbbeamagbbpbbr"},   /* 7 of 79 first moves good, 7 solving */
+    {".####Y|.####v|.####v|######|h####i|.####v|.Shhh4|#.###.", 2, "mbgaamaebgpbgr"},   /* 7 of 79 first moves good, 7 solving */
+    {".2hhhX|#v#v.#|#v.#.#|######|#i##.#|#v##.#|#S##.#", 2, "mbgaamdbbgpbgu"},   /* 7 of 79 first moves good, 7 solving */
+    {"Xhhh3.|#.##v#|#.##v#|######|#.##i#|#.##v#|#.#vS.", 2, "megfamdgegpegu"},   /* 7 of 79 first moves good, 7 solving */
+    {"##.###|2hhhS.|v###.#|i###.#|######|v###.#|v###.#|Y###h#", 2, "mebcamehebpebl"},   /* 6 of 69 first moves good, 6 solving */
+    {"2hhhS.|v###.#|i###h#|######|v###.#|v###.#|Y##..#", 2, "meafameceapeal"},   /* 6 of 69 first moves good, 6 solving */
+    {"...2hhX|###v#v#|###v###|#######|###i.##|###v###|###S###", 2, "mdgaamfbdgpdgu"},   /* 4 of 44 first moves good, 4 solving */
+    {"#.S##|##vv#|##i##|#####|##v##|##v##|Xh4..", 2, "mcabamdbcapcad"},   /* 3 of 31 first moves good, 3 solving */
+    {"Sh3..|##vh#|##i##|#####|#.v##|##v##|##Y##", 2, "maadamdbaapaar"},   /* 3 of 31 first moves good, 3 solving */
+    {"2hl#dhX|v#####h|+hhS...|v#.#.#.", 2, "mdcecmgbdcpdcl"},   /* 6 of 82 first moves good, 6 solving */
+    {"####v##|##.#Y##|##.#v##|##.#v.#|#######|##S#i##|##v#e##|hh+h4..", 2, "mcfcbmeacfpcfd"},   /* 6 of 82 first moves good, 6 solving */
+    {"..2h+hS|#.e#v##|##Y#v##|#######|##h#i##|##.#v##|##.#v##|##.####", 2, "mgaaamcegapegu"},   /* 6 of 82 first moves good, 6 solving */
+    {"#2d+S.|#v#v#h|.v#v#.|#Y###.|###i##|###v##|###v.#", 2, "meafamfbeapdgu"},   /* 5 of 70 first moves good, 5 solving */
+    {"h+h3v..|#v#v#.#|.v#i..#|#e###.#|#S#v#.#|###v###|###Y###", 2, "mbefameabepbeu"},   /* 8 of 115 first moves good, 8 solving */
+    {".######|.#####Y|.#####v|h#####v|#######|.##v#.i|.##v##v|.Sh+dh4", 2, "mbhaamadbhpdfd"},   /* 7 of 102 first moves good, 7 solving */
+    {"..2h+hh|##v#e##|##i.S##|#######|##v#.##|##v#.##|##vv.##|##Y#.##", 2, "mecaamdgecpecu"},   /* 7 of 102 first moves good, 7 solving */
+    {"2hhh+S|e..#v.|i.#.v.|######|v####h|v####.|Y####.", 2, "mfabbmfefapecu"},   /* 8 of 115 first moves good, 8 solving */
+    {"##.####|##hh3##|##.#v##|##.#i##|#######|##h#v.#|##.#v##|Xhdh+S.", 2, "mfhcamcffhpcbr"},   /* 6 of 89 first moves good, 6 solving */
+    {"Xhh#lh3|.#h###v|..Sdhh+|.###.#v", 2, "mccabmcbccpccr"},   /* 5 of 76 first moves good, 5 solving */
+    {"##.Y##|##.v##|.v.vh#|#v.#.#|#v.i.#|#v.e.#|S+h4..", 2, "magcamecagpbcd"},   /* 12 of 167 first moves good, 12 solving */
+    {"##v###|h+hh3.|#v##v.|#v##i#|#S####|#.##v#|#.##e#|#.##Y#", 2, "mbefbmcabepbeu"},   /* 5 of 76 first moves good, 5 solving */
+    {"h2d+hS.|#v#v..#|#i#v#.#|##.v###|#v#v#.#|#v###.#|#Y###.#", 2, "mfagamaafapdeu"},   /* 8 of 124 first moves good, 8 solving */
+    {"Y#####.|v#####h|v#####.|###v##.|i##v.#.|v##v##.|1dh+hS.", 2, "mfggamgbfgpddd"},   /* 7 of 110 first moves good, 7 solving */
+    {"..####|#2hhh#|#e##h#|#i##.#|######|#v##.#|#v##.#|S+hhhX", 2, "mahaamecahpebl"},   /* 5 of 82 first moves good, 5 solving */
+    {"Xhhh+h|#h##v#|#.##v#|######|#..#i.|#.##e#|#Shh4#", 2, "mbgbcmbbbgpbgr"},   /* 5 of 82 first moves good, 5 solving */
+    {"#Y#..#|#e##.#|#v##S.|####v#|#i##v#|#v##v#|v1hh+h", 2, "mecdamagecpecd"},   /* 4 of 68 first moves good, 4 solving */
+    {"h+hh3v|#v##v#|#e.#i#|#v####|#S##v.|#.##v#|#.##Y#", 2, "mbeccmfabepbeu"},   /* 4 of 68 first moves good, 4 solving */
+    {"Y.###.|v####.|vv###.|##.v##|i#.v#.|v#.v#.|1hd+S.", 3, "rbcmegbambcegpddd"},   /* 11 of 141 first moves good, 10 solving */
+    {"#Y##.#|#v##.#|#v##S#|####v#|#i#he#|#v##v.|.1hh+h", 3, "rdemeceamdeecpecd"},   /* 5 of 68 first moves good, 4 solving */
 };

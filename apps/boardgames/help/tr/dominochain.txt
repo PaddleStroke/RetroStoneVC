@@ -1,13 +1,15 @@
-Domino Zinciri
+Düşen Dominolar
 # Amaç
-Ayakta duran domino taşlarından bir zincir, kırmızı başlangıç taşından pirinç bir zile uzanır ama aralarında boşluklar vardır. Boşlukları stoğundaki parçalarla doldur, sonra it: tek bir itiş tahtadaki bütün parçaları devirmeli ve zili çaldırmalı.
-# Parçalar
-Bir parçayı herhangi bir boş tahta kareye koy; keçenin üstünde hiçbir şey durmaz. Düşen bir parça, yolu üzerindeki sonraki karedeki parçayı devirir.
-- Bir domino taşı yalnızca boyuna vurulunca düşer, yandan asla.
+Bir tahtanın ahşap karelerinde domino taşları durur. Bazılarını taşı, sonra birini it: bütün taşlar düşmeli ve kırmızı tetik taşı en son düşmeli.
+# Bir hamle
+Tetik dışında herhangi bir parçayı al ve boş bir ahşap kareye koy ya da durduğu yerde çevir: her biri bir hamledir. Sonra bir taşı boyuna it.
+- Bir domino taşı yalnızca boyuna vurulunca düşer ve yolu üzerindeki sonraki parçayı devirir.
 - Bir dönemeç zinciri bir köşeden döndürür.
-- Uzun bir domino taşı bir boşluğun ya da boş bir karenin üstünden iki kare öteye ulaşır.
 - Bir ayırıcı zinciri iki yana, sola ve sağa gönderir.
+- Kum saati işaretli geciktirici taş, vurulduktan bir an sonra düşer.
+- Uzun bir domino taşı bir boşluğun üstünden iki kare öteye ulaşır.
+- Bir durdurucu asla düşmez ve zinciri durdurur.
 # Oyunun sonu
-Tek bir itiş her şeyi devirip zili çaldığında bulmaca çözülür. Yoksa yeni bir deneme için her şey yeniden ayağa kalkar.
+Bir şey ayakta kalırsa ya da tetik erken düşerse her şey yeniden ayağa kalkar: taşı ve yeniden it.
 # Seviyeler ve yıldızlar
-Mümkün olan en az parçayla ve ipucusuz çözülürse 3 yıldız; en fazla iki ipucuyla ya da en az parça sayısının en fazla yarısı kadar fazlasıyla 2 yıldız; yoksa 1.
+Mümkün olan en az hamleyle çözülürse 3 yıldız; en az hamle sayısının en fazla yarısı kadar fazlasıyla 2 yıldız; yoksa 1.

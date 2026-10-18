@@ -1,13 +1,15 @@
-Domino Chain
+Falling Dominoes
 # The aim
-A chain of standing dominoes runs from the red start domino to a brass bell, with gaps in it. Fill the gaps with pieces from your stock, then push: one push must topple every piece on the board and ring the bell.
-# The pieces
-Put a piece on any free wooden square; nothing stands on the felt. A falling piece knocks over the next square's piece in its way.
-- A domino falls only when it is hit along its length, never from the side.
+Dominoes stand on the wooden squares of a board. Move some of them, then push one: every domino must fall, and the red trigger domino must fall last.
+# A move
+Pick up any piece but the trigger and put it on a free wooden square, or turn it where it stands: each is one move. Then push a domino along its length.
+- A domino falls only when it is hit along its length, and knocks over the next piece in its way.
 - A turn sends the chain round a corner.
-- A long domino reaches two squares on, over a gap or an empty square.
 - A splitter sends the chain both ways, to the left and to the right.
+- A delay domino, marked with an hourglass, falls a moment after it is hit.
+- A long domino reaches two squares on, over a gap.
+- A stopper never falls and stops the chain.
 # The end of the game
-When one push topples everything and rings the bell, the puzzle is solved. Otherwise everything stands up again for another try.
+If something is left standing, or the trigger falls too soon, everything stands up again: move and push again.
 # Levels and stars
-Solved with the fewest pieces possible and no hint: 3 stars; with up to two hints, or up to half as many pieces again: 2 stars; otherwise 1.
+Solved in the fewest moves possible: 3 stars; with up to half as many moves again: 2 stars; otherwise 1.

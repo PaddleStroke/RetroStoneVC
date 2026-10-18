@@ -1,15 +1,15 @@
 /*
- * Domino Chain's levels: src/games/dominochain_levels.h. Our own levels: no published or commercial set is used. Each
- * chapter has its kind of chain (straight runs and given turns with a few dominoes missing; turns from the stock; long
- * dominoes over the felt; splitters and their dead ends; all of them; all of them on the largest boards with more
- * wood to mislead) and makes many with the rules' maker (dmc_make, from fixed seeds: a chain laid at random from the
- * start to the bell, no two parts of it touching, pieces taken out of it for the stock, wooden squares added round it
- * in mirrored pairs). A board is kept when its par (the search's fewest pieces) is in the chapter's range, when the
- * chapter's new piece is needed from the stock, and when it was not met before (mirrored either way). The difficulty:
- * the par, more for the nodes the search went through and the wood that misleads. Each chapter keeps 25 spread over
- * its difficulties (chapter 1 from the very easiest); of the boards near each place on the curve the one that looks
- * best is kept (a long chain winding over the board, the board near the phone's shape, well filled); the chapter's last
- * level, its showpiece, the best looking of its hardest few. Deterministic (fixed seeds).
+ * Falling Dominoes' levels: src/games/dominochain_levels.h. Our own levels: no published or commercial set is used.
+ * Each chapter brings its piece (plain dominoes and turns, stoppers, splitters, delay dominoes, long dominoes over the
+ * gaps, all of them) and makes many boards with the rules' maker (dmc_make, from fixed seeds: a chain laid at random
+ * from the domino to push to the trigger, solved; wood round it, the chain's mirror image a ghost of its way; then
+ * pieces moved at random). The search finds each board's par (the fewest moves), how many positions at that depth a
+ * push solves, and how many of the first moves begin a shortest way. A board is kept when its par is in the chapter's
+ * range, when no push works before a move, when the chapter's piece matters (stoppers: kept still, the par grows;
+ * delay dominoes: made plain, the par grows), and when it was not met before (mirrored either way). The difficulty:
+ * the par, the share of first moves that lead nowhere, the few solving positions. Each chapter keeps its levels spread
+ * over its difficulties (chapter 1 from the easiest); of the boards near each place on the curve the one that misleads
+ * most is kept, and the chapter ends on its hardest. Deterministic (fixed seeds). The chapters' figures on stderr.
  *   gcc -O2 -Iapps/boardgames/src -o /tmp/dmcgen apps/boardgames/tools/dominochain_gen.c -lm && \
  *       /tmp/dmcgen > apps/boardgames/src/games/dominochain_levels.h
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
@@ -23,27 +23,26 @@
 #include "games/dominochain_rules.c"
 
 #define PER (DMC_LEVELS / DMC_CHAPTERS)
-#define MAKES 220                               /* boards kept a chapter, at most */
-#define CAP 3000000L
+#define MAKES 120                               /* boards kept a chapter, at most */
+#define CAP 400000L
 
 typedef struct {
-    char text[DMC_TEXT], stock[DMC_KINDS + 1];
-    int par;
-    double diff, look;
+    char text[DMC_TEXT], sol[64];
+    int par, goals, firsts, good;
+    long states;
+    double diff, mislead;
 } cand;
 
-/* a chapter: its spec's size (up to grow more each way), runs, gaps (up to 2 more), the chain's turns, longs, splits
- * and those of the stock, the decoys, the extra dominoes; lo..hi the par; need: the stock kind the par needs (-1:
- * any) */
-typedef struct { dmc_spec sp; int grow, more, lo, hi, need; } chapter;
+/* a chapter: its spec (size, runs, turns, splitters, delays, longs, stoppers, moves made, depth), the par lo..hi, the
+ * piece that must matter (DMC_STOPPER or DMC_DELAY; 0 none), the piece the board must have, the boards tried */
+typedef struct { dmc_spec sp; int grow, lo, hi, matter, have, tries; } chapter;
 
 static const chapter CH[DMC_CHAPTERS] = {
-    {{5, 6, 3, 1, 2, 0, 0, 0, 0, 0, 1, 0}, 1, 2, 1, 3, -1},             /* dominoes missing, turns given */
-    {{6, 7, 4, 2, 3, 0, 0, 1, 0, 0, 2, 0}, 1, 2, 2, 5, DMC_K_TURN},     /* turns from the stock */
-    {{6, 8, 4, 2, 2, 1, 0, 1, 1, 0, 3, 0}, 1, 2, 3, 6, DMC_K_LONG},     /* long dominoes over the felt */
-    {{6, 8, 4, 2, 2, 0, 1, 1, 0, 1, 3, 0}, 1, 2, 3, 6, DMC_K_SPLIT},    /* splitters */
-    {{7, 9, 5, 4, 3, 1, 1, 2, 1, 1, 4, 1}, 1, 2, 4, 8, -1},             /* all of them */
-    {{7, 9, 6, 5, 3, 1, 1, 2, 1, 1, 6, 1}, 1, 3, 5, 10, -1},             /* all of them, larger, more wood */
+    {{5, 6, 3, 1, 0, 0, 0, 2, 2, 2}, 1, 1, 2, 0, DMC_STOPPER, 20000},          /* dominoes, turns, stoppers */
+    {{6, 7, 3, 1, 1, 0, 0, 1, 2, 2}, 1, 1, 2, 0, DMC_SPLIT, 20000},            /* splitters */
+    {{6, 7, 3, 1, 1, 1, 0, 1, 2, 2}, 1, 1, 2, DMC_DELAY, DMC_DELAY, 20000},    /* delay dominoes */
+    {{6, 7, 3, 1, 0, 0, 1, 1, 2, 2}, 1, 1, 2, 0, DMC_LONG, 20000},             /* long dominoes over the gaps */
+    {{6, 7, 4, 1, 1, 1, 1, 1, 3, 3}, 1, 2, 3, 0, DMC_SPLIT, 2500},             /* all of them */
 };
 
 static int by_diff(const void *a, const void *b)
@@ -52,20 +51,12 @@ static int by_diff(const void *a, const void *b)
     return d < 0 ? -1 : d > 0 ? 1 : strcmp(((const cand *)a)->text, ((const cand *)b)->text);
 }
 
-/* ---- near-duplicates: the board mirrored either way (the pieces' ways mirrored with it) ----------------------- */
+/* ---- near-duplicates: mirrored either way (the turns' corners mirrored with them) -------------------------------- */
 static char (*kept)[DMC_TEXT];
 static int nkept;
 
 static char mirror_ch(char c, int across, int down)
 {
-    const char *starts = "URDL";
-    const char *p = strchr(starts, c);
-    if (p && c) {
-        int d = (int)(p - starts);
-        if (across && (d & 1)) d ^= 2;
-        if (down && !(d & 1)) d ^= 2;
-        return starts[d];
-    }
     if (c >= '1' && c <= '4') {                 /* corners 0 NE, 1 ES, 2 SW, 3 WN */
         static const char ACROSS[4] = {'4', '3', '2', '1'}, DOWN[4] = {'2', '1', '4', '3'};
         if (across) c = ACROSS[c - '1'];
@@ -74,25 +65,21 @@ static char mirror_ch(char c, int across, int down)
     return c;
 }
 
-static void form_of(const dmc_map *m, int tr, char *out)
+static int met(const dmc_state *s)
 {
-    char t[DMC_TEXT];
-    dmc_text(m, NULL, t);
-    int n = 0;
-    for (int y = 0; y < m->h; y++) {
-        for (int x = 0; x < m->w; x++) {
-            int sx = tr & 1 ? m->w - 1 - x : x, sy = tr & 2 ? m->h - 1 - y : y;
-            out[n++] = mirror_ch(t[sx + sy * (m->w + 1)], tr & 1, tr & 2);
+    char t[DMC_TEXT], l[4][DMC_TEXT];
+    dmc_text(s, t);
+    for (int tr = 0; tr < 4; tr++) {
+        int n = 0;
+        for (int y = 0; y < s->h; y++) {
+            for (int x = 0; x < s->w; x++) {
+                int sx = tr & 1 ? s->w - 1 - x : x, sy = tr & 2 ? s->h - 1 - y : y;
+                l[tr][n++] = mirror_ch(t[sx + sy * (s->w + 1)], tr & 1, tr & 2);
+            }
+            l[tr][n++] = '|';
         }
-        out[n++] = '|';
+        l[tr][n] = 0;
     }
-    out[n] = 0;
-}
-
-static int met(const dmc_map *m)
-{
-    char l[4][DMC_TEXT];
-    for (int tr = 0; tr < 4; tr++) form_of(m, tr, l[tr]);
     for (int i = 0; i < nkept; i++)
         for (int tr = 0; tr < 4; tr++)
             if (!strcmp(kept[i], l[tr])) return 1;
@@ -100,95 +87,110 @@ static int met(const dmc_map *m)
     return 0;
 }
 
-/* the par's pieces need this kind from the stock: without it the board cannot be done in the par */
-static int needs(const dmc_map *m, int kind, int par)
+static int has(const dmc_state *s, int t)
 {
-    if (kind < 0) return 1;
-    if (!m->stock[kind]) return 0;
-    dmc_map n = *m;
-    dmc_state e;
-    n.stock[kind] = 0;
-    memset(&e, 0, sizeof e);
-    memset(e.t, DMC_WOOD, sizeof e.t);
-    memcpy(e.left, n.stock, sizeof e.left);
-    int p = dmc_solve(&n, &e, par, CAP, NULL, NULL, NULL);
-    return p < 0;
+    for (int c = 0; c < s->w * s->h; c++)
+        if (s->t[c] == t) return 1;
+    return 0;
 }
 
-/* a board that looks laid by hand: a long chain, near the phone's upright shape, the board well filled */
-static double look_of(const dmc_map *m)
+/* the piece matters: stoppers kept still, or delay dominoes made plain, and the board needs more moves */
+static int matters(const dmc_state *s, int t, int par)
 {
-    int pieces = 0, wood = 0;
-    for (int c = 0; c < m->w * m->h; c++) {
-        pieces += m->t[c] >= DMC_DOMINO;
-        wood += m->t[c] != DMC_FELT;
-    }
-    double fill = (double)wood / (m->w * m->h), shape = (double)m->h / m->w;
-    return 0.04 * pieces - fabs(fill - 0.55) - 0.4 * fabs(shape - 1.35);
+    if (!t) return 1;
+    dmc_state n = *s;
+    dmc_info in;
+    if (t == DMC_STOPPER) dmc_frozen = 1 << DMC_STOPPER;
+    else
+        for (int c = 0; c < n.w * n.h; c++)
+            if (n.t[c] == DMC_DELAY) n.t[c] = DMC_DOMINO;
+    int ok = !dmc_search(&n, par, CAP, &in) || in.par > par;
+    dmc_frozen = 0;
+    return ok;
 }
 
 int main(void)
 {
-    kept = malloc((size_t)DMC_CHAPTERS * MAKES * 60 * sizeof *kept);
+    kept = malloc((size_t)DMC_CHAPTERS * 10000 * sizeof *kept);
     static cand pool[MAKES];
     static cand out[DMC_LEVELS];
-    printf("/* Domino Chain's levels: made by tools/dominochain_gen.c (our own boards, found by its search; do not "
-           "edit).\n * Each level: its board (dominochain.h), its stock (dominoes, turns, long dominoes, splitters), "
-           "its par: the\n * fewest pieces. */\n");
+    printf("/* Falling Dominoes' levels: made by tools/dominochain_gen.c (our own boards, found by its search; do not "
+           "edit).\n * Each level: its board (dominochain.h), its par (the fewest moves), a shortest way and its push. "
+           "*/\n");
     for (int ch = 0; ch < DMC_CHAPTERS; ch++) {
         const chapter *C = &CH[ch];
-        uint32_t r = pr_seed(9100u + (uint32_t)ch);
-        int n = 0;
-        for (int k = 0; k < 60 * MAKES && n < MAKES; k++) {
+        uint32_t r = pr_seed(12100u + (uint32_t)ch);
+        int n = 0, why[6] = {0};          /* (the probe's count of boards dropped: not made, no answer, par, piece, obvious) */
+        for (int k = 0; k < C->tries && n < MAKES; k++) {
             dmc_spec sp = C->sp;
             sp.w += pr_below(&r, C->grow + 1);
             sp.h += pr_below(&r, C->grow + 1);
-            if (sp.w > DMC_MAXW) sp.w = DMC_MAXW;
-            if (sp.h > DMC_MAXH) sp.h = DMC_MAXH;
-            sp.gaps += pr_below(&r, C->more + 1);
-            sp.runs += pr_below(&r, 2);
-            if (ch == 0) sp.gaps = 1 + pr_below(&r, 3);
-            dmc_map m;
-            dmc_state sol, e;
-            dmc_make(&m, &sol, &sp, pr_next(&r));
-            memset(&e, 0, sizeof e);
-            memset(e.t, DMC_WOOD, sizeof e.t);
-            memcpy(e.left, m.stock, sizeof e.left);
-            long nodes;
-            int par = dmc_solve(&m, &e, sol.placed, CAP, NULL, NULL, &nodes);
-            if (par < C->lo || par > C->hi || nodes > CAP || !needs(&m, C->need, par) || met(&m)) continue;
-            int wood = 0;
-            for (int c = 0; c < m.w * m.h; c++) wood += m.t[c] == DMC_WOOD;
-            dmc_text(&m, NULL, pool[n].text);
-            for (int q = 0; q < DMC_KINDS; q++) pool[n].stock[q] = (char)('0' + m.stock[q]);
-            pool[n].stock[DMC_KINDS] = 0;
-            pool[n].par = par;
-            pool[n].diff = par + 0.6 * log10((double)nodes + 1) + 0.08 * (wood - par);
-            pool[n].look = look_of(&m);
+            if (ch == 0 && k % 3 == 0) sp.scramble = 1;
+            dmc_state s;
+            if (!dmc_make(&s, &sp, pr_next(&r)) || !has(&s, C->have)) { why[0]++; continue; }
+            dmc_info in;
+            if (!dmc_search(&s, sp.depth, CAP, &in)) { why[1]++; continue; }
+            if (in.par < C->lo || in.par > C->hi) { why[2]++; continue; }
+            int counts = matters(&s, C->matter, in.par);   /* (a delay domino that matters: rarer, kept harder) */
+            if (!counts && C->matter != DMC_DELAY) { why[3]++; continue; }
+            int plain = dmc_obvious(&s, in.par);
+            if (plain && (ch > 0 || n >= 3)) { why[4]++; continue; }
+            if (met(&s)) continue;   /* only the first three levels may be obvious */
+            cand *p = &pool[n];
+            dmc_text(&s, p->text);
+            int len = 0;
+            for (int i = 0; i < in.par; i++) {
+                dmc_notation(&s, in.sol[i], p->sol + len);
+                len += (int)strlen(p->sol + len);
+            }
+            sprintf(p->sol + len, "p%c%c%c", 'a' + in.push / 4 % s.w, 'a' + in.push / 4 / s.w, "urdl"[in.push % 4]);
+            p->par = in.par;
+            p->goals = in.goals;
+            p->firsts = in.firsts;
+            p->good = in.good;
+            p->states = in.states;
+            p->mislead = in.firsts ? 1 - (double)in.good / in.firsts : 0;
+            p->diff = 3.0 * in.par + 3 * p->mislead + 1.5 / in.goals + 0.3 * log10((double)in.states + 1);
+            if (C->matter == DMC_DELAY && counts) p->diff += 1.5;
+            if (plain) p->diff -= 10;           /* the obvious ones first: the three first levels */
             n++;
+        }
+        if (getenv("PROBE")) {
+            fprintf(stderr, "chapter %d: %d boards of %d tried (dropped: %d not made, %d no answer, %d par, %d piece, "
+                            "%d obvious)\n", ch + 1, n, C->tries, why[0], why[1], why[2], why[3], why[4]);
+            continue;
         }
         if (n < PER) { fprintf(stderr, "chapter %d: only %d boards\n", ch + 1, n); return 1; }
         qsort(pool, (size_t)n, sizeof *pool, by_diff);
-        int lo = ch == 0 ? 0 : n / 8;
-        double step = (double)(n - 1 - lo) / (PER - 1);
+        int lo = ch == 0 ? 0 : n / 6;
+        double step = (double)(n - 1 - lo) / (PER - 1), mis = 0, goals = 0;
+        int pmin = 99, pmax = 0, gmin = 1 << 30;
         for (int k = 0, last = -1; k < PER; k++) {
             int mid = lo + (int)(k * step + 0.5), a = mid - (int)(step / 2), b = mid + (int)(step / 2), i = -1;
             if (k == 0 && ch == 0) a = b = 0;
-            if (k == PER - 1) a = n - 1 - n / 25 - 2, b = n - 1;
+            if (k == PER - 1) a = b = n - 1;
             if (a < lo) a = lo;
             if (a <= last) a = last + 1;
             if (b > n - 1) b = n - 1;
             if (b < a) b = a;
             for (int j = a; j <= b; j++)
-                if (i < 0 || pool[j].look > pool[i].look) i = j;
+                if (i < 0 || pool[j].mislead > pool[i].mislead) i = j;
             last = i;
             out[ch * PER + k] = pool[i];
+            mis += pool[i].mislead;
+            goals += pool[i].goals;
+            if (pool[i].par < pmin) pmin = pool[i].par;
+            if (pool[i].par > pmax) pmax = pool[i].par;
+            if (pool[i].goals < gmin) gmin = pool[i].goals;
         }
-        fprintf(stderr, "chapter %d: %d boards, pieces %d .. %d\n", ch + 1, n, out[ch * PER].par,
-                out[ch * PER + PER - 1].par);
+        fprintf(stderr, "chapter %d: %d boards; moves %d .. %d; first moves leading nowhere %.0f%% on average; "
+                        "solving positions %.1f on average, %d at least\n",
+                ch + 1, n, pmin, pmax, 100 * mis / PER, goals / PER, gmin);
     }
     printf("const dmc_level_t dmc_levels[DMC_LEVELS] = {\n");
-    for (int l = 0; l < DMC_LEVELS; l++) printf("    {\"%s\", \"%s\", %d},\n", out[l].text, out[l].stock, out[l].par);
+    for (int l = 0; l < DMC_LEVELS; l++)
+        printf("    {\"%s\", %d, \"%s\"},   /* %d of %d first moves good, %d solving */\n", out[l].text, out[l].par,
+               out[l].sol, out[l].good, out[l].firsts, out[l].goals);
     printf("};\n");
     return 0;
 }

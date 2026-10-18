@@ -1,13 +1,15 @@
-Dominokette
+Fallende Dominosteine
 # Das Ziel
-Eine Kette stehender Dominosteine führt vom roten Startstein zu einer Messingglocke, aber sie hat Lücken. Fülle die Lücken mit Teilen aus deinem Vorrat und stoße dann an: Ein einziger Stoß muss alle Teile auf dem Brett umwerfen und die Glocke läuten.
-# Die Teile
-Stelle ein Teil auf ein beliebiges freies Holzfeld; auf dem Filz steht nichts. Ein fallendes Teil wirft das Teil auf dem nächsten Feld in seiner Richtung um.
-- Ein Dominostein fällt nur, wenn er der Länge nach getroffen wird, nie von der Seite.
+Dominosteine stehen auf den Holzfeldern eines Bretts. Versetze einige davon und stoße dann einen an: Alle Steine müssen fallen, und der rote Auslöserstein muss als letzter fallen.
+# Ein Zug
+Nimm ein beliebiges Teil außer dem Auslöser und stelle es auf ein freies Holzfeld, oder drehe es an seinem Platz: Beides ist ein Zug. Dann stoße einen Stein der Länge nach an.
+- Ein Dominostein fällt nur, wenn er der Länge nach getroffen wird, und wirft das nächste Teil in seiner Richtung um.
 - Eine Kurve lenkt die Kette um eine Ecke.
-- Ein langer Dominostein reicht zwei Felder weit, über eine Lücke oder ein leeres Feld hinweg.
 - Ein Verteiler schickt die Kette in beide Richtungen, nach links und nach rechts.
+- Ein Verzögerungsstein mit einer Sanduhr fällt einen Augenblick, nachdem er getroffen wurde.
+- Ein langer Dominostein reicht zwei Felder weit, über eine Lücke hinweg.
+- Ein Stopper fällt nie und hält die Kette auf.
 # Das Ende der Partie
-Wenn ein einziger Stoß alles umwirft und die Glocke läutet, ist das Rätsel gelöst. Sonst richtet sich alles für einen neuen Versuch wieder auf.
+Bleibt etwas stehen oder fällt der Auslöser zu früh, richtet sich alles wieder auf: versetzen und noch einmal anstoßen.
 # Level und Sterne
-Gelöst mit den wenigsten möglichen Teilen und ohne Hinweis: 3 Sterne; mit höchstens zwei Hinweisen oder bis zu halb so vielen Teilen mehr: 2 Sterne; sonst 1.
+Gelöst mit den wenigsten möglichen Zügen: 3 Sterne; mit bis zu halb so vielen Zügen mehr: 2 Sterne; sonst 1.

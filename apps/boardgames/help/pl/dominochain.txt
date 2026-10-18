@@ -1,13 +1,15 @@
-Łańcuch domina
+Spadające domino
 # Cel gry
-Łańcuch stojących kostek domina biegnie od czerwonej kostki startowej do mosiężnego dzwonka, ale ma luki. Wypełnij luki elementami ze swojego zapasu, a potem pchnij: jedno pchnięcie musi przewrócić wszystkie elementy na planszy i zadzwonić dzwonkiem.
-# Elementy
-Postaw element na dowolnym wolnym drewnianym polu; na suknie nic nie stoi. Padający element przewraca element na następnym polu na swojej drodze.
-- Kostka domina pada tylko wtedy, gdy zostanie trafiona wzdłuż, nigdy z boku.
+Kostki domina stoją na drewnianych polach planszy. Przestaw kilka z nich, a potem pchnij jedną: wszystkie kostki muszą się przewrócić, a czerwona kostka spustowa musi upaść ostatnia.
+# Ruch
+Podnieś dowolny element poza spustem i postaw go na wolnym drewnianym polu albo obróć go w miejscu: każde z nich to jeden ruch. Potem pchnij kostkę wzdłuż.
+- Kostka pada tylko wtedy, gdy zostanie trafiona wzdłuż, i przewraca następny element na swojej drodze.
 - Zakręt prowadzi łańcuch za róg.
-- Długa kostka sięga dwa pola dalej, nad luką albo pustym polem.
 - Rozdzielacz wysyła łańcuch w obie strony, w lewo i w prawo.
+- Kostka opóźniająca, oznaczona klepsydrą, pada chwilę po trafieniu.
+- Długa kostka sięga dwa pola dalej, nad luką.
+- Odbojnik nigdy nie pada i zatrzymuje łańcuch.
 # Koniec gry
-Gdy jedno pchnięcie przewraca wszystko i dzwoni dzwonek, łamigłówka jest rozwiązana. W przeciwnym razie wszystko znów staje do kolejnej próby.
+Jeśli coś zostanie na stojąco albo spust upadnie za wcześnie, wszystko znów staje: przestaw i pchnij jeszcze raz.
 # Poziomy i gwiazdki
-Rozwiązana najmniejszą możliwą liczbą elementów i bez podpowiedzi: 3 gwiazdki; z najwyżej dwiema podpowiedziami albo najwyżej o połowę większą liczbą elementów: 2 gwiazdki; inaczej 1.
+Rozwiązana najmniejszą możliwą liczbą ruchów: 3 gwiazdki; najwyżej o połowę więcej ruchów: 2 gwiazdki; inaczej 1.

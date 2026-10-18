@@ -1,13 +1,15 @@
-Dominokæde
+Faldende dominobrikker
 # Målet
-En kæde af stående dominobrikker går fra den røde startbrik til en messingklokke, men der er huller i den. Fyld hullerne med brikker fra dit lager, og skub så: ét skub skal vælte alle brikker på pladen og ringe med klokken.
-# Brikkerne
-Sæt en brik på et hvilket som helst ledigt træfelt; intet kan stå på filten. En brik, der falder, vælter brikken på det næste felt i dens retning.
-- En dominobrik falder kun, når den rammes på langs, aldrig fra siden.
+Dominobrikker står på et brætspils træfelter. Flyt nogle af dem, og skub så til én: alle brikker skal vælte, og den røde udløserbrik skal vælte sidst.
+# Et træk
+Tag en hvilken som helst brik undtagen udløseren og sæt den på et ledigt træfelt, eller drej den, hvor den står: hvert er ét træk. Skub derefter en brik på langs.
+- En dominobrik vælter kun, når den rammes på langs, og vælter den næste brik i sin retning.
 - Et sving sender kæden rundt om et hjørne.
-- En lang dominobrik når to felter frem, hen over et hul eller et tomt felt.
 - En deler sender kæden begge veje, til venstre og til højre.
+- En forsinkerbrik, mærket med et timeglas, vælter et øjeblik efter, at den er ramt.
+- En lang dominobrik når to felter frem, hen over et hul.
+- En stopper vælter aldrig og standser kæden.
 # Spillets afslutning
-Når ét skub vælter det hele og ringer med klokken, er opgaven løst. Ellers rejser alt sig igen til et nyt forsøg.
+Bliver noget stående, eller vælter udløseren for tidligt, rejser alt sig igen: flyt og skub igen.
 # Baner og stjerner
-Løst med færrest mulige brikker og uden hjælp: 3 stjerner; med højst to hjælp eller op til halvt så mange brikker mere: 2 stjerner; ellers 1.
+Løst med færrest mulige træk: 3 stjerner; med op til halvt så mange træk mere: 2 stjerner; ellers 1.

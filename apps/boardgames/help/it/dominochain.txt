@@ -1,13 +1,15 @@
-Catena di domino
+Domino a cascata
 # Lo scopo
-Una catena di tessere del domino in piedi va dalla tessera rossa di partenza fino a una campana d'ottone, ma ha dei buchi. Riempi i buchi con i pezzi della tua scorta, poi spingi: una sola spinta deve far cadere tutti i pezzi della tavola e suonare la campana.
-# I pezzi
-Metti un pezzo su qualsiasi casella di legno libera; sul panno non sta in piedi niente. Un pezzo che cade abbatte il pezzo della casella successiva sul suo cammino.
-- Una tessera cade solo se colpita per il lungo, mai di lato.
+Delle tessere del domino stanno in piedi sulle caselle di legno di una tavola. Spostane alcune, poi spingine una: tutte le tessere devono cadere, e la tessera rossa d'innesco deve cadere per ultima.
+# Una mossa
+Prendi un pezzo qualsiasi tranne l'innesco e mettilo su una casella di legno libera, oppure giralo dove si trova: ognuna è una mossa. Poi spingi una tessera per il lungo.
+- Una tessera cade solo se colpita per il lungo, e abbatte il pezzo successivo sul suo cammino.
 - Una curva fa girare la catena ad angolo retto.
-- Una tessera lunga arriva due caselle più in là, scavalcando un buco o una casella vuota.
 - Uno smistatore manda la catena da tutti e due i lati, a sinistra e a destra.
+- Una tessera ritardatrice, segnata da una clessidra, cade un attimo dopo essere stata colpita.
+- Una tessera lunga arriva due caselle più in là, scavalcando un buco.
+- Un fermo non cade mai e blocca la catena.
 # La fine della partita
-Quando una sola spinta abbatte tutto e fa suonare la campana, il rompicapo è risolto. Altrimenti tutto si rialza per un altro tentativo.
+Se qualcosa resta in piedi, o l'innesco cade troppo presto, tutto si rialza: sposta e spingi di nuovo.
 # Livelli e stelle
-Risolto con il minor numero di pezzi possibile e senza aiuti: 3 stelle; con al massimo due aiuti, o con fino a metà pezzi in più: 2 stelle; altrimenti 1.
+Risolto con il minor numero di mosse possibile: 3 stelle; con fino a metà mosse in più: 2 stelle; altrimenti 1.

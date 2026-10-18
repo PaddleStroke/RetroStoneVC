@@ -1,13 +1,15 @@
-Chaîne de dominos
+Dominos en cascade
 # Le but
-Une chaîne de dominos debout va du domino rouge de départ jusqu'à une cloche en laiton, avec des trous. Comble les trous avec les pièces de ta réserve, puis pousse : une seule poussée doit faire tomber toutes les pièces du plateau et sonner la cloche.
-# Les pièces
-Pose une pièce sur n'importe quelle case de bois libre ; rien ne tient sur le feutre. Une pièce qui tombe renverse la pièce de la case suivante sur son chemin.
-- Un domino ne tombe que s'il est frappé dans sa longueur, jamais par le côté.
+Des dominos se dressent sur les cases de bois d'un plateau. Déplace-en quelques-uns, puis pousses-en un : tous les dominos doivent tomber, et le domino déclencheur rouge doit tomber le dernier.
+# Un coup
+Prends n'importe quelle pièce sauf le déclencheur et pose-la sur une case de bois libre, ou tourne-la sur place : chacun compte pour un coup. Puis pousse un domino dans sa longueur.
+- Un domino ne tombe que s'il est frappé dans sa longueur, et il renverse la pièce suivante sur son chemin.
 - Un virage fait tourner la chaîne à angle droit.
-- Un long domino atteint deux cases plus loin, par-dessus un trou ou une case vide.
 - Un séparateur envoie la chaîne des deux côtés, à gauche et à droite.
+- Un domino retardateur, marqué d'un sablier, tombe un instant après avoir été frappé.
+- Un long domino atteint deux cases plus loin, par-dessus un trou.
+- Un butoir ne tombe jamais et arrête la chaîne.
 # La fin de la partie
-Quand une seule poussée renverse tout et fait sonner la cloche, le casse-tête est résolu. Sinon, tout se relève pour un nouvel essai.
+Si quelque chose reste debout, ou si le déclencheur tombe trop tôt, tout se relève : déplace et pousse à nouveau.
 # Niveaux et étoiles
-Résolu avec le moins de pièces possible et sans indice : 3 étoiles ; avec deux indices au plus, ou jusqu'à moitié plus de pièces : 2 étoiles ; sinon 1.
+Résolu avec le moins de coups possible : 3 étoiles ; jusqu'à moitié plus de coups : 2 étoiles ; sinon 1.

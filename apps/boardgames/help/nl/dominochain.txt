@@ -1,13 +1,15 @@
-Dominoketting
+Vallende dominostenen
 # Het doel
-Een ketting van rechtopstaande dominostenen loopt van de rode startsteen naar een koperen bel, maar er zitten gaten in. Vul de gaten met stukken uit je voorraad en geef dan een duw: één duw moet alle stukken op het bord omgooien en de bel laten luiden.
-# De stukken
-Zet een stuk op een vrij houten vakje; op het vilt blijft niets staan. Een vallend stuk gooit het stuk op het volgende vakje in zijn richting om.
-- Een dominosteen valt alleen als hij in de lengte geraakt wordt, nooit van opzij.
+Dominostenen staan op de houten vakjes van een bord. Verzet er een paar en duw er dan één om: alle stenen moeten vallen, en de rode ontstekingssteen moet als laatste vallen.
+# Een zet
+Pak een stuk op, behalve de ontstekingssteen, en zet het op een vrij houten vakje, of draai het op zijn plek: elk is één zet. Duw daarna een steen in de lengte om.
+- Een dominosteen valt alleen als hij in de lengte geraakt wordt, en gooit het volgende stuk in zijn richting om.
 - Een bocht stuurt de ketting om een hoek.
-- Een lange dominosteen reikt twee vakjes verder, over een gat of een leeg vakje heen.
 - Een splitser stuurt de ketting naar beide kanten, naar links en naar rechts.
+- Een vertragingssteen met een zandloper valt een ogenblik nadat hij geraakt is.
+- Een lange dominosteen reikt twee vakjes verder, over een gat heen.
+- Een stopper valt nooit en houdt de ketting tegen.
 # Het einde van het spel
-Als één duw alles omgooit en de bel luidt, is de puzzel opgelost. Anders gaat alles weer rechtop staan voor een nieuwe poging.
+Blijft er iets staan, of valt de ontstekingssteen te vroeg, dan gaat alles weer rechtop staan: verzet en duw opnieuw.
 # Levels en sterren
-Opgelost met zo weinig mogelijk stukken en zonder hint: 3 sterren; met hoogstens twee hints, of tot de helft meer stukken: 2 sterren; anders 1.
+Opgelost met zo weinig mogelijk zetten: 3 sterren; met tot de helft meer zetten: 2 sterren; anders 1.
