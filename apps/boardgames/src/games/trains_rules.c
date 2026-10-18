@@ -422,7 +422,7 @@ int trs_script(trs_game *g, const char *s)
  * weighted at random, turns costing more (straighter lines), over a straight track at right angles where crossings
  * are wanted. Then a setting drawn at random sends the trains (their colours not yet known) to stations, and each
  * train takes the colour of the station it reached: the puzzle can be solved. The first setting: one at the par
-&
+ * sought from every setting that works. */
 typedef struct {
     float wt[TRS_CELLS];
     uint8_t reserved[TRS_CELLS];                /* a portal's or a station's square inside, kept for its own line */
