@@ -1,0 +1,8 @@
+Balance Scales
+# The aim
+Every scale is balanced. Find the weight of each shape, a whole number from 1 up. The same shape always weighs the same, and a numbered weight weighs its number. Every puzzle has exactly one solution, found by reasoning alone.
+When a scale's shapes all have a weight that does not balance it, it tips towards its heavier pan.
+# The end of the game
+The puzzle is solved when every shape has its right weight.
+# Levels and stars
+No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is every shape weighed with some weight wrong.

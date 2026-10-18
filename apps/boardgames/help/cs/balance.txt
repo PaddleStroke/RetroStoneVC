@@ -1,0 +1,8 @@
+Rovnoramenné váhy
+# Cíl hry
+Každá váha je v rovnováze. Najdi váhu každého tvaru, celé číslo od 1 výš. Stejný tvar váží vždycky stejně a závaží s číslem váží své číslo. Každá úloha má právě jedno řešení, které najdeš samotnou úvahou.
+Když mají všechny tvary na váze váhy, které ji nevyrovnají, nakloní se k těžší misce.
+# Konec hry
+Úloha je vyřešená, když má každý tvar svou správnou váhu.
+# Úrovně a hvězdy
+Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je zvážit všechny tvary s nějakou váhou špatně.

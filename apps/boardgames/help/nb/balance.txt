@@ -1,0 +1,8 @@
+Skålvekter
+# Målet
+Hver vekt er i balanse. Finn vekten til hver figur, et helt tall fra 1 og oppover. Den samme figuren veier alltid det samme, og et lodd med tall veier tallet sitt. Hvert puslespill har nøyaktig én løsning, som kan finnes med ren logikk.
+Når alle figurene på en vekt har en vekt som ikke holder den i balanse, tipper den mot den tyngste skålen.
+# Slutten på spillet
+Puslespillet er løst når hver figur har riktig vekt.
+# Nivåer og stjerner
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er å ha veid alle figurene med en feil vekt imellom.

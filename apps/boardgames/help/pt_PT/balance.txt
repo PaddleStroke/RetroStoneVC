@@ -1,0 +1,8 @@
+Balanças
+# O objetivo
+Todas as balanças estão em equilíbrio. Descobre o peso de cada forma, um número inteiro a partir de 1. A mesma forma pesa sempre o mesmo, e um peso numerado pesa o seu número. Cada desafio tem uma só solução, encontrada apenas pelo raciocínio.
+Quando todas as formas de uma balança têm um peso que não a equilibra, ela inclina-se para o prato mais pesado.
+# O fim do jogo
+O desafio está resolvido quando cada forma tem o seu peso certo.
+# Níveis e estrelas
+Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1. Um erro é pesar todas as formas com algum peso errado.

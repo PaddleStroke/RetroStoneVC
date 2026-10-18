@@ -1,0 +1,8 @@
+Vægtskåle
+# Målet
+Hver vægt er i balance. Find vægten af hver figur, et helt tal fra 1 og op. Den samme figur vejer altid det samme, og et lod med et tal vejer sit tal. Hver opgave har præcis én løsning, som findes ved ren logik.
+Når alle figurerne på en vægt har en vægt, der ikke holder den i balance, tipper den mod den tungeste skål.
+# Spillets afslutning
+Opgaven er løst, når hver figur har sin rigtige vægt.
+# Baner og stjerner
+Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1. En fejl er at have vejet alle figurerne med en forkert vægt imellem.

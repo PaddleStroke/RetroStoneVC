@@ -1,0 +1,8 @@
+Balkenwaagen
+# Das Ziel
+Jede Waage ist im Gleichgewicht. Finde das Gewicht jeder Form, eine ganze Zahl ab 1. Gleiche Formen wiegen immer gleich viel, und ein Gewicht mit Zahl wiegt seine Zahl. Jedes Rätsel hat genau eine Lösung, die sich allein durch Nachdenken finden lässt.
+Haben alle Formen einer Waage ein Gewicht, das sie nicht ausgleicht, neigt sie sich zur schwereren Schale.
+# Das Ende der Partie
+Das Rätsel ist gelöst, wenn jede Form ihr richtiges Gewicht hat.
+# Level und Sterne
+Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist, alle Formen gewogen zu haben, mit einem falschen Gewicht.

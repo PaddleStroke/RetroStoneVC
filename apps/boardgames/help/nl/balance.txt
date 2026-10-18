@@ -1,0 +1,8 @@
+Weegschalen
+# Het doel
+Elke weegschaal is in evenwicht. Zoek het gewicht van elke vorm, een heel getal vanaf 1. Dezelfde vorm weegt altijd hetzelfde, en een gewicht met een getal weegt dat getal. Elke puzzel heeft precies één oplossing, te vinden door alleen te redeneren.
+Als alle vormen op een weegschaal een gewicht hebben dat haar niet in evenwicht brengt, zakt ze naar de zwaarste schaal.
+# Het einde van het spel
+De puzzel is opgelost als elke vorm het juiste gewicht heeft.
+# Levels en sterren
+Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is alle vormen gewogen hebben met een verkeerd gewicht erbij.

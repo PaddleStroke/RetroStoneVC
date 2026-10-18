@@ -1,0 +1,8 @@
+Terazi
+# Amaç
+Her terazi dengede. Her şeklin ağırlığını bul; ağırlıklar 1'den başlayan tam sayılardır. Aynı şekil her zaman aynı ağırlıktadır, numaralı bir ağırlık da numarası kadar çeker. Her bulmacanın tek bir çözümü var ve yalnızca akıl yürüterek bulunur.
+Bir terazideki bütün şekillerin ağırlığı onu dengelemiyorsa, terazi ağır kefeye doğru eğilir.
+# Oyunun sonu
+Her şekil doğru ağırlığını bulduğunda bulmaca çözülür.
+# Seviyeler ve yıldızlar
+İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, bütün şekilleri biri yanlış ağırlıkla tartmaktır.

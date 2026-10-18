@@ -1,0 +1,8 @@
+Balanzas
+# El objetivo
+Todas las balanzas están en equilibrio. Encuentra el peso de cada figura, un número entero desde 1. Una misma figura pesa siempre lo mismo, y una pesa con número pesa su número. Cada acertijo tiene una sola solución, que se encuentra razonando.
+Cuando todas las figuras de una balanza tienen un peso que no la equilibra, se inclina hacia el platillo más pesado.
+# El final de la partida
+El acertijo está resuelto cuando cada figura tiene su peso correcto.
+# Niveles y estrellas
+Sin pistas ni errores: 3 estrellas; hasta dos pistas y errores en total: 2 estrellas; si no, 1. Un error es haber pesado todas las figuras con algún peso equivocado.

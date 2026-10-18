@@ -1,0 +1,8 @@
+Balansvågar
+# Målet
+Varje våg är i jämvikt. Hitta vikten för varje form, ett heltal från 1 och uppåt. Samma form väger alltid lika mycket, och en vikt med ett tal väger sitt tal. Varje pussel har exakt en lösning, som går att hitta med enbart logik.
+När alla former på en våg har en vikt som inte håller den i jämvikt, tippar den mot den tyngre vågskålen.
+# Partiets slut
+Pusslet är löst när varje form har sin rätta vikt.
+# Banor och stjärnor
+Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är att ha vägt alla former med någon vikt fel.

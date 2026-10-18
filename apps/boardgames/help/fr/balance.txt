@@ -1,0 +1,8 @@
+Balances
+# Le but
+Chaque balance est en équilibre. Trouve le poids de chaque forme, un nombre entier à partir de 1. Une même forme pèse toujours pareil, et un poids numéroté pèse son nombre. Chaque énigme a une seule solution, que l'on trouve par le raisonnement seul.
+Quand toutes les formes d'une balance ont un poids qui ne l'équilibre pas, elle penche du côté du plateau le plus lourd.
+# La fin de la partie
+L'énigme est résolue quand chaque forme a son bon poids.
+# Niveaux et étoiles
+Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est avoir pesé toutes les formes avec un poids faux.

@@ -1,0 +1,8 @@
+Bilance
+# Lo scopo
+Ogni bilancia è in equilibrio. Trova il peso di ogni forma, un numero intero da 1 in su. Una stessa forma pesa sempre uguale, e un peso con il numero pesa il suo numero. Ogni enigma ha una sola soluzione, che si trova solo ragionando.
+Quando tutte le forme di una bilancia hanno un peso che non la equilibra, pende verso il piatto più pesante.
+# La fine della partita
+L'enigma è risolto quando ogni forma ha il suo peso giusto.
+# Livelli e stelle
+Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1. Un errore è aver pesato tutte le forme con qualche peso sbagliato.
