@@ -1,0 +1,14 @@
+Quiz z mapą
+# Cel gry
+Znajdź miejsca na mapie: państwa świata i poszczególnych kontynentów albo stany i regiony dużego kraju.
+# Ruch
+Na górze pojawia się nazwa miejsca. Dotknij tego miejsca na mapie.
+- Dobrze: zmienia kolor na zielony i pojawia się kolejna nazwa.
+- Źle: dotknięte miejsce błyska na czerwono i pokazuje swoją nazwę.
+- Po trzech błędach przy tej samej nazwie miejsce zostaje pokazane i oznaczone na pomarańczowo.
+Bardzo małe miejsca, jak wyspy i miniaturowe państwa, mają okrągły znacznik: dotknij znacznika. Rozsuń dwa palce, aby przybliżyć gęsty obszar.
+Szare obszary są sporne i nigdy nie padają w pytaniach.
+# Koniec gry
+Quiz kończy się, gdy padną pytania o wszystkie miejsca. Twój najlepszy czas jest zapamiętywany dla każdego quizu.
+# Poziomy i gwiazdki
+3 gwiazdki: najwyżej jeden błąd na dziesięć miejsc, w około osiem sekund na miejsce. 2 gwiazdki: błędy przy najwyżej jednej czwartej miejsc plus jeden. W przeciwnym razie 1.

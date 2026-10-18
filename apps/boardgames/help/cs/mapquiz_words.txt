@@ -1,0 +1,657 @@
+Map Quiz: the prompt (%s: the place), then every place's name, in the generator's order
+Najdi: %s
+Argentina
+Uruguay
+Indonésie
+Malajsie
+Chile
+Bolívie
+Peru
+Dhekelia
+Kypr
+Čína
+Izrael
+Libanon
+Etiopie
+Jižní Súdán
+Somálsko
+Keňa
+Malawi
+Tanzanie
+Indie
+Sýrie
+Francie
+Surinam
+Guyana
+Jižní Korea
+Severní Korea
+Maroko
+Kostarika
+Nikaragua
+Kongo
+Demokratická republika Kongo
+Bhútán
+Ukrajina
+Bělorusko
+Namibie
+Jihoafrická republika
+Svatý Martin
+Svatý Martin (Nizozemsko)
+Spojené arabské emiráty
+Omán
+Uzbekistán
+Kazachstán
+Tádžikistán
+Litva
+Brazílie
+Mongolsko
+Rusko
+Česko
+Německo
+Estonsko
+Lotyšsko
+Norsko
+Švédsko
+Finsko
+Vietnam
+Kambodža
+Lucembursko
+Belgie
+Gruzie
+Severní Makedonie
+Albánie
+Ázerbájdžán
+Turecko
+Španělsko
+Laos
+Kyrgyzstán
+Arménie
+Dánsko
+Libye
+Tunisko
+Rumunsko
+Maďarsko
+Slovensko
+Polsko
+Irsko
+Spojené království
+Řecko
+Zambie
+Sierra Leone
+Guinea
+Libérie
+Středoafrická republika
+Súdán
+Džibutsko
+Eritrea
+Rakousko
+Irák
+Itálie
+Švýcarsko
+Írán
+Nizozemsko
+Lichtenštejnsko
+Pobřeží slonoviny
+Srbsko
+Mali
+Senegal
+Nigérie
+Benin
+Angola
+Chorvatsko
+Slovinsko
+Katar
+Saúdská Arábie
+Botswana
+Zimbabwe
+Bulharsko
+Thajsko
+San Marino
+Haiti
+Dominikánská republika
+Čad
+Kuvajt
+Salvador
+Guatemala
+Východní Timor
+Brunej
+Monako
+Alžírsko
+Mosambik
+Eswatini
+Burundi
+Rwanda
+Myanmar
+Bangladéš
+Andorra
+Afghánistán
+Černá Hora
+Bosna a Hercegovina
+Uganda
+Spojené státy
+Kuba
+Honduras
+Ekvádor
+Kolumbie
+Paraguay
+Portugalsko
+Moldavsko
+Turkmenistán
+Jordánsko
+Nepál
+Lesotho
+Kamerun
+Gabon
+Niger
+Burkina Faso
+Togo
+Ghana
+Guinea-Bissau
+Gibraltar
+Kanada
+Mexiko
+Belize
+Panama
+Venezuela
+Papua Nová Guinea
+Pákistán
+Egypt
+Jemen
+Mauritánie
+Rovníková Guinea
+Gambie
+Hongkong
+Vatikán
+Akrotiri
+Nový Zéland
+Nová Kaledonie
+Austrálie
+Madagaskar
+Filipíny
+Srí Lanka
+Curaçao
+Aruba
+Bahamy
+Turks a Caicos
+Japonsko
+Saint-Pierre a Miquelon
+Island
+Grónsko
+Pitcairnovy ostrovy
+Francouzská Polynésie
+Francouzská jižní a antarktická území
+Seychely
+Kiribati
+Marshallovy ostrovy
+Trinidad a Tobago
+Grenada
+Svatý Vincenc a Grenadiny
+Barbados
+Svatá Lucie
+Dominika
+Montserrat
+Antigua a Barbuda
+Svatý Kryštof a Nevis
+Americké Panenské ostrovy
+Svatý Bartoloměj
+Portoriko
+Anguilla
+Britské Panenské ostrovy
+Jamajka
+Kajmanské ostrovy
+Bermudy
+Heardův ostrov a McDonaldovy ostrovy
+Svatá Helena
+Mauricius
+Komory
+Svatý Tomáš a Princův ostrov
+Kapverdy
+Malta
+Jersey
+Guernsey
+Ostrov Man
+Faerské ostrovy
+Australská území v Indickém oceánu
+Singapur
+Norfolk
+Cookovy ostrovy
+Fidži
+Tonga
+Wallis a Futuna
+Samoa
+Šalamounovy ostrovy
+Tuvalu
+Maledivy
+Nauru
+Mikronésie
+Jižní Georgie a Jižní Sandwichovy ostrovy
+Vanuatu
+Niue
+Americká Samoa
+Palau
+Guam
+Severní Mariany
+Bahrajn
+Ostrovy Korálového moře
+Clippertonův ostrov
+Macao
+Ashmoreovy a Cartierovy ostrovy
+Washington
+Idaho
+Montana
+North Dakota
+Minnesota
+Michigan
+Ohio
+Pennsylvania
+New York
+Vermont
+New Hampshire
+Maine
+Arizona
+California
+New Mexico
+Texas
+Alaska
+Louisiana
+Mississippi
+Alabama
+Florida
+Georgia
+South Carolina
+North Carolina
+Virginia
+Washington, D.C.
+Maryland
+Delaware
+New Jersey
+Connecticut
+Rhode Island
+Massachusetts
+Oregon
+Hawaii
+Utah
+Wyoming
+Nevada
+Colorado
+South Dakota
+Nebraska
+Kansas
+Oklahoma
+Iowa
+Missouri
+Wisconsin
+Illinois
+Kentucky
+Arkansas
+Tennessee
+West Virginia
+Indiana
+British Columbia
+Alberta
+Saskatchewan
+Manitoba
+Ontario
+Quebec
+New Brunswick
+Yukon
+Nunavut
+Newfoundland and Labrador
+Nova Scotia
+Northwest Territories
+Prince Edward Island
+Sonora
+Baja California
+Chihuahua
+Coahuila
+Tamaulipas
+Nuevo León
+Quintana Roo
+Campeche
+Tabasco
+Chiapas
+Colima
+Nayarit
+Baja California Sur
+Sinaloa
+Yucatán
+Veracruz
+Jalisco
+Michoacán
+Guerrero
+Oaxaca
+Stát México
+Puebla
+Morelos
+Querétaro
+Hidalgo
+Guanajuato
+San Luis Potosí
+Zacatecas
+Aguascalientes
+Durango
+Tlaxcala
+Ciudad de México
+Rio Grande do Sul
+Roraima
+Pará
+Acre
+Amapá
+Mato Grosso do Sul
+Paraná
+Santa Catarina
+Amazonas
+Rondônia
+Mato Grosso
+Maranhão
+Piauí
+Ceará
+Rio Grande do Norte
+Paraíba
+Pernambuco
+Alagoas
+Sergipe
+Bahia
+Espírito Santo
+Rio de Janeiro
+São Paulo
+Goiás
+Federální distrikt
+Minas Gerais
+Tocantins
+Entre Ríos
+Salta
+Jujuy
+Formosa
+Misiones
+Chaco
+Corrientes
+Catamarca
+La Rioja
+San Juan
+Mendoza
+Neuquén
+Chubut
+Río Negro
+Santa Cruz
+Tierra del Fuego
+Provincie Buenos Aires
+Buenos Aires (město)
+Santa Fe
+Tucumán
+Santiago del Estero
+San Luis
+La Pampa
+Córdoba
+Xinjiang
+Tibet
+Inner Mongolia
+Gansu
+Yunnan
+Heilongjiang
+Jilin
+Liaoning
+Guangxi
+Guangdong
+Hainan
+Fujian
+Zhejiang
+Shanghai
+Jiangsu
+Shandong
+Hebei
+Tianjin
+Beijing
+Sichuan
+Chongqing
+Guizhou
+Hunan
+Ningxia
+Shaanxi
+Qinghai
+Shanxi
+Jiangxi
+Henan
+Hubei
+Anhui
+Arunachal Pradesh
+Sikkim
+West Bengal
+Assam
+Uttarakhand
+Nagaland
+Manipur
+Mizoram
+Tripura
+Meghalaya
+Punjab
+Rajasthan
+Gujarat
+Himachal Pradesh
+Bihar
+Uttar Pradesh
+Andhra Pradesh
+Odisha
+Dadra and Nagar Haveli and Daman and Diu
+Maharashtra
+Goa
+Karnataka
+Kerala
+Puducherry
+Tamil Nadu
+Lakshadweep
+Andaman and Nicobar Islands
+Jharkhand
+Delhi
+Chandigarh
+Madhya Pradesh
+Chhattisgarh
+Haryana
+Telangana
+Altajská republika
+Pskov
+Krasnodar Krai
+Karachay-Cherkess Republic
+Kabardino-Balkaria
+Republic of North Ossetia-Alania
+Republic of Ingushetia
+Chechen Republic
+Republic of Dagestan
+Murmansk
+Karelia
+Leningradská oblast
+Kaliningrad
+Smolensk
+Bryansk
+Kursk
+Belgorod
+Voronezh
+Rostov
+Republic of Buryatia
+Tuva Republic
+Zabaykalsky Krai
+Amur
+Židovská autonomní oblast
+Khabarovsk Krai
+Primorsky Krai
+Tyumen
+Kurgan
+Omsk
+Novosibirsk
+Chelyabinsk
+Altajský kraj
+Orenburg
+Saratov
+Astrakhan
+Volgograd
+Magadan
+Sakhalin
+Chukotka Autonomous Okrug
+Yamalo-Nenets Autonomous Okrug
+Nenets Autonomous Okrug
+Sakha Republic
+Petrohrad
+Arkhangelsk
+Krasnoyarsk Krai
+Republic of Kalmykia
+Kamchatka Krai
+Bashkortostan
+Sverdlovsk
+Khanty-Mansi Autonomous Okrug
+Lipetsk
+Tambov
+Tomsk
+Republic of Tatarstan
+Ulyanovsk
+Penza
+Kemerovo
+Oryol
+Irkutsk
+Republic of Khakassia
+Republic of Mordovia
+Kaluga
+Kostroma
+Yaroslavl
+Vladimir
+Ryazan
+Ivanovo
+Nizhny Novgorod
+Tula
+Chuvash Republic
+Vologda
+Novgorod
+Tver
+Moskevská oblast
+Moskva
+Mari El Republic
+Kirov
+Udmurt Republic
+Komi Republic
+Perm Krai
+Samara
+Stavropol Krai
+Republic of Adygea
+Western Australia
+Northern Territory
+South Australia
+Queensland
+New South Wales
+Jervis Bay Territory
+Victoria
+Tasmania
+Australian Capital Territory
+Saxony
+Bavaria
+Rhineland-Palatinate
+Saarland
+Schleswig-Holstein
+Lower Saxony
+North Rhine-Westphalia
+Baden-Württemberg
+Brandenburg
+Mecklenburg-Western Pomerania
+Brémy
+Hamburg
+Hesse
+Thuringia
+Saxony-Anhalt
+Berlin
+Hauts-de-France
+Grand Est
+Provence-Alpes-Côte d'Azur
+Auvergne-Rhône-Alpes
+Nová Akvitánie
+Okcitánie
+Burgundsko-Franche-Comté
+Pays de la Loire
+Bretaň
+Normandie
+Korsika
+Centre-Val de Loire
+Île-de-France
+Ceuta
+Melilla
+Navarra
+Baskicko
+Aragonie
+Katalánsko
+Extremadura
+Andalusie
+Galicie
+Kastilie a León
+Valencijské společenství
+Región de Murcia
+Asturie
+Kantábrie
+Kanárské ostrovy
+Baleáry
+La Rioja
+Kastilie-La Mancha
+Madridské autonomní společenství
+Údolí Aosty
+Piemont
+Lombardie
+Tridentsko-Horní Adiže
+Ligurie
+Emilia-Romagna
+Marche
+Benátsko
+Furlansko-Julské Benátsko
+Abruzzo
+Molise
+Apulie
+Basilicata
+Kalábrie
+Kampánie
+Lazio
+Toskánsko
+Sicílie
+Sardinie
+Umbrie
+Kagoshima
+Ōita
+Fukuoka
+Saga
+Nagasaki
+Kumamoto
+Miyazaki
+Tokushima
+Kagawa
+Ehime
+Kōchi
+Shimane
+Yamaguchi
+Tottori
+Hyōgo
+Kyōto
+Fukui
+Ishikawa
+Toyama
+Niigata
+Yamagata
+Akita
+Aomori
+Iwate
+Miyagi
+Fukushima
+Ibaraki
+Chiba
+Tokyo
+Kanagawa
+Shizuoka
+Aichi
+Mie
+Wakayama
+Ōsaka
+Okayama
+Hiroshima
+Hokkaidō
+Okinawa
+Gunma
+Nagano
+Tochigi
+Gifu
+Shiga
+Saitama
+Yamanashi
+Nara

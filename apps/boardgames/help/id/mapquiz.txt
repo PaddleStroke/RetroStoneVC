@@ -1,0 +1,14 @@
+Kuis Peta
+# Tujuan
+Temukan tempat di peta: negara-negara di dunia dan di tiap benua, atau negara bagian dan wilayah sebuah negara besar.
+# Satu langkah
+Nama sebuah tempat muncul di atas. Ketuk tempat itu di peta.
+- Benar: tempat itu menjadi hijau dan nama berikutnya muncul.
+- Salah: tempat yang kamu ketuk berkedip merah dan menunjukkan namanya.
+- Setelah tiga kesalahan pada nama yang sama, tempat itu ditunjukkan dan ditandai jingga.
+Tempat yang sangat kecil, seperti pulau dan negara mini, punya penanda bulat: ketuk penandanya. Rentangkan dua jari untuk memperbesar daerah yang padat.
+Wilayah abu-abu adalah wilayah sengketa dan tidak pernah ditanyakan.
+# Akhir permainan
+Kuis berakhir setelah semua tempat ditanyakan. Waktu terbaikmu disimpan untuk setiap kuis.
+# Level dan bintang
+3 bintang: paling banyak satu kesalahan per sepuluh tempat, dalam sekitar delapan detik per tempat. 2 bintang: kesalahan pada paling banyak seperempat tempat, ditambah satu. Selain itu 1.

@@ -1,0 +1,14 @@
+Kortquiz
+# Målet
+Find steder på kortet: landene i verden og i hver verdensdel, eller et stort lands delstater og regioner.
+# Et træk
+Øverst vises navnet på et sted. Tryk på det sted på kortet.
+- Rigtigt: det bliver grønt, og det næste navn kommer.
+- Forkert: stedet, du trykkede på, blinker rødt og viser sit navn.
+- Efter tre fejl på samme navn bliver stedet vist og markeret med orange.
+Meget små steder, som øer og mikrostater, har en rund markør: tryk på markøren. Spred to fingre for at zoome ind på et tæt område.
+Grå områder er omstridte og bliver aldrig spurgt om.
+# Spillets afslutning
+Quizzen slutter, når alle steder er spurgt om. Din bedste tid gemmes for hver quiz.
+# Baner og stjerner
+3 stjerner: højst én fejl pr. ti steder, på omkring otte sekunder pr. sted. 2 stjerner: fejl på højst en fjerdedel af stederne plus én. Ellers 1.

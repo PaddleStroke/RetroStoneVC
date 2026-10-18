@@ -1,0 +1,14 @@
+Harita Testi
+# Amaç
+Haritada yerleri bul: dünyanın ve her kıtanın ülkelerini ya da büyük bir ülkenin eyalet ve bölgelerini.
+# Bir hamle
+Üstte bir yerin adı çıkar. Haritada o yere dokun.
+- Doğru: yer yeşile döner ve sıradaki ad gelir.
+- Yanlış: dokunduğun yer kırmızı yanıp söner ve adını gösterir.
+- Aynı adda üç hatadan sonra yer gösterilir ve turuncuyla işaretlenir.
+Adalar ve minik devletler gibi çok küçük yerlerin yuvarlak bir işareti vardır: işarete dokun. Kalabalık bir bölgeyi yakınlaştırmak için iki parmağını aç.
+Gri alanlar tartışmalıdır ve asla sorulmaz.
+# Oyunun sonu
+Test, tüm yerler sorulunca biter. Her test için en iyi süren saklanır.
+# Seviyeler ve yıldızlar
+3 yıldız: her on yer için en fazla bir hata, yer başına yaklaşık sekiz saniyede. 2 yıldız: yerlerin en fazla dörtte birinde hata, artı bir. Aksi hâlde 1.

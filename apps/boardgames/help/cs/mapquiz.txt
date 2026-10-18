@@ -1,0 +1,14 @@
+Mapový kvíz
+# Cíl hry
+Najdi místa na mapě: státy světa a jednotlivých kontinentů, nebo státy a regiony velké země.
+# Tah
+Nahoře se objeví jméno místa. Klepni na to místo na mapě.
+- Správně: zezelená a přijde další jméno.
+- Špatně: místo, na které jsi klepl, blikne červeně a ukáže své jméno.
+- Po třech chybách u téhož jména se místo ukáže a označí oranžově.
+Velmi malá místa, jako ostrovy a trpasličí státy, mají kulatou značku: klepni na značku. Roztažením dvou prstů přiblížíš hustou oblast.
+Šedé oblasti jsou sporné a nikdy se na ně neptá.
+# Konec hry
+Kvíz končí, jakmile padne otázka na všechna místa. Tvůj nejlepší čas se ukládá pro každý kvíz.
+# Úrovně a hvězdy
+3 hvězdy: nejvýš jedna chyba na deset míst, zhruba za osm sekund na místo. 2 hvězdy: chyby nejvýš u čtvrtiny míst a jedna navíc. Jinak 1.

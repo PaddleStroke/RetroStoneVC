@@ -1,0 +1,657 @@
+Map Quiz: the prompt (%s: the place), then every place's name, in the generator's order
+Bul: %s
+Arjantin
+Uruguay
+Endonezya
+Malezya
+Şili
+Bolivya
+Peru
+Dhekelia
+Kıbrıs
+Çin
+İsrail
+Lübnan
+Etiyopya
+Güney Sudan
+Somali
+Kenya
+Malavi
+Tanzanya
+Hindistan
+Suriye
+Fransa
+Surinam
+Guyana
+Güney Kore
+Kuzey Kore
+Fas
+Kosta Rika
+Nikaragua
+Kongo Cumhuriyeti
+Demokratik Kongo Cumhuriyeti
+Bhutan
+Ukrayna
+Beyaz Rusya
+Namibya
+Güney Afrika
+Saint Martin
+Sint Maarten
+Birleşik Arap Emirlikleri
+Umman
+Özbekistan
+Kazakistan
+Tacikistan
+Litvanya
+Brezilya
+Moğolistan
+Rusya
+Çekya
+Almanya
+Estonya
+Letonya
+Norveç
+İsveç
+Finlandiya
+Vietnam
+Kamboçya
+Lüksemburg
+Belçika
+Gürcistan
+Kuzey Makedonya
+Arnavutluk
+Azerbaycan
+Türkiye
+İspanya
+Laos
+Kırgızistan
+Ermenistan
+Danimarka
+Libya
+Tunus
+Romanya
+Macaristan
+Slovakya
+Polonya
+İrlanda
+Birleşik Krallık
+Yunanistan
+Zambiya
+Sierra Leone
+Gine
+Liberya
+Orta Afrika Cumhuriyeti
+Sudan
+Cibuti
+Eritre
+Avusturya
+Irak
+İtalya
+İsviçre
+İran
+Hollanda
+Lihtenştayn
+Fildişi Sahili
+Sırbistan
+Mali
+Senegal
+Nijerya
+Benin
+Angola
+Hırvatistan
+Slovenya
+Katar
+Suudi Arabistan
+Botsvana
+Zimbabve
+Bulgaristan
+Tayland
+San Marino
+Haiti
+Dominik Cumhuriyeti
+Çad
+Kuveyt
+El Salvador
+Guatemala
+Doğu Timor
+Brunei
+Monako
+Cezayir
+Mozambik
+Esvatini
+Burundi
+Ruanda
+Myanmar
+Bangladeş
+Andorra
+Afganistan
+Karadağ
+Bosna-Hersek
+Uganda
+Amerika Birleşik Devletleri
+Küba
+Honduras
+Ekvador
+Kolombiya
+Paraguay
+Portekiz
+Moldova
+Türkmenistan
+Ürdün
+Nepal
+Lesotho
+Kamerun
+Gabon
+Nijer
+Burkina Faso
+Togo
+Gana
+Gine-Bissau
+Cebelitarık
+Kanada
+Meksika
+Belize
+Panama
+Venezuela
+Papua Yeni Gine
+Pakistan
+Mısır
+Yemen
+Moritanya
+Ekvator Ginesi
+Gambiya
+Hong Kong
+Vatikan
+Akrotiri
+Yeni Zelanda
+Yeni Kaledonya
+Avustralya
+Madagaskar
+Filipinler
+Sri Lanka
+Curaçao
+Aruba
+Bahamalar
+Turks ve Caicos Adaları
+Japonya
+Saint Pierre ve Miquelon
+İzlanda
+Grönland
+Pitcairn Adaları
+Fransız Polinezyası
+Fransız Güney ve Antarktika Toprakları
+Seyşeller
+Kiribati
+Marshall Adaları
+Trinidad ve Tobago
+Grenada
+Saint Vincent ve Grenadinler
+Barbados
+Saint Lucia
+Dominika
+Montserrat
+Antigua ve Barbuda
+Saint Kitts ve Nevis
+ABD Virjin Adaları
+Saint Barthélemy
+Porto Riko
+Anguilla
+Britanya Virjin Adaları
+Jamaika
+Cayman Adaları
+Bermuda
+Heard Adası ve McDonald Adaları
+Saint Helena
+Mauritius
+Komorlar
+São Tomé ve Príncipe
+Yeşil Burun Adaları
+Malta
+Jersey
+Guernsey
+Man Adası
+Faroe Adaları
+Australian Indian Ocean Territories
+Singapur
+Norfolk Adası
+Cook Adaları
+Fiji
+Tonga
+Wallis ve Futuna Adaları
+Samoa
+Solomon Adaları
+Tuvalu
+Maldivler
+Nauru
+Mikronezya
+Güney Georgia ve Güney Sandwich Adaları
+Vanuatu
+Niue
+Amerikan Samoası
+Palau
+Guam
+Kuzey Mariana Adaları
+Bahreyn
+Mercan Denizi Adaları
+Clipperton Adası
+Makao
+Ashmore ve Cartier Adaları
+Vaşington
+Idaho
+Montana
+Kuzey Dakota
+Minnesota
+Michigan
+Ohio
+Pensilvanya
+New York
+Vermont
+New Hampshire
+Maine
+Arizona
+Kaliforniya
+New Mexico
+Teksas
+Alaska
+Louisiana
+Mississippi
+Alabama
+Florida
+Georgia
+Güney Karolina
+Kuzey Karolina
+Virjinya
+Washington, D.C.
+Maryland
+Delaware
+New Jersey
+Connecticut
+Rhode Island
+Massachusetts
+Oregon
+Hawaii
+Utah
+Wyoming
+Nevada
+Colorado
+Güney Dakota
+Nebraska
+Kansas
+Oklahoma
+Iowa
+Missouri
+Wisconsin
+Illinois
+Kentucky
+Arkansas
+Tennessee
+Batı Virginia
+Indiana
+Britanya Kolumbiyası
+Alberta
+Saskatchewan
+Manitoba
+Ontario
+Québec
+New Brunswick
+Yukon
+Nunavut
+Newfoundland ve Labrador
+Yeni İskoçya
+Kuzeybatı Toprakları
+Prens Edward Adası
+Sonora
+Aşağı Kaliforniya
+Chihuahua
+Coahuila
+Tamaulipas
+Nuevo León
+Quintana Roo
+Campeche
+Tabasco
+Chiapas
+Colima
+Nayarit
+Güney Aşağı Kaliforniya
+Sinaloa
+Yucatán
+Veracruz
+Jalisco
+Michoacán
+Guerrero
+Oaxaca
+México Eyaleti
+Puebla
+Morelos
+Querétaro
+Hidalgo
+Guanajuato
+San Luis Potosí
+Zacatecas
+Aguascalientes
+Durango
+Tlaxcala
+Meksiko City
+Rio Grande do Sul
+Roraima
+Pará
+Acre
+Amapá
+Mato Grosso do Sul
+Paraná
+Santa Catarina
+Amazonas
+Rondônia
+Mato Grosso
+Maranhão
+Piauí
+Ceará
+Rio Grande do Norte
+Paraíba
+Pernambuco
+Alagoas
+Sergipe
+Bahia
+Espírito Santo
+Rio de Janeiro
+São Paulo
+Goiás
+Federal Bölge
+Minas Gerais
+Tocantins
+Entre Ríos eyaleti
+Salta eyaleti
+Jujuy eyaleti
+Formosa eyaleti
+Misiones eyaleti
+Chaco eyaleti
+Corrientes eyaleti
+Catamarca eyaleti
+La Rioja Eyaleti
+San Juan eyaleti
+Mendoza eyaleti
+Neuquén eyaleti
+Chubut eyaleti
+Río Negro eyaleti
+Santa Cruz
+Tierra del Fuego
+Buenos Aires Eyaleti
+Buenos Aires Şehri
+Santa Fe eyaleti
+Tucumán eyaleti
+Santiago del Estero eyaleti
+San Luis eyaleti
+La Pampa eyaleti
+Córdoba eyaleti
+Sincan Uygur Özerk Bölgesi
+Tibet Özerk Bölgesi
+İç Moğolistan
+Kansu
+Yünnan
+Heilongjiang
+Jilin
+Liaoning
+Guangxi Zhuang Özerk Bölgesi
+Guangdong
+Hainan
+Fujian
+Zhejiang
+Şanghay
+Jiangsu
+Şantung
+Hebei
+Tientsin
+Pekin
+Siçuan
+Çongçing
+Guizhou
+Hunan
+Ningxia Huizu Özerk Bölgesi
+Şensi
+Çinghay
+Şansi
+Jiangxi
+Henan
+Hubei
+Anhui
+Arunaçhal Pradesh
+Sikkim
+Batı Bengal
+Assam
+Uttarakhand
+Nagaland
+Manipur
+Mizoram
+Tripura
+Meghalaya
+Pencap
+Racasthan
+Gucerat
+Himaçhal Pradeş
+Bihar
+Uttar Pradeş
+Andhra Pradeş
+Orissa
+Dadra ve Nagar Haveli ve Daman ve Diu
+Maharaştra
+Goa
+Karnataka
+Kerala
+Puduçeri
+Tamil Nadu
+Lakşadvip Adaları
+Andaman ve Nikobar adaları
+Jharkhand
+Delhi
+Çhandigarh
+Madhya Pradeş
+Chhattisgarh
+Haryana
+Telangana
+Altay Cumhuriyeti
+Pskov Oblastı
+Krasnodar Krayı
+Karaçay-Çerkesya
+Kabardino-Balkarya
+Kuzey Osetya-Alanya
+İnguşetya
+Çeçenistan
+Dağıstan
+Murmansk Oblastı
+Karelya Cumhuriyeti
+Leningrad Oblastı
+Kaliningrad Oblastı
+Smolensk Oblastı
+Bryansk Oblastı
+Kursk Oblastı
+Belgorod Oblastı
+Voronej Oblastı
+Rostov Oblastı
+Buryatya
+Tuva Cumhuriyeti
+Zabaykalskiy Krayı
+Amur Oblastı
+Yahudi Özerk Oblastı
+Habarovsk Krayı
+Primorskiy Krayı
+Tümen Oblastı
+Kurgan Oblastı
+Omsk Oblastı
+Novosibirsk Oblastı
+Çelyabinsk Oblastı
+Altay Krayı
+Orenburg Oblastı
+Saratov Oblastı
+Astrahan Oblastı
+Volgograd Oblastı
+Magadan Oblastı
+Sahalin Oblastı
+Çukotka Özerk Okrugu
+Yamalo-Nenets Özerk Okrugu
+Nenets Özerk Okrugu
+Yakutistan
+Sankt-Peterburg
+Arhangelsk Oblastı
+Krasnoyarsk Krayı
+Kalmukya
+Kamçatka Krayı
+Başkurdistan
+Sverdlovsk Oblastı
+Hantı-Mansi Özerk Okrugu
+Lipetsk Oblastı
+Tambov Oblastı
+Tomsk Oblastı
+Tataristan
+Ulyanovsk Oblastı
+Penza Oblastı
+Kemerovo Oblastı
+Oryol Oblastı
+İrkutsk Oblastı
+Hakasya
+Mordovya
+Kaluga Oblastı
+Kostroma Oblastı
+Yaroslavl Oblastı
+Vladimir Oblastı
+Ryazan Oblastı
+İvanovo Oblastı
+Nijniy Novgorod Oblastı
+Tula Oblastı
+Çuvaşistan
+Vologda Oblastı
+Novgorod Oblastı
+Tver Oblastı
+Moskova Oblastı
+Moskova
+Mari El
+Kirov Oblastı
+Udmurtya
+Komi Cumhuriyeti
+Perm Krayı
+Samara Oblastı
+Stavropol Krayı
+Adıge Cumhuriyeti
+Batı Avustralya
+Kuzey Toprakları
+Güney Avustralya
+Queensland
+Yeni Güney Galler
+Jervis Bay Toprağı
+Victoria
+Tasmanya
+Avustralya Başkent Bölgesi
+Saksonya
+Bavyera
+Renanya-Palatina
+Saarland
+Schleswig-Holstein
+Aşağı Saksonya
+Kuzey Ren-Vestfalya
+Baden-Württemberg
+Brandenburg
+Mecklenburg-Vorpommern
+Bremen
+Hamburg
+Hessen
+Türingiya
+Saksonya-Anhalt
+Berlin
+Hauts-de-France
+Grand Est
+Provence-Alpes-Côte d'Azur
+Auvergne-Rhône-Alpes
+Nouvelle-Aquitaine
+Oksitanya
+Bourgogne-Franche-Comté
+Pays de la Loire
+Brötanya
+Normandiya
+Korsika
+Centre-Val de Loire
+Île-de-France
+Ceuta
+Melilla
+Navarra
+Bask Özerk Topluluğu
+Aragon
+Katalonya
+Extremadura
+Endülüs
+Galiçya
+Kastilya ve Leon
+Valensiya Topluluğu
+Región de Murcia
+Asturias
+Kantabria
+Kanarya Adaları
+Balear Adaları
+La Rioja
+Kastilya-La Mancha
+Madrid Özerk Topluluğu
+Aosta Vadisi
+Piyemonte
+Lombardiya
+Trentino-Alto Adige
+Liguria
+Emilia-Romagna
+Marche
+Veneto
+Friuli-Venezia Giulia
+Abruzzo
+Molise
+Apulia
+Basilicata
+Kalabriya
+Campania
+Lazio
+Toskana
+Sicilya
+Sardinya
+Umbria
+Kagoshima
+Ōita
+Fukuoka
+Saga
+Nagasaki
+Kumamoto
+Miyazaki
+Tokushima
+Kagawa
+Ehime
+Kōchi
+Shimane
+Yamaguchi
+Tottori
+Hyōgo
+Kyōto
+Fukui
+Ishikawa
+Toyama
+Niigata
+Yamagata
+Akita
+Aomori
+Iwate
+Miyagi
+Fukushima
+Ibaraki
+Chiba
+Tokyo
+Kanagawa
+Shizuoka
+Aichi
+Mie
+Wakayama
+Ōsaka
+Okayama
+Hiroshima
+Hokkaidō
+Okinawa
+Gunma
+Nagano
+Tochigi
+Gifu
+Shiga
+Saitama
+Yamanashi
+Nara

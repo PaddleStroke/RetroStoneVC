@@ -1,0 +1,14 @@
+Landkarten-Quiz
+# Das Ziel
+Finde Orte auf der Karte: die Länder der Welt und jedes Kontinents oder die Bundesstaaten und Regionen eines großen Landes.
+# Ein Zug
+Oben erscheint der Name eines Ortes. Tippe diesen Ort auf der Karte an.
+- Richtig: Er wird grün, und der nächste Name kommt.
+- Falsch: Der angetippte Ort blinkt rot und zeigt seinen Namen.
+- Nach drei Fehlern beim selben Namen wird der Ort gezeigt und orange markiert.
+Sehr kleine Orte wie Inseln und Zwergstaaten tragen eine runde Markierung: Tippe die Markierung an. Mit zwei gespreizten Fingern zoomst du in ein dichtes Gebiet.
+Graue Gebiete sind umstritten und werden nie abgefragt.
+# Das Ende der Partie
+Das Quiz endet, wenn jeder Ort abgefragt wurde. Deine Bestzeit wird für jedes Quiz gespeichert.
+# Level und Sterne
+3 Sterne: höchstens ein Fehler pro zehn Orte, in etwa acht Sekunden pro Ort. 2 Sterne: Fehler bei höchstens einem Viertel der Orte, plus einer. Sonst 1.

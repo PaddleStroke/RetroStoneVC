@@ -1,0 +1,14 @@
+Karttavisa
+# Tavoite
+Etsi paikkoja kartalta: maailman ja kunkin maanosan valtioita tai suuren maan osavaltioita ja alueita.
+# Siirto
+Ylhäällä näkyy paikan nimi. Napauta sitä paikkaa kartalla.
+- Oikein: paikka muuttuu vihreäksi ja seuraava nimi tulee.
+- Väärin: napautettu paikka välähtää punaisena ja näyttää nimensä.
+- Kun samassa nimessä on tullut kolme virhettä, paikka näytetään ja merkitään oranssiksi.
+Hyvin pienillä paikoilla, kuten saarilla ja kääpiövaltioilla, on pyöreä merkki: napauta merkkiä. Levitä kahta sormea, niin voit lähentää tiheää aluetta.
+Harmaat alueet ovat kiistanalaisia, eikä niitä koskaan kysytä.
+# Pelin loppu
+Visa päättyy, kun jokainen paikka on kysytty. Paras aikasi tallennetaan jokaisesta visasta.
+# Tasot ja tähdet
+3 tähteä: enintään yksi virhe kymmentä paikkaa kohden, noin kahdeksassa sekunnissa paikkaa kohden. 2 tähteä: virheitä enintään neljäsosassa paikoista ja yksi lisää. Muuten 1.

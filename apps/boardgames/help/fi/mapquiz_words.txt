@@ -1,0 +1,657 @@
+Map Quiz: the prompt (%s: the place), then every place's name, in the generator's order
+Etsi: %s
+Argentiina
+Uruguay
+Indonesia
+Malesia
+Chile
+Bolivia
+Peru
+Dhekelia
+Kypros
+Kiina
+Israel
+Libanon
+Etiopia
+Etelä-Sudan
+Somalia
+Kenia
+Malawi
+Tansania
+Intia
+Syyria
+Ranska
+Suriname
+Guyana
+Etelä-Korea
+Pohjois-Korea
+Marokko
+Costa Rica
+Nicaragua
+Kongon tasavalta
+Kongon demokraattinen tasavalta
+Bhutan
+Ukraina
+Valko-Venäjä
+Namibia
+Etelä-Afrikka
+Saint-Martin
+Sint Maarten
+Arabiemiirikunnat
+Oman
+Uzbekistan
+Kazakstan
+Tadžikistan
+Liettua
+Brasilia
+Mongolia
+Venäjä
+Tšekki
+Saksa
+Viro
+Latvia
+Norja
+Ruotsi
+Suomi
+Vietnam
+Kambodža
+Luxemburg
+Belgia
+Georgia
+Pohjois-Makedonia
+Albania
+Azerbaidžan
+Turkki
+Espanja
+Laos
+Kirgisia
+Armenia
+Tanska
+Libya
+Tunisia
+Romania
+Unkari
+Slovakia
+Puola
+Irlanti
+Yhdistynyt kuningaskunta
+Kreikka
+Sambia
+Sierra Leone
+Guinea
+Liberia
+Keski-Afrikan tasavalta
+Sudan
+Djibouti
+Eritrea
+Itävalta
+Irak
+Italia
+Sveitsi
+Iran
+Alankomaat
+Liechtenstein
+Norsunluurannikko
+Serbia
+Mali
+Senegal
+Nigeria
+Benin
+Angola
+Kroatia
+Slovenia
+Qatar
+Saudi-Arabia
+Botswana
+Zimbabwe
+Bulgaria
+Thaimaa
+San Marino
+Haiti
+Dominikaaninen tasavalta
+Tšad
+Kuwait
+El Salvador
+Guatemala
+Itä-Timor
+Brunei
+Monaco
+Algeria
+Mosambik
+Eswatini
+Burundi
+Ruanda
+Myanmar
+Bangladesh
+Andorra
+Afganistan
+Montenegro
+Bosnia ja Hertsegovina
+Uganda
+Yhdysvallat
+Kuuba
+Honduras
+Ecuador
+Kolumbia
+Paraguay
+Portugali
+Moldova
+Turkmenistan
+Jordania
+Nepal
+Lesotho
+Kamerun
+Gabon
+Niger
+Burkina Faso
+Togo
+Ghana
+Guinea-Bissau
+Gibraltar
+Kanada
+Meksiko
+Belize
+Panama
+Venezuela
+Papua-Uusi-Guinea
+Pakistan
+Egypti
+Jemen
+Mauritania
+Päiväntasaajan Guinea
+Gambia
+Hongkong
+Vatikaani
+Akrotiri
+Uusi-Seelanti
+Uusi-Kaledonia
+Australia
+Madagaskar
+Filippiinit
+Sri Lanka
+Curaçao
+Aruba
+Bahama
+Turks- ja Caicossaaret
+Japani
+Saint-Pierre ja Miquelon
+Islanti
+Grönlanti
+Pitcairn
+Ranskan Polynesia
+Ranskan eteläiset ja antarktiset alueet
+Seychellit
+Kiribati
+Marshallinsaaret
+Trinidad ja Tobago
+Grenada
+Saint Vincent ja Grenadiinit
+Barbados
+Saint Lucia
+Dominica
+Montserrat
+Antigua ja Barbuda
+Saint Kitts ja Nevis
+Yhdysvaltain Neitsytsaaret
+Saint-Barthélemy
+Puerto Rico
+Anguilla
+Brittiläiset Neitsytsaaret
+Jamaika
+Caymansaaret
+Bermuda
+Heard ja McDonaldinsaaret
+Saint Helena
+Mauritius
+Komorit
+São Tomé ja Príncipe
+Kap Verde
+Malta
+Jersey
+Guernsey
+Mansaari
+Färsaaret
+Australian Intian valtameren alueet
+Singapore
+Norfolkinsaari
+Cookinsaaret
+Fidži
+Tonga
+Wallis ja Futuna
+Samoa
+Salomonsaaret
+Tuvalu
+Malediivit
+Nauru
+Mikronesia
+Etelä-Georgia ja Eteläiset Sandwichsaaret
+Vanuatu
+Niue
+Amerikan Samoa
+Palau
+Guam
+Pohjois-Mariaanit
+Bahrain
+Korallimeren saaret
+Clippertoninsaari
+Macao
+Ashmore- ja Cartiersaaret
+Washington
+Idaho
+Montana
+North Dakota
+Minnesota
+Michigan
+Ohio
+Pennsylvania
+New York
+Vermont
+New Hampshire
+Maine
+Arizona
+California
+New Mexico
+Texas
+Alaska
+Louisiana
+Mississippi
+Alabama
+Florida
+Georgia
+South Carolina
+North Carolina
+Virginia
+Washington, D.C.
+Maryland
+Delaware
+New Jersey
+Connecticut
+Rhode Island
+Massachusetts
+Oregon
+Hawaii
+Utah
+Wyoming
+Nevada
+Colorado
+South Dakota
+Nebraska
+Kansas
+Oklahoma
+Iowa
+Missouri
+Wisconsin
+Illinois
+Kentucky
+Arkansas
+Tennessee
+West Virginia
+Indiana
+British Columbia
+Alberta
+Saskatchewan
+Manitoba
+Ontario
+Quebec
+New Brunswick
+Yukon
+Nunavut
+Newfoundland and Labrador
+Nova Scotia
+Northwest Territories
+Prince Edward Island
+Sonora
+Baja California
+Chihuahua
+Coahuila
+Tamaulipas
+Nuevo León
+Quintana Roo
+Campeche
+Tabasco
+Chiapas
+Colima
+Nayarit
+Baja California Sur
+Sinaloa
+Yucatán
+Veracruz
+Jalisco
+Michoacán
+Guerrero
+Oaxaca
+Méxicon osavaltio
+Puebla
+Morelos
+Querétaro
+Hidalgo
+Guanajuato
+San Luis Potosí
+Zacatecas
+Aguascalientes
+Durango
+Tlaxcala
+México
+Rio Grande do Sul
+Roraima
+Pará
+Acre
+Amapá
+Mato Grosso do Sul
+Paraná
+Santa Catarina
+Amazonas
+Rondônia
+Mato Grosso
+Maranhão
+Piauí
+Ceará
+Rio Grande do Norte
+Paraíba
+Pernambuco
+Alagoas
+Sergipe
+Bahia
+Espírito Santo
+Rio de Janeiro
+São Paulo
+Goiás
+Liittovaltion piirikunta
+Minas Gerais
+Tocantins
+Entre Ríos
+Salta
+Jujuy
+Formosa
+Misiones
+Chaco
+Corrientes
+Catamarca
+La Rioja
+San Juan
+Mendoza
+Neuquén
+Chubut
+Río Negro
+Santa Cruz
+Tierra del Fuego
+Buenos Airesin provinssi
+Buenos Airesin kaupunki
+Santa Fe
+Tucumán
+Santiago del Estero
+San Luis
+La Pampa
+Córdoba
+Xinjiang
+Tibet
+Inner Mongolia
+Gansu
+Yunnan
+Heilongjiang
+Jilin
+Liaoning
+Guangxi
+Guangdong
+Hainan
+Fujian
+Zhejiang
+Shanghai
+Jiangsu
+Shandong
+Hebei
+Tianjin
+Beijing
+Sichuan
+Chongqing
+Guizhou
+Hunan
+Ningxia
+Shaanxi
+Qinghai
+Shanxi
+Jiangxi
+Henan
+Hubei
+Anhui
+Arunachal Pradesh
+Sikkim
+West Bengal
+Assam
+Uttarakhand
+Nagaland
+Manipur
+Mizoram
+Tripura
+Meghalaya
+Punjab
+Rajasthan
+Gujarat
+Himachal Pradesh
+Bihar
+Uttar Pradesh
+Andhra Pradesh
+Odisha
+Dadra and Nagar Haveli and Daman and Diu
+Maharashtra
+Goa
+Karnataka
+Kerala
+Puducherry
+Tamil Nadu
+Lakshadweep
+Andaman and Nicobar Islands
+Jharkhand
+Delhi
+Chandigarh
+Madhya Pradesh
+Chhattisgarh
+Haryana
+Telangana
+Altain tasavalta
+Pskov
+Krasnodar Krai
+Karachay-Cherkess Republic
+Kabardino-Balkaria
+Republic of North Ossetia-Alania
+Republic of Ingushetia
+Chechen Republic
+Republic of Dagestan
+Murmansk
+Karelia
+Leningradin alue
+Kaliningrad
+Smolensk
+Bryansk
+Kursk
+Belgorod
+Voronezh
+Rostov
+Republic of Buryatia
+Tuva Republic
+Zabaykalsky Krai
+Amur
+Juutalainen autonominen alue
+Khabarovsk Krai
+Primorsky Krai
+Tyumen
+Kurgan
+Omsk
+Novosibirsk
+Chelyabinsk
+Altain aluepiiri
+Orenburg
+Saratov
+Astrakhan
+Volgograd
+Magadan
+Sakhalin
+Chukotka Autonomous Okrug
+Yamalo-Nenets Autonomous Okrug
+Nenets Autonomous Okrug
+Sakha Republic
+Pietari
+Arkhangelsk
+Krasnoyarsk Krai
+Republic of Kalmykia
+Kamchatka Krai
+Bashkortostan
+Sverdlovsk
+Khanty-Mansi Autonomous Okrug
+Lipetsk
+Tambov
+Tomsk
+Republic of Tatarstan
+Ulyanovsk
+Penza
+Kemerovo
+Oryol
+Irkutsk
+Republic of Khakassia
+Republic of Mordovia
+Kaluga
+Kostroma
+Yaroslavl
+Vladimir
+Ryazan
+Ivanovo
+Nizhny Novgorod
+Tula
+Chuvash Republic
+Vologda
+Novgorod
+Tver
+Moskovan alue
+Moskova
+Mari El Republic
+Kirov
+Udmurt Republic
+Komi Republic
+Perm Krai
+Samara
+Stavropol Krai
+Republic of Adygea
+Western Australia
+Northern Territory
+South Australia
+Queensland
+New South Wales
+Jervis Bay Territory
+Victoria
+Tasmania
+Australian Capital Territory
+Saxony
+Bavaria
+Rhineland-Palatinate
+Saarland
+Schleswig-Holstein
+Lower Saxony
+North Rhine-Westphalia
+Baden-Württemberg
+Brandenburg
+Mecklenburg-Western Pomerania
+Bremen
+Hamburg
+Hesse
+Thuringia
+Saxony-Anhalt
+Berlin
+Hauts-de-France
+Grand Est
+Provence-Alpes-Côte d'Azur
+Auvergne-Rhône-Alpes
+Nouvelle-Aquitaine
+Oksitania
+Bourgogne-Franche-Comté
+Pays de la Loire
+Bretagne
+Normandia
+Korsika
+Centre-Val de Loire
+Île-de-France
+Ceuta
+Melilla
+Navarra
+Baskimaa
+Aragonia
+Katalonia
+Extremadura
+Andalusia
+Galicia
+Kastilia ja León
+Valencian itsehallintoalue
+Región de Murcia
+Asturias
+Kantabria
+Kanariansaaret
+Baleaarit
+La Rioja
+Kastilia-La Mancha
+Madridin itsehallintoalue
+Aostanlaakso
+Piemonte
+Lombardia
+Trentino-Alto Adige
+Liguria
+Emilia-Romagna
+Marche
+Veneto
+Friuli-Venezia Giulia
+Abruzzo
+Molise
+Apulia
+Basilicata
+Calabria
+Campania
+Lazio
+Toscana
+Sisilia
+Sardinia
+Umbria
+Kagoshima
+Ōita
+Fukuoka
+Saga
+Nagasaki
+Kumamoto
+Miyazaki
+Tokushima
+Kagawa
+Ehime
+Kōchi
+Shimane
+Yamaguchi
+Tottori
+Hyōgo
+Kyōto
+Fukui
+Ishikawa
+Toyama
+Niigata
+Yamagata
+Akita
+Aomori
+Iwate
+Miyagi
+Fukushima
+Ibaraki
+Chiba
+Tokyo
+Kanagawa
+Shizuoka
+Aichi
+Mie
+Wakayama
+Ōsaka
+Okayama
+Hiroshima
+Hokkaidō
+Okinawa
+Gunma
+Nagano
+Tochigi
+Gifu
+Shiga
+Saitama
+Yamanashi
+Nara

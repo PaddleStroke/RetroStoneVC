@@ -1,0 +1,14 @@
+Map Quiz
+# The aim
+Find places on the map: the countries of the world and of each continent, or the states and regions of a large country.
+# A move
+A place's name appears at the top. Tap that place on the map.
+- Right: it turns green and the next name comes.
+- Wrong: the place you tapped flashes red and shows its name.
+- After three misses on the same name, the place is shown and marked orange.
+Very small places, such as islands and tiny countries, carry a round marker: tap the marker. Pinch to zoom into a crowded area.
+Areas in grey are disputed and are never asked.
+# The end of the game
+The quiz ends once every place has been asked. Your best time is kept for each quiz.
+# Levels and stars
+3 stars: at most one miss for every ten places, in about eight seconds a place. 2 stars: misses on at most a quarter of the places, plus one. Otherwise 1.

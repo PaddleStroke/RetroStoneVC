@@ -1,0 +1,14 @@
+Quiz delle mappe
+# Lo scopo
+Trova i luoghi sulla mappa: i paesi del mondo e di ogni continente, oppure gli stati e le regioni di un grande paese.
+# Una mossa
+In alto compare il nome di un luogo. Tocca quel luogo sulla mappa.
+- Giusto: diventa verde e arriva il nome successivo.
+- Sbagliato: il luogo toccato lampeggia in rosso e mostra il suo nome.
+- Dopo tre errori sullo stesso nome, il luogo viene mostrato e segnato in arancione.
+I luoghi molto piccoli, come isole e microstati, hanno un cerchietto: tocca il cerchietto. Allarga due dita per ingrandire una zona affollata.
+Le zone grigie sono contese e non vengono mai chieste.
+# La fine della partita
+Il quiz finisce quando tutti i luoghi sono stati chiesti. Il tuo tempo migliore viene conservato per ogni quiz.
+# Livelli e stelle
+3 stelle: al massimo un errore ogni dieci luoghi, in circa otto secondi a luogo. 2 stelle: errori su al massimo un quarto dei luoghi, più uno. Altrimenti 1.

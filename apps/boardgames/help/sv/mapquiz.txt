@@ -1,0 +1,14 @@
+Kartquiz
+# Målet
+Hitta platser på kartan: världens och varje världsdels länder, eller ett stort lands delstater och regioner.
+# Ett drag
+Överst visas namnet på en plats. Tryck på den platsen på kartan.
+- Rätt: den blir grön och nästa namn kommer.
+- Fel: platsen du tryckte på blinkar rött och visar sitt namn.
+- Efter tre missar på samma namn visas platsen och markeras orange.
+Mycket små platser, som öar och mikrostater, har en rund markering: tryck på markeringen. Dra isär två fingrar för att zooma in på ett tätt område.
+Grå områden är omstridda och efterfrågas aldrig.
+# Partiets slut
+Quizen slutar när alla platser har efterfrågats. Din bästa tid sparas för varje quiz.
+# Banor och stjärnor
+3 stjärnor: högst en miss per tio platser, på ungefär åtta sekunder per plats. 2 stjärnor: missar på högst en fjärdedel av platserna, plus en. Annars 1.

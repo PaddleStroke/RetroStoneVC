@@ -1,0 +1,20 @@
+World
+Europe
+Asia
+Africa
+Americas
+Oceania
+United States
+Canada
+Mexico
+Brazil
+Argentina
+China
+India
+Russia
+Australia
+Germany
+France
+Spain
+Italy
+Japan

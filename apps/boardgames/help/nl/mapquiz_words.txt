@@ -1,0 +1,657 @@
+Map Quiz: the prompt (%s: the place), then every place's name, in the generator's order
+Zoek: %s
+Argentinië
+Uruguay
+Indonesië
+Maleisië
+Chili
+Bolivia
+Peru
+Dhekelia
+Cyprus
+China
+Israël
+Libanon
+Ethiopië
+Zuid-Soedan
+Somalië
+Kenia
+Malawi
+Tanzania
+India
+Syrië
+Frankrijk
+Suriname
+Guyana
+Zuid-Korea
+Noord-Korea
+Marokko
+Costa Rica
+Nicaragua
+Congo-Brazzaville
+Congo-Kinshasa
+Bhutan
+Oekraïne
+Wit-Rusland
+Namibië
+Zuid-Afrika
+Sint-Maarten
+Sint Maarten
+Verenigde Arabische Emiraten
+Oman
+Oezbekistan
+Kazachstan
+Tadzjikistan
+Litouwen
+Brazilië
+Mongolië
+Rusland
+Tsjechië
+Duitsland
+Estland
+Letland
+Noorwegen
+Zweden
+Finland
+Vietnam
+Cambodja
+Luxemburg
+België
+Georgië
+Noord-Macedonië
+Albanië
+Azerbeidzjan
+Turkije
+Spanje
+Laos
+Kirgizië
+Armenië
+Denemarken
+Libië
+Tunesië
+Roemenië
+Hongarije
+Slowakije
+Polen
+Ierland
+Verenigd Koninkrijk
+Griekenland
+Zambia
+Sierra Leone
+Guinee
+Liberia
+Centraal-Afrikaanse Republiek
+Soedan
+Djibouti
+Eritrea
+Oostenrijk
+Irak
+Italië
+Zwitserland
+Iran
+Nederland
+Liechtenstein
+Ivoorkust
+Servië
+Mali
+Senegal
+Nigeria
+Benin
+Angola
+Kroatië
+Slovenië
+Qatar
+Saoedi-Arabië
+Botswana
+Zimbabwe
+Bulgarije
+Thailand
+San Marino
+Haïti
+Dominicaanse Republiek
+Tsjaad
+Koeweit
+El Salvador
+Guatemala
+Oost-Timor
+Brunei
+Monaco
+Algerije
+Mozambique
+Eswatini
+Burundi
+Rwanda
+Myanmar
+Bangladesh
+Andorra
+Afghanistan
+Montenegro
+Bosnië en Herzegovina
+Oeganda
+Verenigde Staten
+Cuba
+Honduras
+Ecuador
+Colombia
+Paraguay
+Portugal
+Moldavië
+Turkmenistan
+Jordanië
+Nepal
+Lesotho
+Kameroen
+Gabon
+Niger
+Burkina Faso
+Togo
+Ghana
+Guinee-Bissau
+Gibraltar
+Canada
+Mexico
+Belize
+Panama
+Venezuela
+Papoea-Nieuw-Guinea
+Pakistan
+Egypte
+Jemen
+Mauritanië
+Equatoriaal-Guinea
+Gambia
+Hongkong
+Vaticaanstad
+Akrotiri
+Nieuw-Zeeland
+Nieuw-Caledonië
+Australië
+Madagaskar
+Filipijnen
+Sri Lanka
+Curaçao
+Aruba
+Bahama's
+Turks- en Caicoseilanden
+Japan
+Saint-Pierre en Miquelon
+IJsland
+Groenland
+Pitcairneilanden
+Frans-Polynesië
+Franse Zuidelijke Gebieden
+Seychellen
+Kiribati
+Marshalleilanden
+Trinidad en Tobago
+Grenada
+Saint Vincent en de Grenadines
+Barbados
+Saint Lucia
+Dominica
+Montserrat
+Antigua en Barbuda
+Saint Kitts en Nevis
+Amerikaanse Maagdeneilanden
+Saint-Barthélemy
+Puerto Rico
+Anguilla
+Britse Maagdeneilanden
+Jamaica
+Kaaimaneilanden
+Bermuda
+Heard en McDonaldeilanden
+Sint-Helena
+Mauritius
+Comoren
+Sao Tomé en Principe
+Kaapverdië
+Malta
+Jersey
+Guernsey
+Man
+Faeröer
+Australische territoria van de Indische Oceaan
+Singapore
+Norfolk
+Cookeilanden
+Fiji
+Tonga
+Wallis en Futuna
+Samoa
+Salomonseilanden
+Tuvalu
+Maldiven
+Nauru
+Micronesia
+Zuid-Georgia en de Zuidelijke Sandwicheilanden
+Vanuatu
+Niue
+Amerikaans-Samoa
+Palau
+Guam
+Noordelijke Marianen
+Bahrein
+Koraalzee-eilanden
+Clipperton
+Macau
+Ashmore- en Cartiereilanden
+Washington
+Idaho
+Montana
+Noord-Dakota
+Minnesota
+Michigan
+Ohio
+Pennsylvania
+New York
+Vermont
+New Hampshire
+Maine
+Arizona
+Californië
+New Mexico
+Texas
+Alaska
+Louisiana
+Mississippi
+Alabama
+Florida
+Georgia
+South Carolina
+North Carolina
+Virginia
+Washington, D.C.
+Maryland
+Delaware
+New Jersey
+Connecticut
+Rhode Island
+Massachusetts
+Oregon
+Hawaï
+Utah
+Wyoming
+Nevada
+Colorado
+South Dakota
+Nebraska
+Kansas
+Oklahoma
+Iowa
+Missouri
+Wisconsin
+Illinois
+Kentucky
+Arkansas
+Tennessee
+West Virginia
+Indiana
+Brits-Columbia
+Alberta
+Saskatchewan
+Manitoba
+Ontario
+Quebec
+New Brunswick
+Yukon
+Nunavut
+Newfoundland en Labrador
+Nova Scotia
+Northwest Territories
+Prins Edwardeiland
+Sonora
+Baja California
+Chihuahua
+Coahuila de Zaragoza
+Tamaulipas
+Nuevo León
+Quintana Roo
+Campeche
+Tabasco
+Chiapas
+Colima
+Nayarit
+Baja California Sur
+Sinaloa
+Yucatán
+Veracruz de Ignacio de la Llave
+Jalisco
+Michoacán de Ocampo
+Guerrero
+Oaxaca
+Mexico (staat)
+Puebla
+Morelos
+Querétaro
+Hidalgo
+Guanajuato
+San Luis Potosí
+Zacatecas
+Aguascalientes
+Durango
+Tlaxcala
+Mexico-Stad
+Rio Grande do Sul
+Roraima
+Pará
+Acre
+Amapá
+Mato Grosso do Sul
+Paraná
+Santa Catarina
+Amazonas
+Rondônia
+Mato Grosso
+Maranhão
+Piauí
+Ceará
+Rio Grande do Norte
+Paraíba
+Pernambuco
+Alagoas
+Sergipe
+Bahia
+Espírito Santo
+Rio de Janeiro
+São Paulo
+Goiás
+Federaal District
+Minas Gerais
+Tocantins
+Entre Ríos
+Salta
+Jujuy
+Formosa
+Misiones
+Chaco
+Corrientes
+Catamarca
+La Rioja
+San Juan
+Mendoza
+Neuquén
+Chubut
+Río Negro
+Santa Cruz
+Vuurland
+Buenos Aires (provincie)
+Buenos Aires (stad)
+Santa Fe
+Tucumán
+Santiago del Estero
+San Luis
+La Pampa
+Córdoba
+Sinkiang
+Tibetaanse Autonome Regio
+Binnen-Mongolië
+Gansu
+Yunnan
+Heilongjiang
+Jilin
+Liaoning
+Guangxi
+Guangdong
+Hainan
+Fujian
+Zhejiang
+Shanghai
+Jiangsu
+Shandong
+Hebei
+Tianjin
+Peking
+Sichuan
+Chongqing
+Guizhou
+Hunan
+Ningxia
+Shaanxi
+Qinghai
+Shanxi
+Jiangxi
+Henan
+Hubei
+Anhui
+Arunachal Pradesh
+Sikkim
+West-Bengalen
+Assam
+Uttarakhand
+Nagaland
+Manipur
+Mizoram
+Tripura
+Meghalaya
+Punjab
+Rajasthan
+Gujarat
+Himachal Pradesh
+Bihar
+Uttar Pradesh
+Andhra Pradesh
+Odisha
+Dadra en Nagar Haveli en Daman en Diu
+Maharashtra
+Goa
+Karnataka
+Kerala
+Puducherry
+Tamil Nadu
+Laccadiven
+Andamanen en Nicobaren
+Jharkhand
+Delhi
+Chandigarh
+Madhya Pradesh
+Chhattisgarh
+Haryana
+Telangana
+Republiek Altaj
+Pskov
+Kraj Krasnodar
+Karatsjaj-Tsjerkessië
+Kabardië-Balkarië
+Noord-Ossetië
+Ingoesjetië
+Tsjetsjenië
+Dagestan
+Moermansk
+Karelië
+Oblast Leningrad
+Kaliningrad
+Smolensk
+Brjansk
+Koersk
+Belgorod
+Voronezj
+Rostov
+Boerjatië
+Toeva
+Kraj Transbaikal
+Amoer
+Joodse Autonome Oblast
+Kraj Chabarovsk
+Kraj Primorski
+Tjoemen
+Koergan
+Omsk
+Novosibirsk
+Tsjeljabinsk
+Kraj Altaj
+Orenburg
+Saratov
+Astrachan
+Wolgograd
+Magadan
+Sachalin
+Tsjoekotka
+Jamalië
+Nenetsië
+Jakoetië
+Sint-Petersburg
+Archangelsk
+Kraj Krasnojarsk
+Kalmukkië
+Kraj Kamtsjatka
+Basjkirostan
+Sverdlovsk
+Chanto-Mansië
+Lipetsk
+Tambov
+Tomsk
+Tatarije
+Oeljanovsk
+Penza
+Kemerovo
+Orjol
+Irkoetsk
+Chakassië
+Mordovië
+Kaloega
+Kostroma
+Jaroslavl
+Vladimir
+Rjazan
+Ivanovo
+Nizjni Novgorod
+Toela
+Tsjoevasjië
+Vologda
+Novgorod
+Tver
+Oblast Moskou
+Moskou
+Mari El
+Kirov
+Oedmoertië
+Komi
+Kraj Perm
+Samara
+Kraj Stavropol
+Adygea
+West-Australië
+Noordelijk Territorium
+Zuid-Australië
+Queensland
+Nieuw-Zuid-Wales
+Jervis Bay Territorium
+Victoria
+Tasmanië
+Australian Capital Territory
+Saksen
+Beieren
+Rijnland-Palts
+Saarland
+Sleeswijk-Holstein
+Nedersaksen
+Noordrijn-Westfalen
+Baden-Württemberg
+Brandenburg
+Mecklenburg-Voor-Pommeren
+Bremen
+Hamburg
+Hessen
+Thüringen
+Saksen-Anhalt
+Berlijn
+Hauts-de-France
+Grand Est
+Provence-Alpes-Côte d'Azur
+Auvergne-Rhône-Alpes
+Nouvelle-Aquitaine
+Occitanie
+Bourgogne-Franche-Comté
+Pays de la Loire
+Bretagne
+Normandië
+Corsica
+Centre-Val de Loire
+Île-de-France
+Ceuta
+Melilla
+Navarra
+Baskenland
+Aragón
+Catalonië
+Extremadura
+Andalusië
+Galicië
+Castilië en León
+Valencia (regio)
+Región de Murcia
+Asturië
+Cantabrië
+Canarische Eilanden
+Balearen
+La Rioja
+Castilië-La Mancha
+Madrid (regio)
+Valle d'Aosta
+Piëmont
+Lombardije
+Trentino-Zuid-Tirol
+Ligurië
+Emilia-Romagna
+Marche
+Veneto
+Friuli-Venezia Giulia
+Abruzzen
+Molise
+Apulië
+Basilicata
+Calabrië
+Campanië
+Lazio
+Toscane
+Sicilië
+Sardinië
+Umbrië
+Kagoshima
+Ōita
+Fukuoka
+Saga
+Nagasaki
+Kumamoto
+Miyazaki
+Tokushima
+Kagawa
+Ehime
+Kōchi
+Shimane
+Yamaguchi
+Tottori
+Hyōgo
+Kyōto
+Fukui
+Ishikawa
+Toyama
+Niigata
+Yamagata
+Akita
+Aomori
+Iwate
+Miyagi
+Fukushima
+Ibaraki
+Chiba
+Tokyo
+Kanagawa
+Shizuoka
+Aichi
+Mie
+Wakayama
+Ōsaka
+Okayama
+Hiroshima
+Hokkaidō
+Okinawa
+Gunma
+Nagano
+Tochigi
+Gifu
+Shiga
+Saitama
+Yamanashi
+Nara

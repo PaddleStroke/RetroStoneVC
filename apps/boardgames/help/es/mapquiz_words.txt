@@ -1,0 +1,657 @@
+Map Quiz: the prompt (%s: the place), then every place's name, in the generator's order
+Encuentra: %s
+Argentina
+Uruguay
+Indonesia
+Malasia
+Chile
+Bolivia
+Perú
+Dhekelia
+Chipre
+China
+Israel
+Líbano
+Etiopía
+Sudán del Sur
+Somalia
+Kenia
+Malaui
+Tanzania
+India
+Siria
+Francia
+Surinam
+Guyana
+Corea del Sur
+Corea del Norte
+Marruecos
+Costa Rica
+Nicaragua
+República del Congo
+República Democrática del Congo
+Bután
+Ucrania
+Bielorrusia
+Namibia
+Sudáfrica
+San Martín
+San Martín
+Emiratos Árabes Unidos
+Omán
+Uzbekistán
+Kazajistán
+Tayikistán
+Lituania
+Brasil
+Mongolia
+Rusia
+República Checa
+Alemania
+Estonia
+Letonia
+Noruega
+Suecia
+Finlandia
+Vietnam
+Camboya
+Luxemburgo
+Bélgica
+Georgia
+Macedonia del Norte
+Albania
+Azerbaiyán
+Turquía
+España
+Laos
+Kirguistán
+Armenia
+Dinamarca
+Libia
+Túnez
+Rumania
+Hungría
+Eslovaquia
+Polonia
+Irlanda
+Reino Unido
+Grecia
+Zambia
+Sierra Leona
+Guinea
+Liberia
+República Centroafricana
+Sudán
+Yibuti
+Eritrea
+Austria
+Irak
+Italia
+Suiza
+Irán
+Países Bajos
+Liechtenstein
+Costa de Marfil
+Serbia
+Malí
+Senegal
+Nigeria
+Benín
+Angola
+Croacia
+Eslovenia
+Catar
+Arabia Saudita
+Botsuana
+Zimbabue
+Bulgaria
+Tailandia
+San Marino
+Haití
+República Dominicana
+Chad
+Kuwait
+El Salvador
+Guatemala
+Timor Oriental
+Brunéi
+Mónaco
+Argelia
+Mozambique
+Esuatini
+Burundi
+Ruanda
+Birmania
+Bangladés
+Andorra
+Afganistán
+Montenegro
+Bosnia y Herzegovina
+Uganda
+Estados Unidos
+Cuba
+Honduras
+Ecuador
+Colombia
+Paraguay
+Portugal
+Moldavia
+Turkmenistán
+Jordania
+Nepal
+Lesoto
+Camerún
+Gabón
+Níger
+Burkina Faso
+Togo
+Ghana
+Guinea-Bisáu
+Gibraltar
+Canadá
+México
+Belice
+Panamá
+Venezuela
+Papúa Nueva Guinea
+Pakistán
+Egipto
+Yemen
+Mauritania
+Guinea Ecuatorial
+Gambia
+Hong Kong
+Ciudad del Vaticano
+Acrotiri
+Nueva Zelanda
+Nueva Caledonia
+Australia
+Madagascar
+Filipinas
+Sri Lanka
+Curazao
+Aruba
+Bahamas
+Islas Turcas y Caicos
+Japón
+San Pedro y Miquelón
+Islandia
+Groenlandia
+Islas Pitcairn
+Polinesia Francesa
+Tierras Australes y Antárticas Francesas
+Seychelles
+Kiribati
+Islas Marshall
+Trinidad y Tobago
+Granada
+San Vicente y las Granadinas
+Barbados
+Santa Lucía
+Dominica
+Montserrat
+Antigua y Barbuda
+San Cristóbal y Nieves
+Islas Vírgenes de los Estados Unidos
+San Bartolomé
+Puerto Rico
+Anguila
+Islas Vírgenes Británicas
+Jamaica
+Islas Caimán
+Bermudas
+Islas Heard y McDonald
+Isla Santa Elena
+Mauricio
+Comoras
+Santo Tomé y Príncipe
+Cabo Verde
+Malta
+Jersey
+Guernsey
+Isla de Man
+Islas Feroe
+Territorios Australianos del Océano Índico
+Singapur
+Isla Norfolk
+Islas Cook
+Fiyi
+Tonga
+Wallis y Futuna
+Samoa
+Islas Salomón
+Tuvalu
+Maldivas
+Nauru
+Micronesia
+Islas Georgias del Sur y Sandwich del Sur
+Vanuatu
+Niue
+Samoa Estadounidense
+Palaos
+Guam
+Islas Marianas del Norte
+Baréin
+Islas del Mar del Coral
+Isla Clipperton
+Macao
+Islas Ashmore y Cartier
+Washington
+Idaho
+Montana
+Dakota del Norte
+Minnesota
+Míchigan
+Ohio
+Pensilvania
+Nueva York
+Vermont
+Nuevo Hampshire
+Maine
+Arizona
+California
+Nuevo México
+Texas
+Alaska
+Luisiana
+Misisipi
+Alabama
+Florida
+Georgia
+Carolina del Sur
+Carolina del Norte
+Virginia
+Washington, D.C.
+Maryland
+Delaware
+Nueva Jersey
+Connecticut
+Rhode Island
+Massachusetts
+Oregón
+Hawái
+Utah
+Wyoming
+Nevada
+Colorado
+Dakota del Sur
+Nebraska
+Kansas
+Oklahoma
+Iowa
+Misuri
+Wisconsin
+Illinois
+Kentucky
+Arkansas
+Tennessee
+Virginia Occidental
+Indiana
+Columbia Británica
+Alberta
+Saskatchewan
+Manitoba
+Ontario
+Quebec
+Nuevo Brunswick
+Yukón
+Nunavut
+Terranova y Labrador
+Nueva Escocia
+Territorios del Noroeste
+Isla del Príncipe Eduardo
+Sonora
+Baja California
+Chihuahua
+Coahuila de Zaragoza
+Tamaulipas
+Nuevo León
+Quintana Roo
+Campeche
+Tabasco
+Chiapas
+Colima
+Nayarit
+Baja California Sur
+Sinaloa
+Yucatán
+Estado de Veracruz
+Jalisco
+Michoacán
+Guerrero
+Oaxaca
+Estado de México
+Puebla
+Morelos
+Querétaro
+Hidalgo
+Guanajuato
+San Luis Potosí
+Zacatecas
+Aguascalientes
+Durango
+Tlaxcala
+Ciudad de México
+Río Grande del Sur
+Roraima
+Pará
+Estado de Acre
+Amapá
+Mato Grosso do Sul
+Paraná
+Santa Catarina
+Amazonas
+Rondônia
+Mato Grosso
+Maranhão
+Piauí
+Ceará
+Río Grande del Norte
+Paraíba
+Pernambuco
+Alagoas
+Sergipe
+Bahía
+Espírito Santo
+Estado de Río de Janeiro
+Estado de São Paulo
+Goiás
+Distrito Federal
+Minas Gerais
+Tocantins
+Entre Ríos
+Salta
+Jujuy
+Formosa
+Misiones
+Chaco
+Corrientes
+Catamarca
+La Rioja
+San Juan
+Mendoza
+Neuquén
+Chubut
+Río Negro
+Santa Cruz
+Tierra del Fuego
+Provincia de Buenos Aires
+Ciudad de Buenos Aires
+Santa Fe
+Tucumán
+Santiago del Estero
+San Luis
+La Pampa
+Córdoba
+Sinkiang
+Tíbet
+Mongolia Interior
+Gansu
+Yunnan
+Heilongjiang
+Jilin
+Liaoning
+Guangxi
+Guangdong
+Hainan
+Fujian
+Zhejiang
+Shanghái
+Jiangsu
+Shandong
+Hebei
+Tianjin
+Pekín
+Sichuan
+Chongqing
+Guizhou
+Hunan
+Ningxia
+Shaanxi
+Qinghai
+Shanxi
+Jiangxi
+Henan
+Hubei
+Anhui
+Arunachal Pradesh
+Sikkim
+Bengala Occidental
+Assam
+Uttarakhand
+Nagaland
+Manipur
+Mizoram
+Tripura
+Megalaya
+Panyab
+Rajastán
+Guyarat
+Himachal Pradesh
+Bihar
+Uttar Pradesh
+Andhra Pradesh
+Orissa
+Dadra y Nagar Haveli y Damán y Diu
+Maharashtra
+Goa
+Karnataka
+Kerala
+Puducherry
+Tamil Nadu
+Laquedivas
+Islas Andamán y Nicobar
+Jharkhand
+Delhi
+Chandigarh
+Madhya Pradesh
+Chhattisgarh
+Haryana
+Telangana
+República de Altái
+Pskov
+Krai de Krasnodar
+Karacháyevo-Cherkesia
+Kabardia-Balkaria
+Osetia del Norte - Alania
+Ingusetia
+Chechenia
+Daguestán
+Múrmansk
+Carelia
+Óblast de Leningrado
+Kaliningrado
+Smolensk
+Briansk
+Kursk
+Bélgorod
+Vorónezh
+Rostov
+Buriatia
+Tuvá
+Zabaikalie
+Amur
+Óblast Autónomo Hebreo
+Jabárovsk
+Primorie
+Tiumén
+Kurgán
+Omsk
+Novosibirsk
+Cheliábinsk
+Krai de Altái
+Oremburgo
+Sarátov
+Astracán
+Volgogrado
+Magadán
+Sajalín
+Chukotka
+Yamalia-Nenetsia
+Nenetsia
+Sajá
+San Petersburgo
+Arjánguelsk
+Krasnoyarsk
+Kalmukia
+Kamchatka
+Bashkortostán
+Sverdlovsk
+Janti-Mansi
+Lípetsk
+Tambov
+Tomsk
+Tartaristán
+Uliánovsk
+Penza
+Kémerovo
+Oriol
+Irkutsk
+Jakasia
+Mordovia
+Kaluga
+Kostromá
+Yaroslavl
+Vladímir
+Riazán
+Ivánovo
+Nizhni Nóvgorod
+Tula
+Chuvasia
+Vólogda
+Nóvgorod
+Tver
+Óblast de Moscú
+Moscú
+Mari-El
+Kírov
+Udmurtia
+Komi
+Perm
+Samara
+Stávropol
+Adigueya
+Australia Occidental
+Territorio del Norte
+Australia Meridional
+Queensland
+Nueva Gales del Sur
+Territorio de Jervis Bay
+Victoria
+Tasmania
+Territorio de la Capital Australiana
+Sajonia
+Baviera
+Renania-Palatinado
+Sarre
+Schleswig-Holstein
+Baja Sajonia
+Renania del Norte-Westfalia
+Baden-Wurtemberg
+Brandeburgo
+Mecklemburgo-Pomerania Occidental
+Bremen
+Hamburgo
+Hesse
+Turingia
+Sajonia-Anhalt
+Berlín
+Hauts-de-France
+Grand Est
+Provenza-Alpes-Costa Azul
+Auvergne-Rhône-Alpes
+Nueva Aquitania
+Occitania
+Borgoña-Franco Condado
+País del Loira
+Bretaña
+Normandía
+Córcega
+Centro-Valle de Loira
+Isla de Francia
+Ceuta
+Melilla
+Navarra
+País Vasco
+Aragón
+Cataluña
+Extremadura
+Andalucía
+Galicia
+Castilla y León
+Comunidad Valenciana
+Región de Murcia
+Asturias
+Cantabria
+Canarias
+Islas Baleares
+La Rioja
+Castilla-La Mancha
+Comunidad de Madrid
+Valle de Aosta
+Piamonte
+Lombardía
+Trentino-Alto Adigio
+Liguria
+Emilia-Romaña
+Marcas
+Véneto
+Friuli-Venecia Julia
+Abruzos
+Molise
+Apulia
+Basilicata
+Calabria
+Campania
+Lacio
+Toscana
+Sicilia
+Cerdeña
+Umbria
+Kagoshima
+Ōita
+Fukuoka
+Saga
+Nagasaki
+Kumamoto
+Miyazaki
+Tokushima
+Kagawa
+Ehime
+Kōchi
+Shimane
+Yamaguchi
+Tottori
+Hyōgo
+Kyōto
+Fukui
+Ishikawa
+Toyama
+Niigata
+Yamagata
+Akita
+Aomori
+Iwate
+Miyagi
+Fukushima
+Ibaraki
+Chiba
+Tokyo
+Kanagawa
+Shizuoka
+Aichi
+Mie
+Wakayama
+Ōsaka
+Okayama
+Hiroshima
+Hokkaidō
+Okinawa
+Gunma
+Nagano
+Tochigi
+Gifu
+Shiga
+Saitama
+Yamanashi
+Nara

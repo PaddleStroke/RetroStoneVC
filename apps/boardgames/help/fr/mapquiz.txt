@@ -1,0 +1,14 @@
+Quiz géo
+# Le but
+Retrouver des lieux sur la carte : les pays du monde et de chaque continent, ou les États et régions d'un grand pays.
+# Un coup
+Le nom d'un lieu s'affiche en haut. Touche ce lieu sur la carte.
+- Juste : il devient vert et le nom suivant arrive.
+- Faux : le lieu touché clignote en rouge et affiche son nom.
+- Après trois erreurs sur le même nom, le lieu est montré et marqué en orange.
+Les tout petits lieux, comme les îles et les micro-États, portent un rond : touche le rond. Écarte deux doigts pour zoomer sur une zone chargée.
+Les zones en gris sont disputées et ne sont jamais demandées.
+# La fin de la partie
+Le quiz se termine quand tous les lieux ont été demandés. Ton meilleur temps est gardé pour chaque quiz.
+# Niveaux et étoiles
+3 étoiles : au plus une erreur pour dix lieux, en environ huit secondes par lieu. 2 étoiles : des erreurs sur au plus un quart des lieux, plus une. Sinon 1.

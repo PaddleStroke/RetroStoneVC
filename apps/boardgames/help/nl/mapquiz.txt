@@ -1,0 +1,14 @@
+Kaartquiz
+# Het doel
+Vind plaatsen op de kaart: de landen van de wereld en van elk werelddeel, of de staten en regio's van een groot land.
+# Een zet
+Bovenaan verschijnt de naam van een plaats. Tik die plaats aan op de kaart.
+- Goed: ze wordt groen en de volgende naam komt.
+- Fout: de aangetikte plaats knippert rood en toont haar naam.
+- Na drie fouten bij dezelfde naam wordt de plaats getoond en oranje gemarkeerd.
+Heel kleine plaatsen, zoals eilanden en dwergstaten, hebben een rondje: tik het rondje aan. Spreid twee vingers om in te zoomen op een drukke streek.
+Grijze gebieden zijn betwist en worden nooit gevraagd.
+# Het einde van het spel
+De quiz eindigt als elke plaats gevraagd is. Je beste tijd wordt per quiz bewaard.
+# Levels en sterren
+3 sterren: hoogstens één fout per tien plaatsen, in ongeveer acht seconden per plaats. 2 sterren: fouten bij hoogstens een kwart van de plaatsen, plus één. Anders 1.

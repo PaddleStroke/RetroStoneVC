@@ -1,0 +1,14 @@
+Quiz de mapas
+# O objetivo
+Encontre lugares no mapa: os países do mundo e de cada continente, ou os estados e regiões de um país grande.
+# Uma jogada
+O nome de um lugar aparece no alto. Toque esse lugar no mapa.
+- Certo: ele fica verde e vem o próximo nome.
+- Errado: o lugar tocado pisca em vermelho e mostra seu nome.
+- Depois de três erros no mesmo nome, o lugar é mostrado e marcado em laranja.
+Lugares muito pequenos, como ilhas e microestados, têm um círculo: toque no círculo. Afaste dois dedos para ampliar uma área cheia.
+As áreas cinza são disputadas e nunca são perguntadas.
+# O fim da partida
+O quiz termina quando todos os lugares foram perguntados. Seu melhor tempo fica guardado para cada quiz.
+# Níveis e estrelas
+3 estrelas: no máximo um erro a cada dez lugares, em cerca de oito segundos por lugar. 2 estrelas: erros em no máximo um quarto dos lugares, mais um. Senão, 1.

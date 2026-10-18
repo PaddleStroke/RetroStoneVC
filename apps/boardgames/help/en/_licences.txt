@@ -52,5 +52,7 @@ The Jigsaw paintings are in the public domain, their artists having died more th
 - Wanderer above the Sea of Fog, Caspar David Friedrich (died 1840): commons.wikimedia.org/wiki/File:Caspar_David_Friedrich_-_Wanderer_above_the_Sea_of_Fog.jpeg
 - The Ninth Wave, Ivan Aivazovsky (died 1900): commons.wikimedia.org/wiki/File:Hovhannes_Aivazovsky_-_The_Ninth_Wave_-_Google_Art_Project.jpg
 - Among the Sierra Nevada, California, Albert Bierstadt (died 1902): commons.wikimedia.org/wiki/File:Albert_Bierstadt_-_Among_the_Sierra_Nevada,_California_-_Google_Art_Project.jpg
+# Maps
+The Map Quiz's maps are drawn from Natural Earth (naturalearthdata.com), free vector map data in the public domain, simplified for the app.
 # The MIT licence
 Permission is granted, free of charge, to any person obtaining a copy of the software, to deal in it without restriction, including the rights to use, copy, modify, merge, publish, distribute, sublicense and sell copies, provided the copyright notice and this permission notice are included in all copies or substantial portions of it. The software is provided as it is, without warranty of any kind.
