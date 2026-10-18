@@ -1,3 +1,4 @@
 Phrase courte
 Phrase moyenne
 Phrase longue
+Jeu libre

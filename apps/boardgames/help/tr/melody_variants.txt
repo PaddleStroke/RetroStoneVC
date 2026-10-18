@@ -1,3 +1,4 @@
 Kısa ezgi
 Orta ezgi
 Uzun ezgi
+Serbest çalma

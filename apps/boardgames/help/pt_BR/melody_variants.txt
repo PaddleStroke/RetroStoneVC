@@ -1,3 +1,4 @@
 Frase curta
 Frase média
 Frase longa
+Jogo livre

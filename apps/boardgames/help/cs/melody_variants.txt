@@ -1,3 +1,4 @@
 Krátká fráze
 Střední fráze
 Dlouhá fráze
+Volná hra

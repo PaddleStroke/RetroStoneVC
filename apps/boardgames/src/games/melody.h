@@ -25,6 +25,8 @@ typedef struct { uint8_t tune, n, whites; uint16_t grade; uint8_t p[MEL_MAX], d[
 
 /* random play: a phrase of the library of that length (never notes at random), sometimes in another key */
 enum { MEL_SHORT, MEL_MEDIUM, MEL_LONG, MEL_VARIANTS };
+/* the die tab's last card (melody.c alone): free play, the piano and no tune; the game's variants: MEL_VARIANTS + 1 */
+#define MEL_FREE MEL_VARIANTS
 
 typedef struct {
     int level;                                  /* the level, or the library's phrase played at random */

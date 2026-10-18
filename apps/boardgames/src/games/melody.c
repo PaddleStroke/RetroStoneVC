@@ -9,6 +9,9 @@
  * tab: a phrase of the library at random (short, medium, long), often in another key. Stars: the logic puzzles' rule
  * on (hints + listens past the first, mistakes). The keys light up whatever the sound: with the sound off (a small
  * crossed-out speaker on the staff), the game is one of the eyes.
+ * Free play (the die tab's last card): the piano alone, no tune and no end. Each finger its own key (chords), the note
+ * ringing while the key is held and damped as it is let go; a finger sliding on plays the keys it reaches; the tools
+ * move the keyboard an octave down or up (C2 to C7 in all), each C showing its octave's digit.
  * The piano: melody_synth.c renders each note once, played here through an audio device of the game's own (the
  * shell's sounds are its built-in ones only): a small mixer, each note released as the next one starts.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
@@ -114,7 +117,7 @@ static void hush_locked(void)
     }
 }
 
-static void voice_add(const int16_t *s, int n, int delay, int rel, float gain)
+static int voice_add(const int16_t *s, int n, int delay, int rel, float gain)
 {
     int k = 0;
     for (int i = 0; i < VOICES; i++)
@@ -124,6 +127,7 @@ static void voice_add(const int16_t *s, int n, int delay, int rel, float gain)
     V[k].pos = -delay;
     V[k].rel = rel;
     V[k].gain = gain;
+    return k;
 }
 
 static void hush(void)
@@ -143,6 +147,29 @@ static void sound_note(int pitch, int dull)
     SDL_LockAudioDevice(adev);
     hush_locked();
     voice_add(s, n, 0, -1, 1);
+    SDL_UnlockAudioDevice(adev);
+}
+
+/* free play: a key's note added to those ringing (a chord), until the key is let go (sound_off); its voice, or -1 */
+static int sound_on(int pitch, const int16_t **sample)
+{
+    *sample = NULL;
+    if (!sound_ready()) return -1;
+    int n;
+    const int16_t *s = note_pcm(pitch, 0, &n);
+    if (!s) return -1;
+    SDL_LockAudioDevice(adev);
+    int k = voice_add(s, n, 0, -1, 0.62f);
+    SDL_UnlockAudioDevice(adev);
+    *sample = s;
+    return k;
+}
+
+static void sound_off(int k, const int16_t *sample)   /* (that voice, if it still sounds that note: not taken since) */
+{
+    if (k < 0 || audio <= 0) return;
+    SDL_LockAudioDevice(adev);
+    if (V[k].s == sample && V[k].pos >= 0 && V[k].rel < 0) V[k].rel = V[k].pos;
     SDL_UnlockAudioDevice(adev);
 }
 
@@ -168,12 +195,22 @@ static int silent(void) { return snd_muted || audio == -1; }
 
 /* ---- the state on the screen ------------------------------------------------------------------------------------ */
 static struct { int on; Uint32 t0; } play;      /* the tune playing (its lights): from t0 */
-static struct { int pitch, wrong; Uint32 t0; } flash[4];   /* the last keys played */
+#define FLASHES 12
+enum { FL_RIGHT, FL_WRONG, FL_LET_GO };          /* a key's light: played right, wrong; let go (free play) */
+static struct { int pitch, wrong; Uint32 t0; } flash[FLASHES];   /* the last keys played */
 static int nflash;
 static struct { int pitch; Uint32 t0; } hint = {-1, 0};
 static struct { int on; Uint32 t0; } win;
-static struct { int on, pitch, tool; } ptr;
+static struct { int on, pitch, tool, id; } ptr;
 static int play_ms, play_lit;                   /* the tune's note sounding: how long since it began, its light's length */
+
+/* free play: the keys held down, each by its finger (id; the mouse -1), the note it sounds and its voice */
+#define OCT_LO (-2)                             /* the keyboard (C4 to C6) moved this many octaves: C2 .. C7 */
+#define OCT_HI 1
+#define HOLDS 10
+static int freeplay, oct;
+static struct { int id, key; const int16_t *s; int voice; } hold[HOLDS];
+static int nhold;
 
 static void calm(void)
 {
@@ -182,6 +219,7 @@ static void calm(void)
     hint.pitch = -1;
     win.on = 0;
     memset(&ptr, 0, sizeof ptr);
+    nhold = 0;
     hush();
 }
 
@@ -526,6 +564,7 @@ static void layout(box b)
     bh = floorf(0.62f * kh);
     float cw = W * kw + 2 * fr, ch = lip + kh + 2 * fr;
     float cx = floorf(b.x + (b.w - cw) / 2), cy = floorf(b.y + b.h - m - ch);
+    if (freeplay) cy = floorf(b.y + 0.55f * (b.h - ch));   /* no staff: the piano a little below the middle */
     kx = cx + fr;
     ky = cy + fr + lip;
     ui_grid_fit((box){cx, cy, cw, ch}, 1, 1, 0);   /* the board for the shell: its stars card goes over it */
@@ -653,12 +692,14 @@ static float key_light(int pitch, Uint32 now, int sounding, float glow, int *wro
     if (sounding >= 0 && G.p[sounding] == pitch) a = glow;
     for (int i = 0; i < nflash; i++)
         if (flash[i].pitch == pitch) {
-            Uint32 len = flash[i].wrong ? WRONG_MS : FLASH_MS, dt = now - flash[i].t0;
+            Uint32 len = flash[i].wrong == FL_WRONG ? WRONG_MS : FLASH_MS, dt = now - flash[i].t0;
             if (dt >= len) continue;
             float f = 1 - (float)dt / len;
-            if (flash[i].wrong) *wrong = (int)(255 * f);
+            if (flash[i].wrong == FL_WRONG) *wrong = (int)(255 * f);
             else a = fmaxf(a, f);
         }
+    for (int i = 0; i < nhold; i++)
+        if (hold[i].key == pitch) a = 1;
     if (hint.pitch == pitch) {
         float h = puz_pulse((float)(now - hint.t0), 0, HINT_MS);
         if (h > 0) a = fmaxf(a, h);
@@ -676,6 +717,8 @@ static float key_light(int pitch, Uint32 now, int sounding, float glow, int *wro
 static float key_depth(int pitch, Uint32 now, int sounding)
 {
     if (ptr.on && ptr.pitch == pitch) return 1;
+    for (int i = 0; i < nhold; i++)
+        if (hold[i].key == pitch) return 1;
     float d = 0;
     if (sounding >= 0 && G.p[sounding] == pitch) {
         float out = fminf(PRESS_OUT, 0.5f * play_lit);
@@ -684,7 +727,8 @@ static float key_depth(int pitch, Uint32 now, int sounding)
     for (int i = 0; i < nflash; i++)
         if (flash[i].pitch == pitch) {
             float dt = (float)(now - flash[i].t0), end = PRESS_IN + 90 + PRESS_OUT;
-            if (dt < end) d = fmaxf(d, clampf(fminf(dt / PRESS_IN, (end - dt) / PRESS_OUT), 0, 1));
+            if (flash[i].wrong == FL_LET_GO) d = fmaxf(d, clampf(1 - dt / PRESS_OUT, 0, 1));   /* coming back up */
+            else if (dt < end) d = fmaxf(d, clampf(fminf(dt / PRESS_IN, (end - dt) / PRESS_OUT), 0, 1));
         }
     return d;
 }
@@ -735,13 +779,41 @@ static void draw_keys(Uint32 now, int sounding, float glow)
                 ui_mark_glow(x + w / 2, y + 0.82f * h, 1.4f * w);
             }
             if (a > 0) ui_mark_gold_a(x + w / 2, y + (pass ? 0.75f : 0.8f) * h, (pass ? 1.9f : 1.7f) * w, a);
+            if (freeplay && !pass && (p - MEL_LOW) % 12 == 0)   /* each C: its octave (C4 middle C) */
+                ui_number_ex(x + w / 2, y + 0.87f * h, floorf(fmaxf(8, 0.36f * kw)), p / 12 - 1 + oct, INK, 150,
+                             UI_NUM_REGULAR);
         }
+}
+
+/* the octave tools' arrows: 0 down (to the left), 1 up (to the right) */
+static void arrow_pic(int kind, int size, uint8_t *rgba)
+{
+    art_icon(ICON_ARROW, size, rgba);
+    if (kind) return;
+    for (int y = 0; y < size; y++)
+        for (int x = 0; x < size / 2; x++) {
+            uint32_t *row = (uint32_t *)(void *)(rgba + 4 * (size_t)y * size), t = row[x];
+            row[x] = row[size - 1 - x];
+            row[size - 1 - x] = t;
+        }
+}
+
+static void draw_free(Uint32 now)
+{
+    draw_keys(now, -1, 0);
+    if (silent()) {                             /* the sound off: a small speaker crossed out over the case */
+        float d = 0.62f * ui.unit;
+        ui_put_c(t_badge, kx + W * kw - 0.5f * d, ky - lip - fr - 0.8f * d, d, d);
+    }
+    ui_tool_paint(T_LISTEN, arrow_pic, 0, 0.62f, UI_TINT | (oct <= OCT_LO ? UI_DIM : 0));
+    ui_tool_paint(T_HINT, arrow_pic, 1, 0.62f, UI_TINT | (oct >= OCT_HI ? UI_DIM : 0));
 }
 
 static void draw(void)
 {
     if (!t_case) layout(room);
     Uint32 now = ui_ms();
+    if (freeplay) { draw_free(now); return; }
     float glow = 0;
     int sounding = playing(now, &glow);
     if (play.on) {
@@ -763,7 +835,7 @@ static void draw(void)
 /* ---- playing ---------------------------------------------------------------------------------------------------- */
 static void flash_key(int pitch, int wrong)
 {
-    if (nflash == 4) memmove(flash, flash + 1, 3 * sizeof flash[0]), nflash = 3;
+    if (nflash == FLASHES) memmove(flash, flash + 1, (FLASHES - 1) * sizeof flash[0]), nflash = FLASHES - 1;
     flash[nflash].pitch = pitch;
     flash[nflash].wrong = wrong;
     flash[nflash].t0 = ui_ms();
@@ -796,8 +868,62 @@ static void use_hint(void)
     ui_animate();
 }
 
+/* ---- free play: each finger its key -------------------------------------------------------------------------------- */
+static int held_by(int id)
+{
+    for (int i = 0; i < nhold; i++)
+        if (hold[i].id == id) return i;
+    return -1;
+}
+
+static void free_up(int id)                     /* the finger's key let go: its note damped, the key coming up */
+{
+    int i = held_by(id);
+    if (i < 0) return;
+    sound_off(hold[i].voice, hold[i].s);
+    flash_key(hold[i].key, FL_LET_GO);
+    hold[i] = hold[--nhold];
+    ui_animate();
+}
+
+static void free_down(int id, int key)          /* key: the keyboard's, as drawn (C4 .. C6); it sounds oct octaves off */
+{
+    free_up(id);
+    if (key < 0 || nhold == HOLDS) return;
+    hold[nhold].id = id;
+    hold[nhold].key = key;
+    hold[nhold].voice = sound_on(key + 12 * oct, &hold[nhold].s);
+    nhold++;
+    ui_animate();
+}
+
+static void free_octave(int d)
+{
+    if (oct + d < OCT_LO || oct + d > OCT_HI) { ui_sound(SND_DENY); return; }
+    while (nhold) free_up(hold[0].id);
+    oct += d;
+    ui_animate();
+}
+
+static void free_finger(int id, int phase, float x, float y)
+{
+    if (phase == FINGER_UP) { free_up(id); return; }
+    if (phase == FINGER_DOWN) {
+        int t = ui_tool_hit(x, y);
+        if (t >= 0) { free_octave(t == T_HINT ? 1 : -1); return; }
+        free_down(id, key_at(x, y));
+        return;
+    }
+    int i = held_by(id), k = key_at(x, y);   /* sliding on: the key it reaches (off the keys: let go) */
+    if (i >= 0 && hold[i].key != k) {
+        if (k < 0) free_up(id);
+        else free_down(id, k);
+    }
+}
+
 static void press(float x, float y)
 {
+    if (freeplay) { free_finger(-1, FINGER_DOWN, x, y); return; }
     memset(&ptr, 0, sizeof ptr);
     int t = ui_tool_hit(x, y);
     if (t >= 0) {
@@ -821,16 +947,27 @@ static void press(float x, float y)
 
 static void motion(float x, float y)           /* a finger sliding on plays nothing more: a tap is one note */
 {
-    (void)x;
-    (void)y;
+    if (freeplay) free_finger(-1, FINGER_MOVE, x, y);
 }
 
 static void release(float x, float y)
 {
-    (void)x;
-    (void)y;
+    if (freeplay) { free_finger(-1, FINGER_UP, x, y); return; }
     ptr.on = 0;
     ui_animate();
+}
+
+/* the fingers on the board (a phone, a tablet): free play takes each one; a tune, as one pointer (the last finger
+ * down is the one held) */
+static void finger(int id, int phase, float x, float y)
+{
+    if (freeplay) { free_finger(id, phase, x, y); return; }
+    if (phase == FINGER_DOWN) {
+        press(x, y);
+        ptr.id = id;
+    } else if (phase == FINGER_UP && ptr.id == id) {
+        release(x, y);
+    }
 }
 
 static void begin(void)
@@ -838,18 +975,28 @@ static void begin(void)
     calm();
     made_w = made_s = -1;
     relayout();
-    listen(START_MS);                           /* the tune, first of all */
+    if (!freeplay) listen(START_MS);            /* the tune, first of all */
 }
 
 static void start(int level)
 {
+    freeplay = 0;
     mel_load(&G, level);
     begin();
 }
 
 static void start_random(int variant)
 {
-    mel_random(&G, variant < 0 || variant >= MEL_VARIANTS ? 0 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
+    freeplay = variant == MEL_FREE;
+    if (freeplay) {                             /* the piano alone: no notes to find, never solved */
+        memset(&G, 0, sizeof G);
+        G.level = -1;
+        G.hinted = -1;
+        G.whites = 15;
+        oct = 0;
+    } else {
+        mel_random(&G, variant < 0 || variant >= MEL_VARIANTS ? 0 : variant, (uint32_t)ui_random(0x7fffffff) + 1u);
+    }
     begin();
 }
 
@@ -864,6 +1011,26 @@ static int undo(void)
 static int script(const char *moves)
 {
     calm();
+    if (freeplay) {                             /* free play: "<" ">" the octave tools, then the keys held (a chord) */
+        for (const char *s = moves; *s;) {
+            int used;
+            if (*s == ' ') { s++; continue; }
+            if (*s == '<' || *s == '>') {
+                if (oct + (*s == '>' ? 1 : -1) < OCT_LO || oct + (*s == '>' ? 1 : -1) > OCT_HI) return 0;
+                oct += *s++ == '>' ? 1 : -1;
+                continue;
+            }
+            int p = mel_parse_note(s, &used);
+            if (p < MEL_LOW || p > mel_top(G.whites) || nhold == HOLDS) return 0;
+            hold[nhold].id = 1000 + nhold;
+            hold[nhold].key = p;
+            hold[nhold].s = NULL;
+            hold[nhold].voice = -1;
+            nhold++;
+            s += used;
+        }
+        return 1;
+    }
     char buf[512];
     snprintf(buf, sizeof buf, "%s", moves);
     char *e = buf + strlen(buf);
@@ -908,7 +1075,7 @@ static int level_stars(void) { return ui_logic_stars(mel_help(&G), G.mistakes); 
 static void bar(int player, box b)              /* the notes still to find */
 {
     (void)player;
-    ui_bar_number(b, t_note_small, G.n - G.pos);
+    if (!freeplay) ui_bar_number(b, t_note_small, G.n - G.pos);
 }
 
 /* ---- the menu's card, the picker's, the chapters' tabs ----------------------------------------------------------- */
@@ -920,6 +1087,11 @@ static void thumb(int variant, int size, uint8_t *rgba)
         paint_keyboard(rgba, size, size, (size - w) / 2, (int)(0.42f * size), w, 8,
                        1u << 4 | 1u << 7 | 1u << 11);
         paint_glyph(rgba, size, size, 0.3f * size, 0.02f * size, 0.42f * size, GOLD, (const uint8_t[3]){150, 96, 30});
+        return;
+    }
+    if (variant == MEL_FREE) {                  /* free play: a bigger keyboard, a chord held, no notes */
+        int w = (int)(0.86f * size);            /* (its case: a little wider than its keys) */
+        paint_keyboard(rgba, size, size, (int)(0.05f * size), (int)(0.22f * size), w, 7, 1u << 0 | 1u << 4 | 1u << 7);
         return;
     }
     /* random play: a keyboard, as many notes above it as the phrases are long */
@@ -943,11 +1115,11 @@ static void chapter_icon(int chapter, int size, uint8_t *rgba)   /* a keyboard, 
 }
 
 static const game melody_game = {
-    .id = "melody", .order = 449, .variants = MEL_VARIANTS,
+    .id = "melody", .order = 449, .variants = MEL_VARIANTS + 1,   /* (the last one: free play) */
     .thumb = thumb, .token = token, .start = start, .layout = layout, .draw = draw,
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .players = 1u << 1, .fill = 1, .tools = TOOLS,
     .levels = MEL_LEVEL_COUNT, .chapters = MEL_CHAPTER_COUNT, .start_random = start_random, .chapter_icon = chapter_icon,
-    .level_stars = level_stars,
+    .level_stars = level_stars, .finger = finger,
 };
 REGISTER_GAME(melody_game)

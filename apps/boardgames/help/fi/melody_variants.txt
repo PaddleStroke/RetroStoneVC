@@ -1,3 +1,4 @@
 Lyhyt fraasi
 Keskipitkä fraasi
 Pitkä fraasi
+Vapaa soitto

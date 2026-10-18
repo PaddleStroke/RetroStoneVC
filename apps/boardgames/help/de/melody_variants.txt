@@ -1,3 +1,4 @@
 Kurze Phrase
 Mittlere Phrase
 Lange Phrase
+Freies Spiel
