@@ -98,15 +98,33 @@ static inline void hue_mark_fig(art_fig *f, int c)
     }
 }
 
-/* the mark of colour c, white (tint it), size x size */
+/* the mark of colour c, white (tint it), size x size: painted k times bigger and each k x k block averaged (the
+ * painter's 4 x 4 samples alone leave steps along a slanted edge: a diamond's, a star's) */
 static inline void hue_mark(int c, int size, uint8_t *rgba)
 {
     art_style st = {{255, 255, 255}, {255, 255, 255}, {255, 255, 255}, {255, 255, 255}, 0, 0};
     art_fig *f = art_fig_new();
     hue_mark_fig(f, c);
     memset(rgba, 0, (size_t)size * size * 4);
-    art_render(f, &st, size, size, (float)size, 0, 0, rgba);
+    int k = size <= 64 ? 4 : size <= 160 ? 3 : 2, big = size * k;
+    uint8_t *b = size > 0 ? malloc((size_t)big * big * 4) : NULL;
+    if (!b) {
+        art_render(f, &st, size, size, (float)size, 0, 0, rgba);
+        art_fig_free(f);
+        return;
+    }
+    art_render(f, &st, big, big, (float)big, 0, 0, b);
     art_fig_free(f);
+    for (int y = 0; y < size; y++)
+        for (int x = 0; x < size; x++) {
+            unsigned a = 0;
+            for (int j = 0; j < k; j++)
+                for (int i = 0; i < k; i++) a += b[4 * ((size_t)(y * k + j) * big + x * k + i) + 3];
+            uint8_t *p = rgba + 4 * ((size_t)y * size + x);
+            p[0] = p[1] = p[2] = 255;
+            p[3] = (uint8_t)((a + (unsigned)(k * k) / 2) / (unsigned)(k * k));
+        }
+    free(b);
 }
 
 /* the tone a mark is drawn in on colour c (dark ink on the light colours, cream on the dark), and its alpha */
@@ -143,20 +161,7 @@ static inline void hue_marble(int c, int size, uint8_t *rgba)
     else {
         uint8_t q[3];
         hue_rgb(c, q);
-        art_style st;
-        for (int i = 0; i < 3; i++) {
-            st.fill[i] = q[i];
-            st.outer[i] = q[i] * 0.25f;
-            st.inner[i] = fminf(255, q[i] * 0.6f + 90);
-            st.mark[i] = fminf(255, q[i] * 0.5f + 140);
-        }
-        st.light = hue_dark(c) ? 0.55f : 0.3f;
-        st.line = fmaxf(0.022f, 1.3f / size);
-        art_fig *f = art_fig_new();
-        art_ellipse(f, ART_PART, 0.5f, 0.5f, 0.45f, 0.45f);
-        art_ellipse(f, ART_MARK, 0.36f, 0.33f, 0.09f, 0.06f);
-        art_render(f, &st, size, size, (float)size, 0, 0, rgba);
-        art_fig_free(f);
+        art_stone(q, size, rgba);
     }
     hue_mark_on(rgba, size, size, c, size * 0.53f, size * 0.55f, (int)(0.4f * size));
 }

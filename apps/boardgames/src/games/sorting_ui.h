@@ -1033,7 +1033,7 @@ static inline void sui_paint_tube(uint8_t *o, int W, int H, int ox, int oy, int 
                                   const uint8_t *units, int n, int cork)
 {
     float gw = fmaxf(1, roundf(0.075f * tw)), lh = balls ? 0.84f * tw : (th - 0.62f * tw) / 4;
-    uint8_t *g = malloc((size_t)tw * th * 4);
+    uint8_t *g = calloc((size_t)tw * th, 4);   /* (calloc: no false "uninitialized" warning) */
     if (!g) return;
     sui_paint_glass(tw, th, gw, 0, g);
     art_blend(o, W, H, g, tw, th, ox, oy);
