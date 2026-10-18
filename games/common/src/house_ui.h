@@ -81,6 +81,11 @@ void hu_init(const hu_config *cfg);
 const hu_config *hu_cfg(void);
 /* save states: registers the kit's own objects (call it from the game's state callback) */
 void hu_state(void);
+/* in the game's state_loaded: 1 if the state was saved on a screen of another height (a phone turned between upright
+ * and landscape: the app restarts the game from a state, or resumes the one it saved in the other orientation). The
+ * raster's settings for the other screen's lines (a layer hidden past the stage, the pinned UI's window) and the UI
+ * laid out for it came with the state: the game sets its layers up again and redraws its UI. Once per load (then 0). */
+int hu_shape_changed(void);
 
 /* ---- widescreen (docs/spec.md "Widescreen") -------------------------------------------------------------------------
  * The kit lays out a 320 x 240 UI area (tiles 0..39 x 0..29, pixels 0..319: the "UI coordinates" of every call below)

@@ -346,9 +346,11 @@ static void lobby_reset(void)
 }
 
 /* ---- set-up --------------------------------------------------------------------------------------------------------- */
+static int32_t shape_h;             /* the screen's height at hu_init, or the saved one after a load (hu_shape_changed) */
 void hu_init(const hu_config *c)
 {
     cfg = *c;
+    shape_h = rs_screen_height();
     memset(font_have, 0, sizeof font_have);
     font_glyph(0);                                      /* hu_clear uses the space tile */
     /* the font on the panel colour (only the glyphs asked for: VRAM; hu_box_text adds the others when needed) */
@@ -381,6 +383,13 @@ void hu_state(void)
     S(cfg); S(big_chars); S(big_used); S(paused_now); S(shake_amp); S(shake_t); S(shake_len); S(shake_dx); S(shake_dy);
     S(lobby); S(box_have); S(font_have); S(dpad_loaded);
     S(ext_key); S(ext_under); S(ext_used); S(err_seen); S(err_n); S(err_total); S(ext_peak); S(go_grow);
+    S(shape_h);
+}
+int hu_shape_changed(void)
+{
+    int changed = shape_h != rs_screen_height();
+    shape_h = rs_screen_height();
+    return changed;
 }
 #undef S
 

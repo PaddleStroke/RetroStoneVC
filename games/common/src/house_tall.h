@@ -97,6 +97,25 @@ static inline int ht_pin_line(int which, int line)
     int t = ht_pin_dy(which);
     return line >= t && line < t + RS_SCREEN_H;
 }
+
+/* ---- a state from a screen of another height ---------------------------------------------------------------------
+ * Turning the phone (upright <-> landscape) restarts the game from a save state (rs_host_change_size), and the app
+ * resumes a game from the state it saved when the player left, maybe in the other orientation. Such a state brings
+ * what the raster left after the other screen's last line (a layer hidden past the stage, the pinned UI's window, a
+ * palette) and the UI laid out for that screen. Call ht_shape_reset() first in the game's state_loaded: on a change
+ * it shows the four layers again with no window (as a game's set-up leaves them; a game that sets up otherwise puts
+ * its own back) and returns 1: the game then sets up its maps and redraws its UI as after a state of another width.
+ * 0: a state of this screen's height, nothing done (the same pixels). */
+static inline int ht_shape_reset(void)
+{
+    if (!hu_shape_changed()) return 0;
+    for (int l = 0; l < RS_BG_COUNT; l++) {
+        rs_bg_enable(l, 1);
+        rs_bg_window(l, 0);
+    }
+    rs_obj_window(0);
+    return 1;
+}
 /* the column that centres w columns in the visible ones; the UI x of their centre */
 static inline int ht_center_w(int w) { int a, b; ht_cols(&a, &b); return a + (b - a - w) / 2; }
 static inline int ht_center(const char *s, int big) { return ht_center_w(hu_width(s, big)); }
