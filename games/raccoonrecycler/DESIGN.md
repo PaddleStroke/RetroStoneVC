@@ -126,7 +126,9 @@ first in `game_init`. The app scales the 440 lines to the display's height and c
 - **The HUD at the screen's top** in play: the score (sprites at `rs_screen_top()` + 4 + their y) and, with 2-4
   players, the tags (BG1's top 24 lines pinned at screen line 4: `rs_bg_pin`).
 - **Fill or fit**: one raccoon playing fills the display's height, its workstation moved into the columns shown (the
-  station stays the same: only where it is drawn); the title, the game-over panel, the results and 2-4 players show
-  every column (`rs_screen_fill(0)`: the raccoons stand where they are).
+  station stays the same: only where it is drawn); the title, pause, the game-over panel and the results stay zoomed
+  like play (house_narrow.h: the logo's words stacked, the hint and the prompt under them, the lines wrapped, a
+  narrower ranking; the stations drawn in from the sides to the edges shown, so every raccoon shows); only 2-4 players
+  playing show every column (`rs_screen_fill(0)`: the raccoons stand where they are).
 - Landscape and 4:3 are the same pixels as before (checked at 2340x1080 and 320x240); the touch columns are the
   bins' at any height.
