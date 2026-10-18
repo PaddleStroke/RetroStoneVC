@@ -6,12 +6,16 @@
  * chapter's range). A map is kept when its special tiles all matter (twk_make checks it) and when it was not met
  * before (nor its mirror). The look, for a hand-laid feel: the walls in a mirror or half-turn symmetry (a few maps
  * left free), floor no walker can ever reach walled up (a whole symmetric pair at a time), no map with much floor
- * wasted, walls neither too few nor too many, the walkers' starts and exits spread over the floor; of the maps near
- * each place on the curve the best-looking one is kept, the chapter's last map (its showpiece) the best-looking of its
- * hardest few. The difficulty: the fewest moves, and a little for the states the search went through. Chapter 1 starts
- * from the very easiest (a first look). Deterministic (fixed seeds).
+ * wasted, walls neither too few nor too many, the walkers' starts and exits spread over the floor. The difficulty is
+ * measured (measure()): the fewest moves, the share of mistaken moves along the way, and how many naive players
+ * (moving at random, mostly bringing the walkers nearer their exits) bring both out. Each chapter keeps 25: up to
+ * three easy ones first (chapter 1 from the very easiest) that show its new tiles, then maps no naive player solves,
+ * spread from the chapter's floor to its hardest; of the maps near each place on the curve the best-looking one is
+ * kept (another size than the level before when it can), the chapter's last map (its showpiece) the best-looking of
+ * its hardest few. Deterministic (fixed seeds).
  *   gcc -O2 -Iapps/boardgames/src -o /tmp/twkgen apps/boardgames/tools/twinwalk_gen.c -lm && \
  *       /tmp/twkgen > apps/boardgames/src/games/twinwalk_levels.h
+ * The levels' difficulty table: the same with -DTWK_TABLE, run with no output file.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #define TWK_GEN
@@ -25,24 +29,33 @@
 #define PER (TWK_LEVELS / TWK_CHAPTERS)
 #define TEXT (TWK_CELLS + TWK_MAXH + 1)
 
+typedef struct { int par, states; double trap, first, naive, score; } metric;   /* measure() */
+
 typedef struct {
     char text[TEXT];
-    int par, states;
+    int par, states, w, h;
     double diff, look;
+    metric m;
 } cand;
 
 /* a chapter: its sizes (w x h, up to grow more each way), walls, special tiles; lo..hi: the pars aimed at; makes:
- * the maps made */
-typedef struct { int w, h, grow, walls, crumble, plates, ice, lo, hi, iters, makes; } chapter;
+ * the maps made; intro: its first levels, easy ones that show its new tiles (chapter 1 from the very easiest);
+ * floor: the least score (measure()) of the others */
+typedef struct {
+    int w, h, grow, walls, crumble, plates, ice, lo, hi, iters, makes, intro, from_easiest;
+    double floor;
+} chapter;
 
 static const chapter CH[TWK_CHAPTERS] = {
-    {4, 4, 2, 20, 0, 0, 0, 2, 10, 120, 500},    /* plain walls, small */
-    {6, 6, 2, 22, 0, 0, 0, 9, 17, 220, 420},    /* plain walls, larger floors, longer ways */
-    {6, 6, 1, 18, 4, 0, 0, 9, 18, 240, 420},    /* crumbling tiles */
-    {6, 7, 1, 18, 0, 1, 0, 10, 20, 260, 560},   /* plates and doors */
-    {6, 7, 1, 14, 0, 0, 6, 10, 20, 260, 420},   /* ice */
-    {7, 8, 1, 16, 3, 2, 4, 14, 26, 300, 520},   /* all of them */
+    {4, 4, 2, 20, 0, 0, 0, 2, 13, 120, 700, 3, 1, 9},       /* plain walls, small */
+    {6, 6, 2, 22, 0, 0, 0, 10, 19, 220, 500, 0, 0, 15},     /* plain walls, larger floors, longer ways */
+    {6, 6, 1, 18, 4, 0, 0, 9, 20, 240, 560, 2, 0, 17},      /* crumbling tiles */
+    {6, 7, 1, 18, 0, 1, 0, 10, 22, 260, 640, 2, 0, 19},     /* plates and doors */
+    {6, 7, 1, 14, 0, 0, 6, 10, 22, 260, 560, 2, 0, 20},     /* ice */
+    {7, 8, 1, 16, 3, 2, 4, 15, 28, 300, 600, 1, 0, 26},     /* all of them */
 };
+#define NAIVE_MAX 0.05                          /* the most naive players a hard level may let win */
+#define MAXC 1200                               /* the maps kept a chapter, at most */
 
 static int by_diff(const void *a, const void *b)
 {
@@ -182,10 +195,143 @@ static double look_of(const twk_map *m)
     return look;
 }
 
+/* ---- how hard a map is, measured --------------------------------------------------------------------------------
+ * trap: along a shortest way, the share of the moves that are mistakes (they do not bring the exits a move nearer,
+ * or lose them); first: the same for the first move; naive: the share of 300 naive players who bring both walkers out
+ * within one and a half times its par (each move at random, but three times in four one that brings the walkers no
+ * farther from their exits, counted together) */
+static int gap(const twk_map *m, const twk_state *s)
+{
+    int d = 0;
+    for (int i = 0; i < 2; i++)
+        d += abs(s->p[i] % m->w - m->exit[i] % m->w) + abs(s->p[i] / m->w - m->exit[i] / m->w);
+    return d;
+}
+
+static void measure(const twk_map *m, metric *mt)
+{
+    twk_state s = {{(uint8_t)m->start[0], (uint8_t)m->start[1]}, 0};
+    mt->par = twk_solve(m, &s, NULL, &mt->states);
+    int legal = 0, bad = 0, legal0 = 0, bad0 = 0;
+    twk_state c = s;
+    for (int left = mt->par; left > 0; left--) {
+        int dir = -1;
+        twk_solve(m, &c, &dir, NULL);
+        for (int k = 0; k < 4; k++) {
+            twk_state n;
+            if (!twk_try(m, &c, k, &n, NULL)) continue;
+            int mis = twk_solve(m, &n, NULL, NULL) != left - 1;
+            legal++;
+            bad += mis;
+            if (left == mt->par) { legal0++; bad0 += mis; }
+        }
+        twk_try(m, &c, dir, &c, NULL);
+    }
+    mt->trap = legal ? (double)bad / legal : 0;
+    mt->first = legal0 ? (double)bad0 / legal0 : 0;
+    uint32_t r = pr_seed(77);
+    int wins = 0;
+    for (int t = 0; t < 300; t++) {
+        twk_state p = s;
+        for (int k = 0; k < mt->par + mt->par / 2 + 1 && !twk_solved(m, &p); k++) {
+            int ok[4], nok = 0, near[4], nnear = 0, here = gap(m, &p);
+            twk_state n[4];
+            for (int d = 0; d < 4; d++) {
+                if (!twk_try(m, &p, d, &n[d], NULL)) continue;
+                ok[nok++] = d;
+                if (gap(m, &n[d]) <= here) near[nnear++] = d;
+            }
+            if (!nok) break;
+            p = n[nnear && pr_below(&r, 4) ? near[pr_below(&r, nnear)] : ok[pr_below(&r, nok)]];
+        }
+        wins += twk_solved(m, &p);
+    }
+    mt->naive = wins / 300.0;
+    /* the score: the moves, worth more where the mistakes are many and the naive players fail */
+    mt->score = mt->par * (0.6 + mt->trap) * (1.2 - mt->naive) + 0.3 * log((double)mt->states + 1);
+}
+
+#ifdef TWK_TABLE                                /* the shipped levels' table: -DTWK_TABLE */
+#include "games/twinwalk_levels.h"
+int main(void)
+{
+    (void)CH, (void)by_diff, (void)look_of, (void)met, (void)crop, (void)wall_unseen;
+    double sum[TWK_CHAPTERS][5] = {{0}};
+    int trivial = 0;
+    printf("lvl par states trap first naive score  map\n");
+    for (int lv = 0; lv < TWK_LEVELS; lv++) {
+        twk_map m;
+        metric mt;
+        twk_parse(&m, twk_levels[lv]);
+        measure(&m, &mt);
+        printf("%4d %3d %6d %5.2f %5.2f %5.2f %6.2f  %s\n", lv + 1, mt.par, mt.states, mt.trap, mt.first, mt.naive,
+               mt.score, twk_levels[lv]);
+        int triv = mt.naive > 0.1 || mt.par <= 4;
+        double *s = sum[lv / PER];
+        s[0] += mt.par; s[1] += mt.trap; s[2] += mt.naive; s[3] += mt.score; s[4] += triv;
+        trivial += lv >= 3 && triv;
+    }
+    printf("\nchapter  par  trap naive score trivial\n");
+    for (int c = 0; c < TWK_CHAPTERS; c++)
+        printf("%7d %5.1f %5.2f %5.2f %5.1f %4.0f\n", c + 1, sum[c][0] / PER, sum[c][1] / PER, sum[c][2] / PER,
+               sum[c][3] / PER, sum[c][4]);
+    printf("trivial levels from level 4 (naive > 0.1 or par <= 4): %d\n", trivial);
+    return 0;
+}
+#else
+/* a chapter's levels from its maps (sorted by score): its first `intro` from the easy end (the chapter's new tiles
+ * shown plainly), the others spread from `floor` to the hardest over the maps no naive player solves, the last of
+ * the hardest few; of the maps near each place on the curve the best looking, another size than the last level's
+ * when it can */
+static int pick(const cand *pool, int n, const chapter *C, int *chosen)
+{
+    static int hard[MAXC];
+    int nh = 0, used[MAXC] = {0};
+    for (int i = 0; i < n; i++)
+        if (pool[i].m.naive <= NAIVE_MAX && pool[i].m.score >= C->floor) hard[nh++] = i;
+    fprintf(stderr, "  %d hard maps\n", nh);
+    if (nh < PER - C->intro + 2) return 0;
+    int lw = 0, lh = 0, last = -1;
+    for (int k = 0; k < C->intro; k++) {
+        int span = n / 5 > C->intro ? n / 5 : C->intro, i = -1;
+        int a = k * span / C->intro, b = (k + 1) * span / C->intro - 1;
+        if (C->from_easiest && k == 0) b = a + 1;
+        if (a <= last) a = last + 1;
+        if (b < a) b = a;
+        for (int j = a; j <= b && j < n; j++)       /* short ones: a long easy way is a dull one */
+            if (i < 0 || (pool[j].par <= C->lo + 5 && (pool[i].par > C->lo + 5 || pool[j].look > pool[i].look))) i = j;
+        used[i] = 1;
+        last = i;
+        chosen[k] = i;
+        lw = pool[i].w, lh = pool[i].h;
+    }
+    double step = (double)(nh - 1) / (PER - C->intro - 1);
+    last = -1;
+    for (int k = 0; k < PER - C->intro; k++) {
+        int mid = (int)(k * step + 0.5), a = mid - (int)(step / 2), b = mid + (int)(step / 2), i = -1;
+        if (k == PER - C->intro - 1) a = nh - 1 - nh / 25 - 2, b = nh - 1;   /* the showpiece: of the hardest few */
+        if (a <= last) a = last + 1;
+        if (b > nh - 1) b = nh - 1;
+        if (b < a) b = a;
+        double best = -1e9;
+        for (int j = a; j <= b; j++) {
+            const cand *c = &pool[hard[j]];
+            double v = c->look - (c->w == lw && c->h == lh ? 0.6 : 0);
+            if (!used[hard[j]] && (i < 0 || v > best)) { best = v; i = j; }
+        }
+        if (i < 0) i = a;
+        last = i;
+        used[hard[i]] = 1;
+        chosen[C->intro + k] = hard[i];
+        lw = pool[hard[i]].w, lh = pool[hard[i]].h;
+    }
+    return 1;
+}
+
 int main(void)
 {
     kept = malloc(sizeof *kept * 8000);
-    cand *c = malloc(sizeof *c * 1200);
+    cand *c = malloc(sizeof *c * MAXC);
     if (!kept || !c) return 1;
     printf("/* Twin Walkers' levels: made by tools/twinwalk_gen.c (our own maps, found by its search; do not edit).\n"
            " * Each map's rows from the top split by '|' (twinwalk.h), and its par: the fewest moves. */\n");
@@ -223,33 +369,21 @@ int main(void)
             if (met(x->text)) continue;
             x->par = par;
             x->states = states;
-            x->diff = par + 0.6 * log((double)states + 1);
+            measure(&m, &x->m);
+            x->diff = x->m.score;
+            x->w = m.w;
+            x->h = m.h;
             x->look = look_of(&m);
             n++;
-            if (n >= 1200) break;
+            if (n >= MAXC) break;
         }
         qsort(c, (size_t)n, sizeof *c, by_diff);
         fprintf(stderr, "chapter %d: %d maps, par %d..%d\n", ch + 1, n, n ? c[0].par : 0, n ? c[n - 1].par : 0);
-        if (n < PER) { fprintf(stderr, "too few\n"); return 1; }
-        int used[1200] = {0}, prev = -1;
-        for (int i = 0; i < PER; i++) {         /* evenly over the difficulties; the best-looking near each place */
-            int at = ch == 0 && i == 0 ? 0 : (int)((double)i * (n - 1) / (PER - 1) + 0.5), pick = -1;
-            int win = ch == 0 && i < 3 ? 1 : n / (PER * 2) + 1;
-            if (i == PER - 1) { at = n - 1; win = n / 8 + 1; }   /* the showpiece: the best-looking hardest few */
-            double best = -1e9;
-            for (int j = at - win; j <= at + win; j++) {
-                if (j <= prev || j < 0 || j >= n || used[j]) continue;
-                if (i == PER - 1 && j < at - win) continue;
-                if (c[j].look > best) { best = c[j].look; pick = j; }
-            }
-            if (pick < 0)
-                for (int j = prev + 1; j < n && pick < 0; j++)
-                    if (!used[j]) pick = j;
-            if (pick < 0) { fprintf(stderr, "chapter %d: ran out\n", ch + 1); return 1; }
-            used[pick] = 1;
-            prev = pick;
-            strcpy(out[ch * PER + i], c[pick].text);
-            outpar[ch * PER + i] = c[pick].par;
+        int chosen[PER];
+        if (n < PER || !pick(c, n, C, chosen)) { fprintf(stderr, "too few\n"); return 1; }
+        for (int i = 0; i < PER; i++) {
+            strcpy(out[ch * PER + i], c[chosen[i]].text);
+            outpar[ch * PER + i] = c[chosen[i]].par;
         }
     }
     printf("const char *const twk_levels[TWK_LEVELS] = {\n");
@@ -266,3 +400,4 @@ int main(void)
     free(c);
     return 0;
 }
+#endif
