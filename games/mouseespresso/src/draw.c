@@ -51,6 +51,7 @@ static rs_color tall_scale(rs_color c,int k){   /* darker by k/256, rounded (sof
 }
 #define TALL_PLANKS 112                 /* the back wall's row of planks alone (between the windows and the rail) */
 static int hud_pinned;                  /* the HUD's lines pinned at the screen's top (draw_frame; not saved) */
+static int ui_pin;                      /* the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels) */
 static void raster_out(int line){
  int top=rs_screen_top(),beam=top+HUD_LINES;
  if(line==top){rs_bg_enable(RS_BG1,hud_pinned);rs_bg_enable(RS_BG2,0);rs_bg_enable(RS_BG3,0);}
@@ -74,12 +75,13 @@ static void raster_out(int line){
 }
 static void raster(int line,void *user) {
  (void)user;
- if(line<0 || line>=RS_SCREEN_H){raster_out(line);return;}
+ if(line<0 || line>=RS_SCREEN_H){raster_out(line);if(ui_pin)rs_bg_enable(RS_BG1,ht_pin_line(ui_pin,line));return;}
  if(line==0){
   for(int l=0;l<3;l++)rs_bg_enable(l,1);
   rs_bg_scroll(RS_BG2,0,0);rs_bg_scroll(RS_BG3,VP[0].sx[2],VP[0].sy[2]);
  }
  int p=rs_viewport_current();if(p<0 || p>=nviews)p=0;
+ if(ui_pin)rs_bg_enable(RS_BG1,ht_pin_line(ui_pin,line));   /* the pinned UI */
  int y=line-VP[p].y;if(y>=0 && y<240)rs_pal_set(0,V[p].sky[y]);
 }
 /* the maps of this width: 64 tiles at 320, 128 wider */
@@ -190,9 +192,10 @@ static void scene(const world *w,int t,const view *v,const rs_viewport *vp,int h
   if(!taken)spr(SPR_BISCUIT+(w->t/12+(int)(i&1))%2,sx(v,it->x)-8,it->y-8,2,-1,vp);
  }
 }
-static void icon(int p,int cx,int cy,int t,void *user) {
- (void)user;rs_viewport vp={0};vp.w=(int16_t)rs_screen_width();vp.h=240;
- spr(SPR_HERO_ICON,cx-8+hu_ui_x(),cy-8+hu_bob(t+p*16,64,1),2,ppal(p),&vp);   /* the kit's UI coordinates -> stage */
+/* player p's icon, its top-left at stage x, y: anywhere on the screen (the title and the panels pinned above the stage) */
+static void icon_at(int p,int x,int y,int prio) {const gm_sprite_def *s=&gm_spr[SPR_HERO_ICON];rs_spr(x,y,s->tile,s->w,s->h,ppal(p),prio,0);}
+static void icon(int p,int cx,int cy,int t,void *user) {   /* (the kit's UI coordinates -> stage) */
+ (void)user;icon_at(p,cx-8+hu_ui_x(),cy-8+hu_bob(t+p*16,64,1),2);
 }
 static void ranking(const world *w,hu_standing *rank) {
  int scores[4];for(int p=0;p<w->players;p++)scores[p]=w->h[p].score;hu_rank(rank,w->players,scores,scores);
@@ -220,10 +223,13 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   * the mice fly (BG1's top HUD_LINES pinned at the screen's top) */
  int run=state==ST_PLAY || state==ST_DEAD,hud=tall() && run;
  rs_screen_fill(run || tall());
- if(tall())rs_screen_focus_x(hero_start_x(w->players,0)-TALL_BEHIND+(rs_screen_visible_x1()-rs_screen_visible_x0())/2);
+ if(tall() && (state==ST_TITLE || state==ST_OVER))rs_screen_focus_x(-1);   /* (the title and the panels: centred, as house_tall.h lays them out) */
+ else if(tall())rs_screen_focus_x(hero_start_x(w->players,0)-TALL_BEHIND+(rs_screen_visible_x1()-rs_screen_visible_x0())/2);
  else rs_screen_focus_x(-1);
  int narrow=ht_narrow();             /* the zoomed screen shows fewer columns than the kit's 320 */
  rs_bg_pin(RS_BG1,0,hud?HUD_LINES:0,0);
+ ui_pin=!narrow?HT_PIN_OFF:state==ST_TITLE?HT_PIN_TITLE:state==ST_OVER?HT_PIN_PANEL:HT_PIN_OFF;
+ if(ui_pin) ht_pin(ui_pin);   /* the title and the panels at the same place on every game's screen */
  if(state==ST_TITLE && narrow){       /* the house title in the columns shown (house_tall.h, its default rows) */
   ht_logo("MOUSE ESPRESSO",title_ramps,2,2,0);
   ht_title tc={TR(VERB),MAX_PLAYERS,15,0};ht_title_out o;
@@ -252,7 +258,7 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
    ht_retry_line_at(r,st_t,RETRY_LOCK,HTR(BACK_TITLE));
   }else if(narrow){
    ht_results_panel(&rank,NULL);ht_results_sprites(&rank,st_t,slide);
-   for(int i=0;i<rank.n;i++){int x,y;ht_results_icon_pos(&rank,i,&x,&y);spr(SPR_HERO_ICON,x-8+hu_ui_x(),y-8+slide,3,ppal(rank.order[i]),vp);}
+   for(int i=0;i<rank.n;i++){int x,y;ht_results_icon_pos(&rank,i,&x,&y);icon_at(rank.order[i],x-8+hu_ui_x(),y-8+slide,3);}
    ht_retry_line_at(hu_results_retry_row(&rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));
   }else if(w->players==1){
    static const int medals[4]=MEDAL_SCORES;hu_banner(4,HTR(GAME_OVER));hu_gameover_panel(1,new_best,w->h[0].score,0);
