@@ -202,6 +202,8 @@ int main(void)
             if (g.par < lo) lo = g.par;
             if (g.par > hi) hi = g.par;
             CHECK(g.par >= 1 && own_par(&g.m, g.par) == g.par);
+            static const int LO[PFO_VARIANTS] = {3, 4, 5}, HI[PFO_VARIANTS] = {3, 5, 5};   /* by its size */
+            CHECK(g.par >= LO[v] && g.par <= HI[v]);
             pfo_random(&t, v, seed);
             CHECK(!memcmp(&t.m, &g.m, sizeof g.m));
             pfo_text(&g.m, sheet, pic);

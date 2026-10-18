@@ -139,7 +139,7 @@ int main(void)
             int front = C->front == -2 ? 1 + pr_below(&r, PATTERNS - 1) : C->front;
             int back = C->back == -2 ? 1 + pr_below(&r, PATTERNS - 1) : C->back;
             pfo_spec sp = {C->w + g, C->h + gh, front, back, C->cuts ? 1 + pr_below(&r, C->cuts) : 0,
-                           C->lo + pr_below(&r, C->folds - C->lo + 1), C->colours};
+                           C->lo + pr_below(&r, C->folds - C->lo + 1), C->colours, 0};
             if (sp.w > PFO_MAXW) sp.w = PFO_MAXW;
             if (sp.h > PFO_MAXH) sp.h = PFO_MAXH;
             pfo_map m;

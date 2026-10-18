@@ -410,7 +410,7 @@ void pfo_make(pfo_map *m, const pfo_spec *sp, uint32_t seed)
     for (int tries = 0; tries < 30; tries++) {
         sheet(m, sp, &r);
         pfo_state s = m->start, n;
-        int made = 0, least = m->w * m->h / 5 > 2 ? m->w * m->h / 5 : 2;
+        int made = 0, least = sp->least > 0 ? sp->least : m->w * m->h / 5 > 2 ? m->w * m->h / 5 : 2;
         while (made < sp->folds) {             /* folds at random, the paper left not too small */
             int can[PFO_MOVES], nc = 0;
             for (int f = 0; f < PFO_MOVES; f++) {
@@ -439,7 +439,7 @@ void pfo_make(pfo_map *m, const pfo_spec *sp, uint32_t seed)
 void pfo_variant(int v, pfo_spec *sp)
 {
     static const pfo_spec V[PFO_VARIANTS] = {
-        {3, 3, 0, 0, 0, 2, 2}, {4, 4, -1, 0, 1, 3, 3}, {5, 5, -1, -1, 2, 4, 4},
+        {3, 3, 0, 0, 0, 3, 2, 2}, {4, 4, -1, 0, 1, 5, 3, 2}, {5, 5, -1, -1, 2, 7, 4, 2},
     };
     *sp = V[v < 0 || v >= PFO_VARIANTS ? 0 : v];
 }
@@ -456,19 +456,21 @@ int pfo_level(pfo_game *g, int level)
     return 1;
 }
 
-/* a puzzle at random: of a few made to the variant, the one with the most folds */
+/* a puzzle at random: made to the variant until its par is the one aimed at, by its size: 3 folds on 3 x 3, 4 or 5
+ * on 4 x 4 (half each), 5 on 5 x 5 (6 there needs a picture of one square, too plain); else the nearest found */
 void pfo_random(pfo_game *g, int variant, uint32_t seed)
 {
+    static const uint8_t LO[PFO_VARIANTS] = {3, 4, 5}, HI[PFO_VARIANTS] = {3, 5, 5};
+    int v = variant < 0 || variant >= PFO_VARIANTS ? 0 : variant;
     pfo_spec sp;
-    pfo_variant(variant, &sp);
+    pfo_variant(v, &sp);
     uint32_t r = pr_seed(seed);
-    int best = -1;
-    for (int k = 0; k < 6; k++) {
+    int aim = LO[v] + (int)pr_below(&r, (uint32_t)(HI[v] - LO[v] + 1)), best = -1;
+    for (int k = 0; k < 30 && best != aim; k++) {
         pfo_map m;
         pfo_make(&m, &sp, pr_next(&r));
         int p = pfo_solve(&m, &m.start, NULL, NULL);
-        if (p > best) { best = p; g->m = m; }
-        if (best >= sp.folds) break;
+        if (p >= 1 && (best < 1 || abs(p - aim) < abs(best - aim))) { best = p; g->m = m; }
     }
     if (best < 1) { pfo_level(g, 0); return; }
     pfo_begin(g);

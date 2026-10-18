@@ -68,6 +68,7 @@ typedef struct {
     int cuts;                                   /* symmetric sets of squares cut out */
     int folds;                                  /* the random folds made at first */
     int colours;                                /* how many colours the patterns may use */
+    int least;                                  /* the fewest squares of paper the folds leave (0: a fifth, 2 at least) */
 } pfo_spec;
 
 int  pfo_parse(pfo_map *m, const char *sheet, const char *picture);   /* 0: not a map */

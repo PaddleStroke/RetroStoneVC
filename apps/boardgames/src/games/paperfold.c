@@ -10,7 +10,7 @@
  * Or tap a crease (it lights in gold), then the side to fold. A fold that is not allowed: the crease shivers. The
  * lamp: the hint (the next fold of a shortest way: its crease lit, its flap pulsing; from a dead end it first takes
  * back the folds that led there). Undo takes back one fold, all the way to the start. The bar: the folds, and at its
- * right end the par by a small folded sheet. Solved: gold light runs over the paper and round the picture's board.
+ * right end the par by its flag. Solved: gold light runs over the paper and round the picture's board.
  */
 #include <math.h>
 #include <stdlib.h>
@@ -48,7 +48,7 @@ static struct { int on; Uint32 t0; } win;
 static box last_box;
 static float bx0, by0, q, cx0, cy0, cq;         /* the board: its first square's top left, a square; the card's */
 static int made_q = -1, made_serial = -1, made_small = -1, made_cq = -1;
-static SDL_Texture *t_board, *t_face[PFO_COLOURS], *t_card, *t_small;
+static SDL_Texture *t_board, *t_face[PFO_COLOURS], *t_card, *t_par;
 
 /* ---- pictures ---------------------------------------------------------------------------------------------------- */
 /* a square of paper, s x s: its colour, its fibres, a faint tooth */
@@ -216,9 +216,10 @@ static void layout(box b)
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
         made_small = small;
-        ui_free(&t_small);
-        paint_token(small, ui_buf(small, small));
-        t_small = ui_tex(small, small, ui_buf(small, small));
+        ui_free(&t_par);                        /* the par's flag, as the other puzzles show it */
+        memset(ui_buf(small, small), 0, (size_t)small * small * 4);
+        art_icon(ICON_PAR, small, ui_buf(small, small));
+        t_par = ui_tex(small, small, ui_buf(small, small));
     }
 }
 
@@ -610,7 +611,7 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    pzt_bar_two(b, NULL, G.moves, t_small, par(), solved() && G.moves <= par());
+    pzt_bar_two_cream(b, NULL, G.moves, t_par, par(), solved() && G.moves <= par());
 }
 
 /* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
