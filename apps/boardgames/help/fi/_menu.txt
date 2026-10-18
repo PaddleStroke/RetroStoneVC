@@ -5,3 +5,4 @@ Noppa- ja kilpapelit
 Kortit ja laatat
 Arvauspelit
 Arcade-pelit
+Logiikkapelit

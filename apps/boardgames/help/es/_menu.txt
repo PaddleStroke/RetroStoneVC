@@ -5,3 +5,4 @@ Dados y carreras
 Cartas y fichas
 Juegos de adivinar
 Arcade
+Lógica

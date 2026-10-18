@@ -55,11 +55,13 @@ One look across the app, like the Arcade games' house kit:
   stands them all in gold light together (a draw: standing, no gold) and lays the others down, dimmed; their bars all
   glow. The status stays `gs_win(any winner)` or `GS_DRAW`. Without it: `gs_winner(status)` alone (a draw: everyone
   stands).
-- **The menu's sections**, one tab each (a picture: a jigsaw piece, a man, a knight, a die, a card, a question; tap,
-  swipe sideways or the arrow keys): puzzles (peg solitaire too), strategy, chess family, dice & race, cards & tiles
-  (the patiences too), guessing games (their names in `help/<lang>/_menu.txt`, a line each, over the games). The shell's
-  `SECTION_OF` table files a game by its id (unlisted: strategy); within a section the games go by `order`. `--tab n`
-  in the picture mode.
+- **The menu's sections**, one tab each (a picture: a jigsaw piece, a grid and its pencil, a man, a knight, a die, a
+  card, a question; tap, swipe sideways or the arrow keys): puzzles (the casual ones; peg solitaire too), logic (the
+  logic grids and the number puzzles), strategy, chess family, dice & race, cards & tiles (the patiences too), guessing
+  games (their names in `help/<lang>/_menu.txt`, a line each by section number, over the games). The shell's
+  `SECTION_OF` table files a game by its id (unlisted: strategy); in Puzzles and Logic the games go in the table's
+  order, in the other sections by `order`. The section numbers never change (the tab and the stats are kept by them):
+  a new one takes the next number, `SEC_SHOWN` places its tab. `--tab n` (a section number) in the picture mode.
 - **The app's pages** (`src/pages.c`, `pages.h`): a ribbon at the bottom (a rail at the left on a wide screen) with
   Stats, Games and Settings, each page its big title (`text_title`: bold capitals, condensed). Games (the start page)
   is the menu: the day streak at its top left (a tap: Stats), a search at its top right (`SDL_StartTextInput`: the

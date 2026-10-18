@@ -108,63 +108,83 @@ static int seat_is_local_person(int p) { return seat_kind(p) == SEAT_PERSON; }
 static unsigned elsewhere(void) { return botmask | remotemask; }   /* the seats no person here plays */
 static int humans(void) { return __builtin_popcount(((1u << ui.players) - 1) & ~elsewhere()); }
 
-/* the menu's sections, in this order: a heading (help/<lang>/_menu.txt, a line each), then their games by menu
- * order. The games not listed are strategy games. SEC_ARCADE: the RetroStone app's Arcade games (arcade.h; none in
- * the other editions: no tab), STATS_ARCADE. */
-enum { SEC_PUZZLE, SEC_STRATEGY, SEC_CHESS, SEC_RACE, SEC_CARDS, SEC_GUESS, SEC_ARCADE, SECTIONS };
+/* the menu's sections: a tab each (a heading in a search: its line of help/<lang>/_menu.txt), then their games. The
+ * numbers are kept (the tab remembered, the Stats page's sections, _menu.txt's lines): a new section takes the next
+ * one, and SEC_SHOWN puts it in its place in the row. SEC_ARCADE: the RetroStone app's Arcade games (arcade.h; none
+ * in the other editions: no tab), STATS_ARCADE. SEC_LOGIC: the logic grids and the number puzzles, the puzzles'
+ * harder half (is_puzzle_sec: the shell treats both alike). */
+enum { SEC_PUZZLE, SEC_STRATEGY, SEC_CHESS, SEC_RACE, SEC_CARDS, SEC_GUESS, SEC_ARCADE, SEC_LOGIC, SECTIONS };
+static const int SEC_SHOWN[SECTIONS] = {SEC_PUZZLE, SEC_LOGIC, SEC_STRATEGY, SEC_CHESS, SEC_RACE, SEC_CARDS, SEC_GUESS,
+                                        SEC_ARCADE};
+static int is_puzzle_sec(int s) { return s == SEC_PUZZLE || s == SEC_LOGIC; }
+static int sec_rank(int s)                      /* its place in the row */
+{
+    for (int k = 0; k < SECTIONS; k++)
+        if (SEC_SHOWN[k] == s) return k;
+    return SECTIONS;
+}
+/* each game's section; the games not listed are strategy games (an id not built is no harm). The puzzles and the
+ * logic grids come in the order of their lines here (the easy, quick ones first), before game.order; the other
+ * sections by game.order. */
 static const struct { const char *id; int section; } SECTION_OF[] = {
-    {"chess", SEC_CHESS}, {"makruk", SEC_CHESS}, {"shogi", SEC_CHESS}, {"xiangqi", SEC_CHESS}, {"janggi", SEC_CHESS},
-    {"jungle", SEC_CHESS},
-    {"backgammon", SEC_RACE}, {"ur", SEC_RACE}, {"ludo", SEC_RACE}, {"pachisi", SEC_RACE}, {"snakes", SEC_RACE},
-    {"shutthebox", SEC_RACE}, {"yacht", SEC_RACE}, {"farkle", SEC_RACE}, {"fourtwoone", SEC_RACE},
-    {"liarsdice", SEC_RACE},
-    {"golf", SEC_CARDS}, {"tilerummy", SEC_CARDS}, {"tarot", SEC_CARDS}, {"belote", SEC_CARDS},
-    {"crazyeights", SEC_CARDS}, {"hearts", SEC_CARDS}, {"dominoes", SEC_CARDS}, {"cribbage", SEC_CARDS},
-    {"ginrummy", SEC_CARDS}, {"spades", SEC_CARDS}, {"president", SEC_CARDS}, {"war", SEC_CARDS},
-    {"oldmaid", SEC_CARDS}, {"families", SEC_CARDS},
-    {"secretcode", SEC_GUESS}, {"mysteryface", SEC_GUESS},
-    {"seabattle", SEC_GUESS}, {"wordtiles", SEC_CARDS},
-    {"klondike", SEC_CARDS}, {"freecells", SEC_CARDS}, {"spider", SEC_CARDS}, {"pegsolitaire", SEC_PUZZLE},
-    {"mahjong", SEC_CARDS},
-    {"goose", SEC_RACE}, {"nainjaune", SEC_CARDS}, {"crapette", SEC_CARDS}, {"manille", SEC_CARDS}, {"slap", SEC_CARDS},
-    {"mahjong4", SEC_CARDS}, {"koikoi", SEC_CARDS}, {"scopa", SEC_CARDS}, {"briscola", SEC_CARDS}, {"skat", SEC_CARDS},
-    {"euchre", SEC_CARDS}, {"canasta", SEC_CARDS}, {"pairs", SEC_GUESS},
-    {"pyramid", SEC_CARDS}, {"threepeaks", SEC_CARDS},
-    {"sudoku", SEC_PUZZLE}, {"nonogram", SEC_PUZZLE}, {"taquin", SEC_PUZZLE}, {"hanoi", SEC_PUZZLE},
-    {"logicgates", SEC_PUZZLE}, {"pipes", SEC_PUZZLE}, {"paths", SEC_PUZZLE}, {"mirrors", SEC_PUZZLE},
-    {"tracks", SEC_PUZZLE}, {"untangle", SEC_PUZZLE}, {"lightup", SEC_PUZZLE}, {"binairo", SEC_PUZZLE},
-    {"tents", SEC_PUZZLE}, {"skyscrapers", SEC_PUZZLE}, {"futoshiki", SEC_PUZZLE}, {"rectangles", SEC_PUZZLE},
-    {"starbattle", SEC_PUZZLE}, {"dominosa", SEC_PUZZLE}, {"watersort", SEC_PUZZLE}, {"ballsort", SEC_PUZZLE},
-    {"samegame", SEC_PUZZLE}, {"iceslide", SEC_PUZZLE}, {"merge", SEC_PUZZLE}, {"chesspuzzles", SEC_PUZZLE},
-    {"knightstour", SEC_PUZZLE}, {"queens", SEC_PUZZLE},
-    {"mines", SEC_PUZZLE}, {"klotski", SEC_PUZZLE}, {"boxpusher", SEC_PUZZLE}, {"calcudoku", SEC_PUZZLE},
-    {"kakuro", SEC_PUZZLE}, {"hashi", SEC_PUZZLE}, {"loop", SEC_PUZZLE}, {"lights", SEC_PUZZLE},
-    {"tangram", SEC_PUZZLE}, {"melody", SEC_PUZZLE},
-    {"durak", SEC_CARDS}, {"barbu", SEC_CARDS}, {"rikiki", SEC_CARDS}, {"piquet", SEC_CARDS}, {"ecarte", SEC_CARDS},
-    {"bigtwo", SEC_CARDS}, {"tienlen", SEC_CARDS}, {"doppelkopf", SEC_CARDS}, {"schafkopf", SEC_CARDS},
-    {"jass", SEC_CARDS}, {"klaverjas", SEC_CARDS}, {"mus", SEC_CARDS}, {"truco", SEC_CARDS}, {"bridge", SEC_CARDS},
-    {"bellelucie", SEC_CARDS}, {"yukon", SEC_CARDS}, {"fortythieves", SEC_CARDS}, {"golfpatience", SEC_CARDS},
-    {"canfield", SEC_CARDS}, {"montana", SEC_CARDS}, {"clock", SEC_CARDS},
-    {"banqi", SEC_CHESS}, {"mexico", SEC_RACE}, {"pig", SEC_RACE}, {"shipcaptain", SEC_RACE},
-    {"senet", SEC_RACE},
-    {"scorpion", SEC_CARDS}, {"bakersdozen", SEC_CARDS}, {"accordion", SEC_CARDS}, {"whist", SEC_CARDS},
-    {"pinochle", SEC_CARDS},
-    {"blocks", SEC_PUZZLE}, {"jigsaw", SEC_PUZZLE}, {"tileconnect", SEC_PUZZLE}, {"mathpz", SEC_PUZZLE},
-    {"spotdiff", SEC_PUZZLE}, {"twistycube", SEC_PUZZLE}, {"killersudoku", SEC_PUZZLE},
-    {"jigsawsudoku", SEC_PUZZLE}, {"diagonalsudoku", SEC_PUZZLE}, {"flood", SEC_PUZZLE}, {"numberpath", SEC_PUZZLE},
-    {"nurikabe", SEC_PUZZLE}, {"hitori", SEC_PUZZLE}, {"thermometers", SEC_PUZZLE}, {"parking", SEC_PUZZLE},
-    {"rollblock", SEC_PUZZLE}, {"loopshift", SEC_PUZZLE}, {"goproblems", SEC_PUZZLE}, {"shogimate", SEC_PUZZLE},
-    {"masyu", SEC_PUZZLE}, {"fillomino", SEC_PUZZLE}, {"heyawake", SEC_PUZZLE},
-    {"spy", SEC_GUESS}, {"werewolves", SEC_GUESS}, {"drawguess", SEC_GUESS},
-    {"carrom", SEC_STRATEGY}, {"pool", SEC_STRATEGY},
+    {"chess", SEC_CHESS}, {"makruk", SEC_CHESS}, {"shogi", SEC_CHESS}, {"xiangqi", SEC_CHESS},
+    {"janggi", SEC_CHESS}, {"jungle", SEC_CHESS}, {"backgammon", SEC_RACE}, {"ur", SEC_RACE}, {"ludo", SEC_RACE},
+    {"pachisi", SEC_RACE}, {"snakes", SEC_RACE}, {"shutthebox", SEC_RACE}, {"yacht", SEC_RACE},
+    {"farkle", SEC_RACE}, {"fourtwoone", SEC_RACE}, {"liarsdice", SEC_RACE}, {"golf", SEC_CARDS},
+    {"tilerummy", SEC_CARDS}, {"tarot", SEC_CARDS}, {"belote", SEC_CARDS}, {"crazyeights", SEC_CARDS},
+    {"hearts", SEC_CARDS}, {"dominoes", SEC_CARDS}, {"cribbage", SEC_CARDS}, {"ginrummy", SEC_CARDS},
+    {"spades", SEC_CARDS}, {"president", SEC_CARDS}, {"war", SEC_CARDS}, {"oldmaid", SEC_CARDS},
+    {"families", SEC_CARDS}, {"secretcode", SEC_GUESS}, {"mysteryface", SEC_GUESS}, {"seabattle", SEC_GUESS},
+    {"wordtiles", SEC_CARDS}, {"klondike", SEC_CARDS}, {"freecells", SEC_CARDS}, {"spider", SEC_CARDS},
+    {"mahjong", SEC_CARDS}, {"goose", SEC_RACE}, {"nainjaune", SEC_CARDS}, {"crapette", SEC_CARDS},
+    {"manille", SEC_CARDS}, {"slap", SEC_CARDS}, {"mahjong4", SEC_CARDS}, {"koikoi", SEC_CARDS},
+    {"scopa", SEC_CARDS}, {"briscola", SEC_CARDS}, {"skat", SEC_CARDS}, {"euchre", SEC_CARDS},
+    {"canasta", SEC_CARDS}, {"pairs", SEC_GUESS}, {"pyramid", SEC_CARDS}, {"threepeaks", SEC_CARDS},
+    {"durak", SEC_CARDS}, {"barbu", SEC_CARDS}, {"rikiki", SEC_CARDS}, {"piquet", SEC_CARDS},
+    {"ecarte", SEC_CARDS}, {"bigtwo", SEC_CARDS}, {"tienlen", SEC_CARDS}, {"doppelkopf", SEC_CARDS},
+    {"schafkopf", SEC_CARDS}, {"jass", SEC_CARDS}, {"klaverjas", SEC_CARDS}, {"mus", SEC_CARDS},
+    {"truco", SEC_CARDS}, {"bridge", SEC_CARDS}, {"bellelucie", SEC_CARDS}, {"yukon", SEC_CARDS},
+    {"fortythieves", SEC_CARDS}, {"golfpatience", SEC_CARDS}, {"canfield", SEC_CARDS}, {"montana", SEC_CARDS},
+    {"clock", SEC_CARDS}, {"banqi", SEC_CHESS}, {"mexico", SEC_RACE}, {"pig", SEC_RACE}, {"shipcaptain", SEC_RACE},
+    {"senet", SEC_RACE}, {"scorpion", SEC_CARDS}, {"bakersdozen", SEC_CARDS}, {"accordion", SEC_CARDS},
+    {"whist", SEC_CARDS}, {"pinochle", SEC_CARDS}, {"spy", SEC_GUESS}, {"werewolves", SEC_GUESS},
+    {"drawguess", SEC_GUESS}, {"carrom", SEC_STRATEGY}, {"pool", SEC_STRATEGY}, {"mapquiz", SEC_GUESS},
+    /* the puzzles: the casual ones first (a move or two to learn, satisfying at once), the problems of chess, go and
+     * shogi last */
+    {"rollblock", SEC_PUZZLE}, {"diceroll", SEC_PUZZLE}, {"paintroller", SEC_PUZZLE}, {"untangle", SEC_PUZZLE},
+    {"pipes", SEC_PUZZLE}, {"watersort", SEC_PUZZLE}, {"ballsort", SEC_PUZZLE}, {"iceslide", SEC_PUZZLE},
+    {"twinwalk", SEC_PUZZLE}, {"tiltmaze", SEC_PUZZLE}, {"paperfold", SEC_PUZZLE}, {"dominochain", SEC_PUZZLE},
+    {"trains", SEC_PUZZLE}, {"parking", SEC_PUZZLE}, {"klotski", SEC_PUZZLE}, {"taquin", SEC_PUZZLE},
+    {"merge", SEC_PUZZLE}, {"flood", SEC_PUZZLE}, {"samegame", SEC_PUZZLE}, {"blocks", SEC_PUZZLE},
+    {"tileconnect", SEC_PUZZLE}, {"jigsaw", SEC_PUZZLE}, {"tangram", SEC_PUZZLE}, {"spotdiff", SEC_PUZZLE},
+    {"twistycube", SEC_PUZZLE}, {"loopshift", SEC_PUZZLE}, {"logicgates", SEC_PUZZLE}, {"mirrors", SEC_PUZZLE},
+    {"lights", SEC_PUZZLE}, {"paths", SEC_PUZZLE}, {"boxpusher", SEC_PUZZLE}, {"hanoi", SEC_PUZZLE},
+    {"pegsolitaire", SEC_PUZZLE}, {"mines", SEC_PUZZLE}, {"melody", SEC_PUZZLE}, {"pianofall", SEC_PUZZLE},
+    {"chesspuzzles", SEC_PUZZLE}, {"goproblems", SEC_PUZZLE}, {"shogimate", SEC_PUZZLE},
+    /* the logic grids, easy to hard: the sudokus, the number puzzles, then the pencil-and-paper grids */
+    {"sudoku", SEC_LOGIC}, {"diagonalsudoku", SEC_LOGIC}, {"killersudoku", SEC_LOGIC}, {"jigsawsudoku", SEC_LOGIC},
+    {"mentalmath", SEC_LOGIC}, {"mathpz", SEC_LOGIC}, {"mathsigns", SEC_LOGIC}, {"sumerase", SEC_LOGIC},
+    {"mathcross", SEC_LOGIC}, {"calcudoku", SEC_LOGIC}, {"kakuro", SEC_LOGIC}, {"futoshiki", SEC_LOGIC},
+    {"skyscrapers", SEC_LOGIC}, {"binairo", SEC_LOGIC}, {"nonogram", SEC_LOGIC}, {"tents", SEC_LOGIC},
+    {"queens", SEC_LOGIC}, {"starbattle", SEC_LOGIC}, {"fleet", SEC_LOGIC}, {"lightup", SEC_LOGIC},
+    {"knightstour", SEC_LOGIC}, {"numberpath", SEC_LOGIC}, {"hashi", SEC_LOGIC}, {"dominosa", SEC_LOGIC},
+    {"rectangles", SEC_LOGIC}, {"thermometers", SEC_LOGIC}, {"tracks", SEC_LOGIC}, {"norinori", SEC_LOGIC},
+    {"lits", SEC_LOGIC}, {"hitori", SEC_LOGIC}, {"loop", SEC_LOGIC}, {"masyu", SEC_LOGIC}, {"nurikabe", SEC_LOGIC},
+    {"fillomino", SEC_LOGIC}, {"heyawake", SEC_LOGIC}, {"tapa", SEC_LOGIC}, {"yinyang", SEC_LOGIC},
 };
+
+static int section_line(const game *g)          /* its line of SECTION_OF (-1: none) */
+{
+    for (int i = 0; i < (int)(sizeof SECTION_OF / sizeof SECTION_OF[0]); i++)
+        if (!strcmp(SECTION_OF[i].id, g->id)) return i;
+    return -1;
+}
 
 static int section_of(const game *g)
 {
     if (arcade_of(g) >= 0) return SEC_ARCADE;
-    for (size_t i = 0; i < sizeof SECTION_OF / sizeof SECTION_OF[0]; i++)
-        if (!strcmp(SECTION_OF[i].id, g->id)) return SECTION_OF[i].section;
-    return SEC_STRATEGY;
+    int i = section_line(g);
+    return i >= 0 ? SECTION_OF[i].section : SEC_STRATEGY;
 }
 
 /* the free edition (edition.h): every puzzle (its first ed_free_levels levels) and the games of ed_free_games are
@@ -172,7 +192,7 @@ static int section_of(const game *g)
  * The paid app, or the free one once its in-app purchase is made (free_now): nothing locked. */
 static int locked_game(const game *g)
 {
-    if (!free_now() ||!ed_free_games[0] || section_of(g) == SEC_PUZZLE) return 0;
+    if (!free_now() ||!ed_free_games[0] || is_puzzle_sec(section_of(g))) return 0;
     const char *id = g->id;
     size_t n = strlen(id);
     for (const char *s = ed_free_games; (s = strstr(s, id)) != NULL; s += n)
@@ -183,7 +203,7 @@ static int locked(int g) { return locked_game(games[g]); }
 
 /* the frame round a game's board (art_frame_light, this thread's): the light theme's puzzles in light maple, every
  * other one (and the dark theme) in walnut. Set for the game about to paint: cur's, or a card's (then cur's again) */
-static int frame_light_of(int g) { return g >= 0 && !TH.dark && section_of(games[g]) == SEC_PUZZLE; }
+static int frame_light_of(int g) { return g >= 0 && !TH.dark && is_puzzle_sec(section_of(games[g])); }
 static void frame_for(int g) { art_frame_light(frame_light_of(g)); }
 static int level_locked(int l) { return free_now() && ed_free_levels > 0 && l >= ed_free_levels; }
 static void full_open(void);
@@ -327,13 +347,15 @@ void game_register(const game *g)
 
 static int by_order(const void *a, const void *b)
 {
-    int sa = section_of(*(const game *const *)a), sb = section_of(*(const game *const *)b);
-    if (sa != sb) return sa - sb;
-    int la = locked_game(*(const game *const *)a), lb = locked_game(*(const game *const *)b);
+    const game *ga = *(const game *const *)a, *gb = *(const game *const *)b;
+    int sa = section_of(ga), sb = section_of(gb);
+    if (sa != sb) return sec_rank(sa) - sec_rank(sb);   /* the sections in the tabs' order */
+    int la = locked_game(ga), lb = locked_game(gb);
     if (la != lb) return la - lb;               /* the free edition: the playable games first */
-    int oa = (*(const game *const *)a)->order, ob = (*(const game *const *)b)->order;
-    if (oa != ob) return oa - ob;
-    return strcmp((*(const game *const *)a)->id, (*(const game *const *)b)->id);   /* the same order: by id */
+    if (is_puzzle_sec(sa) && section_line(ga) != section_line(gb))   /* the puzzles: SECTION_OF's order */
+        return section_line(ga) - section_line(gb);
+    if (ga->order != gb->order) return ga->order - gb->order;
+    return strcmp(ga->id, gb->id);              /* the same order: by id */
 }
 
 /* ---- helpers for the games --------------------------------------------------------------------------------------- */
@@ -1930,8 +1952,49 @@ int ui_trays_hit(const ui_trays *t, int p, float x, float y)
     return b.w > 0 && x >= b.x && x < b.x + b.w && y >= b.y && y < b.y + b.h;
 }
 
+/* the Logic tab's picture: a three by three grid of a pencil-and-paper puzzle, a pencil writing in it (cut out of the
+ * grid round its edge), flat white as the jigsaw piece */
+static void logic_icon(int d, uint8_t *o)
+{
+    static const uint8_t white[3] = {255, 255, 255};
+    const float x0 = 0.10f, y0 = 0.24f, s = 0.64f, w = 0.065f, wi = 0.035f;   /* the grid: its corner, side, lines */
+    art_fig *f = art_fig_new();
+    art_rect(f, ART_PART, x0, y0, x0 + s, y0 + w);
+    art_rect(f, ART_PART, x0, y0 + s - w, x0 + s, y0 + s);
+    art_rect(f, ART_PART, x0, y0, x0 + w, y0 + s);
+    art_rect(f, ART_PART, x0 + s - w, y0, x0 + s, y0 + s);
+    for (int k = 1; k < 3; k++) {
+        float c = x0 + w / 2 + k * (s - w) / 3;
+        art_rect(f, ART_PART, c - wi / 2, y0, c + wi / 2, y0 + s);
+        c = y0 + w / 2 + k * (s - w) / 3;
+        art_rect(f, ART_PART, x0, c - wi / 2, x0 + s, c + wi / 2);
+    }
+    art_fig_paint(o, d, f, white, NULL, 0, 0);
+    /* the pencil (as ICON_PENCIL, smaller), its point in the grid's middle right cell, going up to the right */
+    const float k = 0.56f, px = 0.60f, py = 0.62f;   /* its scale; where its point goes */
+#define PX(x) (px + k * ((x) - 0.17f))
+#define PY(y) (py + k * ((y) - 0.83f))
+    for (int pass = 0; pass < 2; pass++) {      /* its margin cut out of the grid, then the pencil itself */
+        art_fig *p = art_fig_new();
+        const float tip[] = {PX(0.335f), PY(0.745f), PX(0.255f), PY(0.665f), PX(0.17f), PY(0.83f)};
+        art_band(p, ART_PART, PX(0.32f), PY(0.68f), PX(0.69f), PY(0.31f), 0.17f * k);
+        art_band(p, ART_PART, PX(0.725f), PY(0.275f), PX(0.81f), PY(0.19f), 0.17f * k);
+        art_poly(p, ART_PART, tip, 3);
+        if (pass == 0) {
+            uint8_t *m = calloc((size_t)d * d, 4);
+            art_fig_paint(m, d, p, white, white, 0.09f, 0);
+            for (int i = 0; i < d * d; i++) o[4 * i + 3] = (uint8_t)(o[4 * i + 3] * (255 - m[4 * i + 3]) / 255);
+            free(m);
+        } else {
+            art_fig_paint(o, d, p, white, NULL, 0, 0);
+        }
+    }
+#undef PX
+#undef PY
+}
+
 /* a tab's picture: the pieces of its section (a draughts man, a knight, a die, a card, a question, a marble, a jigsaw
- * piece) */
+ * piece, a grid and its pencil) */
 static void tab_icon(int s, int d, uint8_t *o)
 {
     memset(o, 0, (size_t)d * d * 4);
@@ -1939,6 +2002,7 @@ static void tab_icon(int s, int d, uint8_t *o)
     else if (s == SEC_CHESS) art_piece(KNIGHT, WHITE, d, o);
     else if (s == SEC_GUESS) art_icon(ICON_HELP, d, o);
     else if (s == SEC_PUZZLE) art_icon(ICON_PUZZLE, d, o);
+    else if (s == SEC_LOGIC) logic_icon(d, o);
     else if (s == SEC_ARCADE) arcade_icon(d, o);
     else {                                      /* a die, a card: smaller, in the middle */
         int h = (int)(d * (s == SEC_RACE ? 0.78f : 0.92f));
@@ -1975,9 +2039,11 @@ static void tab_textures(int tw, int th)
     if (TH.dark) {
         SDL_SetTextureColorMod(t_tabicon[SEC_GUESS], 246, 238, 220);
         SDL_SetTextureColorMod(t_tabicon[SEC_PUZZLE], 246, 238, 220);
+        SDL_SetTextureColorMod(t_tabicon[SEC_LOGIC], 246, 238, 220);
     } else {
         SDL_SetTextureColorMod(t_tabicon[SEC_GUESS], INK[0], INK[1], INK[2]);
         SDL_SetTextureColorMod(t_tabicon[SEC_PUZZLE], INK[0], INK[1], INK[2]);
+        SDL_SetTextureColorMod(t_tabicon[SEC_LOGIC], INK[0], INK[1], INK[2]);
     }
 }
 
@@ -2453,8 +2519,8 @@ static void layout_cards(int n)
     if (screen == SCR_MENU) {                   /* the sections as tabs under the page's header, a picture each */
         pages_layout();
         room = pages_room();
-        for (int s = 0; s < SECTIONS; s++)
-            for (int i = 0; i < n; i++)
+        for (int r = 0; r < SECTIONS; r++)
+            for (int i = 0, s = SEC_SHOWN[r]; i < n; i++)
                 if (section_of(games[i]) == s) { L.tab_sec[L.ntabs++] = s; break; }
         int shown_tab = 0;
         for (int k = 0; k < L.ntabs; k++) shown_tab |= L.tab_sec[k] == menu.tab;
@@ -2576,8 +2642,8 @@ static void layout_cards(int n)
     for (int s = 0; s < SECTIONS; s++) L.sec_y[s] = -1;
     search_hits = 0;
     if (screen == SCR_MENU) {                   /* the sections one after the other: a heading, then its games */
-        for (int s = 0, i = 0; s < SECTIONS; s++) {
-            int first = i;
+        for (int r = 0, i = 0; r < SECTIONS; r++) {   /* (the games sorted in the tabs' order: by_order) */
+            int s = SEC_SHOWN[r], first = i;
             while (i < n && section_of(games[i]) == s) i++;
             if (i == first) continue;
             int k = 0;                          /* the games shown: the tab's, or every tab's the search finds */
@@ -5516,7 +5582,7 @@ void shell_progress(int sec, int *done, int *total)
     *done = *total = 0;
     for (int g = 0; g < ngames; g++) {
         if (section_of(games[g]) != sec) continue;
-        if (sec == SEC_PUZZLE && games[g]->levels) {   /* a puzzle's levels: the ones solved */
+        if (is_puzzle_sec(sec) && games[g]->levels) {   /* a puzzle's levels: the ones solved */
             int n = levels_kept(g, b);
             for (int l = 0; l < n; l++) *done += b[l] != 0;
             *total += nlevels(g);
@@ -5542,8 +5608,8 @@ int shell_three_stars(void)
 int shell_sections(int *out)
 {
     int n = 0;
-    for (int s = 0; s < SECTIONS; s++)
-        for (int g = 0; g < ngames; g++)
+    for (int r = 0; r < SECTIONS; r++)
+        for (int g = 0, s = SEC_SHOWN[r]; g < ngames; g++)
             if (section_of(games[g]) == s) { out[n++] = s; break; }
     return n;
 }
@@ -5551,7 +5617,7 @@ int shell_sections(int *out)
 void shell_tab_icon(int s, int d, uint8_t *o)
 {
     tab_icon(s, d, o);
-    if (s == SEC_GUESS || s == SEC_PUZZLE)      /* the white ones: in the words' colour */
+    if (s == SEC_GUESS || is_puzzle_sec(s))     /* the white ones: in the words' colour */
         for (int i = 0; i < d * d; i++) memcpy(o + 4 * i, TH.text, 3);
 }
 
@@ -5924,7 +5990,7 @@ static int shot(int argc, char **argv)
         }
     } else {
         layout();
-        if (tab >= 0) menu_tab(tab);           /* --tab n: that section's tab (0 strategy .. 6 puzzles) */
+        if (tab >= 0) menu_tab(tab);           /* --tab n: that section's tab (SEC_*: 0 puzzles .. 7 logic) */
         if (pg) pages_show(!strcmp(pg, "stats") ? PAGE_STATS : !strcmp(pg, "settings") ? PAGE_SETTINGS : PAGE_GAMES);
         if (search) pages_search_set(search);   /* --search "words": the Games page's search */
         if (!show_help && page != PAGE_GAMES) pages_scroll(scroll);   /* --scroll px: further down */

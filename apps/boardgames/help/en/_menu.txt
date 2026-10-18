@@ -5,3 +5,4 @@ Dice and race games
 Cards and tiles
 Guessing games
 Arcade
+Logic

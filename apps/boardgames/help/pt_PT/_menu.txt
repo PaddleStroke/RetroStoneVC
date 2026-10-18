@@ -5,3 +5,4 @@ Dados e corridas
 Cartas e peças
 Jogos de adivinhação
 Arcade
+Lógica

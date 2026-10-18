@@ -83,9 +83,10 @@ static const theme_t DARK = {1, {19, 27, 24}, {30, 41, 37}, {45, 59, 53}, {244, 
 static const theme_t LIGHT = {0, {246, 240, 226}, {255, 252, 244}, {229, 220, 199}, {46, 40, 30}, {126, 116, 98},
                               {164, 118, 28}, {212, 166, 68}, {40, 30, 14}, {253, 249, 240}};
 static const uint8_t CREAM[3] = {250, 244, 228};
-/* the sections' colours (the house's: jade, amber, lapis, red lacquer, plum, teal; the Arcade's gold) */
+/* the sections' colours, by number (shell.c SEC_*: the house's jade, amber, lapis, red lacquer, plum, teal; the
+ * Arcade's gold; Logic's lavender) */
 static const uint8_t SEC_C[STATS_SECTIONS][3] = {{86, 176, 138}, {214, 160, 64}, {98, 140, 214}, {212, 92, 72},
-                                                 {184, 112, 168}, {84, 178, 192}, {222, 182, 84}, {150, 150, 150}};
+                                                 {184, 112, 168}, {84, 178, 192}, {222, 182, 84}, {156, 132, 214}};
 
 /* the device's own theme: 1 dark (unknown: dark, the house's own) */
 static int system_dark(void)

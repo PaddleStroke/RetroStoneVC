@@ -17,7 +17,7 @@
 
 #include <stdint.h>
 
-#define STATS_SECTIONS 8                        /* the menu's sections (shell.c SEC_*), then the Arcade, a spare */
+#define STATS_SECTIONS 8                        /* the menu's sections (shell.c SEC_*: the Arcade 6, Logic 7) */
 #define STATS_ARCADE 6
 #define STATS_XP_LEVEL 10
 #define STATS_XP_STAR 5

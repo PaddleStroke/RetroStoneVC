@@ -5,3 +5,4 @@ Dés et parcours
 Cartes et tuiles
 Jeux de déduction
 Arcade
+Logique

@@ -5,3 +5,4 @@ Dadi e percorsi
 Carte e tessere
 Giochi di deduzione
 Arcade
+Logica

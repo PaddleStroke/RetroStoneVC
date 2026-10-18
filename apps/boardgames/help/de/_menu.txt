@@ -5,3 +5,4 @@ Würfel- und Laufspiele
 Karten und Steine
 Ratespiele
 Arcade
+Logikrätsel

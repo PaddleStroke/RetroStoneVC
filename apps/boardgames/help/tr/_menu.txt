@@ -5,3 +5,4 @@ Zar ve yarış oyunları
 Kartlar ve taşlar
 Tahmin oyunları
 Arcade oyunları
+Mantık oyunları

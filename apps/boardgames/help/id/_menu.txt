@@ -5,3 +5,4 @@ Dadu dan balapan
 Kartu dan ubin
 Permainan tebak-tebakan
 Arkade
+Teka-teki logika

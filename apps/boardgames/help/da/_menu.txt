@@ -5,3 +5,4 @@ Terninger og væddeløb
 Kort og brikker
 Gættelege
 Arkadespil
+Logikspil

@@ -5,3 +5,4 @@ Terninger og veddeløp
 Kort og brikker
 Gjettelek
 Arkadespill
+Logikkspill
