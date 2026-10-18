@@ -362,11 +362,14 @@ void draw_view_log(const world*w){
 void draw_state(void){S(line_col);S(shown_state);S(shown_best);S(shown_x0);RS_STATE_RASTER(raster);}
 #undef S
 /* A state saved at another width brings the maps of that width (64 or 128 tiles): set them up for this one (the
- * forest again; the foreground is redrawn every frame; the UI and PAUSED on the next frame). Same width: nothing. */
+ * forest again; the foreground is redrawn every frame; the UI and PAUSED on the next frame). Same width: nothing.
+ * A state of another height (the phone turned: house_tall.h ht_shape_reset): the same, BG4 off as the set-up leaves it. */
 void draw_state_loaded(void){
+ int shape=ht_shape_reset();
+ if(shape)rs_bg_enable(RS_BG4,0);
  /* the foreground columns past this screen's (a 427 state at 320): empty, as at start-up (a shake shows one) */
  for(int r=0;r<32;r++)for(int c=(rs_screen_width()+7)/8;c<rs_bg_map_w(RS_BG2);c++)rs_bg_put(RS_BG2,c,r,0);
- if(rs_bg_map_w(RS_BG1)==map_w()&&rs_bg_map_w(RS_BG2)==map_w()&&rs_bg_map_w(RS_BG3)==map_w())return;
+ if(!shape&&rs_bg_map_w(RS_BG1)==map_w()&&rs_bg_map_w(RS_BG2)==map_w()&&rs_bg_map_w(RS_BG3)==map_w())return;
  maps_setup();
  shown_state=-1;                          /* screen_text clears the UI layer and draws it again */
  redraw_pause=1;                          /* ... and PAUSED, if it shows */
