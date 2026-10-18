@@ -149,9 +149,12 @@ static void maps_setup(void) {
     laid_w=rs_screen_width();
 }
 /* After a state was loaded (rs_game.state_loaded): one saved at another width brings that width's maps; set this
- * width's up, the UI drawn again on the next frame (PAUSED too). Same width: nothing. */
+ * width's up, the UI drawn again on the next frame (PAUSED too). Same width: nothing. One of another height (the
+ * phone turned: house_tall.h ht_shape_reset): the same, the UI laid out for this screen, BG4 off again (unused). */
 void draw_relayout(void) {
-    if(laid_w==rs_screen_width()) return;   /* (a tall screen's BG2 height: draw_frame sets it each frame) */
+    int shape=ht_shape_reset();
+    if(shape) rs_bg_enable(RS_BG4,0);
+    if(!shape && laid_w==rs_screen_width()) return;   /* (a tall screen's BG2 height: draw_frame sets it each frame) */
     maps_setup();
     shown_state=-1;
     hu_pause(0,13);
