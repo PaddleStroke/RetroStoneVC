@@ -1,0 +1,12 @@
+Rozbrój bombę
+# Cel gry
+Rozbrój bombę, zanim jej zegar dojdzie do zera: zapal naraz wszystkie jej zielone diody albo odetnij jej zasilanie. Jeśli czerwona dioda zapalnika zaświeci, choćby na chwilę, bomba wybucha.
+# Ruch
+Ruch przełącza przełącznik, przecina kabel albo wciska przycisk. Każdy przewód niesie wtedy 1 (świeci złotem) albo 0, a czerwona dioda musi pozostać zgaszona po każdym ruchu: kolejność ma znaczenie.
+- Przecięty kabel niesie 0 za miejscem cięcia, na dobre.
+- Przycisk daje 1 tylko wtedy, gdy jest wciśnięty.
+- Bateria zawsze daje 1. Układ pamięci daje 1 na dobre, gdy tylko jego wejście raz miało 1.
+- NOT odwraca swoje wejście. AND daje 1, gdy oba wejścia mają 1, OR, gdy ma je którekolwiek, XOR, gdy dokładnie jedno. NAND i NOR odwracają AND i OR.
+- Gdy gniazdo zasilania niesie 0, bomba jest martwa.
+# Poziomy i gwiazdki
+3 gwiazdki: najmniejsza możliwa liczba ruchów, bez podpowiedzi. 2 gwiazdki: do połowy więcej ruchów albo z podpowiedzią. W przeciwnym razie 1.

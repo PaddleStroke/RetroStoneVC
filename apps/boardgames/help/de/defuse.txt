@@ -1,0 +1,12 @@
+Bombe entschärfen
+# Das Ziel
+Entschärfe die Bombe, bevor ihr Zeitzünder null erreicht: Bring alle grünen LEDs gleichzeitig zum Leuchten oder unterbrich ihre Stromversorgung. Leuchtet die rote Zünder-LED auf, auch nur einen Augenblick, explodiert die Bombe.
+# Ein Zug
+Ein Zug legt einen Schalter um, schneidet ein Kabel durch oder drückt einen Taster. Jede Leitung führt dann 1 (sie leuchtet golden) oder 0, und die rote LED muss nach jedem Zug dunkel bleiben: Die Reihenfolge zählt.
+- Ein durchgeschnittenes Kabel führt hinter dem Schnitt 0, für immer.
+- Ein Taster gibt nur 1, solange er gedrückt ist.
+- Die Batterie gibt immer 1. Ein Speicherchip gibt für immer 1, sobald sein Eingang einmal 1 war.
+- NOT kehrt seinen Eingang um. AND gibt 1, wenn beide Eingänge 1 sind, OR, wenn einer es ist, XOR, wenn genau einer es ist. NAND und NOR kehren AND und OR um.
+- Führt die Stromsteckdose 0, ist die Bombe tot.
+# Level und Sterne
+3 Sterne: so wenige Züge wie möglich, ohne Tipp. 2 Sterne: bis zur Hälfte mehr Züge oder mit Tipp. Sonst 1.

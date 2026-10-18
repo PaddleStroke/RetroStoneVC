@@ -1,0 +1,12 @@
+Désamorcer la bombe
+# Le but
+Désamorce la bombe avant que son minuteur n'atteigne zéro : allume toutes ses LED vertes en même temps, ou coupe son alimentation. Si la LED rouge du détonateur s'allume, même un instant, la bombe explose.
+# Un coup
+Un coup bascule un interrupteur, coupe un câble ou appuie sur un bouton-poussoir. Chaque fil porte alors 1 (il brille en or) ou 0, et la LED rouge doit rester éteinte après chaque coup : leur ordre compte.
+- Un câble coupé porte 0 au-delà de la coupure, pour de bon.
+- Un bouton-poussoir donne 1 seulement pendant qu'il est enfoncé.
+- La pile donne toujours 1. Une puce mémoire donne 1 pour de bon dès que son entrée a valu 1.
+- NOT inverse son entrée. AND donne 1 quand ses deux entrées valent 1, OR quand l'une d'elles vaut 1, XOR quand une seule vaut 1. NAND et NOR inversent AND et OR.
+- Quand la prise d'alimentation porte 0, la bombe est morte.
+# Niveaux et étoiles
+3 étoiles : le moins de coups possible, sans indice. 2 étoiles : jusqu'à moitié plus de coups, ou avec un indice. Sinon 1.

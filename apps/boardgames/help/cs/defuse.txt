@@ -1,0 +1,12 @@
+Zneškodni bombu
+# Cíl hry
+Zneškodni bombu dřív, než její časovač dojde k nule: rozsviť najednou všechny její zelené diody, nebo jí přeruš napájení. Když se rozsvítí červená dioda rozbušky, byť jen na okamžik, bomba vybuchne.
+# Tah
+Tah přepne vypínač, přestřihne kabel nebo stiskne tlačítko. Každý drát pak vede 1 (září zlatě) nebo 0 a červená dioda musí po každém tahu zůstat zhasnutá: na pořadí záleží.
+- Přestřižený kabel vede za střihem 0, natrvalo.
+- Tlačítko dává 1 jen tehdy, když je stisknuté.
+- Baterie dává vždy 1. Paměťový čip dává natrvalo 1, jakmile jeho vstup jednou měl 1.
+- NOT obrací svůj vstup. AND dává 1, když mají oba vstupy 1, OR, když ji má kterýkoli, XOR, když ji má právě jeden. NAND a NOR obracejí AND a OR.
+- Když napájecí zásuvka vede 0, bomba je mrtvá.
+# Úrovně a hvězdy
+3 hvězdy: co nejméně tahů, bez nápovědy. 2 hvězdy: až o polovinu víc tahů, nebo s nápovědou. Jinak 1.

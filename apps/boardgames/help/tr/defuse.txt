@@ -1,0 +1,12 @@
+Bombayı Etkisiz Kıl
+# Amaç
+Zamanlayıcı sıfıra inmeden bombayı etkisiz kıl: tüm yeşil LED'lerini aynı anda yak ya da gücünü kes. Kırmızı fünye LED'i bir an bile yanarsa bomba patlar.
+# Bir hamle
+Bir hamle bir anahtarı çevirir, bir kabloyu keser ya da bir düğmeye basar. Her tel o zaman 1 (altın gibi parlar) ya da 0 taşır ve kırmızı LED her hamleden sonra sönük kalmalıdır: sıra önemlidir.
+- Kesilen kablo, kesiğin ötesinde kalıcı olarak 0 taşır.
+- Bir düğme yalnızca basılıyken 1 verir.
+- Pil her zaman 1 verir. Bir bellek çipi, girişi bir kez 1 olunca kalıcı olarak 1 verir.
+- NOT girişini tersine çevirir. AND iki girişi de 1 iken 1 verir, OR biri 1 iken, XOR tam olarak biri 1 iken. NAND ve NOR, AND ile OR'u tersine çevirir.
+- Güç soketi 0 taşıdığında bomba ölüdür.
+# Seviyeler ve yıldızlar
+3 yıldız: mümkün olan en az hamle, ipucu olmadan. 2 yıldız: yarısı kadar fazla hamleye kadar ya da bir ipucuyla. Aksi halde 1.

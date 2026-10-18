@@ -1,0 +1,12 @@
+Desactivar la bomba
+# El objetivo
+Desactiva la bomba antes de que su temporizador llegue a cero: enciende a la vez todos sus LED verdes, o corta su alimentación. Si el LED rojo del detonador se enciende, aunque sea un instante, la bomba explota.
+# Una jugada
+Una jugada acciona un interruptor, corta un cable o pulsa un botón. Cada cable lleva entonces 1 (brilla dorado) o 0, y el LED rojo debe seguir apagado tras cada jugada: el orden importa.
+- Un cable cortado lleva 0 más allá del corte, para siempre.
+- Un botón da 1 solo mientras está pulsado.
+- La pila siempre da 1. Un chip de memoria da 1 para siempre en cuanto su entrada ha valido 1.
+- NOT invierte su entrada. AND da 1 cuando sus dos entradas valen 1, OR cuando una de ellas vale 1, XOR cuando solo una vale 1. NAND y NOR invierten AND y OR.
+- Cuando la toma de alimentación lleva 0, la bomba está muerta.
+# Niveles y estrellas
+3 estrellas: el menor número de jugadas posible, sin pistas. 2 estrellas: hasta la mitad más de jugadas, o con una pista. Si no, 1.

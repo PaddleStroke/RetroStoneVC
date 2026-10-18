@@ -1,0 +1,12 @@
+Disinnesca la bomba
+# Lo scopo
+Disinnesca la bomba prima che il timer arrivi a zero: accendi insieme tutti i suoi LED verdi, oppure togli l'alimentazione. Se il LED rosso del detonatore si accende, anche solo per un istante, la bomba esplode.
+# Una mossa
+Una mossa scatta un interruttore, taglia un cavo o preme un pulsante. Ogni filo porta allora 1 (brilla d'oro) o 0, e il LED rosso deve restare spento dopo ogni mossa: l'ordine conta.
+- Un cavo tagliato porta 0 oltre il taglio, per sempre.
+- Un pulsante dà 1 solo mentre è premuto.
+- La batteria dà sempre 1. Un chip di memoria dà 1 per sempre appena il suo ingresso è stato 1.
+- NOT inverte il suo ingresso. AND dà 1 quando entrambi gli ingressi sono 1, OR quando lo è uno dei due, XOR quando lo è uno solo. NAND e NOR invertono AND e OR.
+- Quando la presa di alimentazione porta 0, la bomba è morta.
+# Livelli e stelle
+3 stelle: il minor numero di mosse possibile, senza aiuti. 2 stelle: fino alla metà di mosse in più, o con un aiuto. Altrimenti 1.

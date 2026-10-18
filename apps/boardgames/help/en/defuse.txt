@@ -1,0 +1,12 @@
+Defuse the Bomb
+# The aim
+Disarm the bomb before its timer reaches zero: light all its green LEDs at once, or cut off its power. If the red detonator LED lights up, even for a moment, the bomb explodes.
+# A move
+A move flips a switch, cuts a cable or presses a push button. Each wire then carries 1 (glowing gold) or 0, and the red LED must stay dark after every move: their order matters.
+- A cut cable carries 0 beyond the cut, for good.
+- A push button gives 1 only while it is pressed.
+- The battery always gives 1. A memory chip gives 1 for good once its input has been 1.
+- NOT reverses its input. AND gives 1 when both inputs are 1, OR when either is, XOR when exactly one is. NAND and NOR reverse AND and OR.
+- When the power socket carries 0, the bomb is dead.
+# Levels and stars
+3 stars: the fewest moves possible, with no hint. 2 stars: up to half as many moves again, or with a hint. Otherwise 1.

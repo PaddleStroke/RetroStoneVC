@@ -1,0 +1,12 @@
+Pommin purku
+# Tavoite
+Pura pommi ennen kuin sen ajastin ehtii nollaan: sytytä kaikki sen vihreät merkkivalot yhtä aikaa tai katkaise sen virta. Jos punainen laukaisuvalo syttyy edes hetkeksi, pommi räjähtää.
+# Siirto
+Siirto kääntää kytkimen, katkaisee kaapelin tai painaa painonappia. Jokainen johto kuljettaa silloin arvoa 1 (se hehkuu kultaisena) tai 0, ja punaisen valon on pysyttävä sammuneena jokaisen siirron jälkeen: järjestyksellä on väliä.
+- Katkaistu kaapeli kuljettaa katkaisukohdan jälkeen 0, lopullisesti.
+- Painonappi antaa 1 vain, kun sitä painetaan.
+- Paristo antaa aina 1. Muistisiru antaa 1 lopullisesti heti, kun sen tulo on ollut 1.
+- NOT kääntää tulonsa. AND antaa 1, kun molemmat tulot ovat 1, OR, kun jompikumpi on, XOR, kun tasan toinen on. NAND ja NOR kääntävät AND:n ja OR:n.
+- Kun virtaliitin kuljettaa 0, pommi on kuollut.
+# Tasot ja tähdet
+3 tähteä: vähin mahdollinen määrä siirtoja ilman vihjettä. 2 tähteä: enintään puolet enemmän siirtoja tai vihjeen kanssa. Muuten 1.

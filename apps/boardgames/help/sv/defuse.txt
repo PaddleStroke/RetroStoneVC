@@ -1,0 +1,12 @@
+Desarmera bomben
+# Målet
+Desarmera bomben innan timern når noll: tänd alla dess gröna lysdioder på en gång, eller bryt dess ström. Om den röda tändar-lysdioden tänds, om så bara ett ögonblick, exploderar bomben.
+# Ett drag
+Ett drag slår om en strömbrytare, klipper av en kabel eller trycker på en tryckknapp. Varje ledning bär då 1 (den glöder guldgult) eller 0, och den röda lysdioden måste vara släckt efter varje drag: ordningen spelar roll.
+- En avklippt kabel bär 0 efter klippet, för gott.
+- En tryckknapp ger 1 bara medan den är nedtryckt.
+- Batteriet ger alltid 1. Ett minneschip ger 1 för gott så fort dess ingång har varit 1.
+- NOT vänder på sin ingång. AND ger 1 när båda ingångarna är 1, OR när någon av dem är det, XOR när exakt en är det. NAND och NOR vänder på AND och OR.
+- När strömuttaget bär 0 är bomben död.
+# Banor och stjärnor
+3 stjärnor: så få drag som möjligt, utan ledtråd. 2 stjärnor: upp till hälften fler drag, eller med en ledtråd. Annars 1.

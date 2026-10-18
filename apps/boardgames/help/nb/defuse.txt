@@ -1,0 +1,12 @@
+Desarmer bomben
+# Målet
+Desarmer bomben før tidsuret når null: tenn alle de grønne lysdiodene samtidig, eller kutt strømmen. Lyser den røde tenner-lysdioden, om så bare et øyeblikk, eksploderer bomben.
+# Et trekk
+Et trekk slår om en bryter, klipper over en kabel eller trykker på en trykknapp. Hver ledning fører da 1 (den gløder gyllent) eller 0, og den røde lysdioden må være slukket etter hvert trekk: rekkefølgen teller.
+- En overklippet kabel fører 0 etter klippet, for godt.
+- En trykknapp gir 1 bare mens den holdes inne.
+- Batteriet gir alltid 1. En minnebrikke gir 1 for godt så snart inngangen dens har vært 1.
+- NOT snur inngangen sin. AND gir 1 når begge inngangene er 1, OR når en av dem er det, XOR når nøyaktig én er det. NAND og NOR snur AND og OR.
+- Når strømkontakten fører 0, er bomben død.
+# Nivåer og stjerner
+3 stjerner: så få trekk som mulig, uten hint. 2 stjerner: opptil halvparten flere trekk, eller med et hint. Ellers 1.
