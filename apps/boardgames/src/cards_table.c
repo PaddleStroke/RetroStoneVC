@@ -760,7 +760,7 @@ void ct_talon(int deck, float x, float y, float tx, float ty, float w, int n, in
 {
     if (n > 0 && trump != CARD_NONE) cards_draw(deck, trump, tx, ty, w, 90, 0);
     if (n > 1) cards_pile(deck, x, y, w, n - 1 > 6 ? 6 : n - 1, CARD_NONE, 0);
-    if (n > 1 && count) ui_number(x, y, 0.34f * w, n, 1);
+    if (n > 1 && count) ct_badge(x, y, 0.7f * w, n);    /* (a dark disc: the digits clear of the back's diamond) */
     if (n > 0) return;
     float d = 0.75f * w;
     ui_put_c(ct_suit(deck, suit, (int)d), tx, ty, d, d);
