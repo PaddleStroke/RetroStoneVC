@@ -43,6 +43,7 @@ static const rs_color field_pal[16]={0,RS_HEX(0x994f74),RS_HEX(0xffbab5),RS_HEX(
  * own scroll; birds fly across the columns shown (sprites, draw_birds). */
 static int tall(void) { return rs_screen_height()>RS_SCREEN_H; }
 static int hud_lines,canvas_h=240,decor_t,decor_x,cloud_x;
+static int ui_pin;   /* the UI layer pinned on the screen (house_tall.h ht_pin: the title, the panels; set by draw_frame) */
 #define VR_BG4 (VR_BG3+192)       /* after the hills' 185 tiles and their blank: 832 tiles up to VR_OBJ */
 #define PAL_DECOR 7               /* BG4: the range (1-4, set per line: the haze), the clouds (5-7) */
 #define OBJ_PAL_BIRD 7
@@ -69,6 +70,7 @@ static void raster_out(int line) {
  int top=rs_screen_top(),bot=rs_screen_bottom();
  if(line==top || line==RS_SCREEN_H){rs_bg_enable(RS_BG1,line==top && hud_lines);rs_bg_enable(RS_BG3,0);rs_bg_enable(RS_BG2,line==RS_SCREEN_H);}
  if(hud_lines && line==top+hud_lines) rs_bg_enable(RS_BG1,0);
+ if(ui_pin) rs_bg_enable(RS_BG1,ht_pin_line(ui_pin,line));   /* the pinned UI */
  if(line<0){
   rs_color c=sky_at(line);rs_pal_set(0,c);
   if(line==top) {rs_bg_enable(RS_BG4,1);rs_bg_scroll(RS_BG4,cloud_x,DEC_OFF);}
@@ -93,6 +95,7 @@ static void raster(int line,void *user) {
  (void)user; int p=rs_viewport_current(); if(p<0 || p>=nviews) p=0;
  int y=line-VP[p].y; if(y>=0 && y<240) rs_pal_set(0,V[p].sky[y]);
  if(tall() && nviews<=1) decor_line(line,V[0].sky[line]);
+ if(ui_pin) rs_bg_enable(RS_BG1,ht_pin_line(ui_pin,line));
 }
 /* ---- the sky's decor (a tall screen: BG4, generated at start-up) ---- */
 /* the far range's peaks: x on BG4's 512-px map, the top's stage y, the slope (8ths of a line per column) */
@@ -341,9 +344,10 @@ static void scene(const world *w,int p,int t,const view *v,const rs_viewport *vp
  if(h->state==HS_HIT && h->t<24)spr(SPR_SPLASH+(h->t/8)%3,x-12,sy(v,vp,192)-7,2,-1,vp);
 }
 
-static void icon(int p,int cx,int cy,int t,void *user) {
- (void)user;rs_viewport vp={0};vp.w=(int16_t)rs_screen_width();vp.h=240;
- spr(SPR_HERO_ICON,cx-8+hu_ui_x(),cy-8+hu_bob(t+p*16,64,1),2,ppal(p),&vp);   /* the kit's UI coordinates -> stage */
+/* player p's icon, its top-left at stage x, y: anywhere on the screen (the title and the panels pinned above the stage) */
+static void icon_at(int p,int x,int y,int prio) {const gm_sprite_def *s=&gm_spr[SPR_HERO_ICON];rs_spr(x,y,s->tile,s->w,s->h,ppal(p),prio,0);}
+static void icon(int p,int cx,int cy,int t,void *user) {   /* (the kit's UI coordinates -> stage) */
+ (void)user;icon_at(p,cx-8+hu_ui_x(),cy-8+hu_bob(t+p*16,64,1),2);
 }
 static void ranking(const world *w,hu_standing *rank) {
  int scores[4];for(int p=0;p<w->players;p++) scores[p]=w->h[p].score;
@@ -367,6 +371,8 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  int hud=tall() && !multi && (state==ST_PLAY || state==ST_DEAD);
  int zoom=tall() && (!multi || w->players==2);
  rs_screen_fill(zoom);hud_lines=hud?HUD_LINES:0;rs_bg_pin(RS_BG1,0,hud_lines,0);
+ ui_pin=!ht_narrow() || multi?HT_PIN_OFF:state==ST_TITLE?HT_PIN_TITLE:state==ST_OVER?HT_PIN_PANEL:HT_PIN_OFF;
+ if(ui_pin) ht_pin(ui_pin);   /* the title and the panels at the same place on every game's screen */
  int narrow=ht_narrow();   /* the zoomed screen shows fewer columns than the kit's 320 */
  if(!paused) decor_t++;
  int next=1;
@@ -441,7 +447,7 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
     ht_retry_line_at(r,st_t,RETRY_LOCK,HTR(BACK_TITLE));
    } else {
     ht_results_panel(&rank,NULL);ht_results_sprites(&rank,st_t,slide);
-    for(int i=0;i<rank.n;i++) {int x,y;ht_results_icon_pos(&rank,i,&x,&y);spr(SPR_HERO_ICON,x-8+hu_ui_x(),y-8+slide,3,ppal(rank.order[i]),vp);}
+    for(int i=0;i<rank.n;i++) {int x,y;ht_results_icon_pos(&rank,i,&x,&y);icon_at(rank.order[i],x-8+hu_ui_x(),y-8+slide,3);}
     ht_retry_line_at(hu_results_retry_row(&rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));
    }
   } else if(state==ST_OVER) {
