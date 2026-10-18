@@ -7,7 +7,8 @@
 
 #include "pt.h"
 
-#define RING_ROWS 32                /* BG2's map rows (a ring: world tile row k is map row (-(k + 1)) & 31) */
+#define RING_ROWS 64                /* BG2's map rows at most (a ring: world tile row k is map row (-(k + 1)) & (rows - 1)):
+                                     * 32, or 64 on a tall screen (DESIGN.md "Tall screen") */
 
 void render_init(void);
 void render_reset(int players);

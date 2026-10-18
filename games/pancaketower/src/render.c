@@ -23,7 +23,7 @@ enum {
     BT_BUTTER_SYRUP = 10,
     BT_TOPPING = 11,            /* 5 kinds x 2 variants */
     BT_STATIC_END = 21,
-    BT_DYN = 32                 /* per player: RING_ROWS rows x 4 end tiles (2 at each end: the ends' shading is 5 px wide) */
+    BT_DYN = 32                 /* per player: the map's rows x 4 end tiles (2 at each end: the ends' shading is 5 px wide) */
 };
 
 static uint32_t hash2(uint32_t a, uint32_t b)
@@ -38,7 +38,7 @@ static uint32_t hash2(uint32_t a, uint32_t b)
 static int variant(int n, int tc) { return (int)(hash2((uint32_t)n, (uint32_t)(tc & 1023)) & 3); }
 
 /* Narrow views share identical end tiles. References keep an edge alive until every map row using it changes. */
-#define END_SLOTS (MAX_PLAYERS * RING_ROWS * 4)
+#define END_SLOTS (MAX_PLAYERS * 32 * 4)
 static uint8_t end_pixels[END_SLOTS][64];
 static uint16_t end_refs[END_SLOTS];
 static int16_t row_ends[MAX_PLAYERS][RING_ROWS][4];
@@ -263,7 +263,7 @@ void render_row(int player, int ring_row, const layer *l, int centre_px, int col
         if (c >= tx0 && c <= tx1) {
             if (c <= lz || c >= rz) {
                 int k = c <= lz ? c - tx0 : 2 + (tx1 - c);
-                int slot = BT_DYN + (player * RING_ROWS + ring_row) * 4 + k;
+                int slot = BT_DYN + (player * rs_bg_map_h(RS_BG2) + ring_row) * 4 + k;
                 uint8_t t[64];
                 int p;
                 for (int y = 0; y < 8; y++)

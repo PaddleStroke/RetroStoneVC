@@ -121,6 +121,7 @@ void draw_events(const match *m);               /* after each step: effects from
 void draw_update(const match *m);               /* after each step: cameras, effects, the chef */
 void draw_frame(const match *m, int state, int st_t, int best, int new_best, int paused);
 int  draw_camera(int player);                    /* world y at the screen's bottom (tests) */
+int  draw_mid(void);                             /* the lines from the views' bottom to their middle (120; tall: more) */
 void draw_oam_log(void);                         /* development: --opt oamlog=1 */
 extern int opt_nodraw_bg;                        /* tests */
 

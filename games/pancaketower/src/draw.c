@@ -37,6 +37,7 @@ static const int HOLE_Y0[HOLES] = {CEILING_Y, ROOF_Y}, HOLE_Y1[HOLES] = {CEILING
 #define CARVE_SLOTS 4                              /* run-time tiles per carved row: 2 at each edge */
 #define JAG_MAX     3                              /* the broken rim reaches this far past the layer */
 #define SHAKE_MAX   3                              /* px: the largest screen shake (hu_shake) */
+#define EXT_TILES   128                            /* the pool of glyph tiles beyond ASCII, after the logo's */
 static int floor8(int y) { return y >= 0 ? y / 8 : -((-y + 7) / 8); }
 
 /* the title logo: "PANCAKE" golden, "TOWER" syrup (house_style ACCENTS pancake, syrup) */
@@ -56,10 +57,10 @@ typedef struct view {
     int bg2_cx, bg2_col0, bg2_cols; /* BG2: the plate's centre (map px), the player's columns */
     int near_col0, near_pcol0, near_cols;   /* BG3: map columns <- panorama columns */
     int far_col0;
-    int near_row[32], far_row[32];  /* the world / far tile row shown in each ring row */
-    int tower_row[32];              /* the layer drawn in each ring row + 1 (0 = empty) */
-    int16_t wob_dx[RS_SCREEN_H];
-    rs_color line_col[RS_SCREEN_H];
+    int near_row[RING_ROWS], far_row[RING_ROWS];   /* the world / far tile row shown in each ring row */
+    int tower_row[RING_ROWS];       /* the layer drawn in each ring row + 1 (0 = empty) */
+    int16_t wob_dx[RS_SCREEN_H_MAX];  /* by screen line (a tall screen: its whole height) */
+    rs_color line_col[RS_SCREEN_H_MAX];
     int col_cam;                    /* the camera the sky was computed for */
     int jiggle;                     /* frames since the last landing */
     int top_key, slider_key;        /* what the dynamic sprites were drawn for */
@@ -90,7 +91,7 @@ static int near_pal_last;
 static int medals_loaded;                          /* the fork medals' tiles (VRAM: only when one is shown) */                          /* the last near palette is in BG palette 5 (not the logo's) */
 static rs_viewport vps[RS_VIEW_MAX];
 static int nvps;
-static int built_w;                                /* the screen width the views and maps were laid out for */
+static int built_w, built_h;                       /* the screen size the views and maps were laid out for */
 int opt_nodraw_bg;
 
 /* ---- widescreen (docs/spec.md "Widescreen"; DESIGN.md "Widescreen") ----------------------------------------------------
@@ -107,6 +108,23 @@ static const uint8_t *near_tile_data(int t)
     return pt_near_tiles + (t >= NEAR_WIDE_TILE0 ? t - NEAR_WIDE_TILE0 + pt_near_tile_count : t) * RS_TILE_BYTES;
 }
 
+/* ---- a tall screen (docs/spec.md "Tall screen", the zoomed recipe; DESIGN.md "Tall screen") ----------------------------
+ * A phone held upright: ZOOM_H lines (main.c: rs_screen_zoom), the stage at the screen's top (rs_screen_origin_v(0): the
+ * stage y is the screen line) and every view the screen's whole height. The house is a cutaway: the camera no longer
+ * waits under an unbroken ceiling. The maps' rings are 64 rows; BG2's sway (1 player) and the far layer's two mappings
+ * (the town's horizon just above the roof) are set per line by the raster; BG1 is 64 rows: the title's lines and its
+ * panels are laid out for the TALL_COLS columns the narrowest phone shows. Landscape and 4:3: nothing changes. */
+#define TALL_COLS   24                             /* the UI's columns (tiles 8..31): 1080x2520 shows 208 columns */
+#define FAR_UP      (-150)                         /* the far layer above the roof: the town's rooftops just over it, */
+#define FAR_UP_CAM  320                            /*   back to the landscape's mapping as the camera climbs from here */
+static int tall(void) { return rs_screen_height() > RS_SCREEN_H; }
+static int ring_mask(void) { return tall() ? 63 : 31; }               /* the maps' rings: 64 or 32 rows */
+static int px_mask(void) { return ring_mask() * 8 + 7; }
+static int cam0(void) { return tall() ? FLOOR_Y - TALL_BELOW : CAM0; }
+int draw_mid(void) { return tall() ? rs_screen_height() / 2 : 120; }
+/* the raster's per-line values on a tall screen, 1 player (set by draw_frame) */
+static int r_bg2_x, r_bg2_y, r_far_low, r_far_up, r_far_line;
+
 /* ---- small helpers ---------------------------------------------------------------------------------------- */
 static const int16_t SIN64[64] = {
     0, 402, 799, 1189, 1567, 1931, 2276, 2598, 2896, 3166, 3406, 3612, 3784, 3920, 4017, 4076,
@@ -121,13 +139,16 @@ static int line_of(const view *v, int wy) { return v->h - 1 + v->cam - wy; }   /
  * stage on both sides) */
 static int view_l(const view *v) { (void)v; return nviews == 1 ? rs_screen_left() : 0; }
 static int view_r(const view *v) { return nviews == 1 ? rs_screen_right() : v->w; }
+/* the columns the display shows (a zoomed tall screen crops the sides; else the view's): the chef, the moon */
+static int vis_l(const view *v) { return nviews == 1 && tall() ? rs_screen_visible_x0() - rs_screen_origin_x() : view_l(v); }
+static int vis_r(const view *v) { return nviews == 1 && tall() ? rs_screen_visible_x1() - rs_screen_origin_x() : view_r(v); }
 
 /* v: the view the sprite belongs to (culled to its columns), NULL: the 320-px UI */
 static void spr(int id, int x, int y, int prio, int pal, int flags, const view *v)
 {
     const pt_sprite_def *d = &pt_spr[id];
     int lo = v ? view_l(v) : 0, hi = v ? view_r(v) : RS_SCREEN_W;
-    if (x <= lo - (int)d->w || x >= hi || y <= -(int)d->h || y >= RS_SCREEN_H) return;
+    if (x <= lo - (int)d->w || x >= hi || y <= -(int)d->h || y >= (v ? v->h : rs_screen_bottom())) return;
     rs_spr(x, y, d->tile, d->w, d->h, pal >= 0 ? pal : d->pal, prio, flags);
 }
 
@@ -144,6 +165,7 @@ static int anchor_layer(const view *v)
 /* the wobble of layer i of a tower of n layers (px, visual only): it sways above its anchor */
 static int wobble(const view *v, int i, int n, int t)
 {
+    if (tall() && nviews > 1) return 0;           /* a tall split screen: no line scroll past the stage (no sway) */
     int a = anchor_layer(v), free = n - 1 - a;
     if (i <= a || free <= 0) return 0;
     int amp = WOBBLE_MAX * 256 * (free < WOBBLE_FULL_H ? free : WOBBLE_FULL_H) / WOBBLE_FULL_H;   /* Q8 */
@@ -197,7 +219,11 @@ static void raster(int line, void *user)
     (void)user;
     int vi = rs_viewport_current();
     if (vi < 0 || vi >= nviews) vi = 0;          /* 1 player, or the panel viewports */
-    rs_pal_set(0, V[vi].line_col[line]);
+    rs_pal_set(0, V[vi].line_col[clampi(line, 0, RS_SCREEN_H_MAX - 1)]);
+    if (tall() && rs_viewport_current() < 0) {   /* 1 player: the sway, and the far layer above or below the roof */
+        rs_bg_scroll(RS_BG2, r_bg2_x + V[0].wob_dx[clampi(line, 0, RS_SCREEN_H_MAX - 1)], r_bg2_y);
+        rs_bg_scroll(RS_BG4, 0, line < r_far_line ? r_far_up : r_far_low);
+    }
     if (nviews > 2 && shown_state != DS_TITLE) {
         static const rs_color colors[4][2] = {
             {RS_RGB8(226,72,66), RS_RGB8(150,36,44)},
@@ -238,8 +264,14 @@ void draw_init(void)
     hc.obj_tile = KIT_OBJ_TILE;
     hc.obj_vram = VR_OBJ;
     hc.obj_pal = OBJ_KIT;
+    /* the glyphs beyond ASCII (translated text): the kit's default pool (640..767) is BG2's first tiles here (VR_BG2 =
+     * 640: the tower's blank and pancake tiles were overwritten in every language but English); the logo's last
+     * tiles instead (the logo uses fewer than 192: checked in screen_text) */
+    hc.ext_tile = hc.logo_tile + HU_LOGO_TILES - EXT_TILES;
+    hc.ext_count = EXT_TILES;
     hu_init(&hc);
-    rs_bg_setup(RS_BG1, 64, 32, VR_BG1);
+    if (tall()) rs_screen_origin_v(0);  /* the stage at the screen's top: a stage y is a screen line (DESIGN.md) */
+    rs_bg_setup(RS_BG1, 64, tall() ? 64 : 32, VR_BG1);
     rs_bg_setup(RS_BG2, 64, 32, VR_BG2);
     rs_bg_setup(RS_BG3, 64, 32, VR_BG3);
     rs_bg_setup(RS_BG4, 64, 32, VR_BG4);
@@ -314,11 +346,13 @@ static void view_layout(view *v, int p, int players)
 static void maps_setup(int players)
 {
     if (!is_wide()) {
-        rs_bg_setup(RS_BG2, players <= 2 ? 32 : 64, 32, VR_BG2);
+        int rows = ring_mask() + 1;               /* a tall screen: 64-row rings */
+        rs_bg_setup(RS_BG2, players <= 2 ? 32 : 64, rows, VR_BG2);
         rs_bg_fill(RS_BG2, 0);
-        if (rs_bg_map_w(RS_BG3) != 64) rs_bg_setup(RS_BG3, 64, 32, VR_BG3);    /* a state of a wider screen */
+        if (rs_bg_map_w(RS_BG3) != 64 || rs_bg_map_h(RS_BG3) != rows) rs_bg_setup(RS_BG3, 64, rows, VR_BG3);   /* a state of a wider screen */
         rs_bg_fill(RS_BG3, 0);
-        rs_bg_setup(RS_BG4, players == 1 ? 32 : 64, 32, VR_BG4);    /* 1 player: 256 px that repeat (VRAM) */
+        rs_bg_setup(RS_BG4, players == 1 ? 32 : 64, rows, VR_BG4);    /* 1 player: 256 px that repeat (VRAM) */
+        if (rs_bg_map_h(RS_BG1) != rows) rs_bg_setup(RS_BG1, 64, rows, VR_BG1);   /* a state of another height */
         return;
     }
     rs_bg_setup(RS_BG2, players == 1 ? 64 : 128, 32, VR_BG2);
@@ -334,12 +368,12 @@ static void maps_setup(int players)
 static void reset_view(view *v, int p, int players)
 {
     memset(v, 0, sizeof *v);
-    v->cam = CAM0;
+    v->cam = cam0();
     v->col_cam = NO_ROW;
     v->top_key = v->slider_key = -1;
-    v->h = RS_SCREEN_H;
-    v->top_line = TOP_SCREEN_Y;
-    for (int r = 0; r < 32; r++) v->near_row[r] = v->far_row[r] = NO_ROW;
+    v->h = tall() ? rs_screen_height() : RS_SCREEN_H;
+    v->top_line = tall() ? v->h * TALL_TOP_16 / 16 : TOP_SCREEN_Y;
+    for (int r = 0; r < RING_ROWS; r++) v->near_row[r] = v->far_row[r] = NO_ROW;
     view_layout(v, p, players);
 }
 
@@ -347,6 +381,7 @@ static void reset_view(view *v, int p, int players)
  * TOP_MARGIN of it in view above the tower), so what lies above a ceiling is first seen once the tower is through */
 static int cam_limit(const view *v)
 {
+    if (tall()) return 1 << 30;                   /* a tall screen: the house is a cutaway (DESIGN.md "Tall screen") */
     if (!v->hole[H_CEIL].on) return CEILING_Y + TOP_MARGIN - v->h;
     if (!v->hole[H_ROOF].on) return ROOF_Y + TOP_MARGIN - v->h;
     return 1 << 30;
@@ -357,7 +392,7 @@ static int cam_target(const view *v, const tower *tw)
     int target = tower_top_y(tw) - (v->h - v->top_line);
     int lim = cam_limit(v);
     if (target > lim) target = lim;
-    return target < CAM0 ? CAM0 : target;
+    return target < cam0() ? cam0() : target;
 }
 
 void draw_reset(const match *m)
@@ -393,7 +428,8 @@ void draw_reset(const match *m)
     memset(FXS, 0, sizeof FXS);
     maps_setup(m->players);
     built_w = rs_screen_width();
-    rs_bg_line_scroll(RS_BG2, V[0].wob_dx, NULL);
+    built_h = rs_screen_height();
+    rs_bg_line_scroll(RS_BG2, tall() ? NULL : V[0].wob_dx, NULL);   /* a tall screen: the raster sways it */
     shown_state = -1;
 }
 
@@ -405,11 +441,19 @@ static void relayout(void)
     for (int p = 0; p < nviews; p++) {
         view *v = &V[p];
         view_layout(v, p, nviews);
-        for (int r = 0; r < 32; r++) v->near_row[r] = v->far_row[r] = NO_ROW, v->tower_row[r] = -1;
+        for (int r = 0; r < RING_ROWS; r++) v->near_row[r] = v->far_row[r] = NO_ROW, v->tower_row[r] = -1;
+        v->h = tall() ? rs_screen_height() : RS_SCREEN_H;          /* a state of another height */
+        v->top_line = tall() ? v->h * TALL_TOP_16 / 16 : TOP_SCREEN_Y;
+        v->col_cam = NO_ROW;
         v->top_key = v->slider_key = -1;          /* their texture follows the map column (bg2_cx) */
     }
     maps_setup(nviews);
     built_w = rs_screen_width();
+    if (built_h != rs_screen_height()) {          /* another height: the UI drawn again (a tall screen's layout) */
+        rs_bg_line_scroll(RS_BG2, tall() ? NULL : V[0].wob_dx, NULL);
+        shown_state = -1;
+    }
+    built_h = rs_screen_height();
 }
 
 int draw_camera(int player) { return V[player].cam; }
@@ -489,7 +533,7 @@ static void carve_row(view *v, int p, int k, int r)
 static void carve_hole(view *v, int p, int h)
 {
     for (int k = HOLE_Y0[h] / ROW_H; k < HOLE_Y1[h] / ROW_H; k++) {
-        int r = (-(k + 1)) & 31;
+        int r = (-(k + 1)) & ring_mask();
         if (v->near_row[r] != k) continue;
         /* back to the scenery's tiles, then the hole (a hole that widens) */
         int seg = (k * 8 - SEG_BASE_Y) >> 8, row = 31 - ((k + 8) & 31);
@@ -505,7 +549,7 @@ static void stream_near(view *v, int p)
 {
     int k0 = floor8(v->cam - SHAKE_MAX), k1 = floor8(v->cam + v->h - 1 + SHAKE_MAX);   /* the rows a shake may show */
     for (int k = k0; k <= k1; k++) {
-        int r = (-(k + 1)) & 31;
+        int r = (-(k + 1)) & ring_mask();
         if (v->near_row[r] == k) continue;
         v->near_row[r] = k;
         int seg = (k * 8 - SEG_BASE_Y) >> 8, row = 31 - ((k + 8) & 31);
@@ -517,21 +561,37 @@ static void stream_near(view *v, int p)
     }
 }
 
-static int far_base(const view *v) { return (v->cam - CAM0) / 4; }
+static int far_base(const view *v) { return (v->cam - cam0()) / 4; }
 
-static void stream_far(view *v)
+/* a tall screen, 1 player: the view's lines above this one show the far layer FAR_UP px lower (the town's rooftops and
+ * the hills just over the roof, the clouds higher; the roof's band hides the change); else 0 (one mapping) */
+static int far_line(const view *v)
 {
-    int fb = far_base(v), k0 = fb / 8, k1 = (fb + v->h - 1) / 8 + 1;
+    return tall() && nviews == 1 ? clampi(line_of(v, ROOF_Y + 28), 0, v->h) : 0;
+}
+
+/* the far layer's offset above the roof line: FAR_UP, back to 0 over the camera's next 600 px (the town sinks faster) */
+static int far_up(const view *v) { return FAR_UP + clampi((v->cam - FAR_UP_CAM) / 4, 0, -FAR_UP); }
+
+static void stream_far_rows(view *v, int k0, int k1)
+{
     for (int k = k0; k <= k1; k++) {
-        int r = (-(k + 1)) & 31;
+        int r = (-(k + 1)) & ring_mask();
         if (v->far_row[r] == k) continue;
         v->far_row[r] = k;
-        int kk = k;
+        int kk = k < 0 ? 0 : k;                   /* below the far layer (a tall screen, above the roof): its grass */
         if (kk >= FAR_H) kk = FAR_H - FAR_REPEAT + (kk - FAR_H) % FAR_REPEAT;   /* the stars repeat */
         const uint16_t *src = pt_far_map + (FAR_H - 1 - kk) * FAR_W;
         int cols = is_wide() ? (nviews == 1 ? 64 : wide_block(nviews)) : nviews > 2 ? 16 : 32, mask = is_wide() ? 63 : 31;
         for (int c = 0; c < cols; c++) rs_bg_put(RS_BG4, map_col(RS_BG4, v->far_col0 + c), r, opt_nodraw_bg ? 0 : src[c & mask]);
     }
+}
+
+static void stream_far(view *v)
+{
+    int fb = far_base(v), s = far_line(v);
+    if (s < v->h) stream_far_rows(v, floor8(fb), floor8(fb + v->h - 1 - s) + 1);            /* lines s.. (all) */
+    if (s > 0) stream_far_rows(v, floor8(fb + far_up(v) + v->h - s), floor8(fb + far_up(v) + v->h - 1) + 1);   /* above */
 }
 
 static int layer_key(const layer *l, int i) { return (i * 131 + l->x * 7 + l->w * 3 + l->flags * 17 + l->kind) & 0x7fffffff; }
@@ -540,7 +600,7 @@ static void stream_tower(view *v, int p, const tower *tw)
 {
     int k0 = floor8(v->cam - SHAKE_MAX), k1 = floor8(v->cam + v->h - 1 + SHAKE_MAX);
     for (int k = k0; k <= k1; k++) {
-        int r = (-(k + 1)) & 31;
+        int r = (-(k + 1)) & ring_mask();
         int baked = k >= 0 && k < tw->nlayers - 1 && k >= tw->nlayers - RING;
         int want = baked ? layer_key(tower_layer(tw, k), k) + 1 : 0;
         if (v->tower_row[r] == want) continue;
@@ -739,7 +799,7 @@ void draw_update(const match *m)
             }
             pc->x += pc->vx;
             pc->a += pc->va;
-            if (line_of(v, pc->y / 256) > 280 || pc->t > 400) pc->on = 0;
+            if (line_of(v, pc->y / 256) > v->h + 40 || pc->t > 400) pc->on = 0;
         }
     }
     for (int i = 0; i < FX_MAX; i++) {
@@ -786,7 +846,7 @@ static void draw_layer_sprites(view *v, int p, const tower *tw, int t)
     int sx = v->sx0 + (box0 - v->bg2_cx) + wtop + hu_shake_x();
     int sy = line_of(v, (n - 1) * ROW_H + 7) + hu_shake_y();
     for (int s = 0; s < 2 && s * 64 < top->w + 2; s++)
-        if (sx + s * 64 < view_r(v) && sx + s * 64 > view_l(v) - 64 && sy > -8 && sy < RS_SCREEN_H)
+        if (sx + s * 64 < view_r(v) && sx + s * 64 > view_l(v) - 64 && sy > -8 && sy < v->h)
             rs_spr(sx + s * 64, sy, dyn_tile(p, 16) + s * 8, 64, 8, pal, 2, 0);
     /* the butter pat on a perfect top */
     if (top->kind == LK_PANCAKE && (top->flags & LF_BUTTER) && tw->state != TS_MISSED) {
@@ -829,7 +889,7 @@ static void draw_pieces(view *v, int p)
         int x = v->sx0 + pc->x / 256 - (nviews > 2 ? 32 : 64), y = line_of(v, pc->y / 256) - 8;
         int pal = pc->p.kind == LK_PANCAKE ? OBJ_FOOD : OBJ_TOPPING;
         for (int s = 0; s < 2; s++)
-            if (((pc->halves >> s) & 1) && x + s * 64 < view_r(v) && x + s * 64 > view_l(v) - 64 && y > -16 && y < RS_SCREEN_H)
+            if (((pc->halves >> s) & 1) && x + s * 64 < view_r(v) && x + s * 64 > view_l(v) - 64 && y > -16 && y < v->h)
                 rs_spr(x + s * 64, y, dyn_tile(p, 32 + i * 32) + s * 16, 64, 16, pal, 2, 0);
     }
 }
@@ -902,12 +962,12 @@ static void draw_critters(view *v, int t)
         spr(SPR_PLANE, x - 32, line_of(v, 690), 1, -1, 0, v);
     }
     if (790 > lo && 790 < hi)                                               /* the weather balloon */
-        spr(SPR_BALLOON, v->w * 3 / 4, line_of(v, 820 + isin(t / 4) * 5 / 4096), 1, -1, 0, v);
+        spr(SPR_BALLOON, nviews == 1 && tall() ? vis_r(v) - 56 : v->w * 3 / 4, line_of(v, 820 + isin(t / 4) * 5 / 4096), 1, -1, 0, v);
     if (1110 > lo && 1110 < hi) {                                           /* the satellite */
         int span = xr - xl + 600, x = xl + (t / 3) % span;
         spr(SPR_SATELLITE, x - 32, line_of(v, 1110), 1, -1, 0, v);
     }
-    int mx = v->w - 60, my = 1040;
+    int mx = nviews == 1 && tall() ? vis_r(v) - 50 : v->w - 60, my = 1040;   /* a tall screen: in the columns shown */
     if (my + 32 > lo && my - 48 < hi) {
         spr(SPR_MOON, mx, line_of(v, my + 32), 1, -1, 0, v);
         /* the cow jumps over the moon every 6 s: a parabola from its left to its right */
@@ -927,16 +987,17 @@ static void draw_chef(view *v, int p, int t, int players)
     int kitchen_line = line_of(v, FLOOR_Y + 47);
     int dx = pose == CH_PANIC ? ((t / 3) & 1) : 0, dy = pose == CH_CHEER ? -((t / 6) & 1) * 2 : 0;
     if (players == 1 && kitchen_line < v->h - 40) {
-        int f = body[pose];
+        int f = body[pose], cx = v->sx0 + CHEF_X;
+        if (cx < vis_l(v) + 6) cx = vis_l(v) + 6;                       /* a tall screen: in the columns shown */
         if (pose == CH_IDLE && (t % 180) < 8) f = 1;                    /* a blink */
-        spr(SPR_CHEF + f, v->sx0 + CHEF_X + dx + hu_shake_x(), kitchen_line + dy + hu_shake_y(), 2, pal, 0, v);
-        if (pose == CH_PANIC) spr(SPR_SWEAT, v->sx0 + CHEF_X + 26, kitchen_line + 6 + (t / 8) % 4, 2, -1, 0, v);
+        spr(SPR_CHEF + f, cx + dx + hu_shake_x(), kitchen_line + dy + hu_shake_y(), 2, pal, 0, v);
+        if (pose == CH_PANIC) spr(SPR_SWEAT, cx + 26, kitchen_line + 6 + (t / 8) % 4, 2, -1, 0, v);
         v->portrait_t = 0;
         return;
     }
     /* the portrait: the chef keeps watching from a plate-rimmed frame in the bottom-left corner (it slides in) */
     if (v->portrait_t < 20) v->portrait_t++;
-    int ox = view_l(v) + 2, oy = v->h - 66 + hu_slide_in(v->portrait_t, 20, 80);
+    int ox = vis_l(v) + 2, oy = v->h - 66 + hu_slide_in(v->portrait_t, 20, 80);
     int f = body[pose];
     if (pose == CH_IDLE && (t % 180) < 8) f = 1;
     if (players > 2) {
@@ -949,6 +1010,164 @@ static void draw_chef(view *v, int p, int t, int players)
     spr(SPR_RING, ox, oy + 32, 2, -1, RS_SPR_VFLIP, v);
     spr(SPR_RING, ox + 24, oy + 32, 2, -1, RS_SPR_HFLIP | RS_SPR_VFLIP, v);
     if (pose == CH_PANIC) spr(SPR_SWEAT, ox + 36, oy + 10 + (t / 8) % 4, 2, -1, 0, v);
+}
+
+/* ---- the UI on a tall screen: laid out for the TALL_COLS columns shown (the kit's rows, then moved) --------------------- */
+/* BG1's rows y0..y1 go dy rows lower (bottom first); their old place is blank (BG1 is 64 rows on a tall screen) */
+static void ui_move_rows(int y0, int y1, int dy)
+{
+    uint16_t blank = rs_bg_get(RS_BG1, 0, 63);           /* never written: the kit's clear */
+    for (int y = y1; y >= y0; y--)
+        for (int x = 0; x < 64; x++) {
+            rs_bg_put(RS_BG1, x, y + dy, rs_bg_get(RS_BG1, x, y));
+            rs_bg_put(RS_BG1, x, y, blank);
+        }
+}
+
+/* the logo in two lines: PANCAKE centred, TOWER centred under it (hu_logo drew "PANCAKE TOWER" on rows 0..7: its
+ * letters on rows 1..5, PANCAKE in columns 2..21, TOWER in 24..38), over the sky above the roof */
+static void tall_logo(void)
+{
+    uint16_t tower[5][15], blank = rs_bg_get(RS_BG1, 0, 63);
+    for (int r = 0; r < 5; r++)
+        for (int c = 0; c < 15; c++) tower[r][c] = rs_bg_get(RS_BG1, 24 + c, 1 + r);
+    for (int r = 1; r <= 5; r++) {
+        for (int c = 21; c >= 2; c--) rs_bg_put(RS_BG1, c + 8, r, rs_bg_get(RS_BG1, c, r));
+        for (int c = 0; c < 40; c++)
+            if (c < 10 || c > 29) rs_bg_put(RS_BG1, c, r, blank);
+    }
+    for (int r = 0; r < 5; r++)
+        for (int c = 0; c < 15; c++) rs_bg_put(RS_BG1, 13 + c, 7 + r, tower[r][c]);
+}
+
+/* s in at most two lines of at most maxw columns (big: 2x glyphs): 0 when it fits in one, else 1 and the two halves
+ * (split at the space that balances them best; text without spaces, CJK: between any two characters) */
+static int tall_wrap(const char *s, int big, int maxw, char *a, char *b, size_t size)
+{
+    if (hu_width(s, big) <= maxw) return 0;
+    int n = (int)strlen(s), best = -1, best_w = 1 << 30, spaces = 0;
+    for (int i = 1; i < n; i++) spaces += s[i] == ' ';
+    for (int i = 1; i < n && i < (int)size; i++) {
+        if ((unsigned char)s[i] >= 0x80 && (unsigned char)s[i] < 0xc0) continue;   /* inside a UTF-8 character */
+        if (spaces && s[i] != ' ') continue;
+        if (s[i] == ' ' && s[i + 1] && strchr(":;!?-", s[i + 1])) continue;         /* no line starts with a colon or a dash */
+        memcpy(a, s, (size_t)i);
+        a[i] = 0;
+        snprintf(b, size, "%s", s + i + (s[i] == ' '));
+        int wa = hu_width(a, big), wb = hu_width(b, big), w = wa > wb ? wa : wb;
+        if (w < best_w) best_w = w, best = i;
+    }
+    if (best < 0) return 0;
+    memcpy(a, s, (size_t)best);
+    a[best] = 0;
+    snprintf(b, size, "%s", s + best + (s[best] == ' '));
+    return 1;
+}
+
+/* a line of small text centred on row y, or two (rows y and y + 2) when it is wider than the columns shown */
+static void tall_text(int y, const char *s)
+{
+    char a[128], b[128];
+    if (!tall_wrap(s, 0, TALL_COLS, a, b, sizeof a)) { hu_text(hu_center(s, 0), y, s); return; }
+    hu_text(hu_center(a, 0), y, a);
+    hu_text(hu_center(b, 0), y + 2, b);
+}
+
+/* a banner (GAME OVER, P2 WINS!) in two lines of 2x letters when one is wider than the columns shown, on rows 0..7 */
+static void tall_banner(const char *title)
+{
+    char a[96], b[96];
+    if (!tall_wrap(title, 1, TALL_COLS - 2, a, b, sizeof a)) return;    /* the kit's one line fits */
+    hu_clear_rows(0, 8);
+    int acc1 = hu_tall(a), acc2 = hu_tall(b), wa = hu_width(a, 1), wb = hu_width(b, 1), w = (wa > wb ? wa : wb) + 2;
+    if (w < 20) w = 20;
+    int r1 = 1 + acc1, r2 = r1 + 2 + acc2;
+    hu_panel((40 - w) / 2, 0, w, r2 + 3);
+    hu_big(hu_center(a, 1), r1, a, HU_BIG_BANNER);
+    hu_big(hu_center(b, 1), r2, b, HU_BIG_BANNER);
+}
+
+/* the title on a tall screen (screen rows of 8 lines; the house as at the start of a run): the logo in the sky, the
+ * prompt, BEST and the join line over the attic's dark boards (rows 20..28), the joined chefs on the kitchen's wall over
+ * their tags (row 47), the credits over the floor (rows 59, 60). The kit's text is drawn on rows 0..29 only: the tags
+ * and the credits are drawn higher, then moved down (ui_move_rows). */
+static const int TALL_SLOT_X[4] = {96, 136, 184, 224};   /* closer than the kit's, inside the columns shown */
+#define TALL_ROW_SLOTS 47
+#define TALL_ROW_PROMPT 20
+
+/* the prompt "PRESS A TO <PLAY>": one line with the A glyph on its left, or two (the glyph left of the first) */
+static const char *tall_prompt_line(char *s, char *a, char *b, size_t size, int *two)
+{
+    rs_strf(s, size, HTR(PRESS_TO), HTR(PLAY));
+    *two = tall_wrap(s, 0, TALL_COLS - 2, a, b, size);
+    return *two ? a : s;
+}
+
+static void tall_title_draw(int t, int best)
+{
+    char s[160], a[160], b[160];
+    int two;
+    hu_clear_rows(12, 18);
+    const char *l1 = tall_prompt_line(s, a, b, sizeof s, &two);
+    if (hu_blink(t)) {
+        hu_text(hu_center(l1, 0) + 1, TALL_ROW_PROMPT, l1);
+        if (two) hu_text(hu_center(b, 0) + 1, TALL_ROW_PROMPT + 2, b);
+    }
+    if (best > 0) {
+        rs_strf(s, sizeof s, HTR(BEST_N), best);
+        hu_text(hu_center(s, 0), 24, s);
+    }
+    int n = hu_players();
+    if (n < MAX_PLAYERS) {                        /* the kit's join line: the free tags, then PRESS A TO JOIN */
+        char who[64] = "";
+        for (int p = n; p < MAX_PLAYERS; p++) {
+            size_t k = strlen(who);
+            if (p > n) k += (size_t)snprintf(who + k, sizeof who - k, " / ");
+            if (k < sizeof who) rs_strf(who + k, sizeof who - k, HTR(PLAYER_TAG), p + 1);
+        }
+        rs_strf(s, sizeof s, hu_str(n > 1 ? HS_JOIN_LEAVE : HS_JOIN), who);
+    } else {
+        rs_strf(s, sizeof s, HTRN(FULL, n), n);
+    }
+    tall_text(26, s);
+    for (int p = 0; p < n; p++) {                 /* the tags: row 15, then 47 */
+        rs_strf(s, sizeof s, HTR(PLAYER_TAG), p + 1);
+        hu_text(TALL_SLOT_X[p] / 8 - 1, 15, s);
+    }
+    hu_text(hu_center("(C) 2026 8BCRAFT", 0), 12, "(C) 2026 8BCRAFT");   /* rows 12, 13, then 59, 60 */
+    hu_text(hu_center("RETROSTONE VC", 0), 13, "RETROSTONE VC");
+    ui_move_rows(14, 15, TALL_ROW_SLOTS - 15);
+    ui_move_rows(12, 13, 47);
+}
+
+/* the title's sprites on a tall screen: the A glyph and the joined chefs (popping in), as the kit's at their places */
+static void title_chef(int p, int cx, int cy, int t, void *user);
+static void tall_title_sprites(int t)
+{
+    char s[160], a[160], b[160];
+    int two;
+    const char *l1 = tall_prompt_line(s, a, b, sizeof s, &two);
+    hu_glyph(HU_BTN_A, (hu_center(l1, 0) + 1) * 8 - 20, TALL_ROW_PROMPT * 8 - 4, (t / 30) % 2, 3);
+    for (int p = 0; p < hu_players(); p++) {
+        int cx = TALL_SLOT_X[p], cy = TALL_ROW_SLOTS * 8 + 4, age = hu_player_age(p);
+        if (age < 24) {
+            hu_sparkle(cx + 8, cy - 14, (age / 6) & 1, 3);
+            hu_sparkle(cx - 14, cy - 2, (age / 6 + 1) & 1, 3);
+        }
+        title_chef(p, cx, cy + (age < 16 ? 12 - hu_ease_back(age, 16, 12) : 0), t, NULL);
+    }
+}
+
+/* the 2-4 player results' panel two columns narrower (24 -> 22 wide: inside the columns shown) */
+static void tall_results_narrow(int players)
+{
+    uint16_t blank = rs_bg_get(RS_BG1, 0, 63);
+    for (int y = 8; y < 8 + 3 * players + 4; y++) {
+        rs_bg_put(RS_BG1, 9, y, rs_bg_get(RS_BG1, 8, y));
+        rs_bg_put(RS_BG1, 30, y, rs_bg_get(RS_BG1, 31, y));
+        rs_bg_put(RS_BG1, 8, y, blank);
+        rs_bg_put(RS_BG1, 31, y, blank);
+    }
 }
 
 /* ---- the UI (the house kit) ------------------------------------------------------------------------------------- */
@@ -977,20 +1196,25 @@ static void screen_text(const match *m, int state, int st_t, int best, int new_b
         }
         title_logo_on = 0;
         if (state == DS_TITLE) {
-            hu_logo("PANCAKE TOWER", title_ramps, 2, 2, 0);
+            if (hu_logo("PANCAKE TOWER", title_ramps, 2, tall() ? 0 : 2, 0) > HU_LOGO_TILES - EXT_TILES)
+                rs_log("draw: the logo's tiles reach the glyph pool");
             title_logo_on = 1;
             near_pal_last = 0;                         /* the logo has BG palette 5 (the kitchen does not use it) */
-            rs_strf(s, sizeof s, HTR(BEST_N), best);
-            if (best > 0) hu_text(hu_center(s, 0), 24, s);
-            hu_copyright(28);
+            if (tall()) tall_logo();                   /* two lines; the rest: tall_title_draw */
+            else {
+                rs_strf(s, sizeof s, HTR(BEST_N), best);
+                if (best > 0) hu_text(hu_center(s, 0), 24, s);
+                hu_copyright(28);
+            }
         }
         if (state == DS_OVER) {
             if (m->players == 1) {
                 hu_banner(4, HTR(GAME_OVER));
+                if (tall()) tall_banner(HTR(GAME_OVER));
                 hu_gameover_panel(1, new_best, m->tw[0].score, 0);
                 rs_strf(s, sizeof s, TRN(PANCAKES_N, m->tw[0].pancakes), m->tw[0].pancakes);
                 /* under SCORE; a text that takes the row above (accents, CJK) goes to the panel's foot */
-                if (hu_tall(s)) hu_gameover_note(s);
+                if (hu_tall(s) || hu_width(s, 0) > 11) hu_gameover_note(s);   /* longer: clear of the digits */
                 else hu_box_text(12, 12, s);
             } else {
                 hu_standing rank;
@@ -1001,13 +1225,24 @@ static void screen_text(const match *m, int state, int st_t, int best, int new_b
                 }
                 hu_rank(&rank, m->players, keys, values);
                 hu_results_panel(&rank, NULL);
+                if (tall()) {                          /* the banner in two lines if need be, the panel narrower */
+                    char t[96];
+                    int w = hu_winner(&rank);
+                    if (w >= 0) rs_strf(t, sizeof t, HTR(WINS), w + 1);
+                    else snprintf(t, sizeof t, "%s", HTR(DRAW));
+                    tall_banner(t);
+                    tall_results_narrow(m->players);
+                }
             }
         }
         shown_state = state;
         shown_best = best;
         shown_players = m->players;
     }
-    if (state == DS_TITLE) hu_title_draw(st_t, best);
+    if (state == DS_TITLE) {
+        if (tall()) tall_title_draw(st_t, best);
+        else hu_title_draw(st_t, best);
+    }
     if (state == DS_OVER) {
         if (m->players == 1) hu_retry_line(st_t, RETRY_LOCK, HTR(BACK_MENU));
         else {
@@ -1070,7 +1305,10 @@ void draw_frame(const match *m, int state, int st_t, int best, int new_best, int
         rs_pal_load(RS_PAL_BG(slots[NEAR_PALS - 1]), pt_near_pals + (NEAR_PALS - 1) * 16, 16);
         near_pal_last = 1;
     }
-    int slide = state == DS_OVER ? hu_slide_in(st_t, 20, 200) : 0;     /* the panel slides up, ease-out */
+    /* the panel slides up, ease-out (a tall screen: from its bottom) */
+    int slide = state == DS_OVER ? hu_slide_in(st_t, 20, tall() ? rs_screen_height() - 40 : 200) : 0;
+    /* a tall screen: 2-4 players playing show every column (their panes need them); the rest stays zoomed */
+    if (tall()) rs_screen_fill(!(m->players > 1 && (state == DS_PLAY || state == DS_READY)));
     hu_pause(paused, 13);
     int shx = hu_shake_x(), shy = hu_shake_y();
 
@@ -1079,10 +1317,13 @@ void draw_frame(const match *m, int state, int st_t, int best, int new_best, int
         view *v = &V[0];
         rs_viewports(0, NULL, 0);
         rs_bg_scroll(RS_BG1, 0, -slide);
-        rs_bg_scroll(RS_BG2, wrap_x(RS_BG2, v->bg2_cx - v->sx0 - shx), (-v->cam - v->h - shy) & 255);
-        rs_bg_scroll(RS_BG3, wrap_x(RS_BG3, -shx), (-v->cam - v->h - shy) & 255);
-        rs_bg_scroll(RS_BG4, 0, (-far_base(v) - v->h) & 255);
-        rs_bg_line_scroll(RS_BG2, v->wob_dx, NULL);
+        int pm = px_mask();
+        r_bg2_x = wrap_x(RS_BG2, v->bg2_cx - v->sx0 - shx), r_bg2_y = (-v->cam - v->h - shy) & pm;
+        r_far_low = (-far_base(v) - v->h) & pm, r_far_up = (-far_base(v) - v->h - far_up(v)) & pm, r_far_line = far_line(v);
+        rs_bg_scroll(RS_BG2, r_bg2_x, r_bg2_y);
+        rs_bg_scroll(RS_BG3, wrap_x(RS_BG3, -shx), (-v->cam - v->h - shy) & pm);
+        rs_bg_scroll(RS_BG4, 0, r_far_low);
+        rs_bg_line_scroll(RS_BG2, tall() ? NULL : v->wob_dx, NULL);   /* a tall screen: the raster sways it */
         /* front to back: the UI, then the world */
         if (state == DS_OVER) {
             hu_gameover_sprites(1, m->tw[0].score, 0, best, 0, st_t, slide);
@@ -1100,7 +1341,10 @@ void draw_frame(const match *m, int state, int st_t, int best, int new_best, int
                 hu_box_text(22, 17, "-");
             }
         }
-        if (state == DS_TITLE) hu_title_sprites(st_t, title_chef, NULL);
+        if (state == DS_TITLE) {
+            if (tall()) tall_title_sprites(st_t);
+            else hu_title_sprites(st_t, title_chef, NULL);
+        }
         draw_view_sprites(m, 0, state, st_t, t);
         return;
     }
@@ -1111,18 +1355,22 @@ void draw_frame(const match *m, int state, int st_t, int best, int new_best, int
         rs_viewport *vp = &vps[p];
         vp->layers = 0x0f;
         vp->objs = 1;
+        int pm = px_mask();
+        if (tall()) vp->y = 0, vp->h = (int16_t)v->h;   /* a tall screen: the panes its whole height */
         vp->sx[0] = vp->x, vp->sy[0] = (int16_t)-slide;
-        vp->sx[1] = (int16_t)wrap_x(RS_BG2, v->bg2_cx - v->sx0 - shx), vp->sy[1] = (int16_t)((-v->cam - v->h - shy) & 255);
-        vp->sx[2] = (int16_t)wrap_x(RS_BG3, v->near_col0 * 8 + PANO_CX - v->sx0 - v->near_pcol0 * 8 - shx), vp->sy[2] = (int16_t)((-v->cam - v->h - shy) & 255);
+        vp->sx[1] = (int16_t)wrap_x(RS_BG2, v->bg2_cx - v->sx0 - shx), vp->sy[1] = (int16_t)((-v->cam - v->h - shy) & pm);
+        vp->sx[2] = (int16_t)wrap_x(RS_BG3, v->near_col0 * 8 + PANO_CX - v->sx0 - v->near_pcol0 * 8 - shx), vp->sy[2] = (int16_t)((-v->cam - v->h - shy) & pm);
         int far_x = is_wide() ? wide_block(m->players) * 4 - v->sx0 : m->players > 2 ? (128 - v->w) / 2 : 48;   /* the far px at the pane centre: 128 (64), or the middle of the block */
-        vp->sx[3] = (int16_t)(v->far_col0 * 8 + far_x), vp->sy[3] = (int16_t)((-far_base(v) - v->h) & 255);
+        vp->sx[3] = (int16_t)(v->far_col0 * 8 + far_x), vp->sy[3] = (int16_t)((-far_base(v) - v->h) & pm);
         vp->oam_first = (uint16_t)rs_oam_next();
         if (state == DS_TITLE || state == DS_OVER) {
             /* Viewports replace pixels, rather than alpha-compositing over earlier views.
              * Draw the shared UI inside each world view instead of an opaque UI-only overlay. */
             vp->w = (int16_t)((p + 1 < m->players ? vps[p + 1].x : rs_screen_right()) - vp->x);
-            if (state == DS_TITLE) hu_title_sprites(st_t, title_chef, NULL);
-            else {
+            if (state == DS_TITLE) {
+                if (tall()) tall_title_sprites(st_t);
+                else hu_title_sprites(st_t, title_chef, NULL);
+            } else {
                 hu_standing rank;
                 int keys[MAX_PLAYERS], values[MAX_PLAYERS];
                 for (int i = 0; i < m->players; i++) {
@@ -1151,7 +1399,8 @@ void draw_frame(const match *m, int state, int st_t, int best, int new_best, int
 void draw_state(void)
 {
     S(V); S(PC); S(FXS); S(nviews); S(shown_state); S(shown_best); S(shown_players); S(title_logo_on); S(vps); S(nvps);
-    S(near_pal_last); S(medals_loaded); S(built_w);
+    S(near_pal_last); S(medals_loaded); S(built_w); S(built_h);
+    S(r_bg2_x); S(r_bg2_y); S(r_far_low); S(r_far_up); S(r_far_line);
     S(fx_seed); S(opt_nodraw_bg);
     RS_STATE_RASTER(raster);
 }
@@ -1161,7 +1410,7 @@ void draw_state(void)
  * width is laid out again for this one (DESIGN.md "Widescreen") */
 void draw_state_loaded(void)
 {
-    if (built_w != rs_screen_width()) relayout();
+    if (built_w != rs_screen_width() || built_h != rs_screen_height()) relayout();
 }
 
 /* the player's part of the screen (the bot looks there): its viewport's sprites, or every sprite in 1 player */

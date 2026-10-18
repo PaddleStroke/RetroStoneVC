@@ -107,6 +107,12 @@
 #define TOP_SCREEN_Y 120            /* the camera keeps the top of the tower here once it is that high */
 #define BASE_SCREEN_Y 192           /* the plate's top at the start */
 #define CAMERA_SPEED 2              /* px per frame at most */
+/* a phone held upright (DESIGN.md "Tall screen"; drawing only): a zoomed screen of ZOOM_H lines (rs_screen_zoom), the
+ * whole house in view from the start as a cutaway (the floor TALL_BELOW lines above the screen's bottom), the tower's
+ * top kept TALL_TOP_16 / 16 of the screen's height from its top once it is that high */
+#define ZOOM_H       488
+#define TALL_BELOW   12
+#define TALL_TOP_16  7
 
 /* ---- wobble (visual only) -------------------------------------------------------------------------------- */
 #define WOBBLE_PERIOD 192           /* frames (3.2 s) */

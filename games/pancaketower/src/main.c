@@ -198,9 +198,9 @@ static void game_update(void)
         paused = !paused;
         ha_play(HA_PAUSE);
     }
-    int seg = segment_of(draw_camera(0) + 120);
+    int seg = segment_of(draw_camera(0) + draw_mid());
     for (int p = 1; p < M.players; p++) {
-        int s2 = segment_of(draw_camera(p) + 120);
+        int s2 = segment_of(draw_camera(p) + draw_mid());
         if (s2 > seg) seg = s2;
     }
     music_update(seg, !paused);
@@ -249,6 +249,7 @@ static void game_draw(void)
 
 static void game_init(void)
 {
+    rs_screen_zoom(ZOOM_H);               /* a phone held upright: zoomed, the house as a cutaway (DESIGN.md) */
     /* widescreen: the 320-px stage centred, the scenery shows more on both sides (draw.c, DESIGN.md "Widescreen") */
     rs_screen_origin(rs_screen_margin());
     save_load();

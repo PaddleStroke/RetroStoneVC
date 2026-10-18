@@ -29,7 +29,8 @@ journey upward, the screens, the medals, the sounds and the music are ours.
 320x240 at 60 Hz, fixed step. The world is a vertical column: y = 0 is the top of the plate (the tower's
 base), up is positive; a layer of the tower (a pancake or a topping) is **8 px** tall. The camera keeps the
 top of the tower at screen y = 120 once it has climbed that high; it eases toward it (at most 2 px per frame).
-**It never looks above a ceiling the tower has not broken**: the view's top line stays at most 40 px above the
+**It never looks above a ceiling the tower has not broken** (landscape and 4:3; a tall screen: "Tall screen"):
+the view's top line stays at most 40 px above the
 kitchen ceiling's underside, then the roof's, until the tower breaks through (the tower's top then reaches line
 40 at most, under the score); so the start is the whole kitchen, its ceiling at the top, and what lies above a
 ceiling (the attic, the roof from outside) is first seen when the camera rises through the hole.
@@ -282,6 +283,41 @@ against the pre-widescreen pictures).
 - **Cost** (`RS_WIDTH=520 make pancaketower-bench`, host averages per frame, 320 -> 520): 1-player run 0.35 ->
   0.48 ms, space 0.32 -> 0.50 ms, 2 players in the clouds 0.37 -> 0.54 ms, 2 players through the ceiling 0.35 ->
   0.54 ms (x1.4-1.6 for x1.63 columns: the PPU; the game's own update and drawing stay at 4-5 us).
+
+## Tall screen (docs/spec.md "Tall screen", the zoomed recipe)
+A phone held upright: `rs_screen_zoom(ZOOM_H)` (488 lines, tuning.h) first in `game_init`. The app scales the 488
+lines to the display's height and crops the sides: 208 columns on a 1080x2520 phone, 224 on a 1080x2340 one, 244 on a
+720x1440 one (5.2x on a 9:21 phone). The stage is at the screen's top (`rs_screen_origin_v(0)`: a stage y is a screen
+line) and every view is the screen's whole height. Rules, speeds and the bot are unchanged (drawing only).
+- **The house as a cutaway.** The start shows the whole house at once: the kitchen (its floor 12 lines above the
+  screen's bottom), the ceiling, the attic, the roof's section and the chimney in the sky. The landscape camera rule
+  (never above an unbroken ceiling) cannot hold with that many lines: on a tall screen the camera simply keeps the
+  tower's top 7/16 of the way down (213 lines from the top: the topping's fall and the bottle in view above it, 30
+  layers of tower below); it first moves once the tower is through the kitchen's ceiling. The holes, the breaks and
+  their debris are the same.
+- **The far layer above the roof**: the raster gives the lines above the roof's band (it hides the change) the far
+  layer 150 px lower, so the town's rooftops and the hills stand just over the roof; the windows below keep the
+  landscape's view (the garden). As the camera climbs past the roof the offset returns to 0 over 600 px (the town
+  sinks a little faster), so the sky and space look as in landscape. Far rows below the art are its grass.
+- **The maps**: BG2, BG3 and BG4 have 64-row rings (`& 31` became `ring_mask()`), BG1 64 rows. The tower's sway (1
+  player) is BG2's scroll set per line by the raster (the line-scroll tables cover the stage's 240 lines only); a tall
+  split screen does not sway. The sky's gradient is computed per screen line over the whole height.
+- **The HUD** (the height) at the screen's top, centred. The chef stands inside the columns shown, his portrait in
+  the bottom-left corner of the columns shown; the moon and the balloon too. A sliding pancake is partly cropped at
+  the ends of its travel (+-107 px: the play needs the middle, the tower is always whole): the rules stay the same.
+- **The same view everywhere** (fill on): the title, pause, the game-over panel and the 2-4 player results stay
+  zoomed, laid out for 24 columns (tiles 8..31). The title: the logo in two lines (PANCAKE / TOWER, the kit's tiles
+  moved) in the sky; the prompt, BEST and the join line over the attic's dark boards (wrapped in two lines when too
+  wide); the joined chefs on the kitchen's wall over their tags; the credits over the floor. A banner too wide (GAME
+  OVER in most languages, a winner) goes on two lines of 2x letters; the results' panel is 2 columns narrower. Only
+  2-4 players playing show every column (`rs_screen_fill(0)`: their panes need the whole width): full-height panes.
+- **VRAM**: the 64-row maps take 4-12 KB more: 65.6 KB in 1 player, 71.8 KB in 4 players (strict mode warns; the
+  guideline is the SNES's, which has no tall screen). A state saved at another height lays the views out again (as for
+  a width). Landscape, 4:3 and 427 are the same
+  pixels as before (11 scenes compared in English).
+- **Translated text (all heights)**: the kit's default glyph pool (BG tiles 640..767) was BG2's first tiles here, so
+  every language but English drew the tower's layer with glyphs (dots over the whole scene); the pool is now the
+  logo's last 128 tiles. A pancake count wider than 11 columns goes to the panel's foot (it overlapped the digits).
 
 ## Tests (make pancaketower-check)
 - `tests/test_tower.c`: the rules against the tuning table: the slide (speed, the ping-pong turn, the
