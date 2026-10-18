@@ -11,7 +11,8 @@
 #include "sine.h"
 #include "house_ui.h"
 #include "game_text.h"
-#include "tall_ui.h"
+#include "house_tall.h"             /* a phone held upright: the title and the panels in the columns shown */
+static ht_title_out title_out;            /* where the narrow title put its glyph and slots (drawn every title frame) */
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -180,7 +181,7 @@ static void web(const world *w,int player,const view *v,const rs_viewport *vp,in
    view still;still.cx=still.cy=0;
    vine(pixels,&still,vp,-14,196,1,0);vine(pixels,&still,vp,334,68,-1,0);
   }
-  int oy=-stage_dy(vp)+(state==ST_TITLE && tu_on()?TITLE_TALL_DY:0);   /* (a tall screen: the stage's lines lower in the
+  int oy=-stage_dy(vp)+(state==ST_TITLE && ht_narrow()?TITLE_TALL_DY:0);   /* (a tall screen: the stage's lines lower in the
                                                     * view; zoomed: the title's flowers lower) */
   branch(pixels,bx-14,60+oy,bx+89,102+oy,0,vp);branch(pixels,bx+334,60+oy,bx+231,102+oy,0,vp);
  }else{
@@ -239,7 +240,7 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
  nviews=rs_viewport_layout(multi?w->players:1,0,VP);
  /* a zoomed tall screen (DESIGN.md "Tall screen"): one spider climbing fills the display's height, the sides cropped
   * (its camera keeps the climb in the columns shown: base_w), the HUD pinned at the screen's top; the title and the
-  * panels the same view (laid out in the columns shown: tall_ui.h); only the split screens (2-4 spiders, a view each
+  * panels the same view (laid out in the columns shown: house_tall.h); only the split screens (2-4 spiders, a view each
   * across the stage) show every column (rs_screen_fill(0)) */
  int hud=tall() && !multi && (state==ST_PLAY || state==ST_DEAD);
  rs_screen_fill(!multi);
@@ -319,26 +320,34 @@ void draw_frame(const world *w,int state,int st_t,int best,int new_best,int paus
   rs_viewport *vp=&stage;hu_standing rank;ranking(w,&rank);
   int slide=state==ST_OVER?hu_slide_in(st_t,20,200):0;
   if(state==ST_TITLE) {
-   /* (a zoomed tall screen: the logo on two lines from the top, the spider and its flowers lower, the lines below
-    * them in the columns shown) */
-   int tz=tu_on(),d=tz?TITLE_TALL_DY:0;
-   tu_logo("SPIDER SWING",title_ramps,2,tz?0:2,0);
-   if(tz) {tu_title_draw(st_t,best,TR(VERB),MAX_PLAYERS,19,22);tu_text(16,TR(HINT),0,0,0);}
-   else {hu_title_draw(st_t,best);hu_text(hu_center(TR(HINT),0),16,TR(HINT));}
-   if(tz) tu_title_sprites(st_t,MAX_PLAYERS,19,icon,NULL);else hu_title_sprites(st_t,icon,NULL);
+   /* (a zoomed tall screen: the house title in the columns shown, house_tall.h; the spider and its flowers under the
+    * logo on its two lines, the hint under the slots) */
+   int tz=ht_narrow(),d=tz?TITLE_TALL_DY:0;ht_title tc={TR(VERB),MAX_PLAYERS,15,0};
+   if(tz) {ht_logo("SPIDER SWING",title_ramps,2,2,0);ht_title_draw(&tc,st_t,best,&title_out);ht_text(19,TR(HINT),0);}
+   else {hu_logo("SPIDER SWING",title_ramps,2,2,0);hu_title_draw(st_t,best);hu_text(hu_center(TR(HINT),0),16,TR(HINT));}
+   if(tz) ht_title_sprites(&tc,&title_out,st_t,icon,NULL);else hu_title_sprites(st_t,icon,NULL);
    spr(SPR_HERO_IDLE+(st_t/24)%2,144,92+d+hu_bob(st_t,64,4),2,0,vp);
    blossom(w,0,0,89,113+d,0,vp);blossom(w,1,0,231,113+d,0,vp);
   }
   if(state==ST_OVER) {
    if(w->players==1) {
     static const int medals[4]=MEDAL_SCORES;
-    tu_banner(4,HTR(GAME_OVER));hu_gameover_panel(1,new_best,w->h[0].score,0);
-    hu_gameover_sprites(1,w->h[0].score,0,best,hu_medal_of(w->h[0].score,medals),st_t,slide);
-    hu_retry_line(st_t,RETRY_LOCK,HTR(BACK_TITLE));
+    if(ht_narrow()) {   /* a phone held upright: the panel in the columns shown */
+     ht_banner(4,HTR(GAME_OVER));ht_gameover_panel(new_best,NULL,HTR(BACK_TITLE));
+     ht_gameover_sprites(w->h[0].score,best,hu_medal_of(w->h[0].score,medals),st_t,slide);
+     ht_retry_line_at(ht_gameover_retry_row(NULL),st_t,RETRY_LOCK,HTR(BACK_TITLE));
+    } else {
+     hu_banner(4,HTR(GAME_OVER));hu_gameover_panel(1,new_best,w->h[0].score,0);
+     hu_gameover_sprites(1,w->h[0].score,0,best,hu_medal_of(w->h[0].score,medals),st_t,slide);
+     hu_retry_line(st_t,RETRY_LOCK,HTR(BACK_TITLE));
+    }
    } else {
-    tu_results_panel(&rank,NULL);hu_results_sprites(&rank,st_t,slide);
-    for(int i=0;i<rank.n;i++) {int x,y;hu_results_icon_pos(&rank,i,&x,&y);spr(SPR_HERO_ICON,x-8,y-8+slide,3,ppal(rank.order[i]),vp);}
-    hu_retry_line_at(hu_results_retry_row(&rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));
+    int tz=ht_narrow();
+    if(tz) {ht_results_panel(&rank,NULL);ht_results_sprites(&rank,st_t,slide);}
+    else {hu_results_panel(&rank,NULL);hu_results_sprites(&rank,st_t,slide);}
+    for(int i=0;i<rank.n;i++) {int x,y;if(tz) ht_results_icon_pos(&rank,i,&x,&y);else hu_results_icon_pos(&rank,i,&x,&y);spr(SPR_HERO_ICON,x-8,y-8+slide,3,ppal(rank.order[i]),vp);}
+    if(tz) ht_retry_line_at(hu_results_retry_row(&rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));
+    else hu_retry_line_at(hu_results_retry_row(&rank),st_t,RETRY_LOCK,HTR(BACK_TITLE));
    }
   }
   /* the full view's layers start at its left edge (stage x VP[0].x: -margin on a wide screen) */
