@@ -425,6 +425,7 @@ static void layout(box b)
     }
     if (!below_board) {
         float th = fminf(boardh + head * W, 3 * 2.1f * W), t0 = by - head * W + (boardh + head * W - th) / 2 + 0.6f * W;
+        if (t0 + th > b.y + b.h) t0 = b.y + b.h - th;   /* the last stack kept on the screen (a board as tall as it) */
         for (int i = 0; i < HX_TRAY; i++) slot_box[i] = (box){bx + boardw, t0 + i * th / 3, tray_h * W, th / 3};
     }
     int key = (int)W;
