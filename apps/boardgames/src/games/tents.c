@@ -170,6 +170,7 @@ static void layout(box b)
         ui_free(&t_grass);
         t_grass = pic_tex(grass_pic, geo.cs);
     }
+    bench_used(&geo);
     bench_small(&t_small, &made_small, token);
 }
 

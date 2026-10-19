@@ -175,6 +175,7 @@ static void layout(box b)
         ui_free(&t_pearl[1]);
         t_pearl[1] = pic_tex(black_pic, d);
     }
+    bench_used(&geo);
     bench_small(&t_small, &made_small, token);
 }
 

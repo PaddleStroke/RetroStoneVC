@@ -149,6 +149,7 @@ static void layout(box b)
         ui_free(&t_ring);
         t_ring = pic_tex(ring_pic, geo.cs);
     }
+    bench_used(&geo);
     bench_small(&t_small, &made_small, token);
 }
 

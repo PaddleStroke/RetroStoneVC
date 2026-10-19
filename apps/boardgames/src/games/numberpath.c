@@ -109,6 +109,7 @@ static void layout(box b)
         pzk_arc(ui_buf(s, s), s, s, s / 2.0f, s / 2.0f, 0.36f * s, 0.41f * s, 0, 360, BENCH_GIVEN, 0.85f);
         t_ring = ui_tex(s, s, ui_buf(s, s));
     }
+    bench_used(&geo);
     bench_small(&t_small, &made_small, token);
 }
 

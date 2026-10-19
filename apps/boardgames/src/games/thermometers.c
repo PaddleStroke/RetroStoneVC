@@ -194,6 +194,7 @@ static void layout(box b)
         ui_free(&t_cross);
         t_cross = pic_tex(cross_pic, geo.cs);
     }
+    bench_used(&geo);
     bench_small(&t_small, &made_small, token);
 }
 

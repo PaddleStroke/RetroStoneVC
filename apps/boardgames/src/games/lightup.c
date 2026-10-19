@@ -130,6 +130,7 @@ static void layout(box b)
         art_disc(gs, WARM, 0.55f, 1.6f, ui_buf(gs, gs));
         t_glow = ui_tex(gs, gs, ui_buf(gs, gs));
     }
+    bench_used(&geo);
     bench_small(&t_small, &made_small, token);
 }
 

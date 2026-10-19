@@ -198,6 +198,7 @@ static void layout(box b)
         ui_free(&t_dot);
         t_dot = pic_tex(dot_pic, geo.cs);
     }
+    bench_used(&geo);
     bench_small(&t_small, &made_small, token);
 }
 

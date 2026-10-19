@@ -89,6 +89,7 @@ static void layout(box b)
             t_disc[i] = ui_tex(d, d, ui_buf(d, d));
         }
     }
+    bench_used(&geo);
     bench_small(&t_small, &made_small, token);
 }
 

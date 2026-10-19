@@ -133,6 +133,7 @@ static void layout(box b)
         ui_free(&t_shade);
         t_shade = pic_tex(shade_pic, geo.cs);
     }
+    bench_used(&geo);
     bench_small(&t_small, &made_small, token);
 }
 

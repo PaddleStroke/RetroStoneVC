@@ -113,6 +113,7 @@ static void layout(box b)
             t_stone[i] = stone_tex(i ? YYG_EBONY : YYG_IVORY, (int)(STONE * geo.cs));
         }
     }
+    bench_used(&geo);
     bench_small(&t_small, &made_small, token);
 }
 

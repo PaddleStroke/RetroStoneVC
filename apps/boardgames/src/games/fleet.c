@@ -230,6 +230,7 @@ static void layout(box b)
         ui_free(&t_wave);
         t_wave = pic_tex(wave_pic, geo.cs);
     }
+    bench_used(&geo);
     bench_small(&t_small, &made_small, token);
 }
 
