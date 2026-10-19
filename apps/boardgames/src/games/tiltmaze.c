@@ -63,10 +63,14 @@ static void colour_of(int k, uint8_t rgb[3])
 }
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
-/* a hole: a dark well in the felt, a ring of its colour, a thin brass rim */
+/* a hole: a dark well in the felt, a ring of its colour, a thin brass rim. Small (the menu's card, the level tiles):
+ * the ring kept two pixels wide, the well tinted with its colour, so the colour still shows */
 static void paint_hole(uint8_t *o, int W, int H, float cx, float cy, int sq, int k)
 {
-    float r = 0.34f * sq, b = 0.1f * sq;
+    float rt = fmaxf(0.075f * sq, fminf(2.2f, 0.2f * sq)), rim = fmaxf(0.03f * sq, 0.8f);
+    float r = 0.44f * sq - rt - rim, b = 0.1f * sq, tint = clampf((48.0f - sq) / 48.0f, 0, 0.55f);
+    uint8_t col[3];
+    colour_of(k, col);
     for (int y = (int)(cy - r - 1); y <= cy + r + 1; y++)
         for (int x = (int)(cx - r - 1); x <= cx + r + 1; x++) {
             if (x < 0 || y < 0 || x >= W || y >= H) continue;
@@ -74,12 +78,14 @@ static void paint_hole(uint8_t *o, int W, int H, float cx, float cy, int sq, int
             if (d > r + 0.5f) continue;
             uint8_t *p = o + 4 * ((size_t)y * W + x);
             float f = art_recess(dx, dy, r, b, 0.12f, 0.3f, 0.2f), a = clampf(r + 0.5f - d, 0, 1);
-            for (int i = 0; i < 3; i++) p[i] = (uint8_t)clampf(p[i] + (p[i] * f * 0.6f - p[i]) * a, 0, 255);
+            for (int i = 0; i < 3; i++) {
+                float well = p[i] * f * 0.6f;
+                well += (col[i] * 0.8f - well) * tint;
+                p[i] = (uint8_t)clampf(p[i] + (well - p[i]) * a, 0, 255);
+            }
         }
-    uint8_t col[3];
-    colour_of(k, col);
-    pzk_arc(o, W, H, cx, cy, r, r + 0.075f * sq, 0, 360, col, 1);
-    pzk_arc(o, W, H, cx, cy, r + 0.075f * sq, r + 0.105f * sq, 0, 360, BRASS, 1);
+    pzk_arc(o, W, H, cx, cy, r, r + rt, 0, 360, col, 1);
+    pzk_arc(o, W, H, cx, cy, r + rt, r + rt + rim, 0, 360, BRASS, 1);
     pzk_arc(o, W, H, cx, cy, r - 0.02f * sq, r, 0, 360, PUZ_WHITE, 0.12f);
 }
 
