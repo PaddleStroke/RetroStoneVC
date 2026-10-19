@@ -52,6 +52,8 @@ int room_parse(const char *text, room *r, char *err, int errlen)
             r->wind_y = (int16_t)y;
         }
         if ((s = strstr(line, "hint="))) r->hint = (uint8_t)(s[5] - '0');
+        if ((s = strstr(line, "exit=")))                    /* the way out named: the other open sides are sky */
+            r->exit_set = s[5] == 'l' ? EXIT_LEFT : s[5] == 'r' ? EXIT_RIGHT : EXIT_TOP;
         if ((s = strstr(line, "gust="))) {
             int a = 0, b = 0;
             sscanf(s + 5, "%d,%d", &a, &b);
@@ -162,6 +164,12 @@ int room_parse(const char *text, room *r, char *err, int errlen)
                     r->nplats++;
                 }
                 break;
+            case 'd':
+                if (r->ndeco >= MAX_DECO) { snprintf(err, (size_t)errlen, "too many props (d)"); return -1; }
+                r->deco_cx[r->ndeco] = (uint8_t)x;
+                r->deco_cy[r->ndeco] = (uint8_t)y;
+                r->ndeco++;
+                break;
             case 'x': case '.': case ' ': break;
             default:
                 snprintf(err, (size_t)errlen, "unknown character '%c' at %d,%d", c, x + 1, y + 1);
@@ -177,19 +185,32 @@ int room_parse(const char *text, room *r, char *err, int errlen)
             }
     if (starts != 1) { snprintf(err, (size_t)errlen, "%d starts (S) instead of 1", starts); return -1; }
     if (berries > 1) { snprintf(err, (size_t)errlen, "%d berries (B), 1 at most", berries); return -1; }
-    /* the exit: the openings of the top row and the side columns (the bottom: a fall) */
-    int sides = 0;
-    for (int x = 0; x < ROOM_W; x++)
-        if (r->cell[0][x] != C_ROCK) { r->exit_side = EXIT_TOP; sides |= 1; break; }
-    for (int y = 0; y < ROOM_H; y++)
-        if (r->cell[y][0] != C_ROCK) { r->exit_side = EXIT_LEFT; sides |= 2; break; }
-    for (int y = 0; y < ROOM_H; y++)
-        if (r->cell[y][ROOM_W - 1] != C_ROCK) { r->exit_side = EXIT_RIGHT; sides |= 4; break; }
-    if (sides != 1 && sides != 2 && sides != 4) {
-        snprintf(err, (size_t)errlen, "the room must open on exactly one side (top, left or right): %s%s%s%s",
-                 sides ? "" : "none", sides & 1 ? "top " : "", sides & 2 ? "left " : "", sides & 4 ? "right" : "");
+    /* the exit: an opening of the left or the right column; else the top row's. With a side's exit the top may be open
+     * too: the sky (the kid may jump above the screen, it comes back down). The bottom: a fall. */
+    int top = 0, left = 0, right = 0;
+    for (int x = 1; x < ROOM_W - 1; x++)
+        if (r->cell[0][x] != C_ROCK) top = 1;
+    for (int y = 0; y < ROOM_H; y++) {
+        if (r->cell[y][0] != C_ROCK) left = 1;
+        if (r->cell[y][ROOM_W - 1] != C_ROCK) right = 1;
+    }
+    if (r->exit_set) {                                      /* exit=: that side, the others open on the sky */
+        if ((r->exit_set == EXIT_LEFT && !left) || (r->exit_set == EXIT_RIGHT && !right) || (r->exit_set == EXIT_TOP && !top)) {
+            snprintf(err, (size_t)errlen, "exit= names a side with no opening");
+            return -1;
+        }
+        r->exit_side = r->exit_set;
+        r->wall_sides = 1;
+        r->open_top = (uint8_t)top;
+        return 0;
+    }
+    if (left && right) {
+        snprintf(err, (size_t)errlen, "the room opens on both sides (one way out: left, right or the top; or exit=)");
         return -1;
     }
+    if (!left && !right && !top) { snprintf(err, (size_t)errlen, "the room has no way out"); return -1; }
+    r->exit_side = left ? EXIT_LEFT : right ? EXIT_RIGHT : EXIT_TOP;
+    r->open_top = (uint8_t)top;
     return 0;
 }
 
@@ -217,6 +238,8 @@ int chapter_parse(const char *text, room *rooms, int max, char *err, int errlen)
 int world_cell(const room *r, int cx, int cy)
 {
     if (cy >= ROOM_H) return C_EMPTY;                       /* below: the fall */
+    if ((cx < 0 && r->exit_side != EXIT_LEFT && r->wall_sides) || (cx >= ROOM_W && r->exit_side != EXIT_RIGHT && r->wall_sides))
+        return C_ROCK;                                      /* a side that is not the way out: an unseen wall */
     if (cx < 0 || cx >= ROOM_W || cy < 0) {                 /* outside: the border's rock carried on */
         int bx = cx < 0 ? 0 : cx >= ROOM_W ? ROOM_W - 1 : cx, by = cy < 0 ? 0 : cy;
         return r->cell[by][bx] == C_ROCK ? C_ROCK : C_EMPTY;

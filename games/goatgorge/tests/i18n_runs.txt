@@ -11,3 +11,11 @@ title_t     130  125  --display 1080x2340
 play_t      200  190  --display 1080x2340 --opt bot=1 --opt ready=1 --opt room=6
 pause_t     170  165  --display 1080x2340 --opt bot=1 --opt ready=1 ; 150 tap START
 results_t   2300 2290 --display 1080x2340 --opt bot=1
+cont        130  125  --opt fakerun=1 --opt records=1
+cont_t      130  125  --display 1080x2340 --opt fakerun=1 --opt records=1
+pick        130  125  --opt records=1 --opt chapter=2
+pick_t      130  125  --display 1080x2340 --opt records=1 --opt chapter=2
+card        60   50   --opt ready=1 --opt chapter=3 --opt unlock=1
+card_t      60   50   --display 1080x2340 --opt ready=1 --opt chapter=4 --opt unlock=1
+skip        60   55   --opt ready=1 --opt room=4 --opt roomdeaths=15 ; 40 tap START
+skip_t      60   55   --display 1080x2340 --opt ready=1 --opt room=4 --opt roomdeaths=15 ; 40 tap START

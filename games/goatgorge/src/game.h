@@ -24,6 +24,7 @@
 #define MAX_SPRINGS 8
 #define MAX_PLATS   6
 #define MAX_CRUMBLE 48              /* crumbling cells per room */
+#define MAX_DECO    10              /* decorative props per room */
 
 /* the cells (the levels' characters: levels/README.md) */
 enum {
@@ -108,6 +109,10 @@ typedef struct room {
     int16_t wind_on, wind_off;      /* a gust cycle: on frames, then off frames (off 0: always) */
     uint8_t exit_side;              /* EXIT_* */
     uint8_t hint;                   /* a tip shown in this room (1 jump, 2 wall jump, 3 dash...; 0 none) */
+    uint8_t open_top;               /* the top row opens on the sky (with a side's exit: not a way out) */
+    uint8_t exit_set, wall_sides;   /* exit= on the room's line; then the sides not the way out are unseen walls */
+    uint8_t ndeco;                  /* the chapter's props drawn in the room (d: a decoration, not solid) */
+    uint8_t deco_cx[MAX_DECO], deco_cy[MAX_DECO];
 } room;
 enum { EXIT_NONE, EXIT_TOP, EXIT_LEFT, EXIT_RIGHT };
 
@@ -172,6 +177,9 @@ typedef struct view {               /* what draw_frame shows (main.c fills it) *
     int berry_count[CHAPTERS];                               /* the berries a chapter has */
     int new_time, new_deaths, new_berries;                   /* the results */
     int hud_t;                                               /* frames since the room began (the room's name) */
+    int run_ch, run_room;                                    /* the climb under way (the title: CONTINUE), -1 none */
+    int can_skip, skipped;                                   /* paused after many deaths: skip; the rooms skipped */
+    int card;                                                /* the chapter's title card: frames left (0 none) */
 } view;
 void draw_init(void);
 void draw_room(const room *r, int chapter, int room_no);    /* a new room: its map */

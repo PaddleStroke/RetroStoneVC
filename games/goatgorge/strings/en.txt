@@ -85,3 +85,23 @@ HINT_WIND = THE WIND PUSHES YOU - LEAN INTO IT
 #. Each room hides a berry: optional, harder to reach.
 #. max 38
 HINT_BERRY = BERRIES ARE OPTIONAL - AND TRICKY
+
+#. The title's prompt verb when a climb of the chosen chapter is under way: PRESS A TO <VERB> (it goes on at the room
+#. the player left).
+#. max 10
+VERB_CONTINUE = CONTINUE
+#. The title, under the chapter's lines, when a climb of it is under way: where it stands (chapter-room, like 2-5).
+#. max 38
+RUN_AT = IN PROGRESS: ROOM %d-%d
+#. The title, under PRESS A TO CONTINUE: B starts the chapter over from its first room (the records are kept).
+#. max 38
+NEW_RUN = B: NEW CLIMB FROM ROOM 1
+#. The title, when several chapters are open: Left / Right (drawn as arrows, { and }) choose the chapter.
+#. max 38
+PICK_CHAPTER = { } CHOOSE A CHAPTER
+#. Paused, after 15 deaths in the same room: A skips it (it counts as not climbed, its berry is lost).
+#. max 38
+PAUSE_SKIP = A: SKIP THIS ROOM (NO BERRY)
+#. The results' banner when rooms were skipped (the chapter opens the next one, but no record is kept).
+#. max 36
+CLEAR_SKIPPED = CLIMBED, WITH SKIPS

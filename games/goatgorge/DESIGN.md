@@ -20,7 +20,12 @@ once, and only a counter remembers it. Five chapters, a berry hidden in most roo
 | pause | Start or Select | the app's pause button | Enter / Backspace |
 | paused: back to the title | B | B | Z |
 
-The title: Left / Right choose the chapter (the next opens when the one before is climbed), A starts it.
+The title: Left / Right choose the chapter (the next opens when the one before is climbed; a hint says so when several
+are open), A starts it. A climb under way is kept in save RAM at each room's start (and when leaving it from the
+pause): the title then shows IN PROGRESS: ROOM 2-5, PRESS A TO CONTINUE, and B: NEW CLIMB FROM ROOM 1 (the records are
+kept). It opens on the climb under way, else on the furthest chapter open. Each chapter starts with its title card
+(CHAPTER n and its name, 2.5 s). After 15 deaths in the same room the pause offers A: SKIP THIS ROOM (no berry; a climb
+with skips opens the next chapter but sets no record: the results say CLIMBED, WITH SKIPS).
 
 ## The movement (src/game.h: every number; src/world.c: the rules, no SDK call)
 Positions are whole pixels with a 1/256 remainder; every move goes pixel by pixel against the solids. 60 Hz.
@@ -49,8 +54,12 @@ Feel: squash on landing, stretch on take-off, dust (jump, landing, wall, running
 a 2-px shake and a trail of 5 ghosts (added half), a burst on a death, a flash on the respawn.
 
 ## The rooms (levels/README.md: the format; levels/chN.txt)
-Single screens of 20 x 15 cells of 16 px. A room opens on one side (top, left or right): leaving through it fades to
-the next room; falling out of the bottom is a death. Every room is checked and solved by `tests/solver.c` (a
+Single screens of 20 x 15 cells of 16 px. The way out is one side (`exit=` on the room's line): leaving through it fades
+to the next room; falling out of the bottom is a death. Every other open side is sky: an unseen wall at the screen's
+sides, and above it the kid may jump off the screen (a small arrow shows where) and comes back down. Only the crystal
+cave has ceilings. Each room has one idea and a flow (the entrance, the challenge, a breather, the way out), its berry
+in sight of the main route, and the chapter's decorations (`d`: a flowering bush, mushrooms on a stump, crystals, a
+wind banner, a cairn; and moss, roots, crystals or icicles under the rock). Every room is checked and solved by `tests/solver.c` (a
 breadth-first search over the touch buttons' inputs, run through the game's own rules): `levels/solutions.txt` holds
 the inputs of each room's exit and berry routes, `tests/test_rooms.c` replays them all in `make goatgorge-check`,
 and the bot (`--opt bot=1`) plays them in the game.
@@ -68,7 +77,7 @@ a few minutes and some deaths.
 
 ## Screen and layers
 320 x 240 at 60 Hz. Backdrop: the chapter's sky (a raster gradient). BG4 far mountains, BG3 the middle ground
-(parallax: they lean with the kid), BG2 the room (rock autotiled from 8x8 quarters, the chapter's cap of grass, moss,
+(fixed: a room is one screen, its backdrop a still picture; the shake moves the room only), BG2 the room (rock autotiled from 8x8 quarters, the chapter's cap of grass, moss,
 crystal, sand or snow; spikes, ledges, crumbling blocks, decorations), BG1 the house kit (title, HUD, tips, results,
 PAUSED). Sprites: the kid (OBJ 0 / 1), the props (OBJ 2), the kit (OBJ 3), the trail (OBJ 4, added half), effects
 (OBJ 5), the glow (OBJ 6).

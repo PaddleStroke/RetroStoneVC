@@ -326,6 +326,26 @@ def decor(kind):
     return t
 
 
+def hang(kind):
+    """under a rock's bottom (the upper half of the empty cell below): 0 trailing moss / roots, 1 drips (icicles on the
+    summit, crystals in the cave: the chapter's cap colours)"""
+    t = [[0] * 8 for _ in range(8)]
+    if kind == 0:
+        for x, ln in ((1, 3), (2, 6), (4, 2), (5, 5), (6, 3)):
+            for y in range(ln):
+                t[y][x] = T_CM if y < ln - 1 else T_CD
+            if ln > 3:
+                t[ln // 2][x + 1 if x < 7 else x] = T_CL
+    else:
+        for x0, ln in ((2, 5), (5, 3)):
+            for y in range(ln):
+                for x in (x0, x0 + 1):
+                    if y < ln - (1 if x == x0 + 1 else 0):
+                        t[y][x] = T_CL if x == x0 else T_CM
+            t[ln - 1][x0] = T_CD
+    return t
+
+
 def fill_tile(c):
     return [[c] * 8 for _ in range(8)]
 
@@ -349,6 +369,8 @@ def build_tiles():
         tiles.append(decor(k)); names.append("decor_%d" % k)
     tiles.append(fill_tile(T_RD)); names.append("deep")             # the mountain's inside (past the room)
     tiles.append(fill_tile(T_OUT)); names.append("dark")            # deeper still
+    for k in range(2):
+        tiles.append(hang(k)); names.append("hang_%d" % k)
     return tiles, names
 
 
@@ -663,15 +685,94 @@ SPRITES = [
     ("burst", 200, 56, 8, 8, 2, 5),
     ("streak", 216, 56, 8, 8, 2, 5),
     ("flake", 232, 56, 8, 8, 2, 5),
+    ("prop", 0, 64, 16, 24, 10, 2),
+    ("cloud", 160, 64, 32, 16, 2, 5),
+    ("marker", 160, 80, 8, 8, 2, 5),
 ]
-SHEET_W, SHEET_H = 256, 64
+SHEET_W, SHEET_H = 256, 88
 
 
 def sprite_frame(name, i):
     if name.startswith("kid_"):
         return kid_frame(name[4:], i)
+    if name == "prop":
+        return prop(i // 2, i % 2)
     return {"berry": berry, "gem": gem, "spring": spring, "crumble": lambda f: crumble_sprite(), "plank": plank,
-            "dust": dust, "burst": burst, "streak": streak, "flake": flake, "icon": icon}[name](i)
+            "dust": dust, "burst": burst, "streak": streak, "flake": flake, "icon": icon, "cloud": cloud,
+            "marker": marker}[name](i)
+
+
+def marker(frame):
+    """the kid above the screen's top: a little arrow pointing up at where it is"""
+    cv = Canvas(8, 8)
+    for y in range(1, 6):
+        for x in range(8):
+            if abs(x + 0.5 - 4) <= (y - 0.5) * 0.8:
+                cv.set(x, y + frame, F_W if y < 4 else F_L)
+    cv.outline(F_OUT)
+    return cv
+
+
+def cloud(frame):
+    """a soft cloud for the sky above a tall screen's room (two shapes)"""
+    cv = Canvas(32, 16)
+    blobs = [(9, 10, 6, 4.5), (17, 7, 7, 6), (24, 10, 6, 4.5)] if frame == 0 else \
+        [(8, 11, 5, 3.5), (15, 8, 6, 5), (23, 9, 6, 4.5)]
+    for cx, cy, rx, ry in blobs:
+        for y in range(15):
+            for x in range(32):
+                if ((x + 0.5 - cx) / rx) ** 2 + ((y + 0.5 - cy) / ry) ** 2 <= 1:
+                    cv.set(x, y, F_W if y < cy - ry * 0.2 else F_L if y < 12 else F_M)
+    return cv
+
+
+def prop(ch, frame):
+    """each chapter's decoration ('d' in a room, standing on rock), 16 x 24, two frames (a sway): 1 a flowering bush,
+    2 a pair of red mushrooms on a stump, 3 a crystal cluster, 4 a wind banner on a pole, 5 a snowy cairn"""
+    cv = Canvas(16, 24)
+    s = frame
+    if ch == 0:
+        hs.ellipse(cv, 8, 18, 7, 5.5, [O_GL, O_GM, O_GM, O_GD])
+        for i, (x, y) in enumerate(((4, 15), (9, 14), (12, 17), (6, 19), (11, 20))):
+            xx = x + (s if i % 2 else 0)
+            cv.set(xx, y, O_WH if i % 2 else O_RL)
+            cv.set(xx, y + 1, O_RM)
+    elif ch == 1:
+        cv.rect(4, 19, 11, 23, O_MM)
+        cv.rect(4, 19, 11, 19, O_ML)
+        cv.set(7, 21, O_MD)
+        cv.set(8, 22, O_MD)
+        for (cx, cy, r) in ((6.0 - s * 0.5, 14.0, 4.0), (11.0 + s * 0.5, 16.0, 2.8)):
+            cv.rect(int(cx) - 1, int(cy) + 1, int(cx), 18, O_ML)
+            for y in range(24):
+                for x in range(16):
+                    if ((x + 0.5 - cx) / r) ** 2 + ((y + 0.5 - cy) / (r * 0.75)) ** 2 <= 1 and y <= cy:
+                        cv.set(x, y, O_RL if (y < cy - r * 0.35 and x < cx) else O_RM)
+            cv.set(int(cx) - 1, int(cy - r * 0.45), O_WH)
+    elif ch == 2:
+        for (x0, hgt, w) in ((4, 14, 2), (8, 20, 3), (12, 11, 2)):
+            for y in range(24 - hgt, 24):
+                for x in range(x0 - w + 1, x0 + w):
+                    if abs(x - x0) <= (y - (24 - hgt)) * 0.6 + 0.4:
+                        cv.set(x, y, O_CL if x < x0 else O_CM if x == x0 else O_CD)
+        if s:
+            cv.set(8, 6, O_WH)
+            cv.set(4, 12, O_WH)
+    elif ch == 3:
+        cv.rect(3, 2, 3, 23, O_MD)
+        cv.rect(2, 22, 4, 23, O_MM)
+        for y in range(3, 11):
+            ln = 10 - abs(y - 7) - (2 if s else 0) + (y % 2)
+            for x in range(4, 4 + max(2, ln)):
+                cv.set(x, y + (1 if s and x > 9 else 0), O_RM if (x // 3) % 2 == 0 else O_WH)
+    else:
+        for (cx, cy, rx, ry) in ((8, 20.5, 6, 3.5), (8, 15, 4.5, 3), (8, 10.5, 3, 2.2)):
+            hs.ellipse(cv, cx, cy, rx, ry, [O_WH, O_ML, O_MM, O_MD])
+        cv.rect(5, 18, 11, 18, O_WH)
+        if s:
+            cv.set(5, 8, O_WH)
+    cv.outline(O_OUT)
+    return cv
 
 
 def build_sheet():

@@ -198,6 +198,12 @@ static void put_cell(const room *r, int cx, int cy, int mx, int my, int salt)
         if (k % 100 < 34) e[2] = TP(TT_DECOR_0 + (k >> 8) % 4);
         if ((k >> 12) % 100 < 30) e[3] = TP(TT_DECOR_0 + (k >> 16) % 4) | ((k >> 20) & 1 ? RS_MAP_HFLIP : 0);
     }
+    if (c == C_EMPTY && cy >= 1 && cy < ROOM_H && draw_cell(r, cx, cy - 1) == C_ROCK) {
+        uint32_t k = hsh(cx, cy, salt + 11);                /* under a rock: moss and roots, crystals, icicles */
+        int kind = cur_ch == 2 || cur_ch == 4 ? TT_HANG_1 : TT_HANG_0;
+        if (k % 100 < 45) e[0] = TP(kind) | ((k >> 8) & 1 ? RS_MAP_HFLIP : 0);
+        if ((k >> 10) % 100 < 40) e[1] = TP(kind) | ((k >> 18) & 1 ? RS_MAP_HFLIP : 0);
+    }
 #undef TP
 #undef PP
     for (int q = 0; q < 4; q++) {
@@ -400,8 +406,10 @@ static void draw_kid(const world *w, int sx, int sy)
     spr(s, x, y, 2, pal, flags);
 }
 
-static void draw_props(const world *w, const room *r, int sx, int sy)
+static void draw_props(const world *w, const room *r, int ch, int sx, int sy)
 {
+    for (int i = 0; i < r->ndeco; i++)                  /* the chapter's decorations, standing on their cell's floor */
+        spr(SPR_PROP + ch * 2 + (tick / 40 + i) % 2, r->deco_cx[i] * CELL + sx, r->deco_cy[i] * CELL + CELL - 24 + sy, 2, -1, 0);
     for (int i = 0; i < r->nplats; i++) {
         int n = r->plat[i].w / CELL;
         for (int k = 0; k < n; k++)
@@ -473,6 +481,20 @@ static void weather(const world *w, const room *r, int ch)
     }
 }
 
+/* a tall screen: soft clouds drifting in the sky above the room (not in the cave) */
+static void clouds(int ch, int t)
+{
+    int top = rs_screen_top();
+    if (ch == 2 || top > -80) return;
+    for (int i = 0; i < 4; i++) {
+        int y = top + 26 + i * 34;
+        if (y > -40) break;
+        int span = rs_screen_right() - rs_screen_left() + 64;
+        int x = rs_screen_left() - 32 + (int)((unsigned)(i * 131 + t / (6 + i * 2)) % (unsigned)span);
+        spr(SPR_CLOUD + (i & 1), x, y, 1, -1, 0);
+    }
+}
+
 /* ---- the UI ------------------------------------------------------------------------------------------------------------- */
 static void fmt_time(char *s, int n, int frames)
 {
@@ -534,29 +556,66 @@ static void hud_icons(int dy)
 }
 
 /* the title's chapter lines (rows y..y+4): < CHAPTER n >, its name, its records or how to open it */
-static void chapter_lines(const view *v, int y, int narrow)
+/* The title's lines (the house's rows: the logo above, the prompt PRESS A TO CLIMB / CONTINUE on row 21):
+ *   < CHAPTER n >, its name, its records, its berries; then, when a climb of it is under way, IN PROGRESS: ROOM n-m
+ *   and (under the prompt) B: NEW CLIMB FROM ROOM 1; and when several chapters are open, how to choose one.
+ * Landscape: rows 11, 13, 15, 17, 19, then 23 and 25. Upright (house_tall.h): from row 15 down, as many as fit above
+ * the prompt's block (ht_title_draw lays out the prompt, the hint and the credits bottom-aligned). */
+static int line_text(const view *v, int k, char *s, int n)
 {
-    char s[96], t[32];
+    char t[32], u[64];
     int c = v->sel;
-    rs_strf(s, sizeof s, TR(CHAPTER_N), c + 1);
-    char line[128];
-    snprintf(line, sizeof line, "%s %s %s", c > 0 ? HU_ARROW_LEFT : " ", s, c < v->unlocked ? HU_ARROW_RIGHT : " ");
-    if (narrow) hu_text(ht_center(line, 0), y, line);
-    else hu_text(hu_center(line, 0), y, line);
-    const char *nm = chapter_name(c);
-    if (narrow) ht_text(y + 2, nm, 0);
-    else hu_text(hu_center(nm, 0), y + 2, nm);
-    if (v->cleared[c]) {
-        fmt_time(t, sizeof t, v->best_time[c]);
-        rs_strf(s, sizeof s, TR(RECORD), t, v->best_deaths[c]);
-    } else {
-        snprintf(s, sizeof s, "%s", TR(NOT_YET));
+    switch (k) {
+    case 0:
+        rs_strf(u, sizeof u, TR(CHAPTER_N), c + 1);
+        snprintf(s, (size_t)n, "%s %s %s", c > 0 ? HU_ARROW_LEFT : " ", u, c < v->unlocked ? HU_ARROW_RIGHT : " ");
+        return 1;
+    case 1: snprintf(s, (size_t)n, "%s", chapter_name(c)); return 1;
+    case 2:
+        if (v->cleared[c]) {
+            fmt_time(t, sizeof t, v->best_time[c]);
+            rs_strf(s, (size_t)n, TR(RECORD), t, v->best_deaths[c]);
+        } else {
+            snprintf(s, (size_t)n, "%s", TR(NOT_YET));
+        }
+        return 1;
+    case 3: rs_strf(s, (size_t)n, TR(BERRIES_N), v->best_berries[c], v->berry_count[c]); return 1;
+    case 4:
+        if (v->run_ch == c) { rs_strf(s, (size_t)n, TR(RUN_AT), c + 1, v->run_room + 1); return 1; }
+        return 0;
+    case 5: snprintf(s, (size_t)n, "%s", TR(NEW_RUN)); return v->run_ch == c;
+    case 6: snprintf(s, (size_t)n, "%s", TR(PICK_CHAPTER)); return v->unlocked > 0 && v->run_ch != v->sel;
+    default: return 0;
     }
-    if (narrow) ht_text(y + 4, s, 0);
-    else hu_text(hu_center(s, 0), y + 4, s);
-    rs_strf(s, sizeof s, TR(BERRIES_N), v->best_berries[c], v->berry_count[c]);
-    if (narrow) ht_text(y + 6, s, 0);
-    else hu_text(hu_center(s, 0), y + 6, s);
+}
+
+static void title_lines(const view *v)
+{
+    char s[128];
+    static const int8_t row[7] = {11, 13, 15, 17, 19, 23, 25};
+    hu_clear_rows(10, 10);
+    hu_clear_rows(22, 4);
+    int k6 = 6;
+    for (int k = 0; k < 7; k++) {
+        int r = row[k];
+        if (k == 4 && v->run_ch != v->sel) { k6 = 4; continue; }   /* (no climb under way: the hint takes row 19) */
+        if (k == 6 && k6 == 4) r = 19;
+        if (line_text(v, k, s, sizeof s)) hu_text(hu_center(s, 0), r, s);
+    }
+}
+
+static void title_lines_narrow(const view *v, int last_row)
+{
+    char s[128];
+    static const int8_t order[6] = {0, 1, 4, 2, 3, 6};
+    int r = 15;
+    for (int i = 0; i < 6; i++) {
+        if (!line_text(v, order[i], s, sizeof s)) continue;
+        int k = ht_text_rows(s, 0) + (hu_tall(s) ? 1 : 0);
+        if (r + k > last_row) break;
+        ht_text(r + (hu_tall(s) ? 1 : 0), s, 0);
+        r += k + 1;
+    }
 }
 
 /* the results: the banner on row 4, the panel from row 9: per line its label (and NEW BEST) centred, its value in 2x
@@ -568,7 +627,7 @@ static int res_center(const char *s, int big, int narrow) { return narrow ? ht_c
 static void results_panel(const view *v, int narrow)
 {
     char s[96];
-    const char *title = v->chapter == CHAPTERS - 1 ? TR(SUMMIT) : TR(CLEAR);
+    const char *title = v->skipped ? TR(CLEAR_SKIPPED) : v->chapter == CHAPTERS - 1 ? TR(SUMMIT) : TR(CLEAR);
     const char *lab[3] = {TR(RES_TIME), TR(RES_DEATHS), TR(RES_BERRIES)};
     int news[3] = {v->new_time, v->new_deaths, v->new_berries};
     int w = narrow ? ht_ncols() : 26;
@@ -637,13 +696,8 @@ void draw_frame(const world *w, const room *r, const view *v)
     if (pin) ht_pin(pin);
     r_ui_pin = pin;
     r_hud = hud_pinned;
-    /* parallax: the far layers lean with the kid */
-    int kx = v->state == ST_TITLE ? ROOM_PX_W / 2 : w->h.x + HB_W / 2, ky = v->state == ST_TITLE ? 120 : w->h.y;
-    int drift = tick / 8;
-    r_bg4x = ((kx - 160) / 16 + drift / 4 - sx / 2) & (map_w() * 8 - 1);
-    r_bg4y = ((ky - 120) / 24) & 255;
-    r_bg3x = ((kx - 160) / 6 - sx) & (map_w() * 8 - 1);
-    r_bg3y = ((ky - 120) / 12 - sy / 2) & 255;
+    /* the far layers stay put: a room is one screen, its backdrop a fixed picture (the shake moves the room only) */
+    r_bg4x = r_bg4y = r_bg3x = r_bg3y = 0;
     r_bg2x = -sx & (map_w() * 8 - 1);
     r_bg2y = -sy & 511;
     rs_bg_scroll(RS_BG2, r_bg2x, r_bg2y);
@@ -656,7 +710,7 @@ void draw_frame(const world *w, const room *r, const view *v)
     int show_hud = v->state == ST_PLAY && (tall() || v->hud_t < HUD_SHOW || v->paused);
     int hint = v->state == ST_PLAY && v->hud_t < HINT_SHOW && r->hint ? r->hint : 0;
     int key = v->state * 7919 + v->sel * 131 + (v->state == ST_RESULTS && v->st_t >= RETRY_LOCK) * 3 +
-              show_hud * 17 + hint * 29 + v->paused * 53 + v->room * 1031 + v->chapter * 7 +
+              show_hud * 17 + hint * 29 + v->paused * 53 + v->room * 1031 + v->chapter * 7 + v->can_skip * 97 + (v->card > 0) * 4099 +
               (show_hud ? (v->deaths * 37 + v->time / 6 * 3 + v->berries * 101) : 0) + narrow * 11;
     if (key != ui_key) {
         hu_clear();
@@ -668,6 +722,14 @@ void draw_frame(const world *w, const room *r, const view *v)
             results_values(v, narrow);
         } else {
             if (show_hud) hud_text(v);
+            if (v->card) {                              /* the chapter's title card: CHAPTER n, its name in 2x */
+                char c1[48];
+                rs_strf(c1, sizeof c1, TR(CHAPTER_N), v->chapter + 1);
+                const char *nm = chapter_name(v->chapter);
+                hu_text(narrow ? ht_center(c1, 0) : hu_center(c1, 0), 6, c1);
+                if (hu_width(nm, 1) <= (narrow ? ht_ncols() : 38)) hu_big(narrow ? ht_center(nm, 1) : hu_center(nm, 1), 8, nm, HU_BIG_FREE);
+                else hu_text(narrow ? ht_center(nm, 0) : hu_center(nm, 0), 9, nm);
+            }
             if (hint) {
                 const char *s = hint_text(hint);
                 if (s) {
@@ -679,6 +741,11 @@ void draw_frame(const world *w, const room *r, const view *v)
                 const char *q = TR(PAUSE_QUIT);
                 if (narrow) ht_text(16, q, 0);
                 else hu_text(hu_center(q, 0), 16, q);
+                if (v->can_skip) {                      /* (many deaths in this room: it may be skipped) */
+                    q = TR(PAUSE_SKIP);
+                    if (narrow) ht_text(19, q, 0);
+                    else hu_text(hu_center(q, 0), 19, q);
+                }
             }
         }
         hu_pause(0, 13);
@@ -686,7 +753,7 @@ void draw_frame(const world *w, const room *r, const view *v)
     }
     if (v->state == ST_TITLE && !narrow) {
         hu_title_draw(v->st_t, 0);
-        chapter_lines(v, 12, 0);
+        title_lines(v);
     }
     if (v->state == ST_RESULTS) {
         if (narrow) ht_retry_line_at(RES_RETRY, v->st_t, RETRY_LOCK, HTR(BACK_TITLE));
@@ -702,16 +769,18 @@ void draw_frame(const world *w, const room *r, const view *v)
     if (v->state == ST_TITLE) {
         int bob = hu_bob(v->st_t, 64, 3);
         if (narrow) {
-            ht_title tc = {TR(VERB), 1, 15, 0, NULL};
+            ht_title tc = {v->run_ch == v->sel ? TR(VERB_CONTINUE) : TR(VERB), 1, 15, 0,
+                           v->run_ch == v->sel ? TR(NEW_RUN) : NULL};
             ht_title_out to;
             ht_title_draw(&tc, v->st_t, 0, &to);
-            chapter_lines(v, 16, 1);
+            title_lines_narrow(v, (to.gap_y1 - ht_pin_dy(HT_PIN_TITLE)) / 8 - 1);
             ht_title_sprites(&tc, &to, v->st_t, NULL, NULL);
             spr(SPR_KID_IDLE + (v->st_t / 32) % 2, ht_mid_x() - 12 + hu_ui_x(), -40 + ht_pin_dy(HT_PIN_TITLE) + bob, 2, 0, 0);
         } else {
             hu_title_sprites(v->st_t, NULL, NULL);
-            spr(SPR_KID_IDLE + (v->st_t / 32) % 2, 148 + hu_ui_x(), 208 - 23, 2, 0, 0);
+            spr(SPR_KID_IDLE + (v->st_t / 32) % 2, 36 + hu_ui_x(), 176 - 23, 2, 0, 0);   /* on the rock, clear of the text */
         }
+        clouds(v->sel, v->st_t);
         return;
     }
     if (v->state == ST_RESULTS) {
@@ -719,10 +788,13 @@ void draw_frame(const world *w, const room *r, const view *v)
         return;
     }
     if (show_hud) hud_icons(hud_pinned ? rs_screen_top() + 4 - 0 : 0);
+    if (w->h.y + HB_H < rs_screen_top() + 2 && !w->h.dead_t)      /* above the screen: a marker where the kid is */
+        spr(SPR_MARKER + (tick / 8) % 2, w->h.x + HB_W / 2 - 4, rs_screen_top() + 2, 3, -1, 0);
     draw_kid(w, sx, sy);
     draw_effects(sx, sy);
-    draw_props(w, r, sx, sy);
+    draw_props(w, r, v->chapter, sx, sy);
     weather(w, r, v->chapter);
+    clouds(v->chapter, tick);
 }
 
 #define S(v) rs_state_var("draw." #v, &(v), sizeof(v))

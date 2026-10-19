@@ -15,6 +15,7 @@
  *   chapter=N      the chapter on the title (1..5);  room=N  start the chapter at that room (tests, screenshots)
  *   ready=1        skip the title (the chapter starts at once);  unlock=1  every chapter open
  *   god=1          no death (tests);  records=1  some records (in memory: tests, screenshots)
+ *   fakerun=1      a climb under way at room 1-3 (in memory);  roomdeaths=N  the first room starts with N deaths
  *   dump=1         log the final state at exit;  music=0, sound=0
  */
 #include "game.h"
@@ -30,6 +31,8 @@
 #define BOT_START    30             /* frames on the title before the bot starts */
 #define FADE_FRAMES  8              /* a room's change: out, then in */
 #define START_INPUTS (RS_BTN_START | RS_BTN_X)
+#define SKIP_DEATHS  15
+#define CARD_FRAMES  150            /* the chapter's name shows this long as it starts (2.5 s) */             /* deaths in one room before the pause offers to skip it */
 
 /* ---- the rooms (parsed once at start-up from the asset pack: the same every run, state_audit.txt) -------------- */
 static room ROOMS[CHAPTERS][MAX_ROOMS];
@@ -43,6 +46,7 @@ static int sol_off[CHAPTERS][MAX_ROOMS][2], sol_len[CHAPTERS][MAX_ROOMS][2], sol
 static world W;
 static int st, st_t, paused, chapter, room_no, sel, fade, fade_next, hud_t;
 static int run_time, run_deaths, run_berries, new_time, new_deaths, new_berries, runs_done;
+static int room_deaths, run_skips, card_t, opt_room_deaths;   /* card_t: the chapter's title card, frames left */              /* deaths in this room (the skip's offer), rooms skipped */
 static int bot_f, opt_bot, opt_botruns, opt_botberry, opt_god, opt_music, opt_sound, opt_unlock, opt_room;
 static int music_cur = -1;
 static uint32_t state_hash = 2166136261u;
@@ -60,28 +64,49 @@ typedef struct save_data {
     uint8_t cleared[CHAPTERS];
     uint8_t pad2;
     uint32_t climbs;
+    /* version 2: the climb under way (the title's CONTINUE), written at each room's start */
+    int8_t run_ch;                  /* -1: none */
+    uint8_t run_room;
+    uint16_t run_deaths, run_berries, run_skips;
+    uint32_t run_time;
     uint16_t sum;
 } save_data;
 static save_data SV;
+/* what the title and the results read: the save RAM as it was at the title's entry (saved in states: a state's replay
+ * must not see the newer save RAM a later climb wrote) */
+static save_data PV;
 static const char MAGIC[5] = "GOAT";
+#define SAVE_V1_SUM offsetof(save_data, run_ch)   /* version 1 ended there (its sum right after) */
 
-static uint16_t save_sum(const save_data *s)
+static uint16_t sum_of(const save_data *s, size_t n)
 {
     const uint8_t *p = (const uint8_t *)s;
     uint16_t sum = 0x5153;
-    for (size_t i = 0; i < offsetof(save_data, sum); i++) sum = (uint16_t)(sum * 31 + p[i]);
+    for (size_t i = 0; i < n; i++) sum = (uint16_t)(sum * 31 + p[i]);
     return sum;
 }
+static uint16_t save_sum(const save_data *s) { return sum_of(s, offsetof(save_data, sum)); }
 
 static int bits(unsigned v) { int n = 0; while (v) { n += (int)(v & 1); v >>= 1; } return n; }
 
 static void save_load(void)
 {
     memcpy(&SV, rs_sram(), sizeof SV);
-    if (memcmp(SV.magic, MAGIC, 4) || SV.version != 1 || SV.sum != save_sum(&SV)) {
+    uint16_t v1sum;
+    memcpy(&v1sum, (const uint8_t *)&SV + SAVE_V1_SUM, 2);
+    if (!memcmp(SV.magic, MAGIC, 4) && SV.version == 1 && v1sum == sum_of(&SV, SAVE_V1_SUM)) {
+        SV.version = 2;                         /* a version-1 save: its records kept, no climb under way */
+        SV.run_ch = -1;
+        SV.run_room = 0;
+        SV.run_deaths = SV.run_berries = SV.run_skips = 0;
+        SV.run_time = 0;
+        SV.sum = save_sum(&SV);
+    }
+    if (memcmp(SV.magic, MAGIC, 4) || SV.version != 2 || SV.sum != save_sum(&SV)) {
         memset(&SV, 0, sizeof SV);
         memcpy(SV.magic, MAGIC, 4);
-        SV.version = 1;
+        SV.version = 2;
+        SV.run_ch = -1;
         for (int c = 0; c < CHAPTERS; c++) SV.best_deaths[c] = 0xffff;
     }
 }
@@ -96,7 +121,7 @@ static void save_store(void)
     rs_sram_commit();
 }
 
-static int unlocked(int c) { return opt_unlock || c == 0 || SV.cleared[c - 1]; }
+static int unlocked(int c) { return opt_unlock || c == 0 || PV.cleared[c - 1]; }
 static int last_unlocked(void) { int c = 0; while (c + 1 < CHAPTERS && nrooms[c + 1] && unlocked(c + 1)) c++; return c; }
 
 /* ---- the levels and the solutions from the asset pack ----------------------------------------------------------- */
@@ -240,11 +265,26 @@ static int bot_input(void)
 /* ---- the flow ------------------------------------------------------------------------------------------------------- */
 static void go(int s) { st = s; st_t = 0; }
 
+/* the climb under way, in save RAM: the title offers to CONTINUE it (not the bot's: the tests' save RAM stays) */
+static void run_save(void)
+{
+    if (opt_bot) return;
+    SV.run_ch = (int8_t)chapter;
+    SV.run_room = (uint8_t)room_no;
+    SV.run_time = (uint32_t)run_time;
+    SV.run_deaths = (uint16_t)run_deaths;
+    SV.run_berries = (uint16_t)run_berries;
+    SV.run_skips = (uint16_t)run_skips;
+    save_store();
+}
+
 static void enter_room(int n)
 {
     room_no = n;
     bot_f = 0;
     hud_t = 0;
+    room_deaths = opt_room_deaths;              /* (tests: roomdeaths=N, the first room played only) */
+    opt_room_deaths = 0;
     world_spawn(&W, &ROOMS[chapter][n], opt_bot ? 0 : pad_input());
     draw_room(&ROOMS[chapter][n], chapter, n);
 }
@@ -252,37 +292,60 @@ static void enter_room(int n)
 static void start_chapter(int c)
 {
     chapter = c;
-    run_time = run_deaths = run_berries = 0;
+    run_time = run_deaths = run_berries = run_skips = 0;
     paused = 0;
     fade = 0;
     int r = opt_room > 0 && opt_room <= nrooms[c] ? opt_room - 1 : 0;
     enter_room(r);
+    run_save();
+    card_t = CARD_FRAMES;
     fade = -FADE_FRAMES;                              /* fading in */
     go(ST_PLAY);
     rs_log("chapter %d starts at frame %u", c + 1, rs_frame_count());
 }
 
+/* the title's CONTINUE: the climb saved at its last room's start */
+static void continue_run(void)
+{
+    chapter = PV.run_ch;
+    run_time = (int)PV.run_time;
+    run_deaths = PV.run_deaths;
+    run_berries = PV.run_berries;
+    run_skips = PV.run_skips;
+    paused = 0;
+    fade = 0;
+    enter_room(PV.run_room < nrooms[chapter] ? PV.run_room : 0);
+    card_t = CARD_FRAMES;
+    fade = -FADE_FRAMES;
+    go(ST_PLAY);
+    rs_log("chapter %d continues at room %d at frame %u", chapter + 1, room_no + 1, rs_frame_count());
+}
+static int can_continue(void) { return !opt_bot && PV.run_ch >= 0 && PV.run_ch < CHAPTERS && nrooms[PV.run_ch]; }
+
 static void chapter_done(void)
 {
     int c = chapter, got = bits((unsigned)run_berries);
-    new_time = !SV.cleared[c] || (uint32_t)run_time < SV.best_time[c];
-    new_deaths = !SV.cleared[c] || run_deaths < SV.best_deaths[c];
-    new_berries = bits((unsigned)(SV.berries[c] | run_berries)) > bits(SV.berries[c]);
+    /* a climb with rooms skipped opens the next chapter and keeps its berries, but sets no record */
+    new_time = !run_skips && (!PV.best_time[c] || (uint32_t)run_time < PV.best_time[c]);
+    new_deaths = !run_skips && (PV.best_deaths[c] == 0xffff || run_deaths < PV.best_deaths[c]);
+    new_berries = bits((unsigned)(PV.berries[c] | run_berries)) > bits(PV.berries[c]);
     if (new_time) SV.best_time[c] = (uint32_t)run_time;
     if (new_deaths) SV.best_deaths[c] = (uint16_t)run_deaths;
     SV.berries[c] = (uint16_t)(SV.berries[c] | run_berries);
     SV.cleared[c] = 1;
     SV.climbs++;
+    if (!opt_bot) SV.run_ch = -1;                     /* the climb is over: nothing to continue */
     save_store();
     runs_done++;
-    rs_log("chapter %d climbed at frame %u: time %d deaths %d berries %d/%d", c + 1, rs_frame_count(), run_time,
-           run_deaths, got, nberries[c]);
+    rs_log("chapter %d climbed at frame %u: time %d deaths %d berries %d/%d skipped %d", c + 1, rs_frame_count(),
+           run_time, run_deaths, got, nberries[c], run_skips);
     ha_play(HA_MEDAL);
     go(ST_RESULTS);
 }
 
 static void back_to_title(void)
 {
+    PV = SV;
     paused = 0;
     fade = 0;
     if (sel > last_unlocked()) sel = last_unlocked();
@@ -298,6 +361,7 @@ static void play_update(void)
             if (++fade > FADE_FRAMES) {
                 if (fade_next < nrooms[chapter]) {
                     enter_room(fade_next);
+                    run_save();
                     fade = -FADE_FRAMES;
                 } else {
                     fade = 0;
@@ -310,6 +374,7 @@ static void play_update(void)
         return;
     }
     hud_t++;
+    if (card_t) card_t--;
     int in = opt_bot ? bot_input() : pad_input();
     world_step(&W, r, in);
     if (opt_god && (W.events & EV_DEATH)) {           /* (tests) the death undone */
@@ -330,6 +395,7 @@ static void play_update(void)
     if (ev & EV_DEATH) {
         sfx(SFX_DEATH, x);
         run_deaths++;
+        room_deaths++;
         rs_log("death %d in room %d-%d at frame %u", run_deaths, chapter + 1, room_no + 1, rs_frame_count());
     }
     if (ev & EV_EXIT) {
@@ -343,6 +409,9 @@ static void play_update(void)
 
 static void title_update(void)
 {
+    int cont = can_continue() && PV.run_ch == sel;
+    hu_title_cfg tc = {START_INPUTS, 1, cont ? TR(VERB_CONTINUE) : TR(VERB), NULL, 0};
+    hu_title_setup(&tc);                              /* PRESS A TO CLIMB, or to CONTINUE the climb under way */
     int ev = hu_title_update();
     uint16_t pr = rs_pad_pressed(0);
     if (pr & RS_BTN_LEFT && sel > 0) { sel--; ha_play(HA_SELECT); }
@@ -351,6 +420,10 @@ static void title_update(void)
         else ha_play(HA_PAUSE);
     }
     if (((ev & HU_TITLE_START) || (opt_bot && st_t >= BOT_START)) && nrooms[sel]) {
+        ha_play(HA_CONFIRM);
+        if (cont) continue_run();
+        else start_chapter(sel);
+    } else if (cont && (pr & RS_BTN_B)) {             /* B: a new climb of the chapter, from room 1 */
         ha_play(HA_CONFIRM);
         start_chapter(sel);
     }
@@ -364,7 +437,16 @@ static void game_update(void)
         ha_play(HA_PAUSE);
     } else if (st == ST_PLAY && paused && (rs_pad_pressed(0) & RS_BTN_B)) {
         ha_play(HA_SELECT);
+        if (!fade) run_save();                        /* the climb kept: the title offers to continue it */
         back_to_title();
+        return;
+    } else if (st == ST_PLAY && paused && room_deaths >= SKIP_DEATHS && !fade && (rs_pad_pressed(0) & RS_BTN_A)) {
+        ha_play(HA_CONFIRM);                          /* the room skipped: not completed, no berry */
+        paused = 0;
+        run_skips++;
+        rs_log("room %d-%d skipped after %d deaths", chapter + 1, room_no + 1, room_deaths);
+        fade_next = room_no + 1;
+        fade = 1;
         return;
     }
     if (paused) return;
@@ -381,6 +463,7 @@ static void game_update(void)
         if (opt_bot && st_t == RETRY_LOCK + 40) back = 1;
         if (back) {
             ha_play(HA_SELECT);
+            PV = SV;                                      /* (the chapter just climbed opens the next) */
             if (chapter + 1 < CHAPTERS && nrooms[chapter + 1] && unlocked(chapter + 1)) sel = chapter + 1;
             back_to_title();
             if (opt_bot && runs_done >= opt_botruns) opt_bot = 0;     /* the bot's chapters done: it stops */
@@ -409,10 +492,10 @@ static void game_draw(void)
     v.sel = sel;
     v.unlocked = last_unlocked();
     for (int c = 0; c < CHAPTERS; c++) {
-        v.best_time[c] = (int)SV.best_time[c];
-        v.best_deaths[c] = SV.best_deaths[c] == 0xffff ? -1 : SV.best_deaths[c];
-        v.best_berries[c] = bits(SV.berries[c]);
-        v.cleared[c] = SV.cleared[c];
+        v.best_time[c] = (int)PV.best_time[c];
+        v.best_deaths[c] = PV.best_deaths[c] == 0xffff ? -1 : PV.best_deaths[c];
+        v.best_berries[c] = bits(PV.berries[c]);
+        v.cleared[c] = PV.cleared[c];
         v.room_count[c] = nrooms[c];
         v.berry_count[c] = nberries[c];
     }
@@ -420,6 +503,11 @@ static void game_draw(void)
     v.new_deaths = new_deaths;
     v.new_berries = new_berries;
     v.hud_t = hud_t;
+    v.run_ch = can_continue() ? PV.run_ch : -1;
+    v.run_room = PV.run_room;
+    v.can_skip = st == ST_PLAY && room_deaths >= SKIP_DEATHS;
+    v.skipped = run_skips;
+    v.card = st == ST_PLAY ? card_t : 0;
     const room *r = &ROOMS[chapter][room_no < nrooms[chapter] ? room_no : 0];
     draw_frame(&W, r, &v);
 }
@@ -436,6 +524,12 @@ static void game_init(void)
     opt_god = rs_option_int("god", 0);
     opt_unlock = rs_option_int("unlock", 0);
     opt_room = rs_option_int("room", 0);
+    if (rs_option_int("fakerun", 0)) {          /* (tests, screenshots) a climb under way at 1-3, in memory only */
+        SV.run_ch = 0;
+        SV.run_room = 2;
+        SV.run_time = 1234;
+        SV.run_deaths = 5;
+    }
     if (rs_option_int("records", 0)) {          /* (tests, screenshots) some records, in memory only */
         for (int c = 0; c < 3; c++) {
             SV.cleared[c] = 1;
@@ -447,17 +541,20 @@ static void game_init(void)
     sound_init();
     levels_load();
     draw_init();
-    hu_title_cfg tc = {START_INPUTS, 1, TR(VERB), NULL, 0};
-    hu_title_setup(&tc);
+    hu_title_cfg tc0 = {START_INPUTS, 1, TR(VERB), NULL, 0};
+    hu_title_setup(&tc0);
     hu_players_set(1);
     sel = 0;                                    /* the furthest chapter the climbs opened (not unlock=1's) */
-    while (sel + 1 < CHAPTERS && nrooms[sel + 1] && SV.cleared[sel]) sel++;
+    PV = SV;
+    while (sel + 1 < CHAPTERS && nrooms[sel + 1] && PV.cleared[sel]) sel++;
+    if (can_continue()) sel = PV.run_ch;           /* the climb under way first */
     if (rs_option("chapter")) sel = rs_option_int("chapter", 1) - 1;
     if (sel < 0 || sel >= CHAPTERS || !nrooms[sel]) sel = 0;
     if (!unlocked(sel)) opt_unlock = opt_unlock || opt_bot;
     if (!unlocked(sel)) sel = last_unlocked();
     chapter = sel;
     enter_room(0);
+    opt_room_deaths = rs_option_int("roomdeaths", 0);
     go(ST_TITLE);
     if (rs_option_int("ready", 0)) start_chapter(sel);
 }
@@ -477,7 +574,7 @@ static void game_shutdown(void)
 static void game_state(void)
 {
     S(W); S(st); S(st_t); S(paused); S(chapter); S(room_no); S(sel); S(fade); S(fade_next); S(hud_t);
-    S(run_time); S(run_deaths); S(run_berries); S(new_time); S(new_deaths); S(new_berries); S(runs_done);
+    S(run_time); S(run_deaths); S(run_berries); S(room_deaths); S(run_skips); S(card_t); S(opt_room_deaths); S(PV); S(new_time); S(new_deaths); S(new_berries); S(runs_done);
     S(bot_f); S(opt_bot); S(opt_botruns); S(opt_botberry); S(opt_god); S(opt_music); S(opt_sound); S(opt_unlock);
     S(opt_room); S(music_cur); S(state_hash);
     draw_state();

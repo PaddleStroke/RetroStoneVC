@@ -188,6 +188,31 @@ static void trace(const room *r, const uint8_t *in, int n)
     for (int y = 0; y < 30; y++) fprintf(stderr, "    |%s|\n", g[y]);
 }
 
+/* How forgiving a route is: 200 replays with each of its input changes (a jump, a dash, a turn) pressed up to `jit`
+ * frames early or late (the inputs after it follow, as a player times each move from what it sees); returns the share
+ * of replays that still leave the room without a death (with the berry if asked), in percent */
+static int robustness(const room *r, const uint8_t *in, int n, int want_berry, int jit)
+{
+    static uint8_t t[24000];
+    uint32_t seed = 12345;
+    int ok = 0;
+    for (int trial = 0; trial < 200; trial++) {
+        int m = 0;
+        for (int i = 0; i < n && m < 23000; i++) {
+            if (i > 0 && in[i] != in[i - 1]) {
+                seed = seed * 1103515245u + 12345u;
+                int d = (int)((seed >> 16) % (unsigned)(2 * jit + 1)) - jit;
+                if (d > 0) for (int k = 0; k < d; k++) t[m++] = in[i - 1];
+                else if (d < 0) m = m + d > 0 ? m + d : 0;
+            }
+            t[m++] = in[i];
+        }
+        for (int k = 0; k < 120 && m < 24000; k++, m++) t[m] = in[n - 1];
+        ok += verify(r, t, m, want_berry);
+    }
+    return ok / 2;
+}
+
 static void encode(const uint8_t *in, int n, char *out)
 {
     int k = 0;
@@ -203,9 +228,10 @@ static void encode(const uint8_t *in, int n, char *out)
 int main(int argc, char **argv)
 {
     if (argc < 3) { fprintf(stderr, "usage: solver <levels/chN.txt> <chapter> [--room N] [--step K] [--keep Q] [--frames F]\n"); return 2; }
-    int only = 0, step = 4, keep = 1, frames = 1800, show = 0;
+    int only = 0, step = 4, keep = 1, frames = 1800, show = 0, slack = 0;
     for (int i = 3; i < argc; i++) {
         if (!strcmp(argv[i], "--trace")) show = 1;
+        else if (!strcmp(argv[i], "--slack")) slack = 1;
         else if (!strcmp(argv[i], "--room") && i + 1 < argc) only = atoi(argv[++i]);
         else if (!strcmp(argv[i], "--step") && i + 1 < argc) step = atoi(argv[++i]);
         else if (!strcmp(argv[i], "--keep") && i + 1 < argc) keep = atoi(argv[++i]);
@@ -248,8 +274,19 @@ int main(int argc, char **argv)
             encode(in, len2, rle);
             printf("%d %d %s %d %s\n", chapter, i + 1, berry ? "berry" : "exit", len2, rle);
             fflush(stdout);
-            fprintf(stderr, "room %d-%d%s: %d frames (%.1f s), %d search nodes\n", chapter, i + 1, berry ? " (berry)" : "",
-                    len2, len2 / 60.0, nnodes);
+            fprintf(stderr, "room %d-%d%s: %d frames (%.1f s), %d search nodes, slack: %d%% of +-2-frame replays pass",
+                    chapter, i + 1, berry ? " (berry)" : "", len2, len2 / 60.0, nnodes,
+                    robustness(&rooms[i], in, len2, berry, 2));
+            if (slack) {                    /* the coarsest input step (frames each input is held) that still solves it */
+                static uint8_t in2[20000];
+                int coarse = 0, l2;
+                for (int st2 = 12; st2 >= 6 && !coarse; st2 -= 3)
+                    if (solve(&rooms[i], berry, st2, keep, frames, in2, &l2) >= 0) coarse = st2;
+                fprintf(stderr, ", coarsest step %d", coarse ? coarse : step);
+                if (coarse) fprintf(stderr, " (that route: %d%% pass at +-2 frames, %d%% at +-4)",
+                                    robustness(&rooms[i], in2, l2, berry, 2), robustness(&rooms[i], in2, l2, berry, 4));
+            }
+            fprintf(stderr, "\n");
             if (show) trace(&rooms[i], in, len2);
         }
     }

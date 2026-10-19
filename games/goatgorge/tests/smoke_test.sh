@@ -62,6 +62,27 @@ check "... then back on the title, chapter 2 chosen" "state: st=0 .*sel=2 .*clea
 out=$(run --frames 10 --sram "$T/save.srm")
 check "save RAM: chapter 1's record kept, chapter 2 open (shown first)" "state: st=0 .*sel=2 .*cleared=10000 score=[1-9]" "$out"
 
+# the climb under way: kept when leaving (paused, B); the title offers to CONTINUE it (A) or a NEW CLIMB (B)
+rm -f "$T/run.srm"
+printf "100 tap START\n110 tap B\n" > "$T/quit3.input"
+run --frames 130 --opt ready=1 --opt room=3 --input "$T/quit3.input" --sram "$T/run.srm" > /dev/null
+printf "40 tap A\n" > "$T/cont.input"
+out=$(run --frames 70 --input "$T/cont.input" --sram "$T/run.srm")
+check "the title continues the climb left at room 1-3 (A)" "state: st=1 chapter=1 room=3 " "$out"
+printf "40 tap B\n" > "$T/new.input"
+out=$(run --frames 70 --input "$T/new.input" --sram "$T/run.srm")
+check "... or starts a new climb from room 1 (B)" "state: st=1 chapter=1 room=1 " "$out"
+# the skip: after 15 deaths in a room, paused, A skips it (no berry, no record)
+printf "40 tap START\n50 tap A\n" > "$T/skip.input"
+out=$(run --frames 90 --opt ready=1 --opt room=4 --opt roomdeaths=15 --input "$T/skip.input")
+check "15 deaths: paused, A skips the room (room 5 next)" "state: st=1 chapter=1 room=5 .*paused=0 " "$out"
+out=$(run --frames 90 --opt ready=1 --opt room=4 --opt roomdeaths=14 --input "$T/skip.input")
+check "... not before (14 deaths: A does nothing, still paused)" "state: st=1 chapter=1 room=4 .*paused=1 " "$out"
+# jumping above an open top is harmless: the kid comes back down (room 1-3, held jumps then nothing)
+printf "0 A\n" > "$T/up.input"
+out=$(run --frames 200 --opt ready=1 --opt room=1 --input "$T/up.input")
+check "an open sky: jumping in place, no death" "state: st=1 chapter=1 room=1 .*deaths=0 " "$out"
+
 # every chapter: the bot climbs it from start to end (the plain solutions, then the berries' ones)
 if [ -z "$Q" ]; then
     for c in 1 2 3 4 5; do

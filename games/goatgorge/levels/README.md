@@ -19,8 +19,11 @@ rebuilding.
 | `S` | the start (exactly one): the kid's feet on the cell's bottom |
 | `H` / `V` | a raft (a run of them in a row: one raft) moving sideways / up and down |
 | `x` | where a raft's path ends: in its row (`H`) or its column (`V`, the run's first cell) |
+| `d` | the chapter's decoration (a flowering bush, mushrooms on a stump, crystals, a wind banner, a cairn), standing on the rock under it; not solid |
 
-The room must open on exactly one side (a gap in the top row, the left or the right column): that is the way out. A
+The way out: `exit=right`, `exit=left` or `exit=top` on the room line; then every other open side is sky (the kid meets an
+unseen wall at the screen's sides, and may jump above the screen: a marker shows where, it comes back down). Without
+`exit=`, the room must open on exactly one side (a gap in the left or the right column, else the top row). A
 gap in the bottom row is a fall (a death).
 
 Settings on the `room` line: `hint=N` shows a tip the first seconds (1 jump, 2 wall jump, 3 dash, 4 spring, 5 crystal,
