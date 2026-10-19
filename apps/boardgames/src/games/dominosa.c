@@ -240,6 +240,7 @@ static void layout(box b)
         t_board = ui_tex((int)bw, (int)bh, ui_buf((int)bw, (int)bh));
         for (int i = 0; i < CACHE; i++) ui_free(&cache[i].t);
     }
+    ui_board_used(bx, by, bw, bh);
     bench_small(&t_small, &made_small, token);
 }
 

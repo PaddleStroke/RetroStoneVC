@@ -129,6 +129,7 @@ static void layout(box b)
         for (int i = 0; i < CACHE; i++) ui_free(&cache[i].t);
         puz_font_make(&f_num, (int)(0.6f * cs), 1);
     }
+    ui_board_used(bx, by, side, side);
     bench_small(&t_small, &made_small, token);
 }
 

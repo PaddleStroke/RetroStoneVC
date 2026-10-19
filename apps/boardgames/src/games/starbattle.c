@@ -219,6 +219,7 @@ static void layout(box b)
         art_disc(d, PUZ_INK, 1, 0, ui_buf(d, d));
         t_dot = ui_tex(d, d, ui_buf(d, d));
     }
+    ui_board_used(bx, by, side, side);
     bench_small(&t_small, &made_small, token);
 }
 

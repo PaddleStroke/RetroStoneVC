@@ -205,6 +205,7 @@ static void layout(box b)
             t_cell[c] = ui_tex(q, q, ui_buf(q, q));
         }
     }
+    ui_board_used(grid.x - fr, grid.y - fr, (float)(n * q + 2 * fr), (float)(n * q + 2 * fr));
     bench_small(&t_small, &made_small, token);
     ui_tools_shown(G.b.k + 1);
 }

@@ -136,6 +136,7 @@ static void layout(box b)
         paint_plank(t, len, th);
         t_plank = ui_tex(len, th, t);
     }
+    ui_board_used(bx, by, (float)w, (float)w);
     bench_small(&t_small, &made_small, token);
 }
 

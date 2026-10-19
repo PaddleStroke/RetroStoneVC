@@ -161,6 +161,7 @@ static void layout(box b)
         cross_pic(cs, ui_buf(cs, cs));
         t_cross = ui_tex(cs, cs, ui_buf(cs, cs));
     }
+    ui_board_used(bx, by, S, S);
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
         made_small = small;

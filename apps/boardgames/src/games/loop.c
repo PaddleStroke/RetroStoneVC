@@ -158,6 +158,7 @@ static void layout(box b)
         t_cross = ui_tex(x, x, o);
         puz_font_make(&f_clue, (int)(0.56f * q), 1);
     }
+    ui_board_used(bx, by, (float)w, (float)w);
     bench_small(&t_small, &made_small, token);
 }
 
