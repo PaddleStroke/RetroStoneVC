@@ -87,6 +87,7 @@ static void layout(box b)
         ui_free(&t_board);
         t_board = bench_tex(&geo, paint_board);
     }
+    bench_pad_used(&dg.pad);
     bench_small(&t_small, &made_small, token);
 }
 

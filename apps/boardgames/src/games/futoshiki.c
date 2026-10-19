@@ -145,6 +145,7 @@ static void layout(box b)
         art_fig_free(f);
         t_sign = ui_tex(s, s, ui_buf(s, s));
     }
+    bench_pad_used(&dg.pad);
     bench_small(&t_small, &made_small, token);
 }
 

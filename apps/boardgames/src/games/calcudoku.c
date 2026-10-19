@@ -147,6 +147,7 @@ static void layout(box b)
         paint_board(o, &G.p, q, fr);
         t_board = ui_tex(w, w, o);
     }
+    bench_pad_used(&dg.pad);
     bench_small(&t_small, &made_small, token);
 }
 

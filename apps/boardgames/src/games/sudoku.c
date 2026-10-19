@@ -99,6 +99,7 @@ static void layout(box b)
         paint_board(ui_buf(w, w), cs, fr, G.given);
         t_board = ui_tex(w, w, ui_buf(w, w));
     }
+    bench_pad_used(&dg.pad);
     bench_small(&t_small, &made_small, token);
 }
 

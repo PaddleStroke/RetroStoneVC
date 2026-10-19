@@ -134,6 +134,7 @@ static void layout(box b)
         tile_pic(tile_size, tile_size, ui_buf(tile_size, tile_size));
         t_tile = ui_tex(tile_size, tile_size, ui_buf(tile_size, tile_size));
     }
+    bench_pad_used(&pad);
     bench_small(&t_small, &made_small, token);
 }
 
