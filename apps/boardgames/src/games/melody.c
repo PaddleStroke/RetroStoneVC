@@ -67,8 +67,6 @@ static void sound_tune(int delay_ms)
     pk_unlock();
 }
 
-static int silent(void) { return pk_silent(); }
-
 /* ---- the state on the screen ------------------------------------------------------------------------------------ */
 static struct { int on; Uint32 t0; } play;      /* the tune playing (its lights): from t0 */
 #define FLASHES 12
@@ -323,6 +321,16 @@ static void note_xy(int i, float *x, float *y)  /* note i's column, and its row'
     *y = sy + r * row_h + row_h / 2 + 2 * lg;
 }
 
+/* the "sound off" badge: d across, centred on (*x, *y); free play: over the case's right end, a tune: the staff's
+ * top right corner */
+static float badge_at(float *x, float *y)
+{
+    float d = freeplay ? 0.62f * ui.unit : fminf(0.62f * ui.unit, 0.5f * sh);
+    *x = freeplay ? kx + W * kw - 0.5f * d : sx + sw - 0.7f * d;
+    *y = freeplay ? ky - lip - fr - 0.8f * d : sy + 0.7f * d;
+    return d;
+}
+
 static void draw_staff(Uint32 now, int sounding, float glow)
 {
     int f2 = (int)sfr;
@@ -370,10 +378,8 @@ static void draw_staff(Uint32 now, int sounding, float glow)
             SDL_SetTextureAlphaMod(t_dot, 255);
         }
     }
-    if (silent()) {                             /* the sound off: the lights alone */
-        float d = fminf(0.62f * ui.unit, 0.5f * sh);
-        ui_put_c(t_badge, sx + sw - 0.7f * d, sy + 0.7f * d, d, d);
-    }
+    float bx, by, bd = badge_at(&bx, &by);      /* the sound off: the lights alone */
+    pk_badge(t_badge, bx, by, bd);
 }
 
 /* the tune's name over the staff, once it is played back: its title, its composer under it in gold */
@@ -500,10 +506,8 @@ static void arrow_pic(int kind, int size, uint8_t *rgba)
 static void draw_free(Uint32 now)
 {
     draw_keys(now, -1, 0);
-    if (silent()) {                             /* the sound off: a small speaker crossed out over the case */
-        float d = 0.62f * ui.unit;
-        ui_put_c(t_badge, kx + W * kw - 0.5f * d, ky - lip - fr - 0.8f * d, d, d);
-    }
+    float bx, by, bd = badge_at(&bx, &by);      /* the sound off: a small speaker crossed out over the case */
+    pk_badge(t_badge, bx, by, bd);
     ui_tool_paint(T_LISTEN, arrow_pic, 0, 0.62f, UI_TINT | (oct <= OCT_LO ? UI_DIM : 0));
     ui_tool_paint(T_HINT, arrow_pic, 1, 0.62f, UI_TINT | (oct >= OCT_HI ? UI_DIM : 0));
 }
@@ -610,6 +614,8 @@ static void free_finger(int id, int phase, float x, float y)
     if (phase == FINGER_DOWN) {
         int t = ui_tool_hit(x, y);
         if (t >= 0) { free_octave(t == T_HINT ? 1 : -1); return; }
+        float bx, by, bd = badge_at(&bx, &by);
+        if (pk_badge_tap(x, y, bx, by, bd)) return;   /* the sound off: tapped, on again */
         free_down(id, key_at(x, y));
         return;
     }
@@ -624,6 +630,8 @@ static void press(float x, float y)
 {
     if (freeplay) { free_finger(-1, FINGER_DOWN, x, y); return; }
     memset(&ptr, 0, sizeof ptr);
+    float bx, by, bd = badge_at(&bx, &by);
+    if (pk_badge_tap(x, y, bx, by, bd)) return;       /* the sound off: tapped, on again */
     int t = ui_tool_hit(x, y);
     if (t >= 0) {
         if (mel_solved(&G)) { ui_sound(SND_DENY); return; }

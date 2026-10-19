@@ -427,12 +427,23 @@ static void tool(int t)
     again();
 }
 
+/* the "sound off" badge: d across, centred on (*x, *y), at the board's top right */
+static float badge_at(float *x, float *y)
+{
+    float d = 0.62f * ui.unit;
+    *x = lx + lw - 0.7f * d;
+    *y = ly + 0.9f * d;
+    return d;
+}
+
 static void finger(int id, int phase, float x, float y)
 {
     Uint32 now = clock_now();
     if (phase == FINGER_DOWN) {
         int t = ui_tool_hit(x, y);
         if (t >= 0) { tool(t); return; }
+        float bx, by, bd = badge_at(&bx, &by);
+        if (pk_badge_tap(x, y, bx, by, bd)) return;   /* the sound off: tapped, on again */
         int p = key_at(x, y);
         if (p >= 0) key_down(id, p, now);
     } else if (phase == FINGER_UP) {
@@ -656,10 +667,8 @@ static void draw(void)
         if (sw > 0) ui_animate();
         ui_number_ex(lx + lw / 2, ly + 0.14f * (hy - ly), dh, G.combo, PK_GOLD, 220, 0);
     }
-    if (pk_silent()) {                          /* the sound off: a small speaker crossed out on the board */
-        float d = 0.62f * ui.unit;
-        ui_put_c(t_badge, lx + lw - 0.7f * d, ly + 0.9f * d, d, d);
-    }
+    float bx, by, bd = badge_at(&bx, &by);      /* the sound off: a small speaker crossed out on the board */
+    pk_badge(t_badge, bx, by, bd);
     if (win.on) {
         if (now - win.t0 < (Uint32)(W * WAVE_STEP + WAVE_LEN)) ui_animate();
         else win.on = 0;

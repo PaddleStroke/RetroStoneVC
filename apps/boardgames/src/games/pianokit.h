@@ -1,10 +1,11 @@
 /*
  * The piano kit, shared by Play by Ear (melody.c) and Falling Notes (pianofall.c): the keys' and the case's pictures
  * (ivory and ebony keys, the walnut case and its red felt, a key going down), a little keyboard and an eighth note
- * painted into a thumbnail, the "sound off" badge; and the piano's sound: each note rendered once by pianosynth.h, then
- * played through an audio device of the kit's own (the shell's sounds are its built-in ones only), a small mixer.
- * One mixer for both games: the first one to sound opens it and leaves it on the window (SDL_SetWindowData), the other
- * finds it there, so the app never holds two piano devices.
+ * painted into a thumbnail, the "sound off" badge (tapped: the sound on again); and the piano's sound: each note
+ * rendered once by pianosynth.h, then mixed by a small mixer of the kit's own into the app's one sound device
+ * (sound.c's snd_set_extra_mixer: Android plays one device at a time, a second one opened beside it stayed silent).
+ * One mixer for both games: the first one to sound leaves it on the window (SDL_SetWindowData), the other finds it
+ * there, so both share their notes and voices.
  * Written once, here, as static inline functions (as puzrand.h): the build takes a game's own files only, so a shared
  * .c file would be left out of one game's build or the other's.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
@@ -19,13 +20,16 @@
 #include "games/pianosynth.h"
 #include "shell.h"
 
+#if PK_RATE != 44100
+#error "the piano is mixed into sound.c's stream: 44100 Hz"
+#endif
+
 /* ---- the sound --------------------------------------------------------------------------------------------------- */
 #define PK_VOICES 72
 #define PK_FADE (PK_RATE / 9)                   /* a note released: it fades in this many samples */
 typedef struct { const int16_t *s; int n, pos, rel; float gain; } pk_voice;
 typedef struct {
-    SDL_AudioDeviceID dev;
-    int audio;                                  /* 0 not tried, 1 open, -1 failed, -2 none (the picture mode) */
+    int hooked;                                 /* its mixer given to sound.c */
     int16_t *pcm[2][128];                       /* each note made once (2: dull) */
     int pcm_n[2][128];
     pk_voice v[PK_VOICES];
@@ -45,12 +49,13 @@ static inline pk_mixer *pk_mixer_get(void)
     return pk_mx = m;
 }
 
-static inline void pk_mix(void *u, Uint8 *stream, int bytes)
+/* (the audio thread) the piano's voices added into sound.c's stream, frames x channels, at PK_RATE */
+static inline void pk_mix(void *u, int16_t *out, int frames, int rate, int channels)
 {
     pk_mixer *m = (pk_mixer *)u;
-    int16_t *out = (int16_t *)(void *)stream;
-    int n = bytes / 2, quiet = snd_muted;
-    for (int i = 0; i < n; i++) {
+    int quiet = snd_muted;
+    (void)rate;                                 /* always 44100 (sound.c's device; checked above) */
+    for (int i = 0; i < frames; i++) {
         float v = 0;
         for (int k = 0; k < PK_VOICES; k++) {
             pk_voice *V = &m->v[k];
@@ -65,31 +70,24 @@ static inline void pk_mix(void *u, Uint8 *stream, int bytes)
             v += a;
             if (++V->pos >= V->n) V->s = NULL;
         }
-        v = quiet ? 0 : v > 32000 ? 32000 : v < -32000 ? -32000 : v;
-        out[i] = (int16_t)v;
+        if (quiet || v == 0) continue;
+        for (int c = 0; c < channels; c++) {
+            float s = out[i * channels + c] + v;
+            out[i * channels + c] = (int16_t)(s > 32000 ? 32000 : s < -32000 ? -32000 : s);
+        }
     }
 }
 
+/* the sound there: the app's device open (its mixer given to it the first time); 0 in the picture mode (no sound) */
 static inline int pk_audio_on(void)
 {
     pk_mixer *m = pk_mixer_get();
-    if (m->audio) return m->audio > 0;
-    if (!SDL_WasInit(SDL_INIT_AUDIO)) {         /* the picture mode starts no sound */
-        m->audio = -2;
-        return 0;
+    if (!SDL_WasInit(SDL_INIT_AUDIO)) return 0;
+    if (!m->hooked) {
+        snd_set_extra_mixer(pk_mix, m);
+        m->hooked = 1;
     }
-    SDL_AudioSpec want, have;
-    memset(&want, 0, sizeof want);
-    want.freq = PK_RATE;
-    want.format = AUDIO_S16SYS;
-    want.channels = 1;
-    want.samples = 512;
-    want.callback = pk_mix;
-    want.userdata = m;
-    m->dev = SDL_OpenAudioDevice(NULL, 0, &want, &have, 0);
-    m->audio = m->dev ? 1 : -1;
-    if (m->dev) SDL_PauseAudioDevice(m->dev, 0);
-    return m->audio > 0;
+    return snd_ready();
 }
 
 static inline const int16_t *pk_note_pcm(int pitch, int dull, int *n)
@@ -110,9 +108,27 @@ static inline const int16_t *pk_note_pcm(int pitch, int dull, int *n)
 }
 
 static inline int pk_sound_ready(void) { return !snd_muted && pk_audio_on(); }
-static inline int pk_silent(void) { return snd_muted || pk_mixer_get()->audio == -1; }   /* the sound off (or none) */
-static inline void pk_lock(void) { SDL_LockAudioDevice(pk_mixer_get()->dev); }
-static inline void pk_unlock(void) { SDL_UnlockAudioDevice(pk_mixer_get()->dev); }
+/* the sound off: the app's sound muted (Settings), or no device (the picture mode has none and shows no badge) */
+static inline int pk_silent(void) { return snd_muted || (SDL_WasInit(SDL_INIT_AUDIO) && !snd_ready()); }
+static inline void pk_lock(void) { snd_lock(); }
+static inline void pk_unlock(void) { snd_unlock(); }
+
+/* the "sound off" badge, d across centred on (x, y), drawn while the sound is off */
+static inline void pk_badge(SDL_Texture *t, float x, float y, float d)
+{
+    if (pk_silent()) ui_put_c(t, x, y, d, d);
+}
+
+/* a tap (px, py) on that badge: the sound on again (Settings' switch), or the device tried again; 1: taken */
+static inline int pk_badge_tap(float px, float py, float x, float y, float d)
+{
+    if (!pk_silent() || hypotf(px - x, py - y) > fmaxf(0.75f * d, 0.4f * ui.unit)) return 0;
+    if (snd_muted) shell_set_mute(0);
+    if (!snd_ready()) snd_open(1);
+    ui_sound(SND_TAP);
+    ui_animate();
+    return 1;
+}
 
 /* (locked) what sounds stops: the notes waiting dropped, the ones ringing released */
 static inline void pk_hush_locked(void)
@@ -144,7 +160,7 @@ static inline int pk_voice_add(const int16_t *s, int n, int delay, int rel, floa
 
 static inline void pk_hush(void)
 {
-    if (pk_mixer_get()->audio <= 0) return;
+    if (!pk_mixer_get()->hooked) return;
     pk_lock();
     pk_hush_locked();
     pk_unlock();
@@ -183,7 +199,7 @@ static inline int pk_sound_on(int pitch, int dull, float gain, int rel_ms, const
 static inline void pk_sound_off(int k, const int16_t *sample)
 {
     pk_mixer *m = pk_mixer_get();
-    if (k < 0 || k >= PK_VOICES || m->audio <= 0) return;
+    if (k < 0 || k >= PK_VOICES || !m->hooked) return;
     pk_lock();
     pk_voice *V = &m->v[k];
     if (V->s == sample && V->pos >= 0 && (V->rel < 0 || V->rel > V->pos)) V->rel = V->pos;

@@ -438,6 +438,15 @@ int  ui_logic_stars(int hints, int mistakes);
 /* sound.c */
 void snd_init(void);
 void snd_open(int on);                          /* 0: the device closed (an Arcade game plays its own), 1: again */
+/* a game's own voices mixed into the app's one device (Android plays one device at a time: never open a second):
+ * fn called from the audio thread adds its frames x channels 16-bit samples into out (saturated; rate and channels are
+ * always 44100 and 1); NULL: none. snd_ready(): the device open; snd_lock/unlock: the callback held off (no-ops while
+ * the device is closed). shell_set_mute(): the Settings sound switch (snd_muted, remembered). */
+void snd_set_extra_mixer(void (*fn)(void *u, int16_t *out, int frames, int rate, int channels), void *u);
+int  snd_ready(void);
+void snd_lock(void);
+void snd_unlock(void);
+void shell_set_mute(int muted);
 void snd_play(int s);
 void snd_play_vol(int s, float volume);
 void snd_play_at(int s, float volume, int delay_ms);

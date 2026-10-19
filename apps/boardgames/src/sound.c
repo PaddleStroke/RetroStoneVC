@@ -14,6 +14,8 @@
 
 int snd_muted;
 static SDL_AudioDeviceID dev;
+static void (*extra)(void *u, int16_t *out, int frames, int rate, int channels);   /* a game's own voices (the piano) */
+static void *extra_u;
 static float *clip[SNDS];
 static int len[SNDS];
 static struct { int s, pos; float vol; } voice[VOICES];
@@ -107,7 +109,25 @@ static void mix(void *u, Uint8 *stream, int bytes)
         v = v > 1 ? 1 : v < -1 ? -1 : v;
         out[i] = (int16_t)(v * 30000);
     }
+    if (extra) extra(extra_u, out, n, RATE, 1);  /* added into the same stream: one device (Android plays one) */
 }
+
+/* a game's own mixer, called from the device's callback to add its voices into the stream (out: frames x channels,
+ * 16-bit, already holding the app's sounds: add, saturated); NULL: none. The device is opened with allowed_changes 0
+ * (SDL converts), so rate and channels are always RATE and 1. It stays set while the device is closed and reopened. */
+void snd_set_extra_mixer(void (*fn)(void *u, int16_t *out, int frames, int rate, int channels), void *u)
+{
+    if (dev) SDL_LockAudioDevice(dev);
+    extra = fn;
+    extra_u = u;
+    if (dev) SDL_UnlockAudioDevice(dev);
+}
+
+int snd_ready(void) { return dev != 0; }
+
+/* the callback held off (a game changing its voices); nothing while the device is closed (no callback runs then) */
+void snd_lock(void) { if (dev) SDL_LockAudioDevice(dev); }
+void snd_unlock(void) { if (dev) SDL_UnlockAudioDevice(dev); }
 
 /* the device: closed while an Arcade tab's game plays on its own (arcade_play.c: Android's audio drivers, OpenSL ES
  * and AAudio, play one device at a time; a second one opened beside this one was silent), opened again after */
@@ -128,6 +148,7 @@ void snd_open(int on)
     want.callback = mix;
     dev = SDL_OpenAudioDevice(NULL, 0, &want, &have, 0);
     if (dev) SDL_PauseAudioDevice(dev, 0);
+    else SDL_Log("sound: no audio: %s", SDL_GetError());
 }
 
 void snd_init(void)
