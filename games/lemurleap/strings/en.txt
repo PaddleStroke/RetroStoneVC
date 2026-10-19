@@ -1,0 +1,91 @@
+# Lemur Leap (games/lemurleap): its strings, the English source (docs/i18n.md).
+# A little ring-tailed lemur bounces up a giant beanstalk, leaf after leaf, into the clouds, the sunset sky and outer
+# space; it bounces by itself, the player only steers left and right and shoots seeds up at the pests. Coins buy hats
+# and furs (cosmetic) in a little wardrobe on the title. Everything else comes from the house kit
+# (games/common/strings/en.txt). The game's name is never translated. Keep it gentle: pests are "popped".
+
+#. The title prompt's verb: PRESS A TO <VERB>.
+#. max 10
+VERB = CLIMB
+#. The same when a climb was left half-way: PRESS A TO CONTINUE (it).
+#. max 10
+VERB_CONTINUE = CONTINUE
+
+#. The wardrobe on the title (Left / Right browse it; arrows are drawn around the name): the hats, then the furs.
+#. max 18
+LOOK_NOHAT = NO HAT
+#. max 18
+HAT_LEAF = LEAF CAP
+#. max 18
+HAT_FLOWER = FLOWER CROWN
+#. max 18
+HAT_PARTY = PARTY HAT
+#. max 18
+HAT_BEANIE = BEANIE
+#. max 18
+HAT_PIRATE = PIRATE HAT
+#. max 18
+HAT_CROWN = CROWN
+#. max 18
+HAT_HELMET = SPACE HELMET
+#. max 18
+FUR_GREY = GREY FUR
+#. max 18
+FUR_GOLDEN = GOLDEN FUR
+#. max 18
+FUR_SNOW = SNOW FUR
+#. max 18
+FUR_MIDNIGHT = MIDNIGHT FUR
+#. Under the look's name: it is bought, the lemur wears it.
+#. max 24
+WEARING = WORN
+#. Under the look's name, not bought yet and enough coins: X buys it (%d: its price in coins).
+#. max 30
+BUY_N = X: BUY FOR %d COINS
+#. Under the look's name, not enough coins yet (%d: its price).
+#. max 30
+LOCKED_N = %d COINS TO UNLOCK
+#. The title: the coins saved (%d).
+#. max 24
+COINS_N = COINS: %d
+#. The title: a climb left half-way (%d: its height in metres). A continues it.
+#. max 30
+RUN_AT = IN PROGRESS: %d M
+#. The title, with a climb kept: B starts a new climb instead (the old one is dropped).
+#. max 30
+NEW_RUN = B: NEW CLIMB
+#. The title: the record, the highest climb (%d metres).
+#. max 24
+BEST_M = BEST: %d M
+#. The controls' hint during the first seconds of a first climb (the pad): two lines.
+#. max 38
+HINT_PAD = LEFT / RIGHT TO STEER
+#. max 38
+HINT_SHOOT = A SHOOTS SEEDS UP AT THE PESTS
+#. The same on a touch screen: two lines.
+#. max 38
+HINT_TOUCH = HOLD LEFT OR RIGHT TO STEER
+#. max 38
+HINT_TOUCH2 = TAP WITH A SECOND FINGER TO SHOOT
+
+#. The zones, shown big (2x letters) as the lemur climbs into them.
+#. max 18
+ZONE_GARDEN = THE GARDEN
+#. max 18
+ZONE_CLOUDS = THE CLOUDS
+#. max 18
+ZONE_SKY = THE SUNSET SKY
+#. max 18
+ZONE_SPACE = OUTER SPACE
+
+#. The results' labels (on a panel; each over its value).
+#. max 22
+RES_HEIGHT = HEIGHT
+#. max 22
+RES_COINS = COINS
+#. A height in metres (%d), shown big under HEIGHT and BEST.
+#. max 10
+METRES = %d M
+#. Paused: B (or a tap on this line) goes back to the title, the climb is kept for later.
+#. max 38
+PAUSE_QUIT = B: TITLE (THE CLIMB IS KEPT)

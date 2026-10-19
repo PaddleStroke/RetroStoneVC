@@ -1,0 +1,23 @@
+# Lemur Leap: the screens of the language test (tools/i18n_test.sh, docs/i18n.md), one headless run per line:
+#   <name> <frames> <shot frame> [options] [; input lines]
+title       130  125
+buy         130  125  --opt look=7 --opt coins=900
+locked      130  125  --opt look=11 --opt coins=12 --opt best=640
+cont        130  125  --opt fakerun=1 --opt best=640 --opt coins=380 --opt unlock=1 --opt look=3
+hint        120  110  --opt ready=1 --opt seed=7
+hint_touch  120  110  --opt ready=1 --opt seed=7 --opt touch=1
+zone        700  690  --opt ready=1 --opt seed=7 --opt height=490 --opt god=1 --opt bot=1
+zone_space  700  690  --opt ready=1 --opt seed=7 --opt height=890 --opt god=1 --opt bot=1
+best        900  700  --opt ready=1 --opt seed=7 --opt best=40 --opt bot=1
+pause       320  315  --opt bot=1 --opt ready=1 --opt seed=7 ; 300 tap START
+results     260  250  --opt ready=1 --opt fall=1 --opt height=260 --opt best=240
+title_t     130  125  --display 1080x2340
+cont_t      130  125  --display 1080x2340 --opt fakerun=1 --opt best=640 --opt coins=380 --opt unlock=1 --opt look=3
+buy_t       130  125  --display 1080x2340 --opt look=7 --opt coins=900
+locked_t    130  125  --display 1080x2340 --opt look=11 --opt coins=12 --opt best=640
+hint_t      120  110  --display 1080x2340 --opt ready=1 --opt seed=7 --opt touch=1
+zone_t      700  690  --display 1080x2340 --opt ready=1 --opt seed=7 --opt height=490 --opt god=1 --opt bot=1
+pause_t     320  315  --display 1080x2340 --opt bot=1 --opt ready=1 --opt seed=7 ; 300 tap START
+results_t   260  250  --display 1080x2340 --opt ready=1 --opt fall=1 --opt height=260 --opt best=240
+title_n     130  125  --display 1080x2520 --opt fakerun=1 --opt best=640 --opt coins=380 --opt unlock=1 --opt look=11
+results_n   260  250  --display 1080x2520 --opt ready=1 --opt fall=1 --opt height=260 --opt best=240

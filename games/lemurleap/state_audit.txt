@@ -1,0 +1,11 @@
+# Save states (tools/state_audit.py): the mutable statics that are NOT saved, and why.
+# Everything else is registered in the game's state functions (main.c game_state(), draw.c draw_state(),
+# the house kit's hu_state() and ha_state()).
+main.snd_buf        sound_init(): the synthesis buffer (the samples are made at start-up, not saved)
+main.SV             the battery save's copy (the record, the coins, the looks, the climb kept): stays in the .srm, a state never takes it back
+world.last_path     world_generate's scratch: the path's last leaf during one call (NULL between calls)
+draw.r_pin          per frame: the UI layer's pin for the raster, set by draw_frame before every picture
+draw.r_hud          ... the HUD pinned at a tall screen's top, the same
+draw.r_cam          ... the camera for the raster's sky, the same
+draw.band           ... the frame's sprite budget, counted again by each draw_frame
+draw.oam_n          ... the same
