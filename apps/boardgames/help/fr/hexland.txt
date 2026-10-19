@@ -1,0 +1,15 @@
+Paysage hexagonal
+# Le but
+Construis un paysage avec une pile de tuiles hexagonales et marque le plus de points possible. Chaque bord d'une tuile montre un pré, une forêt, un champ, un village, une rivière ou une voie ferrée.
+# Poser une tuile
+Pose la tuile du dessus de la pile à côté du paysage, tournée comme tu veux.
+- Chaque bord qui touche le même terrain rapporte 10 points.
+- Une tuile dont les six bords touchent tous des voisins identiques est parfaite : 30 points de plus et une tuile de plus sur la pile.
+- Les rivières et les voies ferrées doivent continuer : leurs bords ne peuvent toucher qu'une rivière ou une voie du même genre.
+- Une tuile qui ne va nulle part est mise de côté.
+# Les quêtes
+Un drapeau sur une tuile demande une région de son terrain, les tuiles reliées par lui : exactement le nombre indiqué, ou au moins autant s'il est suivi d'un plus. Une quête réussie rapporte 50 points et ajoute trois tuiles à la pile. Une région exacte qui devient trop grande, ou qui se ferme trop petite, échoue.
+# La fin de la partie
+La partie se termine quand la pile est vide.
+# Niveaux et étoiles
+Le score près du drapeau : 3 étoiles ; les quatre cinquièmes : 2 étoiles ; sinon 1.

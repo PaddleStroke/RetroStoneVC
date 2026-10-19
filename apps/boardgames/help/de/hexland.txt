@@ -1,0 +1,15 @@
+Hex-Landschaft
+# Das Ziel
+Baue aus einem Stapel sechseckiger Plättchen eine Landschaft und sammle so viele Punkte wie möglich. Jede Kante eines Plättchens zeigt Wiese, Wald, Feld, Dorf, Fluss oder Gleis.
+# Ein Plättchen legen
+Lege das oberste Plättchen des Stapels neben die Landschaft, beliebig gedreht.
+- Jede Kante, die auf dasselbe Gelände trifft, bringt 10 Punkte.
+- Ein Plättchen, dessen sechs Kanten alle zu ihren Nachbarn passen, ist perfekt: 30 Punkte mehr und ein Plättchen mehr auf dem Stapel.
+- Flüsse und Gleise müssen weitergehen: Ihre Kanten dürfen nur auf einen Fluss oder ein Gleis derselben Art treffen.
+- Ein Plättchen, das nirgends passt, wird beiseitegelegt.
+# Aufgaben
+Eine Fahne auf einem Plättchen verlangt ein Gebiet seines Geländes, die dadurch verbundenen Plättchen: genau die gezeigte Zahl, oder mindestens so viele, wenn ein Plus folgt. Eine erfüllte Aufgabe bringt 50 Punkte und drei Plättchen auf den Stapel. Ein genaues Gebiet, das zu groß wird oder zu klein geschlossen wird, scheitert.
+# Das Ende der Partie
+Die Partie endet, wenn der Stapel leer ist.
+# Level und Sterne
+Die Punktzahl an der Fahne: 3 Sterne; vier Fünftel davon: 2 Sterne; sonst 1.

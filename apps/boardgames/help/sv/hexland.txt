@@ -1,0 +1,15 @@
+Hexlandskap
+# Målet
+Bygg ett landskap av en hög sexkantiga brickor och få så många poäng som möjligt. Varje kant på en bricka visar äng, skog, åker, by, flod eller järnväg.
+# Att lägga en bricka
+Lägg den översta brickan i högen bredvid landskapet, vriden som du vill.
+- Varje kant som möter samma terräng ger 10 poäng.
+- En bricka vars sex kanter alla passar grannarna är perfekt: 30 poäng till och en bricka till i högen.
+- Floder och järnvägar måste fortsätta: deras kanter får bara möta en flod eller en järnväg av samma slag.
+- En bricka som inte passar någonstans läggs åt sidan.
+# Uppdrag
+En flagga på en bricka begär ett område av dess terräng, brickorna som hänger ihop genom den: exakt det visade talet, eller minst så många när ett plus står efter. Ett klarat uppdrag ger 50 poäng och lägger tre brickor i högen. Ett exakt område som blir för stort, eller sluts för litet, misslyckas.
+# Partiets slut
+Partiet slutar när högen är tom.
+# Banor och stjärnor
+Poängen vid flaggan: 3 stjärnor; fyra femtedelar av den: 2 stjärnor; annars 1.

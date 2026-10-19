@@ -1,0 +1,15 @@
+Heksagonalny krajobraz
+# Cel gry
+Zbuduj krajobraz ze stosu sześciokątnych płytek i zdobądź jak najwięcej punktów. Każda krawędź płytki pokazuje łąkę, las, pole, wioskę, rzekę lub tory.
+# Kładzenie płytki
+Połóż wierzchnią płytkę ze stosu obok krajobrazu, obróconą jak chcesz.
+- Każda krawędź stykająca się z tym samym terenem daje 10 punktów.
+- Płytka, której wszystkie sześć krawędzi pasuje do sąsiadów, jest idealna: 30 punktów więcej i jedna płytka więcej na stosie.
+- Rzeki i tory muszą biec dalej: ich krawędzie mogą stykać się tylko z rzeką lub torami tego samego rodzaju.
+- Płytka, która nigdzie nie pasuje, zostaje odłożona.
+# Zadania
+Flaga na płytce żąda obszaru jej terenu, czyli płytek przez niego połączonych: dokładnie pokazanej liczby albo co najmniej tylu, gdy stoi za nią plus. Wykonane zadanie daje 50 punktów i dokłada trzy płytki na stos. Dokładny obszar, który urośnie za bardzo albo zamknie się za mały, przepada.
+# Koniec gry
+Gra kończy się, gdy stos jest pusty.
+# Poziomy i gwiazdki
+Wynik przy fladze: 3 gwiazdki; cztery piąte z niego: 2 gwiazdki; inaczej 1.

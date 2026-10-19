@@ -1,0 +1,15 @@
+Hexlandschap
+# Het doel
+Bouw een landschap uit een stapel zeshoekige tegels en scoor zoveel mogelijk punten. Elke rand van een tegel toont weide, bos, akker, dorp, rivier of spoor.
+# Een tegel leggen
+Leg de bovenste tegel van de stapel naast het landschap, gedraaid zoals je wilt.
+- Elke rand die hetzelfde terrein raakt, levert 10 punten op.
+- Een tegel waarvan alle zes randen bij hun buren passen, is perfect: 30 punten extra en een tegel extra op de stapel.
+- Rivieren en sporen moeten doorlopen: hun randen mogen alleen een rivier of een spoor van dezelfde soort raken.
+- Een tegel die nergens past, wordt opzijgelegd.
+# Opdrachten
+Een vlag op een tegel vraagt om een gebied van zijn terrein, de tegels die erdoor verbonden zijn: precies het getoonde aantal, of minstens zoveel als er een plus achter staat. Een geslaagde opdracht levert 50 punten en drie tegels op de stapel op. Een exact gebied dat te groot wordt, of te klein wordt afgesloten, mislukt.
+# Het einde van het spel
+Het spel eindigt als de stapel leeg is.
+# Levels en sterren
+De score bij de vlag: 3 sterren; vier vijfde ervan: 2 sterren; anders 1.

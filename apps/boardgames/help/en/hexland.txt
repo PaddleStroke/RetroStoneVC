@@ -1,0 +1,15 @@
+Hex Landscape
+# The aim
+Build a landscape from a stack of hexagonal tiles and score as many points as you can. Each edge of a tile shows meadow, forest, field, village, river or rail.
+# Laying a tile
+Lay the top tile of the stack next to the landscape, turned as you like.
+- Each edge that meets the same terrain scores 10 points.
+- A tile whose six edges all meet matching neighbours is perfect: 30 more points and one more tile on the stack.
+- Rivers and rails must go on: their edges may only meet a river or a rail of the same kind.
+- A tile that fits nowhere is set aside.
+# Quests
+A flag on a tile asks for a region of its terrain, the tiles joined by it: exactly the number shown, or at least that many when a plus follows it. A quest done scores 50 points and adds three tiles to the stack. An exact region that grows too big, or is closed too small, fails.
+# The end of the game
+The game ends when the stack is empty.
+# Levels and stars
+The score by the flag: 3 stars; four fifths of it: 2 stars; otherwise 1.

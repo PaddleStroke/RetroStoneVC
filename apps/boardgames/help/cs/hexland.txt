@@ -1,0 +1,15 @@
+Šestiúhelníková krajina
+# Cíl hry
+Postav krajinu z hromádky šestiúhelníkových dílků a získej co nejvíc bodů. Každá hrana dílku ukazuje louku, les, pole, vesnici, řeku nebo trať.
+# Položení dílku
+Polož horní dílek z hromádky vedle krajiny, natočený, jak chceš.
+- Každá hrana, která se dotýká stejného terénu, dává 10 bodů.
+- Dílek, jehož všech šest hran sedí k sousedům, je dokonalý: o 30 bodů víc a jeden dílek navíc na hromádce.
+- Řeky a tratě musí pokračovat: jejich hrany se smějí dotýkat jen řeky nebo tratě stejného druhu.
+- Dílek, který nikam nepasuje, se odloží.
+# Úkoly
+Vlajka na dílku žádá oblast jeho terénu, tedy dílky jím spojené: přesně ukázaný počet, nebo aspoň tolik, když za ním stojí plus. Splněný úkol dá 50 bodů a přidá tři dílky na hromádku. Přesná oblast, která přeroste, nebo se uzavře příliš malá, selže.
+# Konec hry
+Hra končí, když je hromádka prázdná.
+# Úrovně a hvězdy
+Skóre u vlajky: 3 hvězdy; čtyři pětiny z něj: 2 hvězdy; jinak 1.

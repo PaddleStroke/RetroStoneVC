@@ -1,0 +1,15 @@
+Hexlandskap
+# Målet
+Bygg et landskap av en stabel sekskantede brikker, og få så mange poeng som mulig. Hver kant på en brikke viser eng, skog, åker, landsby, elv eller jernbane.
+# Å legge en brikke
+Legg den øverste brikken i stabelen ved siden av landskapet, dreid slik du vil.
+- Hver kant som møter samme terreng, gir 10 poeng.
+- En brikke der alle seks kantene passer til naboene, er perfekt: 30 poeng ekstra og én brikke til i stabelen.
+- Elver og jernbaner må fortsette: kantene deres kan bare møte en elv eller en jernbane av samme slag.
+- En brikke som ikke passer noe sted, legges til side.
+# Oppdrag
+Et flagg på en brikke ber om et område av terrenget sitt, brikkene som henger sammen gjennom det: nøyaktig tallet som vises, eller minst så mange når det står et pluss etter. Et fullført oppdrag gir 50 poeng og legger tre brikker i stabelen. Et nøyaktig område som blir for stort, eller lukkes for lite, mislykkes.
+# Slutten på spillet
+Spillet slutter når stabelen er tom.
+# Nivåer og stjerner
+Poengsummen ved flagget: 3 stjerner; fire femdeler av den: 2 stjerner; ellers 1.
