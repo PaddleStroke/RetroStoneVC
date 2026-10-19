@@ -1,0 +1,16 @@
+Revienta burbujas
+# El objetivo
+Unas canicas cuelgan del techo de una caja de madera. Dispara canicas desde el lanzador para vaciar la caja o, si hay gemas atrapadas en ella, para liberar todas las gemas, antes de que se acaben los disparos.
+# Una jugada
+La canica vuela en línea recta, rebota en las paredes laterales hasta tocar otra canica o el techo, y se queda pegada allí.
+- Tres o más canicas de un color que se tocan revientan.
+- Todo lo que ya no cuelga del techo cae.
+- Toca la siguiente canica para cambiarla por la del lanzador.
+- Las piedras y las gemas nunca revientan: solo caen.
+- Una canica enjaulada pierde su jaula cuando revienta su grupo, y revienta la vez siguiente.
+- Una bomba hace saltar las canicas que la rodean. Una canica arcoíris combina con todos los colores.
+- En algunas cajas el techo baja una fila cada pocos disparos.
+# El final de la partida
+La caja vacía, o todas las gemas liberadas: resuelto. Una canica más allá de la línea, o sin disparos: deshaz o empieza de nuevo.
+# Niveles y estrellas
+Resuelto con el mínimo de disparos posible: 3 estrellas; con hasta la mitad más de disparos: 2 estrellas; si no, 1.

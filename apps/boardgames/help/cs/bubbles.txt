@@ -1,0 +1,16 @@
+Praskání bublin
+# Cíl hry
+Ze stropu dřevěné krabice visí kuličky. Vystřeluj kuličky z vrhače a vyprázdni krabici, nebo, pokud jsou v ní uvězněné drahokamy, osvoboď všechny drahokamy, než ti dojdou střely.
+# Tah
+Kulička letí rovně, odráží se od bočních stěn, dokud se nedotkne jiné kuličky nebo stropu, a tam se přilepí.
+- Tři a více kuliček jedné barvy, které se dotýkají, prasknou.
+- Co už nevisí ze stropu, spadne.
+- Klepnutím na další kuličku ji vyměníš s tou ve vrhači.
+- Kameny a drahokamy nikdy nepraskají: jen padají.
+- Kulička v kleci přijde o klec, když její skupina praskne, a praskne příště.
+- Bomba rozmetá kuličky kolem sebe. Duhová kulička se hodí ke každé barvě.
+- V některých krabicích se strop po několika střelách sníží o řadu.
+# Konec hry
+Krabice prázdná nebo všechny drahokamy volné: vyřešeno. Kulička za čárou nebo žádné střely: vrať tah, nebo začni znovu.
+# Úrovně a hvězdy
+Vyřešeno nejmenším možným počtem střel: 3 hvězdy; nejvýše o polovinu více střel: 2 hvězdy; jinak 1.

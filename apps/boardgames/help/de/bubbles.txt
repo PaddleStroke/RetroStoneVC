@@ -1,0 +1,16 @@
+Blasen platzen
+# Das Ziel
+Murmeln hängen von der Decke eines Holzkastens. Schieße Murmeln aus der Schleuder, um den Kasten zu leeren oder, wo Edelsteine darin gefangen sind, alle Edelsteine zu befreien, bevor die Schüsse ausgehen.
+# Ein Zug
+Die Murmel fliegt geradeaus, prallt von den Seitenwänden ab, bis sie eine andere Murmel oder die Decke berührt, und bleibt dort haften.
+- Drei oder mehr sich berührende Murmeln einer Farbe platzen.
+- Was nicht mehr an der Decke hängt, fällt.
+- Tippe auf die nächste Murmel, um sie mit der in der Schleuder zu tauschen.
+- Steine und Edelsteine platzen nie: Sie fallen nur.
+- Eine Murmel im Käfig verliert ihren Käfig, wenn ihre Gruppe platzt, und platzt beim nächsten Mal.
+- Eine Bombe sprengt die Murmeln um sich herum. Eine Regenbogenmurmel passt zu jeder Farbe.
+- In manchen Kästen sinkt die Decke nach einigen Schüssen um eine Reihe.
+# Das Ende der Partie
+Der Kasten leer oder alle Edelsteine befreit: gelöst. Eine Murmel jenseits der Linie oder keine Schüsse mehr: rückgängig machen oder neu beginnen.
+# Level und Sterne
+Gelöst mit den wenigsten möglichen Schüssen: 3 Sterne; mit bis zu halb so vielen Schüssen mehr: 2 Sterne; sonst 1.

@@ -1,0 +1,16 @@
+Boblepop
+# Målet
+Kuler henger fra taket i en trekasse. Skyt kuler fra kasteren for å tømme kassen eller, der edelsteiner sitter fanget i den, for å befri alle edelsteinene, før skuddene tar slutt.
+# Et trekk
+Kulen flyr rett frem, spretter mot sideveggene til den treffer en annen kule eller taket, og setter seg fast der.
+- Tre eller flere kuler i samme farge som berører hverandre, sprekker.
+- Alt som ikke lenger henger fra taket, faller.
+- Trykk på den neste kulen for å bytte den med den i kasteren.
+- Steiner og edelsteiner sprekker aldri: de bare faller.
+- En kule i bur mister buret når gruppen dens sprekker, og sprekker neste gang.
+- En bombe sprenger kulene rundt seg. En regnbuekule passer til alle farger.
+- I noen kasser senker taket seg en rad etter noen få skudd.
+# Slutten på spillet
+Kassen tom eller alle edelsteinene fri: løst. En kule forbi streken eller ingen skudd igjen: angre, eller begynn på nytt.
+# Nivåer og stjerner
+Løst med færrest mulige skudd: 3 stjerner; med opptil halvparten flere skudd: 2 stjerner; ellers 1.

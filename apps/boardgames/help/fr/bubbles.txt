@@ -1,0 +1,16 @@
+Éclate les bulles
+# Le but
+Des billes pendent du plafond d'une boîte en bois. Tire des billes depuis le lanceur pour vider la boîte ou, si des gemmes y sont prises, pour libérer toutes les gemmes, avant d'épuiser tes tirs.
+# Un coup
+La bille file tout droit, rebondit sur les parois, jusqu'à toucher une autre bille ou le plafond, et s'y colle.
+- Trois billes ou plus de la même couleur qui se touchent éclatent.
+- Tout ce qui ne pend plus au plafond tombe.
+- Touche la bille suivante pour l'échanger avec celle du lanceur.
+- Les pierres et les gemmes n'éclatent jamais : elles ne font que tomber.
+- Une bille en cage perd sa cage quand son groupe éclate, et éclate la fois suivante.
+- Une bombe souffle les billes autour d'elle. Une bille arc-en-ciel va avec toutes les couleurs.
+- Dans certaines boîtes, le plafond descend d'une rangée après quelques tirs.
+# La fin de la partie
+La boîte vidée, ou toutes les gemmes libérées : résolu. Une bille restée au-delà de la ligne, ou plus de tirs : annule, ou recommence.
+# Niveaux et étoiles
+Résolu avec le moins de tirs possible : 3 étoiles ; jusqu'à moitié plus de tirs : 2 étoiles ; sinon 1.

@@ -1,0 +1,16 @@
+Boblepop
+# Målet
+Kugler hænger fra loftet i en trækasse. Skyd kugler fra kasteren for at tømme kassen eller, hvor der sidder ædelsten fanget i den, for at befri alle ædelstenene, før skuddene slipper op.
+# Et træk
+Kuglen flyver lige ud, preller af sidevæggene, til den rører en anden kugle eller loftet, og sætter sig fast der.
+- Tre eller flere kugler i samme farve, der rører hinanden, springer.
+- Alt, der ikke længere hænger fra loftet, falder.
+- Tryk på den næste kugle for at bytte den med den i kasteren.
+- Sten og ædelsten springer aldrig: de falder kun.
+- En kugle i bur mister sit bur, når dens gruppe springer, og springer næste gang.
+- En bombe sprænger kuglerne omkring sig. En regnbuekugle passer til alle farver.
+- I nogle kasser sænker loftet sig en række efter nogle skud.
+# Spillets afslutning
+Kassen tom eller alle ædelsten befriet: løst. En kugle forbi stregen eller ingen skud tilbage: fortryd, eller begynd forfra.
+# Baner og stjerner
+Løst med færrest mulige skud: 3 stjerner; med op til halvanden gang så mange skud: 2 stjerner; ellers 1.

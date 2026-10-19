@@ -1,0 +1,16 @@
+Balon Patlat
+# Amaç
+Tahta bir kutunun tavanından bilyeler sarkar. Atışların bitmeden, atıcıdan bilye fırlatarak kutuyu boşalt ya da içinde mücevher sıkışmışsa bütün mücevherleri kurtar.
+# Bir hamle
+Bilye dümdüz uçar, yan duvarlardan seker, başka bir bilyeye ya da tavana değene kadar gider ve oraya yapışır.
+- Birbirine değen aynı renkten üç veya daha fazla bilye patlar.
+- Artık tavana bağlı olmayan her şey düşer.
+- Sıradaki bilyeye dokunarak onu atıcıdakiyle değiştir.
+- Taşlar ve mücevherler asla patlamaz: yalnızca düşerler.
+- Kafesteki bilye, grubu patlayınca kafesini kaybeder ve bir sonraki sefer patlar.
+- Bomba çevresindeki bilyeleri havaya uçurur. Gökkuşağı bilye her renge uyar.
+- Bazı kutularda tavan birkaç atışta bir sıra aşağı iner.
+# Oyunun sonu
+Kutu boşaldı ya da bütün mücevherler kurtuldu: çözüldü. Çizgiyi geçen bir bilye ya da kalmayan atış: geri al ya da yeniden başla.
+# Seviyeler ve yıldızlar
+Mümkün olan en az atışla çözülürse 3 yıldız; en fazla yarısı kadar fazla atışla 2 yıldız; yoksa 1.

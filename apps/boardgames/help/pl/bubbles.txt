@@ -1,0 +1,16 @@
+Pękające bańki
+# Cel gry
+Z sufitu drewnianej skrzynki zwisają kulki. Wystrzeliwuj kulki z wyrzutni, aby opróżnić skrzynkę albo, jeśli są w niej uwięzione klejnoty, uwolnić wszystkie klejnoty, zanim skończą się strzały.
+# Ruch
+Kulka leci prosto, odbija się od bocznych ścian, aż dotknie innej kulki lub sufitu, i tam się przykleja.
+- Trzy lub więcej stykających się kulek jednego koloru pęka.
+- Wszystko, co już nie wisi u sufitu, spada.
+- Dotknij następnej kulki, aby zamienić ją z tą w wyrzutni.
+- Kamienie i klejnoty nigdy nie pękają: tylko spadają.
+- Kulka w klatce traci klatkę, gdy pęka jej grupa, a pęka za następnym razem.
+- Bomba rozsadza kulki wokół siebie. Tęczowa kulka pasuje do każdego koloru.
+- W niektórych skrzynkach sufit obniża się o rząd co kilka strzałów.
+# Koniec gry
+Skrzynka pusta albo wszystkie klejnoty uwolnione: rozwiązane. Kulka za linią albo brak strzałów: cofnij lub zacznij od nowa.
+# Poziomy i gwiazdki
+Rozwiązane najmniejszą możliwą liczbą strzałów: 3 gwiazdki; najwyżej o połowę więcej strzałów: 2 gwiazdki; inaczej 1.

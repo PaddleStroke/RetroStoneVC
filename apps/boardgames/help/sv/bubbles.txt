@@ -1,0 +1,16 @@
+Poppa bubblor
+# Målet
+Kulor hänger från taket i en trälåda. Skjut kulor från slungan för att tömma lådan eller, där ädelstenar sitter fast i den, för att befria alla ädelstenar, innan skotten tar slut.
+# Ett drag
+Kulan flyger rakt fram, studsar mot sidoväggarna tills den nuddar en annan kula eller taket, och fastnar där.
+- Tre eller fler kulor av samma färg som nuddar varandra spricker.
+- Allt som inte längre hänger från taket faller.
+- Tryck på nästa kula för att byta den mot den i slungan.
+- Stenar och ädelstenar spricker aldrig: de bara faller.
+- En kula i bur förlorar sin bur när dess grupp spricker, och spricker nästa gång.
+- En bomb spränger kulorna runt omkring sig. En regnbågskula passar till alla färger.
+- I vissa lådor sänks taket en rad efter några skott.
+# Partiets slut
+Lådan tom eller alla ädelstenar befriade: löst. En kula bortom linjen eller inga skott kvar: ångra, eller börja om.
+# Banor och stjärnor
+Löst med så få skott som möjligt: 3 stjärnor; med upp till hälften fler skott: 2 stjärnor; annars 1.

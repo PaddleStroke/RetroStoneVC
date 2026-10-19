@@ -1,0 +1,16 @@
+Kuplapoksu
+# Tavoite
+Kuulat roikkuvat puulaatikon katosta. Ammu kuulia laukaisimesta tyhjentääksesi laatikon tai, jos siihen on jäänyt jalokiviä, vapauttaaksesi kaikki jalokivet, ennen kuin laukaukset loppuvat.
+# Siirto
+Kuula lentää suoraan ja kimpoaa sivuseinistä, kunnes se koskettaa toista kuulaa tai kattoa, ja tarttuu siihen.
+- Kolme tai useampi toisiaan koskettavaa samanväristä kuulaa poksahtaa.
+- Kaikki, mikä ei enää roiku katosta, putoaa.
+- Napauta seuraavaa kuulaa vaihtaaksesi sen laukaisimessa olevaan.
+- Kivet ja jalokivet eivät koskaan poksahda: ne vain putoavat.
+- Häkissä oleva kuula menettää häkkinsä, kun sen ryhmä poksahtaa, ja poksahtaa seuraavalla kerralla.
+- Pommi räjäyttää ympärillään olevat kuulat. Sateenkaarikuula sopii jokaiseen väriin.
+- Joissakin laatikoissa katto laskeutuu rivin muutaman laukauksen välein.
+# Pelin loppu
+Laatikko tyhjä tai kaikki jalokivet vapaina: ratkaistu. Kuula viivan takana tai laukaukset loppu: peru siirto tai aloita alusta.
+# Tasot ja tähdet
+Ratkaistu vähimmällä mahdollisella laukausmäärällä: 3 tähteä; enintään puolitoista kertaa niin monella laukauksella: 2 tähteä; muuten 1.

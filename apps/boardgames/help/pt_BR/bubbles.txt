@@ -1,0 +1,16 @@
+Estoura bolhas
+# O objetivo
+Bolinhas de gude pendem do teto de uma caixa de madeira. Atire bolinhas do lançador para esvaziar a caixa ou, onde houver gemas presas nela, para libertar todas as gemas, antes que os tiros acabem.
+# Uma jogada
+A bolinha voa em linha reta, quica nas paredes laterais até tocar outra bolinha ou o teto, e gruda ali.
+- Três ou mais bolinhas da mesma cor que se tocam estouram.
+- Tudo o que não pende mais do teto cai.
+- Toque na próxima bolinha para trocá-la pela do lançador.
+- Pedras e gemas nunca estouram: só caem.
+- Uma bolinha engaiolada perde a gaiola quando seu grupo estoura, e estoura na vez seguinte.
+- Uma bomba explode as bolinhas ao redor. Uma bolinha arco-íris combina com todas as cores.
+- Em algumas caixas o teto desce uma fileira a cada poucos tiros.
+# O fim da partida
+A caixa vazia, ou todas as gemas libertadas: resolvido. Uma bolinha além da linha, ou sem tiros: desfaça, ou recomece.
+# Níveis e estrelas
+Resolvido com o mínimo de tiros possível: 3 estrelas; com até metade a mais de tiros: 2 estrelas; senão, 1.

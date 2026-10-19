@@ -1,0 +1,16 @@
+Bellen knallen
+# Het doel
+Knikkers hangen aan het plafond van een houten kist. Schiet knikkers uit de lanceerder om de kist leeg te maken of, waar er edelstenen in vastzitten, om alle edelstenen te bevrijden, voordat je schoten op zijn.
+# Een zet
+De knikker vliegt rechtdoor, kaatst tegen de zijwanden tot hij een andere knikker of het plafond raakt, en blijft daar plakken.
+- Drie of meer knikkers van één kleur die elkaar raken knallen.
+- Wat niet meer aan het plafond hangt, valt.
+- Tik op de volgende knikker om hem te ruilen met die in de lanceerder.
+- Stenen en edelstenen knallen nooit: ze vallen alleen.
+- Een knikker in een kooi verliest zijn kooi als zijn groep knalt, en knalt de keer daarna.
+- Een bom blaast de knikkers om zich heen weg. Een regenboogknikker past bij elke kleur.
+- In sommige kisten zakt het plafond na een paar schoten een rij.
+# Het einde van het spel
+De kist leeg, of alle edelstenen bevrijd: opgelost. Een knikker voorbij de lijn, of geen schoten meer: maak ongedaan, of begin opnieuw.
+# Levels en sterren
+Opgelost met zo weinig mogelijk schoten: 3 sterren; met tot de helft meer schoten: 2 sterren; anders 1.

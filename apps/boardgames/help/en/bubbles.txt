@@ -1,0 +1,16 @@
+Bubble Pop
+# The aim
+Marbles hang from the ceiling of a wooden box. Shoot marbles from the launcher to clear the box or, where gems are caught in it, to free every gem, before your shots run out.
+# A move
+A marble flies straight, bouncing off the side walls, until it touches another marble or the ceiling, and sticks there.
+- Three or more of one colour touching pop.
+- Whatever no longer hangs from the ceiling falls.
+- Tap the next marble to swap it with the one in the launcher.
+- Stones and gems never pop: they only fall.
+- A caged marble loses its cage when its group pops, and pops the next time.
+- A bomb blasts the marbles around it. A rainbow marble matches every colour.
+- In some boxes the ceiling comes down a row after every few shots.
+# The end of the game
+The box cleared, or every gem freed: solved. A marble left past the line, or no shots left: undo, or start again.
+# Levels and stars
+Solved in the fewest shots possible: 3 stars; with up to half as many shots again: 2 stars; otherwise 1.

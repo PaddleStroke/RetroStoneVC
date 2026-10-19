@@ -1,0 +1,16 @@
+Letuskan Gelembung
+# Tujuan
+Kelereng bergantung di langit-langit sebuah kotak kayu. Tembakkan kelereng dari peluncur untuk mengosongkan kotak atau, bila ada permata yang terperangkap di dalamnya, untuk membebaskan semua permata, sebelum tembakanmu habis.
+# Satu langkah
+Kelereng terbang lurus, memantul di dinding samping sampai menyentuh kelereng lain atau langit-langit, lalu menempel di sana.
+- Tiga kelereng atau lebih yang sewarna dan bersentuhan meletus.
+- Apa pun yang tidak lagi tergantung di langit-langit jatuh.
+- Ketuk kelereng berikutnya untuk menukarnya dengan yang ada di peluncur.
+- Batu dan permata tidak pernah meletus: keduanya hanya jatuh.
+- Kelereng dalam sangkar kehilangan sangkarnya saat kelompoknya meletus, dan meletus pada kali berikutnya.
+- Bom meledakkan kelereng di sekelilingnya. Kelereng pelangi cocok dengan semua warna.
+- Di beberapa kotak, langit-langit turun satu baris setiap beberapa tembakan.
+# Akhir permainan
+Kotak kosong, atau semua permata bebas: selesai. Ada kelereng melewati garis, atau tembakan habis: urungkan, atau mulai lagi.
+# Level dan bintang
+Selesai dengan tembakan sesedikit mungkin: 3 bintang; dengan tembakan paling banyak satu setengah kalinya: 2 bintang; selain itu 1.

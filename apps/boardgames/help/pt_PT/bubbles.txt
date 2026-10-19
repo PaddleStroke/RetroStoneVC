@@ -1,0 +1,16 @@
+Rebenta bolhas
+# O objetivo
+Berlindes pendem do teto de uma caixa de madeira. Dispara berlindes do lançador para esvaziar a caixa ou, onde houver gemas presas nela, para libertar todas as gemas, antes de os disparos acabarem.
+# Uma jogada
+O berlinde voa a direito, ressalta nas paredes laterais até tocar outro berlinde ou o teto, e fica ali preso.
+- Três ou mais berlindes da mesma cor que se tocam rebentam.
+- Tudo o que já não pende do teto cai.
+- Toca no berlinde seguinte para o trocar pelo do lançador.
+- Pedras e gemas nunca rebentam: só caem.
+- Um berlinde engaiolado perde a gaiola quando o seu grupo rebenta, e rebenta na vez seguinte.
+- Uma bomba faz saltar os berlindes à sua volta. Um berlinde arco-íris combina com todas as cores.
+- Em algumas caixas o teto desce uma fila a cada poucos disparos.
+# O fim do jogo
+A caixa vazia, ou todas as gemas libertadas: resolvido. Um berlinde para lá da linha, ou sem disparos: anula, ou recomeça.
+# Níveis e estrelas
+Resolvido com o mínimo de disparos possível: 3 estrelas; com até metade a mais de disparos: 2 estrelas; senão, 1.

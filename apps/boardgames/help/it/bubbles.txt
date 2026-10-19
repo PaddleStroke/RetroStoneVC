@@ -1,0 +1,16 @@
+Scoppia le bolle
+# Lo scopo
+Delle biglie pendono dal soffitto di una scatola di legno. Spara biglie dal lanciatore per svuotare la scatola o, dove vi sono intrappolate delle gemme, per liberare tutte le gemme, prima che finiscano i tiri.
+# Una mossa
+La biglia vola dritta, rimbalza sulle pareti laterali finché tocca un'altra biglia o il soffitto, e lì si attacca.
+- Tre o più biglie dello stesso colore che si toccano scoppiano.
+- Tutto ciò che non pende più dal soffitto cade.
+- Tocca la biglia successiva per scambiarla con quella nel lanciatore.
+- Pietre e gemme non scoppiano mai: cadono soltanto.
+- Una biglia in gabbia perde la gabbia quando il suo gruppo scoppia, e scoppia la volta successiva.
+- Una bomba fa saltare le biglie attorno. Una biglia arcobaleno si abbina a ogni colore.
+- In alcune scatole il soffitto scende di una fila ogni pochi tiri.
+# La fine della partita
+La scatola vuota, o tutte le gemme liberate: risolto. Una biglia oltre la linea, o nessun tiro rimasto: annulla, o ricomincia.
+# Livelli e stelle
+Risolto con il minimo di tiri possibile: 3 stelle; con fino a metà tiri in più: 2 stelle; altrimenti 1.
