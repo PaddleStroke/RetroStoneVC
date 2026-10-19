@@ -1,0 +1,87 @@
+# Goat Gorge (games/goatgorge): its strings, the English source (docs/i18n.md).
+# A little goat climbs a gorge to the summit, one screen ("room") at a time, five chapters. Everything else comes from
+# the house kit (games/common/strings/en.txt). The game's name is never translated.
+
+#. The title prompt's verb: PRESS A TO <VERB>.
+#. max 10
+VERB = CLIMB
+
+#. The title, above the chapter's name: which chapter is chosen (Left / Right change it, arrows are drawn around the
+#. text); %d is its number 1..5.
+#. max 30
+CHAPTER_N = CHAPTER %d
+
+#. The five chapters' names (the title, under CHAPTER %d): a flowery meadow at the gorge's foot...
+#. max 34
+CH_1 = THE MEADOW
+#. ... a forest of pines on the slopes...
+#. max 34
+CH_2 = THE PINE WOOD
+#. ... a cave of glowing crystals inside the mountain...
+#. max 34
+CH_3 = THE CRYSTAL CAVE
+#. ... a windy ridge at sunset...
+#. max 34
+CH_4 = THE WINDY RIDGE
+#. ... and the snowy summit at night.
+#. max 34
+CH_5 = THE SUMMIT
+
+#. The title, under the chapter's name, once the chapter was climbed: the best time (%s: like 1:23.45) and the fewest
+#. deaths (%d) of one climb of it.
+#. max 38
+RECORD = BEST %s - DEATHS %d
+#. The same line before the chapter was ever climbed.
+#. max 38
+NOT_YET = NOT CLIMBED YET
+#. The title's last chapter line: the berries ever found in the chapter (%d of %d; one hidden in most rooms).
+#. max 38
+BERRIES_N = BERRIES %d/%d
+
+#. The results' banner (2x gold letters, 18 columns at most fit; small letters when longer) after a chapter's last room.
+#. max 36
+CLEAR = CHAPTER CLEAR!
+#. The same after the last chapter: the goat stands on the summit.
+#. max 36
+SUMMIT = TOP OF THE GORGE!
+#. The results' labels (each over its value): the chapter's time...
+#. max 20
+RES_TIME = TIME
+#. ... the deaths during it (the goat hit spikes or fell: the room starts again)...
+#. max 20
+RES_DEATHS = DEATHS
+#. ... and the berries found in it.
+#. max 20
+RES_BERRIES = BERRIES
+
+#. Paused, under PAUSED: B goes back to the title (the chapter's climb is lost).
+#. max 38
+PAUSE_QUIT = B: BACK TO THE TITLE
+
+#. Tips shown at the bottom of some rooms (row 27, over the rock), the first seconds. A is the jump button, B the dash
+#. button (the same letters on the phone's buttons).
+#. max 38
+HINT_JUMP = HOLD A TO JUMP HIGHER
+#. max 38
+HINT_WALL = JUMP AT A WALL TO WALL JUMP
+#. A direction (the D-pad, or the phone's arrows) aims the dash: up, sideways or diagonally.
+#. max 38
+HINT_DASH = B: DASH - AIM IT WITH THE ARROWS
+#. The red mushrooms are springs.
+#. max 38
+HINT_SPRING = MUSHROOMS BOUNCE YOU UP HIGH
+#. The green crystals give the dash back in mid-air.
+#. max 38
+HINT_GEM = CRYSTALS GIVE YOUR DASH BACK
+#. Some blocks crack and fall soon after the goat stands on them; they come back later.
+#. max 38
+HINT_CRUMBLE = CRACKED ROCKS FALL - KEEP MOVING
+#. The wooden rafts move back and forth; the goat rides them.
+#. max 38
+HINT_RAFT = RIDE THE MOVING RAFTS
+#. The wind pushes the goat (the white streaks show it).
+#. max 38
+HINT_WIND = THE WIND PUSHES YOU - LEAN INTO IT
+#. Each room hides a berry: optional, harder to reach.
+#. max 38
+HINT_BERRY = BERRIES ARE OPTIONAL - AND TRICKY

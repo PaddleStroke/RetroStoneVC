@@ -1,0 +1,21 @@
+# Save states (tools/state_audit.py): the mutable statics that are NOT saved, and why.
+# Everything else is registered in the game's state functions (main.c game_state(), draw.c draw_state(),
+# the house kit's hu_state() and ha_state()).
+main.snd_buf        sound_init(): the synthesis buffer (the samples are made at start-up, not saved)
+main.SV             the battery save's copy (the records): stays in the .srm, a state never takes it back
+main.ROOMS          the chapters' rooms, parsed at start-up from the asset pack: the same every run (constant after init)
+main.nrooms         ... their count per chapter, the same
+main.nberries       ... their berries per chapter, the same
+main.sol_in         the bot's inputs (levels/solutions.txt), parsed at start-up: the same every run
+main.sol_off        ... where each room's starts, the same
+main.sol_len        ... and its length, the same
+main.sol_used       ... the parse's cursor, the same
+main.text_buf       start-up scratch: an asset's text while it is parsed
+draw.r_ui_pin       per frame: the UI layer's pin for the raster, set by draw_frame before every picture
+draw.r_hud          ... whether the HUD is pinned at a tall screen's top, the same
+draw.r_bg2x         ... BG2's scroll for the raster's line 0 (after the lines above a tall screen's stage), the same
+draw.r_bg2y         ... the same
+draw.r_bg3x         ... BG3's, the same
+draw.r_bg3y         ... the same
+draw.r_bg4x         ... BG4's, the same
+draw.r_bg4y         ... the same

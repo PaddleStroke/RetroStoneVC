@@ -1,0 +1,13 @@
+# Goat Gorge: the screens of the language test (tools/i18n_test.sh, docs/i18n.md), one headless run per line:
+#   <name> <frames> <shot frame> [options] [; input lines]
+title       130  125
+title3      130  125  --opt unlock=1 --opt chapter=3
+cleared     130  125  --opt records=1
+hint1       60   50   --opt bot=1 --opt ready=1
+hint3       60   50   --opt bot=1 --opt ready=1 --opt room=6
+pause       170  165  --opt bot=1 --opt ready=1 ; 150 tap START
+results     2300 2290 --opt bot=1
+title_t     130  125  --display 1080x2340
+play_t      200  190  --display 1080x2340 --opt bot=1 --opt ready=1 --opt room=6
+pause_t     170  165  --display 1080x2340 --opt bot=1 --opt ready=1 ; 150 tap START
+results_t   2300 2290 --display 1080x2340 --opt bot=1
