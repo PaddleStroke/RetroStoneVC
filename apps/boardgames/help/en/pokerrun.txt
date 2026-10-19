@@ -1,0 +1,13 @@
+Poker Run
+# The aim
+Get through eight antes of three blinds each: a small blind, a big blind and a boss. Each blind is a score to reach.
+# A blind
+You hold 8 cards from your own 52-card deck, with 4 hands and 3 discards. Choose up to 5 cards and play them as a poker hand, or discard them to draw new ones. Hands, weakest first: high card, pair, two pair, three of a kind, straight, flush, full house, four of a kind, straight flush.
+# The score
+(The hand's chips + the chips of the cards that make it) × the hand's mult. Number cards give their value, faces 10, aces 11. Your charms then act from left to right. Reach the target before your hands run out, or the run is over.
+# The shop
+Coins come from each blind won, each hand left and interest: 1 for every 5 coins held, up to 5. Buy charms (5 at most), tomes that raise a hand's level, enhancements for your cards, and packs. A charm sells for half its price.
+# The bosses
+Each boss blind has a twist, shown before it starts.
+# The end of the game
+Beat the eighth boss to win. The run may then go on, endless.

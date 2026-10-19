@@ -1,0 +1,137 @@
+Poker Run: the charms' names (40), their effects (40), the bosses' names (10) and twists (10), the hand types (9), the enhancements' names (7) and effects (7), the packs' names (3) and contents (3), then a few words
+Ruby Locket
+Jet Brooch
+Topaz Ring
+Jade Clasp
+Pebble Pouch
+Ace Feather
+Court Lens
+Odd Compass
+King's Seal
+Gilded Bell
+Twin Mirror
+Triple Knot
+Rope Ladder
+Tide Shell
+Three Pines
+Lone Candle
+Open Palm
+Worry Stone
+Brass Anchor
+Last Light
+Still Water
+Sand Glass
+Moth Wing
+Coin Purse
+Held Breath
+Snowball
+Scrapbook
+Climbing Ivy
+Tally Stick
+Deep Pocket
+Spare Glove
+Tailor's Shears
+Open Door
+Clay Pig
+Ledger
+Haggler's Ring
+Clover Seed
+Glazier's Rag
+Smith's Hammer
+Morning Gong
++4 mult for each heart that scores.
++30 chips for each spade that scores.
++1 coin for each diamond that scores.
+×1.25 mult for each club that scores.
++3 mult for each 2, 3, 4 or 5 that scores.
++20 chips and +4 mult for each ace that scores.
+Jacks, queens and kings score twice.
++25 chips for each ace, 3, 5, 7 or 9 that scores.
+×1.5 mult for each king that scores.
++1 coin for each jack, queen or king that scores.
++8 mult if the hand holds a pair.
++14 mult if the hand holds three of a kind.
+×2.5 mult if the hand is a straight.
++16 mult if the hand is a flush.
+×1.75 mult if exactly 3 cards are played.
+×3 mult if exactly 1 card is played.
++60 chips if 5 cards are played.
++5 mult.
++45 chips.
+×3 mult on the last hand of a blind.
++15 chips for each discard left.
++3 mult for each hand left after this one.
+×2 mult if no discard was used in this blind.
++1 mult for every 3 coins you hold.
++2 mult for each card kept in your hand.
+Grows by +1 mult with each hand played.
+Grows by +4 chips with each card discarded.
+Starts at ×1 mult and grows by ×0.2 with each blind won.
+Grows by +3 mult each time a pair is played.
++1 card in your hand.
++1 hand in each blind.
++1 discard in each blind.
+Every card played scores.
++4 coins after each blind won.
+Interest up to 10 coins instead of 5.
+Everything in the shop costs 1 coin less.
+Clover cards are twice as lucky.
+Crystal cards never break.
+Iron cards give ×2 mult instead of ×1.5.
+The first hand of each blind scores twice.
+Fading Suit
+Short Rope
+Tight Fist
+Dry Well
+Tall Wall
+Fog
+Low Tide
+Narrow Gate
+Toll Bridge
+Old Rust
+The cards of one suit, shown on its sign, score nothing.
+Only 3 hands.
+One card fewer in your hand.
+No discards.
+The target is half as high again.
+Some cards are dealt face down.
+The hands' chips and mult are halved.
+Every hand must be 5 cards.
+Each hand played costs 1 coin.
+Card enhancements do nothing.
+High card
+Pair
+Two pair
+Three of a kind
+Straight
+Flush
+Full house
+Four of a kind
+Straight flush
+Gilded
+Crystal
+Iron
+Clover
+Etched
+Ember
+Prism
++3 coins if it is in your hand when a blind is won.
+×2 mult when it scores; 1 chance in 4 to break.
+×1.5 mult while it stays in your hand.
+When it scores: 1 chance in 5 of +20 mult, 1 in 12 of 15 coins.
++30 chips when it scores.
++4 mult when it scores.
+Counts as every suit.
+Charm Pouch
+Tome Bundle
+Card Bundle
+Choose 1 of 3 charms.
+Choose 1 of 3 tomes.
+Add 1 of 4 cards to your deck.
+Tome
+One level up for this hand.
+Small blind
+Big blind
+Boss blind
+Endless
+End the run
