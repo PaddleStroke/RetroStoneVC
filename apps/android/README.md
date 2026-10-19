@@ -110,12 +110,12 @@ corner, the back button in the top-left one: a finger that goes down on them nev
 Two kinds of games:
 - **App-level** (15 games): `apps/launcher/games.cfg` turns the touches into the virtual pad: screen zones that hold
   pad buttons (the game's code knows only the pad).
-- **Game-side** (7 games): the game reads the touches itself, through the SDK's touch API (`rs_touch*()`,
+- **Game-side** (8 games): the game reads the touches itself, through the SDK's touch API (`rs_touch*()`,
   docs/spec.md "Touch"; the game declares `rs_game.touch_native`): the app passes it the fingers, in its screen
   pixels, with no zone and no drawn button. Its menus take taps too (a tap starts from the title, a tap on the
   game-over panel goes back to it).
 
-**All 22 schemes are final** (the owner's design), to be tuned after the owner's phone test:
+**All 23 schemes are final** (the owner's design), to be tuned after the owner's phone test:
 
 | Game | Touch controls | |
 |---|---|---|
@@ -142,6 +142,7 @@ Two kinds of games:
 | Hamster Havoc | hold the left / right half = Left / Right; the shoot buttons at the sides = A | app |
 | Spider Swing | tap to let go of the web; in flight, hold the left / right half to steer | game |
 | Goat Gorge | drawn Left / Right buttons at the bottom left, Up above them (its sides, not drawn: Up+Left, Up+Right: slide the thumb up to aim a dash), drawn B (dash) and A (jump, held: higher) at the bottom right; upright: in the band below the room. In the RetroStone app's Arcade tab (hidden in the Arcade apps for now) | app |
+| Prickle Patch | a floating stick: put a finger down anywhere and drag to walk (the farther, the faster; the stick follows the finger); tap a level-up's choice; the pause button pauses, then a tap on B: TITLE leaves (the run kept) and a tap elsewhere goes on. In the RetroStone app's Arcade tab (hidden in the Arcade apps for now) | game |
 
 ## 4b. The review prompt
 

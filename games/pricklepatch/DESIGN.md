@@ -22,7 +22,7 @@ are chased off and pop, nothing is hurt.
 | a level-up's choice | Up / Down, A | tap it | arrows, X |
 | a chest | A | tap | X |
 | pause | Start or Select | the app's pause button | Enter / Backspace |
-| paused: back to the title (the run kept) | B | B (the pause button, then B... or the app's back) | Z |
+| paused: back to the title (the run kept) | B | tap B: TITLE (a tap elsewhere: go on) | Z |
 | title: the gardener | Left / Right | tap the name's left / right half | arrows |
 | title: the garden (once open) | Up / Down | - | arrows |
 | title: start / continue | A or Start | tap the prompt | X / Enter |
@@ -45,7 +45,7 @@ when the gardener walks.
 | the gardener | hedgehog 100 health, 1.0 px/f, the seed shot; tortoise 140, 0.81 px/f, armour 2, the watering can (250 coins); hen 80, 1.19 px/f, gem reach +30%, the bees (500 coins) |
 | a touch | the pest's damage minus the armour, then 30 frames safe (blinking) |
 | gems | reach 30 px (the magnet +25% a level), then they fly in, faster and faster; one 8-px cell holds one gem (two merge: 1-4 violet, 5-19 red, 20+ gold) |
-| levels | level n to n+1: 5 + 3(n-1) + (n-1)^2/5 gems (5, 8, 11 ... 48 at level 10, 134 at 20) |
+| levels | level n to n+1: 5 + 3(n-1) + (n-1)^2/4 gems (5, 8, 12 ... 52 at level 10, 147 at 20) |
 | choices | 3, weighted: a level of an owned tool 8, an evolution 20, a new tool 4 (6 at most), a level of a passive 5, a new passive 3 (6 at most); everything at its top: a snack (+30 health) or a coin pouch (+25) |
 | drops | a gem always; a coin 1.4% (+0.3% a clover level), an apple (+30 health) 0.3%, a magnet (every gem flies in) 0.2% after 1:00 |
 | chests | an elite's (1 upgrade), a boss's (3): an evolution first when one is ready, else levels of what is owned |
@@ -63,17 +63,17 @@ x1.25, speed x1.125, 12% more pests.
 
 | pest | health | speed (px/f) | touch | gem | from |
 |---|---|---|---|---|---|
-| slug | 8 | 0.31 | 5 | 1 | 0:00 |
-| aphid | 5 | 0.62 | 3 | 1 | 1:00 (rings) |
+| slug | 8 | 0.44 | 5 | 1 | 0:00 |
+| aphid | 5 | 0.69 | 3 | 1 | 1:00 (rings) |
 | beetle | 26 | 0.44 | 7 | 2 | 2:00 (heavy: little knock-back) |
 | ant | 12 | 0.94 | 6 | 1 | 3:00 (marching columns) |
 | wasp | 18 | 0.81 | 7 | 2 | 4:00 (zigzags) |
 | thistle | 60 | 0.31 | 10 | 4 | 5:00 |
 | crow | 40 | 1.12 | 9 | 3 | 7:00 (swoops through) |
 | locust | 28 | 0.88 (hops x1.5) | 8 | 3 | 8:00 |
-| Slug Queen | 1500 | 0.31 | 14 | 60 | 5:00: six slugs come out every 4 s |
-| Stag Beetle | 4200 | 0.44 | 18 | 100 | 10:00: stops, shakes 0.75 s (the warning), charges 3.5 px/f |
-| Crow King | 11000 | 0.75 | 22 | 140 | 15:00: circles at 110 px, dives through, calls crows; chased off: the garden is saved |
+| Slug Queen | 2500 | 0.31 | 14 | 60 | 5:00: six slugs come out every 4 s |
+| Stag Beetle | 9000 | 0.44 | 18 | 100 | 10:00: stops, shakes 0.75 s (the warning), charges 3.5 px/f |
+| Crow King | 36000 | 0.75 | 22 | 140 | 15:00: circles at 110 px, dives through, calls crows; chased off: the garden is saved |
 
 Events: a ring of 20 aphids closing in at 1:30, an elite beetle with a chest at 3:00, a column of 18 ants at 4:00, a
 ring of 32 aphids at 6:30, an elite thistle at 7:30, a wasp swarm at 8:30, a ring of 36 locusts at 11:30, an elite

@@ -58,8 +58,8 @@ HINT_TOOLS = YOUR TOOLS WORK BY THEMSELVES
 #. The shop's banner (2x letters on a panel).
 #. max 18
 SHED = GARDEN SHED
-#. The shop's last line: A buys the boost chosen, B goes back to the title.
-#. max 30
+#. The shop's last line: A buys the boost chosen, B goes back to the title (max 20: a phone held upright).
+#. max 20
 SHED_KEYS = A: BUY - B: BACK
 #. The shop: the coins saved (%d).
 #. max 20
@@ -67,31 +67,31 @@ COINS_N = %d COINS
 #. A boost at its top level.
 #. max 8
 MAX = MAX
-#. The shop's six boosts: a name and what each level adds.
+#. The shop's six boosts: a name (max 12, its row shares the level's 5 stars) and what each level adds (max 22).
 #. max 12
 B_MIGHT = MIGHT
 #. max 22
-BD_MIGHT = +4% DAMAGE
+BD_MIGHT = DAMAGE +4%
 #. max 12
 B_VIGOR = VIGOR
 #. max 22
-BD_VIGOR = +8 HEALTH
+BD_VIGOR = HEALTH +8
 #. max 12
 B_SWIFT = SWIFT
 #. max 22
-BD_SWIFT = +3% SPEED
+BD_SWIFT = SPEED +3%
 #. max 12
 B_REACH = REACH
 #. max 22
-BD_REACH = +10% GEM REACH
+BD_REACH = REACH +10%
 #. max 12
 B_GROWTH = GROWTH
 #. max 22
-BD_GROWTH = +4% XP
+BD_GROWTH = XP +4%
 #. max 12
 B_HASTE = HASTE
 #. max 22
-BD_HASTE = -3% COOLDOWNS
+BD_HASTE = COOLDOWNS -3%
 
 #. A level up: the banner over the three choices (2x letters on a panel).
 #. max 18

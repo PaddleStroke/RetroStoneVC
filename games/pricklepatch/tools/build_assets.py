@@ -8,12 +8,12 @@ layer's pixels (8 bits per pixel, read by src/soft.c), the sprites' and the gard
 VRAM (tiles, absolute; docs/spec.md "Video memory": the guideline is 64 KiB = 2048 tiles with the maps):
     0..296      BG1 the house kit (font, panel font, 2x cache, panel frame)
     297..316    BG1 the HUD's own tiles (the XP and boss bars)
-    317..444    BG1 the glyph pool of the translated text (docs/i18n.md)
-    445..764    BG1 the title's logo, and while a run is under way the soft layer's first tiles (BG2's base is 445:
+    317..572    BG1 the glyph pool of the translated text (docs/i18n.md; 256 tiles: a Japanese title takes them)
+    573..892    BG1 the title's logo, and while a run is under way the soft layer's first tiles (BG2's base is 573:
                 the logo is drawn again when the title comes back)
-    445..1467   BG2 the soft layer's pool (its tile 0 stays clear): 768 tiles at 320 x 240, 1023 on a wider or a
+    573..1595   BG2 the soft layer's pool (its tile 0 stays clear): 768 tiles at 320 x 240, 1023 on a wider or a
                 taller screen (a phone: more of the garden, more pests on it)
-    1472..      BG4 the garden (grass, flowers, dirt, cabbages, the XP gems)
+    1600..      BG4 the garden (grass, flowers, dirt, cabbages, the XP gems)
     3072..      the sprites: the gardener, the tools, the items, the see-through effects, the number pops, then the kit's
 At 320 x 240 (the console) everything, the pool full and the glyph pool too, stays within the 64 KiB guideline. A phone
 held upright needs maps of 64 rows for BG2 and BG4 (8 KiB more) and gets the bigger pool: there a full pool goes past the
@@ -37,10 +37,10 @@ sys.path.insert(0, os.path.join(ROOT, "tools"))
 import rsasset  # noqa: E402
 import make_art  # noqa: E402
 
-VR_BG1, VR_SOFT, SOFT_POOL, EXT_TILE, EXT_COUNT, VR_GROUND, VR_OBJ = 0, 445, 1023, 317, 128, 1472, 3072
+VR_BG1, VR_SOFT, SOFT_POOL, EXT_TILE, EXT_COUNT, VR_GROUND, VR_OBJ = 0, 573, 1023, 317, 256, 1600, 3072
 SOFT_POOL_CONSOLE = 768                # the pool used at 320 x 240 (the console): within the VRAM guideline
 UI_TILE = 297                       # the HUD's tiles, relative to BG1's base
-LOGO_TILE = 445                     # the title's logo, relative to BG1's base (the pool's first tiles)
+LOGO_TILE = 573                     # the title's logo, relative to BG1's base (the pool's first tiles)
 POP_TILES = 32                      # the number pops: 16 sprites of 16x8, drawn at run time
 PAL_UI, PAL_GROUND, PAL_SOFT, PAL_LOGO = 0, 1, 2, 5
 OBJ_HERO, OBJ_TOOLS, OBJ_ITEMS, OBJ_KIT, OBJ_FX = 0, 1, 2, 3, 4

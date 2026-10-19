@@ -18,7 +18,7 @@ run --frames 130 --shot 125:"$O/title.png"
 run --frames 130 --opt chr=1 --opt coins=120 --opt best=754 --shot 125:"$O/title-locked.png"
 run --frames 130 --opt fakerun=1 --opt best=754 --opt coins=380 --shot 125:"$O/title-continue.png"
 run --frames 60 --opt shed=1 --opt coins=420 --opt boosts=2 --shot 55:"$O/shed.png"
-run --frames 700 --opt bot=1 --opt ready=1 --opt seed=7 --shot 690:"$O/play.png"
+run --frames 3700 --opt bot=1 --opt ready=1 --opt seed=7 --shot 3690:"$O/play.png"
 run --frames 900 --opt bot=1 --opt ready=1 --opt seed=7 --opt time=600 --opt god=1 --shot 890:"$O/play-late.png"
 run --frames 40 --opt ready=1 --opt seed=7 --opt time=240 --opt levelup=1 --shot 35:"$O/levelup.png"
 run --frames 40 --opt ready=1 --opt seed=7 --opt time=480 --opt chest=1 --shot 35:"$O/chest.png"
@@ -42,6 +42,13 @@ if [ -n "$A" ]; then
     run --frames 900 --width 520 --opt bot=1 --opt ready=1 --opt seed=7 --opt time=600 --opt god=1 --shot 890:"$O/play-520.png"
     run --frames 1700 --opt bot=1 --opt ready=1 --opt seed=7 --opt time=880 --opt god=1 --shot 1600:"$O/boss.png"
     shots="$shots title-tall play-tall levelup-tall shed-tall results-tall title-427 play-520 boss"
+    # the Crow King chased off: the garden saved, every pest left pops
+    run --frames 3000 --opt bot=1 --opt ready=1 --opt seed=2 --opt time=899 --opt god=1
+    k=$(sed -n 's/.*the garden is saved at .* (frame \([0-9]*\)).*/\1/p' "$O/log.txt" | head -1)
+    if [ -n "$k" ]; then
+        run --frames $((k + 56)) --opt bot=1 --opt ready=1 --opt seed=2 --opt time=899 --opt god=1 --shot $((k + 50)):"$O/saved.png"
+        shots="$shots saved"
+    fi
 fi
 n=0
 for s in $shots; do

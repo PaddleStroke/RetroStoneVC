@@ -13,15 +13,15 @@
 /* ---- tables ------------------------------------------------------------------------------------------------------- */
 /*                                     hp  speed dmg r  xp knock  art */
 const enemy_info EN_INFO[ET_COUNT] = {
-    [ET_SLUG]     = {   8,  5,  5,  6, 1, 8, SF_SLUG},
-    [ET_APHID]    = {   5, 10,  3,  4, 1, 8, SF_APHID},
+    [ET_SLUG]     = {   8,  7,  5,  6, 1, 8, SF_SLUG},
+    [ET_APHID]    = {   5, 11,  3,  4, 1, 8, SF_APHID},
     [ET_BEETLE]   = {  26,  7,  7,  7, 2, 3, SF_BEETLE},
     [ET_ANT]      = {  12, 15,  6,  6, 1, 6, SF_ANT},
     [ET_WASP]     = {  18, 13,  7,  6, 2, 6, SF_WASP},
     [ET_THISTLE]  = {  60,  5, 10,  8, 4, 2, SF_THISTLE},
     [ET_CROW]     = {  40, 18,  9,  9, 3, 4, SF_CROW},
     [ET_LOCUST]   = {  28, 14,  8,  7, 3, 5, SF_LOCUST},
-    [ET_QUEEN]    = {2500,  5, 14, 18, 0, 0, SF_QUEEN},
+    [ET_QUEEN]    = {2500,  8, 14, 18, 0, 0, SF_QUEEN},
     [ET_STAG]     = {9000,  7, 18, 18, 0, 0, SF_STAG},
     [ET_CROWKING] = {36000, 12, 22, 18, 0, 0, SF_CROWKING},
 };
@@ -99,8 +99,8 @@ static int rnd(world *w, int n) { return n > 0 ? rs_rng_range(&w->rng, n) : 0; }
 
 int hp_scale(int32_t t) { return 256 + (int)(t * 40 / (60 * SEC)); }
 int xp_for(int level) { int k = level - 1; return 5 + k * 3 + k * k / 4; }
-/* the pests' touch grows with the time too: x1 at 0:00, x1.3 at 7:30, x1.6 at 15:00 */
-static int dmg_scale(int32_t t) { return 256 + (int)(t * 11 / (60 * SEC)); }
+/* the pests' touch grows with the time too: x1 at 0:00, x1.25 at 7:30, x1.5 at 15:00 */
+static int dmg_scale(int32_t t) { return 256 + (int)(t * 8 / (60 * SEC)); }
 
 /* ---- derived stats ------------------------------------------------------------------------------------------------- */
 static void stats_update(world *w)
@@ -670,6 +670,10 @@ static void fire(world *w, weapon *p)
         int cnt = (p->evo ? 4 : L >= 4 ? 3 : L >= 2 ? 2 : 1) + n;
         int dmg = dmg_of(w, p->evo ? 24 : L >= 5 ? 18 : L >= 3 ? 14 : 10), pierce = p->evo ? 3 : L >= 5 ? 1 : 0;
         int j = nearest(w, hx, hy, 220);
+        if (w->boss >= 0 && (++p->aux2 & 1)) {           /* every other volley: at the boss, when it is in range */
+            const enemy *b = &w->en[w->boss];
+            if (alen((int)(b->x / FX) - hx, (int)(b->y / FX) - hy) < 220) j = w->boss;
+        }
         int tx = j >= 0 ? (int)(w->en[j].x / FX) : hx + w->h.dx, ty = j >= 0 ? (int)(w->en[j].y / FX) : hy + w->h.dy;
         for (int i = 0; i < cnt; i++) {
             int vx, vy, sp = 56;
@@ -1087,9 +1091,21 @@ void world_step(world *w, int ix, int iy)
     w->n_pops = w->n_kfx = 0;
     w->warn = 0;
     w->gems_got = 0;
-    if (w->dead || w->won > 1) return;
+    if (w->dead) return;
+    if (w->won) {                                     /* the garden saved: the pests left pop, a few a frame */
+        if (w->won < 255) w->won++;
+        for (int k = 0; k < 4 && w->n_en > 0; k++) {
+            enemy *e = &w->en[w->n_en - 1];
+            if (w->n_kfx < MAX_KILLFX)
+                w->kfx[w->n_kfx++] = (killfx){(int16_t)(e->x / FX), (int16_t)(e->y / FX), e->type, 1};
+            w->n_en--;
+        }
+        w->n_sh = 0;
+        w->boss = -1;
+        if (w->n_en) w->events |= EV_KILL;
+        return;
+    }
     w->t++;
-    if (w->won) w->won++;
     /* the gardener */
     hero *h = &w->h;
     int l = alen(ix, iy);

@@ -81,7 +81,7 @@ typedef struct enemy {
 enum { W_SEED, W_CAN, W_BEES, W_MOWER, W_RAKE, W_PUMPKIN, W_THORNS, W_CHILI, W_PUFF, W_COUNT };
 enum { P_COMPOST, P_HAT, P_BOOTS, P_HONEY, P_MAGNET, P_SUNDIAL, P_POUCH, P_CLOVER, P_COUNT };
 extern const uint8_t EVOLVE_WITH[W_COUNT];      /* the passive a tool evolves with */
-typedef struct weapon { uint8_t id, level, evo, pad; int16_t timer, aux; } weapon;
+typedef struct weapon { uint8_t id, level, evo, aux2; int16_t timer, aux; } weapon;
 
 /* shots: projectiles and damage zones */
 enum { SK_SEED, SK_SUNSEED, SK_SPLASH, SK_MOWER, SK_RAKE, SK_PUMPKIN, SK_BLAST, SK_FLAME, SK_PUFF, SK_THORNRING,

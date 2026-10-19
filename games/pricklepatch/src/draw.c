@@ -404,12 +404,21 @@ void draw_events(const world *w)
         const killfx *k = &w->kfx[i];
         poofs[poof_next] = (poof){k->x, k->y, 9, 0};
         poof_next = (poof_next + 1) % POOFS;
-        if (k->elite || k->type >= ET_BOSS0)
+        if (k->type >= ET_BOSS0) {                      /* a boss: a ring of poofs, sparks rising all round */
+            static const int8_t R[12][2] = {{28, 0}, {24, 14}, {14, 24}, {0, 28}, {-14, 24}, {-24, 14}, {-28, 0},
+                                            {-24, -14}, {-14, -24}, {0, -28}, {14, -24}, {24, -14}};
+            for (int j = 0; j < 12; j++) {
+                poofs[poof_next] = (poof){(int16_t)(k->x + R[j][0]), (int16_t)(k->y + R[j][1] * 3 / 4),
+                                          (uint8_t)(j & 1 ? 9 : 30 + j), (uint8_t)(j & 1 ? 0 : 1)};
+                poof_next = (poof_next + 1) % POOFS;
+            }
+        } else if (k->elite) {
             for (int j = 0; j < 8; j++) {
                 poofs[poof_next] = (poof){(int16_t)(k->x + (j % 3 - 1) * 14), (int16_t)(k->y + (j / 3 - 1) * 12),
                                           (uint8_t)(18 + j), 1};
                 poof_next = (poof_next + 1) % POOFS;
             }
+        }
     }
     if (w->events & EV_LEVEL) lvl_t = 24;
     if (w->events & EV_HURT) { hu_shake(2, 6); hurt_flash = 8; }
@@ -559,9 +568,19 @@ static void draw_hero(const world *w, int cam_x, int cam_y, int title_x, int tit
 {
     const hero *h = &w->h;
     int x = title_x ? title_x : (int)(h->x / FX) - cam_x - 12, y = title_y ? title_y : (int)(h->y / FX) - cam_y - 16;
+    if (!title_x && w->dead) {                          /* down: on its back, feet up */
+        spr(SPR_HERO, x, y + 4, 2, (h->face ? RS_SPR_HFLIP : 0) | RS_SPR_VFLIP);
+        return;
+    }
     if (!title_x && h->hurt_t && (h->hurt_t & 4)) return;          /* safe after a hit: blinks */
     int f = h->moving ? (h->walk_t / 7) % 4 : (tick / 30) % 2 ? 1 : 0;
     spr(SPR_HERO + f, x, y, 2, h->face ? RS_SPR_HFLIP : 0);
+    if (title_x)                                        /* the title: two bees round the gardener */
+        for (int k = 0; k < 2; k++) {
+            static const int8_t C16[16] = {0, 8, 14, 18, 20, 18, 14, 8, 0, -8, -14, -18, -20, -18, -14, -8};
+            int a = (tick / 4 + k * 8) & 15;
+            spr(SPR_BEE + ((tick / 3 + k) & 1), x + 8 + C16[a] * 3 / 2, y + 6 + C16[(a + 4) & 15] / 2, 2, 0);
+        }
 }
 
 static void draw_hpbar(const world *w, int cam_x, int cam_y)
@@ -670,13 +689,13 @@ static void choices_panel(const choice *c, int n, const char *title, int narrow)
         hu_box_text(nx < x + 1 ? x + 1 : nx, r, name);
         /* the line: from the name's column, right-aligned when longer, wrapped in two upright when it must */
         int nl = 1, dw = hu_width(desc, 0);
-        if (tx + dw > right && narrow && !hu_tall(desc)) nl = ht_wrap_bal(desc, right - (x + 1), l, 2);
+        if (tx + dw > right && narrow) nl = ht_wrap_bal(desc, right - (x + 1), l, 2);
         if (nl < 2) { snprintf(l[0], HT_LINE, "%s", desc); nl = 1; }
         int last_end = 0;
         for (int k = 0; k < nl; k++) {
             int lw = hu_width(l[k], 0), dx = tx + lw > right ? right - lw : tx;
             if (dx < x + 1) dx = x + 1;
-            hu_box_text(dx, r + 2 + k, l[k]);
+            hu_box_text(dx, r + 2 + k * (hu_tall(l[k]) ? 2 : 1), l[k]);       /* (accents: a row between) */
             last_end = dx + lw;
         }
         if (tag[0]) {
@@ -748,7 +767,7 @@ static void title_text(const view *v, int narrow, int last_row)
     for (int k = 0; k < HOT_MAX; k++) draw_hot[k].y0 = draw_hot[k].y1 = 0;
     if (!narrow) {
         static const int8_t rows[7] = {11, 13, 15, 17, 19, 25, 23};
-        hu_clear_rows(10, 11);
+        hu_clear_rows(10, 10);                         /* (not row 20: the prompt's accents and CJK tops) */
         hu_clear_rows(22, 5);
         for (int k = 0; k < 7; k++) {
             if (!title_line(v, k, s, sizeof s)) continue;
@@ -781,13 +800,22 @@ static void title_text(const view *v, int narrow, int last_row)
     draw_hot[HOT_NEXT].x0 = rs_screen_width() / 2;
 }
 
-/* the shed: the banner, the coins, six boosts (name and price; its level in stars and what a level adds), the keys */
-#define SHED_ROW(i)  (9 + 3 * (i))
-#define SHED_KEY_ROW 28
+/* the shed: the banner, the coins, the six boosts (each its name, its level in stars), what the one chosen adds and its
+ * price, the keys. Every text line has the row above it free (accents, CJK) */
+#define SHED_ROW(i)  (10 + 2 * (i))
+#define SHED_INFO    23
+#define SHED_PRICE   25
+#define SHED_KEY_ROW 27
+static void shed_box(int narrow, int *x, int *w)
+{
+    *w = narrow ? ht_ncols() : 28;
+    *x = narrow ? ht_center_w(*w) : (40 - *w) / 2;
+}
 static void shed_panel(const view *v, int narrow)
 {
-    char s[64], l[64];
-    int w = narrow ? ht_ncols() : 32, x = narrow ? ht_center_w(w) : (40 - w) / 2, pin = narrow ? HT_PIN_PANEL : 0;
+    char s[64], kl[HT_MAXL][HT_LINE];
+    int x, w, pin = narrow ? HT_PIN_PANEL : 0;
+    shed_box(narrow, &x, &w);
     static const int names[B_COUNT] = {GS_B_MIGHT, GS_B_VIGOR, GS_B_SWIFT, GS_B_REACH, GS_B_GROWTH, GS_B_HASTE};
     static const int descs[B_COUNT] = {GS_BD_MIGHT, GS_BD_VIGOR, GS_BD_SWIFT, GS_BD_REACH, GS_BD_GROWTH, GS_BD_HASTE};
     if (narrow) ht_banner(3, TR(SHED));
@@ -796,30 +824,33 @@ static void shed_panel(const view *v, int narrow)
     rs_strf(s, sizeof s, TR(COINS_N), v->coins);
     hu_box_text(x + (w - hu_width(s, 0)) / 2, 8, s);
     for (int i = 0; i < B_COUNT; i++) {
-        int r = SHED_ROW(i) + 1, lv = v->boosts[i];
-        hu_box_text(x + 2, r, GSTR(names[i]));
-        if (lv >= BOOST_MAX) snprintf(l, sizeof l, "%s", TR(MAX));
-        else snprintf(l, sizeof l, "%d", shed_cost(i, lv));
-        hu_box_text(x + w - 2 - hu_width(l, 0), r, l);
-        const char *d = GSTR(descs[i]);
-        int dx = x + w - 2 - hu_width(d, 0);              /* right-aligned, after the stars when it fits */
-        if (dx < x + 8) dx = x + 8;
-        hu_box_text(dx, r + 1, d);
-        hot_set(i, r - 1, r + 1, pin);
+        hu_box_text(x + 2, SHED_ROW(i), GSTR(names[i]));
+        hot_set(i, SHED_ROW(i) - 1, SHED_ROW(i), pin);
     }
+    int sel = v->shed_sel, lv = v->boosts[sel];
+    const char *d = GSTR(descs[sel]);
+    hu_box_text(x + (w - hu_width(d, 0)) / 2, SHED_INFO, d);
+    if (lv >= BOOST_MAX) snprintf(s, sizeof s, "%s", TR(MAX));
+    else rs_strf(s, sizeof s, TR(COINS_N), shed_cost(sel, lv));
+    hu_box_text(x + (w - hu_width(s, 0)) / 2, SHED_PRICE, s);
     const char *k = TR(SHED_KEYS);
-    hu_box_text(x + (w - hu_width(k, 0)) / 2, SHED_KEY_ROW, k);
-    hot_set(HOT_MAX - 1, SHED_KEY_ROW - 1, SHED_KEY_ROW + 1, pin);
+    int nk = hu_width(k, 0) > w - 2 ? ht_wrap_bal(k, w - 2, kl, 2) : 1;        /* (too wide: two rows) */
+    if (nk < 2) { snprintf(kl[0], HT_LINE, "%s", k); nk = 1; }
+    for (int i = 0; i < nk; i++)
+        hu_box_text(x + (w - hu_width(kl[i], 0)) / 2, SHED_KEY_ROW + i, kl[i]);
+    hot_set(HOT_MAX - 1, SHED_KEY_ROW - 1, SHED_KEY_ROW + nk, pin);
 }
 static void shed_sprites(const view *v, int narrow)
 {
-    int w = narrow ? ht_ncols() : 32, x = narrow ? ht_center_w(w) : (40 - w) / 2, pin = narrow ? HT_PIN_PANEL : 0;
-    int ux = hu_ui_x(), dy = pin && tall() ? ht_pin_dy(pin) : 0, b = (tick / 8) & 1, r = SHED_ROW(v->shed_sel) + 1;
+    int x, w, pin = narrow ? HT_PIN_PANEL : 0;
+    shed_box(narrow, &x, &w);
+    int ux = hu_ui_x(), dy = pin && tall() ? ht_pin_dy(pin) : 0, b = (tick / 8) & 1, r = SHED_ROW(v->shed_sel);
     spr(SPR_CURSOR + b, x * 8 + ux - 7, r * 8 + dy, 3, 0);
     spr(SPR_CURSOR + b, (x + w) * 8 + ux - 1, r * 8 + dy, 3, RS_SPR_HFLIP);
-    for (int i = 0; i < B_COUNT; i++)                   /* the levels: stars under the name */
+    for (int i = 0; i < B_COUNT; i++)                   /* the levels: five at the row's end, a star each bought */
         for (int k = 0; k < BOOST_MAX; k++)
-            if (k < v->boosts[i]) spr(SPR_I_STAR, (x + 2 + k) * 8 + ux, (SHED_ROW(i) + 2) * 8 + dy, 3, 0);
+            spr(k < v->boosts[i] ? SPR_I_STAR : SPR_RINGDOT + 1, (x + w - 2 - BOOST_MAX + k) * 8 + ux, SHED_ROW(i) * 8 + dy,
+                3, 0);
 }
 
 /* the results: the banner on row 4, the panel from row 8: TIME, PESTS, LEVEL, COINS, each over its value in 2x gold */

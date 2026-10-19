@@ -26,3 +26,6 @@ chest_t     40   35   --display 1080x2340 --opt ready=1 --opt seed=7 --opt time=
 warn_t      200  150  --display 1080x2340 --opt ready=1 --opt seed=7 --opt time=299 --opt god=1 --opt bot=1
 pause_t     320  315  --display 1080x2340 --opt bot=1 --opt ready=1 --opt seed=7 ; 300 tap START
 results_t   1400 1390 --display 1080x2340 --opt ready=1 --opt frail=1 --opt seed=7
+title_n     130  125  --display 1080x2520 --opt fakerun=1 --opt best=754 --opt coins=380 --opt unlock=1
+shed_n      60   55   --display 1080x2520 --opt shed=1 --opt coins=420 --opt boosts=2
+levelup_n   40   35   --display 1080x2520 --opt ready=1 --opt seed=11 --opt time=600 --opt levelup=1

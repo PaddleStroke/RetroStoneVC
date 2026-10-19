@@ -236,7 +236,7 @@ static void bot_move(const world *w, int *ix, int *iy)
         const enemy *e = &w->en[i];
         int dx = hx - (int)(e->x / FX), dy = hy - (int)(e->y / FX);
         int ax = dx < 0 ? -dx : dx, ay = dy < 0 ? -dy : dy, d = ax > ay ? ax + ay * 3 / 8 : ay + ax * 3 / 8;
-        int reach = e->type >= ET_BOSS0 ? 140 : 80;
+        int reach = e->type >= ET_BOSS0 ? 72 : 80;          /* (a boss: kept at a distance its own size, so the tools reach it) */
         if (d >= reach || d == 0) continue;
         long k = (long)(reach - d) * (reach - d) * (e->type >= ET_BOSS0 ? 4 : 1);
         fx += dx * k / d;
@@ -396,7 +396,7 @@ static void play_events(void)
     if (ev & EV_BOSSKILL) { ha_play_pitched(SFX_BOOM, HA_VOL_CRASH, 160, RS_PITCH_1 * 2 / 3, 0); ha_play(HA_MEDAL); }
     if (ev & EV_ELITE) rs_log("an elite at %d:%02d", W.t / SEC / 60, W.t / SEC % 60);
     if (ev & EV_BOSS) rs_log("boss %d at %d:%02d", W.boss_type - ET_BOSS0 + 1, W.t / SEC / 60, W.t / SEC % 60);
-    if (ev & EV_BOSSKILL) rs_log("boss chased off at %d:%02d", W.t / SEC / 60, W.t / SEC % 60);
+    if (ev & EV_BOSSKILL) rs_log("boss chased off at %d:%02d (frame %u)", W.t / SEC / 60, W.t / SEC % 60, rs_frame_count());
 }
 
 static void play_update(void)
@@ -426,7 +426,7 @@ static void play_update(void)
     play_events();
     if (W.events & EV_DEAD) rs_log("the gardener is down at %d:%02d (level %d, pests %d)", W.t / SEC / 60,
                                    W.t / SEC % 60, W.level, W.kills);
-    if (W.events & EV_WIN) rs_log("the garden is saved at %d:%02d", W.t / SEC / 60, W.t / SEC % 60);
+    if (W.events & EV_WIN) rs_log("the garden is saved at %d:%02d (frame %u)", W.t / SEC / 60, W.t / SEC % 60, rs_frame_count());
     state_hash = (state_hash ^ world_hash(&W)) * 16777619u;
     if (++snap_t >= SNAP_EVERY) { snap_t = 0; run_save(); }
     if (W.chest_open) {
