@@ -11,7 +11,7 @@
  * starts again). The main timer at 0: the same. Disarmed: the timer stops, turns green and DISARM flashes; then the
  * shell's stars card. The clock (and the ticks: a second each) only runs while the game is on the screen (frames
  * drawn: a gap, or the clock leaping far, is not counted: Mental Math's way).
- * The board art stays itself in both themes; only the label on the table follows the theme.
+ * The board art stays itself in both themes; only the bar on the table follows the theme.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>
@@ -914,12 +914,11 @@ static void thumb(int variant, int size, uint8_t *rgba)
 
 /* ---- the textures ------------------------------------------------------------------------------------------------- */
 static SDL_Texture *t_casing, *t_pcb, *t_chip, *t_gate[LG_KINDS][2][2], *t_plate[2], *t_lever, *t_battery, *t_flip[2],
-    *t_cap, *t_tmr, *t_led[3][2], *t_post[2], *t_dot, *t_glow, *t_puff, *t_digit[11], *t_emblem[DF_CHAPTERS],
+    *t_cap, *t_tmr, *t_led[3][2], *t_post[2], *t_dot, *t_glow, *t_puff, *t_digit[11],
     *t_bar_par;
 static long long made_room = -1;
 static int made_parts = -1, made_shared = -1, made_digits = -1, made_bar = -1;
 static float pw, ph, sw_w, sw_h, tg_w, tg_h, lamp_w, lamp_h, post_d, cable_t, gate_w[2], gate_h, dig_w, dig_h;
-static puz_font font;
 
 static SDL_Texture *tex_buf(int w, int h, uint8_t *b)
 {
@@ -1031,13 +1030,6 @@ static void shared_textures(void)
     ui_free(&t_puff);
     b = calloc((size_t)g * g, 4);
     if (b) { art_disc(g, white, 1, 0.8f, b); t_puff = tex_buf(g, g, b); }
-    int e = (int)(0.7f * ui.unit);
-    for (int c = 0; c < DF_CHAPTERS; c++) {
-        ui_free(&t_emblem[c]);
-        b = calloc((size_t)e * e, 4);
-        if (b) { paint_emblem(c, e, b); t_emblem[c] = tex_buf(e, e, b); }
-    }
-    puz_font_make(&font, (int)(0.6f * ui.unit), 1);
 }
 
 /* ---- the layout ------------------------------------------------------------------------------------------------- */
@@ -2215,8 +2207,6 @@ static void hint_mark(void)
     ui_mark_gold(x, y, d);
 }
 
-static float draw_label(float x, float y, int centred);
-
 static void draw_tools(void)
 {
     int blink = deny_reset && now_ms - deny_reset < HINT_MS;
@@ -2227,10 +2217,6 @@ static void draw_tools(void)
     ui_tools_shown(TOOLS);
     ui_tool(T_RESET, ICON_REPLAY, lit ? UI_LIT : lost ? UI_ON : 0);
     ui_tool(T_HINT, ICON_HINT, G.over ? UI_DIM : 0);
-    if (wide && G.level >= 0) {               /* the level in the side column, under the header */
-        box c = ui_bar_box(0, NULL);
-        draw_label(c.x + c.w / 2, B.y + 1.6f * ui.unit, 1);
-    }
 }
 
 static void draw(void)
@@ -2336,19 +2322,7 @@ static void press(float x, float y)
 static void motion(float x, float y) { (void)x; (void)y; }
 static void release(float x, float y) { (void)x; (void)y; }
 
-/* ---- the bar: the level, the moves, the par ---------------------------------------------------------------------- */
-/* the level: its chapter's picture, its number, from x (or centred on it); returns the x after it */
-static float draw_label(float x, float y, int centred)
-{
-    float u = ui.unit;
-    int n = G.level + 1, c = df_chapter(G.level);
-    float dh = 0.5f * u, nw = puz_number_w(n, dh), ew = 0.62f * u, w = ew + 0.12f * u + nw;
-    float x0 = centred ? x - w / 2 : x;
-    if (t_emblem[c]) ui_put_c(t_emblem[c], x0 + ew / 2, y, ew, ew);
-    puz_number(&font, x0 + ew + 0.12f * u + nw / 2, y, dh, n, TH.dark ? PUZ_CREAM : PUZ_INK, 255);
-    return x0 + w;
-}
-
+/* ---- the bar: the moves, the par (the level stays on the level screen: here it read as a count) ------------------ */
 static void bar(int player, box b)
 {
     (void)player;
@@ -2365,7 +2339,6 @@ static void bar(int player, box b)
         }
     }
     float x = b.x;
-    if (G.level >= 0 && !wide) x = draw_label(x, cy, 0) + 1.0f * u;   /* the level (lying: aside), apart */
     /* the moves, a bare number as in the other level puzzles; the par by its flag at the bar's right end (nearer in a
      * narrow bar) */
     float dh = 0.46f * u, mw = ui_number_w(G.nh, dh), pw_ = ui_number_w(G.par, dh), s = 0.6f * u, gap = 0.12f * u;
