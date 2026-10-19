@@ -235,8 +235,11 @@ static void token(int player, int size, uint8_t *rgba)   /* three marbles */
     for (int i = 0; i < 3; i++) {
         memset(b, 0, (size_t)d * d * 4);
         paint_ball(i == 2 ? 3 : i == 1 ? 2 : 0, d, b);
+        int x = (int)(P[i][0] * size - d / 2.0f), y = (int)(P[i][1] * size - d / 2.0f);
+        art_blend(rgba, size, size, b, d, d, x, y);
+        memset(b, 0, (size_t)d * d * 4);       /* the light over it (painted alone: it covers the ball) */
         paint_shine(0, d, b);
-        art_blend(rgba, size, size, b, d, d, (int)(P[i][0] * size - d / 2.0f), (int)(P[i][1] * size - d / 2.0f));
+        art_blend(rgba, size, size, b, d, d, x, y);
     }
     free(b);
 }
@@ -674,8 +677,11 @@ static void paint_tray(const tlm_map *m, int size, uint8_t *rgba)
         for (int i = 0; i < m->nm; i++) {
             memset(b, 0, (size_t)d * d * 4);
             paint_ball(m->col[i], d, b);
+            float cx = f + (m->start[i] % m->w + 0.5f) * sq, cy = f + (m->start[i] / m->w + 0.5f) * sq;
+            art_flat_put(o, W, H, b, d, cx, cy);
+            memset(b, 0, (size_t)d * d * 4);   /* the light over it (painted alone: it covers the ball) */
             paint_shine(0, d, b);
-            art_flat_put(o, W, H, b, d, f + (m->start[i] % m->w + 0.5f) * sq, f + (m->start[i] / m->w + 0.5f) * sq);
+            art_blend(o, W, H, b, d, d, (int)(cx - d / 2.0f + 0.5f), (int)(cy - d / 2.0f + 0.5f));
         }
         art_blend(rgba, size, size, o, W, H, (size - W) / 2, (size - H) / 2);
     }
