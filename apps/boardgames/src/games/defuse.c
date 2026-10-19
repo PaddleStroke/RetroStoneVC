@@ -1140,9 +1140,8 @@ static int last_sec;
 
 static void clock_frame(void)
 {
-    if (clk.stop) return;
     Uint32 now = ui_ms(), real = ui_real_ms();
-    if (clk.last && real - clk.real <= AWAY_MS && now - clk.last <= LEAP_MS) clk.ms += now - clk.last;
+    if (!clk.stop && real - clk.real <= AWAY_MS && now - clk.last <= LEAP_MS) clk.ms += now - clk.last;
     clk.last = now;
     clk.real = real;
 }
@@ -1257,6 +1256,9 @@ static void calm(void)
 static void fresh_clock(void)
 {
     memset(&clk, 0, sizeof clk);
+    clk.last = ui_ms();                         /* it runs from now (not from the first frame drawn: a game played
+                                                 * again draws its frames elsewhere) */
+    clk.real = ui_real_ms();
     last_sec = -1;
 }
 
@@ -1298,11 +1300,10 @@ static int busy(void)
     return G.over == DF_LOST && boom_t && (int)(now_ms - boom_t) < BOOM_MS;
 }
 
-/* a change's waves (its steps: a move's one; a tick's pulse and its end) from what showed before; its outcome: the
- * explosion's time, or the win's */
-static void moved(const df_values *before, const df_steps *st, int cutw, int r)
+/* a change's waves (its steps: a move's one; a tick's pulse and its end) from what showed before, setting off at t0;
+ * its outcome: the explosion's time, or the win's */
+static void moved(const df_values *before, const df_steps *st, int cutw, int r, Uint32 t0)
 {
-    Uint32 t0 = ui_ms();
     nwv = 0;
     const df_values *a = before;
     for (int k = 0; k < st->n && k < WAVES; k++) {
@@ -1338,26 +1339,29 @@ static void tick_once(void)
     df_values before = G.v;
     df_steps st;
     G.ticks++;
+    Uint32 late = clk.ms - (Uint32)G.ticks * DF_TICK_MS, t0 = ui_ms() - late;   /* (its own time: the frame that
+                                                 * finds it due is another one when the game is played again) */
     int r = df_tick(&G.D, &G.s, &st);
     df_eval(&G.D, &G.s, NULL, 0, &G.v);
     if (r == DF_LOST) G.v.det = 1;
-    if (r != DF_SAFE) G.over = r;
+    if (r != DF_SAFE) G.over = r, clk.ms = (Uint32)G.ticks * DF_TICK_MS;   /* (the clock stops at it) */
     int any = r != DF_SAFE;
     for (int k = 0; k < st.n; k++) any |= !same(&before, &st.v[k]);
     if (any) {
         snip.wire = -1;
         flip.node = -1;
-        moved(&before, &st, -1, r);
+        moved(&before, &st, -1, r, t0);
         if (st.origin[0] >= 0 && G.D.role[st.origin[0]] == DF_CAP) ui_sound(SND_DROP);
         else if (st.origin[0] >= 0) ui_sound(SND_TAP);
     }
     ui_animate();
 }
 
-/* the ticks the clock has reached */
+/* the ticks the clock has reached (none past the time running out, however late the frame) */
 static void sync_ticks(void)
 {
-    for (int guard = 0; guard < 600 && !G.over && G.ticks < (int)(clk.ms / DF_TICK_MS); guard++) tick_once();
+    Uint32 t = clk.ms < (Uint32)G.D.secs * 1000 ? clk.ms : (Uint32)G.D.secs * 1000;
+    for (int guard = 0; guard < 600 && !G.over && G.ticks < (int)(t / DF_TICK_MS); guard++) tick_once();
 }
 
 static int undo(void)
@@ -1372,13 +1376,14 @@ static int undo(void)
     for (int k = 0; k < G.D.ncut; k++)
         if ((prev.cut >> k & 1) && !(G.s.cut >> k & 1)) cutw = G.D.L.cut[k];
     df_steps st = {1, {G.v}, {-1}};
-    moved(&before, &st, -1, DF_SAFE);
+    moved(&before, &st, -1, DF_SAFE, ui_ms());
     if (cutw >= 0) {
         snip.wire = cutw;
         snip.t = WV[0].t0;
         snip.mend = 1;
     }
     (void)was;
+    if (clk.stop) clk.last = ui_ms(), clk.real = ui_real_ms();   /* (stopped: it goes on from now) */
     clk.stop = 0;
     return 1;
 }
@@ -1404,7 +1409,7 @@ static void do_move(df_move m, int node, int wire)
     snip.wire = -1;
     flip.node = -1;
     st.origin[0] = node;
-    moved(&before, &st, wire, r);
+    moved(&before, &st, wire, r, ui_ms());
     if (m.kind == DF_MCUT) {
         snip.wire = wire;
         snip.t = WV[0].t0;
@@ -2260,10 +2265,12 @@ static void draw(void)
             last_sec = sec;
         }
         if (left_ms() <= 0 && !G.over) {       /* time's up */
+            Uint32 end = (Uint32)G.D.secs * 1000;
             df_blow(&G);
             clk.stop = 1;
             boom_at = -1;
-            boom_t = now_ms;
+            boom_t = now_ms - (clk.ms - end);   /* (as the time ran out: not at the frame that saw it) */
+            clk.ms = end;
             nwv = 0;
         }
     }
