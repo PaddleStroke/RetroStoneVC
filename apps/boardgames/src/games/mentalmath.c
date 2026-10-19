@@ -419,7 +419,7 @@ static void draw(void)
         float s = held.on && held.key == i ? 0.92f : 1, d = kd * s;
         if (i == cur && !over) ui_mark_select(kx[i] - 0.55f * kd, ky[i] - 0.55f * kd, 1.1f * kd, 1.1f * kd);
         if (PAD[i] == K_BACK) {
-            ui_button(kx[i], ky[i], 0.8f * d, ICON_UNDO, over || !G.ndig ? UI_DIM : 0);
+            ui_button(kx[i], ky[i], 0.8f * d, ICON_ERASER, over || !G.ndig ? UI_DIM : 0);
             continue;
         }
         SDL_SetTextureAlphaMod(t_key, over ? 120 : 255);
