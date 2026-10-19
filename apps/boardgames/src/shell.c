@@ -2844,14 +2844,20 @@ static void layout_levels(void)
     int most = LV.first[LV.chapter + 1] - LV.first[LV.chapter];   /* the chapter shown: few levels, bigger tiles */
     most = most < 1 ? 1 : most > CHAPTER_MAX ? CHAPTER_MAX : most;
     float W = ui.w - 2 * m, H = ui.h - m - top, cap = s * 0.31f, bp = 0, bs = 0, ba = 0;
-    int cols = 1;
+    float top_sc = 0;                           /* the biggest tiles any shape gives */
+    int cols = 1, rows = most;
     for (int c = 1; c <= most; c++) {           /* big tiles, few gaps in the last row (25: five by five, not four
-                                                 * by seven); even: the grid's shape nearest the room's */
+                                                 * by seven); even: the grid's shape nearest the room's. Fewer rows
+                                                 * also win when their tiles are nearly as big (6% less at most): a
+                                                 * short chapter (three levels) lies in a row across the screen, not
+                                                 * in a lone column down a tall one */
         int r = (most + c - 1) / c;
         float p = floorf(fminf(fminf(W / c, H / r), cap)), sc = p * (1 - 0.04f * (c * r - most));
         float a = fabsf(logf((float)c / r) - logf(W / H));
-        if (c == 1 || sc > bs + 0.5f || (fabsf(sc - bs) <= 0.5f && a < ba)) {
+        top_sc = fmaxf(top_sc, sc);
+        if (c == 1 || sc > bs + 0.5f || (r < rows && sc >= 0.94f * top_sc) || (fabsf(sc - bs) <= 0.5f && a < ba)) {
             cols = c;
+            rows = r;
             bp = p;
             bs = sc;
             ba = a;
