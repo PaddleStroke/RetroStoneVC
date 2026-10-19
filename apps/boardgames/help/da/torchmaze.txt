@@ -1,0 +1,17 @@
+Fakkellabyrint
+# Målet
+En lille mus er faret vild i en mørk labyrint med kun en fakkel. Find trappen ud: dens gyldne skær ses gennem mørket.
+# Et træk
+Stryg for at gå gennem en gang til næste forgrening; tryk ved siden af musen for at tage ét skridt.
+Faklen lyser kun felterne omkring den op. Det, den har vist, står tegnet med kridt på dit kort.
+- En nøgle åbner dørene i sin farve.
+- En trykplade åbner de lukkede gitre og lukker de åbne.
+- En envejsdør kan kun passeres i pilens retning.
+- Et fyrfad, du træder på, bliver ved med at brænde og lyser sin del af labyrinten op.
+- I nogle labyrinter brænder faklen ned, mens du går; en olieflaske fylder den igen. Går den ud, så fortryd.
+- I de sidste labyrinter falmer kridtkortet efter et stykke tid.
+Fortryd tager dine skridt tilbage, aldrig dit kort.
+# Spillets afslutning
+Opgaven er løst, når musen når trappen.
+# Baner og stjerner
+Højst så mange skridt, som flaget viser: 3 stjerner; med op til halvanden gang så mange skridt: 2 stjerner; ellers 1. Med et tip højst 2 stjerner; med tre eller flere 1.

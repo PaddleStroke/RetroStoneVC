@@ -1,0 +1,17 @@
+Labyrint s pochodní
+# Cíl hry
+Malá myška zabloudila v temném labyrintu jen s pochodní. Najdi schody ven: jejich zlatá záře prosvítá tmou.
+# Tah
+Přejetím prstu projdeš chodbou až k další odbočce; klepnutím vedle myšky uděláš jediný krok.
+Pochodeň osvětluje jen políčka kolem sebe. Co ukázala, zůstane nakreslené křídou na tvé mapě.
+- Klíč otevírá dveře své barvy.
+- Nášlapná deska otevře zavřené mříže a zavře otevřené.
+- Jednosměrnými dveřmi projdeš jen ve směru šipky.
+- Pánev s ohněm, na kterou šlápneš, dál hoří a osvětluje svou část labyrintu.
+- V některých labyrintech pochodeň s každým krokem dohořívá; lahvička oleje ji znovu doplní. Když zhasne, vrať tahy zpět.
+- V posledních labyrintech křídová mapa po chvíli bledne.
+Zpět vrací tvé kroky, nikdy tvou mapu.
+# Konec hry
+Hádanka je vyřešena, když myška dojde ke schodům.
+# Úrovně a hvězdy
+Nejvýše tolik kroků, kolik ukazuje vlaječka: 3 hvězdy; nejvýše o polovinu více kroků: 2 hvězdy; jinak 1. S nápovědou nejvýše 2 hvězdy; se třemi a více 1.

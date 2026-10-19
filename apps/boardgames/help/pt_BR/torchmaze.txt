@@ -1,0 +1,17 @@
+Labirinto da Tocha
+# O objetivo
+Um ratinho está perdido num labirinto escuro, só com uma tocha. Encontre a escada de saída: seu brilho dourado aparece no escuro.
+# Uma jogada
+Deslize para andar por um corredor até a próxima curva; toque ao lado do rato para dar um único passo.
+A tocha só ilumina as casas ao seu redor. O que ela mostrou fica desenhado a giz no seu mapa.
+- Uma chave abre as portas da sua cor.
+- Uma placa de pressão abre as grades fechadas e fecha as abertas.
+- Uma porta de sentido único só deixa passar na direção da seta.
+- Um braseiro em que você pisa fica aceso e ilumina sua parte do labirinto.
+- Em alguns labirintos a tocha se gasta a cada passo; um frasco de óleo a enche de novo. Se ela apagar, desfaça.
+- Nos últimos labirintos o mapa de giz se apaga depois de um tempo.
+Desfazer retira seus passos, nunca seu mapa.
+# O fim da partida
+O quebra-cabeça está resolvido quando o rato chega à escada.
+# Níveis e estrelas
+Sem passar do número da bandeira: 3 estrelas; com até metade a mais de passos: 2 estrelas; senão, 1. Com uma dica, no máximo 2 estrelas; com três ou mais, 1.
