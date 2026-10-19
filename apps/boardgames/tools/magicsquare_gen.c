@@ -3,9 +3,10 @@
  * chance, numbers taken away while the solution stays the only one; magicsquare_rules.c). Each candidate's work: its
  * gaps, the search a full count of its solutions takes, and the plain rounds (waves of "a line with one number
  * missing"; one round, or two gaps or fewer: trivial); near-duplicates (the same numbers and gaps) dropped. Each
- * chapter has three makes (the figure, the gaps at most, the numbers): its opening (three small triangles of 1..6
+ * chapter has three makes (the figure, the gaps at most, the numbers): its opening (two small triangles of 1..6
  * first, then two of the chapter's easiest), then two makes whose levels are picked evenly over the harder part of
- * their candidates ranked by work, no trivial one; then the chapter put in order: the small and the middle triangle,
+ * their candidates ranked by work, no trivial one (in the first chapter led by the easiest of three gaps, one found
+ * from another: level 3 a step up from the opening); then the chapter put in order: the small and the middle triangle,
  * the 3 x 3 of 1..9, the middle and big triangles, 3 x 3 squares of any numbers, the 4 x 4, and last the big triangle
  * and 4 x 4s of larger numbers. The per-level table and the chapters' summary go to stderr (-DREPORT: the same for
  * the levels in magicsquare_levels.h).
@@ -32,16 +33,17 @@ typedef struct {
 } cand;
 
 /* a make: the maker's settings, how many levels, and from where in its candidates ranked by work they are picked evenly
- * (lo: the share skipped, the easiest; -1: the easiest themselves, an opening; past an opening, no trivial one) */
-typedef struct { msq_make m; int count; float lo; } make;
+ * (lo: the share skipped, the easiest; -1: the easiest themselves, an opening; past an opening, no trivial one); lead:
+ * a first level of at most that many gaps instead, its easiest (the step from the opening; 0: none) */
+typedef struct { msq_make m; int count; float lo; int lead; } make;
 #define MAKES 3
 static const make CHAPTER[MSQ_CHAPTERS][MAKES] = {
-    {{{MSQ_TRI3, 2, 0}, 3, -1}, {{MSQ_TRI3, 4, 0}, 7, 0.3f}, {{MSQ_TRI4, 5, 0}, 15, 0.2f}},
-    {{{MSQ_SQ3, 3, 0}, 2, -1}, {{MSQ_SQ3, 5, 1}, 11, 0.3f}, {{MSQ_SQ3, 6, 1}, 12, 0.3f}},
-    {{{MSQ_TRI4, 5, 1}, 2, -1}, {{MSQ_TRI4, 7, 1}, 11, 0.3f}, {{MSQ_TRI5, 7, 0}, 12, 0.3f}},
-    {{{MSQ_SQ3, 5, 2}, 2, -1}, {{MSQ_SQ3, 6, 2}, 11, 0.3f}, {{MSQ_SQ3, 7, 2}, 12, 0.4f}},
-    {{{MSQ_SQ4, 6, 0}, 2, -1}, {{MSQ_SQ4, 8, 0}, 11, 0.3f}, {{MSQ_SQ4, 10, 0}, 12, 0.3f}},
-    {{{MSQ_TRI5, 8, 1}, 2, -1}, {{MSQ_TRI5, 10, 1}, 11, 0.3f}, {{MSQ_SQ4, 11, 1}, 12, 0.4f}},
+    {{{MSQ_TRI3, 2, 0}, 2, -1, 0}, {{MSQ_TRI3, 4, 0}, 8, 0.3f, 3}, {{MSQ_TRI4, 5, 0}, 15, 0.2f, 0}},
+    {{{MSQ_SQ3, 3, 0}, 2, -1, 0}, {{MSQ_SQ3, 5, 1}, 11, 0.3f, 0}, {{MSQ_SQ3, 6, 1}, 12, 0.3f, 0}},
+    {{{MSQ_TRI4, 5, 1}, 2, -1, 0}, {{MSQ_TRI4, 7, 1}, 11, 0.3f, 0}, {{MSQ_TRI5, 7, 0}, 12, 0.3f, 0}},
+    {{{MSQ_SQ3, 5, 2}, 2, -1, 0}, {{MSQ_SQ3, 6, 2}, 11, 0.3f, 0}, {{MSQ_SQ3, 7, 2}, 12, 0.4f, 0}},
+    {{{MSQ_SQ4, 6, 0}, 2, -1, 0}, {{MSQ_SQ4, 8, 0}, 11, 0.3f, 0}, {{MSQ_SQ4, 10, 0}, 12, 0.3f, 0}},
+    {{{MSQ_TRI5, 8, 1}, 2, -1, 0}, {{MSQ_TRI5, 10, 1}, 11, 0.3f, 0}, {{MSQ_SQ4, 11, 1}, 12, 0.4f, 0}},
 };
 
 static int by_score(const void *a, const void *b)
@@ -163,10 +165,24 @@ int main(void)
         int first = nchosen;
         for (int p = 0; p < MAKES; p++) {
             const make *m = &CHAPTER[ch][p];
-            int k = make_pool(m, 1000u * (uint32_t)(ch * MAKES + p + 1));
+            uint32_t seed = 1000u * (uint32_t)(ch * MAKES + p + 1);
+            int n = m->count - !!m->lead, k;
+            if (m->lead) {                      /* its lead: its easiest with fewer gaps, not trivial */
+                make l = *m;
+                l.m.blanks = m->lead;
+                k = make_pool(&l, seed);
+                int at = 0;
+                while (at < k && seen(pool[at].key)) at++;
+                if (at >= k) {
+                    fprintf(stderr, "chapter %d: no lead for make %d\n", ch + 1, p + 1);
+                    return 1;
+                }
+                chosen[nchosen++] = pool[at];
+            }
+            k = make_pool(m, seed);
             fprintf(stderr, "chapter %d, make %d: %d candidates\n", ch + 1, p + 1, k);
-            for (int i = 0; i < m->count; i++) {
-                int at = m->lo < 0 ? i : (int)((m->lo + (1 - m->lo) * (i + 0.5f) / m->count) * (k - 1));
+            for (int i = 0; i < n; i++) {
+                int at = m->lo < 0 ? i : (int)((m->lo + (1 - m->lo) * (i + 0.5f) / n) * (k - 1));
                 while (at < k && seen(pool[at].key)) at++;
                 if (at >= k) {
                     fprintf(stderr, "chapter %d: not enough of make %d\n", ch + 1, p + 1);

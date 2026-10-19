@@ -8,7 +8,7 @@
 static const char *const msq_levels[MSQ_LEVELS] = {
     "a:10:1,?3,?5,6,2,4", /* 1: 2 gaps, 3 nodes */
     "a:9:1,3,2,5,?4,?6", /* 2: 2 gaps, 3 nodes */
-    "a:9:?3,1,?2,5,6,4", /* 3: 2 gaps, 3 nodes */
+    "a:9:2,1,?3,?6,5,?4", /* 3: 3 gaps, 4 nodes */
     "a:9:?3,2,?1,4,?6,?5", /* 4: 4 gaps, 5 nodes */
     "a:10:?5,?3,1,?2,6,?4", /* 5: 4 gaps, 5 nodes */
     "a:11:?6,2,?4,3,?5,?1", /* 6: 4 gaps, 5 nodes */

@@ -54,7 +54,8 @@ static void test_levels(void)
         for (int k = 0; k < p.np; k++) gaps += !p.given[k];
         CHECK(gaps >= 2);
         if (i < 3) CHECK(p.kind == MSQ_TRI3 && p.target <= 12);    /* the numbers 1..6, a short start */
-        if (i >= 3) CHECK(gaps >= 3);
+        if (i == 2) CHECK(gaps == 3);           /* level 3 a step up from the first two */
+        if (i >= 3) CHECK(gaps >= (i < 25 ? 4 : 3));
         for (int j = 0; j < i; j++) CHECK(strcmp(msq_levels[j], msq_levels[i]));
     }
 }
