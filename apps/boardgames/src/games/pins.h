@@ -6,11 +6,13 @@
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * The things: gems (a colour each), grey balls (coloured by the first gem they touch, in its colour), water and lava
- * (small drops), stone (lava that water touched; stone touching lava turns it to stone too, one drop after another).
- * A gem or a grey ball touching lava burns: the puzzle is lost. So is a grey ball, a ball of the wrong colour or lava
- * reaching a cup (a cup of a colour takes only gems of that colour; a cup of any colour takes every gem); water and
- * stone may go in. Once everything has come to rest: every ball in a cup is the win; every pin pulled and a ball left
- * out is lost.
+ * (small drops), stone (lava and the water that touched it; stone touching lava turns it to stone too, one drop after
+ * another). A gem or a grey ball touching lava burns: the puzzle is lost. So is a grey ball, a ball of the wrong colour,
+ * lava or water reaching a cup (a cup of a colour takes only gems of that colour; a cup of any colour takes every gem);
+ * stone may go in. The bottom: one cup, two cups, or a cup and a drain (layout 3; mirrored with the level), where what
+ * falls is gone: lava and water got rid of, a ball lost (the puzzle with it). Pins are floors, doors (steep, at a
+ * box's low side) and slanting pins that send a fall one way while they stand. Once everything has come to rest: every
+ * ball in a cup is the win; every pin pulled and a ball left out is lost.
  *
  * The physics: a simple deterministic simulation in whole numbers (no floating point: the same on every device, so a
  * game played again from its record, the tests and the level maker all see the same thing). The world is PTP_WU x
@@ -21,9 +23,9 @@
  * at rest when nothing has moved faster than a little for a while (or long after the last pull).
  *
  * A level's text: tokens split by spaces, numbers as two hex digits in half units: "C1-" one cup in the middle that
- * takes any colour, "C2rb" two cups (left, right) and their colours (digits, '-' any); "t" + template (two hex) +
- * mirrored (0, 1) the walls and pins of a template, then "b" + kind (g d w l, '-' empty) + colour digit + count (two
- * hex) each of its boxes in turn; or drawn in the text itself: "w" + x0 y0 x1 y1 a glass wall;
+ * takes any colour, "C2rb" two cups (left, right) and their colours (digits, '-' any), "C3-" a cup and a drain; "t"
+ * + template (two hex) + mirrored (0, 1) the walls and pins of a template, then "b" + kind (g d w l, '-' empty) +
+ * colour digit + count (two hex) each of its boxes in turn; or drawn in the text itself: "w" + x0 y0 x1 y1 a glass wall;
  * "p" + ax ay bx by a pin, its ring at a; "f" + kind (g gem, d grey, w water, l lava) + colour digit + count (two hex)
  * + x0 y0 x1 y1 a box filled from its bottom up; "s" + orders that win (pin digits, split by ','). Pins are numbered in
  * the order given. The notation of moves: "p<i>" a pin pulled (and everything left to rest), "r" a restart, "h" a hint
@@ -42,13 +44,12 @@
 #define PTP_MAXB 150                            /* balls and drops */
 #define PTP_MAXWALL 40
 #define PTP_MAXSEG (PTP_MAXWALL + 16)           /* with the frame and the cups */
-#define PTP_MAXPIN 6
+#define PTP_MAXPIN 8
 #define PTP_MAXFILL 8
 #define PTP_MAXSOL 8
 #define PTP_EVENTS 48
 #define PTP_TEXT 640
 #define PTP_COLOURS 4                           /* the gems: ruby, emerald, sapphire, amber */
-#define PTP_LEVELS 133                          /* the first chapter (every order wins) only a start */
 #define PTP_CHAPTERS 6
 #define PTP_VARIANTS 3
 #define PTP_WALL_R 256                          /* a wall's half thickness */
@@ -56,9 +57,9 @@
 
 enum { PTP_GEM, PTP_DULL, PTP_WATER, PTP_LAVA, PTP_STONE, PTP_KINDS };
 /* how a try ends: playing, solved, or lost by ... */
-enum { PTP_PLAYING, PTP_WON, PTP_BURNT, PTP_GREY_IN, PTP_WRONG_CUP, PTP_LAVA_IN, PTP_STUCK };
+enum { PTP_PLAYING, PTP_WON, PTP_BURNT, PTP_GREY_IN, PTP_WRONG_CUP, PTP_LAVA_IN, PTP_STUCK, PTP_WATER_IN, PTP_LOST };
 /* what happened, for the screen: a ball into a cup, a grey ball coloured, lava turned to stone, a ball burnt */
-enum { PTP_E_CUP, PTP_E_COLOUR, PTP_E_STONE, PTP_E_BURN };
+enum { PTP_E_CUP, PTP_E_COLOUR, PTP_E_STONE, PTP_E_BURN, PTP_E_DRAIN };
 
 typedef struct { int16_t ax, ay, bx, by; } ptp_line;   /* half units */
 typedef struct { uint8_t kind, col, n; int16_t x0, y0, x1, y1; } ptp_fill;
@@ -86,10 +87,15 @@ typedef struct {
     uint8_t ncs[PTP_GY][PTP_GX], cs[PTP_GY][PTP_GX][PTP_CELLSEG];   /* the segments near each cell (255: all) */
     int32_t pax[PTP_MAXPIN], pay[PTP_MAXPIN], pbx[PTP_MAXPIN], pby[PTP_MAXPIN], plen[PTP_MAXPIN];
     int32_t rim, cx0[2], cx1[2];                /* the cups' rim (y) and their mouths (x) */
+    int32_t cpoly[2][8];                        /* the cups' insides: four corners each */
+    int layout, mirror, wood_end, glass_end;    /* the bottom; where its walnut and its glass segments end */
+    int drain;                                  /* a drain (layout 3): what falls in between dx0 and dx1 is gone */
+    int32_t dx0, dx1;
     int8_t cupcol[2];
 } ptp_world;
 
-typedef struct { int32_t x, y, px, py, wx, wy; uint8_t kind, col, live, cup, cool; } ptp_ball;   /* wx, wy: at the window's start */
+/* a ball or a drop: where it is, where it was a tick ago, where it was at the window's start (rest) */
+typedef struct { int32_t x, y, px, py, wx, wy; uint8_t kind, col, live, cup, cool; } ptp_ball;
 typedef struct { uint8_t type, col; int16_t x, y; int32_t tick; } ptp_event;   /* x, y in sixteenths of a unit */
 
 typedef struct {
@@ -123,15 +129,21 @@ int  ptp_naive(const ptp_map *m, uint8_t *order);   /* the pins from the top dow
  * PTP_PLAYING when the order ran out with the world at rest and pins left */
 int  ptp_try(const ptp_map *m, const uint8_t *order, int n, ptp_sim *out);
 
-/* every order of pulling the pins tried (from each rest): the orders that win (up to PTP_MAXSOL kept, shortest
- * first), how many, the share of random orders that win (0..1), the naive order's end */
+/* every order of pulling the pins tried (from each rest; worlds alike after different orders met once): the orders that
+ * win (up to PTP_MAXSOL kept, shortest first), the share of random orders that win (0..1), the naive order's end (the
+ * pins from the top down), the obvious player's end and its first pull, the share of wins after that first pull, the
+ * settles run (capped: gave up past the cap, the share then a part only) */
 typedef struct {
-    int wins, nkept, naive;
-    double share;
+    int wins, nkept, naive, obvious, obv_first, capped;
+    double share, obv_first_share, first_share[PTP_MAXPIN];
     uint8_t ord[PTP_MAXSOL][PTP_MAXPIN], len[PTP_MAXSOL];
     long settles;
 } ptp_report;
 void ptp_search(const ptp_map *m, ptp_report *r);
+/* the obvious player: at each rest it pulls the pin that looks safest (one holding gems or grey balls with no lava to
+ * be seen under it; then one holding water over lava; then an empty one; then water; then gems over lava; lava last;
+ * ties from the top down), passing over a pull that would lose at once: how its try ends, its order (n pulls) */
+int  ptp_obvious(const ptp_map *m, uint8_t *order, int *n);
 
 void ptp_begin(ptp_game *g);                   /* the try from the start */
 int  ptp_hint(const ptp_game *g);              /* the next pin of a winning order, -1 restart first, -2 none */
@@ -139,7 +151,7 @@ int  ptp_script(ptp_game *g, const char *moves);
 
 /* the templates: hand drawn chambers with boxes to fill; the maker fills them (a chapter's things) and mirrors them */
 typedef struct { const char *geo; int cups; int chapter_min; } ptp_tpl;
-#define PTP_TPLS 18
+#define PTP_TPLS 26
 extern const ptp_tpl ptp_tpls[PTP_TPLS];
 /* a level from template t mirrored or not, each box's thing (kinds[i]: -1 empty, else PTP_* kind; cols[i]) and how
  * many, the cups' colours (as drawn, before the mirror); 0: no such template */
@@ -150,15 +162,16 @@ int  ptp_tpl_pins(int t);
 int  ptp_tpl_room(int t, int box, int kind);    /* how many of a kind fill box `box` packed */
 
 typedef struct { const char *text; } ptp_level_t;
+#include "games/pins_levels.h"                /* PTP_LEVELS, PTP_CH_LENS, PTP_POOL */
 extern const ptp_level_t ptp_levels[PTP_LEVELS];
+extern const ptp_level_t ptp_pool[PTP_VARIANTS][PTP_POOL];   /* the random tab's puzzles, by variant */
 int  ptp_chapter_of(int level);
 int  ptp_level(ptp_game *g, int level);         /* 0: none */
-/* a puzzle at random (variant 0 easy, 1 medium, 2 hard), made and checked by the search; the same from the same seed */
+/* a puzzle at random (variant 0 easy, 1 medium, 2 hard): one of the maker's kept for it (ptp_pool), by the seed */
 void ptp_random(ptp_game *g, int variant, uint32_t seed);
 /* the maker's draw: a level for a chapter-like spec from the seed's chance (no check) */
 int  ptp_make(ptp_map *m, int chapter, uint32_t *rs);
-/* the maker's check: 1 when the level is good for that chapter (wins one way; past the first chapter the naive order
- * loses); r filled */
+/* the maker's check: 1 when the level wins one way and the obvious player loses it; r filled (the orders kept) */
 int  ptp_judge(ptp_map *m, int chapter, ptp_report *r);
 
 #endif

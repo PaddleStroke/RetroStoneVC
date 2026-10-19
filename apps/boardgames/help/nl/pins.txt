@@ -3,10 +3,11 @@ Trek de pinnen
 Gouden pinnen houden in een glazen kast gekleurde ballen, grijze ballen, water en lava tegen. Trek de pinnen een voor een in de juiste volgorde, zodat elke bal gekleurd in een beker onderaan belandt.
 # De regels
 - Een grijze bal krijgt de kleur van de eerste gekleurde bal die hem raakt. Zolang hij grijs is, mag hij geen beker bereiken.
-- Lava verbrandt elke bal die ze raakt en mag nooit een beker bereiken.
-- Water verandert lava in steen. Water en steen mogen in een beker.
+- Lava verbrandt elke bal die ze raakt. Waar water en lava elkaar raken, worden ze allebei steen.
+- Lava en water mogen geen beker bereiken; steen wel.
 - Een beker met een gekleurde rand neemt alleen ballen van die kleur.
+- Wat in de afvoer valt, is weg: een goede plek voor lava en water, nooit voor een bal.
 # Het einde van het spel
-Als alles stilligt en elke bal in een beker zit, is de puzzel opgelost. Verbrandt er een bal of komt er iets verkeerds in een beker, begin dan opnieuw.
+Als alles stilligt en elke bal in een beker zit, is de puzzel opgelost. Gaat er een bal verloren of komt er iets verkeerds in een beker, begin dan opnieuw.
 # Levels en sterren
 Geen hint en geen herstart: 3 sterren; samen hoogstens twee hints en herstarts: 2 sterren; anders 1.

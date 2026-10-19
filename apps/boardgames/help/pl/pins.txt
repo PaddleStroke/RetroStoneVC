@@ -3,10 +3,11 @@ Wyciągnij bolce
 Złote bolce przytrzymują w szklanej skrzynce kolorowe kulki, szare kulki, wodę i lawę. Wyciągaj bolce po jednym, we właściwej kolejności, tak aby każda kulka trafiła kolorowa do pucharu na dole.
 # Zasady
 - Szara kulka przybiera kolor pierwszej kolorowej kulki, która jej dotknie. Nie może dotrzeć do pucharu, dopóki jest szara.
-- Lawa pali każdą kulkę, której dotknie, i nigdy nie może dotrzeć do pucharu.
-- Woda zamienia lawę w kamień. Woda i kamień mogą trafić do pucharu.
+- Lawa pali każdą kulkę, której dotknie. Gdzie woda spotyka lawę, obie zmieniają się w kamień.
+- Ani lawa, ani woda nie mogą dotrzeć do pucharu; kamień może.
 - Puchar z kolorowym brzegiem przyjmuje tylko kulki tego koloru.
+- Co wpadnie do odpływu, znika: dobre miejsce na lawę i wodę, nigdy na kulkę.
 # Koniec gry
-Gdy wszystko się zatrzyma, a każda kulka jest w pucharze, łamigłówka jest rozwiązana. Jeśli kulka spłonie albo do pucharu trafi coś niewłaściwego, zacznij od nowa.
+Gdy wszystko się zatrzyma, a każda kulka jest w pucharze, łamigłówka jest rozwiązana. Jeśli kulka przepadnie albo do pucharu trafi coś niewłaściwego, zacznij od nowa.
 # Poziomy i gwiazdki
 Bez podpowiedzi i bez restartu: 3 gwiazdki; łącznie najwyżej dwie podpowiedzi i restarty: 2 gwiazdki; w przeciwnym razie 1.

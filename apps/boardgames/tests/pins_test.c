@@ -9,7 +9,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
 
 #include "games/pins.h"
 
@@ -61,11 +60,24 @@ static void rules(void)
     CHECK(run(&m, "01", &s) == PTP_WON);        /* the gems fall on them first: coloured */
     CHECK(count_kind(&s, PTP_DULL) == 0 && s.incup == 11);
     for (int i = 0; i < s.nb; i++) CHECK(s.b[i].kind != PTP_GEM || s.b[i].col == 2);
-    /* three boxes: gems, water, lava: the water first makes stone of the lava */
+    /* three boxes: gems, water, lava: water on the lava makes stone of it (and of the drops that touch it) */
     fill(&m, 2, (int[]){PTP_GEM, PTP_WATER, PTP_LAVA}, (int[]){1, 0, 0}, (int[]){5, 14, 12}, NULL);
     CHECK(run(&m, "1", &s) == PTP_PLAYING);
-    CHECK(count_kind(&s, PTP_LAVA) == 0 && count_kind(&s, PTP_STONE) == 12);
-    CHECK(run(&m, "102", &s) == PTP_WON);
+    CHECK(count_kind(&s, PTP_LAVA) == 0 && count_kind(&s, PTP_STONE) > 12 && count_kind(&s, PTP_WATER) < 14);
+    /* water reaching a cup */
+    fill(&m, 1, (int[]){PTP_WATER, PTP_GEM}, (int[]){0, 0}, (int[]){12, 4}, NULL);
+    CHECK(run(&m, "01", &s) == PTP_WATER_IN);
+    /* the drain (a filter tower: each box over a slanting pin to the drain): lava drained, gems lost there, or
+     * sent on down once the slanting pin is pulled */
+    fill(&m, 19, (int[]){PTP_LAVA, PTP_GEM}, (int[]){0, 0}, (int[]){8, 4}, NULL);
+    CHECK(run(&m, "0", &s) == PTP_PLAYING && count_kind(&s, PTP_LAVA) == 0);
+    CHECK(run(&m, "02", &s) == PTP_LOST);
+    CHECK(run(&m, "032", &s) == PTP_WON);
+    CHECK(run(&m, "1", &s) == PTP_PLAYING && run(&m, "10", &s) == PTP_BURNT);   /* the slanting pin gone first: lava on the gems */
+    /* a door: box 1 of the tower of doors spills sideways down the drain */
+    fill(&m, 24, (int[]){PTP_GEM, -1}, (int[]){0, 0}, (int[]){3, 0}, NULL);
+    CHECK(run(&m, "1", &s) == PTP_LOST);
+    CHECK(run(&m, "02", &s) == PTP_WON);
     /* every pin pulled, a ball left out: a box whose floor is a wall */
     CHECK(ptp_parse(&m, "C1- w2800285a w5800585a w285a585a p10c830c8 fg0042a105658"));
     CHECK(run(&m, "0", &s) == PTP_STUCK);
@@ -79,7 +91,7 @@ static void rules(void)
 static void same(void)
 {
     ptp_map m;
-    CHECK(ptp_parse(&m, ptp_levels[100].text));
+    CHECK(ptp_parse(&m, ptp_levels[PTP_LEVELS - 1].text));
     for (int rep = 0; rep < 2; rep++) {
         ptp_sim a, b;
         ptp_build(&m, &W, &a);
@@ -114,7 +126,8 @@ static void signature(const ptp_map *m, char *sig)
 static void levels(void)
 {
     static char sigs[PTP_LEVELS][80];
-    int naive_lost = 0, later = 0;
+    int obvious_lost = 0, later = 0;
+    double share = 0;
     for (int l = 0; l < PTP_LEVELS; l++) {
         ptp_map m;
         int ok = ptp_parse(&m, ptp_levels[l].text);
@@ -133,18 +146,25 @@ static void levels(void)
         ptp_sim s;
         ptp_build(&m, &W, &s);
         CHECK(s.end == PTP_PLAYING && s.target > 0 && s.nb <= PTP_MAXB);
-        if (ptp_chapter_of(l) > 0) {
+        if (l >= 3) {                           /* past the opening, the obvious player loses */
             uint8_t o[PTP_MAXPIN];
-            int n = ptp_naive(&m, o);
+            int n, e = ptp_obvious(&m, o, &n);
             later++;
-            naive_lost += ptp_try(&m, o, n, NULL) != PTP_WON;
+            obvious_lost += e != PTP_WON;
+            CHECK(e != PTP_WON);
+        }
+        if (l == 0 || l == PTP_LEVELS - 1) {      /* the measures of the first and the last */
+            ptp_report r;
+            ptp_search(&m, &r);
+            if (l) CHECK(r.share <= 0.125 && m.np >= 5);
+            share += r.share;
         }
         signature(&m, sigs[l]);
         for (int j = 0; j < l; j++) CHECK(strcmp(sigs[j], sigs[l]));
         CHECK(l == 0 || ptp_chapter_of(l) >= ptp_chapter_of(l - 1));
     }
-    printf("levels: %d of %d past the first chapter lose the naive way\n", naive_lost, later);
-    CHECK(naive_lost * 10 >= later * 8);
+    printf("levels: the obvious player loses %d of %d past the opening\n", obvious_lost, later);
+    (void)share;
 }
 
 static void hints(void)
@@ -158,7 +178,7 @@ static void hints(void)
         free(g);
     }
     ptp_game *g = malloc(sizeof *g);             /* a wrong pull: the hint restarts first */
-    CHECK(ptp_level(g, 60));
+    CHECK(ptp_level(g, PTP_LEVELS / 2));
     uint8_t o[PTP_MAXPIN];
     int n = ptp_naive(&g->m, o);
     for (int i = 0; i < n && g->s.end == PTP_PLAYING; i++) {
@@ -175,25 +195,36 @@ static void hints(void)
     free(g);
 }
 
+/* the random tab: its pools' puzzles each won by its kept orders, lost by the obvious player; the same seed, the same
+ * puzzle */
 static void random_puzzles(void)
 {
     ptp_game *a = malloc(sizeof *a), *b = malloc(sizeof *b);
     for (int v = 0; v < PTP_VARIANTS; v++) {
-        double worst = 0;
-        for (uint32_t seed = 1; seed <= 6; seed++) {
-            clock_t c0 = clock();
+        double share = 0;
+        int pins = 0;
+        for (int i = 0; i < PTP_POOL; i++) {
+            ptp_map m;
+            CHECK(ptp_parse(&m, ptp_pool[v][i].text));
+            CHECK(m.nsol > 0 && ptp_try(&m, m.sol[0], m.sollen[0], NULL) == PTP_WON);
+            uint8_t o[PTP_MAXPIN];
+            int n;
+            CHECK(ptp_obvious(&m, o, &n) != PTP_WON);
+            ptp_report r;
+            ptp_search(&m, &r);
+            share += r.share;
+            pins += m.np;
+        }
+        printf("random variant %d: %d puzzles, pins %.1f, winning orders %.0f%%\n", v, PTP_POOL,
+               (double)pins / PTP_POOL, 100 * share / PTP_POOL);
+        for (uint32_t seed = 1; seed <= 4; seed++) {
             ptp_random(a, v, seed);
-            double ms = (clock() - c0) * 1000.0 / CLOCKS_PER_SEC;
-            if (ms > worst) worst = ms;
             ptp_random(b, v, seed);
             char ta[PTP_TEXT], tb[PTP_TEXT];
             ptp_text(&a->m, ta);
             ptp_text(&b->m, tb);
             CHECK(!strcmp(ta, tb));
-            CHECK(a->m.nsol > 0);
-            CHECK(ptp_try(&a->m, a->m.sol[0], a->m.sollen[0], NULL) == PTP_WON);
         }
-        printf("random variant %d: the slowest %.0f ms\n", v, worst);
     }
     free(a);
     free(b);

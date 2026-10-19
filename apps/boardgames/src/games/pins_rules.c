@@ -16,10 +16,10 @@
 static const int32_t RAD[PTP_KINDS] = {640, 640, 384, 384, 384};
 static const int MASS[PTP_KINDS] = {4, 4, 1, 2, 2};
 static const int DAMP[PTP_KINDS] = {150, 150, 260, 40, 80};
-static const int FRIC[PTP_KINDS] = {9, 9, 40, 4, 6};
+static const int FRIC[PTP_KINDS] = {14, 14, 40, 5, 8};
 #define GRAV 9                                  /* steps a tick, each tick */
 #define VMAX 230                                /* the fastest a tick (under a ball's radius: nothing goes through) */
-#define REST_V 10                               /* at rest: nothing moving faster than this a tick ... */
+#define REST_V 5                                /* at rest: nothing moving faster than this a tick ... */
 #define REST_TICKS 30                           /* ... for this long; or */
 #define WINDOW 16                               /* in two windows of this many ticks running ... */
 #define WINDOW_D 48                             /* ... nothing out of the cups gone further than this */
@@ -65,8 +65,8 @@ int ptp_parse(ptp_map *m, const char *t)
         while (*e && *e != ' ') e++;
         int len = (int)(e - t), v[8];
         if (t[0] == 'C' && len >= 2) {
-            m->cups = t[1] == '2' ? 2 : 1;
-            for (int k = 0; k < m->cups && 2 + k < len; k++) m->cupcol[k] = (int8_t)(t[2 + k] == '-' ? -1 : t[2 + k] - '0');
+            m->cups = t[1] == '2' ? 2 : t[1] == '3' ? 3 : 1;
+            for (int k = 0; k < (m->cups == 2 ? 2 : 1) && 2 + k < len; k++) m->cupcol[k] = (int8_t)(t[2 + k] == '-' ? -1 : t[2 + k] - '0');
         } else if ((t[0] == 'w' || t[0] == 'p') && len == 9 && hexn(t + 1, 4, v)) {
             ptp_line *l;
             if (t[0] == 'w') {
@@ -122,7 +122,7 @@ void ptp_text(const ptp_map *m, char *o)
 {
     int n = 0;
     n += sprintf(o + n, "C%d", m->cups);
-    for (int k = 0; k < m->cups; k++) o[n++] = m->cupcol[k] < 0 ? '-' : (char)('0' + m->cupcol[k]);
+    for (int k = 0; k < (m->cups == 2 ? 2 : 1); k++) o[n++] = m->cupcol[k] < 0 ? '-' : (char)('0' + m->cupcol[k]);
     if (m->tpl >= 0) {
         n += sprintf(o + n, " t%02x%d", m->tpl, m->mirror);
         for (int b = 0; b < m->nbox; b++) {
@@ -172,38 +172,56 @@ static void add_seg(ptp_world *w, int32_t ax, int32_t ay, int32_t bx, int32_t by
 
 static void add_u(ptp_world *w, int ax, int ay, int bx, int by) { add_seg(w, U(ax), U(ay), U(bx), U(by), PTP_WALL_R); }
 
-/* the frame and the cups, the same for every level of a kind */
-static void frame_and_cups(ptp_world *w, int cups)
+/* the frame and the bottom, the same for every level of a layout (mirrored or not): 1 a cup in the middle; 2 two cups;
+ * 3 a cup on the right and a drain on the left (what falls in it is gone). Walnut lips and roofs, then the cups' glass
+ * (w->wood_end, w->glass_end: where each kind ends among the segments, for the pictures) */
+static void frame_and_cups(ptp_world *w, int layout, int mirror)
 {
+    static const signed char WOOD[3][4][4] = {
+        {{0, 70, 9, 80}, {64, 70, 55, 80}, {-1}},
+        {{0, 72, 4, 80}, {64, 72, 60, 80}, {32, 72, 29, 80}, {32, 72, 35, 80}},
+        {{64, 72, 60, 80}, {22, 70, 19, 80}, {22, 70, 25, 80}, {19, 80, 19, 88}},
+    };
+    static const signed char CUP[3][2][8] = {
+        {{9, 80, 14, 101, 50, 101, 55, 80}, {-1}},
+        {{4, 80, 7, 101, 26, 101, 29, 80}, {35, 80, 38, 101, 57, 101, 60, 80}},
+        {{25, 80, 28, 101, 57, 101, 60, 80}, {-1}},
+    };
+    int L = layout < 1 || layout > 3 ? 0 : layout - 1;
+#define MX(x) (mirror ? PTP_WU - (x) : (x))
     add_u(w, 0, 0, PTP_WU, 0);
     add_u(w, 0, 0, 0, PTP_HU);
     add_u(w, PTP_WU, 0, PTP_WU, PTP_HU);
     add_u(w, 0, PTP_HU, PTP_WU, PTP_HU);
     w->rim = U(80);
-    if (cups == 1) {
-        add_u(w, 0, 70, 9, 80);
-        add_u(w, 64, 70, 55, 80);
-        add_u(w, 9, 80, 14, 101);
-        add_u(w, 14, 101, 50, 101);
-        add_u(w, 50, 101, 55, 80);
-        w->cx0[0] = U(9);
-        w->cx1[0] = U(55);
-    } else {
-        add_u(w, 0, 72, 4, 80);
-        add_u(w, 64, 72, 60, 80);
-        add_u(w, 32, 72, 29, 80);
-        add_u(w, 32, 72, 35, 80);
-        add_u(w, 4, 80, 7, 101);
-        add_u(w, 7, 101, 26, 101);
-        add_u(w, 26, 101, 29, 80);
-        add_u(w, 35, 80, 38, 101);
-        add_u(w, 38, 101, 57, 101);
-        add_u(w, 57, 101, 60, 80);
-        w->cx0[0] = U(4);
-        w->cx1[0] = U(29);
-        w->cx0[1] = U(35);
-        w->cx1[1] = U(60);
+    w->layout = L + 1;
+    w->mirror = mirror != 0;
+    for (int i = 0; i < 4 && WOOD[L][i][0] >= 0; i++)
+        add_u(w, MX(WOOD[L][i][0]), WOOD[L][i][1], MX(WOOD[L][i][2]), WOOD[L][i][3]);
+    w->wood_end = w->nseg;
+    w->cups = 0;
+    for (int c = 0; c < 2 && CUP[L][c][0] >= 0; c++) {
+        const signed char *p = CUP[L][c];
+        for (int i = 0; i < 3; i++) add_u(w, MX(p[2 * i]), p[2 * i + 1], MX(p[2 * i + 2]), p[2 * i + 3]);
+        for (int i = 0; i < 4; i++) {
+            w->cpoly[c][2 * i] = U(MX(p[2 * i]));
+            w->cpoly[c][2 * i + 1] = U(p[2 * i + 1]);
+        }
+        w->cx0[c] = mini(w->cpoly[c][0], w->cpoly[c][6]);
+        w->cx1[c] = maxi(w->cpoly[c][0], w->cpoly[c][6]);
+        w->cups++;
     }
+    if (w->cups == 2 && w->cx0[0] > w->cx0[1]) {   /* cup 0 on the left */
+        int32_t t;
+        t = w->cx0[0], w->cx0[0] = w->cx0[1], w->cx0[1] = t;
+        t = w->cx1[0], w->cx1[0] = w->cx1[1], w->cx1[1] = t;
+        for (int i = 0; i < 8; i++) t = w->cpoly[0][i], w->cpoly[0][i] = w->cpoly[1][i], w->cpoly[1][i] = t;
+    }
+    w->glass_end = w->nseg;
+    w->drain = L == 2;
+    w->dx0 = U(mirror ? 45 : 1);
+    w->dx1 = U(mirror ? 63 : 19);
+#undef MX
 }
 
 /* the segments near each cell of the grid: within a ball's reach of any point of it */
@@ -365,8 +383,10 @@ static void touch(ptp_sim *s, ptp_ball *a, ptp_ball *c)
             y->kind = PTP_GEM;
             y->col = x->col;
             event(s, PTP_E_COLOUR, y->col, y->x, y->y);
-        } else if (hot(x) && !x->cool && (y->kind == PTP_WATER || y->kind == PTP_STONE))
-            x->cool = COOL_TICKS;
+        } else if (hot(x) && (y->kind == PTP_WATER || y->kind == PTP_STONE)) {
+            if (!x->cool) x->cool = COOL_TICKS;
+            if (y->kind == PTP_WATER && !y->cool) y->cool = COOL_TICKS;   /* the drop that cooled it: stone too */
+        }
     }
 }
 
@@ -374,6 +394,7 @@ static void enter_cup(const ptp_world *w, ptp_sim *s, ptp_ball *b, int k)
 {
     b->cup = (uint8_t)(k + 1);
     if (b->kind == PTP_LAVA) lose(s, PTP_LAVA_IN, b->x, b->y);
+    else if (b->kind == PTP_WATER) lose(s, PTP_WATER_IN, b->x, b->y);
     else if (b->kind == PTP_DULL) lose(s, PTP_GREY_IN, b->x, b->y);
     else if (b->kind == PTP_GEM) {
         if (w->cupcol[k] >= 0 && b->col != w->cupcol[k]) lose(s, PTP_WRONG_CUP, b->x, b->y);
@@ -488,6 +509,12 @@ void ptp_step(const ptp_world *w, ptp_sim *s)
                 event(s, PTP_E_STONE, 0, b->x, b->y);
             }
         }
+        if (w->drain && !b->cup && b->y > w->rim + U(1) && b->x > w->dx0 && b->x < w->dx1) {   /* gone down the drain */
+            b->live = 0;
+            event(s, PTP_E_DRAIN, b->col, b->x, b->y);
+            if (ball(b)) lose(s, PTP_LOST, b->x, b->y);
+            continue;
+        }
         if (!b->cup && b->y > w->rim)
             for (int k = 0; k < w->cups; k++)
                 if (b->x > w->cx0[k] && b->x < w->cx1[k]) enter_cup(w, s, b, k);
@@ -542,10 +569,9 @@ void ptp_build(const ptp_map *m, ptp_world *w, ptp_sim *s)
 {
     memset(w, 0, sizeof *w);
     memset(s, 0, sizeof *s);
-    w->cups = m->cups;
     w->cupcol[0] = m->cupcol[0];
     w->cupcol[1] = m->cupcol[1];
-    frame_and_cups(w, m->cups);
+    frame_and_cups(w, m->cups, m->mirror);
     for (int i = 0; i < m->nw; i++)
         add_seg(w, m->w[i].ax * HALF, m->w[i].ay * HALF, m->w[i].bx * HALF, m->w[i].by * HALF, PTP_WALL_R);
     cell_lists(w);
@@ -613,23 +639,193 @@ static void keep(ptp_report *r, const uint8_t *ord, int len)
     r->len[at] = (uint8_t)len;
 }
 
-static void dfs(const ptp_world *w, const ptp_sim *s, int depth, uint8_t *ord, ptp_report *r, double share)
+/* worlds alike after different orders: the pins pulled and every thing's kind, colour, cup and place (to 4 units) */
+static uint64_t mix64(uint64_t x)
 {
+    x ^= x >> 33;
+    x *= 0xff51afd7ed558ccdULL;
+    x ^= x >> 33;
+    x *= 0xc4ceb9fe1a85ec53ULL;
+    x ^= x >> 33;
+    return x;
+}
+
+static uint64_t state_key(const ptp_world *w, const ptp_sim *s)
+{
+    uint64_t h = 0, mask = 0;
+    for (int i = 0; i < w->np; i++)
+        if (s->pulled[i] >= 0) mask |= 1u << i;
+    for (int i = 0; i < s->nb; i++) {
+        const ptp_ball *b = &s->b[i];
+        if (!b->live) continue;
+        uint64_t v = (uint64_t)b->kind | (uint64_t)b->col << 4 | (uint64_t)b->cup << 8 |
+                     (uint64_t)(b->cup ? 0 : (uint32_t)(b->x >> 10) & 0xff) << 12 |
+                     (uint64_t)(b->cup ? 0 : (uint32_t)(b->y >> 10) & 0xff) << 20;
+        h += mix64(v + 0x9e3779b97f4a7c15ULL);
+    }
+    return mix64(h ^ (mask * 0x100000001b3ULL) ^ (uint64_t)s->incup << 56);
+}
+
+#define MEMO 8192
+#define SEARCH_CAP 6000                         /* settles at most */
+typedef struct { uint64_t key; float p; uint8_t used, len, suf[PTP_MAXPIN]; } memo_e;
+static memo_e *memo;
+
+static memo_e *memo_at(uint64_t key)
+{
+    for (int k = 0, i = (int)(key % MEMO); k < MEMO; k++, i = (i + 1) % MEMO)
+        if (!memo[i].used || memo[i].key == key) return &memo[i];
+    return NULL;
+}
+
+/* the share of the orders from here that win; *suf, *len: one of them (len 0: none) */
+static double dfs(const ptp_world *w, const ptp_sim *s, int depth, uint8_t *ord, ptp_report *r, uint8_t *suf, int *len)
+{
+    uint64_t key = state_key(w, s);
+    memo_e *e = memo_at(key);
+    *len = 0;
+    if (e && e->used) {
+        memcpy(suf, e->suf, e->len);
+        *len = e->len;
+        if (e->len) {
+            uint8_t full[PTP_MAXPIN];
+            memcpy(full, ord, (size_t)depth);
+            memcpy(full + depth, e->suf, e->len);
+            keep(r, full, depth + e->len);
+        }
+        return e->p;
+    }
     int left = w->np - depth;
+    double p = 0;
     for (int i = 0; i < w->np; i++) {
         if (s->pulled[i] >= 0) continue;
+        if (r->settles >= SEARCH_CAP) { r->capped = 1; break; }
         ptp_sim t = *s;
         ptp_pull(w, &t, i);
         ptp_settle(w, &t);
         r->settles++;
         ord[depth] = (uint8_t)i;
+        double q = 0;
+        uint8_t cs[PTP_MAXPIN];
+        int cl = 0;
         if (t.end == PTP_WON) {
+            q = 1;
             r->wins++;
-            r->share += share / left;
             keep(r, ord, depth + 1);
         } else if (t.end == PTP_PLAYING)
-            dfs(w, &t, depth + 1, ord, r, share / left);
+            q = dfs(w, &t, depth + 1, ord, r, cs, &cl);
+        if (depth == 0) r->first_share[i] = q;
+        if (q > 0 && !*len) {                   /* the first way found to win from here */
+            suf[0] = (uint8_t)i;
+            memcpy(suf + 1, cs, (size_t)cl);
+            *len = 1 + cl;
+        }
+        p += q / left;
     }
+    if (e && !r->capped) {
+        e->used = 1;
+        e->key = key;
+        e->p = (float)p;
+        e->len = (uint8_t)*len;
+        memcpy(e->suf, suf, (size_t)*len);
+    }
+    return p;
+}
+
+/* the things resting on pin i (touching it, and whatever touches them out of the cups): a mask of their kinds; *lava
+ * 1 when lava lies under it (across its span, further down, out of the cups) */
+static int pin_load(const ptp_world *w, const ptp_sim *s, int i, int *lava)
+{
+    int32_t ax, ay, bx, by;
+    int out, kinds = 0, n = s->nb;
+    uint8_t in[PTP_MAXB] = {0}, queue[PTP_MAXB];
+    int qh = 0, qt = 0;
+    *lava = 0;
+    if (!ptp_pin_now(w, s, i, s->tick, &ax, &ay, &bx, &by, &out)) return 0;
+    for (int k = 0; k < n; k++) {
+        const ptp_ball *b = &s->b[k];
+        if (!b->live || b->cup) continue;
+        int64_t dx = bx - ax, dy = by - ay, l2 = dx * dx + dy * dy, t = (int64_t)(b->x - ax) * dx + (int64_t)(b->y - ay) * dy;
+        int64_t cx = ax, cy = ay;
+        if (l2 > 0 && t > 0) {
+            if (t >= l2) { cx = bx; cy = by; }
+            else { cx = ax + dx * t / l2; cy = ay + dy * t / l2; }
+        }
+        int64_t ex = b->x - cx, ey = b->y - cy, R = RAD[b->kind] + PTP_PIN_R + 100;
+        if (ey < 0 && -ey * 2 > (ex < 0 ? -ex : ex) && ex * ex + ey * ey <= R * R) {   /* resting on it, not against it */
+            in[k] = 1;
+            queue[qt++] = (uint8_t)k;
+        }
+    }
+    while (qh < qt) {
+        const ptp_ball *a = &s->b[queue[qh++]];
+        kinds |= 1 << a->kind;
+        for (int k = 0; k < n; k++) {
+            const ptp_ball *b = &s->b[k];
+            if (in[k] || !b->live || b->cup) continue;
+            int64_t ex = b->x - a->x, ey = b->y - a->y, R = RAD[a->kind] + RAD[b->kind] + 100;
+            if (ex * ex + ey * ey <= R * R) { in[k] = 1; queue[qt++] = (uint8_t)k; }
+        }
+    }
+    int32_t x0 = mini(ax, bx) - U(2), x1 = maxi(ax, bx) + U(2), y0 = mini(ay, by);
+    for (int k = 0; k < n; k++) {
+        const ptp_ball *b = &s->b[k];
+        if (b->live && !b->cup && !in[k] && b->kind == PTP_LAVA && b->y > y0 && b->x > x0 && b->x < x1) *lava = 1;
+    }
+    return kinds;
+}
+
+/* the obvious player's choice at a rest: the pins ranked by how safe they look (a ball sees where one pull sends
+ * things, so a pull that loses at once is passed over while another is left) */
+static int obvious_pick(const ptp_world *w, const ptp_sim *s)
+{
+    int idx[PTP_MAXPIN], sc[PTP_MAXPIN], n = 0;
+    for (int i = 0; i < w->np; i++) {
+        if (s->pulled[i] >= 0) continue;
+        int lava, k = pin_load(w, s, i, &lava), score;
+        int balls = k & (1 << PTP_GEM | 1 << PTP_DULL), water = k & 1 << PTP_WATER, hotk = k & 1 << PTP_LAVA;
+        if (hotk) score = 0;
+        else if (balls && !lava && !water) score = 5;
+        else if (water && lava && !balls) score = 4;
+        else if (!k) score = 3;
+        else if (water && !balls) score = 2;
+        else score = 1;
+        int j = n++;                            /* in order: the score, then from the top, then from the left */
+        while (j > 0) {
+            int o = idx[j - 1];
+            int32_t my = w->pay[i] + w->pby[i], oy = w->pay[o] + w->pby[o];
+            int32_t mx = w->pax[i] + w->pbx[i], ox = w->pax[o] + w->pbx[o];
+            if (sc[j - 1] > score || (sc[j - 1] == score && (oy < my || (oy == my && ox <= mx)))) break;
+            idx[j] = idx[j - 1];
+            sc[j] = sc[j - 1];
+            j--;
+        }
+        idx[j] = i;
+        sc[j] = score;
+    }
+    for (int j = 0; j < n; j++) {               /* the first that does not lose at once */
+        ptp_sim t = *s;
+        ptp_pull(w, &t, idx[j]);
+        ptp_settle(w, &t);
+        if (t.end == PTP_PLAYING || t.end == PTP_WON) return idx[j];
+    }
+    return n ? idx[0] : -1;
+}
+
+int ptp_obvious(const ptp_map *m, uint8_t *order, int *n)
+{
+    static ptp_world w;
+    ptp_sim s;
+    ptp_build(m, &w, &s);
+    *n = 0;
+    while (s.end == PTP_PLAYING && s.npulled < w.np) {
+        int p = obvious_pick(&w, &s);
+        if (p < 0) break;
+        order[(*n)++] = (uint8_t)p;
+        ptp_pull(&w, &s, p);
+        ptp_settle(&w, &s);
+    }
+    return s.end;
 }
 
 void ptp_search(const ptp_map *m, ptp_report *r)
@@ -638,8 +834,12 @@ void ptp_search(const ptp_map *m, ptp_report *r)
     ptp_sim s;
     memset(r, 0, sizeof *r);
     ptp_build(m, &w, &s);
-    uint8_t ord[PTP_MAXPIN], nv[PTP_MAXPIN];
-    if (s.end == PTP_PLAYING) dfs(&w, &s, 0, ord, r, 1.0);
+    memo = calloc(MEMO, sizeof *memo);
+    uint8_t ord[PTP_MAXPIN], nv[PTP_MAXPIN], suf[PTP_MAXPIN];
+    int len;
+    if (s.end == PTP_PLAYING && memo) r->share = dfs(&w, &s, 0, ord, r, suf, &len);
+    free(memo);
+    memo = NULL;
     for (int a = 0; a < r->nkept; a++)          /* the shortest first */
         for (int b = a + 1; b < r->nkept; b++)
             if (r->len[b] < r->len[a] || (r->len[b] == r->len[a] && memcmp(r->ord[b], r->ord[a], r->len[a]) < 0)) {
@@ -652,6 +852,10 @@ void ptp_search(const ptp_map *m, ptp_report *r)
             }
     int n = ptp_naive(m, nv);
     r->naive = s.end != PTP_PLAYING ? s.end : ptp_try(m, nv, n, NULL);
+    uint8_t ob[PTP_MAXPIN];
+    r->obvious = ptp_obvious(m, ob, &n);
+    r->obv_first = n ? ob[0] : -1;
+    r->obv_first_share = n ? r->first_share[ob[0]] : 0;
 }
 
 /* ---- a game ------------------------------------------------------------------------------------------------------ */
@@ -757,6 +961,36 @@ const ptp_tpl ptp_tpls[PTP_TPLS] = {
     /* 17 two cups: a tower of three boxes over a slanting pin to the left cup, a slide to the right one under it */
     {"w 22 4 22 19|w 22 21 22 49|w 42 4 42 35|w 42 37 42 49|p 16 20 43 20|p 48 36 21 36|p 16 50 43 50|s 23 5 41 19|"
      "s 23 21 41 35|s 23 37 41 49|p 50 54 12 66|w 20 68 46 73", 2, 3},
+    /* layout 3 (a cup on the right, a drain on the left) */
+    /* 18 a fork: two side boxes over slanting pins into a middle box (pulled: the left one's fall goes down the drain) */
+    {"w 6 4 6 17|w 18 4 18 17|p 3 18 19 18|s 7 5 17 17|p 3 24 27 33|w 46 4 46 17|w 58 4 58 17|p 61 18 45 18|"
+     "s 47 5 57 17|p 61 24 37 33|w 24 38 24 48|w 44 38 44 48|p 50 49 23 49|s 25 39 43 48", 3, 0},
+    /* 19 a filter tower: under each box a slanting pin to the drain, pulled: the fall goes on down */
+    {"w 24 4 24 18|w 44 4 44 18|p 50 19 23 19|s 25 5 43 18|p 51 24 16 32|w 24 34 24 48|w 44 34 44 48|p 50 49 23 49|"
+     "s 25 35 43 48|p 52 54 16 63", 3, 0},
+    /* 20 the fork over a filter */
+    {"w 6 4 6 17|w 18 4 18 17|p 3 18 19 18|s 7 5 17 17|p 3 24 27 33|w 46 4 46 17|w 58 4 58 17|p 61 18 45 18|"
+     "s 47 5 57 17|p 61 24 37 33|w 24 38 24 48|w 44 38 44 48|p 50 49 23 49|s 25 39 43 48|p 52 54 16 63", 3, 1},
+    /* 21 a tower of three boxes, two filters */
+    {"w 24 3 24 14|w 44 3 44 14|p 50 15 23 15|s 25 4 43 14|p 51 19 16 27|w 24 29 24 40|w 44 29 44 40|p 50 41 23 41|"
+     "s 25 30 43 40|p 51 45 16 53|w 24 55 24 64|w 44 55 44 64|p 50 65 23 65|s 25 56 43 64", 3, 1},
+    /* 22 two cups: two boxes over slanting pins into a middle box, a slanting pin under it to the left cup, a slide
+     * to the right one under that */
+    {"w 6 4 6 18|w 22 4 22 18|p 3 19 23 19|s 7 5 21 18|w 42 4 42 18|w 58 4 58 18|p 61 19 41 19|s 43 5 57 18|"
+     "p 3 24 30 36|p 61 24 34 36|w 24 42 24 56|w 40 42 40 56|p 46 57 23 57|s 25 43 39 56|p 50 59 14 65|w 22 67 46 71",
+     2, 3},
+    /* 23 a tower of doors: three boxes, each with a slanting floor (a pin: pulled, down into the next) and a door at
+     * its low side (a pin: pulled, out to the drain, or the middle one to the cup) */
+    {"w 26 3 26 12|w 46 3 46 14|p 53 13 25 20|p 21 6 27 21|s 27 4 45 12|w 25 22 10 28|w 26 24 26 33|w 46 24 46 30|"
+     "p 19 33 57 42|p 51 26 45 41|s 27 25 45 32|w 26 43 26 50|w 46 43 46 53|p 52 52 25 59|p 21 46 27 60|s 27 44 45 51|"
+     "w 25 61 10 67", 3, 1},
+    /* 24 two boxes with doors */
+    {"w 26 3 26 12|w 46 3 46 14|p 53 13 25 20|p 21 6 27 21|s 27 4 45 12|w 25 22 10 28|w 26 24 26 33|w 46 24 46 30|"
+     "p 19 33 57 42|p 51 26 45 41|s 27 25 45 32", 3, 0},
+    /* 25 a tower of doors on alternate sides: the top and the bottom doors open to the cup, the middle one to the drain */
+    {"w 26 3 26 14|w 46 3 46 12|p 19 13 47 20|p 51 6 45 21|s 27 4 45 12|w 47 22 54 26|w 26 24 26 30|w 46 24 46 33|"
+     "p 53 33 25 40|p 21 26 27 41|s 27 25 45 31|w 25 42 10 48|w 26 43 26 53|w 46 43 46 51|p 19 52 47 59|p 51 45 45 60|"
+     "s 27 44 45 51|w 47 61 54 64", 3, 1},
 };
 
 static int tpl_count(int t, char what)
@@ -817,7 +1051,7 @@ int ptp_from_tpl(ptp_map *m, int t, int mirror, const int *kinds, const int *col
     m->mirror = mirror != 0;
     m->cups = ptp_tpls[t].cups;
     m->cupcol[0] = m->cupcol[1] = -1;
-    for (int k = 0; k < m->cups; k++) m->cupcol[k] = (int8_t)(cupcol ? cupcol[k] : -1);
+    for (int k = 0; k < (m->cups == 2 ? 2 : 1); k++) m->cupcol[k] = (int8_t)(cupcol ? cupcol[k] : -1);
     char what;
     int v[4];
     for (const char *p = ptp_tpls[t].geo; (p = tpl_next(p, mirror, &what, v));) {
@@ -837,37 +1071,36 @@ int ptp_from_tpl(ptp_map *m, int t, int mirror, const int *kinds, const int *col
 }
 
 /* ---- the maker --------------------------------------------------------------------------------------------------- */
-/* a chapter's things: 0 gems; 1 gems, water and lava; 2 grey balls (water and lava too); 3 two cups; 4 everything, one cup; 5
- * everything */
+/* a chapter's things: 0 grey balls (the first levels: gems alone); 1 water and lava; 2 grey balls, water and lava; 3 two
+ * cups; 4 everything; 5 everything, the hardest */
 int ptp_make(ptp_map *m, int ch, uint32_t *rs)
 {
     int tries = 0;
 again:
-    if (++tries > 200) return 0;
-    int t, two = ch == 3 ? 1 : ch == 5 ? pr_below(rs, 3) == 0 : 0;
-    do t = pr_below(rs, PTP_TPLS);
-    while (ptp_tpls[t].chapter_min > (ch > 3 ? 3 : ch) || (ptp_tpls[t].cups == 2) != two ||
-           (ch == 0 && ptp_tpl_pins(t) > 3));
+    if (++tries > 400) return 0;
+    int t = pr_below(rs, PTP_TPLS), layout = ptp_tpls[t].cups;
+    if (ptp_tpls[t].chapter_min > ch) goto again;
+    if ((ch == 3) != (layout == 2) && !(ch == 5 && layout == 2)) goto again;
+    if (layout == 1 && pr_below(rs, 3)) goto again;        /* the old single-cup boxes: now and then */
+    if (ch < 3 && ptp_tpl_pins(t) > 5) goto again;
     int nb = ptp_tpl_boxes(t), kinds[PTP_MAXFILL], cols[PTP_MAXFILL], counts[PTP_MAXFILL], cupcol[2];
     int gemcol = pr_below(rs, 4), other = (gemcol + 1 + pr_below(rs, 3)) % 4;
-    cupcol[0] = gemcol;
-    cupcol[1] = other;
-    if (!two) cupcol[0] = cupcol[1] = -1;
+    cupcol[0] = layout == 2 ? gemcol : -1;
+    cupcol[1] = layout == 2 ? other : -1;
     int gems = 0, dull = 0, water = 0, lava = 0, colours = 0;
     for (int b = 0; b < nb; b++) {
         int r = pr_below(rs, 100), k;
-        if (ch == 0) k = r < 75 ? PTP_GEM : -1;
-        else if (ch == 1) k = r < 34 ? PTP_GEM : r < 62 ? PTP_LAVA : r < 92 ? PTP_WATER : -1;
-        else if (ch == 2) k = r < 32 ? PTP_GEM : r < 64 ? PTP_DULL : r < 78 ? PTP_LAVA : r < 94 ? PTP_WATER : -1;
-        else if (ch == 3) k = r < 50 ? PTP_GEM : r < 65 ? PTP_DULL : r < 77 ? PTP_LAVA : r < 90 ? PTP_WATER : -1;
-        else k = r < 30 ? PTP_GEM : r < 45 ? PTP_DULL : r < 70 ? PTP_LAVA : r < 92 ? PTP_WATER : -1;
-        int full = k == PTP_WATER || k == PTP_LAVA ? 25 + pr_below(rs, 40) : 30 + pr_below(rs, 50);
-        if (ch == 0 && nb == 1) full = 45 + pr_below(rs, 40);
+        if (ch == 0) k = r < 45 ? PTP_GEM : r < 85 ? PTP_DULL : -1;
+        else if (ch == 1) k = r < 34 ? PTP_GEM : r < 62 ? PTP_LAVA : r < 90 ? PTP_WATER : -1;
+        else if (ch == 2) k = r < 30 ? PTP_GEM : r < 55 ? PTP_DULL : r < 75 ? PTP_LAVA : r < 95 ? PTP_WATER : -1;
+        else if (ch == 3) k = r < 55 ? PTP_GEM : r < 75 ? PTP_DULL : r < 88 ? PTP_WATER : -1;
+        else k = r < 30 ? PTP_GEM : r < 48 ? PTP_DULL : r < 70 ? PTP_LAVA : r < 92 ? PTP_WATER : -1;
+        int full = k == PTP_WATER || k == PTP_LAVA ? 25 + pr_below(rs, 45) : 30 + pr_below(rs, 50);
         kinds[b] = k;
-        cols[b] = two && pr_below(rs, 2) ? other : gemcol;
+        cols[b] = layout == 2 && pr_below(rs, 2) ? other : gemcol;
         counts[b] = k < 0 ? 0 : ptp_tpl_room(t, b, k) * full / 100;
         if (k >= 0 && counts[b] < 2) counts[b] = 2;
-        if (counts[b] > 48) counts[b] = 48;
+        if (counts[b] > 40) counts[b] = 40;
         gems += k == PTP_GEM;
         dull += k == PTP_DULL;
         water += k == PTP_WATER;
@@ -877,14 +1110,12 @@ again:
     int vol = 0;                                /* what the cups take (square units, packed) */
     for (int b = 0; b < nb; b++)
         if (kinds[b] >= 0) vol += counts[b] * (kinds[b] <= PTP_DULL ? 25 : 9);
-    if (vol > (two ? 480 : 560)) goto again;
+    if (vol > (layout == 2 ? 480 : layout == 3 ? 520 : 560)) goto again;
     if (!gems) goto again;
-    if (ch == 2 && !dull) goto again;
-    if ((ch == 1 || ch == 4) && (!lava || !water)) goto again;
-    if ((ch == 2 || ch == 3) && lava && !water) goto again;
-    if (ch == 4 && !dull && pr_below(rs, 2)) goto again;
-    if (two && colours != ((1 << gemcol) | (1 << other))) goto again;
-    if (ch == 5 && dull + water + lava == 0) goto again;
+    if (ch == 2 && (!dull || !lava)) goto again;
+    if (ch == 1 && !lava) goto again;
+    if (layout == 2 && colours != ((1 << gemcol) | (1 << other))) goto again;
+    if (ch >= 4 && dull + water + lava < 2) goto again;
     return ptp_from_tpl(m, t, pr_below(rs, 2), kinds, cols, counts, cupcol);
 }
 
@@ -892,22 +1123,24 @@ int ptp_judge(ptp_map *m, int ch, ptp_report *r)
 {
     static ptp_world w;
     ptp_sim s;
+    (void)ch;
+    memset(r, 0, sizeof *r);
     ptp_build(m, &w, &s);
     if (s.end != PTP_PLAYING || s.target < 1) return 0;
     for (int i = 0; i < s.nb; i++)
         if (s.b[i].cup) return 0;               /* something in a cup before the first pull */
     ptp_search(m, r);
-    if (!r->wins) return 0;
+    if (!r->wins || r->capped) return 0;
     m->nsol = r->nkept;
     for (int k = 0; k < r->nkept; k++) {
         memcpy(m->sol[k], r->ord[k], PTP_MAXPIN);
         m->sollen[k] = r->len[k];
     }
-    return ch == 0 || r->naive != PTP_WON;
+    return r->obvious != PTP_WON;               /* not won by the obvious player */
 }
 
 /* ---- levels and puzzles at random -------------------------------------------------------------------------------- */
-static const int CH_LEN[PTP_CHAPTERS] = {3, 30, 25, 18, 32, 25};   /* the first: three, every order wins */
+static const int CH_LEN[PTP_CHAPTERS] = PTP_CH_LENS;
 
 int ptp_chapter_of(int level)
 {
@@ -919,34 +1152,24 @@ int ptp_chapter_of(int level)
 }
 
 #ifndef PTP_GEN
+#define PTP_LEVEL_DATA
+#include "games/pins_levels.h"
+
 int ptp_level(ptp_game *g, int level)
 {
     if (level < 0 || level >= PTP_LEVELS || !ptp_parse(&g->m, ptp_levels[level].text)) return 0;
     ptp_begin(g);
     return 1;
 }
-#endif
 
+/* a puzzle at random: one of the maker's puzzles kept for the variant (made and checked as the levels are, none of
+ * them a level), chosen by the seed */
 void ptp_random(ptp_game *g, int variant, uint32_t seed)
 {
-    static const int CHS[PTP_VARIANTS][2] = {{0, 1}, {2, 3}, {4, 5}};
-    uint32_t rs = pr_seed(seed);
     variant = variant < 0 ? 0 : variant >= PTP_VARIANTS ? PTP_VARIANTS - 1 : variant;
-    for (int tries = 0; tries < 60; tries++) {
-        int ch = CHS[variant][pr_below(&rs, 2)];
-        ptp_report r;
-        if (!ptp_make(&g->m, ch, &rs)) continue;
-        if (variant > 0 && g->m.np < 3) continue;
-        if (ptp_judge(&g->m, ch, &r) && (variant == 0 || r.share < (variant == 1 ? 0.5 : 0.3))) {
-            ptp_begin(g);
-            return;
-        }
-    }
-#ifndef PTP_GEN
-    ptp_level(g, variant * 50 + 10);
-#endif
+    uint32_t rs = pr_seed(seed);
+    int i = pr_below(&rs, PTP_POOL);
+    if (!ptp_parse(&g->m, ptp_pool[variant][i].text)) ptp_parse(&g->m, ptp_levels[0].text);
+    ptp_begin(g);
 }
-
-#ifndef PTP_GEN
-#include "games/pins_levels.h"
 #endif

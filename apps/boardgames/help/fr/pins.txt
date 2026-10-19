@@ -3,10 +3,11 @@ Tire les tiges
 Des tiges dorées retiennent des billes de couleur, des billes grises, de l'eau et de la lave dans une boîte de verre. Tire les tiges une à une, dans le bon ordre, pour que toutes les billes finissent dans une coupe en bas, colorées.
 # Les règles
 - Une bille grise prend la couleur de la première bille colorée qui la touche. Elle ne doit pas atteindre une coupe tant qu'elle est grise.
-- La lave brûle toute bille qu'elle touche, et elle ne doit jamais atteindre une coupe.
-- L'eau change la lave en pierre. L'eau et la pierre peuvent aller dans une coupe.
+- La lave brûle toute bille qu'elle touche. Là où l'eau et la lave se rencontrent, elles deviennent de la pierre.
+- Ni la lave ni l'eau ne doivent atteindre une coupe ; la pierre, si.
 - Une coupe au bord coloré ne prend que les billes de cette couleur.
+- Ce qui tombe dans l'égout disparaît : une bonne place pour la lave et l'eau, jamais pour une bille.
 # La fin de la partie
-Quand tout s'est immobilisé et que chaque bille est dans une coupe, le casse-tête est résolu. Si une bille brûle ou si une coupe reçoit ce qu'il ne faut pas, recommence.
+Quand tout s'est immobilisé et que chaque bille est dans une coupe, le casse-tête est résolu. Si une bille est perdue ou si une coupe reçoit ce qu'il ne faut pas, recommence.
 # Niveaux et étoiles
 Sans indice ni recommencement : 3 étoiles ; jusqu'à deux indices et recommencements en tout : 2 étoiles ; sinon 1.

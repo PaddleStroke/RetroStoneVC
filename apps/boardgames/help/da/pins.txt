@@ -3,10 +3,11 @@ Træk stifterne
 Gyldne stifter holder farvede kugler, grå kugler, vand og lava tilbage i en glaskasse. Træk stifterne ud én ad gangen i den rigtige rækkefølge, så hver kugle ender farvet i et bæger forneden.
 # Reglerne
 - En grå kugle får farven fra den første farvede kugle, der rører den. Den må ikke nå et bæger, mens den stadig er grå.
-- Lava brænder enhver kugle, den rører, og må aldrig nå et bæger.
-- Vand gør lava til sten. Vand og sten må gerne komme i et bæger.
+- Lava brænder enhver kugle, den rører. Hvor vand og lava mødes, bliver begge til sten.
+- Hverken lava eller vand må nå et bæger; sten må gerne.
 - Et bæger med farvet kant tager kun kugler i den farve.
+- Det, der falder i afløbet, er væk: et godt sted til lava og vand, aldrig til en kugle.
 # Spillets afslutning
-Når alt er faldet til ro, og hver kugle ligger i et bæger, er opgaven løst. Brænder en kugle, eller kommer der noget forkert i et bæger, så start forfra.
+Når alt er faldet til ro, og hver kugle ligger i et bæger, er opgaven løst. Går en kugle tabt, eller kommer der noget forkert i et bæger, så start forfra.
 # Baner og stjerner
 Ingen hjælp og ingen genstart: 3 stjerner; højst to hjælp og genstarter i alt: 2 stjerner; ellers 1.

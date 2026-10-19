@@ -3,10 +3,11 @@ Trekk ut pinnene
 Gylne pinner holder tilbake fargede kuler, grå kuler, vann og lava i en glasskasse. Trekk ut pinnene én om gangen i riktig rekkefølge, slik at hver kule havner farget i et beger nederst.
 # Reglene
 - En grå kule får fargen til den første fargede kulen som rører den. Den må ikke nå et beger mens den fortsatt er grå.
-- Lava brenner hver kule den rører, og må aldri nå et beger.
-- Vann gjør lava til stein. Vann og stein kan gjerne havne i et beger.
+- Lava brenner hver kule den rører. Der vann og lava møtes, blir begge til stein.
+- Verken lava eller vann må nå et beger; stein kan.
 - Et beger med farget kant tar bare kuler i den fargen.
+- Det som faller i sluket, er borte: et godt sted for lava og vann, aldri for en kule.
 # Slutten på spillet
-Når alt har falt til ro og hver kule ligger i et beger, er oppgaven løst. Brenner en kule, eller havner noe galt i et beger, begynner du på nytt.
+Når alt har falt til ro og hver kule ligger i et beger, er oppgaven løst. Går en kule tapt, eller havner noe galt i et beger, begynner du på nytt.
 # Nivåer og stjerner
 Ingen hint og ingen omstart: 3 stjerner; til sammen høyst to hint og omstarter: 2 stjerner; ellers 1.

@@ -198,11 +198,11 @@ static void paint_pin(float len, float kk, int *tw, int *th, uint8_t **out)
 }
 
 /* the cups' shapes in units: polygons of their insides */
-static int cup_poly(int cups, int i, float *xy)
+static int cup_poly(const ptp_world *w, int i, float *xy)
 {
-    static const float ONE[] = {9, 80, 14, 101, 50, 101, 55, 80};
-    static const float TWO[2][8] = {{4, 80, 7, 101, 26, 101, 29, 80}, {35, 80, 38, 101, 57, 101, 60, 80}};
-    memcpy(xy, cups == 1 ? ONE : TWO[i], sizeof ONE);
+    for (int k = 0; k < 8; k++) xy[k] = (float)w->cpoly[i][k] / PTP_FP;
+    float x0 = fminf(xy[0], xy[6]), x1 = fmaxf(xy[0], xy[6]), b0 = fminf(xy[2], xy[4]), b1 = fmaxf(xy[2], xy[4]);
+    xy[0] = x0, xy[2] = b0, xy[4] = b1, xy[6] = x1;   /* from the left rim round, as drawn */
     return 4;
 }
 
@@ -227,7 +227,7 @@ static void paint_board(const ptp_world *w, float kk, int W, int H, uint8_t *o)
         }
     for (int c = 0; c < w->cups; c++) {         /* the cups' glass, lighter */
         float xy[8];
-        cup_poly(w->cups, c, xy);
+        cup_poly(w, c, xy);
         for (int i = 0; i < 4; i++) { xy[2 * i] = bx + xy[2 * i] * kk; xy[2 * i + 1] = by + xy[2 * i + 1] * kk; }
         int y0 = (int)(by + 79 * kk), y1 = (int)(by + 102 * kk);
         for (int y = y0; y < y1 && y < H; y++)
@@ -236,7 +236,22 @@ static void paint_board(const ptp_world *w, float kk, int W, int H, uint8_t *o)
                 if (cov > 0) pzk_over(o + 4 * ((size_t)y * W + x), (const uint8_t[]){70, 110, 122}, 0.35f * cov);
             }
     }
-    int lips = w->cups == 1 ? 6 : 8, cupend = w->cups == 1 ? 9 : 14;
+    if (w->drain) {                             /* the drain: a dark well under its opening, an iron grate over it */
+        float x0 = bx + w->dx0 * kk / PTP_FP, x1 = bx + w->dx1 * kk / PTP_FP, y0 = by + 80 * kk;
+        for (int y = (int)y0; y < H - f; y++)
+            for (int x = (int)x0; x < (int)x1 && x < W - f; x++) {
+                if (x < f) continue;
+                float d = (y - y0) / (8 * kk), e = fminf(x - x0, x1 - x) / (2 * kk);
+                float a = clampf(0.55f + 0.45f * d, 0, 0.92f) * clampf(e, 0.3f, 1);
+                pzk_over(o + 4 * ((size_t)y * W + x), (const uint8_t[]){6, 8, 10}, a);
+            }
+        for (int i = 0; i < 6; i++) {
+            float gx = x0 + (i + 0.5f) * (x1 - x0) / 6;
+            paint_bar(o, W, H, gx, y0 + 1.2f * kk, gx, y0 + 4.2f * kk, 0.32f * kk, 1);
+        }
+        paint_bar(o, W, H, x0 + 0.6f * kk, y0 + 1.2f * kk, x1 - 0.6f * kk, y0 + 1.2f * kk, 0.38f * kk, 1);
+    }
+    int lips = w->wood_end, cupend = w->glass_end;
     float r = (float)PTP_WALL_R / PTP_FP * kk;
     for (int pass = 0; pass < 2; pass++)
         for (int i = 4; i < w->nseg; i++) {
@@ -256,7 +271,7 @@ static void paint_front(const ptp_world *w, float kk, int W, int H, uint8_t *o)
     float bx = F * kk, by = F * kk;
     for (int c = 0; c < w->cups; c++) {
         float xy[8];
-        cup_poly(w->cups, c, xy);
+        cup_poly(w, c, xy);
         float l = xy[0], rr = xy[6];
         for (int i = 0; i < 4; i++) { xy[2 * i] = bx + xy[2 * i] * kk; xy[2 * i + 1] = by + xy[2 * i + 1] * kk; }
         int y0 = (int)(by + 79 * kk), y1 = (int)(by + 102 * kk);
@@ -456,7 +471,10 @@ static void take_events(Uint32 now)
             ui_sound_soft(SND_PLACE, 0.4f);
             last_cup_snd = now;
         } else if (e->type == PTP_E_COLOUR) ui_sound_soft(SND_TAP, 0.5f);
-        else if (e->type == PTP_E_STONE && now - last_stone_snd > 140) {
+        else if (e->type == PTP_E_DRAIN && now - last_cup_snd > 90) {
+            ui_sound_soft(SND_DROP, 0.3f);
+            last_cup_snd = now;
+        } else if (e->type == PTP_E_STONE && now - last_stone_snd > 140) {
             ui_sound_soft(SND_CAPTURE, 0.3f);
             last_stone_snd = now;
         }
@@ -567,6 +585,9 @@ static void draw(void)
             for (int j = 0; j < 2; j++)
                 pzk_dot(x + (j ? 0.8f : -0.6f) * k, y - (1 + 4 * f + j) * k, (1.5f + 2.5f * f) * k, 1.2f * k,
                         (pzk_rgba){235, 240, 245, (Uint8)(110 * (1 - f))}, 0);
+        } else if (fx[i].type == PTP_E_DRAIN && g < 500) {   /* gone down the drain: a dark ripple */
+            float f = g / 500;
+            pzk_dot(x, y, (3 + 5 * f) * k, 1.5f * k, (pzk_rgba){0, 0, 0, (Uint8)(150 * (1 - f))}, 0);
         } else if (fx[i].type == PTP_E_BURN && g < 900) {
             float f = g / 900;
             pzk_dot(x, y, (5 + 8 * f) * k, 2.5f * k, (pzk_rgba){255, 120, 30, (Uint8)(220 * (1 - f))}, 1);
@@ -586,7 +607,7 @@ static void draw(void)
         float g = (float)(int)(now - win_t0);
         for (int c = 0; c < G.w.cups; c++) {
             float xy[8];
-            cup_poly(G.w.cups, c, xy);
+            cup_poly(&G.w, c, xy);
             float a = puz_pulse(g, 0, 1100);
             if (a > 0) ui_mark_gold_a(sx_of((xy[0] + xy[6]) / 2), sy_of(90), 26 * k, a * 0.8f);
         }
@@ -723,26 +744,32 @@ static void paint_level(int level, int size, uint8_t *rgba)
 
 static void thumb(int variant, int size, uint8_t *rgba)
 {
-    static const int SHOW[PTP_VARIANTS] = {14, 72, 128};
-    paint_level(variant < 0 ? 74 : SHOW[variant % PTP_VARIANTS], size, rgba);
+    if (variant < 0) { paint_level(PTP_LEVELS * 2 / 3, size, rgba); return; }
+    ptp_map *m = malloc(sizeof *m);             /* the random tab's cards: a puzzle of each pool */
+    if (m && ptp_parse(m, ptp_pool[variant % PTP_VARIANTS][0].text)) paint_scene(m, size, rgba);
+    free(m);
 }
 
 static void level_thumb(int level, int size, uint8_t *rgba) { paint_level(level, size, rgba); }
 
-/* a chapter's picture: a gem; water and lava; a grey ball by a gem; two cups; lava, a grey ball, a gem; a pin */
+/* a chapter's picture: a grey ball by a gem; water and lava; lava by a grey ball; two cups; lava, a grey ball, a gem;
+ * a pin */
 static void chapter_icon(int chapter, int size, uint8_t *rgba)
 {
     float s = (float)size;
     static const uint8_t W3[3] = {70, 150, 228}, L3[3] = {244, 112, 30};
     switch (chapter) {
-    case 0: pzk_ball(rgba, size, size, 0.5f * s, 0.5f * s, 0.32f * s, GEMS[0], 1, 1); break;
+    case 0:
+        pzk_ball(rgba, size, size, 0.34f * s, 0.5f * s, 0.24f * s, GREY, 1, 0.7f);
+        pzk_ball(rgba, size, size, 0.68f * s, 0.5f * s, 0.24f * s, GEMS[0], 1, 1);
+        break;
     case 1:
         pzk_ball(rgba, size, size, 0.33f * s, 0.55f * s, 0.22f * s, W3, 1, 0.6f);
         pzk_ball(rgba, size, size, 0.67f * s, 0.45f * s, 0.22f * s, L3, 1, 0.6f);
         break;
     case 2:
-        pzk_ball(rgba, size, size, 0.34f * s, 0.5f * s, 0.24f * s, GREY, 1, 0.7f);
-        pzk_ball(rgba, size, size, 0.68f * s, 0.5f * s, 0.24f * s, GEMS[1], 1, 1);
+        pzk_ball(rgba, size, size, 0.34f * s, 0.5f * s, 0.24f * s, L3, 1, 0.6f);
+        pzk_ball(rgba, size, size, 0.68f * s, 0.5f * s, 0.24f * s, GREY, 1, 0.7f);
         break;
     case 3:
         for (int c = 0; c < 2; c++) {

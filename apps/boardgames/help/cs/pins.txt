@@ -3,10 +3,11 @@ Vytáhni kolíky
 Zlaté kolíky drží ve skleněné krabici barevné kuličky, šedé kuličky, vodu a lávu. Vytahuj kolíky jeden po druhém ve správném pořadí tak, aby každá kulička skončila obarvená v poháru dole.
 # Pravidla
 - Šedá kulička získá barvu první barevné kuličky, která se jí dotkne. Dokud je šedá, nesmí se dostat do poháru.
-- Láva spálí každou kuličku, které se dotkne, a nesmí se nikdy dostat do poháru.
-- Voda mění lávu v kámen. Voda a kámen do poháru spadnout smějí.
+- Láva spálí každou kuličku, které se dotkne. Kde se voda a láva setkají, obě se změní v kámen.
+- Láva ani voda se nesmí dostat do poháru; kámen smí.
 - Pohár s barevným okrajem přijme jen kuličky té barvy.
+- Co spadne do odtoku, zmizí: dobré místo pro lávu a vodu, nikdy pro kuličku.
 # Konec hry
-Když se vše zastaví a každá kulička je v poháru, hlavolam je vyřešen. Když kulička shoří nebo se do poháru dostane něco nesprávného, začni znovu.
+Když se vše zastaví a každá kulička je v poháru, hlavolam je vyřešen. Když se kulička ztratí nebo se do poháru dostane něco nesprávného, začni znovu.
 # Úrovně a hvězdy
 Bez nápovědy a bez nového začátku: 3 hvězdy; nejvýše dvě nápovědy a nové začátky dohromady: 2 hvězdy; jinak 1.

@@ -3,10 +3,11 @@ Saca los pasadores
 Unos pasadores dorados retienen bolas de colores, bolas grises, agua y lava en una caja de cristal. Saca los pasadores de uno en uno, en el orden correcto, para que todas las bolas acaben en una copa abajo, de color.
 # Las reglas
 - Una bola gris toma el color de la primera bola de color que la toca. No debe llegar a una copa mientras siga gris.
-- La lava quema cualquier bola que toca y nunca debe llegar a una copa.
-- El agua convierte la lava en piedra. El agua y la piedra pueden caer en una copa.
+- La lava quema cualquier bola que toca. Donde el agua y la lava se encuentran, ambas se vuelven piedra.
+- Ni la lava ni el agua pueden llegar a una copa; la piedra sí.
 - Una copa con el borde de color solo admite bolas de ese color.
+- Lo que cae por el desagüe desaparece: buen sitio para la lava y el agua, nunca para una bola.
 # El final de la partida
-Cuando todo se ha detenido y cada bola está en una copa, el rompecabezas está resuelto. Si una bola se quema o algo indebido llega a una copa, vuelve a empezar.
+Cuando todo se ha detenido y cada bola está en una copa, el rompecabezas está resuelto. Si se pierde una bola o algo indebido llega a una copa, vuelve a empezar.
 # Niveles y estrellas
 Sin pistas ni reinicios: 3 estrellas; hasta dos pistas y reinicios en total: 2 estrellas; si no, 1.

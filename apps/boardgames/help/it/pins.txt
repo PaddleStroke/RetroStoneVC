@@ -3,10 +3,11 @@ Tira i perni
 Dei perni dorati trattengono palline colorate, palline grigie, acqua e lava in una scatola di vetro. Tira i perni uno alla volta, nell'ordine giusto, perché ogni pallina finisca colorata in una coppa in basso.
 # Le regole
 - Una pallina grigia prende il colore della prima pallina colorata che la tocca. Non deve raggiungere una coppa finché è grigia.
-- La lava brucia ogni pallina che tocca e non deve mai raggiungere una coppa.
-- L'acqua trasforma la lava in pietra. Acqua e pietra possono finire in una coppa.
+- La lava brucia ogni pallina che tocca. Dove acqua e lava si incontrano, diventano entrambe pietra.
+- Né la lava né l'acqua possono raggiungere una coppa; la pietra sì.
 - Una coppa dal bordo colorato accetta solo palline di quel colore.
+- Ciò che cade nello scarico sparisce: un buon posto per lava e acqua, mai per una pallina.
 # La fine della partita
-Quando tutto si è fermato e ogni pallina è in una coppa, il rompicapo è risolto. Se una pallina brucia o qualcosa di sbagliato raggiunge una coppa, ricomincia.
+Quando tutto si è fermato e ogni pallina è in una coppa, il rompicapo è risolto. Se una pallina va persa o qualcosa di sbagliato raggiunge una coppa, ricomincia.
 # Livelli e stelle
 Senza aiuti né ripartenze: 3 stelle; fino a due tra aiuti e ripartenze: 2 stelle; altrimenti 1.

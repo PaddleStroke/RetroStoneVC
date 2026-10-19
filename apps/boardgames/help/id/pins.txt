@@ -3,10 +3,11 @@ Cabut Pasak
 Pasak emas menahan bola berwarna, bola abu-abu, air, dan lahar di dalam kotak kaca. Cabut pasak satu per satu dengan urutan yang tepat agar setiap bola berakhir di cangkir di bawah dalam keadaan berwarna.
 # Aturan
 - Bola abu-abu mengambil warna bola berwarna pertama yang menyentuhnya. Bola itu tidak boleh mencapai cangkir selagi masih abu-abu.
-- Lahar membakar setiap bola yang disentuhnya dan tidak boleh mencapai cangkir.
-- Air mengubah lahar menjadi batu. Air dan batu boleh masuk ke cangkir.
+- Lahar membakar setiap bola yang disentuhnya. Di tempat air dan lahar bertemu, keduanya menjadi batu.
+- Lahar dan air tidak boleh mencapai cangkir; batu boleh.
 - Cangkir berbibir warna hanya menerima bola dengan warna itu.
+- Apa yang jatuh ke saluran pembuangan hilang: tempat yang baik untuk lahar dan air, tidak pernah untuk bola.
 # Akhir permainan
-Saat semuanya berhenti dan setiap bola ada di cangkir, teka-teki terpecahkan. Jika sebuah bola terbakar atau sesuatu yang salah masuk ke cangkir, mulai lagi.
+Saat semuanya berhenti dan setiap bola ada di cangkir, teka-teki terpecahkan. Jika sebuah bola hilang atau sesuatu yang salah masuk ke cangkir, mulai lagi.
 # Level dan bintang
 Tanpa petunjuk dan tanpa mengulang: 3 bintang; paling banyak dua petunjuk dan pengulangan: 2 bintang; selain itu 1.

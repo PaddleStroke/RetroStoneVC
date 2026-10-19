@@ -3,10 +3,11 @@ Zieh die Stifte
 Goldene Stifte halten in einem Glaskasten farbige Kugeln, graue Kugeln, Wasser und Lava zurück. Zieh die Stifte einzeln in der richtigen Reihenfolge, damit jede Kugel farbig in einem Becher unten landet.
 # Die Regeln
 - Eine graue Kugel nimmt die Farbe der ersten farbigen Kugel an, die sie berührt. Solange sie grau ist, darf sie keinen Becher erreichen.
-- Lava verbrennt jede Kugel, die sie berührt, und darf nie in einen Becher gelangen.
-- Wasser verwandelt Lava in Stein. Wasser und Stein dürfen in einen Becher.
+- Lava verbrennt jede Kugel, die sie berührt. Wo Wasser und Lava sich treffen, werden beide zu Stein.
+- Weder Lava noch Wasser dürfen in einen Becher gelangen; Stein darf es.
 - Ein Becher mit farbigem Rand nimmt nur Kugeln dieser Farbe.
+- Was in den Abfluss fällt, ist weg: ein guter Ort für Lava und Wasser, nie für eine Kugel.
 # Das Ende der Partie
-Wenn alles zur Ruhe gekommen ist und jede Kugel in einem Becher liegt, ist das Rätsel gelöst. Verbrennt eine Kugel oder gelangt etwas Falsches in einen Becher, beginne neu.
+Wenn alles zur Ruhe gekommen ist und jede Kugel in einem Becher liegt, ist das Rätsel gelöst. Geht eine Kugel verloren oder gelangt etwas Falsches in einen Becher, beginne neu.
 # Level und Sterne
 Ohne Hinweis und ohne Neustart: 3 Sterne; bis zu zwei Hinweise und Neustarts zusammen: 2 Sterne; sonst 1.

@@ -3,10 +3,11 @@ Pull the Pins
 Golden pins hold back coloured balls, grey balls, water and lava in a glass box. Pull the pins one at a time, in the right order, so that every ball ends up in a cup at the bottom, coloured.
 # The rules
 - A grey ball takes the colour of the first coloured ball that touches it. It must not reach a cup while it is still grey.
-- Lava burns any ball it touches, and it must never reach a cup.
-- Water turns lava into stone. Water and stone may go into a cup.
+- Lava burns any ball it touches. Where water and lava meet, both turn to stone.
+- Neither lava nor water may reach a cup; stone may.
 - A cup with a coloured rim takes only balls of that colour.
+- What falls into the drain is gone: a good place for lava and water, never for a ball.
 # The end of the game
-When everything has come to rest with every ball in a cup, the puzzle is solved. If a ball burns or something wrong reaches a cup, start again.
+When everything has come to rest with every ball in a cup, the puzzle is solved. If a ball is lost or something wrong reaches a cup, start again.
 # Levels and stars
 No hint and no restart: 3 stars; up to two hints and restarts together: 2 stars; otherwise 1.
