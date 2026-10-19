@@ -1,7 +1,7 @@
 /*
- * Ring Puzzle in RetroStone Board, for one player: brass ring tracks set in a walnut-framed plank, polished beads of
- * ivory, ebony and coloured lacquer riding in them, each place's colour inlaid in lacquer along the outside of its
- * track (the rules: rings_rules.c).
+ * Ring Puzzle in RetroStone Board, for one player: thin brass ring tracks set in a walnut-framed plank of quiet wood,
+ * polished beads of ivory, ebony and coloured lacquer riding in them, each place's colour a thin ring round its seat
+ * (brighter once its bead is home) (the rules: rings_rules.c).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Drag round a ring: its beads follow the finger along the track (the shared ones with them, out of the other ring),
@@ -33,7 +33,7 @@ static int turned, made_key = -1, made_bw = -1, made_bh = -1, made_small = -1, s
 static float S, ox, oy, bead;                   /* the scale (a ring's radius, pixels), the unit's origin; a bead */
 static float bx, by;                            /* the board picture's top left */
 static int bw, bh;
-static SDL_Texture *t_board, *t_bead[RG_COLOURS], *t_par;
+static SDL_Texture *t_board, *t_bead[RG_COLOURS], *t_seat, *t_rim, *t_par;
 
 static struct {                                 /* a ring turning: from angle a0 to 0 (radians, the step's way) */
     int on, ring;
@@ -75,14 +75,14 @@ static void outward(const rg_map *m, int k, float *dx, float *dy)
     *dy = y / l;
 }
 
-static float bead_unit(const rg_map *m) { return fminf(0.84f * 2 * PUZ_PI / m->n, 0.5f); }
+static float bead_unit(const rg_map *m) { return fminf(0.78f * 2 * PUZ_PI / m->n, 0.5f); }
 
 /* ring k's arrow (0: counter-clockwise, 1: clockwise): its centre on the screen */
 static void arrow_at(int k, int which, float *x, float *y)
 {
     float dx, dy;
     outward(&G.m, k, &dx, &dy);
-    float base = atan2f(-dy, dx), a = base + (which ? -0.42f : 0.42f), r = 1 + 0.5f * bead_unit(&G.m) + 0.42f;
+    float base = atan2f(-dy, dx), a = base + (which ? -0.42f : 0.42f), r = 1 + 0.5f * bead_unit(&G.m) + 0.36f;
     to_screen(&G.m, G.m.cx[k] + r * cosf(a), G.m.cy[k] - r * sinf(a), x, y);
 }
 
@@ -94,104 +94,104 @@ static void colour_rgb(int c, uint8_t rgb[3])
     for (int i = 0; i < 3; i++) rgb[i] = (uint8_t)art_player[c & 3].fill[i];
 }
 
-/* the board: the plank in its frame, each place's colour inlaid outside its ring, the brass tracks; into o (w x h),
- * the unit's origin at (x0, y0), s pixels a ring's radius (turned: a quarter turn) */
+/* the board: the plank in its frame (its grain softened, so the beads stand out), the thin brass tracks; into o
+ * (w x h), the unit's origin at (x0, y0), s pixels a ring's radius (turned: a quarter turn) */
 static void paint_board(const rg_map *m, int w, int h, float x0, float y0, float s, int turn, int frame, uint8_t *o)
 {
     int fr = frame ? (int)fmaxf(2, 0.09f * s) : 0;
     art_plank(w - 2 * fr, h - 2 * fr, fr, o);
-    float bu = bead_unit(m), tw = 0.30f * bu * s, st0 = 1 * s + 0.5f * bu * s + 0.05f * s, st1 = st0 + 0.09f * s;
-    float half = PUZ_PI / m->n;
-    for (int pass = 0; pass < 2; pass++)        /* the inlays, then the tracks over them */
-        for (int k = 0; k < m->rings; k++) {
-            float cx = m->cx[k], cy = m->cy[k], sx, sy;
-            if (turn) { float t = cx; cx = -cy; cy = t; }
-            sx = x0 + cx * s;
-            sy = y0 + cy * s;
-            float reach = st1 + 2;
-            for (int y = (int)fmaxf(0, sy - reach); y < h && y <= sy + reach; y++)
-                for (int x = (int)fmaxf(0, sx - reach); x < w && x <= sx + reach; x++) {
-                    float dx = x + 0.5f - sx, dy = y + 0.5f - sy, r = sqrtf(dx * dx + dy * dy);
-                    uint8_t *p = o + 4 * ((size_t)y * w + x);
-                    if (pass == 0) {
-                        float cov = clampf(fminf(r - st0, st1 - r) + 0.5f, 0, 1);
-                        if (cov <= 0) continue;
-                        for (int j = 0; j < m->rings; j++) {   /* none where it would run under another ring */
-                            float jx = m->cx[j], jy = m->cy[j];
-                            if (j == k) continue;
-                            if (turn) { float t = jx; jx = -jy; jy = t; }
-                            float e = hypotf(x + 0.5f - (x0 + jx * s), y + 0.5f - (y0 + jy * s)) - (st1 + 0.06f * s);
-                            cov *= clampf(e + 0.5f, 0, 1);
-                        }
-                        if (cov <= 0) continue;
-                        /* the slot: the angle in the ring's own (unturned) frame */
-                        float ux = dx, uy = dy;
-                        if (turn) { ux = dy; uy = -dx; }
-                        float a = atan2f(-uy, ux);
-                        if (a < 0) a += 2 * PUZ_PI;
-                        int i = (int)floorf(a / (2 * half) + 0.5f) % m->n;
-                        float off = fabsf(a - i * 2 * half);
-                        if (off > PUZ_PI) off = 2 * PUZ_PI - off;
-                        {                       /* a place whose inlay runs into another ring: none at all */
-                            float mr = (st0 + st1) / 2 / s, mx = m->cx[k] + mr * cosf(i * 2 * half);
-                            float my = m->cy[k] - mr * sinf(i * 2 * half);
-                            int under = 0;
-                            for (int j = 0; j < m->rings; j++)
-                                if (j != k && hypotf(mx - m->cx[j], my - m->cy[j]) < st1 / s + 0.1f) under = 1;
-                            if (under) continue;
-                        }
-                        float edge = (half - off) * r - 0.06f * s;   /* a fine gap between two places' inlays */
-                        cov *= clampf(edge + 0.5f, 0, 1);
-                        if (cov <= 0) continue;
-                        uint8_t c[3];
-                        colour_rgb(rg_colour(m->target, m->slot[k][i]), c);
-                        float t = (r - st0) / (st1 - st0), lit = 0.86f + 0.3f * (1 - fabsf(t - 0.35f) * 2);
-                        for (int j = 0; j < 3; j++) c[j] = (uint8_t)clampf(c[j] * lit, 0, 255);
-                        pzk_over(p, c, cov);
-                    } else {
-                        float d = fabsf(r - s), cov = clampf(tw - d + 0.5f, 0, 1);
-                        if (cov <= 0) continue;
-                        float t = (r - s) / tw, nx = dx / (r + 1e-3f), ny = dy / (r + 1e-3f);
-                        float up = sqrtf(fmaxf(0, 1 - t * t)), lit = 0.5f + 0.42f * up + 0.34f * t * -(nx + ny) * 0.7071f;
-                        if (fabsf(t) < 0.3f) lit *= 0.8f + 0.2f * fabsf(t) / 0.3f;   /* the groove the beads ride in */
-                        static const uint8_t brass[3] = {204, 160, 78};
-                        uint8_t c[3];
-                        for (int j = 0; j < 3; j++) c[j] = (uint8_t)clampf(brass[j] * lit + 40 * powf(up, 12) * (t < 0), 0, 255);
-                        pzk_over(p, c, cov);
-                    }
-                }
+    double sum[3] = {0, 0, 0};                  /* the wood's mean, and each pixel brought halfway to it */
+    int n = 0;
+    for (int y = fr; y < h - fr; y++)
+        for (int x = fr; x < w - fr; x++, n++)
+            for (int j = 0; j < 3; j++) sum[j] += o[4 * ((size_t)y * w + x) + j];
+    for (int y = fr; y < h - fr && n; y++)
+        for (int x = fr; x < w - fr; x++) {
+            uint8_t *p = o + 4 * ((size_t)y * w + x);
+            for (int j = 0; j < 3; j++) p[j] = (uint8_t)(0.45f * p[j] + 0.55f * (float)(sum[j] / n));
         }
-    /* each place's colour round its seat: a ring of lacquer the bead sits in, a fine dark line on each side */
-    float hr0 = 0.47f * bu * s, hr1 = 0.6f * bu * s;
-    for (int i = 0; i < m->places; i++) {
-        float ux = m->px[i], uy = m->py[i];
-        if (turn) { float t = ux; ux = -uy; uy = t; }
-        float sx = x0 + ux * s, sy = y0 + uy * s;
-        uint8_t c[3];
-        colour_rgb(rg_colour(m->target, i), c);
-        for (int y = (int)fmaxf(0, sy - hr1 - 2); y < h && y <= sy + hr1 + 2; y++)
-            for (int x = (int)fmaxf(0, sx - hr1 - 2); x < w && x <= sx + hr1 + 2; x++) {
+    float tw = fmaxf(1.2f, 0.065f * s);         /* a track's half width */
+    static const uint8_t brass[3] = {190, 152, 86};
+    for (int k = 0; k < m->rings; k++) {
+        float cx = m->cx[k], cy = m->cy[k];
+        if (turn) { float t = cx; cx = -cy; cy = t; }
+        float sx = x0 + cx * s, sy = y0 + cy * s, reach = s + tw + 3;
+        for (int y = (int)fmaxf(0, sy - reach); y < h && y <= sy + reach; y++)
+            for (int x = (int)fmaxf(0, sx - reach); x < w && x <= sx + reach; x++) {
                 float dx = x + 0.5f - sx, dy = y + 0.5f - sy, r = sqrtf(dx * dx + dy * dy);
-                float cov = clampf(fminf(r - hr0, hr1 - r) + 0.5f, 0, 1), line = clampf(1.2f - fabsf(r - hr1), 0, 1);
                 uint8_t *p = o + 4 * ((size_t)y * w + x);
-                if (cov > 0) {
-                    uint8_t l[3];
-                    float k = 0.9f + 0.25f * -(dx + dy) / (r + 1e-3f) * 0.7f;
-                    for (int j = 0; j < 3; j++) l[j] = (uint8_t)clampf(c[j] * k, 0, 255);
-                    pzk_over(p, l, cov);
-                }
-                if (line > 0) pzk_over(p, PUZ_INK, 0.45f * line);
+                float sh = clampf(tw + 1.2f - fabsf(r - s - 0.35f * tw), 0, 1);   /* its soft shadow */
+                if (sh > 0) pzk_over(p, PUZ_INK, 0.12f * sh);
+                float cov = clampf(tw - fabsf(r - s) + 0.5f, 0, 1);
+                if (cov <= 0) continue;
+                float t = (r - s) / tw, nx = dx / (r + 1e-3f), ny = dy / (r + 1e-3f);
+                float lit = 0.84f + 0.12f * sqrtf(fmaxf(0, 1 - t * t)) + 0.1f * t * -(nx + ny) * 0.7071f;
+                uint8_t c[3];
+                for (int j = 0; j < 3; j++) c[j] = (uint8_t)clampf(brass[j] * lit, 0, 255);
+                pzk_over(p, c, cov);
             }
     }
 }
 
-/* a bead's picture and its shadow blended into a thumbnail */
-static void put_bead(uint8_t *o, int w, int h, int colour, float cx, float cy, int d)
+/* a polished bead d x d: its colour lit from the top left, one soft highlight, its edge smooth */
+static void paint_bead(int colour, int d, uint8_t *o)
 {
-    uint8_t *b = malloc((size_t)d * d * 4), rgb[3];
+    uint8_t base[3];
+    colour_rgb(colour, base);
+    const float lx = -0.45f, ly = -0.55f, lz = 0.70f;   /* the light (normalised enough) */
+    float hx = lx, hy = ly, hz = lz + 1, hl = sqrtf(hx * hx + hy * hy + hz * hz);
+    hx /= hl, hy /= hl, hz /= hl;
+    float rr = d / 2.0f;
+    for (int y = 0; y < d; y++)
+        for (int x = 0; x < d; x++) {
+            float u = (x + 0.5f - rr) / rr, v = (y + 0.5f - rr) / rr, q = u * u + v * v;
+            uint8_t *p = o + 4 * ((size_t)y * d + x);
+            float cov = clampf((1 - sqrtf(q)) * rr + 0.5f, 0, 1);
+            if (cov <= 0) { memset(p, 0, 4); continue; }
+            float z = sqrtf(fmaxf(0, 1 - q)), dif = fmaxf(0, u * lx + v * ly + z * lz);
+            float spec = powf(fmaxf(0, u * hx + v * hy + z * hz), 48);
+            float k = 0.5f + 0.6f * dif;
+            for (int j = 0; j < 3; j++) p[j] = (uint8_t)clampf(base[j] * k + 235 * spec * 0.85f, 0, 255);
+            p[3] = (uint8_t)(255 * cov);
+        }
+}
+
+/* a bead's seat: a thin ring the bead sits in (inner 0.47, outer 0.61 of the bead's width), white, its edges soft;
+ * tinted with the place's colour when drawn. edge 1: only a fine line along its outside (in black: an outline) */
+static void paint_seat(int d, int edge, uint8_t *o)
+{
+    float r0 = 0.47f * d, r1 = 0.61f * d, c = 0.61f * d + 1;
+    int s = (int)ceilf(2 * c);
+    for (int y = 0; y < s; y++)
+        for (int x = 0; x < s; x++) {
+            float r = hypotf(x + 0.5f - c, y + 0.5f - c), a;
+            if (edge) a = 0.8f * clampf(1.1f - fabsf(r - r1 + 0.3f), 0, 1);
+            else a = clampf(fminf(r - r0, r1 - r) + 0.5f, 0, 1);
+            uint8_t *p = o + 4 * ((size_t)y * s + x);
+            p[0] = p[1] = p[2] = edge ? 0 : 255;
+            p[3] = (uint8_t)(255 * a);
+        }
+}
+
+static int seat_size(int d) { return (int)ceilf(2 * (0.61f * d + 1)); }
+
+/* a bead (or its seat, seat 1) painted into a thumbnail */
+static void put_bead(uint8_t *o, int w, int h, int colour, float cx, float cy, int d, int seat)
+{
+    if (seat) {
+        int s = seat_size(d);
+        uint8_t *b = malloc((size_t)s * s * 4), rgb[3];
+        if (!b) return;
+        colour_rgb(colour, rgb);
+        paint_seat(d, 0, b);
+        for (int i = 0; i < s * s; i++) memcpy(b + 4 * i, rgb, 3), b[4 * i + 3] = (uint8_t)(b[4 * i + 3] * 0.85f);
+        art_blend(o, w, h, b, s, s, (int)lroundf(cx - s / 2.0f), (int)lroundf(cy - s / 2.0f));
+        free(b);
+        return;
+    }
+    uint8_t *b = malloc((size_t)d * d * 4);
     if (!b) return;
-    colour_rgb(colour, rgb);
-    art_stone(rgb, d, b);
+    paint_bead(colour, d, b);
     art_flat_put(o, w, h, b, d, cx, cy);
     free(b);
 }
@@ -212,24 +212,55 @@ static void paint_map(const rg_map *m, rg_pos p, int size, uint8_t *rgba)
     art_blend(rgba, size, size, b, size, size, 0, 0);
     free(b);
     int d = (int)(bead_unit(m) * s);
-    for (int i = 0; i < m->places && d >= 3; i++)
-        put_bead(rgba, size, size, rg_colour(p, i), ux + m->px[i] * s, uy + m->py[i] * s, d);
+    for (int seat = 1; seat >= 0; seat--)
+        for (int i = 0; i < m->places && d >= 3; i++)
+            put_bead(rgba, size, size, rg_colour(seat ? m->target : p, i), ux + m->px[i] * s, uy + m->py[i] * s, d,
+                     seat);
 }
 
-/* a curved arrow round the button's middle (kind 0: counter-clockwise, 1: clockwise), white */
+/* a turn arrow on a button, white (tinted by the shell): kind = the button's way out from its ring's middle (screen
+ * degrees, y down, 0..359) * 2 + the way it turns (1 clockwise). An arc of about 140 degrees bulging out the way the
+ * ring's rim there goes, an even stroke, a round tail and a filled head along its tangent; the coverage worked out
+ * exactly at each pixel (no blur, any size). As Twist Five's turn arrows. */
+static float seg_side(float px, float py, float ax, float ay, float bx_, float by_)   /* signed, inside > 0 */
+{
+    float ex = bx_ - ax, ey = by_ - ay, l = hypotf(ex, ey);
+    return ((px - ax) * ey - (py - ay) * ex) / (l > 0 ? l : 1);
+}
+
 static void paint_arrow(int kind, int size, uint8_t *o)
 {
-    memset(o, 0, (size_t)size * size * 4);
-    static const uint8_t white[3] = {255, 255, 255};
-    art_fig *f = art_fig_new();
-    float r = 0.24f, end = kind ? -80.0f : 260.0f;          /* (degrees, counter-clockwise, y up) */
-    if (kind) art_arc(f, ART_PART, 0.5f, 0.5f, r - 0.05f, r + 0.05f, -60, 170);
-    else art_arc(f, ART_PART, 0.5f, 0.5f, r - 0.05f, r + 0.05f, 10, 240);
-    float e = end * PUZ_PI / 180, hx = 0.5f + r * cosf(e), hy = 0.5f - r * sinf(e);
-    art_head(f, ART_PART, hx, hy, kind ? -(end - 90) : -(end + 90), 0.26f);
-    art_style st = art_flat(white, white, 0, 0);
-    art_render(f, &st, size, size, (float)size, 0, 0, o);
-    art_fig_free(f);
+    int dir = kind & 1;
+    float s = (float)size, r = 0.3f * s, w = 0.09f * s, d2r = PUZ_PI / 180;
+    float mid = (float)(kind >> 1), sgn = dir ? 1 : -1;
+    /* the circle's middle set back from the bulge, so that the arrow sits in the middle of the disc */
+    float cx = s / 2 - 0.14f * s * cosf(mid * d2r), cy = s / 2 - 0.14f * s * sinf(mid * d2r);
+    float a0 = (mid - sgn * 62) * d2r, a1 = (mid + sgn * 38) * d2r;   /* the head adds about 40 degrees */
+    float tx = cosf(a1 + sgn * PUZ_PI / 2), ty = sinf(a1 + sgn * PUZ_PI / 2);   /* the tangent, the way it turns */
+    float hx = cx + r * cosf(a1), hy = cy + r * sinf(a1), hl = 0.2f * s, hw = 0.13f * s;
+    float bx0 = hx - tx * 0.02f * s, by0 = hy - ty * 0.02f * s;
+    float tipx = bx0 + tx * hl, tipy = by0 + ty * hl;
+    float px1 = bx0 - ty * hw, py1 = by0 + tx * hw, px2 = bx0 + ty * hw, py2 = by0 - tx * hw;
+    float lo = fminf(a0, a1), span = fabsf(a1 - a0);
+    float wind = seg_side(px2, py2, px1, py1, tipx, tipy) >= 0 ? 1 : -1;
+    for (int y = 0; y < size; y++)
+        for (int x = 0; x < size; x++) {
+            float px = x + 0.5f, py = y + 0.5f, dx = px - cx, dy = py - cy, a = atan2f(dy, dx), db;
+            while (a < lo) a += 2 * PUZ_PI;
+            while (a > lo + 2 * PUZ_PI) a -= 2 * PUZ_PI;
+            if (a - lo <= span) db = fabsf(hypotf(dx, dy) - r) - w / 2;   /* the band (round ends) */
+            else {
+                float e0 = hypotf(px - (cx + r * cosf(a0)), py - (cy + r * sinf(a0)));
+                float e1 = hypotf(px - (cx + r * cosf(a1)), py - (cy + r * sinf(a1)));
+                db = fminf(e0, e1) - w / 2;
+            }
+            float s1 = seg_side(px, py, px1, py1, tipx, tipy), s2 = seg_side(px, py, tipx, tipy, px2, py2),
+                  s3 = seg_side(px, py, px2, py2, px1, py1);
+            float dh = -fminf(fminf(s1 * wind, s2 * wind), s3 * wind);
+            uint8_t *p = o + 4 * ((size_t)y * size + x);
+            p[0] = p[1] = p[2] = 255;
+            p[3] = (uint8_t)(255 * clampf(0.5f - fminf(db, dh), 0, 1) + 0.5f);
+        }
 }
 
 static void token(int player, int size, uint8_t *rgba)   /* two beads, ivory and ebony, overlapping */
@@ -237,8 +268,8 @@ static void token(int player, int size, uint8_t *rgba)   /* two beads, ivory and
     (void)player;
     memset(rgba, 0, (size_t)size * size * 4);
     int d = (int)(0.56f * size);
-    put_bead(rgba, size, size, 1, 0.62f * size, 0.6f * size, d);
-    put_bead(rgba, size, size, 0, 0.38f * size, 0.42f * size, d);
+    put_bead(rgba, size, size, 1, 0.62f * size, 0.6f * size, d, 0);
+    put_bead(rgba, size, size, 0, 0.38f * size, 0.42f * size, d, 0);
 }
 
 /* ---- the layout --------------------------------------------------------------------------------------------- */
@@ -273,7 +304,8 @@ static void layout(box b)
     bx = floorf(b.x + (b.w - bw) / 2);
     by = floorf(b.y + (b.h - bh) / 2);
     /* the plank grown to hold the arrows as well (else they straddle its edge), within the room */
-    float px0 = bx, py0 = by, px1 = bx + bw, py1 = by + bh, ar = arrow_d() / 2 + 0.12f * bead;
+    float px0 = bx, py0 = by, px1 = bx + bw, py1 = by + bh;
+    float ar = arrow_d() / 2 + 0.12f * bead + fmaxf(2, 0.09f * S);   /* (clear of the frame too) */
     for (int k = 0; k < m->rings; k++)
         for (int w = 0; w < 2; w++) {
             float ax, ay;
@@ -310,11 +342,16 @@ static void layout(box b)
         int d = (int)bead;
         for (int c = 0; c < RG_COLOURS; c++) {
             ui_free(&t_bead[c]);
-            uint8_t rgb[3];
-            colour_rgb(c, rgb);
-            art_stone(rgb, d, ui_buf(d, d));
+            paint_bead(c, d, ui_buf(d, d));
             t_bead[c] = ui_tex(d, d, ui_buf(d, d));
         }
+        int ss = seat_size(d);
+        ui_free(&t_seat);
+        paint_seat(d, 0, ui_buf(ss, ss));
+        t_seat = ui_tex(ss, ss, ui_buf(ss, ss));
+        ui_free(&t_rim);
+        paint_seat(d, 1, ui_buf(ss, ss));
+        t_rim = ui_tex(ss, ss, ui_buf(ss, ss));
     }
     int small = (int)(0.6f * ui.unit);
     if (made_small != small && small > 3) {
@@ -466,6 +503,25 @@ static void draw(void)
         }
         ui_animate();
     }
+    /* the seats: each place's colour, a thin ring; lit when its bead is home (not while its ring turns) */
+    for (int p = 0; p < m->places; p++) {
+        int moving = 0;
+        if (ring >= 0)
+            for (int i = 0; i < m->n; i++) moving |= m->slot[ring][i] == p;
+        float x, y, ss = (float)seat_size((int)bead);
+        to_screen(m, m->px[p], m->py[p], &x, &y);
+        int c = rg_colour(m->target, p), home = !moving && rg_colour(shown, p) == c;
+        uint8_t rgb[3];
+        colour_rgb(c, rgb);
+        SDL_SetTextureAlphaMod(t_rim, home ? 40 : 70);
+        ui_put_c(t_rim, x, y, ss, ss);
+        for (int j = 0; j < 3; j++) rgb[j] = (uint8_t)(home ? fminf(255, rgb[j] * 0.8f + 70) : rgb[j] * 0.9f);
+        SDL_SetTextureColorMod(t_seat, rgb[0], rgb[1], rgb[2]);
+        SDL_SetTextureAlphaMod(t_seat, home ? 255 : 215);
+        ui_put_c(t_seat, x, y, ss, ss);
+    }
+    SDL_SetTextureColorMod(t_seat, 255, 255, 255);
+    SDL_SetTextureAlphaMod(t_seat, 255);
     /* the beads: those of the turning ring at their slot's angle plus the turn, the others in their places */
     float wt = win.on && (int)(now - win.t0) >= 0 ? (float)(now - win.t0) : -1;
     if (win.on && wt < WIN_MS) ui_animate();
@@ -495,7 +551,10 @@ static void draw(void)
             int how = UI_TINT | (arrow_down == k * 2 + w ? UI_ON : 0);
             if (hint.on && hint.move == k * 2 + w) how |= (now - hint.t0) / 300 % 2 ? UI_LIT : UI_ON;
             if (solved()) how |= UI_DIM;
-            ui_button_paint(x, y, arrow_d(), paint_arrow, w, 0.9f, how);
+            float rx, ry;                       /* the arrow bulges out the way the ring's rim goes there */
+            to_screen(m, m->cx[k], m->cy[k], &rx, &ry);
+            int deg = ((int)lroundf(atan2f(y - ry, x - rx) * 180 / PUZ_PI) + 360) % 360;
+            ui_button_paint(x, y, arrow_d(), paint_arrow, deg * 2 + w, 0.9f, how);
         }
     ui_tool(HINT_TOOL, ICON_HINT, (solved() ? UI_DIM : 0) | (tool_down == HINT_TOOL ? UI_ON : 0));
 }
