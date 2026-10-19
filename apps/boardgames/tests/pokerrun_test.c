@@ -236,6 +236,51 @@ static void test_economy(void)
     pkr_item it = {IT_CHARM, CH_WORRY, 3, 0, {0, 0}};
     S->charm[0].id = CH_HAGGLE, S->ncharms = 1;
     CHECK(pkr_price(S, &it) == 2);
+    /* gilded cards held and the clay pig at the cash-out; a crystal that breaks leaves the deck after the blind */
+    setup("5S 5H 9D KC 2H");
+    S->target = 1;
+    S->deck[idx_of("KC")].enh = EN_GILDED;
+    give(CH_PIG);
+    S->coins = 0;
+    CHECK(pkr_apply(S, PKR_ACT(A_PLAY, 3)) && S->phase == PH_CASH && S->cash_gilded == 3 && S->cash_charms == 4);
+    int broke = 0;
+    for (uint32_t seed = 1; seed < 60 && !broke; seed++) {
+        setup("5S 5H 9D");
+        S->rng = seed;
+        S->target = 1;
+        S->deck[idx_of("5S")].enh = EN_CRYSTAL;
+        pkr_apply(S, PKR_ACT(A_PLAY, 3));
+        if (S->log.broke) {
+            broke = 1;
+            CHECK(S->ndeck == 51 && S->phase == PH_CASH);
+        }
+    }
+    CHECK(broke);
+    /* the toll bridge: a coin a hand; the fog: some cards dealt face down */
+    setup("5S 5H 9D 2C");
+    S->blind = 2, S->boss = BO_TOLL, S->coins = 3;
+    CHECK(pkr_apply(S, PKR_ACT(A_PLAY, 3)) && S->coins == 2 && S->log.coins == -1);
+    pkr_new(&G, 4);
+    S->blind = 2, S->boss = BO_FOG;
+    pkr_apply(S, PKR_ACT(A_BEGIN, 0));
+    int hidden = 0;
+    for (int k = 0; k < 20; k++) {              /* over a few discards, some come face down */
+        for (int i = 0; i < S->nhand; i++) hidden += S->hid[S->hand[i]];
+        if (S->discards_left) pkr_apply(S, PKR_ACT(A_DISCARD, 31));
+        else S->discards_left = 3;
+    }
+    CHECK(hidden > 0);
+    /* a card bundle: the card chosen joins the deck */
+    pkr_new(&G, 5);
+    S->phase = PH_SHOP, S->coins = 50;
+    S->shop[3].kind = IT_PACK, S->shop[3].id = PK_CARD, S->shop[3].price = 4, S->shop[3].sold = 0;
+    CHECK(pkr_apply(S, PKR_ACT(A_BUY, 3)) && S->phase == PH_PACK && S->npack == 4);
+    CHECK(pkr_apply(S, PKR_ACT(A_PICK, 2)) && S->ndeck == 53 && S->phase == PH_SHOP);
+    /* an enhancement: two cards at most */
+    S->shop[0].kind = IT_ENH, S->shop[0].id = EN_PRISM, S->shop[0].price = 3, S->shop[0].sold = 0;
+    CHECK(pkr_apply(S, PKR_ACT(A_BUY, 0)) && S->phase == PH_ENH && S->npick == PKR_PICK);
+    CHECK(!pkr_legal(S, PKR_ACT(A_ENH, 7)) && pkr_apply(S, PKR_ACT(A_ENH, 5)));
+    CHECK(S->deck[S->pick[0]].enh == EN_PRISM && S->deck[S->pick[2]].enh == EN_PRISM);
     /* a lost blind */
     pkr_new(&G, 9);
     pkr_apply(S, PKR_ACT(A_BEGIN, 0));
