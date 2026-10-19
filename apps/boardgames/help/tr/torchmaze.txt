@@ -1,17 +1,17 @@
 Meşale Labirenti
 # Amaç
-Küçük bir fare, elinde yalnızca bir meşaleyle karanlık bir labirentte kayboldu. Dışarı çıkan merdiveni bul: altın ışıltısı karanlığın içinden görünür.
+Elinde meşalesiyle küçük bir fare karanlık bir labirentte kayboldu. Dışarı çıkan merdiveni bul: altın ışıltısı karanlığın içinden görünür.
 # Bir hamle
-Bir koridor boyunca bir sonraki kavşağa yürümek için kaydır; tek bir adım için farenin yanına dokun.
+Bir sonraki kavşağa yürümek için kaydır; tek bir adım için farenin yanına dokun.
 Meşale yalnızca çevresindeki kareleri aydınlatır. Gösterdiği yerler haritanda tebeşirle çizili kalır.
 - Bir anahtar kendi rengindeki kapıları açar.
 - Bir basınç plakası kapalı parmaklıkları açar, açık olanları kapatır.
-- Tek yönlü bir kapıdan yalnızca ok yönünde geçilir.
-- Üzerine bastığın bir mangal yanmaya devam eder ve labirentin kendi bölümünü aydınlatır.
+- Tek yönlü bir kapı yalnızca ok yönünde açılır.
+- Üzerine bastığın bir mangal yanmaya devam eder.
 - Bazı labirentlerde meşale yürüdükçe tükenir; bir yağ şişesi onu yeniden doldurur. Sönerse geri al.
-- Son labirentlerde tebeşir haritası bir süre sonra solar.
-Geri al adımlarını geri alır, haritanı asla.
+- Son labirentlerde tebeşir haritası solar.
+Geri al adımları geri alır, haritayı asla.
 # Oyunun sonu
 Fare merdivene ulaşınca bulmaca çözülür.
 # Seviyeler ve yıldızlar
-Bayrağın gösterdiğinden fazla adım atmadan: 3 yıldız; en fazla yarısı kadar fazla adımla: 2 yıldız; yoksa 1. Bir ipucuyla en fazla 2 yıldız; üç veya daha fazlasıyla 1.
+Bayrağın gösterdiğinden fazla adım atmadan: 3 yıldız; en fazla yarısı kadar fazlasıyla: 2 yıldız; yoksa 1. Bir ipucuyla en fazla 2 yıldız; üç ipucuyla 1.

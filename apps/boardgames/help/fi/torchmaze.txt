@@ -1,17 +1,17 @@
 Soihtulabyrintti
 # Tavoite
-Pieni hiiri on eksynyt pimeään labyrinttiin pelkän soihdun kanssa. Löydä portaat ulos: niiden kultainen hehku näkyy pimeän läpi.
+Pieni hiiri on eksynyt soihtu kädessään pimeään labyrinttiin. Löydä portaat ulos: niiden kultainen hehku näkyy pimeän läpi.
 # Siirto
-Pyyhkäise kulkeaksesi käytävää pitkin seuraavaan risteykseen; napauta hiiren viereen ottaaksesi yhden askeleen.
-Soihtu valaisee vain ympäröivät ruudut. Se, minkä se on näyttänyt, jää liidulla piirretyksi karttaasi.
+Pyyhkäise kulkeaksesi seuraavaan risteykseen; napauta hiiren viereen ottaaksesi yhden askeleen.
+Soihtu valaisee vain ympäröivät ruudut. Se, minkä se näyttää, jää liidulla karttaasi.
 - Avain avaa oman värisensä ovet.
 - Painelaatta avaa suljetut ristikot ja sulkee avoimet.
-- Yksisuuntaisesta ovesta pääsee vain nuolen suuntaan.
-- Tulipata, jonka päälle astut, jää palamaan ja valaisee oman osansa labyrinttia.
+- Yksisuuntainen ovi aukeaa vain nuolen suuntaan.
+- Tulipata, jonka päälle astut, jää palamaan.
 - Joissakin labyrinteissa soihtu palaa loppuun kävellessä; öljypullo täyttää sen. Jos se sammuu, peru.
-- Viimeisissä labyrinteissa liitukartta haalistuu hetken päästä.
-Peruminen ottaa askeleesi takaisin, ei koskaan karttaasi.
+- Viimeisissä labyrinteissa liitukartta haalistuu.
+Peruminen ottaa askeleet takaisin, ei koskaan karttaa.
 # Pelin loppu
 Pulma on ratkaistu, kun hiiri pääsee portaille.
 # Tasot ja tähdet
-Enintään lipun näyttämä määrä askelia: 3 tähteä; enintään puolitoista kertaa niin monella askeleella: 2 tähteä; muuten 1. Vihjeen kanssa enintään 2 tähteä; kolmen tai useamman kanssa 1.
+Enintään lipun näyttämä määrä askelia: 3 tähteä; enintään puolitoista kertaa niin monta: 2 tähteä; muuten 1. Vihjeen kanssa enintään 2 tähteä; kolmen kanssa 1.

@@ -1,17 +1,17 @@
 Torch Maze
 # The aim
-A little mouse is lost in a dark maze with only a torch. Find the stairs out: their golden glow shows through the dark.
+A little mouse with a torch is lost in a dark maze. Find the stairs out: their golden glow shows through the dark.
 # A move
-Swipe to walk along a corridor to the next turning; tap beside the mouse to take a single step.
-The torch lights only the cells around it. What it has shown stays drawn on your map in chalk.
+Swipe to walk to the next turning; tap beside the mouse for a single step.
+The torch lights only the cells around it. What it shows stays on your map in chalk.
 - A key opens the doors of its colour.
 - A pressure plate opens the closed gates and closes the open ones.
-- A one-way door lets you through in the arrow's direction only.
-- A brazier you step on stays lit and lights its part of the maze.
-- In some mazes the torch burns down as you walk; an oil flask fills it again. If it goes out, undo.
-- In the last mazes the chalk map fades after a while.
-Undo takes back your steps, never your map.
+- A one-way door opens only in the arrow's direction.
+- A brazier you step on stays lit.
+- In some mazes the torch burns down as you walk; an oil flask refills it. If it goes out, undo.
+- In the last mazes the chalk map fades.
+Undo takes back steps, never the map.
 # The end of the game
 The puzzle is solved when the mouse reaches the stairs.
 # Levels and stars
-In no more steps than the flag shows: 3 stars; with up to half as many steps again: 2 stars; otherwise 1. With a hint, 2 stars at most; with three or more, 1.
+In no more steps than the flag shows: 3 stars; up to half as many again: 2 stars; otherwise 1. With a hint, 2 stars at most; with three, 1.

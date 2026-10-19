@@ -1,17 +1,17 @@
 Fackellabyrinten
 # Målet
-En liten mus har gått vilse i en mörk labyrint med bara en fackla. Hitta trappan ut: dess gyllene sken syns genom mörkret.
+En liten mus med en fackla har gått vilse i en mörk labyrint. Hitta trappan ut: dess gyllene sken syns genom mörkret.
 # Ett drag
-Svep för att gå längs en gång till nästa korsning; tryck bredvid musen för att ta ett enda steg.
-Facklan lyser bara upp rutorna runt den. Det den har visat blir kvar som en kritteckning på din karta.
+Svep för att gå till nästa korsning; tryck bredvid musen för att ta ett enda steg.
+Facklan lyser bara upp rutorna runt den. Det den visar blir kvar som en kritteckning på din karta.
 - En nyckel öppnar dörrarna i sin färg.
 - En tryckplatta öppnar de stängda gallren och stänger de öppna.
-- En enkelriktad dörr släpper bara igenom dig i pilens riktning.
-- En fyrfat som du kliver på fortsätter att brinna och lyser upp sin del av labyrinten.
+- En enkelriktad dörr öppnas bara i pilens riktning.
+- En fyrfat som du kliver på fortsätter att brinna.
 - I vissa labyrinter brinner facklan ner medan du går; en oljeflaska fyller den igen. Slocknar den, ångra.
-- I de sista labyrinterna bleknar kritkartan efter en stund.
-Ångra tar tillbaka dina steg, aldrig din karta.
+- I de sista labyrinterna bleknar kritkartan.
+Ångra tar tillbaka steg, aldrig kartan.
 # Partiets slut
 Pusslet är löst när musen når trappan.
 # Banor och stjärnor
-Högst så många steg som flaggan visar: 3 stjärnor; med upp till hälften fler steg: 2 stjärnor; annars 1. Med en ledtråd högst 2 stjärnor; med tre eller fler 1.
+Högst så många steg som flaggan visar: 3 stjärnor; upp till hälften fler: 2 stjärnor; annars 1. Med en ledtråd högst 2 stjärnor; med tre 1.

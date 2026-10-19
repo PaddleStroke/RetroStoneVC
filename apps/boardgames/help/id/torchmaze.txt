@@ -1,17 +1,17 @@
 Labirin Obor
 # Tujuan
-Seekor tikus kecil tersesat di labirin gelap hanya dengan sebuah obor. Temukan tangga keluar: cahaya emasnya terlihat menembus gelap.
+Seekor tikus kecil yang membawa obor tersesat di labirin gelap. Temukan tangga keluar: cahaya emasnya terlihat menembus gelap.
 # Satu langkah
-Usap untuk berjalan menyusuri lorong sampai persimpangan berikutnya; ketuk di samping tikus untuk melangkah satu kali.
-Obor hanya menerangi kotak di sekitarnya. Apa yang sudah diperlihatkannya tetap tergambar dengan kapur di petamu.
+Usap untuk berjalan sampai persimpangan berikutnya; ketuk di samping tikus untuk melangkah satu kali.
+Obor hanya menerangi kotak di sekitarnya. Apa yang diperlihatkannya tetap tergambar dengan kapur di petamu.
 - Kunci membuka pintu yang sewarna dengannya.
 - Pelat tekan membuka jeruji yang tertutup dan menutup yang terbuka.
-- Pintu satu arah hanya bisa dilewati searah panah.
-- Anglo yang kau injak tetap menyala dan menerangi bagian labirinnya.
+- Pintu satu arah hanya terbuka searah panah.
+- Anglo yang kau injak tetap menyala.
 - Di beberapa labirin obor makin habis saat kau berjalan; sebotol minyak mengisinya lagi. Jika padam, batalkan langkah.
-- Di labirin terakhir peta kapur memudar setelah beberapa saat.
-Batalkan mengambil kembali langkahmu, tidak pernah petamu.
+- Di labirin terakhir peta kapur memudar.
+Batalkan mengambil kembali langkah, tidak pernah peta.
 # Akhir permainan
 Teka-teki selesai saat tikus mencapai tangga.
 # Level dan bintang
-Tidak lebih dari jumlah langkah pada bendera: 3 bintang; dengan langkah paling banyak satu setengah kalinya: 2 bintang; selain itu 1. Dengan petunjuk paling banyak 2 bintang; dengan tiga atau lebih, 1.
+Tidak lebih dari jumlah langkah pada bendera: 3 bintang; paling banyak satu setengah kalinya: 2 bintang; selain itu 1. Dengan petunjuk paling banyak 2 bintang; dengan tiga, 1.

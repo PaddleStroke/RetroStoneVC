@@ -1,17 +1,17 @@
 Labirynt z pochodnią
 # Cel gry
-Mała myszka zgubiła się w ciemnym labiryncie, mając tylko pochodnię. Znajdź schody do wyjścia: ich złotą poświatę widać w ciemności.
+Mała myszka z pochodnią zgubiła się w ciemnym labiryncie. Znajdź schody do wyjścia: ich złotą poświatę widać w ciemności.
 # Ruch
-Przesuń palcem, by przejść korytarzem do następnego rozwidlenia; stuknij obok myszki, by zrobić jeden krok.
-Pochodnia oświetla tylko pola wokół siebie. To, co pokazała, zostaje narysowane kredą na twojej mapie.
+Przesuń palcem, by dojść do następnego rozwidlenia; stuknij obok myszki, by zrobić jeden krok.
+Pochodnia oświetla tylko pola wokół siebie. To, co pokaże, zostaje narysowane kredą na twojej mapie.
 - Klucz otwiera drzwi swojego koloru.
 - Płyta naciskowa otwiera zamknięte kraty i zamyka otwarte.
-- Przez drzwi jednokierunkowe przejdziesz tylko w kierunku strzałki.
-- Kosz z ogniem, na który wejdziesz, płonie dalej i oświetla swoją część labiryntu.
-- W niektórych labiryntach pochodnia wypala się z każdym krokiem; butelka oliwy znów ją napełnia. Gdy zgaśnie, cofnij ruch.
-- W ostatnich labiryntach kredowa mapa po chwili blednie.
-Cofnięcie zabiera twoje kroki, nigdy twoją mapę.
+- Drzwi jednokierunkowe otwierają się tylko w kierunku strzałki.
+- Kosz z ogniem, na który wejdziesz, płonie dalej.
+- W niektórych labiryntach pochodnia wypala się podczas marszu; butelka oliwy znów ją napełnia. Gdy zgaśnie, cofnij ruch.
+- W ostatnich labiryntach kredowa mapa blednie.
+Cofnięcie zabiera kroki, nigdy mapę.
 # Koniec gry
 Zagadka jest rozwiązana, gdy myszka dojdzie do schodów.
 # Poziomy i gwiazdki
-Najwyżej tyle kroków, ile pokazuje chorągiewka: 3 gwiazdki; najwyżej o połowę więcej kroków: 2 gwiazdki; inaczej 1. Z podpowiedzią najwyżej 2 gwiazdki; z trzema lub więcej 1.
+Najwyżej tyle kroków, ile pokazuje chorągiewka: 3 gwiazdki; najwyżej o połowę więcej: 2 gwiazdki; inaczej 1. Z podpowiedzią najwyżej 2 gwiazdki; z trzema 1.

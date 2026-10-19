@@ -1,17 +1,17 @@
 Fackel-Labyrinth
 # Das Ziel
-Eine kleine Maus hat sich mit nur einer Fackel in einem dunklen Labyrinth verirrt. Finde die Treppe nach draußen: Ihr goldener Schein dringt durch die Dunkelheit.
+Eine kleine Maus mit einer Fackel hat sich in einem dunklen Labyrinth verirrt. Finde die Treppe nach draußen: Ihr goldener Schein dringt durch die Dunkelheit.
 # Ein Zug
-Wische, um einen Gang entlang bis zur nächsten Abzweigung zu gehen; tippe neben die Maus für einen einzelnen Schritt.
-Die Fackel erhellt nur die Felder um sie herum. Was sie gezeigt hat, bleibt mit Kreide auf deiner Karte.
+Wische, um bis zur nächsten Abzweigung zu gehen; tippe neben die Maus für einen einzelnen Schritt.
+Die Fackel erhellt nur die Felder um sie herum. Was sie zeigt, bleibt mit Kreide auf deiner Karte.
 - Ein Schlüssel öffnet die Türen seiner Farbe.
 - Eine Druckplatte öffnet die geschlossenen Gitter und schließt die offenen.
-- Eine Einwegtür lässt dich nur in Pfeilrichtung hindurch.
-- Ein Feuerbecken, auf das du trittst, brennt weiter und erhellt seinen Teil des Labyrinths.
-- In manchen Labyrinthen brennt die Fackel mit jedem Schritt herunter; eine Ölflasche füllt sie wieder. Erlischt sie, mache Züge rückgängig.
-- In den letzten Labyrinthen verblasst die Kreidekarte nach einer Weile.
-Rückgängig nimmt deine Schritte zurück, nie deine Karte.
+- Eine Einwegtür öffnet sich nur in Pfeilrichtung.
+- Ein Feuerbecken, auf das du trittst, brennt weiter.
+- In manchen Labyrinthen brennt die Fackel beim Gehen herunter; eine Ölflasche füllt sie wieder. Erlischt sie, mache Züge rückgängig.
+- In den letzten Labyrinthen verblasst die Kreidekarte.
+Rückgängig nimmt Schritte zurück, nie die Karte.
 # Das Ende der Partie
 Das Rätsel ist gelöst, wenn die Maus die Treppe erreicht.
 # Level und Sterne
-Höchstens so viele Schritte, wie die Fahne zeigt: 3 Sterne; mit bis zu halb so vielen Schritten mehr: 2 Sterne; sonst 1. Mit einem Tipp höchstens 2 Sterne; mit drei oder mehr 1.
+Höchstens so viele Schritte, wie die Fahne zeigt: 3 Sterne; bis zu halb so viele mehr: 2 Sterne; sonst 1. Mit einem Tipp höchstens 2 Sterne; mit drei 1.

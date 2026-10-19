@@ -1,17 +1,17 @@
 Labyrinthe à la torche
 # Le but
-Une petite souris est perdue dans un labyrinthe obscur, avec une simple torche. Trouve l'escalier de sortie : sa lueur dorée perce l'obscurité.
+Une petite souris et sa torche sont perdues dans un labyrinthe obscur. Trouve l'escalier de sortie : sa lueur dorée perce l'obscurité.
 # Un coup
-Glisse le doigt pour avancer le long d'un couloir jusqu'au prochain embranchement ; touche à côté de la souris pour faire un seul pas.
-La torche n'éclaire que les cases autour d'elle. Ce qu'elle a montré reste dessiné à la craie sur ta carte.
+Glisse pour aller au prochain embranchement ; touche à côté de la souris pour un seul pas.
+La torche n'éclaire que les cases autour d'elle. Ce qu'elle montre reste à la craie sur ta carte.
 - Une clé ouvre les portes de sa couleur.
 - Une plaque de pression ouvre les grilles fermées et ferme les grilles ouvertes.
-- Une porte à sens unique ne se franchit que dans le sens de la flèche.
-- Un brasero sur lequel tu passes reste allumé et éclaire sa partie du labyrinthe.
-- Dans certains labyrinthes, la torche s'use à chaque pas ; une fiole d'huile la remplit. Si elle s'éteint, annule.
-- Dans les derniers labyrinthes, la carte à la craie s'efface au bout d'un moment.
+- Une porte à sens unique ne s'ouvre que dans le sens de la flèche.
+- Un brasero sur lequel tu passes reste allumé.
+- Dans certains labyrinthes, la torche s'use en marchant ; une fiole d'huile la remplit. Éteinte, annule.
+- Dans les derniers labyrinthes, la carte à la craie s'efface.
 Annuler reprend tes pas, jamais ta carte.
 # La fin de la partie
-Le puzzle est résolu quand la souris atteint l'escalier.
+Résolu quand la souris atteint l'escalier.
 # Niveaux et étoiles
-Sans dépasser le nombre du drapeau : 3 étoiles ; jusqu'à moitié plus de pas : 2 étoiles ; sinon 1. Avec un indice, 2 étoiles au plus ; avec trois ou plus, 1.
+Sans dépasser le nombre du drapeau : 3 étoiles ; jusqu'à moitié plus de pas : 2 étoiles ; sinon 1. Avec un indice, 2 étoiles au plus ; trois, 1.

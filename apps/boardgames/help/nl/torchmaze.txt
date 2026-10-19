@@ -1,17 +1,17 @@
 Fakkeldoolhof
 # Het doel
-Een muisje is met alleen een fakkel verdwaald in een donker doolhof. Vind de trap naar buiten: de gouden gloed ervan schijnt door het donker.
+Een muisje met een fakkel is verdwaald in een donker doolhof. Vind de trap naar buiten: de gouden gloed ervan schijnt door het donker.
 # Een zet
-Veeg om door een gang tot de volgende splitsing te lopen; tik naast de muis voor één stap.
-De fakkel verlicht alleen de vakjes eromheen. Wat hij heeft laten zien, blijft met krijt op je kaart staan.
+Veeg om tot de volgende splitsing te lopen; tik naast de muis voor één stap.
+De fakkel verlicht alleen de vakjes eromheen. Wat hij laat zien, blijft met krijt op je kaart staan.
 - Een sleutel opent de deuren van zijn kleur.
 - Een drukplaat opent de dichte hekken en sluit de open hekken.
-- Door een deur met één richting kun je alleen in de richting van de pijl.
-- Een vuurkorf waar je op stapt, blijft branden en verlicht zijn deel van het doolhof.
+- Een deur met één richting gaat alleen open in de richting van de pijl.
+- Een vuurkorf waar je op stapt, blijft branden.
 - In sommige doolhoven brandt de fakkel op terwijl je loopt; een oliefles vult hem weer. Gaat hij uit, maak dan zetten ongedaan.
-- In de laatste doolhoven vervaagt de krijtkaart na een tijdje.
-Ongedaan maken neemt je stappen terug, nooit je kaart.
+- In de laatste doolhoven vervaagt de krijtkaart.
+Ongedaan maken neemt stappen terug, nooit de kaart.
 # Het einde van het spel
 De puzzel is opgelost als de muis de trap bereikt.
 # Levels en sterren
-Niet meer stappen dan het vlaggetje aangeeft: 3 sterren; met tot de helft meer stappen: 2 sterren; anders 1. Met een hint hoogstens 2 sterren; met drie of meer 1.
+Niet meer stappen dan het vlaggetje aangeeft: 3 sterren; tot de helft meer: 2 sterren; anders 1. Met een hint hoogstens 2 sterren; met drie 1.

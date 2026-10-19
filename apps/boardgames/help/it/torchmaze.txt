@@ -1,17 +1,17 @@
 Labirinto della torcia
 # Lo scopo
-Un topolino si è perso in un labirinto buio con una sola torcia. Trova la scala d'uscita: il suo bagliore dorato si vede attraverso il buio.
+Un topolino con una torcia si è perso in un labirinto buio. Trova la scala d'uscita: il suo bagliore dorato si vede attraverso il buio.
 # Una mossa
-Scorri per percorrere un corridoio fino al prossimo incrocio; tocca accanto al topo per fare un solo passo.
-La torcia illumina solo le caselle intorno a sé. Ciò che ha mostrato resta disegnato col gesso sulla tua mappa.
+Scorri per camminare fino al prossimo incrocio; tocca accanto al topo per fare un solo passo.
+La torcia illumina solo le caselle intorno a sé. Ciò che mostra resta disegnato col gesso sulla tua mappa.
 - Una chiave apre le porte del suo colore.
 - Una piastra a pressione apre le grate chiuse e chiude quelle aperte.
-- Una porta a senso unico si attraversa solo nella direzione della freccia.
-- Un braciere su cui passi resta acceso e illumina la sua parte del labirinto.
+- Una porta a senso unico si apre solo nella direzione della freccia.
+- Un braciere su cui passi resta acceso.
 - In alcuni labirinti la torcia si consuma camminando; una fiaschetta d'olio la riempie. Se si spegne, annulla.
-- Negli ultimi labirinti la mappa di gesso svanisce dopo un po'.
-Annulla riprende i tuoi passi, mai la tua mappa.
+- Negli ultimi labirinti la mappa di gesso svanisce.
+Annulla riprende i passi, mai la mappa.
 # La fine della partita
 Il rompicapo è risolto quando il topo raggiunge la scala.
 # Livelli e stelle
-Entro il numero della bandierina: 3 stelle; con fino a metà passi in più: 2 stelle; altrimenti 1. Con un aiuto, al massimo 2 stelle; con tre o più, 1.
+Entro il numero della bandierina: 3 stelle; con fino a metà passi in più: 2 stelle; altrimenti 1. Con un aiuto, al massimo 2 stelle; con tre, 1.

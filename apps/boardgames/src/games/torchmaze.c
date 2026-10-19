@@ -37,13 +37,14 @@
 #define WIN_MS 1200
 #define HINT_MS 3200
 #define BRAZ_R 3.2f
-#define SUB 9                                   /* a cell's light patch: SUB x SUB vertices */
+#define SUB 11                                  /* a cell's light patch: SUB x SUB vertices */
 
 static const uint8_t DARK[3] = {13, 11, 10}, CHALK[3] = {236, 230, 212}, GOLD[3] = {246, 202, 92},
                      BRASS[3] = {214, 170, 84}, IRON[3] = {58, 56, 60}, WOOD[3] = {120, 78, 44},
                      WOOD_DARK[3] = {70, 44, 26};
 static const int KEYCOL[TMZ_COLOURS] = {2, 3, 5};   /* red lacquer, jade, lapis */
-static const float VU[SUB] = {0, WT - 0.01f, WT + 0.01f, 0.36f, 0.5f, 0.64f, 1 - WT - 0.01f, 1 - WT + 0.01f, 1};
+static const float VU[SUB] = {0, WT - 0.01f, WT + 0.01f, 0.25f, 0.375f, 0.5f, 0.625f, 0.75f, 1 - WT - 0.01f,
+                              1 - WT + 0.01f, 1};
 
 static tmz_game G;
 static int serial, theme, down = -1;
@@ -59,7 +60,7 @@ static box last_box;
 static float ox, oy, cell, fr;                  /* the maze's picture's top left on the screen, a cell, the frame */
 static int scroll, made_cell = -1, made_serial = -1, made_small = -1;
 static box fbox;                                /* the frame's box on the screen */
-static SDL_Texture *t_lit, *t_chalk, *t_frame, *t_mouse, *t_stick, *t_key[TMZ_COLOURS], *t_ckey, *t_door[TMZ_COLOURS],
+static SDL_Texture *t_lit, *t_chalk, *t_dark, *t_frame, *t_mouse, *t_stick, *t_key[TMZ_COLOURS], *t_ckey, *t_door[TMZ_COLOURS],
                    *t_oneway, *t_gate, *t_plate, *t_oil, *t_coil, *t_braz, *t_par, *t_drop;
 
 static SDL_Vertex *vbuf;
@@ -237,7 +238,7 @@ static void paint_chalk(const tmz_map *m, float c, int W, int H, uint8_t *o)
     for (int y = 0; y < m->h; y++)              /* the lines: the edges of the walls' mask, thin */
         for (int x = 0; x < m->w; x++) {
             int k = x + y * m->w;
-            float px = x * c, py = y * c, t = 0.035f * c;
+            float px = x * c, py = y * c, t = fmaxf(0.7f, 0.024f * c);
             if (!m->in[k]) continue;
             if (x == 0 || !m->in[k - 1]) mask_box(mk, W, H, px - t, py - t, px + t, py + c + t, 1.2f);
             if (y == 0 || !m->in[k - m->w]) mask_box(mk, W, H, px - t, py - t, px + c + t, py + t, 1.2f);
@@ -246,9 +247,9 @@ static void paint_chalk(const tmz_map *m, float c, int W, int H, uint8_t *o)
         }
     for (int i = 0; i < W * H; i++) {
         int x = i % W, y = i / W, cx = x / (int)c, cy = y / (int)c;
-        float a = mk[i] * (0.62f + 0.38f * (art_noise(x * 3, y * 3) + 0.5f));
-        if (cx < m->w && cy < m->h && !m->in[cx + cy * m->w] && ((x + y) % (int)fmaxf(4, 0.16f * c)) < 1.3f)
-            a = fmaxf(a, 0.28f);                /* rock: hatched */
+        float a = mk[i] * (0.7f + 0.3f * (art_noise(x * 3, y * 3) + 0.5f));
+        if (cx < m->w && cy < m->h && m->in[cx + cy * m->w])   /* the floor: a faint wash of chalk */
+            a = fmaxf(a, 0.07f + 0.03f * vnoise(x, y, 0.3f * c));
         pzk_over(o + 4 * (size_t)i, CHALK, a);
     }
     free(mk);
@@ -478,12 +479,32 @@ static SDL_Texture *sprite(int S, void (*paint)(uint8_t *, int))
     return ui_tex(S, S, o);
 }
 
+/* the unexplored dark: deep stone, mottled like ink on slate (big soft clouds, finer ones, a grain), darker near
+ * the edges (the frame's shadow) */
+static void paint_ink(uint8_t *o, int W, int H, float c)
+{
+    static const float INK[3] = {26, 22, 21};
+    for (int y = 0; y < H; y++)
+        for (int x = 0; x < W; x++) {
+            uint8_t *p = o + 4 * ((size_t)y * W + x);
+            float d = fminf(fminf((float)x, (float)(W - x)), fminf((float)y, (float)(H - y)));
+            float k = 1 - 0.5f * clampf(1 - d / (0.5f * c), 0, 1);
+            float t = 1 + 0.26f * vnoise(x, y, 1.3f * c) + 0.16f * vnoise(x + 977, y + 331, 0.35f * c) +
+                      0.07f * art_noise(x, y);
+            for (int i = 0; i < 3; i++) p[i] = (uint8_t)clampf(INK[i] * k * t, 0, 255);
+            p[3] = 255;
+        }
+}
+
 /* ---- layout ------------------------------------------------------------------------------------------------- */
 static void make_maze_pictures(void)
 {
     int W = (int)(G.m.w * cell), H = (int)(G.m.h * cell);
     uint8_t *o = malloc((size_t)W * H * 4);
     if (!o) return;
+    paint_ink(o, W, H, cell);
+    ui_free(&t_dark);
+    t_dark = ui_tex(W, H, o);
     paint_lit(&G.m, cell, W, H, o, theme);
     ui_free(&t_lit);
     t_lit = ui_tex(W, H, o);
@@ -504,9 +525,7 @@ static void make_frame(void)
     for (int y = f; y < H - f; y++)
         for (int x = f; x < W - f; x++) {
             uint8_t *p = o + 4 * ((size_t)y * W + x);
-            float d = fminf(fminf((float)(x - f), (float)(W - f - x)), fminf((float)(y - f), (float)(H - f - y)));
-            float k = 1 - 0.5f * clampf(1 - d / (0.5f * cell), 0, 1);   /* the frame's shadow inside */
-            for (int i = 0; i < 3; i++) p[i] = (uint8_t)clampf(DARK[i] * k * (1 + 0.15f * art_noise(x, y)), 0, 255);
+            for (int i = 0; i < 3; i++) p[i] = DARK[i];
         }
     ui_free(&t_frame);
     t_frame = ui_tex(W, H, o);
@@ -805,16 +824,77 @@ static void braziers_now(Uint32 now)
     }
 }
 
+/* the light is a small disc, not a point: how much of it a point sees (rays from NS points of it), so the shadows
+ * have soft edges, wider the farther they fall; drawn through a fine mesh, they come out clean */
+#define NS 7
+static const float SOX[NS] = {0, 0.2f, 0.1f, -0.1f, -0.2f, -0.1f, 0.1f},
+                   SOY[NS] = {0, 0, 0.173f, 0.173f, 0, -0.173f, -0.173f};
+
+static float soft_vis(const tmz_state *s, float lx, float ly, float px, float py)
+{
+    int v = 0;
+    for (int i = 0; i < NS; i++) v += tmz_ray(&G.m, s, lx + SOX[i], ly + SOY[i], px, py, TOL);
+    return v / (float)NS;
+}
+
 static float light_at(const tmz_state *s, float px, float py)
 {
     float l = 0, d = hypotf(px - tx, py - ty);
-    if (trad > 0 && d < trad + 0.9f && tmz_ray(&G.m, s, tx, ty, px, py, TOL)) l = fall(d, trad);
+    if (trad > 0 && d < trad + 0.9f) l = fall(d, trad) * soft_vis(s, tx, ty, px, py);
     for (int i = 0; i < nlit && l < 1; i++) {
         int c = lit_cell[i];
         float bx = c % G.m.w + 0.5f, by = c / G.m.w + 0.5f, db = hypotf(px - bx, py - by);
-        if (db < lit_r[i] + 0.9f && tmz_ray(&G.m, s, bx, by, px, py, TOL)) l = fmaxf(l, 0.9f * fall(db, lit_r[i]));
+        if (db < lit_r[i] + 0.9f) l = fmaxf(l, 0.9f * fall(db, lit_r[i]) * soft_vis(s, bx, by, px, py));
     }
     return fminf(l, 1);
+}
+
+/* the visibility at the mesh's vertices, kept while the lights and the doors stay as they are: the torch's (one per
+ * vertex) and the braziers' (each one's) */
+static float vis_t[TMZ_CELLS][SUB * SUB], vis_b[TMZ_BRAZIERS][TMZ_CELLS][SUB * SUB];
+static uint32_t stamp_t[TMZ_CELLS], stamp_b[TMZ_BRAZIERS][TMZ_CELLS], now_t = 1, now_b = 1;
+
+static void vis_keys(const tmz_state *s)
+{
+    static float kx = -1, ky = -1;
+    static int kk = -1, ks = -1, kl = -1;
+    int doors = s->keys | s->gates << 4;
+    if (tx != kx || ty != ky || doors != kk || serial != ks) { now_t++; kx = tx; ky = ty; }
+    if (doors != kk || serial != ks || G.lit != kl) now_b++;
+    kk = doors;
+    ks = serial;
+    kl = G.lit;
+}
+
+static const float *cell_vis_t(const tmz_state *s, int k)
+{
+    if (stamp_t[k] != now_t) {
+        int x = k % G.m.w, y = k / G.m.w;
+        for (int j = 0; j < SUB; j++)
+            for (int i = 0; i < SUB; i++) {
+                float px = x + VU[i], py = y + VU[j];
+                vis_t[k][j * SUB + i] = hypotf(px - tx, py - ty) < trad / flick * 1.06f + 0.9f
+                                            ? soft_vis(s, tx, ty, px, py) : 0;
+            }
+        stamp_t[k] = now_t;
+    }
+    return vis_t[k];
+}
+
+static const float *cell_vis_b(const tmz_state *s, int b, int k)
+{
+    if (stamp_b[b][k] != now_b) {
+        int x = k % G.m.w, y = k / G.m.w, c = lit_cell[b];
+        float bx = c % G.m.w + 0.5f, by = c / G.m.w + 0.5f;
+        for (int j = 0; j < SUB; j++)
+            for (int i = 0; i < SUB; i++) {
+                float px = x + VU[i], py = y + VU[j];
+                vis_b[b][k][j * SUB + i] = hypotf(px - bx, py - by) < BRAZ_R * 1.06f + 0.9f
+                                               ? soft_vis(s, bx, by, px, py) : 0;
+            }
+        stamp_b[b][k] = now_b;
+    }
+    return vis_b[b][k];
 }
 
 /* the cells lit now: a light patch each (SUB x SUB vertices, the light at each), the lit maze drawn through them */
@@ -823,22 +903,32 @@ static void draw_lit(const tmz_state *s)
     if (!vbuf || !ibuf || !t_lit) return;
     int nv = 0, ni = 0, W = G.m.w, H = G.m.h;
     static uint8_t near[TMZ_CELLS];
-    memset(near, 0, sizeof near);
+    vis_keys(s);
     for (int y = 0; y < H; y++)
         for (int x = 0; x < W; x++) {
             float d = hypotf(x + 0.5f - tx, y + 0.5f - ty);
             int on = trad > 0 && d < trad + 1.6f;
-            for (int i = 0; i < nlit && !on; i++)
-                if (hypotf(x - lit_cell[i] % W, y - lit_cell[i] / W) < lit_r[i] + 1.6f) on = 1;
+            for (int i = 0; i < nlit; i++)
+                if (hypotf(x - lit_cell[i] % W, y - lit_cell[i] / W) < lit_r[i] + 1.6f) on |= 2 << i;
             near[x + y * W] = (uint8_t)on;
         }
     for (int k = 0; k < W * H; k++) {
         if (!near[k]) continue;
         int x = k % W, y = k / W, base = nv;
+        const float *vt = near[k] & 1 ? cell_vis_t(s, k) : NULL;
         float any = 0;
         for (int j = 0; j < SUB; j++)
             for (int i = 0; i < SUB; i++) {
-                float px = x + VU[i], py = y + VU[j], l = light_at(s, px, py);
+                float px = x + VU[i], py = y + VU[j], l = 0;
+                if (vt && vt[j * SUB + i] > 0) l = fall(hypotf(px - tx, py - ty), trad) * vt[j * SUB + i];
+                for (int b = 0; b < nlit && l < 1; b++) {
+                    if (!(near[k] >> (b + 1) & 1)) continue;
+                    float v = cell_vis_b(s, b, k)[j * SUB + i];
+                    if (v <= 0) continue;
+                    int c = lit_cell[b];
+                    l = fmaxf(l, 0.9f * v * fall(hypotf(px - (c % W + 0.5f), py - (c / W + 0.5f)), lit_r[b]));
+                }
+                l = fminf(l, 1);
                 any += l;
                 Uint8 a = (Uint8)clampf(255 * l, 0, 255);
                 float warm = 0.62f + 0.38f * l;
@@ -1098,10 +1188,12 @@ static void draw_mouse(Uint32 now)
     put_flip(t_stick, hx, hy - 0.12f * s * scale, 0.7f * s * scale, 0.7f * s * scale, sway + side * 12, 0, shade, al);
     put_flip(t_mouse, cx, cy - lift, s * scale, s * scale, tilt, flip, shade, al);
     float a = (sway + side * 12) * PUZ_PI / 180, top = 0.7f * s * scale * 0.32f;
-    float fx = hx - 0.12f * s * scale * 0 + sinf(a) * (top + 0.14f * s * scale), fy = hy - 0.12f * s * scale - cosf(a) * (top + 0.04f * s * scale);
+    float fx = hx + sinf(a) * (top + 0.14f * s * scale),
+          fy = hy - 0.12f * s * scale - cosf(a) * (top + 0.04f * s * scale);
     if (!torch_out && alpha > 0.05f) {
         float lean = walking ? -0.25f * ((face == TMZ_RIGHT) - (face == TMZ_LEFT)) : 0;
-        draw_flame(fx, fy + 0.04f * cell, 0.6f * cell * scale * (0.7f + 0.3f * trad / fmaxf(1, G.m.radius / 10.0f)),
+        float fh = fmaxf(0.6f * cell, 0.55f * ui.unit) * scale * (0.7f + 0.3f * trad / fmaxf(1, G.m.radius / 10.0f));
+        draw_flame(fx, fy + 0.04f * cell, fh,
                    lean, (float)now, 0);
         pzk_dot(fx, fy - 0.1f * cell, 1.3f * cell, 0.6f * cell, (pzk_rgba){255, 170, 70, (Uint8)(70 * alpha)}, 1);
     } else if (torch_out) {
@@ -1132,6 +1224,9 @@ static void draw(void)
     tx = mx + (face == TMZ_LEFT ? -0.12f : 0.12f);
     ty = my - 0.12f;
     if (t_frame) ui_put(t_frame, fbox.x, fbox.y, fbox.w, fbox.h);
+    SDL_Rect clip0 = {(int)(fbox.x + fr), (int)(fbox.y + fr), (int)(fbox.w - 2 * fr), (int)(fbox.h - 2 * fr)};
+    SDL_RenderSetClipRect(ui.r, &clip0);
+    if (t_dark) ui_put(t_dark, ox, oy, G.m.w * cell, G.m.h * cell);
     SDL_Rect clip = {(int)(fbox.x + fr), (int)(fbox.y + fr), (int)(fbox.w - 2 * fr), (int)(fbox.h - 2 * fr)};
     SDL_RenderSetClipRect(ui.r, &clip);
     draw_chalk(now);

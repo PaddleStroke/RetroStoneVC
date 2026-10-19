@@ -1,17 +1,17 @@
 Laberinto de la antorcha
 # El objetivo
-Un ratoncito se ha perdido en un laberinto oscuro con solo una antorcha. Encuentra la escalera de salida: su brillo dorado se ve a través de la oscuridad.
+Un ratoncito con antorcha se ha perdido en un laberinto oscuro. Encuentra la escalera de salida: su brillo dorado se ve a través de la oscuridad.
 # Una jugada
-Desliza el dedo para recorrer un pasillo hasta el siguiente cruce; toca junto al ratón para dar un solo paso.
-La antorcha solo ilumina las casillas que la rodean. Lo que ha mostrado queda dibujado con tiza en tu mapa.
+Desliza el dedo para andar hasta el siguiente cruce; toca junto al ratón para un solo paso.
+La antorcha solo ilumina las casillas que la rodean. Lo que muestra queda con tiza en tu mapa.
 - Una llave abre las puertas de su color.
 - Una placa de presión abre las rejas cerradas y cierra las abiertas.
-- Una puerta de un solo sentido solo se cruza en la dirección de la flecha.
-- Un brasero que pisas queda encendido e ilumina su parte del laberinto.
-- En algunos laberintos la antorcha se consume al andar; un frasco de aceite la vuelve a llenar. Si se apaga, deshaz.
-- En los últimos laberintos el mapa de tiza se borra al cabo de un rato.
-Deshacer retira tus pasos, nunca tu mapa.
+- Una puerta de sentido único solo se abre hacia la flecha.
+- Un brasero que pisas queda encendido.
+- En algunos laberintos la antorcha se consume al andar; un frasco de aceite la rellena. Si se apaga, deshaz.
+- En los últimos laberintos el mapa de tiza se borra.
+Deshacer retira pasos, nunca el mapa.
 # El final de la partida
-El puzle está resuelto cuando el ratón llega a la escalera.
+El puzle se resuelve cuando el ratón llega a la escalera.
 # Niveles y estrellas
-Sin pasar del número de la bandera: 3 estrellas; con hasta la mitad más de pasos: 2 estrellas; si no, 1. Con una pista, 2 estrellas como mucho; con tres o más, 1.
+Sin pasar del número de la bandera: 3 estrellas; hasta la mitad más: 2 estrellas; si no, 1. Con una pista, 2 estrellas como mucho; con tres, 1.
