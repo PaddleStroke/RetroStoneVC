@@ -381,6 +381,12 @@ void world_start_level(world *w, int level, const chunk *defs, int ndefs)
             if (ok) e->y = y * SUB;
             else e->type = ET_ICEBAT;
         }
+        if (e->type == ET_BAT || e->type == ET_ICEBAT) {     /* bats hang under the rock above, else hover */
+            int y = e->y / SUB, ok = 0;
+            for (; y > py - 48; y--) if (solid_px(w, px, y - EN_INFO[e->type].hh - 1)) { ok = 1; break; }
+            if (ok) e->y = y * SUB;
+            else e->st = 2;
+        }
         e->home_y = (int16_t)(e->y / SUB);
     }
     if (w->boss_level) {
@@ -806,7 +812,8 @@ static void enemies_step(world *w)
             break;
         }
         case B_FLY:
-            if (e->st == 0) {                       /* asleep, hanging: wakes when the puffin comes near */
+            if (e->st != 1) {                       /* asleep, hanging (0) or hovering (2): wakes when the puffin comes near */
+                if (e->st == 2) e->y = (e->home_y + SINE16[(e->t / 4) & 15] / 3) * SUB;
                 if (iabs(hx - ex) < 96 && hy > ey - 120 && hy < ey + 60) { e->st = 1; e->t = 0; }
                 break;
             }

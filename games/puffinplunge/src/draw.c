@@ -461,6 +461,17 @@ static int en_frame(const enemy *e, int *w16)
     return SPR_SNAIL;
 }
 
+/* the side rooms' signs: a gem (a shop) or a heart (a gift) bobbing over each open door */
+static void draw_doors(const world *w)
+{
+    for (int d = 0; d < w->ndoors; d++) {
+        int r = w->door_row[d], c = w->door_col[d];
+        if (w->cell[r][c] != C_DOOR) continue;
+        int x = sx(c * CELL + 4) + (c ? -6 : 6) + hu_shake_x(), y = sy(r * CELL - 8) + hu_bob(tick + d * 17, 48, 2) + hu_shake_y();
+        spr(w->door_kind[d] ? SPR_HEART : SPR_BIGGEM, x, y, 2, 0);
+    }
+}
+
 static void draw_enemies(const world *w)
 {
     int shx = hu_shake_x(), shy = hu_shake_y();
@@ -665,7 +676,7 @@ static void draw_hud(const world *w, int narrow, int gems_only)
 /* the offers' rows: the name, the line two rows under it (its accents free), the price on the name's row or, upright
  * when it does not fit, two rows under the line; landscape: the gems on row 9, upright: the HUD's counter */
 #define SHOP_ROW(n, i) ((n) ? 9 + 6 * (i) : 12 + 5 * (i))
-#define SHOP_GO      27
+#define SHOP_GO(n, k) ((k) >= 3 ? 27 : SHOP_ROW(n, k) + 1)   /* the last line (k offers) */
 static void shop_box(int narrow, int *x, int *w)
 {
     *w = narrow ? (ht_ncols() - 2 < 28 ? ht_ncols() - 2 : 28) : 30;   /* (upright: room for the cursor on both sides) */
@@ -705,7 +716,7 @@ static void shop_panel(const world *w, const view *v, int narrow)
     shop_box(narrow, &x, &wd);
     if (narrow) ht_banner(3, shop_title(v->shop_kind));
     else hu_banner(2, shop_title(v->shop_kind));
-    int last = SHOP_GO;
+    int last = SHOP_GO(narrow, w->n_offers);
     hu_panel(x, 7, wd, last - 7 + 2);
     if (!narrow) {
         rs_strf(s, sizeof s, TR(GEMS_N), w->gems);
@@ -733,7 +744,7 @@ static void shop_sprites(const world *w, const view *v, int narrow, int pdy)
         spr(SPR_I_HEART + w->offers[i].up, l.icon_x + ux, l.icon_y + pdy, 3, 0);
         if (l.gem) spr(SPR_GEM, (l.px - 1) * 8 + ux - 1, l.prow * 8 + pdy, 3, 0);
     }
-    int sel = v->shop_sel, r = sel < w->n_offers ? SHOP_ROW(narrow, sel) : SHOP_GO, b = (tick / 8) & 1;
+    int sel = v->shop_sel, r = sel < w->n_offers ? SHOP_ROW(narrow, sel) : SHOP_GO(narrow, w->n_offers), b = (tick / 8) & 1;
     int y = r * 8 + pdy + (sel < w->n_offers ? 4 : 0);
     spr(SPR_CURSOR + b, x * 8 + ux - 7, y, 3, 0);
     spr(SPR_CURSOR + b, (x + wd) * 8 + ux - 1, y, 3, RS_SPR_HFLIP);
@@ -899,6 +910,7 @@ void draw_frame(const world *w, const view *v)
     draw_hero(w, hx, hy, 0);
     draw_shots(w);
     draw_enemies(w);
+    draw_doors(w);
     draw_gems(w);
     if (hurt_t) rs_brightness(hurt_t > 8 ? 12 : 15);
 }

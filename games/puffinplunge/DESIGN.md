@@ -61,11 +61,11 @@ A level piles up 9 + its number of chunks of 10 x 12 cells (16 px), picked among
 some shared), maybe mirrored, between a landing ledge and the bottom's floor. Critter letters bring one 58% of the time
 on level 1-1, 3% more each level (92% at most); the critters go 5% faster each level. Side rooms: a door in a wall on a
 ledge (70% of the `D` letters, at most one a chunk, four a level), a little shop (2 offers, 20% cheaper) or a gift (one
-of two free). Every chunk is checked passable from every column of its top (tests/test_world.c).
+of two free), a gem or a heart bobbing over its door; push into the door from the ledge to go in. Every chunk is checked passable from every column of its top (tests/test_world.c).
 
 | Zone | Levels | Critters | Look |
 |---|---|---|---|
-| 1 the crystal grotto | 1-1 .. 1-3 | snails (walk the ledges), bats (wake and flutter at the puffin), crystal urchins (spiky) | violet rock, crystal shards, cyan glints |
+| 1 the crystal grotto | 1-1 .. 1-3 | snails (walk the ledges), bats (hang under the rock or hover; wake and flutter at the puffin), crystal urchins (spiky) | violet rock, crystal shards, cyan glints |
 | 2 the coral trench | 2-1 .. 2-3 | crabs (fast), fish (swim across), jellyfish (sting, bob), pufferfish (soft, spiky when puffed), sea urchins | blue rock, pink coral |
 | 3 the mushroom cave | 3-1 .. 3-3 | beetles (3 hits), moths (weaving), puffcaps (shoot spores up), jellyfish, thorny burrs | brown rock, moss, glowing mushrooms |
 | 4 the frozen deep | 4-1 .. 4-3 | woolly grubs, ice bats (fast), icicles (drop when the puffin passes under), frost wisps (drift through the rock to it), ice spikes | icy rock, snow, frozen fish |

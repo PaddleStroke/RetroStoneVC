@@ -112,7 +112,6 @@ typedef struct enemy {
 /* ---- gems ------------------------------------------------------------------------------------------------------------------ */
 typedef struct gem { int32_t x, y; int16_t vx, vy; uint8_t big, alive, rest; uint8_t t; } gem;
 #define MAX_GEM      72
-#define GEM_LIFE     (SEC * 12)     /* a gem left behind fades out */
 
 /* ---- upgrades: the shops sell them ------------------------------------------------------------------------------------------ */
 enum {

@@ -17,6 +17,7 @@
  *   god=1          no damage (tests);  frail=1  one heart;  hurtat=N  the dive lost at the level's frame N (tests)
  *   gems=N         gems in the purse;  weapon=N (0..3), passives=N (bits)
  *   shop=1         the level's shop at once;  room=N  a side room's (1 shop, 2 gift) at once
+ *   door=1         the puffin starts by the first side room's door (with level=N: a level that has one)
  *   fakerun=1      a dive under way at level 2-1 (in memory);  best=N  a best score (in memory)
  *   touch=1        the hint for touch screens;  dump=1  log the final state at exit;  music=0, sound=0
  */
@@ -47,7 +48,7 @@ static int nchunks;
 static world W;
 static int st, st_t, paused, title_sel, shop_sel, shop_kind, menu_lock, new_best, dead_t, end_t, card_t, runs_done;
 static int opt_bot, opt_botlevels, opt_god, opt_music, opt_sound, opt_seed_fixed, opt_frail, opt_touch, opt_level;
-static int opt_gems, opt_weapon, opt_passives, opt_hurtat, levels_done, first_run;
+static int opt_gems, opt_weapon, opt_passives, opt_hurtat, opt_door, levels_done, first_run;
 static uint32_t opt_seed, bot_st;
 static int music_cur = -1, gem_chain, gem_chain_t, snd_gap[SFX_COUNT];
 static uint32_t state_hash = 2166136261u;
@@ -212,6 +213,14 @@ static void enter_level(int level)
     go(ST_PLAY);
     rs_log("level %d-%d starts at frame %u: %d chunks, %d critters, %d side rooms", zone_of(level) + 1,
            level % LEVELS_PER_ZONE + 1, rs_frame_count(), W.nchunks, W.n_en, W.ndoors);
+    for (int d = 0; d < W.ndoors; d++)
+        rs_log("side room %d: row %d, the %s wall, %s", d + 1, W.door_row[d], W.door_col[d] ? "right" : "left",
+               W.door_kind[d] ? "a gift" : "a shop");
+    if (opt_door && W.ndoors) {                         /* (tests) the puffin on the first side room's ledge */
+        W.h.x = (W.door_col[0] ? SHAFT_W - CELL - 8 : CELL + 8) * SUB;
+        W.h.y = (W.door_row[0] + 1) * CELL * SUB;
+        opt_door = 0;
+    }
 }
 
 static void start_run(int resume)
@@ -497,6 +506,7 @@ static void game_init(void)
     if (opt_level < 0 || opt_level >= LEVELS) opt_level = 0;
     opt_gems = rs_option_int("gems", 0);
     opt_hurtat = rs_option_int("hurtat", 0);
+    opt_door = rs_option_int("door", 0);
     opt_weapon = rs_option_int("weapon", 0);
     opt_passives = rs_option_int("passives", 0);
     opt_seed_fixed = rs_option("seed") != NULL;
@@ -549,7 +559,7 @@ static void game_state(void)
 {
     S(W); S(st); S(st_t); S(paused); S(title_sel); S(shop_sel); S(shop_kind); S(menu_lock); S(new_best); S(dead_t);
     S(end_t); S(card_t); S(runs_done); S(opt_bot); S(opt_botlevels); S(opt_god); S(opt_music); S(opt_sound);
-    S(opt_seed_fixed); S(opt_frail); S(opt_touch); S(opt_level); S(opt_gems); S(opt_weapon); S(opt_passives); S(opt_hurtat);
+    S(opt_seed_fixed); S(opt_frail); S(opt_touch); S(opt_level); S(opt_gems); S(opt_weapon); S(opt_passives); S(opt_hurtat); S(opt_door);
     S(levels_done); S(first_run); S(opt_seed); S(bot_st); S(music_cur); S(gem_chain); S(gem_chain_t); S(snd_gap);
     S(state_hash); S(PV);
     draw_state();

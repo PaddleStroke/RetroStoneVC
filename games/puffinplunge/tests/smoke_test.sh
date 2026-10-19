@@ -40,6 +40,9 @@ check "the shop: A buys an upgrade, then DIVE ON goes to level 1-2" "upgrade [0-
 printf "20 tap A\n" > "$T/poor.input"
 out=$(run --frames 60 --opt ready=1 --opt seed=3 --opt shop=1 --opt gems=5 --input "$T/poor.input")
 check "... too few gems: nothing bought" "state: st=3 .*gems=5 " "$out"
+printf "30 RIGHT\n" > "$T/door.input"
+out=$(run --frames 90 --opt ready=1 --opt seed=7 --opt level=4 --opt door=1 --input "$T/door.input")
+check "a side room: pushing into its door from the ledge opens it (a gift)" "side room 1: row [0-9]*, the right wall, a gift.*state: st=3 " "$(echo $out)"
 printf "20 tap A\n40 tap A\n" > "$T/gift.input"
 out=$(run --frames 80 --opt ready=1 --opt seed=3 --opt room=2 --input "$T/gift.input")
 check "a side room's gift: A takes one free, then back in the shaft" "upgrade [0-9]* bought.*state: st=1 .*gems=0 " "$(echo $out)"
