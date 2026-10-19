@@ -260,6 +260,7 @@ static void layout(box b)
             *cars[i] = ui_tex(cw, ch, ui_buf(cw, ch));
         }
     }
+    ui_board_used(bx, by, S, S);
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
         made_small = small;

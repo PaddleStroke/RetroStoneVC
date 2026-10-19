@@ -437,6 +437,7 @@ static void layout(box b)
         }
         plan_wave();
     }
+    ui_board_used(ox - fr, oy - fr, (float)bw, (float)bh);
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
         made_small = small;

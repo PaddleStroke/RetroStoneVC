@@ -195,6 +195,7 @@ static void layout(box b)
             free(src);
         }
     }
+    ui_grid_used(&grid, fc);
     int small = (int)(0.6f * ui.unit);
     if (made_small != small && small > 3) {
         made_small = small;                     /* the bar's par: the shell's flag, cream */

@@ -285,6 +285,7 @@ static void layout(box b)
             *sq[i] = tex_of(s, s, paint_sq, i);
         }
     }
+    ui_board_used(bx, by, bw, bh);
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
         made_small = small;

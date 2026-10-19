@@ -212,6 +212,7 @@ static void layout(box b)
         art_piece(PAWN, WHITE, k, ui_buf(k, k));
         t_keeper = ui_tex(k, k, ui_buf(k, k));
     }
+    ui_grid_used(&grid, 0.15f);
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
         made_small = small;

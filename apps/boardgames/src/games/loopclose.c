@@ -235,6 +235,7 @@ static void layout(box b)
         fill_key = -1;
     }
     made_serial = serial;
+    ui_board_used(bx0 - f, by0 - f, w * q + 2 * f, h * q + 2 * f);
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
         made_small = small;

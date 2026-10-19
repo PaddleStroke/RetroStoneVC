@@ -227,6 +227,7 @@ static void layout(box b)
         paint_ball(bs, ui_buf(bs, bs));
         t_ball = ui_tex(bs, bs, ui_buf(bs, bs));
     }
+    ui_grid_used(&grid, FRAME);
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
         made_small = small;

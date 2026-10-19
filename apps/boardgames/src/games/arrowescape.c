@@ -309,6 +309,7 @@ static void layout(box b)
         t_shadow[0][0] = shadow_tex(s, s, 1, (float)s);
     }
     made_serial = serial;
+    ui_board_used(bx0 - f, by0 - f, w * q + 2 * f, h * q + 2 * f);
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
         made_small = small;
