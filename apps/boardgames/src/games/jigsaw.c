@@ -1004,7 +1004,9 @@ static int level_stars(void) { return ui_logic_stars(G.hints, jig_slow(&G, (int)
 static void bar(int player, box b)              /* the pieces still to place */
 {
     (void)player;
+    if (t_bar && ui_ink_dark()) SDL_SetTextureColorMod(t_bar, 48, 43, 35);   /* cream: inked on a light bar */
     ui_bar_number(b, t_bar, G.n - G.s.placed);
+    if (t_bar) SDL_SetTextureColorMod(t_bar, 255, 255, 255);
 }
 
 /* ---- the pictures for the shell ---------------------------------------------------------------------------------- */
