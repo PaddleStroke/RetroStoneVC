@@ -151,6 +151,7 @@ static void layout(box b)
         paint_glass(g, 0, ui_buf(g, g));
         t_dark = ui_tex(g, g, ui_buf(g, g));
     }
+    ui_board_used(gx, gy, gw, gw);
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
         made_small = small;

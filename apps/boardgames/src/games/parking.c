@@ -328,6 +328,7 @@ static void layout(box b)
             free(pic);
         }
     }
+    ui_board_used(bx, by, (float)W, (float)W);
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
         made_small = small;

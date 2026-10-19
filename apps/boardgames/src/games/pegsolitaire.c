@@ -323,6 +323,7 @@ static void layout(box b)
             t_tray = ui_tex(t, t, ui_buf(t, t));
         }
     }
+    ui_board_used(bx, by, (float)w, (float)w);
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
         made_small = small;

@@ -119,6 +119,7 @@ static void layout(box b)
         paint_pin(ui_buf(s, s), s);
         t_pin = ui_tex(s, s, ui_buf(s, s));
     }
+    ui_board_used(bx, by, bw, bh);
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
         made_small = small;

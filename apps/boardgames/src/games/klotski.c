@@ -130,6 +130,7 @@ static void layout(box b)
             t_piece[k] = ui_tex(pw, ph, ui_buf(pw, ph));
         }
     }
+    ui_board_used(bx, by, (float)(4 * q + 2 * fr), (float)(5 * q + 2 * fr));
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
         made_small = small;

@@ -173,6 +173,7 @@ static void layout(box b)
             t_dot[c] = ui_tex(d, d, ui_buf(d, d));
         }
     }
+    ui_board_used(bx, by, S, S);
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
         made_small = small;

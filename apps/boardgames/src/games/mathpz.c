@@ -246,6 +246,7 @@ static void layout(box b)
     units(best_cols, best_side, &uw, &uh);
     pw = floorf(uw * T), ph = floorf(uh * T);
     px = floorf(b.x + (b.w - pw) / 2), py = floorf(b.y + (b.h - ph) / 2);
+    ui_board_used(px, py, pw, ph);
     int rows = (G.n + best_cols - 1) / best_cols;
     float tw = best_cols + (best_cols - 1) * GAP, th = PLQ + GAP + rows + (rows - 1) * GAP;
     float rw = NPZ_OPS * OPD + (NPZ_OPS - 1) * OPG;

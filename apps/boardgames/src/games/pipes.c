@@ -265,6 +265,7 @@ static void layout(box b)
         ui_free(&t_basin);
         t_basin = water_disc(RBI * cs);
     }
+    ui_board_used(bx, by, S, S);
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
         made_small = small;

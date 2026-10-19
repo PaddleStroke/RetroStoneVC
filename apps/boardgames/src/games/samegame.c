@@ -174,6 +174,7 @@ static void layout(box b)
         paint_plaque(pw, ph, ui_buf(pw, ph));
         t_plaque = ui_tex(pw, ph, ui_buf(pw, ph));
     }
+    ui_board_used(bx, by, bw, bh);
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
         made_small = small;
