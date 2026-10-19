@@ -50,6 +50,9 @@ static box room, banner, view;                  /* the game's room; the prompt's
 static float fit;                               /* pixels a grid unit, the whole map shown */
 static float zoom = 1, cx, cy;                  /* the view: zoom (1: the whole map), its middle (grid units) */
 static float tzoom = 1, tcx, tcy;               /* where it is going */
+static float ezoom = 1, ecx, ecy;               /* where it was as it set off, at view_t: the view at any time is a
+                                                 * function of ui_ms() since (not of the frames drawn meanwhile: a
+                                                 * game played again draws fewer) */
 static Uint32 view_t;
 static float zmax = 8, zmin = 1;                /* zmin: the map covers the window (its edges never show) */
 static float hx, hy, hz = 1;                    /* the level's own view: its places framed */
@@ -103,18 +106,31 @@ static void view_set(float x, float y, float z)   /* at once (a finger) */
 {
     z = clampf(z, zmin, zmax);
     clamp_view(&x, &y, z);
-    cx = tcx = x;
-    cy = tcy = y;
-    zoom = tzoom = z;
+    cx = tcx = ecx = x;
+    cy = tcy = ecy = y;
+    zoom = tzoom = ezoom = z;
+}
+
+static void view_at(Uint32 now)                 /* the ease at `now`: there, eased from (ecx, ecy, ezoom) */
+{
+    Sint32 dt = (Sint32)(now - view_t);
+    float k = dt <= 0 ? 1 : dt > 4000 ? 0 : expf(-(float)dt / 70.0f);
+    zoom = clampf(tzoom + (ezoom - tzoom) * k, zmin, zmax);
+    cx = tcx + (ecx - tcx) * k;
+    cy = tcy + (ecy - tcy) * k;
+    clamp_view(&cx, &cy, zoom);
 }
 
 static void view_go(float x, float y, float z)    /* eased there (a button, a key) */
 {
+    Uint32 now = ui_ms();
+    if (zoom != tzoom || cx != tcx || cy != tcy) view_at(now);   /* (on the way: it sets off from where it is now) */
+    ezoom = zoom, ecx = cx, ecy = cy;
     tzoom = clampf(z, zmin, zmax);
     tcx = x;
     tcy = y;
     clamp_view(&tcx, &tcy, tzoom);
-    view_t = ui_ms();
+    view_t = now;
     ui_animate();
 }
 
@@ -131,19 +147,12 @@ static void zoom_at(float sx, float sy, float k, int eased)
 
 static void view_step(void)
 {
+    if (zoom == tzoom && cx == tcx && cy == tcy) return;
+    view_at(ui_ms());
     if (fabsf(zoom - tzoom) < 1e-3f && fabsf(cx - tcx) < 0.05f && fabsf(cy - tcy) < 0.05f) {
-        zoom = tzoom, cx = tcx, cy = tcy;
+        zoom = ezoom = tzoom, cx = ecx = tcx, cy = ecy = tcy;
         return;
     }
-    Uint32 now = ui_ms();
-    float dt = (float)(now - view_t);
-    view_t = now;
-    float k = 1 - expf(-dt / 70.0f);
-    if (dt <= 0) k = 0.25f;
-    zoom += (tzoom - zoom) * k;
-    cx += (tcx - cx) * k;
-    cy += (tcy - cy) * k;
-    clamp_view(&cx, &cy, zoom);
     ui_animate();
 }
 
