@@ -1,12 +1,12 @@
 /*
  * Clear the Arrows' rules: an arrow leaves when every square from its head straight to the edge is free, its body
  * needing no room (it follows the head's path); it bumps the first arrow in its way (a mistake) when not; undo; boards
- * as text both ways (winding bodies, a body never on its own way out, no square shared); every level: read back as
- * written, its arrows apart and each on the board, cleared by the test's own search (any order of free arrows, tile by
- * tile), not all free at the start, every arrow leaving at some point, its shape symmetric, past chapter 1 at most 15%
- * of its arrows straight or single squares, the chapters' lengths, no two levels alike; the boards made at random
- * (cleared, the same from the same seed, the time they take); whole games from a seed (random taps, hints, undo back
- * to the start).
+ * as text both ways (winding bodies, a neck right behind its head, a body never on its own way out, no square
+ * shared); every level: read back as written, its arrows apart and each on the board, every head pointing the way
+ * its body travels, cleared by the test's own search (any order of free arrows, arrow by arrow), not all free at the
+ * start, every arrow leaving at some point, its shape symmetric, past chapter 1 at most 15% of its arrows straight or
+ * single squares, the chapters' lengths, no two levels alike; the boards made at random (the same checks, the same
+ * from the same seed, the time they take); whole games from a seed (random taps, hints, undo back to the start).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <stdio.h>
@@ -90,6 +90,14 @@ static int own_clears(const arx_map *m, uint32_t seed)
     return 1;
 }
 
+/* every arrow's head points the way its body travels: its neck right behind it */
+static int necks_behind(const arx_map *m)
+{
+    for (int i = 0; i < m->n; i++)
+        if (m->p[i].len > 1 && m->p[i].step[0] != ((m->p[i].dir + 2) & 3)) return 0;
+    return 1;
+}
+
 static int symmetric_shape(const arx_map *m)
 {
     int a = 1, b = 1;
@@ -128,14 +136,15 @@ int main(void)
     CHECK(arx_tap(&g, 0, &b) == ARX_BUMP && b == 1 && g.mistakes == 1 && g.left == 2 && g.moves == 1);
     CHECK(arx_rounds(&g.m, NULL) == -1);         /* face to face: never */
     /* a snake blocked by another's body; cleared in the right order; undo */
-    CHECK(arx_parse(&g.m, ".D.|LrU|..."));
+    CHECK(!arx_parse(&g.m, ".D.|LrU|..."));   /* (a neck at the side: no) */
+    CHECK(arx_parse(&g.m, ".D.|L.U|.ru"));
     arx_begin(&g);
     CHECK(g.m.n == 3);
     int dn = g.at[1], lf = g.at[3], up = g.at[5];
-    CHECK(g.m.p[up].len == 2 && arx_free(&g, up) && !arx_free(&g, dn) && arx_free(&g, lf));
+    CHECK(g.m.p[up].len == 3 && arx_free(&g, up) && !arx_free(&g, dn) && arx_free(&g, lf));
     CHECK(arx_tap(&g, dn, NULL) == ARX_BUMP);  /* D runs into the body of the arrow below it */
-    CHECK(arx_tap(&g, up, NULL) == ARX_GONE && arx_free(&g, dn) && g.at[4] == ARX_NONE);
-    CHECK(arx_undo(&g) && g.at[4] == up && g.left == 3 && g.mistakes == 1);
+    CHECK(arx_tap(&g, up, NULL) == ARX_GONE && arx_free(&g, dn) && g.at[7] == ARX_NONE);
+    CHECK(arx_undo(&g) && g.at[7] == up && g.left == 3 && g.mistakes == 1);
     CHECK(arx_script(&g, "=") && arx_solved(&g) && !arx_script(&g, "b2"));
     CHECK(arx_rounds(&g.m, NULL) == 2);
 
@@ -148,7 +157,7 @@ int main(void)
         CHECK(!strcmp(text, arx_levels[lv]));
         own o;
         own_from(&g.m, &o);
-        CHECK(!o.overlap && !o.off);
+        CHECK(!o.overlap && !o.off && necks_behind(&g.m));
         int f0, rounds = arx_rounds(&g.m, &f0);
         CHECK(rounds >= 2 && f0 < g.m.n);
         CHECK(own_clears(&g.m, (uint32_t)lv + 1) && own_clears(&g.m, (uint32_t)lv + 1000));
@@ -186,7 +195,7 @@ int main(void)
             if (rounds > hi) hi = rounds;
             own o;
             own_from(&g.m, &o);
-            CHECK(rounds >= 3 && f0 * 2 <= g.m.n && own_clears(&g.m, seed) && !o.overlap && !o.off);
+            CHECK(rounds >= 3 && f0 * 2 <= g.m.n && own_clears(&g.m, seed) && !o.overlap && !o.off && necks_behind(&g.m));
             arx_random(&t, v, seed);
             CHECK(!memcmp(&t.m, &g.m, sizeof g.m));
         }

@@ -88,6 +88,7 @@ int arx_parse(arx_map *m, const char *text)
                         found = k;
                 }
                 if (found < 0) break;
+                if (p->len == 1 && found != ((d + 2) & 3)) return 0;   /* a neck not behind its head */
                 cx += ARX_DX[found];
                 cy += ARX_DY[found];
                 if (on_way(xx, y, d, cx, cy)) return 0;   /* its body on its own way out */
@@ -331,6 +332,7 @@ static void grow_from(growth *g, int x, int y, int last, int sense, int run)
         int nx = x + ARX_DX[d], ny = y + ARX_DY[d];
         if (!empty_cell(k, nx, ny) || g->mine[nx + ny * k->m->w] || on_way(g->cur.x, g->cur.y, g->cur.dir, nx, ny))
             continue;
+        if (g->cur.len == 1 && d != ((g->cur.dir + 2) & 3)) continue;   /* the neck straight behind the head */
         int s = pr_below(g->r, 100);
         if (d != last) {
             s += run >= 2 ? g->turn : g->turn / 3;   /* (a bend after a straight run: S, U, L more than zigzags) */
@@ -419,6 +421,7 @@ static int extend(maker *k, int i, int c)
     arx_piece *p = &m->p[i];
     int cells[ARX_MAXLEN], n = arx_cells(m, i, cells), x = c % m->w, y = c / m->w;
     if (n >= ARX_MAXLEN || on_way(p->x, p->y, p->dir, x, y)) return 0;
+    if (n == 1 && (x != p->x - ARX_DX[(int)p->dir] || y != p->y - ARX_DY[(int)p->dir])) return 0;   /* a neck: behind */
     int tx = cells[n - 1] % m->w, ty = cells[n - 1] / m->w, d = -1;
     for (int e = 0; e < 4; e++)
         if (tx + ARX_DX[e] == x && ty + ARX_DY[e] == y) d = e;

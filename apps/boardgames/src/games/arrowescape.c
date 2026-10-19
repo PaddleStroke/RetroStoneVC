@@ -105,36 +105,25 @@ static void track_at(const track *t, float s, float *px, float *py)
 }
 
 /* ---- pictures ---------------------------------------------------------------------------------------------------- */
-/* a polygon (n points) painted in rgb at alpha a over the picture, its edges smoothed */
-static void poly(uint8_t *o, int W, int H, const float *xy, int n, const uint8_t rgb[3], float a)
-{
-    float x0 = 1e9f, y0 = 1e9f, x1 = -1e9f, y1 = -1e9f;
-    for (int i = 0; i < n; i++) {
-        x0 = fminf(x0, xy[2 * i]);
-        x1 = fmaxf(x1, xy[2 * i]);
-        y0 = fminf(y0, xy[2 * i + 1]);
-        y1 = fmaxf(y1, xy[2 * i + 1]);
-    }
-    for (int y = (int)fmaxf(0, floorf(y0)); y < H && y <= (int)y1; y++)
-        for (int x = (int)fmaxf(0, floorf(x0)); x < W && x <= (int)x1; x++) {
-            float c = pzt_cover(xy, n, (float)x, (float)y);
-            if (c > 0) pzk_over(o + 4 * ((size_t)y * W + x), rgb, a * c);
-        }
-}
-
-/* the arrowhead pointing right in the unit square, centred on its head's middle: tip, the two barbs, the notch */
-static const float HEAD_XY[8] = {0.94f, 0.5f, 0.22f, 0.08f, 0.36f, 0.5f, 0.22f, 0.92f};
+/* the arrowhead pointing right in the unit square, centred on its head square's middle: its tip a little inside the
+ * square's edge, its base across the square behind the middle, as wide as 1.7 ribbons; the ribbon ends under its
+ * base (NECK before the head square's middle) */
+static const float HEAD_XY[6] = {0.92f, 0.5f, 0.36f, 0.14f, 0.36f, 0.86f};
+#define NECK 0.1f
 
 static void head_poly(float cx, float cy, float s, int dir, float *xy)
 {
     static const float ang[4] = {-PUZ_PI / 2, 0, PUZ_PI / 2, PUZ_PI};
     float c = cosf(ang[dir]), sn = sinf(ang[dir]);
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 3; i++) {
         float x = (HEAD_XY[2 * i] - 0.5f) * s, y = (HEAD_XY[2 * i + 1] - 0.5f) * s;
         xy[2 * i] = cx + x * c - y * sn;
         xy[2 * i + 1] = cy + x * sn + y * c;
     }
 }
+
+/* how lit a point of the head is, (dx, dy) pixels from its middle, s a square: lighter towards the top left */
+static float head_lit(float dx, float dy, float s) { return clampf(-(dx * 0.6f + dy * 0.8f) / (0.35f * s), -1, 1); }
 
 static void shade(const uint8_t rgb[3], float k, uint8_t out[3])
 {
@@ -142,8 +131,9 @@ static void shade(const uint8_t rgb[3], float k, uint8_t out[3])
 }
 
 /* arrow i of m painted into o (W x H), the board's first square at (ox, oy), s pixels a square: its soft shadow, its
- * ribbon (a rounded rod lit from the top left, lighter towards the head), its arrowhead. The ribbon's samples first
- * leave, at each pixel near it, the distance to the nearest of them (so overlapping pieces never darken) */
+ * ribbon (a rounded rod lit from the top left, lighter towards the head), its flat arrowhead in the same lacquer. The
+ * ribbon's samples first leave, at each pixel near it, the distance to the nearest of them (so overlapping pieces
+ * never darken); the head's shadow joins the ribbon's the same way (the most of the two) */
 static void paint_arrow(uint8_t *o, int W, int H, const arx_map *m, int i, float ox, float oy, float s,
                         const uint8_t rgb[3])
 {
@@ -151,20 +141,30 @@ static void paint_arrow(uint8_t *o, int W, int H, const arx_map *m, int i, float
     track t;
     track_of(m, i, &t);
     int len = m->p[i].len, n = 0;
-    float r = WIDTH / 2 * s, t0 = -TAIL, t1 = len - 1, sx = 0.05f * s, sy = 0.07f * s, soft = 0.07f * s;
+    float r = WIDTH / 2 * s, t0 = -TAIL, t1 = len - 1, te = t1 - NECK, sx = 0.05f * s, sy = 0.07f * s, soft = 0.07f * s;
     float px[ARX_MAXLEN * 12 + 8], py[ARX_MAXLEN * 12 + 8], pf[ARX_MAXLEN * 12 + 8];
     for (float u = t0;; u += 0.1f) {
-        float uu = fminf(u, t1), x, y;
+        float uu = fminf(u, te), x, y;
         track_at(&t, uu, &x, &y);
         px[n] = ox + x * s;
         py[n] = oy + y * s;
         pf[n++] = (uu - t0) / (t1 - t0 + 1e-3f);
-        if (u >= t1) break;
+        if (u >= te) break;
     }
+    float hx, hy, head[6], hsh[6];
+    track_at(&t, t1, &hx, &hy);
+    hx = ox + hx * s;
+    hy = oy + hy * s;
+    head_poly(hx, hy, s, m->p[i].dir, head);
+    head_poly(hx + sx, hy + sy, s, m->p[i].dir, hsh);
     float x0 = 1e9f, y0 = 1e9f, x1 = -1e9f, y1 = -1e9f, reach = r + soft + sx + sy + 2;
     for (int k = 0; k < n; k++) {
         x0 = fminf(x0, px[k]); x1 = fmaxf(x1, px[k]);
         y0 = fminf(y0, py[k]); y1 = fmaxf(y1, py[k]);
+    }
+    for (int k = 0; k < 3; k++) {
+        x0 = fminf(x0, head[2 * k]); x1 = fmaxf(x1, hsh[2 * k]);
+        y0 = fminf(y0, head[2 * k + 1]); y1 = fmaxf(y1, hsh[2 * k + 1]);
     }
     int bx = (int)fmaxf(0, floorf(x0 - reach)), by = (int)fmaxf(0, floorf(y0 - reach));
     int bw = (int)fminf((float)W, ceilf(x1 + reach)) - bx, bh = (int)fminf((float)H, ceilf(y1 + reach)) - by;
@@ -194,27 +194,29 @@ static void paint_arrow(uint8_t *o, int W, int H, const arx_map *m, int i, float
     }
     for (int y = 0; y < bh; y++)
         for (int x = 0; x < bw; x++) {
-            int j = x + y * bw;
-            uint8_t *p = o + 4 * ((size_t)(y + by) * W + x + bx);
+            int j = x + y * bw, X = x + bx, Y = y + by;
+            uint8_t *p = o + 4 * ((size_t)Y * W + X);
             float sh = clampf((r + soft - ds[j]) / (2 * soft), 0, 1);
+            if (fabsf(X - hx - sx) < 0.6f * s && fabsf(Y - hy - sy) < 0.6f * s) sh = fmaxf(sh, pzt_cover(hsh, 3, (float)X, (float)Y));
             if (sh > 0) pzk_over(p, dark, 0.32f * sh);
             float cov = clampf(r - d[j] + 0.5f, 0, 1);
-            if (cov <= 0) continue;
-            float e = clampf(d[j] / r, 0, 1), lit = -(nx[j] * 0.6f + ny[j] * 0.8f) * e;   /* the side towards the light */
-            float k = 0.8f + 0.26f * f[j] + 0.16f * lit + 0.1f * (1 - e * e);
-            uint8_t c[3];
-            shade(rgb, k, c);
-            pzk_over(p, c, cov);
+            if (cov > 0) {
+                float e = clampf(d[j] / r, 0, 1), lit = -(nx[j] * 0.6f + ny[j] * 0.8f) * e;   /* the side towards the light */
+                float k = 0.8f + 0.26f * f[j] + 0.16f * lit + 0.1f * (1 - e * e);
+                uint8_t c[3];
+                shade(rgb, k, c);
+                pzk_over(p, c, cov);
+            }
+            if (fabsf(X - hx) < 0.6f * s && fabsf(Y - hy) < 0.6f * s) {   /* the head, flat, one soft light on it */
+                float hcov = pzt_cover(head, 3, (float)X, (float)Y);
+                if (hcov > 0) {
+                    uint8_t c[3];
+                    shade(rgb, 1.06f + 0.08f * head_lit(X + 0.5f - hx, Y + 0.5f - hy, s), c);
+                    pzk_over(p, c, hcov);
+                }
+            }
         }
     free(d);
-    float hx, hy, xy[8];
-    uint8_t c[3];
-    track_at(&t, t1, &hx, &hy);
-    head_poly(ox + hx * s + sx, oy + hy * s + sy, 0.86f * s, m->p[i].dir, xy);
-    poly(o, W, H, xy, 4, dark, 0.3f);
-    head_poly(ox + hx * s, oy + hy * s, 0.86f * s, m->p[i].dir, xy);
-    shade(rgb, 1.12f, c);
-    poly(o, W, H, xy, 4, c, 1);
 }
 
 
@@ -343,13 +345,20 @@ static void layout(box b)
             t_board = ui_tex(W, H, o);
         }
         free(o);
-        if (made_q != s) {                      /* the arrowhead, white (tinted when drawn) */
+        if (made_q != s) {                      /* the arrowhead pointing right, near white (tinted when drawn), its soft
+                                                 * light baked in */
             uint8_t *p = ui_buf(s, s);
             memset(p, 0, (size_t)s * s * 4);
-            float xy[8];
-            static const uint8_t white[3] = {255, 255, 255};
+            float xy[6];
             head_poly(s / 2.0f, s / 2.0f, (float)s, ARX_RIGHT, xy);
-            poly(p, s, s, xy, 4, white, 1);
+            for (int y = 0; y < s; y++)
+                for (int x = 0; x < s; x++) {
+                    float cov = pzt_cover(xy, 3, (float)x, (float)y);
+                    if (cov <= 0) continue;
+                    uint8_t c[3], v = (uint8_t)(255 * (0.93f + 0.07f * head_lit(x + 0.5f - s / 2.0f, y + 0.5f - s / 2.0f, s)));
+                    c[0] = c[1] = c[2] = v;
+                    pzk_over(p + 4 * (y * s + x), c, cov);
+                }
             ui_free(&t_head);
             t_head = ui_tex(s, s, p);
         }
@@ -554,18 +563,18 @@ static void draw_arrow(int i, const pose *p, int pass, float glow)
         hy += ky;
         float a = shows(hx, hy) * p->alpha, sx = bx0 + hx * q, sy = by0 + hy * q, deg = 90.0f * (dir - 1);
         uint8_t c[3];
-        shade(rgb, 1.1f, c);
+        shade(rgb, 1.13f, c);
         SDL_SetTextureAlphaMod(t_head, (Uint8)(80 * a));
         SDL_SetTextureColorMod(t_head, 0, 0, 0);
-        ui_put_rot(t_head, sx + (0.05f + 0.06f * p->lift) * q, sy + (0.07f + 0.06f * p->lift) * q, 0.86f * q, 0.86f * q, deg);
+        ui_put_rot(t_head, sx + (0.05f + 0.06f * p->lift) * q, sy + (0.07f + 0.06f * p->lift) * q, q, q, deg);
         SDL_SetTextureAlphaMod(t_head, (Uint8)(255 * a));
         SDL_SetTextureColorMod(t_head, c[0], (Uint8)(c[1] * gb), (Uint8)(c[2] * gb));
-        ui_put_rot(t_head, sx, sy, 0.86f * q, 0.86f * q, deg);
+        ui_put_rot(t_head, sx, sy, q, q, deg);
         if (glow > 0) {
             SDL_SetTextureBlendMode(t_head, SDL_BLENDMODE_ADD);
             SDL_SetTextureColorMod(t_head, 255, 190, 80);
             SDL_SetTextureAlphaMod(t_head, (Uint8)(255 * clampf(glow, 0, 1)));
-            ui_put_rot(t_head, sx, sy, 0.86f * q, 0.86f * q, deg);
+            ui_put_rot(t_head, sx, sy, q, q, deg);
             SDL_SetTextureBlendMode(t_head, SDL_BLENDMODE_BLEND);
         }
         SDL_SetTextureColorMod(t_head, 255, 255, 255);
@@ -574,7 +583,7 @@ static void draw_arrow(int i, const pose *p, int pass, float glow)
     }
     float px = 0, py = 0, pa = 0;
     for (float u = t0;; u += 0.2f) {
-        float uu = fminf(u, t1), x, y;
+        float uu = fminf(u, t1 - NECK), x, y;
         track_at(&t, uu, &x, &y);
         x += kx;
         y += ky;
@@ -607,7 +616,7 @@ static void draw_arrow(int i, const pose *p, int pass, float glow)
         px = x;
         py = y;
         pa = a;
-        if (u >= t1) break;
+        if (u >= t1 - NECK) break;
     }
 }
 

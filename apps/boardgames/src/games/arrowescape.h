@@ -7,8 +7,9 @@
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Ways (as swipepad.h's): 0 up (-y), 1 right, 2 down, 3 left. An arrow: its head at (x, y) pointing dir, then its body
- * square by square (step[k]: the way from its square k to square k + 1, towards its tail). Its body never stands on
- * its own way out (the squares ahead of its head).
+ * square by square (step[k]: the way from its square k to square k + 1, towards its tail). Its neck is right behind
+ * its head (a head points the way its body travels); its body never stands on its own way out (the squares ahead of
+ * its head).
  * Nothing ever comes back on the board: an arrow free now stays free, so every board that can be cleared by taking the
  * free arrows in any order can always be cleared, and the only thing to lose is stars (mistakes, hints: the shell's
  * ui_logic_stars). The depth: the rounds of taking every free arrow at once that clear the board (arx_rounds).

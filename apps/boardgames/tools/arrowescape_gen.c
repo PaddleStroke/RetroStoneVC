@@ -50,7 +50,7 @@ typedef struct {
 
 #define S(x) (1 << (x))
 static const chapter CH[ARX_CHAPTERS] = {
-    {4, 4, 2, S(ARX_RECT) | S(ARX_DIAMOND) | S(ARX_PLUS) | S(ARX_OCTAGON), 2, 4, 75, 30, 0, 80, 2, 6, 0, 3, 1, 0.8, 5},
+    {4, 4, 2, S(ARX_RECT) | S(ARX_DIAMOND) | S(ARX_PLUS) | S(ARX_OCTAGON), 3, 5, 75, 30, 0, 80, 2, 6, 0, 3, 1, 0.8, 5},
     {6, 6, 2, S(ARX_RECT) | S(ARX_OCTAGON) | S(ARX_ROUND) | S(ARX_DIAMOND), 4, 9, 70, 40, 30, 90, 3, 8, 1, 1, 0, 1.2, 7},
     {6, 7, 2, S(ARX_RECT) | S(ARX_OCTAGON) | S(ARX_ROUND), 6, 12, 85, 70, 40, 90, 3, 9, 2, 1, 0, 1.4, 8},
     {8, 9, 2, S(ARX_RECT) | S(ARX_OCTAGON) | S(ARX_ROUND) | S(ARX_DIAMOND), 4, 11, 70, 40, 50, 100, 4, 12, 1, 0, 0, 2, 11},
@@ -129,7 +129,7 @@ static int has(const arx_map *m, int ch, int need, int shape)
 {
     makeup u = makeup_of(m);
     if (ch > 0 && u.straight > 0.15) return 0;
-    if (need == 0) return u.len >= 2 && u.len <= 4.2 && u.single <= 0.2;
+    if (need == 0) return u.len >= 2.5 && u.len <= 4.5 && u.single <= 0.15 && u.straight <= 0.35;
     if (need == 1) return u.len >= 4.5;
     if (need == 2) return u.spiral >= 3 && u.len >= 5;
     return shape != ARX_RECT && u.len >= 3.5;
