@@ -3055,7 +3055,10 @@ enum { EV_PRESS = 1, EV_MOTION, EV_RELEASE, EV_FINGER, EV_KEY, EV_PASS, EV_UNDO,
  * events), so the record plays again with its last frame where it was (a flag cleared in draw() the same at the next
  * tap). EV_AWAY: the game left the screen (the menu, the app in the background), EV_BACK: shown again; meanwhile
  * nothing drawn, and ui_real_ms() jumps (the game's clock waits, as it did). */
-#define JR_VERSION 3
+/* Version 4: EV_BACK is written at the first frame drawn after the return (or with the first event, if one comes
+ * first), not at the return itself: the record plays again with nothing drawn until the game was drawn again, so a
+ * clock that skips the time away skips the same time in both (played the same way as version 3). */
+#define JR_VERSION 4
 #define JR_EVERY 1000                           /* the record kept at most this often (ms) while a finger moves */
 static struct jrec {
     uint8_t *b;
@@ -3067,6 +3070,8 @@ static struct jrec {
     int swept;                                  /* the store swept of a past run's pieces past the record's end */
     unsigned frames;                            /* frames_drawn at the last event */
     int away;                                   /* EV_AWAY the last of EV_AWAY / EV_BACK */
+    int back;                                   /* back on the screen, its EV_BACK not yet written (at the next
+                                                 * frame drawn, or the next event) */
 } J[MAX_GAMES];
 static int jr_quiet;                            /* 1 while a record plays again: nothing recorded */
 static int jr_dirty = -1;                       /* the game whose record changed since it was last kept (-1: none) */
@@ -3173,12 +3178,17 @@ static void jr_view_mark(struct jrec *r)       /* the screen, if it changed (tur
     r->f2f = ui.f2f;
 }
 
+static void jr_done(struct jrec *r);
 static struct jrec *jr_event(int type)
 {
     if (!JR_ON || jr_quiet || cur < 0) return NULL;
     struct jrec *r = &J[cur];
     if (!r->ok) return NULL;
     if (jr_dirty >= 0 && jr_dirty != cur) jr_flush();
+    if (r->back && type != EV_BACK) {          /* back, and an event before any frame: EV_BACK first */
+        r->back = 0;
+        jr_done(jr_event(EV_BACK));
+    }
     Uint32 now = ui_ms();
     if (r->frames != frames_drawn) {            /* the last frame drawn since the last event */
         Uint32 f = frame_at - r->last <= now - r->last ? frame_at : r->last, df = f - r->last;
@@ -3258,6 +3268,7 @@ static void jr_begin(int v, int card)
     r->rng = rng;
     r->frames = frames_drawn;
     r->away = 0;
+    r->back = 0;
     jr_dirty = cur;
     jr_soon = 1;
 }
@@ -3279,7 +3290,9 @@ static void jr_away(int away)
 {
     if (!JR_ON || jr_quiet || cur < 0 || !J[cur].ok || !started[cur] || J[cur].away == away) return;
     J[cur].away = away;
-    jr_done(jr_event(away ? EV_AWAY : EV_BACK));
+    if (!away) { J[cur].back = 1; return; }     /* (written as the game is drawn again: draw_game) */
+    if (J[cur].back) { J[cur].back = 0; return; }   /* (away again before a frame: as if it never came back) */
+    jr_done(jr_event(EV_AWAY));
 }
 
 /* ---- the moves' notation (game.history) ---------------------------------------------------------------------------
@@ -4276,6 +4289,10 @@ static void draw_header(void)
 static void draw_game(void)
 {
     const game *g = games[cur];
+    if (J[cur].back && !jr_quiet) {           /* the first frame back: the record's EV_BACK now */
+        J[cur].back = 0;
+        jr_done(jr_event(EV_BACK));
+    }
     frames_drawn++;                             /* (the record: the last frame before an event) */
     frame_at = ui_ms();
     handoff_settle();
@@ -6975,6 +6992,7 @@ static int jr_resume(int g)
     r->f2f = ui.f2f;
     r->frames = frames_drawn;
     r->away = away;
+    r->back = 0;
     ui.w = sw;
     ui.h = sh;
     if (is_view()) view_of[g] = hand.pending >= 0 ? hand.pending : hand.up ? hand.player : ui.viewer;
