@@ -11,8 +11,9 @@
  * go, lifting the finger plays it; White answers by itself (the solver's longest resistance). A move that loses the
  * problem is a mistake: White's refutation comes, both glow red a moment, then they are taken back. The lamp (the
  * shell's tool) lights a right move. The pass button passes (a life problem may need it). Undo takes back the last
- * move and its answer, all the way to the start. The bar: what to do (the key stone in its glow) and the moves
- * played. Solved: a gold light spreads from the last stone, then the stars (ui_logic_stars: hints and mistakes).
+ * move and its answer, all the way to the start. The bar: the moves played, a bare number (the key group's glow on
+ * the board says what to do). Solved: a gold light spreads from the last stone, then the stars (ui_logic_stars:
+ * hints and mistakes).
  */
 #include <math.h>
 #include <stdlib.h>
@@ -35,8 +36,8 @@
 static gpz_game G;
 static ui_grid Gr;
 static box room;
-static int made_cell = -1, made_w, made_h, made_turned, made_u = -1, made_level = -2;
-static SDL_Texture *t_board, *t_stone[2], *t_ring, *t_goal[2], *t_mark[2];   /* t_mark: the key stones' (kill, live) */
+static int made_cell = -1, made_w, made_h, made_turned, made_level = -2;
+static SDL_Texture *t_board, *t_stone[2], *t_ring, *t_mark[2];   /* t_mark: the key stones' (kill, live) */
 static int bw, bh;                              /* the board picture's size */
 static Uint32 shown_at[GO_HIST + 1];            /* when each position came on the board */
 static struct { int on, pt; } ghost;
@@ -215,23 +216,6 @@ static void paint_mark(int kind, int d, uint8_t *o)
         }
 }
 
-/* the goal's picture: the key stone (White to kill, Black to save) in its glow */
-static void paint_goal(int kind, int size, uint8_t *o)
-{
-    static const uint8_t RED[3] = {235, 52, 36}, GOLD[3] = {255, 200, 70};
-    memset(o, 0, (size_t)size * size * 4);
-    art_disc(size, kind == GPZ_KILL ? RED : GOLD, 0.85f, 1.2f, o);
-    int d = (int)(0.62f * size);
-    uint8_t *st = malloc((size_t)d * d * 4);
-    if (!st) return;
-    grid_token(kind == GPZ_KILL ? 1 : 0, d, st);
-    art_blend(o, size, size, st, d, d, (size - d) / 2, (size - d) / 2);
-    int md = d / 3;                             /* its dot, as on the board */
-    paint_mark(kind == GPZ_KILL ? 0 : 1, md, st);
-    art_blend(o, size, size, st, md, md, (size - md) / 2, (size - md) / 2);
-    free(st);
-}
-
 static void layout(box b)
 {
     room = b;
@@ -267,15 +251,6 @@ static void layout(box b)
         }
         art_ring(rs, 0.70f, WHITE, 1, ui_buf(rs, rs));
         t_ring = ui_tex(rs, rs, ui_buf(rs, rs));
-    }
-    int u = (int)(0.7f * ui.unit);
-    if (made_u != u) {
-        made_u = u;
-        for (int k = 0; k < 2; k++) {
-            ui_free(&t_goal[k]);
-            paint_goal(k, u, ui_buf(u, u));
-            t_goal[k] = ui_tex(u, u, ui_buf(u, u));
-        }
     }
 }
 
@@ -441,11 +416,11 @@ static void release(float x, float y)
     attempt(ghost.pt);
 }
 
-/* ---- the bar: what to do, the moves played ---------------------------------------------------------------------- */
+/* ---- the bar: the moves played (a bare number) ------------------------------------------------------------------- */
 static void bar(int player, box b)
 {
     (void)player;
-    ui_count c[1] = {{t_goal[G.pz.kind == GPZ_KILL ? 0 : 1], (G.g.nmoves + 1) / 2}};
+    ui_count c[1] = {{NULL, (G.g.nmoves + 1) / 2}};   /* the shell draws the token */
     ui_bar_fit(b, c, 1, 0);
 }
 

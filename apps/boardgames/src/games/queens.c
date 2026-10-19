@@ -31,8 +31,7 @@ static int variant_now = -1;                   /* the random game's variant; -1:
 static bpz_board B;
 static bpz_pics P;
 static box last_box;
-static int made_small = -1, shade = 1;
-static SDL_Texture *t_small;
+static int shade = 1;
 
 /* the session: the solutions found on each board */
 static uint64_t found[QN_VARIANTS][724];
@@ -137,13 +136,6 @@ static void layout(box b)
     int n = G.n ? G.n : 8;
     bpz_layout_holes(&B, n, n, b, 1, G.n ? G.hole : NULL);
     ui_board_used(B.x - B.fr, B.y - B.fr, (float)(n * B.sq + 2 * B.fr), (float)(n * B.sq + 2 * B.fr));
-    int small = (int)(0.6f * ui.unit);
-    if (made_small != small) {
-        made_small = small;
-        ui_free(&t_small);
-        art_piece(QUEEN, WHITE, small, ui_buf(small, small));
-        t_small = ui_tex(small, small, ui_buf(small, small));
-    }
 }
 
 static void draw(void)
@@ -222,15 +214,15 @@ static void bar(int player, box b)
     int level = variant_now < 0, total = qn_solutions(G.n), have = level ? 0 : nfound[variant_now];
     float room = b.w;
     if (level) {                                /* a level: the taps */
-        puz_bar_moves(b, t_small, G.moves);
+        puz_bar_moves(b, NULL, G.moves);   /* a bare number: the shell draws the token */
         room = 0;
     }
     float w_found = 0.7f * u + bpz_number_w(have), w_total = 0.6f * u + bpz_number_w(total);
-    float w_moves = 0.72f * u + bpz_number_w(G.moves) + 0.35f * u;
+    float w_moves = bpz_number_w(G.moves) + 0.35f * u;
     /* a narrow bar (landscape): the taps left out first, then the board's count, then the solutions found */
     int with_found = !level && w_found <= room, with_total = w_found + w_total <= room;
     int with_moves = w_moves + w_found + w_total <= room;
-    if (with_moves) x = puz_bar_moves(b, t_small, G.moves) + 0.35f * u;
+    if (with_moves) x = puz_bar_moves(b, NULL, G.moves) + 0.35f * u;
     if (with_found) {
         x = bpz_bar_pic(&P, BPZ_TICK, x, cy, 1);
         if (win.fresh && qn_solved(&G)) ui_mark_gold(x + bpz_number_w(have) / 2, cy, 1.3f * u);

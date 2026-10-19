@@ -32,8 +32,8 @@ static bpz_board B;
 static bpz_pics P;
 static puz_font F;
 static box last_box;
-static int made_small = -1, made_line = -1;
-static SDL_Texture *t_small, *t_line;
+static int made_line = -1;
+static SDL_Texture *t_line;
 
 static struct { int on, from; Uint32 t0; } anim;
 static struct { int on; Uint32 t0; } win;
@@ -134,13 +134,6 @@ static void layout(box b)
     int bc = B.turned ? B.ny : B.nx, br = B.turned ? B.nx : B.ny;   /* (the board as it stands) */
     ui_board_used(B.x - B.fr, B.y - B.fr, (float)(bc * B.sq + 2 * B.fr), (float)(br * B.sq + 2 * B.fr));
     puz_font_make(&F, (int)(0.44f * B.sq), 1);
-    int small = (int)(0.6f * ui.unit);
-    if (made_small != small) {
-        made_small = small;
-        ui_free(&t_small);
-        art_piece(KNIGHT, WHITE, small, ui_buf(small, small));
-        t_small = ui_tex(small, small, ui_buf(small, small));
-    }
     if (made_line < 0) {                        /* a stroke: white, tinted when drawn */
         made_line = 1;
         static const uint8_t white[4] = {255, 255, 255, 255};
@@ -293,8 +286,8 @@ static void bar(int player, box b)
 {
     (void)player;
     float u = ui.unit, cy = b.y + b.h / 2, room = b.w;
-    float w_moves = 0.72f * u + bpz_number_w(G.len), w_total = 0.6f * u + bpz_number_w(G.cells);
-    float x = puz_bar_moves(b, t_small, G.len) + 0.08f * u;
+    float w_moves = bpz_number_w(G.len), w_total = 0.6f * u + bpz_number_w(G.cells);
+    float x = puz_bar_moves(b, NULL, G.len) + 0.08f * u;
     if (w_moves + w_total <= room) {            /* a narrow bar (landscape): the board's count left out */
         x = bpz_bar_pic(&P, BPZ_SLASH, x, cy, 0.8f);
         x = bpz_bar_number(x, cy, G.cells);
