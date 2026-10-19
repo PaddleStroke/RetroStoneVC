@@ -197,6 +197,7 @@ static void layout(box b)
     int n = sma_board(NULL, 9, sq, fr), m = (n - 9 * sq) / 2;
     bx = floorf(b.x + (b.w - n) / 2) + m;
     by = floorf(b.y + (b.h - n) / 2) + m;
+    ui_board_used(bx - m, by - m, (float)n, (float)n);
     if (made != sq) {
         made = sq;
         make_set(t_pc, sq);

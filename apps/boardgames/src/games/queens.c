@@ -136,6 +136,7 @@ static void layout(box b)
     last_box = b;
     int n = G.n ? G.n : 8;
     bpz_layout_holes(&B, n, n, b, 1, G.n ? G.hole : NULL);
+    ui_board_used(B.x - B.fr, B.y - B.fr, (float)(n * B.sq + 2 * B.fr), (float)(n * B.sq + 2 * B.fr));
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
         made_small = small;

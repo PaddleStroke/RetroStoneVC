@@ -131,6 +131,8 @@ static void layout(box b)
     last_box = b;
     if (G.w) bpz_layout_holes(&B, G.w, G.h, b, 1, G.hole);
     else bpz_layout(&B, 5, b, 1);
+    int bc = B.turned ? B.ny : B.nx, br = B.turned ? B.nx : B.ny;   /* (the board as it stands) */
+    ui_board_used(B.x - B.fr, B.y - B.fr, (float)(bc * B.sq + 2 * B.fr), (float)(br * B.sq + 2 * B.fr));
     puz_font_make(&F, (int)(0.44f * B.sq), 1);
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {

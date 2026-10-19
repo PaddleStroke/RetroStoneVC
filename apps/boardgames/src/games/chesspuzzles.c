@@ -212,6 +212,7 @@ static void layout(box b)
 {
     last_box = b;
     bpz_layout(&B, 8, b, 1);
+    ui_board_used(B.x - B.fr, B.y - B.fr, (float)(8 * B.sq + 2 * B.fr), (float)(8 * B.sq + 2 * B.fr));
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
         made_small = small;

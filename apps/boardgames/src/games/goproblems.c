@@ -239,6 +239,7 @@ static void layout(box b)
     int s = (int)Gr.cell, f = (int)(FRAME * s);
     bw = Gr.cols * s + 2 * f;
     bh = Gr.rows * s + 2 * f;
+    ui_grid_used(&Gr, FRAME);
     if (made_cell != s || made_w != G.pz.w || made_h != G.pz.h || made_turned != Gr.turned || made_level != G.level ||
         !t_board) {
         made_cell = s, made_w = G.pz.w, made_h = G.pz.h, made_turned = Gr.turned, made_level = G.level;
