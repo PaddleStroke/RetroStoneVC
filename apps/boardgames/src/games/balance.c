@@ -451,7 +451,7 @@ static void draw(void)
     for (int d = 0; d <= 10; d++) {             /* the pad */
         float s = held == d ? 0.92f : 1, kw = kd * s;
         if (d == K_BACK) {
-            ui_button(kx[d], ky[d], 0.8f * kw, ICON_UNDO, solved || !G.guess[sel] ? UI_DIM : 0);
+            ui_button(kx[d], ky[d], 0.8f * kw, ICON_ERASER, solved || !G.guess[sel] ? UI_DIM : 0);
             continue;
         }
         SDL_SetTextureAlphaMod(t_key, solved ? 120 : 255);
