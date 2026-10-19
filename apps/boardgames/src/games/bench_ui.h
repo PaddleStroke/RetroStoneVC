@@ -148,6 +148,9 @@ static inline int bench_fit(bench_geo *g, box b)
     return g->cs != was || g->w != was_w || g->h != was_h;
 }
 
+/* the plank told to the shell as all the board takes (ui_board_used; from layout()) */
+static inline void bench_used(const bench_geo *g) { ui_board_used(g->bx, g->by, (float)g->w, (float)g->h); }
+
 /* the plank's picture (w x h): the house wood in its frame, the clue bands a shade darker, the grid ruled (its rim
  * thicker) */
 static inline void bench_paint_grid(const bench_geo *g, uint8_t *o)
@@ -513,6 +516,21 @@ static inline void bench_pad_layout(bench_pad *k, box b, int nkeys)
         bench_cut(o, w, h, 0.14f * fminf(w, h), fmaxf(2, 0.09f * fminf(w, h)), 0.32f);
         k->t_key = ui_tex(w, h, o);
     }
+}
+
+/* the board and its keys told to the shell as all they take (ui_board_used; from layout()): the board's square, the
+ * keys' block, a gap at its right (laid out again in that width, the keys keep their size) */
+static inline void bench_pad_used(const bench_pad *k)
+{
+    float x0 = k->board.x, x1 = x0 + k->board.w, y0 = k->board.y, y1 = y0 + k->board.h;
+    for (int d = 1; d <= k->nkeys; d++) {
+        x0 = fminf(x0, k->kx[d] - k->kp / 2);
+        x1 = fmaxf(x1, k->kx[d] + k->kp / 2);
+        y0 = fminf(y0, k->ky[d] - k->kh / 2);
+        y1 = fmaxf(y1, k->ky[d] + k->kh / 2);
+    }
+    if (k->nkeys > 0 && k->kx[1] > k->board.x + k->board.w) x1 += 0.3f * ui.unit;   /* (the keys beside it) */
+    ui_board_used(x0, y0, x1 - x0, y1 - y0);
 }
 
 static inline int bench_key_at(const bench_pad *k, float x, float y)
