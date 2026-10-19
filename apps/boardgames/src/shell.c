@@ -4073,26 +4073,40 @@ static int end_veil_whole(void)
  * a desktop's window), centred on the board (it covers it: the player's eyes go to the stars), within the room between
  * the bars (smaller if the room is). The board: the square (a board game's), else the biggest grid the game fitted
  * (ui_grid_fit), else the whole room. q: the card's own unit (SOLVED_W of them wide). */
-#define LINK_ROW 0.8f                           /* the stars card's rows of links: their height, in its unit */
+#define LINK_ROW 0.95f                          /* the stars card's rows of links: their height, in its unit */
+#define LINK_PX 0.34f                           /* their words' size, in its unit (a phone's thumb taps them) */
 static box link_box[3];                         /* where its links are (pages.h PAGES_LINK_*; w 0: not shown) */
+static int link_rows;                           /* the top's rows of links on the card shown (solved_place) */
 
-/* the stars card's links shown: the top row's (a review, a problem), the bottom one's (support) */
+/* the stars card's links shown: the top rows' (a review, a problem), the bottom one's (support) */
 static int link_shown(int i)
 {
     int icon, word;
     const uint8_t *col;
     return pages_link(i, &icon, &col, &word);
 }
-static int links_top(void) { return link_shown(PAGES_LINK_REVIEW) || link_shown(PAGES_LINK_REPORT); }
 static int links_bottom(void) { return link_shown(PAGES_LINK_SUPPORT); }
+static float link_draw(int i, float x, float cy, float px, float maxw, int measure, box *b);
+
+/* the top's links in a card w wide (unit q): one row when both fit at their size (short words), else one above the
+ * other (the words never made small to fit: they stay readable on a phone); 0: none */
+static int links_top_rows(float w, float q)
+{
+    box b;
+    float px = floorf(LINK_PX * q), a = link_draw(PAGES_LINK_REVIEW, 0, 0, px, 0.9f * w, 1, &b),
+          c = link_draw(PAGES_LINK_REPORT, 0, 0, px, 0.9f * w, 1, &b);
+    if (a <= 0 || c <= 0) return a > 0 || c > 0;
+    return a + c + 1.8f * px <= 0.86f * w ? 1 : 2;
+}
 
 static void solved_place(float *cx, float *cy, float *w, float *h, float *q)
 {
     box r = L.room, e = games[cur]->fill || is_view() ? grid_ext : L.board;
     if (e.w <= 0) e = r;
-    float hq = (games[cur]->score ? 3.8f : 3.0f)   /* no moves to show: lower */
-               + LINK_ROW * (links_top() + links_bottom());   /* the links' rows, above and below */
-    float cw = 0.7f * fminf(ui.w, ui.h), ch = cw * hq / SOLVED_W;
+    float cw = 0.7f * fminf(ui.w, ui.h), base = games[cur]->score ? 3.8f : 3.0f;   /* no moves to show: lower */
+    link_rows = links_top_rows(cw, cw / SOLVED_W);
+    float hq = base + LINK_ROW * (link_rows + links_bottom());   /* the links' rows, above and below */
+    float ch = cw * hq / SOLVED_W;
     float k = fminf(1, fminf(0.98f * r.w / cw, 0.98f * r.h / ch));
     *w = floorf(cw * k);
     *h = floorf(ch * k);
@@ -4101,7 +4115,7 @@ static void solved_place(float *cx, float *cy, float *w, float *h, float *q)
     *cy = floorf(clampf(e.y + e.h / 2, r.y + *h / 2, r.y + r.h - *h / 2));
 }
 
-/* a link: its icon in its colour, its word, small and quiet; *b its tap's box (taller than it is: a good target) */
+/* a link: its icon in its colour, its word, quiet; *b its tap's box (taller than it is: a good target) */
 static float link_draw(int i, float x, float cy, float px, float maxw, int measure, box *b)
 {
     int icon, word, w = 0, h = 0;
@@ -4118,36 +4132,35 @@ static float link_draw(int i, float x, float cy, float px, float maxw, int measu
         SDL_SetTextureColorMod(ic, 255, 255, 255);
     }
     if (t) ui_put(t, x + d + 0.35f * px, floorf(cy - h / 2.0f), (float)w, (float)h);
-    *b = (box){x - 0.4f * px, cy - 1.3f * px, all + 0.8f * px, 2.6f * px};
+    *b = (box){x - 0.5f * px, cy - 1.25f * px, all + 1.0f * px, 2.5f * px};
     return all;
 }
 
-/* the stars card's links: a review | a problem along its top (ty), support along its bottom (by); w: the card's width,
- * q its unit */
+/* the stars card's links: a review | a problem along its top (ty: the first row's middle; one above the other when
+ * they don't fit side by side), support along its bottom (by); w: the card's width, q its unit */
 static void draw_links(float cx, float ty, float by, float w, float q)
 {
     memset(link_box, 0, sizeof link_box);
-    float px = floorf(0.3f * q), maxw = 2 * w, gap = 0.9f * px;   /* (the words at one size: the row shrinks as one) */
+    float px = floorf(LINK_PX * q), maxw = 0.9f * w, gap = 0.9f * px;
     box b;
-    float a = link_draw(PAGES_LINK_REVIEW, 0, 0, px, maxw, 1, &b), c = link_draw(PAGES_LINK_REPORT, 0, 0, px, maxw, 1, &b);
-    float all = a + c + (a > 0 && c > 0 ? 2 * gap : 0);
-    if (all > 0.86f * w) {                      /* too wide for the card (long words): smaller */
-        px = floorf(px * 0.86f * w / all);
-        gap = 0.9f * px;
-        a = link_draw(PAGES_LINK_REVIEW, 0, 0, px, maxw, 1, &b);
-        c = link_draw(PAGES_LINK_REPORT, 0, 0, px, maxw, 1, &b);
-        all = a + c + (a > 0 && c > 0 ? 2 * gap : 0);
+    float a = link_draw(PAGES_LINK_REVIEW, 0, 0, px, maxw, 1, &b);
+    float c = link_draw(PAGES_LINK_REPORT, 0, 0, px, maxw, 1, &b);
+    if (link_rows == 2) {                       /* one above the other, each centred */
+        link_draw(PAGES_LINK_REVIEW, cx - a / 2, ty, px, maxw, 0, &link_box[PAGES_LINK_REVIEW]);
+        link_draw(PAGES_LINK_REPORT, cx - c / 2, ty + LINK_ROW * q, px, maxw, 0, &link_box[PAGES_LINK_REPORT]);
+    } else {
+        float all = a + c + (a > 0 && c > 0 ? 2 * gap : 0), x = cx - all / 2;
+        if (a > 0) link_draw(PAGES_LINK_REVIEW, x, ty, px, maxw, 0, &link_box[PAGES_LINK_REVIEW]);
+        if (a > 0 && c > 0) {                   /* the bar between them (on the light theme's white: of its ink) */
+            float bx = floorf(x + a + gap), bty = floorf(ty - 0.55f * px), bh = floorf(1.1f * px);
+            if (TH.dark) ui_fill(bx, bty, 1, bh, 200, 196, 182, 90);
+            else ui_fill(bx, bty, 1, bh, INK[0], INK[1], INK[2], 60);
+        }
+        if (c > 0)
+            link_draw(PAGES_LINK_REPORT, x + (a > 0 ? a + 2 * gap : 0), ty, px, maxw, 0, &link_box[PAGES_LINK_REPORT]);
     }
-    float x = cx - all / 2;
-    if (a > 0) link_draw(PAGES_LINK_REVIEW, x, ty, px, maxw, 0, &link_box[PAGES_LINK_REVIEW]);
-    if (a > 0 && c > 0) {                       /* the bar between them (on the light theme's white: of its ink) */
-        float bx = floorf(x + a + gap), by = floorf(ty - 0.55f * px), bh = floorf(1.1f * px);
-        if (TH.dark) ui_fill(bx, by, 1, bh, 200, 196, 182, 90);
-        else ui_fill(bx, by, 1, bh, INK[0], INK[1], INK[2], 60);
-    }
-    if (c > 0) link_draw(PAGES_LINK_REPORT, x + (a > 0 ? a + 2 * gap : 0), ty, px, maxw, 0, &link_box[PAGES_LINK_REPORT]);
-    float s = link_draw(PAGES_LINK_SUPPORT, 0, 0, px, 0.8f * w, 1, &b);
-    if (s > 0) link_draw(PAGES_LINK_SUPPORT, cx - s / 2, by, px, 0.8f * w, 0, &link_box[PAGES_LINK_SUPPORT]);
+    float s = link_draw(PAGES_LINK_SUPPORT, 0, 0, px, maxw, 1, &b);
+    if (s > 0) link_draw(PAGES_LINK_SUPPORT, cx - s / 2, by, px, maxw, 0, &link_box[PAGES_LINK_SUPPORT]);
 }
 
 static void draw_over(void)
@@ -4165,7 +4178,7 @@ static void draw_over(void)
         solved_place(&cx, &cy, &w, &h, &q);
         if (TH.dark) ui_put(rounded((int)w, (int)h, 0.36f * q, card_c), cx - w / 2, cy - h / 2, w, h);
         else light_panel(cx - w / 2, cy - h / 2, w, h, 0.36f * q);   /* the light theme: white */
-        int top = links_top(), bot = links_bottom();
+        int top = link_rows, bot = links_bottom();
         draw_result(cx, cy + (top - bot) * LINK_ROW / 2 * q, q);   /* the result in the middle of the rest */
         draw_links(cx, cy - h / 2 + 0.5f * LINK_ROW * q, cy + h / 2 - 0.5f * LINK_ROW * q, w, q);
         return;
