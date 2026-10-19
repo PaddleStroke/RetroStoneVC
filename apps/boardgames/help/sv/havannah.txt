@@ -5,8 +5,8 @@ Bli först med att bilda en av tre figurer med en kedja av dina stenar. Stenar h
 - Bro: en kedja som förbinder två av de sex hörnrutorna.
 - Gaffel: en kedja som förbinder tre av de sex sidorna. En hörnruta hör inte till någon sida.
 # En tur
-Lägg en sten på valfri tom ruta. Stenar flyttas aldrig och slås aldrig. Vit börjar.
+Lägg en sten på valfri tom ruta. Stenar flyttas aldrig och slås aldrig. Den ljusa sidan börjar.
 # Bytet
-Med byte får Svart i sitt första drag i stället ta Vits första sten: den blir svart där den står. Sedan spelar Vit igen.
+Med byte får den mörka sidan i sitt första drag i stället ta den ljusa sidans första sten: den blir mörk där den står. Sedan spelar den ljusa sidan igen.
 # Partiets slut
 Den första figuren vinner. Blir brädet fullt utan någon figur slutar partiet oavgjort.

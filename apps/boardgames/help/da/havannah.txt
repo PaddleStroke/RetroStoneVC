@@ -5,8 +5,8 @@ Vær den første til at danne en af tre figurer med en kæde af dine sten. Sten 
 - Bro: en kæde, der forbinder to af de seks hjørnefelter.
 - Gaffel: en kæde, der forbinder tre af de seks sider. Et hjørnefelt hører ikke til nogen side.
 # En tur
-Sæt én sten på et vilkårligt tomt felt. Sten flytter sig aldrig og slås aldrig. Hvid begynder.
+Sæt én sten på et vilkårligt tomt felt. Sten flytter sig aldrig og slås aldrig. Den lyse side begynder.
 # Byttet
-Med byttet må Sort i sit første træk i stedet tage Hvids første sten: den bliver sort, hvor den står. Derefter spiller Hvid igen.
+Med byttet må den mørke side i sit første træk i stedet tage den lyse sides første sten: den bliver mørk, hvor den står. Derefter spiller den lyse side igen.
 # Spillets afslutning
 Den første figur vinder. Fyldes brættet uden en figur, ender spillet uafgjort.

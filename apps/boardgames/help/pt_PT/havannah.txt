@@ -5,8 +5,8 @@ Sê o primeiro a formar uma de três figuras com uma corrente das tuas pedras. A
 - Ponte: uma corrente que liga duas das seis casas de canto.
 - Forquilha: uma corrente que liga três dos seis lados. Uma casa de canto não pertence a nenhum lado.
 # A tua vez
-Coloca uma pedra em qualquer casa vazia. As pedras nunca se movem e nunca são capturadas. As brancas começam.
+Coloca uma pedra em qualquer casa vazia. As pedras nunca se movem e nunca são capturadas. As claras começam.
 # A troca
-Com a troca, as pretas podem, na primeira jogada, ficar com a primeira pedra das brancas: fica preta no sítio. Depois as brancas jogam outra vez.
+Com a troca, as escuras podem, na primeira jogada, ficar com a primeira pedra das claras: fica escura no sítio. Depois as claras jogam outra vez.
 # O fim do jogo
 A primeira figura ganha. Se o tabuleiro ficar cheio sem nenhuma, o jogo termina empatado.

@@ -5,8 +5,8 @@ Maak als eerste een van drie vormen met een keten van je stenen. Stenen vormen e
 - Brug: een keten die twee van de zes hoekvelden verbindt.
 - Vork: een keten die drie van de zes zijden verbindt. Een hoekveld hoort bij geen enkele zijde.
 # Een beurt
-Zet één steen op een willekeurig leeg veld. Stenen bewegen nooit en worden nooit geslagen. Wit begint.
+Zet één steen op een willekeurig leeg veld. Stenen bewegen nooit en worden nooit geslagen. Licht begint.
 # De ruil
-Met ruil mag Zwart bij zijn eerste zet in plaats daarvan de eerste steen van Wit overnemen: die wordt zwart op zijn plek. Daarna speelt Wit opnieuw.
+Met ruil mag Donker bij zijn eerste zet in plaats daarvan de eerste steen van Licht overnemen: die wordt donker op zijn plek. Daarna speelt Licht opnieuw.
 # Het einde van de partij
 De eerste vorm wint. Raakt het bord vol zonder vorm, dan eindigt de partij in remise.

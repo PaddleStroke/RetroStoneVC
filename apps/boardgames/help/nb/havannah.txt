@@ -5,8 +5,8 @@ Vær først til å lage én av tre figurer med en kjede av steinene dine. Steine
 - Bro: en kjede som binder sammen to av de seks hjørnefeltene.
 - Gaffel: en kjede som binder sammen tre av de seks sidene. Et hjørnefelt hører ikke til noen side.
 # En tur
-Sett én stein på et hvilket som helst tomt felt. Steiner flyttes aldri og slås aldri. Hvit begynner.
+Sett én stein på et hvilket som helst tomt felt. Steiner flyttes aldri og slås aldri. Den lyse siden begynner.
 # Byttet
-Med bytte kan Svart i sitt første trekk i stedet ta Hvits første stein: den blir svart der den står. Så spiller Hvit igjen.
+Med bytte kan den mørke siden i sitt første trekk i stedet ta den lyse sidens første stein: den blir mørk der den står. Så spiller den lyse siden igjen.
 # Slutten på spillet
 Den første figuren vinner. Blir brettet fullt uten en figur, ender spillet uavgjort.

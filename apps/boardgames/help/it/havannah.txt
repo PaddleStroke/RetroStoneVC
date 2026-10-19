@@ -5,8 +5,8 @@ Sii il primo a formare una di tre figure con una catena delle tue pietre. Le pie
 - Ponte: una catena che unisce due delle sei caselle d'angolo.
 - Forca: una catena che unisce tre dei sei lati. Una casella d'angolo non appartiene a nessun lato.
 # Un turno
-Metti una pietra su una casella vuota qualsiasi. Le pietre non si muovono mai e non vengono mai catturate. Inizia il Bianco.
+Metti una pietra su una casella vuota qualsiasi. Le pietre non si muovono mai e non vengono mai catturate. Iniziano le chiare.
 # Lo scambio
-Con lo scambio, il Nero alla sua prima mossa può prendere la prima pietra del Bianco: diventa nera dov'è. Poi il Bianco gioca di nuovo.
+Con lo scambio, le scure alla loro prima mossa possono prendere la prima pietra delle chiare: diventa scura dov'è. Poi le chiare giocano di nuovo.
 # La fine della partita
 Vince la prima figura. Se la tavola si riempie senza nessuna figura, la partita è patta.

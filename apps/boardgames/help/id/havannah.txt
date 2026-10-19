@@ -5,8 +5,8 @@ Jadilah yang pertama membentuk salah satu dari tiga bentuk dengan rantai batumu.
 - Jembatan: rantai yang menghubungkan dua dari enam petak sudut.
 - Garpu: rantai yang menghubungkan tiga dari enam sisi. Petak sudut tidak termasuk sisi mana pun.
 # Satu giliran
-Letakkan satu batu di petak kosong mana saja. Batu tidak pernah berpindah dan tidak pernah ditangkap. Putih jalan lebih dulu.
+Letakkan satu batu di petak kosong mana saja. Batu tidak pernah berpindah dan tidak pernah ditangkap. Pihak terang jalan lebih dulu.
 # Tukar
-Dengan tukar, Hitam pada langkah pertamanya boleh mengambil batu pertama Putih: batu itu menjadi hitam di tempatnya. Lalu Putih jalan lagi.
+Dengan tukar, pihak gelap pada langkah pertamanya boleh mengambil batu pertama pihak terang: batu itu menjadi gelap di tempatnya. Lalu pihak terang jalan lagi.
 # Akhir permainan
 Bentuk pertama yang menang. Jika papan penuh tanpa satu bentuk pun, permainan seri.

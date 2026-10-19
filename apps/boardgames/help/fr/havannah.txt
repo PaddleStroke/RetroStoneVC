@@ -5,8 +5,8 @@ Anneau et fourche
 - Pont : une chaîne qui relie deux des six cases de coin.
 - Fourche : une chaîne qui relie trois des six bords. Une case de coin n'appartient à aucun bord.
 # Un tour
-Pose une pierre sur n'importe quelle case vide. Les pierres ne bougent jamais et ne sont jamais capturées. Blanc commence.
+Pose une pierre sur n'importe quelle case vide. Les pierres ne bougent jamais et ne sont jamais capturées. Les claires commencent.
 # L'échange
-Avec l'échange, Noir peut, à son premier coup, prendre la première pierre de Blanc : elle devient noire, sur place. Puis Blanc rejoue.
+Avec l'échange, les foncées peuvent, à leur premier coup, prendre la première pierre claire : elle devient foncée, sur place. Puis les claires rejouent.
 # La fin de la partie
 La première figure gagne. Si le plateau se remplit sans figure, la partie est nulle.

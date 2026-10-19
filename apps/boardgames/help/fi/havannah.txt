@@ -5,8 +5,8 @@ Muodosta ensimmäisenä kivistäsi ketju, joka on yksi kolmesta kuviosta. Kivet 
 - Silta: ketju, joka yhdistää kaksi kuudesta kulmaruudusta.
 - Haarukka: ketju, joka yhdistää kolme kuudesta sivusta. Kulmaruutu ei kuulu mihinkään sivuun.
 # Vuoro
-Aseta yksi kivi mihin tahansa tyhjään ruutuun. Kivet eivät koskaan liiku eikä niitä lyödä. Valkoinen aloittaa.
+Aseta yksi kivi mihin tahansa tyhjään ruutuun. Kivet eivät koskaan liiku eikä niitä lyödä. Vaalea aloittaa.
 # Vaihto
-Vaihdon kanssa musta voi ensimmäisellä siirrollaan ottaa valkoisen ensimmäisen kiven: se muuttuu mustaksi paikallaan. Sitten valkoinen pelaa uudelleen.
+Vaihdon kanssa tumma voi ensimmäisellä siirrollaan ottaa vaalean ensimmäisen kiven: se muuttuu tummaksi paikallaan. Sitten vaalea pelaa uudelleen.
 # Pelin loppu
 Ensimmäinen kuvio voittaa. Jos lauta täyttyy ilman kuviota, peli päättyy tasapeliin.

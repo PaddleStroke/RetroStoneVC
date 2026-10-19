@@ -5,8 +5,8 @@ Bilde als Erster mit einer Kette deiner Steine eine von drei Figuren. Steine bil
 - Brücke: eine Kette, die zwei der sechs Eckfelder verbindet.
 - Gabel: eine Kette, die drei der sechs Seiten verbindet. Ein Eckfeld gehört zu keiner Seite.
 # Ein Zug
-Setze einen Stein auf ein beliebiges leeres Feld. Steine bewegen sich nie und werden nie geschlagen. Weiß beginnt.
+Setze einen Stein auf ein beliebiges leeres Feld. Steine bewegen sich nie und werden nie geschlagen. Hell beginnt.
 # Der Tausch
-Mit Tausch darf Schwarz im ersten Zug stattdessen den ersten Stein von Weiß übernehmen: Er wird an seinem Platz schwarz. Dann spielt Weiß erneut.
+Mit Tausch darf Dunkel im ersten Zug stattdessen den ersten Stein von Hell übernehmen: Er wird an seinem Platz dunkel. Dann spielt Hell erneut.
 # Das Ende der Partie
 Die erste Figur gewinnt. Füllt sich das Brett ohne eine Figur, endet die Partie unentschieden.

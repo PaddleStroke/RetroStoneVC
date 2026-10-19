@@ -5,8 +5,8 @@ Jako pierwszy ułóż łańcuchem swoich kamieni jeden z trzech kształtów. Kam
 - Most: łańcuch łączący dwa z sześciu pól narożnych.
 - Widły: łańcuch łączący trzy z sześciu boków. Pole narożne nie należy do żadnego boku.
 # Tura
-Połóż jeden kamień na dowolnym pustym polu. Kamienie nigdy się nie przesuwają i nigdy nie są zbijane. Zaczyna biały.
+Połóż jeden kamień na dowolnym pustym polu. Kamienie nigdy się nie przesuwają i nigdy nie są zbijane. Zaczynają jasne.
 # Zamiana
-Z zamianą czarny może w swoim pierwszym ruchu zamiast tego przejąć pierwszy kamień białego: kamień staje się czarny w miejscu, w którym stoi. Potem znowu gra biały.
+Z zamianą ciemne mogą w swoim pierwszym ruchu zamiast tego przejąć pierwszy kamień jasnych: kamień staje się ciemny w miejscu, w którym stoi. Potem znowu grają jasne.
 # Koniec gry
 Wygrywa pierwszy ułożony kształt. Jeśli plansza zapełni się bez kształtu, gra kończy się remisem.

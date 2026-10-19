@@ -5,8 +5,8 @@ Be the first to make one of three shapes with a chain of your stones. Stones are
 - Bridge: a chain joining two of the six corner cells.
 - Fork: a chain joining three of the six sides. A corner cell belongs to no side.
 # A turn
-Place one stone on any empty cell. Stones never move and are never captured. White plays first.
+Place one stone on any empty cell. Stones never move and are never captured. Light plays first.
 # The swap
-With the swap, Black's first move may instead take White's first stone: it turns black where it stands. Then White plays again.
+With the swap, Dark's first move may instead take Light's first stone: it turns dark where it stands. Then Light plays again.
 # The end of the game
 The first shape wins. If the board fills up without one, the game is a draw.

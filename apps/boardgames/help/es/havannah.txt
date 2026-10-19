@@ -5,8 +5,8 @@ Sé el primero en formar una de tres figuras con una cadena de tus piedras. Las 
 - Puente: una cadena que une dos de las seis casillas de esquina.
 - Horquilla: una cadena que une tres de los seis lados. Una casilla de esquina no pertenece a ningún lado.
 # Un turno
-Pon una piedra en cualquier casilla vacía. Las piedras nunca se mueven ni se capturan. Empiezan las blancas.
+Pon una piedra en cualquier casilla vacía. Las piedras nunca se mueven ni se capturan. Empiezan las claras.
 # El cambio
-Con el cambio, las negras pueden, en su primer turno, quedarse con la primera piedra blanca: se vuelve negra en su sitio. Después vuelven a jugar las blancas.
+Con el cambio, las oscuras pueden, en su primer turno, quedarse con la primera piedra clara: se vuelve oscura en su sitio. Después vuelven a jugar las claras.
 # El final de la partida
 Gana la primera figura. Si el tablero se llena sin ninguna, la partida termina en tablas.

@@ -5,8 +5,8 @@ Taşlarından oluşan bir zincirle üç şekilden birini ilk kuran sen ol. Hücr
 - Köprü: altı köşe hücresinden ikisini birleştiren bir zincir.
 - Çatal: altı kenardan üçünü birleştiren bir zincir. Köşe hücresi hiçbir kenara ait değildir.
 # Bir tur
-Boş herhangi bir hücreye bir taş koy. Taşlar asla hareket etmez ve asla alınmaz. Beyaz başlar.
+Boş herhangi bir hücreye bir taş koy. Taşlar asla hareket etmez ve asla alınmaz. Önce açık renk oynar.
 # Takas
-Takaslı oyunda Siyah ilk hamlesinde taş koymak yerine Beyaz'ın ilk taşını alabilir: taş yerinde siyaha döner. Sonra Beyaz yeniden oynar.
+Takaslı oyunda koyu renk ilk hamlesinde taş koymak yerine açık rengin ilk taşını alabilir: taş yerinde koyu renge döner. Sonra açık renk yeniden oynar.
 # Oyunun sonu
 İlk kurulan şekil kazanır. Tahta hiçbir şekil olmadan dolarsa oyun berabere biter.
