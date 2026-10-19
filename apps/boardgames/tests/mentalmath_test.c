@@ -44,13 +44,16 @@ static void test_levels(void)
         drill_ok(&g);
         char s[1024];
         CHECK(mmh_encode(&g, s, sizeof s) > 0 && !strcmp(s, mmh_levels[i]));
-        int ch = i / 25;
+        int ch = i / 25, big = 0;
         for (int k = 0; k < g.nq; k++) {
             CHECK(OPS[ch] >> g.q[k].op & 1);
             if (ch < 2) CHECK(g.q[k].n[0] <= 20 && g.q[k].n[1] <= 20 && g.q[k].n[2] <= 20);   /* within twenty */
-            if (i < 5) CHECK(g.q[k].n[2] <= 5 && g.q[k].miss == 2);                         /* a gentle start */
+            if (i < 5) CHECK(g.q[k].n[2] <= (i < 2 ? 5 : i < 3 ? 7 : 10) && g.q[k].miss == 2);   /* a gentle start */
+            if (i >= 3 && i < 5) CHECK(g.q[k].n[2] >= 5);  /* then from five to ten */
+            big = g.q[k].n[2] > big ? g.q[k].n[2] : big;
             if (ch < 3) CHECK(g.q[k].n[0] <= 100 && g.q[k].n[2] <= 100);   /* to a hundred */
         }
+        if (i == 2) CHECK(big > 5);             /* level 3 a step up: past five */
         for (int j = 0; j < i; j++) CHECK(strcmp(mmh_levels[j], mmh_levels[i]));
     }
 }
