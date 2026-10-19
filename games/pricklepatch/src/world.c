@@ -22,7 +22,7 @@ const enemy_info EN_INFO[ET_COUNT] = {
     [ET_CROW]     = {  40, 18,  9,  9, 3, 4, SF_CROW},
     [ET_LOCUST]   = {  28, 14,  8,  7, 3, 5, SF_LOCUST},
     [ET_QUEEN]    = {2500,  8, 14, 18, 0, 0, SF_QUEEN},
-    [ET_STAG]     = {9000,  7, 18, 18, 0, 0, SF_STAG},
+    [ET_STAG]     = {9000,  7, 15, 18, 0, 0, SF_STAG},
     [ET_CROWKING] = {36000, 12, 22, 18, 0, 0, SF_CROWKING},
 };
 const uint8_t EVOLVE_WITH[W_COUNT] = {P_POUCH, P_HAT, P_HONEY, P_SUNDIAL, P_MAGNET, P_COMPOST, P_HONEY, P_BOOTS, P_CLOVER};
@@ -843,12 +843,12 @@ static void boss_ai(world *w, int i)
         if (e->st == 0 && e->st_t >= 240) { e->st = 1; e->st_t = 0; }
         else if (e->st == 1 && e->st_t >= 45) {
             int vx, vy;
-            aim(w, ex, ey, hx, hy, 56, &vx, &vy);
+            aim(w, ex, ey, hx, hy, 48, &vx, &vy);
             e->ax = (int16_t)vx;
             e->ay = (int16_t)vy;
             e->st = 2;
             e->st_t = 0;
-        } else if (e->st == 2 && e->st_t >= 50) { e->st = 0; e->st_t = 0; }
+        } else if (e->st == 2 && e->st_t >= 44) { e->st = 0; e->st_t = 0; }
         break;
     case ET_CROWKING:                                 /* circles, dives through, calls crows */
         if (e->st == 0 && e->st_t >= 200) {

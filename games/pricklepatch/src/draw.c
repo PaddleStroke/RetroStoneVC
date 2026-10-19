@@ -270,6 +270,7 @@ void draw_init(void)
     rs_pal_load(RS_PAL_OBJ(OBJ_TOOLS), pp_pal_tools, 16);
     rs_pal_load(RS_PAL_OBJ(OBJ_ITEMS), pp_pal_items, 16);
     rs_pal_load(RS_PAL_OBJ(OBJ_FX), pp_pal_fx, 16);
+    rs_pal_load(RS_PAL_OBJ(5), pp_pal_soft, 16);           /* the title's strolling pests (title_critters) */
     rs_math(RS_MATH_ADD | RS_MATH_HALF, RS_MATH_OBJ, 0);   /* OBJ 4-7: see-through */
     rs_bg_enable(RS_BG1, 1);
     rs_bg_enable(RS_BG2, 1);
@@ -878,6 +879,29 @@ static void results_panel(const world *w, const view *v, int narrow)
     for (int i = 0; i < 4; i++) hu_big(x + (width - hu_width(vals[i], 1)) / 2, RES_ROW(i) + 1, vals[i], HU_BIG_BANNER);
 }
 
+/* the title: three pests stroll across the garden at the screen's bottom (hardware sprites: their art is copied into the
+ * number pops' tiles, which the title does not use, on OBJ palette 5 = the soft layer's colours; no colour math there) */
+static void title_critters(int t)
+{
+    static const uint8_t kind[3] = {SF_SLUG, SF_BEETLE, SF_APHID};
+    static const uint8_t speed[3] = {3, 4, 6};          /* px per 8 frames */
+    int left = rs_screen_left(), span = rs_screen_right() - left + 32;
+    for (int k = 0; k < 3; k++) {
+        int fr = kind[k] + ((t / (k == 2 ? 6 : 10)) & 1);
+        const pp_soft_def *d = &pp_soft[fr];
+        uint8_t buf[4][64];
+        memset(buf, 0, sizeof buf);
+        for (int y = 0; y < d->h; y++)
+            for (int x = 0; x < d->w; x++) {
+                int gx = d->ox + x, gy = d->oy + y + (16 - d->fh);   /* (feet on the 16-px cell's bottom) */
+                if (gx < 16 && gy >= 0 && gy < 16) buf[(gy / 8) * 2 + gx / 8][(gy & 7) * 8 + (gx & 7)] = pp_soft_px[d->off + y * d->w + x];
+            }
+        rs_tiles_load8(VR_OBJ + POP_TILE + k * 4, buf[0], 4);
+        int x = left - 16 + (int)((t * speed[k] / 8 + k * 137) % span), y = rs_screen_bottom() - 22 - k * 16;
+        spr_raw(x, y, POP_TILE + k * 4, 16, 16, 5, 2, 0);
+    }
+}
+
 /* ---- the frame ------------------------------------------------------------------------------------------------------------- */
 void draw_frame(const world *w, const view *v)
 {
@@ -918,6 +942,8 @@ void draw_frame(const world *w, const view *v)
     }
     rs_bg_enable(RS_BG2, !title);
     rs_brightness(15);
+    /* OBJ 4-7 see-through (the splash, the ring, the stick, the glows); the title: opaque (its pests on OBJ 5) */
+    rs_math(title ? RS_MATH_OFF : RS_MATH_ADD | RS_MATH_HALF, title ? 0 : RS_MATH_OBJ, 0);
 
     /* the UI layer: redrawn when what it shows changes */
     int secs = w->t / SEC;
@@ -1004,6 +1030,7 @@ void draw_frame(const world *w, const view *v)
         }
         if (!(v->unlocked & (1 << v->chr)))
             spr(SPR_I_LOCK, (narrow ? ht_mid_x() : 160) + hu_ui_x() + 8, (narrow ? pdy - 12 : 76) + 2, 3, 0);
+        if (v->state == ST_TITLE) title_critters(v->st_t);
         return;
     }
     if (v->state == ST_OVER) {

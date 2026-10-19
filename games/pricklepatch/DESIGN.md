@@ -57,9 +57,9 @@ The number of pests kept on the field grows smoothly through each minute; the mi
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | pests | 12 | 26 | 40 | 55 | 70 | 85 | 100 | 120 | 140 | 160 | 180 | 200 | 220 | 240 | 260 | 280 |
 
-The first 20 seconds the pests come one at a time (a trickle). Their health grows with the time (x1 at 0:00, x1.67 at
-10:00, x2 at 15:00). A boss out: three quarters of the others. The moonlit garden (opened by a run past 10:00): health
-x1.25, speed x1.125, 12% more pests.
+They come at 2 + minute a second at most (a trickle at first, 17 a second at 15:00). Their health grows with the time (x1
+at 0:00, x1.67 at 10:00, x2 at 15:00), their touch too (x1.25 at 7:30, x1.5 at 15:00). A boss out: three quarters
+of the others. The moonlit garden (opened by a run past 10:00): health x1.25, speed x1.125, 12% more pests.
 
 | pest | health | speed (px/f) | touch | gem | from |
 |---|---|---|---|---|---|
@@ -71,8 +71,8 @@ x1.25, speed x1.125, 12% more pests.
 | thistle | 60 | 0.31 | 10 | 4 | 5:00 |
 | crow | 40 | 1.12 | 9 | 3 | 7:00 (swoops through) |
 | locust | 28 | 0.88 (hops x1.5) | 8 | 3 | 8:00 |
-| Slug Queen | 2500 | 0.31 | 14 | 60 | 5:00: six slugs come out every 4 s |
-| Stag Beetle | 9000 | 0.44 | 18 | 100 | 10:00: stops, shakes 0.75 s (the warning), charges 3.5 px/f |
+| Slug Queen | 2500 | 0.5 | 14 | 60 | 5:00: six slugs come out every 4 s |
+| Stag Beetle | 9000 | 0.44 | 15 | 100 | 10:00: stops, shakes 0.75 s (the warning), charges 3 px/f for 0.73 s |
 | Crow King | 36000 | 0.75 | 22 | 140 | 15:00: circles at 110 px, dives through, calls crows; chased off: the garden is saved |
 
 Events: a ring of 20 aphids closing in at 1:30, an elite beetle with a chest at 3:00, a column of 18 ants at 4:00, a
@@ -97,10 +97,11 @@ every 2 s a level, magnet +25% gem reach, sundial -6% cooldowns, seed pouch +1 s
 pumpkins, bees, mowers, puffs), clover +8% XP and +15% coins (and luckier drops).
 
 ### Difficulty
-A gentle first three minutes (the bot, with random choices, keeps every health point there; the tests check three
-seeds), the first boss and a real crowd by 5:00-7:00, the arena full by 10:00 (about 150 pests on the field), 260-280
-at the end with the Crow King: survivable with a good build, tense. A normal phone player meets the first
-elite (a chest) at 3:00 and should reach the Slug Queen.
+A gentle first three minutes (the tests: the bot, with random choices, survives them on three seeds, and 5:00 on a
+fourth), the first boss and a real crowd by 5:00-7:00, the Stag Beetle and a full arena at 10:00, the most pests and
+the Crow King at 15:00: survivable with a good build, tense. The bot (it flees the pests, leaves many gems, chooses at
+random) lasts to 10:00-11:00 on most seeds, to 15:00 on about one in four; a player who gathers the gems and chooses
+well gets further. A normal phone player meets the first elite (a chest) at 3:00 and should reach the Slug Queen.
 
 ### The garden shed (the meta-progression, save RAM)
 Coins: picked up in a run, plus 1 per 12 seconds survived and 25 per boss chased off. Six boosts of 5 levels (price:
@@ -121,10 +122,11 @@ sprites are kept for the gardener and its health bar, the tools that move (bees,
 flames, the splash, the prickle ring), the pickups, the number pops (16 sprites of 16x8 drawn at run time) and the UI;
 a budget in draw.c keeps them under 124 and 30 a band of 8 lines (strict mode never warns: the tests run with it).
 
-Measured (tests/bench_test.sh, host; the A20 estimate x15-20): the first minutes 0.25 ms a frame, minute 10 with the
-Stag Beetle and a full build 0.35 ms, minute 14 with 272 pests 0.45 ms (0.60 at 520 columns or upright), all under the
-0.83 ms budget. The pool runs short only in the densest crowd at minute 14 (a god-mode bot circling: under 8% of the
-frames at 4:3, the far pests then not drawn for a frame).
+Measured (tests/bench_test.sh, host; the A20 estimate x15-20): the first minutes 0.26 ms a frame, minute 10 with the
+Stag Beetle and a full build 0.31 ms, minute 14 0.34 ms (0.48 at 520 columns, 0.45 upright), all under the 0.83 ms
+budget (A20 estimate at 4:3: 5-7 ms of the 16.7). The pool peaks at 581 tiles at 4:3 (of 768), never short in the
+benches; with 272 pests packed round a god-mode bot (an earlier, denser spawner) it ran short in 8% of the frames, the
+far pests then not drawn for a frame.
 
 ## Screen and layers
 320 x 240 at 60 Hz. Back to front: BG4 the garden (and the gems), sprites prio 1 (pickups), BG2 the soft layer,
