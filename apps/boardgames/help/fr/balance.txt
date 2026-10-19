@@ -5,4 +5,4 @@ Quand toutes les formes d'une balance ont un poids qui ne l'équilibre pas, elle
 # La fin de la partie
 L'énigme est résolue quand chaque forme a son bon poids.
 # Niveaux et étoiles
-Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur, c'est avoir pesé toutes les formes avec un poids faux.
+Sans indice ni erreur : 3 étoiles ; jusqu'à deux indices et erreurs en tout : 2 étoiles ; sinon 1. Une erreur compte quand chaque forme a un poids, mais que certains sont faux.

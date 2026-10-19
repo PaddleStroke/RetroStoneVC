@@ -5,4 +5,4 @@ Bir terazideki bütün şekillerin ağırlığı onu dengelemiyorsa, terazi ağ�
 # Oyunun sonu
 Her şekil doğru ağırlığını bulduğunda bulmaca çözülür.
 # Seviyeler ve yıldızlar
-İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Hata, bütün şekilleri biri yanlış ağırlıkla tartmaktır.
+İpucu da hata da yoksa 3 yıldız; ipucu ve hata toplam en fazla ikiyse 2 yıldız; yoksa 1. Bütün şekillere ağırlık verilmiş ama bazıları yanlışsa bir hata sayılır.

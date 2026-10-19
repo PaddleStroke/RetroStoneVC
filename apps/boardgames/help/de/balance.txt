@@ -5,4 +5,4 @@ Haben alle Formen einer Waage ein Gewicht, das sie nicht ausgleicht, neigt sie s
 # Das Ende der Partie
 Das Rätsel ist gelöst, wenn jede Form ihr richtiges Gewicht hat.
 # Level und Sterne
-Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler ist, alle Formen gewogen zu haben, mit einem falschen Gewicht.
+Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1. Ein Fehler zählt, wenn jede Form ein Gewicht hat, aber manche falsch sind.

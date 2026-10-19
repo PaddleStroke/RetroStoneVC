@@ -5,4 +5,4 @@ Když mají všechny tvary na váze váhy, které ji nevyrovnají, nakloní se k
 # Konec hry
 Úloha je vyřešená, když má každý tvar svou správnou váhu.
 # Úrovně a hvězdy
-Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba je zvážit všechny tvary s nějakou váhou špatně.
+Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1. Chyba se počítá, když mají všechny tvary váhu, ale některé jsou špatně.

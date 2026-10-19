@@ -5,4 +5,4 @@ Når alle figurene på en vekt har en vekt som ikke holder den i balanse, tipper
 # Slutten på spillet
 Puslespillet er løst når hver figur har riktig vekt.
 # Nivåer og stjerner
-Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil er å ha veid alle figurene med en feil vekt imellom.
+Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1. En feil telles når alle figurene har en vekt, men noen er feil.

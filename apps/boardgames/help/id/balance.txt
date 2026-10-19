@@ -5,4 +5,4 @@ Jika semua bentuk pada sebuah timbangan sudah diberi berat yang tidak menyeimban
 # Akhir permainan
 Teka-teki selesai ketika setiap bentuk mendapat berat yang benar.
 # Level dan bintang
-Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan adalah menimbang semua bentuk dengan ada berat yang salah.
+Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1. Kesalahan dihitung saat semua bentuk sudah diberi berat, tetapi ada yang salah.

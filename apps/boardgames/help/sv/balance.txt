@@ -5,4 +5,4 @@ När alla former på en våg har en vikt som inte håller den i jämvikt, tippar
 # Partiets slut
 Pusslet är löst när varje form har sin rätta vikt.
 # Banor och stjärnor
-Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel är att ha vägt alla former med någon vikt fel.
+Utan ledtråd och utan fel: 3 stjärnor; upp till två ledtrådar och fel tillsammans: 2 stjärnor; annars 1. Ett fel räknas när alla former har en vikt men några är fel.

@@ -5,4 +5,4 @@ Als alle vormen op een weegschaal een gewicht hebben dat haar niet in evenwicht 
 # Het einde van het spel
 De puzzel is opgelost als elke vorm het juiste gewicht heeft.
 # Levels en sterren
-Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout is alle vormen gewogen hebben met een verkeerd gewicht erbij.
+Zonder hint en zonder fout: 3 sterren; tot twee hints en fouten samen: 2 sterren; anders 1. Een fout telt wanneer elke vorm een gewicht heeft, maar sommige verkeerd zijn.

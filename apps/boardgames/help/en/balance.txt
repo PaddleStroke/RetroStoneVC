@@ -5,4 +5,4 @@ When a scale's shapes all have a weight that does not balance it, it tips toward
 # The end of the game
 The puzzle is solved when every shape has its right weight.
 # Levels and stars
-No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is every shape weighed with some weight wrong.
+No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1. A mistake is counted when every shape has a weight but some are wrong.

@@ -5,4 +5,4 @@ Quando tutte le forme di una bilancia hanno un peso che non la equilibra, pende 
 # La fine della partita
 L'enigma è risolto quando ogni forma ha il suo peso giusto.
 # Livelli e stelle
-Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1. Un errore è aver pesato tutte le forme con qualche peso sbagliato.
+Senza suggerimenti né errori: 3 stelle; fino a due suggerimenti ed errori in tutto: 2 stelle; altrimenti 1. Si conta un errore quando ogni forma ha un peso, ma qualcuno è sbagliato.

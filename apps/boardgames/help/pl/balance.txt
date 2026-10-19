@@ -5,4 +5,4 @@ Gdy wszystkie kształty na wadze mają wagi, które jej nie równoważą, przech
 # Koniec gry
 Łamigłówka jest rozwiązana, gdy każdy kształt ma właściwą wagę.
 # Poziomy i gwiazdki
-Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd to zważenie wszystkich kształtów z jakąś wagą złą.
+Bez podpowiedzi i bez błędu: 3 gwiazdki; najwyżej dwie podpowiedzi i błędy razem: 2 gwiazdki; inaczej 1. Błąd liczy się, gdy każdy kształt ma wagę, ale któraś jest zła.

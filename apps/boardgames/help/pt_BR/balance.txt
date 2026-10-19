@@ -5,4 +5,4 @@ Quando todas as formas de uma balança têm um peso que não a equilibra, ela pe
 # O fim da partida
 O desafio está resolvido quando cada forma tem o seu peso certo.
 # Níveis e estrelas
-Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Um erro é pesar todas as formas com algum peso errado.
+Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1. Conta um erro quando todas as formas têm um peso, mas algum está errado.
