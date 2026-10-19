@@ -4,7 +4,6 @@ Jadilah yang pertama menjajarkan lima kelereng warnamu: mendatar, tegak, atau mi
 # Satu giliran
 - Taruh satu kelereng di lubang kosong.
 - Lalu putar salah satu dari empat perempat papan seperempat putaran, ke arah mana saja. Perempat mana pun boleh diputar, bahkan yang kosong, dan kelerengnya ikut berputar.
-- Ketuk salah satu panah bundar di dekat sebuah perempat untuk memutarnya ke arah itu.
 # Akhir permainan
 - Lima sejajar menang, baik karena kelereng maupun karena putaran. Jika sudah lima begitu kelereng ditaruh, kamu langsung menang tanpa memutar.
 - Jika sebuah putaran membuat lima sejajar bagi kedua pemain sekaligus, permainan seri.

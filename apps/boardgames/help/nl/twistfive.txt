@@ -4,7 +4,6 @@ Leg als eerste vijf knikkers van jouw kleur op een rij: horizontaal, verticaal o
 # Een beurt
 - Leg een knikker in een leeg gat.
 - Draai daarna een van de vier kwarten van het bord een kwartslag, de ene of de andere kant op. Elk kwart mag, ook een leeg, en zijn knikkers draaien mee.
-- Tik op een van de ronde pijlen bij een kwart om het die kant op te draaien.
 # Het einde van de partij
 - Vijf op een rij wint, door de knikker of door de draai. Heb je al vijf na het leggen, dan win je meteen, zonder te draaien.
 - Geeft een draai beide spelers tegelijk vijf op een rij, dan is het remise.

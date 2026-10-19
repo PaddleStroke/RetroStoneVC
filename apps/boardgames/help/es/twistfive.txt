@@ -4,7 +4,6 @@ Sé el primero en alinear cinco canicas de tu color: en horizontal, en vertical 
 # Un turno
 - Pon una canica en un hueco vacío.
 - Después gira uno de los cuatro cuartos del tablero un cuarto de vuelta, hacia un lado o hacia el otro. Puede ser cualquier cuarto, incluso uno vacío, y sus canicas giran con él.
-- Toca una de las flechas redondas junto a un cuarto para girarlo en ese sentido.
 # El final de la partida
 - Cinco en línea ganan, tanto por la canica como por el giro. Si tienes cinco al poner la canica, ganas al momento, sin girar.
 - Si un giro deja cinco en línea a los dos jugadores a la vez, la partida es tablas.

@@ -4,7 +4,6 @@ Bli den første som får fem kuler i din farge på rad: vannrett, loddrett eller
 # En tur
 - Legg en kule i et tomt hull.
 - Vri så en av brettets fire kvarter en kvart omdreining, den ene eller den andre veien. Alle kvarter kan vris, også et tomt, og kulene følger med.
-- Trykk på en av de runde pilene ved et kvarter for å vri det den veien.
 # Slutten på spillet
 - Fem på rad vinner, enten det skjer med kulen eller vridningen. Har du fem straks kulen er lagt, vinner du med en gang, uten å vri.
 - Gir en vridning begge spillerne fem på rad samtidig, blir det uavgjort.

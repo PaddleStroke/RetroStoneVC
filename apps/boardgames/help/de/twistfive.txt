@@ -4,7 +4,6 @@ Bring als Erster fünf Kugeln deiner Farbe in eine Reihe: waagerecht, senkrecht 
 # Ein Zug
 - Setz eine Kugel in ein freies Loch.
 - Dreh dann eines der vier Viertel des Bretts um eine Vierteldrehung, in die eine oder andere Richtung. Jedes Viertel darf gedreht werden, auch ein leeres, und seine Kugeln drehen sich mit.
-- Tippe auf einen der runden Pfeile an einem Viertel, um es in diese Richtung zu drehen.
 # Das Ende der Partie
 - Fünf in einer Reihe gewinnen, ob durch die Kugel oder durch die Drehung. Hast du schon nach dem Setzen fünf, gewinnst du sofort, ohne zu drehen.
 - Bringt eine Drehung beiden Spielern zugleich fünf in einer Reihe, endet die Partie unentschieden.

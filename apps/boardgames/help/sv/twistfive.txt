@@ -4,7 +4,6 @@ Bli först med att få fem kulor i din färg i rad: vågrätt, lodrätt eller di
 # En tur
 - Lägg en kula i ett tomt hål.
 - Vrid sedan en av brädets fyra fjärdedelar ett kvarts varv, åt ena eller andra hållet. Vilken fjärdedel som helst får vridas, även en tom, och dess kulor följer med.
-- Tryck på en av de runda pilarna vid en fjärdedel för att vrida den åt det hållet.
 # Partiets slut
 - Fem i rad vinner, oavsett om det blir genom kulan eller vridningen. Har du fem direkt när kulan ligger, vinner du genast, utan att vrida.
 - Ger en vridning båda spelarna fem i rad samtidigt blir det oavgjort.

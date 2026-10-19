@@ -4,7 +4,6 @@ Tourne-cinq
 # Un tour
 - Pose une bille dans un trou vide.
 - Puis tourne l'un des quatre quarts du plateau d'un quart de tour, dans un sens ou dans l'autre. N'importe quel quart, même vide, et ses billes tournent avec lui.
-- Touche l'une des flèches rondes près d'un quart pour le tourner dans ce sens.
 # La fin de la partie
 - Cinq alignées gagnent, que ce soit grâce à la bille ou au quart de tour. Avec cinq dès la bille posée, tu gagnes tout de suite, sans tourner.
 - Si un quart de tour aligne cinq billes pour les deux joueurs à la fois, la partie est nulle.

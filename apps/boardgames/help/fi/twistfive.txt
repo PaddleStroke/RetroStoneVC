@@ -4,7 +4,6 @@ Saa ensimmäisenä viisi oman värisi kuulaa riviin: vaakaan, pystyyn tai vinott
 # Vuoro
 - Aseta kuula tyhjään koloon.
 - Kierrä sitten yhtä laudan neljästä neljänneksestä neljänneskierros jompaankumpaan suuntaan. Mitä tahansa neljännestä saa kiertää, tyhjääkin, ja sen kuulat kiertyvät mukana.
-- Napauta neljänneksen vieressä olevaa pyöreää nuolta kiertääksesi sitä siihen suuntaan.
 # Pelin loppu
 - Viisi rivissä voittaa, syntyipä rivi kuulasta tai kierrosta. Jos sinulla on viisi heti kuulan asettamisen jälkeen, voitat saman tien kiertämättä.
 - Jos kierto antaa molemmille pelaajille viiden rivin yhtä aikaa, peli päättyy tasan.

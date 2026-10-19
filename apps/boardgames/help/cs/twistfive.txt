@@ -4,7 +4,6 @@ Seřaď jako první pět kuliček své barvy: vodorovně, svisle nebo úhlopří
 # Tah
 - Vlož kuličku do prázdného důlku.
 - Pak otoč jednu ze čtyř čtvrtin desky o čtvrt otáčky, na kteroukoli stranu. Smíš otočit kteroukoli čtvrtinu, i prázdnou, a její kuličky se otočí s ní.
-- Klepni na jednu z kulatých šipek u čtvrtiny, abys ji otočil tím směrem.
 # Konec hry
 - Pět v řadě vyhrává, ať díky kuličce, nebo otočce. Máš-li pět hned po vložení kuličky, vyhráváš ihned, bez otáčení.
 - Když otočka dá pět v řadě oběma hráčům naráz, je to remíza.

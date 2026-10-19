@@ -4,7 +4,6 @@ Be the first to line up five marbles of your colour: across, up and down, or dia
 # A turn
 - Place one marble in any empty hole.
 - Then turn one of the four quarters of the board a quarter turn, either way. Any quarter may be turned, even an empty one, and its marbles turn with it.
-- Tap one of the round arrows by a quarter to turn it that way.
 # The end of the game
 - Five in a row wins, made by the marble or by the turn. With five after placing the marble, you win at once, without turning.
 - If a turn makes five for both players at once, the game is a draw.
