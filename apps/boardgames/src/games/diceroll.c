@@ -14,12 +14,15 @@
  * shortest way, its tile and its arrow in gold light; from a dead end, it first takes back the rolls that led
  * there). Undo takes back one roll, all the way to the start. The bar: the rolls, and at its right end the par by a
  * small die. Solved: the die hops on the goal in a swell of gold light.
+ * The view fits the tiles themselves (isoview.h); a map too big for a readable die is drawn at it, and the view
+ * follows the die.
  */
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "games/diceroll.h"
+#include "games/isoview.h"
 #include "games/puzzles.h"
 #include "games/pzkit.h"
 #include "games/pztools.h"
@@ -47,6 +50,8 @@ static struct { int on; Uint32 t0; } win;
 
 static box last_box;
 static float ox, oy, cell;                      /* the map's picture's top left on the screen, a diamond's width */
+static float ex0, ey0, exw, exh;                /* the tiles' picture in the map's (extent(), in cells) */
+static int scroll;                              /* the map bigger than its room: the view follows the die */
 static int bw, bh, map_h = 1, made_cell = -1, made_serial = -1, made_face = -1, made_small = -1;
 static SDL_Texture *t_board, *t_face[7], *t_small;
 
@@ -415,8 +420,15 @@ static void token(int player, int size, uint8_t *rgba)
     die_pic(size, rgba);
 }
 
-static float extent_w(const dcr_map *m) { return (m->w + m->h) * 0.5f + 0.2f; }   /* in cells */
-static float extent_h(const dcr_map *m) { return board_h(m->w + m->h) + DS * KZ + 0.5f; }
+/* the tiles' picture in cells (isoview.h): room for the die over the back tiles, the edges and shadows in front */
+static void extent(const dcr_map *m, float *x0, float *y0, float *w, float *h)
+{
+    iso_span p;
+    iso_span_init(&p);
+    for (int c = 0; c < m->w * m->h; c++)
+        if (m->t[c] != DCR_VOID) iso_span_add(&p, c % m->w, c / m->w);
+    iso_span_box(&p, m->h, KB, DS * KZ + 0.3f, TH * KZ + 0.44f, x0, y0, w, h);
+}
 
 static void make_faces(int n)
 {
@@ -435,15 +447,26 @@ static void make_faces(int n)
     }
 }
 
+/* the picture's place: the tiles centred in the room, or when they are bigger, the die (at fx, fy on the map) kept
+ * in the middle, the map's edges kept in */
+static void follow(float fx, float fy)
+{
+    float sx, sy;
+    iso(fx, fy, 0, cell, map_h, &sx, &sy);
+    ox = iso_follow(last_box.x, last_box.w, ex0 * cell, exw * cell, sx);
+    oy = iso_follow(last_box.y, last_box.h, ey0 * cell, exh * cell, sy);
+}
+
 static void layout(box b)
 {
     last_box = b;
     map_h = G.m.h;
-    cell = floorf(fminf(b.w / extent_w(&G.m), b.h / extent_h(&G.m)));
+    extent(&G.m, &ex0, &ey0, &exw, &exh);
+    cell = iso_cell(exw, exh, b.w, b.h, 1.5f * ui.unit);   /* the die never under a tenth of a phone's width */
+    scroll = exw * cell > b.w + 0.5f || exh * cell > b.h + 0.5f;
     bw = (int)ceilf((G.m.w + G.m.h) * 0.5f * cell) + 1;
     bh = (int)ceilf(board_h(G.m.w + G.m.h) * cell) + 1;
-    ox = floorf(b.x + (b.w - bw) / 2);
-    oy = floorf(b.y + (b.h - extent_h(&G.m) * cell) / 2 + (DS * KZ + 0.3f) * cell);
+    follow(G.s.x + 0.5f, G.s.y + 0.5f);
     if (made_cell != (int)cell || made_serial != serial) {
         made_cell = (int)cell;
         made_serial = serial;
@@ -580,6 +603,15 @@ static void draw(void)
 {
     if (made_cell < 0 || made_serial != serial) layout(last_box);
     Uint32 now = ui_ms();
+    if (roll.on && now - roll.t0 >= ROLL_MS) roll.on = 0;
+    if (scroll) {                               /* the view follows the die as it rolls; the map cut at the room */
+        static const int DX[4] = {0, 1, 0, -1}, DY[4] = {-1, 0, 1, 0};
+        float t = roll.on ? puz_ease((now - roll.t0) / (float)ROLL_MS) : 0;
+        if (roll.on) follow(roll.from.x + 0.5f + DX[roll.dir] * t, roll.from.y + 0.5f + DY[roll.dir] * t);
+        else follow(G.s.x + 0.5f, G.s.y + 0.5f);
+        SDL_Rect clip = {(int)last_box.x, (int)last_box.y, (int)last_box.w, (int)last_box.h};
+        SDL_RenderSetClipRect(ui.r, &clip);
+    }
     ui_put(t_board, ox, oy, (float)bw, (float)bh);
     float gx, gy;
     cell_centre(G.m.goal, &gx, &gy);
@@ -593,7 +625,6 @@ static void draw(void)
             ui_mark_gold(hx, hy, 1.0f * cell);
         }
     }
-    if (roll.on && now - roll.t0 >= ROLL_MS) roll.on = 0;
     if (roll.on) {
         float t = puz_ease((now - roll.t0) / (float)ROLL_MS);
         static const int DX[4] = {0, 1, 0, -1}, DY[4] = {-1, 0, 1, 0};
@@ -622,6 +653,7 @@ static void draw(void)
         draw_shadow(G.s.x, G.s.y, 1 - 0.8f * lift);
         draw_die(G.s.o, G.s.x, G.s.y, dir, deg, lift, glow);
     }
+    if (scroll) SDL_RenderSetClipRect(ui.r, NULL);
     unsigned can = 0;
     for (int w = 0; w < 4; w++) {
         dcr_state n;
@@ -687,13 +719,15 @@ static void bar(int player, box b)
 /* ---- the shell's pictures: a map with the die at its start ------------------------------------------------------- */
 static void paint_map(const dcr_map *m, int size, uint8_t *rgba)
 {
-    float c = floorf(fminf(size * 0.96f / extent_w(m), size * 0.96f / extent_h(m)));
+    float e0, f0, ew, eh;
+    extent(m, &e0, &f0, &ew, &eh);
+    float c = floorf(fminf(size * 0.96f / ew, size * 0.96f / eh));
     if (c < 3) return;
     int W = (int)ceilf((m->w + m->h) * 0.5f * c) + 1, H = (int)ceilf(board_h(m->w + m->h) * c) + 1;
     uint8_t *o = malloc((size_t)W * H * 4);
     if (!o) return;
     paint_board(m, c, W, H, o);
-    int x0 = (size - W) / 2, y0 = (int)((size - extent_h(m) * c) / 2 + (DS * KZ + 0.3f) * c);
+    int x0 = (int)floorf((size - ew * c) / 2 - e0 * c), y0 = (int)floorf((size - eh * c) / 2 - f0 * c);
     art_blend(rgba, size, size, o, W, H, x0, y0);
     free(o);
     float sx, sy;
