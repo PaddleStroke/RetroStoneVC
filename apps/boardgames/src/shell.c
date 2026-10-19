@@ -5796,6 +5796,14 @@ void shell_set_mute(int muted)
     remember_mute();
 }
 
+void shell_text_set(const char *code)
+{
+    int was = WK.parked;
+    worker_park();                              /* no picture painted while the fonts change */
+    text_init(code);
+    if (!was) worker_unpark();
+}
+
 void shell_text_changed(void)
 {
     text_gen++;

@@ -71,6 +71,8 @@ void pages_soon_draw(int on_menu);              /* last, over everything (the sh
 /* ---- the shell's side, called by the pages (shell.c) ------------------------------------------------------------ */
 void shell_page_changed(void);                  /* lay the menu out again (another page, the search's words) */
 void shell_set_mute(int muted);
+void shell_text_set(const char *code);          /* the language switched (text_init): the menu's painting thread
+                                                 * waits meanwhile (a thumb() may set words in the fonts changed) */
 void shell_text_changed(void);                  /* the language switched: every picture of words made again */
 void shell_theme_changed(void);                 /* the theme switched: the menu's pictures of words made again */
 void shell_open_text(const char *key);          /* a page of text (the rules page's look): help/<lang>/<key>.txt */

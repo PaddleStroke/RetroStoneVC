@@ -667,7 +667,7 @@ static void set_lang(int li)
 {
     const char *code = li >= 0 && li < tx_nlangs ? tx_langs[li].code : NULL;
     ui_save_set("shell/lang", code ? code : "", code ? (int)strlen(code) : 0);
-    text_init(code);
+    shell_text_set(code);
     cache_clear();
     shell_text_changed();
 }
