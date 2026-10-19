@@ -1,11 +1,10 @@
 Setas para fora
 # O objetivo
-Esvazia o tabuleiro: todas as peças têm de sair dele.
+Esvazia o tabuleiro: todas as setas têm de sair dele.
 # Uma jogada
-Toca numa peça: ela desliza para fora do tabuleiro no sentido da sua seta, se nada estiver entre a ponta e a borda. Uma peça comprida move-se inteira, com a seta à frente.
-Se outra peça estiver no caminho, a peça tocada bate nela e fica onde estava: isso é um erro.
-Uma peça sobre um disco de latão que não pode sair roda um quarto de volta no sentido dos ponteiros do relógio, sem erro.
+Toca numa seta: se todas as casas da ponta, em linha reta, até à borda estiverem livres, ela sai no sentido da ponta, com o corpo a seguir o caminho da cabeça como uma cobra.
+Se outra seta estiver no caminho, a seta tocada bate nela e fica onde estava: isso é um erro.
 # O fim do jogo
-Quando sai a última peça, o tabuleiro fica vazio.
+Quando sai a última seta, o tabuleiro fica vazio.
 # Níveis e estrelas
 Sem pistas nem erros: 3 estrelas; até duas pistas e erros no total: 2 estrelas; senão, 1.

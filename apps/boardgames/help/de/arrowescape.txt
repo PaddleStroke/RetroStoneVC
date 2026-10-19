@@ -1,11 +1,10 @@
 Pfeile räumen
 # Das Ziel
-Räume das Brett leer: Jede Kachel muss es verlassen.
+Räume das Brett leer: Jeder Pfeil muss es verlassen.
 # Ein Zug
-Tippe auf eine Kachel: Sie gleitet in Pfeilrichtung vom Brett, wenn zwischen ihrer Spitze und dem Rand nichts steht. Eine lange Kachel bewegt sich als Ganzes, ihr Pfeil sitzt vorn.
-Steht eine andere Kachel im Weg, stößt die angetippte Kachel an sie und bleibt, wo sie war: Das ist ein Fehler.
-Eine Kachel auf einer Messingscheibe, die nicht hinauskann, dreht sich stattdessen eine Vierteldrehung im Uhrzeigersinn, ohne Fehler.
+Tippe auf einen Pfeil: Sind alle Felder von seiner Spitze geradeaus bis zum Rand frei, gleitet er in Richtung seiner Spitze hinaus, und sein Körper folgt dem Weg der Spitze wie eine Schlange.
+Steht ein anderer Pfeil im Weg, stößt der angetippte Pfeil an ihn und bleibt, wo er war: Das ist ein Fehler.
 # Das Ende der Partie
-Wenn die letzte Kachel hinaus ist, ist das Brett leer.
+Wenn der letzte Pfeil hinaus ist, ist das Brett leer.
 # Level und Sterne
 Ohne Tipp und ohne Fehler: 3 Sterne; bis zu zwei Tipps und Fehler zusammen: 2 Sterne; sonst 1.

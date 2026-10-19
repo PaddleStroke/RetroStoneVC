@@ -1,17 +1,19 @@
 /*
- * Clear the Arrows in RetroStone Board, for one player: lacquered tiles packed on a plank of the house wood, each with
- * an ivory arrow inlaid (the rules: arrowescape_rules.c). The shape of the board (a heart, a diamond...) is inlaid in
- * the plank, so it shows more and more as the tiles leave.
+ * Clear the Arrows in RetroStone Board, for one player: winding arrows of lacquer packed on a plank of the house wood
+ * (the rules: arrowescape_rules.c). Each arrow is one rounded ribbon running square to square through the squares'
+ * middles (its bends quarter circles), a little lighter towards its head, a broad arrowhead on its head; neighbours
+ * never share a colour. The shape of the board (a heart, a diamond...) is inlaid in the plank, so it shows more and
+ * more as the arrows leave.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
- * Tap a tile. Its way clear: it lifts, draws back a hair and shoots off the board the way it points, faster and
- * faster, a ghost or two behind it, a spark where it leaves the board, fading over the table. Its way blocked: it
- * slides up to the first tile in its way, knocks it and springs back; both wobble, flushed red (a mistake). A
- * turnstile (a brass disc) that cannot go swings a quarter clockwise, overshooting a little. The colours tell the
- * ways at a glance: up lapis, right red, down jade, left amber. The shell's tool: the hint (a tile that can go now,
- * the one freeing the most, glowing gold). Undo brings back the last tile, all the way to the start (mistakes stay).
- * The bar: the tiles left, the mistakes. Cleared: a gold light runs out from the middle over the board's shape.
- * Everything moves on the shell's clock (ui_ms): the state changes at the tap, the pictures follow.
+ * Tap an arrow. Its way clear: it draws back a hair and slithers off, faster and faster, its head straight out and its
+ * body following the head's path square by square, bending round its corners like a snake; it fades over the table,
+ * a spark where its head leaves the board. Its way blocked: its head slides up to the arrow in the way, knocks it and
+ * springs back, the whole body following; both wobble, flushed red (a mistake). The shell's tool: the hint (an arrow
+ * that can go now, the one freeing the most, glowing gold and nudging forward). Undo brings back the last arrow, all
+ * the way to the start (mistakes stay). The bar: the arrows left, the mistakes. Cleared: a gold light runs out from
+ * the middle over the board's shape. Everything moves on the shell's clock (ui_ms): the state changes at the tap, the
+ * pictures follow.
  */
 #include <math.h>
 #include <stdlib.h>
@@ -24,55 +26,85 @@
 #include "shell.h"
 
 #define FRAME 0.34f                             /* the plank's walnut frame, of a square */
-#define LIFT_MS 70                              /* a tile drawing back before it shoots */
-#define BUMP_BACK_MS 440                        /* a bumped tile springing back */
-#define TURN_MS 260
+#define WIDTH 0.42f                             /* the ribbon, of a square */
+#define TAIL 0.3f                               /* the ribbon's end behind its last square's middle */
+#define LIFT_MS 70                              /* an arrow drawing back before it goes */
+#define BUMP_BACK_MS 440                        /* a bumped arrow springing back */
 #define WIN_MS 1500
 #define HINT_TOOL 0
+#define PALETTE 8
+#define TRACK (ARX_MAXLEN + ARX_MAXW + ARX_MAXH + 8)
 
-static const uint8_t COL[4][3] = {{58, 98, 176}, {194, 66, 50}, {44, 138, 100}, {216, 150, 46}};
-static const uint8_t IVORY[3] = {250, 242, 224}, EBONY[3] = {38, 28, 24}, BRASS[3] = {222, 178, 92};
+static const uint8_t PAL[PALETTE][3] = {
+    {198, 66, 52}, {44, 142, 104}, {224, 160, 50}, {58, 100, 182},
+    {142, 72, 132}, {34, 140, 150}, {230, 114, 86}, {122, 140, 48},
+};
+static const uint8_t IVORY[3] = {250, 242, 224};
 
 static arx_game G;
+static uint8_t colour[ARX_MAXP];
 static int serial, hint_piece = -1, tool_down = -1;
 static float press_x, press_y;
-static struct {                                 /* each tile's motion (ms on the shell's clock; on: running) */
-    uint8_t fly, bump, wob, turn;
-    Uint32 fly_t0, bump_t0, wob_t0, turn_t0;
-    uint8_t fly_dir;
-    float fly_d, fly_edge;                      /* how far it goes (squares), where its head leaves the board */
+static struct {                                 /* each arrow's motion (ms on the shell's clock; on: running) */
+    uint8_t fly, bump, wob;
+    Uint32 fly_t0, bump_t0, wob_t0;
+    float fly_d, fly_edge;                      /* how far it slithers (squares), where its head leaves the board */
     Uint32 fly_ms, bump_hit;                    /* its flight; when the bump lands */
     float bump_gap;
-    float wob_dir;                              /* the way it was knocked */
+    int wob_dir;                                /* the way it was knocked */
 } mo[ARX_MAXP];
 static struct { int on; Uint32 t0; } win;
 
 static box last_box;
 static float bx0, by0, q;                       /* the board's first square's top left, a square */
 static int made_q = -1, made_serial = -1, made_small = -1;
-static SDL_Texture *t_board, *t_tile[ARX_MAXLEN][4], *t_shadow[ARX_MAXLEN][2], *t_pivot, *t_tarrow, *t_miss;
+static SDL_Texture *t_board, *t_head, *t_miss, *t_arrow[ARX_MAXP];
+static float arrow_x[ARX_MAXP], arrow_y[ARX_MAXP];   /* an arrow's picture: its top left, squares from the board's */
 
-/* ---- pictures ---------------------------------------------------------------------------------------------------- */
-/* the signed distance to a rounded rectangle's edge (inside > 0), the box x0, y0, w x h, corners r */
-static float rr_dist(float px, float py, float x0, float y0, float w, float h, float r)
-{
-    float cx = x0 + w / 2, cy = y0 + h / 2, dx = fabsf(px - cx) - (w / 2 - r), dy = fabsf(py - cy) - (h / 2 - r);
-    float ox = fmaxf(dx, 0), oy = fmaxf(dy, 0);
-    return r - (hypotf(ox, oy) + fminf(fmaxf(dx, dy), 0));
-}
+/* ---- an arrow's path: its squares from its tail to its head, then straight on past the board's edge -------------
+ * A point at t (0: its tail square's middle, len - 1 its head's, on past it): straight through a square whose way in
+ * and way out agree, a quarter circle round the corner between them where they do not. */
+typedef struct { int n, x[TRACK], y[TRACK]; } track;
 
-/* a point along a tile (a: squares from its tail end to its head end, c: 0..1 across, from its left as it points)
- * on the picture */
-static void along(int dir, int len, float x0, float y0, float s, float a, float c, float *x, float *y)
+static void track_of(const arx_map *m, int i, track *t)
 {
-    switch (dir) {
-    case ARX_RIGHT: *x = x0 + a * s; *y = y0 + c * s; break;
-    case ARX_LEFT: *x = x0 + (len - a) * s; *y = y0 + (1 - c) * s; break;
-    case ARX_DOWN: *x = x0 + (1 - c) * s; *y = y0 + a * s; break;
-    default: *x = x0 + c * s; *y = y0 + (len - a) * s; break;
+    int cells[ARX_MAXLEN], n = arx_cells(m, i, cells);
+    const arx_piece *p = &m->p[i];
+    t->n = 0;
+    for (int k = n - 1; k >= 0; k--) {
+        t->x[t->n] = cells[k] % m->w;
+        t->y[t->n++] = cells[k] / m->w;
+    }
+    for (int j = 1; t->n < TRACK; j++) {
+        t->x[t->n] = p->x + j * ARX_DX[(int)p->dir];
+        t->y[t->n++] = p->y + j * ARX_DY[(int)p->dir];
     }
 }
 
+/* the point at t, squares from the board's top left (the middle of square (x, y): x + 0.5, y + 0.5) */
+static void track_at(const track *t, float s, float *px, float *py)
+{
+    int k = (int)floorf(s + 0.5f);
+    if (k < 0) k = 0;
+    if (k > t->n - 1) k = t->n - 1;
+    float u = s - (k - 0.5f);
+    int ox = k + 1 < t->n ? t->x[k + 1] - t->x[k] : t->x[k] - t->x[k - 1];
+    int oy = k + 1 < t->n ? t->y[k + 1] - t->y[k] : t->y[k] - t->y[k - 1];
+    int ix = k > 0 ? t->x[k] - t->x[k - 1] : ox, iy = k > 0 ? t->y[k] - t->y[k - 1] : oy;
+    float cx = t->x[k] + 0.5f, cy = t->y[k] + 0.5f;
+    if ((ix == ox && iy == oy) || u < 0 || u > 1) {   /* straight (and past either end) */
+        float d = s - k;
+        *px = cx + d * (d < 0 ? ix : ox);
+        *py = cy + d * (d < 0 ? iy : oy);
+        return;
+    }
+    float kx = cx - 0.5f * ix + 0.5f * ox, ky = cy - 0.5f * iy + 0.5f * oy;   /* the corner it turns round */
+    float a = u * PUZ_PI / 2, c = cosf(a), sn = sinf(a);
+    *px = kx + 0.5f * (-ox * c + ix * sn);
+    *py = ky + 0.5f * (-oy * c + iy * sn);
+}
+
+/* ---- pictures ---------------------------------------------------------------------------------------------------- */
 /* a polygon (n points) painted in rgb at alpha a over the picture, its edges smoothed */
 static void poly(uint8_t *o, int W, int H, const float *xy, int n, const uint8_t rgb[3], float a)
 {
@@ -90,157 +122,155 @@ static void poly(uint8_t *o, int W, int H, const float *xy, int n, const uint8_t
         }
 }
 
-/* an arrow along a tile of len squares (s pixels a square), its shaft from a0, its head's tip at tip, as wide as hw */
-static void arrow_poly(int dir, int len, float x0, float y0, float s, float a0, float tip, float hw, float sw,
-                       float dx, float dy, float *xy)
+/* the arrowhead pointing right in the unit square, centred on its head's middle: tip, the two barbs, the notch */
+static const float HEAD_XY[8] = {0.94f, 0.5f, 0.22f, 0.08f, 0.36f, 0.5f, 0.22f, 0.92f};
+
+static void head_poly(float cx, float cy, float s, int dir, float *xy)
 {
-    float base = tip - 1.25f * hw;
-    const float A[7] = {a0, base, base, tip, base, base, a0},
-                C[7] = {0.5f - sw, 0.5f - sw, 0.5f - hw, 0.5f, 0.5f + hw, 0.5f + sw, 0.5f + sw};
-    for (int i = 0; i < 7; i++) {
-        along(dir, len, x0, y0, s, A[i], C[i], &xy[2 * i], &xy[2 * i + 1]);
-        xy[2 * i] += dx;
-        xy[2 * i + 1] += dy;
+    static const float ang[4] = {-PUZ_PI / 2, 0, PUZ_PI / 2, PUZ_PI};
+    float c = cosf(ang[dir]), sn = sinf(ang[dir]);
+    for (int i = 0; i < 4; i++) {
+        float x = (HEAD_XY[2 * i] - 0.5f) * s, y = (HEAD_XY[2 * i + 1] - 0.5f) * s;
+        xy[2 * i] = cx + x * c - y * sn;
+        xy[2 * i + 1] = cy + x * sn + y * c;
     }
 }
 
-/* a turnstile's arrow (ebony, pointing dir) in the square at x0, y0 */
-static void paint_tarrow(uint8_t *o, int W, int H, float x0, float y0, float s, int dir)
+static void shade(const uint8_t rgb[3], float k, uint8_t out[3])
 {
-    float xy[14];
-    static const uint8_t lit[3] = {255, 236, 180};
-    arrow_poly(dir, 1, x0, y0, s, 0.27f, 0.8f, 0.2f, 0.07f, 0.02f * s, 0.03f * s, xy);
-    poly(o, W, H, xy, 7, lit, 0.45f);
-    arrow_poly(dir, 1, x0, y0, s, 0.27f, 0.8f, 0.2f, 0.07f, 0, 0, xy);
-    poly(o, W, H, xy, 7, EBONY, 1);
+    for (int i = 0; i < 3; i++) out[i] = (uint8_t)clampf(k < 1 ? rgb[i] * k : rgb[i] + (255 - rgb[i]) * (k - 1), 0, 255);
 }
 
-/* a turnstile's brass disc on its pivot in the square at x0, y0 */
-static void paint_pivot(uint8_t *o, int W, int H, float x0, float y0, float s)
+/* arrow i of m painted into o (W x H), the board's first square at (ox, oy), s pixels a square: its soft shadow, its
+ * ribbon (a rounded rod lit from the top left, lighter towards the head), its arrowhead. The ribbon's samples first
+ * leave, at each pixel near it, the distance to the nearest of them (so overlapping pieces never darken) */
+static void paint_arrow(uint8_t *o, int W, int H, const arx_map *m, int i, float ox, float oy, float s,
+                        const uint8_t rgb[3])
 {
-    static const uint8_t dark[3] = {96, 64, 26};
-    float cx = x0 + s / 2, cy = y0 + s / 2;
-    pzk_ball(o, W, H, cx, cy, 0.43f * s, dark, 1, 0.3f);
-    pzk_ball(o, W, H, cx - 0.01f * s, cy - 0.015f * s, 0.39f * s, BRASS, 1, 0.75f);
-    pzk_arc(o, W, H, cx, cy, 0.30f * s, 0.315f * s, 0, 360, dark, 0.35f);
-}
-
-/* a tile of len squares lying its way dir (a turnstile: its disc and arrow), its squares s pixels, painted over the
- * picture o (W x H), the box of its squares from x0, y0 */
-static void paint_piece(uint8_t *o, int W, int H, float x0, float y0, float s, int len, int dir, int turn, int arrow)
-{
-    if (turn) {
-        paint_pivot(o, W, H, x0, y0, s);
-        if (arrow) paint_tarrow(o, W, H, x0, y0, s, dir);
-        return;
+    static const uint8_t dark[3] = {20, 12, 8};
+    track t;
+    track_of(m, i, &t);
+    int len = m->p[i].len, n = 0;
+    float r = WIDTH / 2 * s, t0 = -TAIL, t1 = len - 1, sx = 0.05f * s, sy = 0.07f * s, soft = 0.07f * s;
+    float px[ARX_MAXLEN * 12 + 8], py[ARX_MAXLEN * 12 + 8], pf[ARX_MAXLEN * 12 + 8];
+    for (float u = t0;; u += 0.1f) {
+        float uu = fminf(u, t1), x, y;
+        track_at(&t, uu, &x, &y);
+        px[n] = ox + x * s;
+        py[n] = oy + y * s;
+        pf[n++] = (uu - t0) / (t1 - t0 + 1e-3f);
+        if (u >= t1) break;
     }
-    int hor = dir == ARX_LEFT || dir == ARX_RIGHT;
-    float bw = hor ? len * s : s, bh = hor ? s : len * s, m = 0.055f * s, r = 0.2f * s, bev = fmaxf(1.2f, 0.09f * s);
-    for (int y = (int)fmaxf(0, floorf(y0)); y < H && y < y0 + bh + 1; y++)
-        for (int x = (int)fmaxf(0, floorf(x0)); x < W && x < x0 + bw + 1; x++) {
-            float px = x + 0.5f, py = y + 0.5f, d = rr_dist(px, py, x0 + m, y0 + m, bw - 2 * m, bh - 2 * m, r);
-            float cov = clampf(d + 0.5f, 0, 1);
-            if (cov <= 0) continue;
-            float k = 1.07f - 0.14f * (py - y0) / bh + 0.035f * art_noise(x * 2, y * 7);
-            if (d < bev) {                      /* the bevel: lit at the top and the left */
-                float e = 1 - d / bev, gx = rr_dist(px + 1, py, x0 + m, y0 + m, bw - 2 * m, bh - 2 * m, r) - d,
-                      gy = rr_dist(px, py + 1, x0 + m, y0 + m, bw - 2 * m, bh - 2 * m, r) - d;
-                k += 0.3f * e * (gx + gy) * 0.7071f;   /* the inward normal facing the bottom right: lit */
+    float x0 = 1e9f, y0 = 1e9f, x1 = -1e9f, y1 = -1e9f, reach = r + soft + sx + sy + 2;
+    for (int k = 0; k < n; k++) {
+        x0 = fminf(x0, px[k]); x1 = fmaxf(x1, px[k]);
+        y0 = fminf(y0, py[k]); y1 = fmaxf(y1, py[k]);
+    }
+    int bx = (int)fmaxf(0, floorf(x0 - reach)), by = (int)fmaxf(0, floorf(y0 - reach));
+    int bw = (int)fminf((float)W, ceilf(x1 + reach)) - bx, bh = (int)fminf((float)H, ceilf(y1 + reach)) - by;
+    if (bw <= 0 || bh <= 0) return;
+    float *d = malloc(sizeof(float) * 5 * (size_t)bw * bh);
+    if (!d) return;
+    float *ds = d + bw * bh, *f = ds + bw * bh, *nx = f + bw * bh, *ny = nx + bw * bh;
+    for (int k = 0; k < bw * bh; k++) d[k] = ds[k] = 1e9f;
+    for (int k = 1; k < n; k++) {               /* each sample's segment: the distances near it */
+        float ax = px[k - 1], ay = py[k - 1], ex = px[k], ey = py[k], vx = ex - ax, vy = ey - ay, l2 = vx * vx + vy * vy;
+        int qx0 = (int)fmaxf(bx, floorf(fminf(ax, ex) - reach)), qx1 = (int)fminf(bx + bw - 1, ceilf(fmaxf(ax, ex) + reach));
+        int qy0 = (int)fmaxf(by, floorf(fminf(ay, ey) - reach)), qy1 = (int)fminf(by + bh - 1, ceilf(fmaxf(ay, ey) + reach));
+        for (int y = qy0; y <= qy1; y++)
+            for (int x = qx0; x <= qx1; x++) {
+                int j = (x - bx) + (y - by) * bw;
+                float cx = x + 0.5f, cy = y + 0.5f, tt = l2 > 0 ? clampf(((cx - ax) * vx + (cy - ay) * vy) / l2, 0, 1) : 0;
+                float qx = ax + tt * vx, qy = ay + tt * vy, dd = hypotf(cx - qx, cy - qy);
+                if (dd < d[j]) {
+                    d[j] = dd;
+                    f[j] = pf[k - 1] + tt * (pf[k] - pf[k - 1]);
+                    nx[j] = dd > 1e-3f ? (cx - qx) / dd : 0;
+                    ny[j] = dd > 1e-3f ? (cy - qy) / dd : 0;
+                }
+                float dsh = pzk_seg_dist(cx - sx, cy - sy, ax, ay, ex, ey);
+                if (dsh < ds[j]) ds[j] = dsh;
             }
+    }
+    for (int y = 0; y < bh; y++)
+        for (int x = 0; x < bw; x++) {
+            int j = x + y * bw;
+            uint8_t *p = o + 4 * ((size_t)(y + by) * W + x + bx);
+            float sh = clampf((r + soft - ds[j]) / (2 * soft), 0, 1);
+            if (sh > 0) pzk_over(p, dark, 0.32f * sh);
+            float cov = clampf(r - d[j] + 0.5f, 0, 1);
+            if (cov <= 0) continue;
+            float e = clampf(d[j] / r, 0, 1), lit = -(nx[j] * 0.6f + ny[j] * 0.8f) * e;   /* the side towards the light */
+            float k = 0.8f + 0.26f * f[j] + 0.16f * lit + 0.1f * (1 - e * e);
             uint8_t c[3];
-            for (int i = 0; i < 3; i++) c[i] = (uint8_t)clampf(COL[dir][i] * k, 0, 255);
-            pzk_over(o + 4 * ((size_t)y * W + x), c, cov);
+            shade(rgb, k, c);
+            pzk_over(p, c, cov);
         }
-    if (!arrow) return;
-    float xy[14], a0 = len == 1 ? 0.22f : 0.34f, tip = len - 0.2f, hw = 0.25f, sw = 0.08f;
-    uint8_t deep[3];
-    for (int i = 0; i < 3; i++) deep[i] = (uint8_t)(COL[dir][i] * 0.5f);
-    arrow_poly(dir, len, x0, y0, s, a0, tip, hw, sw, -0.02f * s, -0.025f * s, xy);   /* the groove's lit lip */
-    poly(o, W, H, xy, 7, deep, 0.55f);
-    arrow_poly(dir, len, x0, y0, s, a0, tip, hw, sw, 0.012f * s, 0.018f * s, xy);
-    poly(o, W, H, xy, 7, IVORY, 0.35f);
-    arrow_poly(dir, len, x0, y0, s, a0, tip, hw, sw, 0, 0, xy);
-    poly(o, W, H, xy, 7, IVORY, 1);
+    free(d);
+    float hx, hy, xy[8];
+    uint8_t c[3];
+    track_at(&t, t1, &hx, &hy);
+    head_poly(ox + hx * s + sx, oy + hy * s + sy, 0.86f * s, m->p[i].dir, xy);
+    poly(o, W, H, xy, 4, dark, 0.3f);
+    head_poly(ox + hx * s, oy + hy * s, 0.86f * s, m->p[i].dir, xy);
+    shade(rgb, 1.12f, c);
+    poly(o, W, H, xy, 4, c, 1);
 }
 
-/* a soft shadow under a tile (w x h pixels of squares; round: a turnstile's), its picture (w + 2 blur) x ... */
-static SDL_Texture *shadow_tex(int w, int h, int round, float s)
-{
-    int blur = (int)fmaxf(2, 0.12f * s), W = w + 2 * blur, H = h + 2 * blur;
-    uint8_t *o = ui_buf(W, H);
-    float m = 0.06f * s, r = round ? 0.42f * s : 0.2f * s;
-    for (int y = 0; y < H; y++)
-        for (int x = 0; x < W; x++) {
-            float d = round ? 0.42f * s - hypotf(x + 0.5f - W / 2.0f, y + 0.5f - H / 2.0f)
-                            : rr_dist(x + 0.5f, y + 0.5f, blur + m, blur + m, w - 2 * m, h - 2 * m, r);
-            float a = clampf((d + blur) / (2.0f * blur), 0, 1);
-            uint8_t *p = o + 4 * (y * W + x);
-            p[0] = p[1] = p[2] = 0;
-            p[3] = (uint8_t)(150 * a * a);
-        }
-    return ui_tex(W, H, o);
-}
 
 /* the plank w x h squares of s pixels in its frame f, the board's shape inlaid in it (a shallow, darker bed) */
 static void paint_board(const arx_map *m, int s, int f, uint8_t *o)
 {
     int W = m->w * s + 2 * f, H = m->h * s + 2 * f;
-    static const float tone[3] = {0.80f, 0.76f, 0.72f};
+    static const float tone[3] = {0.9f, 0.87f, 0.84f};
     art_plank(m->w * s, m->h * s, f, o);
     for (int c = 0; c < m->w * m->h; c++)
         if (m->shape[c])
             pzk_inlay(o, W, H, f + c % m->w * s + 0.035f * s, f + c / m->w * s + 0.035f * s, 0.93f * s, 0.93f * s,
-                      0.16f * s, tone, fmaxf(1, 0.05f * s));
+                      0.2f * s, tone, fmaxf(1, 0.04f * s));
 }
 
-/* a board in a picture size x size: its plank, its tiles (fly: one tile drawn shooting off, -1 none) */
-static void paint_mini(const arx_map *m, int size, uint8_t *rgba, int fly)
+/* each arrow a colour unlike its neighbours' (the arrows touching it) */
+static void colours_of(const arx_map *m, uint8_t *col)
 {
-    float span = fmaxf((float)m->w, (float)m->h) + 2 * FRAME + (fly >= 0 ? 0.6f : 0);
+    uint8_t at[ARX_CELLS];
+    memset(at, ARX_NONE, sizeof at);
+    for (int i = 0; i < m->n; i++) {
+        int cells[ARX_MAXLEN], n = arx_cells(m, i, cells);
+        for (int k = 0; k < n; k++) at[cells[k]] = (uint8_t)i;
+    }
+    for (int i = 0; i < m->n; i++) {
+        int cells[ARX_MAXLEN], n = arx_cells(m, i, cells), used = 0;
+        for (int k = 0; k < n; k++)
+            for (int e = 0; e < 4; e++) {
+                int x = cells[k] % m->w + ARX_DX[e], y = cells[k] / m->w + ARX_DY[e];
+                if (x < 0 || y < 0 || x >= m->w || y >= m->h) continue;
+                int j = at[x + y * m->w];
+                if (j != ARX_NONE && j < i) used |= 1 << col[j];
+            }
+        int c = (i * 5 + 3) % PALETTE;
+        for (int t = 0; t < PALETTE && (used >> c & 1); t++) c = (c + 1) % PALETTE;
+        col[i] = (uint8_t)c;
+    }
+}
+
+/* a board in a picture size x size: its plank and its arrows */
+static void paint_mini(const arx_map *m, int size, uint8_t *rgba)
+{
+    float span = fmaxf((float)m->w, (float)m->h) + 2 * FRAME;
     int s = (int)(size / span), f = (int)(FRAME * s);
     if (s < 2) return;
     int W = m->w * s + 2 * f, H = m->h * s + 2 * f;
-    uint8_t *o = malloc((size_t)W * H * 4);
+    uint8_t *o = malloc((size_t)W * H * 4), col[ARX_MAXP];
     if (!o) return;
     paint_board(m, s, f, o);
-    for (int i = 0; i < m->n; i++) {
-        const arx_piece *p = &m->p[i];
-        int tx = p->x - (p->len - 1) * ARX_DX[(int)p->dir], ty = p->y - (p->len - 1) * ARX_DY[(int)p->dir];
-        float x0 = f + fminf((float)p->x, (float)tx) * s, y0 = f + fminf((float)p->y, (float)ty) * s;
-        if (i == fly) continue;
-        paint_piece(o, W, H, x0, y0, (float)s, p->len, p->dir, p->turn, s >= 6);
-    }
-    int ox = (size - W) / 2, oy = (size - H) / 2;
-    art_blend(rgba, size, size, o, W, H, ox, oy);
+    colours_of(m, col);
+    for (int i = 0; i < m->n; i++) paint_arrow(o, W, H, m, i, (float)f, (float)f, (float)s, PAL[col[i]]);
+    art_blend(rgba, size, size, o, W, H, (size - W) / 2, (size - H) / 2);
     free(o);
-    if (fly >= 0) {                             /* the tile shooting out past the frame, two ghosts behind it */
-        const arx_piece *p = &m->p[fly];
-        int tx = p->x - (p->len - 1) * ARX_DX[(int)p->dir], ty = p->y - (p->len - 1) * ARX_DY[(int)p->dir];
-        float x0 = ox + f + fminf((float)p->x, (float)tx) * s, y0 = oy + f + fminf((float)p->y, (float)ty) * s;
-        float go = (p->dir == ARX_RIGHT ? m->w - p->x : p->dir == ARX_LEFT ? p->x + 1 : p->dir == ARX_DOWN ? m->h - p->y
-                                                                                                   : p->y + 1) - 0.3f;
-        uint8_t *g = calloc((size_t)size * size, 4);
-        if (!g) return;
-        for (int k = 2; k >= 0; k--) {
-            memset(g, 0, (size_t)size * size * 4);
-            float d = (go - 0.45f * k) * s;
-            paint_piece(g, size, size, x0 + d * ARX_DX[(int)p->dir], y0 + d * ARX_DY[(int)p->dir], (float)s, p->len,
-                        p->dir, p->turn, 1);
-            if (k)
-                for (int j = 0; j < size * size; j++) g[4 * j + 3] = (uint8_t)(g[4 * j + 3] * (k == 1 ? 0.35f : 0.15f));
-            art_blend(rgba, size, size, g, size, size, 0, 0);
-        }
-        free(g);
-    }
 }
 
-/* the bar's pictures: a red tile pointing right; a mistake: two tiles knocking, a red flush between them */
-static void paint_small_tile(int size, uint8_t *o)
-{
-    memset(o, 0, (size_t)size * size * 4);
-    paint_piece(o, size, size, 0.08f * size, 0.08f * size, 0.84f * size, 1, ARX_RIGHT, 0, 1);
-}
-
+/* the bar's mistake: a red disc, an ivory cross */
 static void paint_miss(int size, uint8_t *o)
 {
     memset(o, 0, (size_t)size * size * 4);
@@ -251,13 +281,49 @@ static void paint_miss(int size, uint8_t *o)
     pzk_stroke(o, size, size, a, b, b, a, w, IVORY, 1);
 }
 
+/* a little arrow bent once, its head to the right (the token, the first chapter's tab) */
+static void paint_bent(int size, uint8_t *rgba, const char *board, int col)
+{
+    arx_map m;
+    if (!arx_parse(&m, board)) return;
+    float s = size / (fmaxf((float)m.w, (float)m.h) + 0.3f);
+    float ox = (size - m.w * s) / 2, oy = (size - m.h * s) / 2;
+    for (int i = 0; i < m.n; i++) paint_arrow(rgba, size, size, &m, i, ox, oy, s, PAL[(col + i) % PALETTE]);
+}
+
 static void token(int player, int size, uint8_t *rgba)
 {
     (void)player;
-    paint_small_tile(size, rgba);
+    memset(rgba, 0, (size_t)size * size * 4);
+    paint_bent(size, rgba, "..|rR|u.", 0);
 }
 
 /* ---- the layout -------------------------------------------------------------------------------------------------- */
+/* each arrow's picture at rest, s pixels a square: the box of its squares and half a square round them (its head,
+ * its shadow) */
+static void make_arrows(int s)
+{
+    for (int i = 0; i < ARX_MAXP; i++) ui_free(&t_arrow[i]);
+    for (int i = 0; i < G.m.n; i++) {
+        int cells[ARX_MAXLEN], n = arx_cells(&G.m, i, cells), x0 = 99, y0 = 99, x1 = -1, y1 = -1;
+        for (int k = 0; k < n; k++) {
+            int x = cells[k] % G.m.w, y = cells[k] / G.m.w;
+            if (x < x0) x0 = x;
+            if (x > x1) x1 = x;
+            if (y < y0) y0 = y;
+            if (y > y1) y1 = y;
+        }
+        int W = (x1 - x0 + 2) * s, H = (y1 - y0 + 2) * s;
+        uint8_t *o = calloc((size_t)W * H, 4);
+        if (!o) continue;
+        arrow_x[i] = x0 - 0.5f;
+        arrow_y[i] = y0 - 0.5f;
+        paint_arrow(o, W, H, &G.m, i, -arrow_x[i] * s, -arrow_y[i] * s, (float)s, PAL[colour[i]]);
+        t_arrow[i] = ui_tex(W, H, o);
+        free(o);
+    }
+}
+
 static void layout(box b)
 {
     last_box = b;
@@ -269,7 +335,6 @@ static void layout(box b)
     by0 = floorf(b.y + (b.h - h * q) / 2);
     int s = (int)q, f = (int)(FRAME * q);
     if (made_q != s || made_serial != serial) {
-        made_q = s;
         int W = w * s + 2 * f, H = h * s + 2 * f;
         uint8_t *o = malloc((size_t)W * H * 4);
         ui_free(&t_board);
@@ -278,35 +343,18 @@ static void layout(box b)
             t_board = ui_tex(W, H, o);
         }
         free(o);
-    }
-    static int tiles_q = -1;
-    if (tiles_q != s) {
-        tiles_q = s;
-        for (int len = 1; len <= ARX_MAXLEN; len++) {
-            for (int d = 0; d < 4; d++) {
-                int hor = d == ARX_LEFT || d == ARX_RIGHT, W = hor ? len * s : s, H = hor ? s : len * s;
-                uint8_t *o = ui_buf(W, H);
-                memset(o, 0, (size_t)W * H * 4);
-                paint_piece(o, W, H, 0, 0, (float)s, len, d, 0, 1);
-                ui_free(&t_tile[len - 1][d]);
-                t_tile[len - 1][d] = ui_tex(W, H, o);
-            }
-            for (int hor = 0; hor < 2; hor++) {
-                ui_free(&t_shadow[len - 1][hor]);
-                t_shadow[len - 1][hor] = shadow_tex(hor ? len * s : s, hor ? s : len * s, 0, (float)s);
-            }
+        if (made_q != s) {                      /* the arrowhead, white (tinted when drawn) */
+            uint8_t *p = ui_buf(s, s);
+            memset(p, 0, (size_t)s * s * 4);
+            float xy[8];
+            static const uint8_t white[3] = {255, 255, 255};
+            head_poly(s / 2.0f, s / 2.0f, (float)s, ARX_RIGHT, xy);
+            poly(p, s, s, xy, 4, white, 1);
+            ui_free(&t_head);
+            t_head = ui_tex(s, s, p);
         }
-        uint8_t *o = ui_buf(s, s);
-        memset(o, 0, (size_t)s * s * 4);
-        paint_pivot(o, s, s, 0, 0, (float)s);
-        ui_free(&t_pivot);
-        t_pivot = ui_tex(s, s, o);
-        memset(o, 0, (size_t)s * s * 4);
-        paint_tarrow(o, s, s, 0, 0, (float)s, ARX_UP);
-        ui_free(&t_tarrow);
-        t_tarrow = ui_tex(s, s, o);
-        ui_free(&t_shadow[0][0]);                /* (a turnstile: round; a single square's is the same either way) */
-        t_shadow[0][0] = shadow_tex(s, s, 1, (float)s);
+        made_q = s;
+        make_arrows(s);
     }
     made_serial = serial;
     ui_board_used(bx0 - f, by0 - f, w * q + 2 * f, h * q + 2 * f);
@@ -331,6 +379,7 @@ static void begin(void)
 {
     serial++;
     calm();
+    colours_of(&G.m, colour);
     if (last_box.w > 0) layout(last_box);
 }
 
@@ -351,24 +400,21 @@ static int turn(void) { return 0; }
 static int score(void) { return G.moves; }
 static int level_stars(void) { return ui_logic_stars(G.hints, G.mistakes); }
 
-static Uint32 bump_ms(int i) { return mo[i].bump_hit + BUMP_BACK_MS; }
-
 static int busy(void)
 {
     Uint32 now = ui_ms();
     for (int i = 0; i < G.m.n; i++) {
         if (mo[i].fly && now - mo[i].fly_t0 < mo[i].fly_ms) return 1;
-        if (mo[i].bump && now - mo[i].bump_t0 < bump_ms(i)) return 1;
-        if (mo[i].turn && now - mo[i].turn_t0 < TURN_MS) return 1;
+        if (mo[i].bump && now - mo[i].bump_t0 < mo[i].bump_hit + BUMP_BACK_MS) return 1;
     }
     return win.on && (Sint32)(now - win.t0) < WIN_MS;
 }
 
-/* how many squares lie ahead of tile i's head (its way now) to the edge */
+/* how many squares lie ahead of arrow i's head to the edge */
 static int ahead(int i)
 {
     const arx_piece *p = &G.m.p[i];
-    switch (G.dir[i]) {
+    switch (p->dir) {
     case ARX_UP: return p->y;
     case ARX_RIGHT: return G.m.w - 1 - p->x;
     case ARX_DOWN: return G.m.h - 1 - p->y;
@@ -379,29 +425,24 @@ static int ahead(int i)
 static void tap_piece(int i)
 {
     Uint32 now = ui_ms();
-    int dir = G.dir[i], e = ahead(i), b = -1, gap = 0;
+    int e = ahead(i), b = -1, gap = 0;
     arx_blocker(&G, i, &gap);
     int res = arx_tap(&G, i, &b);
     if (res == ARX_REFUSED) return;
-    if (hint_piece >= 0 && (res == ARX_GONE || G.gone[hint_piece])) hint_piece = -1;
+    if (hint_piece >= 0 && G.gone[hint_piece]) hint_piece = -1;
     if (res == ARX_GONE) {
         mo[i].fly = 1;
         mo[i].fly_t0 = now;
-        mo[i].fly_dir = (uint8_t)dir;
-        mo[i].fly_d = e + G.m.p[i].len + FRAME + 0.4f;
+        mo[i].fly_d = e + G.m.p[i].len + TAIL + 1.6f;
         mo[i].fly_edge = e + 0.5f;
-        mo[i].fly_ms = (Uint32)(LIFT_MS + 150 + 26 * mo[i].fly_d);
+        mo[i].fly_ms = (Uint32)(LIFT_MS + 150 + 24 * mo[i].fly_d);
         ui_sound(SND_MOVE);
         if (arx_solved(&G)) {
             win.on = 1;
             win.t0 = now + mo[i].fly_ms - 120;
             ui_sound_later(SND_END, (int)mo[i].fly_ms - 120);
         }
-    } else if (res == ARX_TURNED) {
-        mo[i].turn = 1;
-        mo[i].turn_t0 = now;
-        ui_sound(SND_TAP);
-    } else {                                    /* a bump: it runs into b, both wobble */
+    } else {                                    /* a bump: its head runs into b, both wobble */
         mo[i].bump = 1;
         mo[i].bump_t0 = now;
         mo[i].bump_gap = (float)gap;
@@ -409,7 +450,7 @@ static void tap_piece(int i)
         if (b >= 0) {
             mo[b].wob = 1;
             mo[b].wob_t0 = now + mo[i].bump_hit;
-            mo[b].wob_dir = (float)dir;
+            mo[b].wob_dir = G.m.p[i].dir;
         }
         ui_sound(SND_TAP);
         ui_sound_later(SND_DENY, (int)mo[i].bump_hit);
@@ -446,110 +487,27 @@ static int script(const char *moves)
 }
 
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
-static float ease_back(float u)                 /* past the end a little, then back */
-{
-    u = clampf(u, 0, 1) - 1;
-    return 1 + 2.4f * u * u * u + 1.4f * u * u;
-}
-
-/* tile i's middle (squares from the board's top left) lying its way dir */
-static void middle(int i, int dir, float *cx, float *cy)
-{
-    const arx_piece *p = &G.m.p[i];
-    float k = (p->len - 1) / 2.0f;
-    *cx = p->x + 0.5f - k * ARX_DX[dir];
-    *cy = p->y + 0.5f - k * ARX_DY[dir];
-}
-
-/* a tile drawn moved by (dx, dy) squares, grown by grow, turned by deg, faded (alpha 0..1), flushed red (0..1),
- * its shadow lifted by lift (0..1); how: 1 its shadow alone, 2 a gold light added over it */
-static void draw_tile(int i, int dir, float dx, float dy, float grow, float deg, float alpha, float red, float lift,
-                      int how)
-{
-    const arx_piece *p = &G.m.p[i];
-    float cx, cy;
-    middle(i, dir, &cx, &cy);
-    cx = bx0 + (cx + dx) * q;
-    cy = by0 + (cy + dy) * q;
-    int hor = dir == ARX_LEFT || dir == ARX_RIGHT;
-    float w = (p->turn || !hor ? 1 : p->len) * q, h = (p->turn || hor ? 1 : p->len) * q;
-    Uint8 a = (Uint8)clampf(255 * alpha, 0, 255);
-    if (how & 1) {
-        SDL_Texture *t = p->turn ? t_shadow[0][0] : t_shadow[p->len - 1][hor];
-        int tw, th;
-        if (!t) return;
-        SDL_QueryTexture(t, NULL, NULL, &tw, &th);
-        float sx = tw * grow, sy = th * grow, off = (0.05f + 0.1f * lift) * q;
-        SDL_SetTextureAlphaMod(t, (Uint8)(a * (1 - 0.35f * lift)));
-        ui_put_rot(t, cx + off, cy + 1.3f * off, sx, sy, deg);
-        SDL_SetTextureAlphaMod(t, 255);
-        return;
-    }
-    Uint8 gb = (Uint8)(255 - 50 * clampf(red, 0, 1));
-    if (how & 2) {                              /* the hint: gold light added over it */
-        SDL_Texture *t = p->turn ? t_pivot : t_tile[p->len - 1][dir];
-        SDL_SetTextureBlendMode(t, SDL_BLENDMODE_ADD);
-        SDL_SetTextureColorMod(t, 255, 190, 80);
-        SDL_SetTextureAlphaMod(t, a);
-        ui_put_rot(t, cx, cy, w * grow, h * grow, deg);
-        SDL_SetTextureBlendMode(t, SDL_BLENDMODE_BLEND);
-        SDL_SetTextureColorMod(t, 255, 255, 255);
-        SDL_SetTextureAlphaMod(t, 255);
-        return;
-    }
-    if (p->turn) {
-        SDL_SetTextureAlphaMod(t_pivot, a);
-        SDL_SetTextureColorMod(t_pivot, 255, gb, gb);
-        ui_put_rot(t_pivot, cx, cy, q * grow, q * grow, deg);
-        SDL_SetTextureColorMod(t_pivot, 255, 255, 255);
-        SDL_SetTextureAlphaMod(t_pivot, 255);
-        float tdeg = 90.0f * dir;
-        if (mo[i].turn) {
-            float u = (ui_ms() - mo[i].turn_t0) / (float)TURN_MS;
-            if (u < 1) tdeg = 90.0f * (dir - 1) + 90.0f * ease_back(u);
-        }
-        SDL_SetTextureAlphaMod(t_tarrow, a);
-        ui_put_rot(t_tarrow, cx, cy, q * grow, q * grow, tdeg + deg);
-        SDL_SetTextureAlphaMod(t_tarrow, 255);
-        return;
-    }
-    SDL_Texture *t = t_tile[p->len - 1][dir];
-    SDL_SetTextureAlphaMod(t, a);
-    SDL_SetTextureColorMod(t, 255, gb, gb);
-    ui_put_rot(t, cx, cy, w * grow, h * grow, deg);
-    SDL_SetTextureColorMod(t, 255, 255, 255);
-    SDL_SetTextureAlphaMod(t, 255);
-}
-
-/* where tile i is in its motion now: moved along its way by *s squares, knocked by *ks the way *kd, turned *deg, grown,
- * flushed red; 0 when it rests */
-typedef struct { float s, ks, deg, grow, red, lift, alpha; int kd, moving; } pose;
+/* where arrow i is in its motion now: slid along its path by s squares, knocked by ks the way kd, flushed red, faded
+ * (alpha); moving: 1 knocked or bumping, 2 slithering off, 3 gone */
+typedef struct { float s, ks, red, alpha, lift; int kd, moving; } pose;
 
 static pose pose_of(int i, Uint32 now)
 {
-    pose p = {0, 0, 0, 1, 0, 0, 1, 0, 0};
+    pose p = {0, 0, 0, 1, 0, 0, 0};
     if (mo[i].fly) {
         float t = (float)(now - mo[i].fly_t0);
-        if (t < mo[i].fly_ms) {
-            p.moving = 2;
-            float D = mo[i].fly_d, l = clampf(t / LIFT_MS, 0, 1);
-            p.lift = l;
-            p.grow = 1 + 0.07f * l;
-            if (t < LIFT_MS) p.s = -0.1f * puz_ease(l);
-            else {
-                float u = (t - LIFT_MS) / (mo[i].fly_ms - LIFT_MS);
-                p.s = -0.1f + (D + 0.1f) * (0.3f * u + 0.7f * u * u);
-            }
-            float out = mo[i].fly_edge + 0.2f;   /* past the edge: fading over the table */
-            p.alpha = 1 - clampf((p.s - out) / (D - out), 0, 1);
-        } else {
-            p.alpha = 0;
-            p.moving = 3;                       /* gone */
+        if (t >= mo[i].fly_ms) { p.moving = 3; p.alpha = 0; return p; }
+        p.moving = 2;
+        p.lift = clampf(t / LIFT_MS, 0, 1);
+        if (t < LIFT_MS) p.s = -0.1f * puz_ease(p.lift);
+        else {
+            float u = (t - LIFT_MS) / (mo[i].fly_ms - LIFT_MS), D = mo[i].fly_d;
+            p.s = -0.1f + (D + 0.1f) * (0.3f * u + 0.7f * u * u);
         }
         return p;
     }
     if (mo[i].bump) {
-        float t = (float)(now - mo[i].bump_t0), hit = (float)mo[i].bump_hit, A = mo[i].bump_gap + 0.14f;
+        float t = (float)(now - mo[i].bump_t0), hit = (float)mo[i].bump_hit, A = mo[i].bump_gap + 0.16f;
         if (t < hit) {
             float u = t / hit;
             p.s = A * u * u;
@@ -557,7 +515,6 @@ static pose pose_of(int i, Uint32 now)
         } else if (t < hit + BUMP_BACK_MS) {
             float tau = t - hit;
             p.s = A * expf(-tau / 85) * cosf(tau * 2 * PUZ_PI / 260);
-            p.deg = 5 * expf(-tau / 110) * sinf(tau * 2 * PUZ_PI / 150);
             p.red = expf(-tau / 160);
             p.moving = 1;
         }
@@ -565,15 +522,116 @@ static pose pose_of(int i, Uint32 now)
     if (mo[i].wob) {
         float tau = (float)(Sint32)(now - mo[i].wob_t0);
         if (tau >= 0 && tau < BUMP_BACK_MS) {
-            p.ks = 0.08f * expf(-tau / 70) * sinf(fminf(tau, 200) * PUZ_PI / 120);
-            p.kd = (int)mo[i].wob_dir;
-            p.deg += 8 * expf(-tau / 120) * sinf(tau * 2 * PUZ_PI / 140);
+            p.ks = 0.1f * expf(-tau / 90) * sinf(tau * 2 * PUZ_PI / 150);
+            p.kd = mo[i].wob_dir;
             p.red = fmaxf(p.red, expf(-tau / 170));
             p.moving = 1;
         }
     }
-    if (mo[i].turn && now - mo[i].turn_t0 < TURN_MS) p.moving = 1;
     return p;
+}
+
+/* how much a point (squares from the board's top left) still shows: fading past the board's edge */
+static float shows(float x, float y)
+{
+    float out = fmaxf(fmaxf(-x, x - G.m.w), fmaxf(-y, y - G.m.h));
+    return clampf(1 - (out - 0.15f) / 1.5f, 0, 1);
+}
+
+/* arrow i drawn as it is posed: pass 0 its shadow, 1 its ribbon, 2 its sheen, 3 its head; glow: gold light added */
+static void draw_arrow(int i, const pose *p, int pass, float glow)
+{
+    track t;
+    track_of(&G.m, i, &t);
+    int len = G.m.p[i].len, dir = G.m.p[i].dir;
+    const uint8_t *rgb = PAL[colour[i]];
+    float t0 = p->s - TAIL, t1 = p->s + len - 1, W = WIDTH * q, kx = p->ks * ARX_DX[p->kd], ky = p->ks * ARX_DY[p->kd];
+    float red = clampf(p->red, 0, 1), gb = 1 - 0.18f * red;
+    if (pass == 3) {
+        float hx, hy;
+        track_at(&t, t1, &hx, &hy);
+        hx += kx;
+        hy += ky;
+        float a = shows(hx, hy) * p->alpha, sx = bx0 + hx * q, sy = by0 + hy * q, deg = 90.0f * (dir - 1);
+        uint8_t c[3];
+        shade(rgb, 1.1f, c);
+        SDL_SetTextureAlphaMod(t_head, (Uint8)(80 * a));
+        SDL_SetTextureColorMod(t_head, 0, 0, 0);
+        ui_put_rot(t_head, sx + (0.05f + 0.06f * p->lift) * q, sy + (0.07f + 0.06f * p->lift) * q, 0.86f * q, 0.86f * q, deg);
+        SDL_SetTextureAlphaMod(t_head, (Uint8)(255 * a));
+        SDL_SetTextureColorMod(t_head, c[0], (Uint8)(c[1] * gb), (Uint8)(c[2] * gb));
+        ui_put_rot(t_head, sx, sy, 0.86f * q, 0.86f * q, deg);
+        if (glow > 0) {
+            SDL_SetTextureBlendMode(t_head, SDL_BLENDMODE_ADD);
+            SDL_SetTextureColorMod(t_head, 255, 190, 80);
+            SDL_SetTextureAlphaMod(t_head, (Uint8)(255 * clampf(glow, 0, 1)));
+            ui_put_rot(t_head, sx, sy, 0.86f * q, 0.86f * q, deg);
+            SDL_SetTextureBlendMode(t_head, SDL_BLENDMODE_BLEND);
+        }
+        SDL_SetTextureColorMod(t_head, 255, 255, 255);
+        SDL_SetTextureAlphaMod(t_head, 255);
+        return;
+    }
+    float px = 0, py = 0, pa = 0;
+    for (float u = t0;; u += 0.2f) {
+        float uu = fminf(u, t1), x, y;
+        track_at(&t, uu, &x, &y);
+        x += kx;
+        y += ky;
+        float a = shows(x, y) * p->alpha;
+        if (u > t0 && (a > 0 || pa > 0)) {
+            float f = (uu - t0) / (t1 - t0 + 1e-3f), al = fminf(a, pa) * 0.5f + fmaxf(a, pa) * 0.5f;
+            float ax = bx0 + px * q, ay = by0 + py * q, bx = bx0 + x * q, by = by0 + y * q;
+            if (pass == 0) {
+                float o = (0.05f + 0.06f * p->lift) * q, o2 = (0.07f + 0.06f * p->lift) * q;
+                pzk_dot(bx + o, by + o2, W, 0.08f * q, (pzk_rgba){0, 0, 0, (Uint8)(38 * al)}, 0);   /* (dots: even) */
+            } else if (pass == 1) {
+                uint8_t c[3];
+                shade(rgb, 0.8f + 0.28f * f, c);
+                pzk_rgba k = {c[0], (Uint8)(c[1] * gb), (Uint8)(c[2] * gb), (Uint8)(255 * al)};
+                pzk_line(ax, ay, bx, by, W, 0, k, 0);
+                pzk_dot(bx, by, W, 0, k, 0);
+                if (glow > 0) {
+                    pzk_rgba g = {255, 190, 80, (Uint8)(255 * clampf(glow, 0, 1) * al)};
+                    pzk_line(ax, ay, bx, by, W, 0, g, 1);
+                }
+            }
+        }
+        if (u > t0 || pass == 1) {
+            if (u <= t0 && pass == 1 && a > 0) {   /* the tail's round end */
+                uint8_t c[3];
+                shade(rgb, 0.8f, c);
+                pzk_dot(bx0 + x * q, by0 + y * q, W, 0, (pzk_rgba){c[0], (Uint8)(c[1] * gb), (Uint8)(c[2] * gb), (Uint8)(255 * a)}, 0);
+            }
+        }
+        px = x;
+        py = y;
+        pa = a;
+        if (u >= t1) break;
+    }
+}
+
+/* an arrow at rest drawn from its picture: moved by its knock (or the hint's nudge), flushed red, gold light added */
+static void put_arrow(int i, const pose *p, float glow)
+{
+    SDL_Texture *t = t_arrow[i];
+    if (!t) return;
+    int tw, th;
+    SDL_QueryTexture(t, NULL, NULL, &tw, &th);
+    float x = bx0 + (arrow_x[i] + p->ks * ARX_DX[p->kd]) * q, y = by0 + (arrow_y[i] + p->ks * ARX_DY[p->kd]) * q;
+    Uint8 gb = (Uint8)(255 - 45 * clampf(p->red, 0, 1));
+    SDL_SetTextureColorMod(t, 255, gb, gb);
+    ui_put(t, x, y, (float)tw, (float)th);
+    SDL_SetTextureColorMod(t, 255, 255, 255);
+    if (glow > 0) {
+        SDL_SetTextureBlendMode(t, SDL_BLENDMODE_ADD);
+        SDL_SetTextureColorMod(t, 255, 190, 80);
+        SDL_SetTextureAlphaMod(t, (Uint8)(255 * clampf(glow, 0, 1)));
+        ui_put(t, x, y, (float)tw, (float)th);
+        SDL_SetTextureBlendMode(t, SDL_BLENDMODE_BLEND);
+        SDL_SetTextureColorMod(t, 255, 255, 255);
+        SDL_SetTextureAlphaMod(t, 255);
+    }
 }
 
 static void draw(void)
@@ -590,46 +648,36 @@ static void draw(void)
     int hp = hint_piece >= 0 && !G.gone[hint_piece] && !P[hint_piece].moving ? hint_piece : -1;
     float pulse = 0.5f + 0.5f * sinf(now / 190.0f);
     if (hp >= 0) {                              /* the hint: a gold glow under it, a nudge its way, gold light on it */
-        int cells[ARX_MAXLEN], n = arx_cells(&G.m, hp, G.dir[hp], cells);
+        int cells[ARX_MAXLEN], n = arx_cells(&G.m, hp, cells);
         for (int k = 0; k < n; k++)
-            ui_mark_gold_a(bx0 + (cells[k] % G.m.w + 0.5f) * q, by0 + (cells[k] / G.m.w + 0.5f) * q, 2.0f * q,
-                           0.6f + 0.4f * pulse);
-        P[hp].s = 0.07f * pulse * pulse;
+            ui_mark_gold_a(bx0 + (cells[k] % G.m.w + 0.5f) * q, by0 + (cells[k] / G.m.w + 0.5f) * q, 1.7f * q,
+                           0.5f + 0.4f * pulse);
+        P[hp].ks = 0.08f * pulse * pulse;
+        P[hp].kd = G.m.p[hp].dir;
         any = 1;
     }
-    for (int pass = 0; pass < 3; pass++)        /* the shadows, red halos round a knock, the tiles at rest or knocked */
-        for (int i = 0; i < G.m.n; i++) {
-            if (G.gone[i] || P[i].moving >= 2) continue;
-            const pose *p = &P[i];
-            int d = G.dir[i];
-            float dx = p->s * ARX_DX[d] + p->ks * ARX_DX[p->kd], dy = p->s * ARX_DY[d] + p->ks * ARX_DY[p->kd];
-            if (pass == 1) {
-                if (p->red < 0.02f) continue;
-                int cells[ARX_MAXLEN], n = arx_cells(&G.m, i, d, cells);
-                for (int k = 0; k < n; k++)
-                    pzk_dot(bx0 + (cells[k] % G.m.w + 0.5f + dx) * q, by0 + (cells[k] / G.m.w + 0.5f + dy) * q,
-                            0.95f * q, 0.32f * q, (pzk_rgba){236, 64, 40, (Uint8)(190 * p->red)}, 0);
-                continue;
-            }
-            draw_tile(i, d, dx, dy, p->grow, p->deg, 1, p->red, 0, pass == 0);
-            if (pass == 2 && i == hp) draw_tile(i, d, dx, dy, 1, 0, 0.12f + 0.2f * pulse, 0, 0, 2);
-        }
-    for (int i = 0; i < G.m.n; i++) {           /* the tiles shooting off: their ghosts, their shadows, themselves */
+    /* the arrows: red halos round a knock, those at rest from their pictures, those bumping drawn bending along their
+     * path, those slithering off on top */
+    for (int i = 0; i < G.m.n; i++) {          /* a red halo round the arrows of a knock */
+        if (G.gone[i] || P[i].red < 0.02f || P[i].moving > 1) continue;
+        int cells[ARX_MAXLEN], n = arx_cells(&G.m, i, cells);
+        float kx = P[i].ks * ARX_DX[P[i].kd], ky = P[i].ks * ARX_DY[P[i].kd];
+        for (int k = 0; k < n; k++)
+            pzk_dot(bx0 + (cells[k] % G.m.w + 0.5f + kx) * q, by0 + (cells[k] / G.m.w + 0.5f + ky) * q, 0.8f * q,
+                    0.3f * q, (pzk_rgba){236, 64, 40, (Uint8)(170 * P[i].red)}, 0);
+    }
+    for (int i = 0; i < G.m.n; i++)            /* at rest (or knocked, nudged): their pictures */
+        if (!G.gone[i] && P[i].moving < 2 && P[i].s == 0) put_arrow(i, &P[i], i == hp ? 0.12f + 0.2f * pulse : 0);
+    for (int pass = 0; pass < 4; pass++)       /* bumping: drawn as they bend along their path */
+        for (int i = 0; i < G.m.n; i++)
+            if (!G.gone[i] && P[i].moving < 2 && P[i].s != 0) draw_arrow(i, &P[i], pass, 0);
+    for (int i = 0; i < G.m.n; i++) {
         if (P[i].moving != 2) continue;
-        const pose *p = &P[i];
-        int d = mo[i].fly_dir;
-        float t = (float)(now - mo[i].fly_t0);
-        if (t > LIFT_MS)
-            for (int k = 2; k >= 1; k--) {
-                float s = p->s - 0.32f * k * clampf((t - LIFT_MS) / 120, 0, 1);
-                draw_tile(i, d, s * ARX_DX[d], s * ARX_DY[d], p->grow, 0, p->alpha * (k == 1 ? 0.3f : 0.14f), 0, 1, 0);
-            }
-        draw_tile(i, d, p->s * ARX_DX[d], p->s * ARX_DY[d], p->grow, 0, p->alpha, 0, p->lift, 1);
-        draw_tile(i, d, p->s * ARX_DX[d], p->s * ARX_DY[d], p->grow, 0, p->alpha, 0, p->lift, 0);
-        /* the spark where its head leaves the board */
-        float hx = G.m.p[i].x + 0.5f + (mo[i].fly_edge) * ARX_DX[d], hy = G.m.p[i].y + 0.5f + mo[i].fly_edge * ARX_DY[d];
-        float since = p->s - mo[i].fly_edge;
+        for (int pass = 0; pass < 4; pass++) draw_arrow(i, &P[i], pass, 0);
+        float since = P[i].s - mo[i].fly_edge;  /* the spark where its head leaves the board */
         if (since > -0.2f) {
+            const arx_piece *p = &G.m.p[i];
+            float hx = p->x + 0.5f + mo[i].fly_edge * ARX_DX[(int)p->dir], hy = p->y + 0.5f + mo[i].fly_edge * ARX_DY[(int)p->dir];
             float a = clampf(1 - since / 3.0f, 0, 1) * clampf((since + 0.2f) / 0.4f, 0, 1);
             ui_mark_gold_a(bx0 + hx * q, by0 + hy * q, (0.8f + 0.25f * since) * q, 0.8f * a);
         }
@@ -655,7 +703,7 @@ static void draw(void)
 }
 
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
-/* the tile under (x, y), a little slack round the squares: -1 none */
+/* the arrow under (x, y), a little slack round the squares: -1 none */
 static int piece_at(float x, float y)
 {
     float fx = (x - bx0) / q, fy = (y - by0) / q;
@@ -663,7 +711,7 @@ static int piece_at(float x, float y)
     if (cx >= 0 && cy >= 0 && cx < G.m.w && cy < G.m.h && G.at[cx + cy * G.m.w] != ARX_NONE)
         return G.at[cx + cy * G.m.w];
     int best = -1;
-    float bd = 0.62f;                           /* a near miss: the nearest tile's square */
+    float bd = 0.62f;                           /* a near miss: the nearest arrow's square */
     for (int c = 0; c < G.m.w * G.m.h; c++) {
         if (G.at[c] == ARX_NONE) continue;
         float d = fmaxf(fabsf(fx - (c % G.m.w + 0.5f)), fabsf(fy - (c / G.m.w + 0.5f)));
@@ -693,60 +741,45 @@ static void release(float x, float y)
     }
     if (arx_solved(&G)) return;
     int i = piece_at(press_x, press_y);
-    if (i < 0 || piece_at(x, y) != i) {
-        if (i < 0 && piece_at(x, y) < 0) return;
-        if (i < 0) i = piece_at(x, y);
-        if (i < 0) return;
-    }
-    tap_piece(i);
+    if (i < 0) i = piece_at(x, y);
+    if (i >= 0) tap_piece(i);
 }
 
 static void bar(int player, box b)
 {
     (void)player;
-    pzt_bar_two_ex(b, NULL, G.left, t_miss, G.mistakes, 0, 0);   /* (the token already shows a tile) */
+    pzt_bar_two_ex(b, NULL, G.left, t_miss, G.mistakes, 0, 0);   /* (the token already shows an arrow) */
 }
 
 /* ---- the shell's pictures ---------------------------------------------------------------------------------------- */
-/* the menu's card: a heart of tiles, one shooting off to the right */
+/* the menu's card: a heart of winding arrows; a picker's: a board of that size */
 static void thumb(int variant, int size, uint8_t *rgba)
 {
     static arx_game t;
     if (variant >= 0) {
         arx_random(&t, variant, 11u + (uint32_t)variant);
-        paint_mini(&t.m, size, rgba, -1);
+        paint_mini(&t.m, size, rgba);
         return;
     }
-    if (!arx_parse(&t.m, ".UU.UU.|LUUUUUR|LLUDURR|.LLDRR.|..LDR..|...D...")) return;
-    int fly = -1;                               /* the R at the right end of the second row, its way clear */
-    for (int i = 0; i < t.m.n; i++)
-        if (t.m.p[i].x == 6 && t.m.p[i].y == 1) fly = i;
-    paint_mini(&t.m, size, rgba, fly);
+    if (arx_level(&t, 2 * (ARX_LEVELS / ARX_CHAPTERS) - 1)) paint_mini(&t.m, size, rgba);
 }
 
 static void level_thumb(int level, int size, uint8_t *rgba)
 {
     static arx_game t;
-    if (arx_level(&t, level)) paint_mini(&t.m, size, rgba, -1);
+    if (arx_level(&t, level)) paint_mini(&t.m, size, rgba);
 }
 
+/* a chapter's tab: a short bent arrow; a long one; a spiral; the showpieces of the bigger boards, the shapes, all */
 static void chapter_icon(int chapter, int size, uint8_t *rgba)
 {
-    float s = 0.42f * size;
     switch (chapter) {
-    case 0:                                     /* a single square */
-        paint_piece(rgba, size, size, (size - 1.5f * s) / 2, (size - 1.5f * s) / 2, 1.5f * s, 1, ARX_RIGHT, 0, 1);
-        break;
-    case 1:                                     /* a bar */
-        s = 0.3f * size;
-        paint_piece(rgba, size, size, (size - 3 * s) / 2, (size - s) / 2, s, 3, ARX_RIGHT, 0, 1);
-        break;
-    case 2:                                     /* a turnstile */
-        paint_piece(rgba, size, size, (size - 1.6f * s) / 2, (size - 1.6f * s) / 2, 1.6f * s, 1, ARX_RIGHT, 1, 1);
-        break;
-    default: {                                  /* a big board, a shape, all of it: its showpiece */
+    case 0: paint_bent(size, rgba, "..|rR|u.", 0); break;
+    case 1: paint_bent(size, rgba, "rrd.|u.d.|u.rR", 2); break;
+    case 2: paint_bent(size, rgba, "U...|ulll|.dlu|.rru", 4); break;
+    default: {
         static arx_game t;
-        if (arx_level(&t, (chapter + 1) * (ARX_LEVELS / ARX_CHAPTERS) - 1)) paint_mini(&t.m, size, rgba, -1);
+        if (arx_level(&t, (chapter + 1) * (ARX_LEVELS / ARX_CHAPTERS) - 1)) paint_mini(&t.m, size, rgba);
         break;
     }
     }

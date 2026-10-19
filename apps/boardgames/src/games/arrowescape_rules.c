@@ -14,11 +14,36 @@ static const char HEAD[4] = {'U', 'R', 'D', 'L'}, BODY[4] = {'u', 'r', 'd', 'l'}
 
 static int inside(const arx_map *m, int x, int y) { return x >= 0 && y >= 0 && x < m->w && y < m->h; }
 
-int arx_cells(const arx_map *m, int i, int dir, int *cells)
+int arx_cells(const arx_map *m, int i, int *cells)
 {
     const arx_piece *p = &m->p[i];
-    for (int k = 0; k < p->len; k++) cells[k] = (p->x - k * ARX_DX[dir]) + (p->y - k * ARX_DY[dir]) * m->w;
+    int x = p->x, y = p->y;
+    for (int k = 0; k < p->len; k++) {
+        cells[k] = x + y * m->w;
+        if (k + 1 < p->len) {
+            x += ARX_DX[(int)p->step[k]];
+            y += ARX_DY[(int)p->step[k]];
+        }
+    }
     return p->len;
+}
+
+int arx_bends(const arx_map *m, int i)
+{
+    const arx_piece *p = &m->p[i];
+    int n = 0, last = (p->dir + 2) & 3;         /* (a neck at the side of the head: a bend) */
+    for (int k = 0; k + 1 < p->len; k++) {
+        n += p->step[k] != last;
+        last = p->step[k];
+    }
+    return n;
+}
+
+/* 1: square (x, y) lies on the way out of an arrow with its head at (hx, hy) pointing d */
+static int on_way(int hx, int hy, int d, int x, int y)
+{
+    int dx = x - hx, dy = y - hy;
+    return dx * ARX_DY[d] == dy * ARX_DX[d] && dx * ARX_DX[d] + dy * ARX_DY[d] > 0;
 }
 
 /* ---- boards as text ---------------------------------------------------------------------------------------------- */
@@ -45,32 +70,36 @@ int arx_parse(arx_map *m, const char *text)
     uint8_t claimed[ARX_CELLS] = {0};
     for (int y = 0; y < h; y++)
         for (int xx = 0; xx < w; xx++) {
-            char c = g[xx + y * ARX_MAXW];
-            int d = -1, turn = 0;
+            int d = -1;
             for (int k = 0; k < 4; k++)
-                if (c == HEAD[k]) d = k;
-            if (c >= '0' && c <= '3') { d = c - '0'; turn = 1; }
+                if (g[xx + y * ARX_MAXW] == HEAD[k]) d = k;
             if (d < 0) continue;
-            arx_piece *p = &m->p[m->n];
+            arx_piece *p = &m->p[m->n++];
             p->x = (int8_t)xx;
             p->y = (int8_t)y;
             p->dir = (int8_t)d;
-            p->turn = (int8_t)turn;
             p->len = 1;
             claimed[xx + y * w] = 1;
-            while (!turn && p->len < ARX_MAXLEN) {
-                int bx = xx - p->len * ARX_DX[d], by = y - p->len * ARX_DY[d];
-                if (!inside(m, bx, by) || g[bx + by * ARX_MAXW] != BODY[d] || claimed[bx + by * w]) break;
-                claimed[bx + by * w] = 1;
+            for (int cx = xx, cy = y; p->len < ARX_MAXLEN;) {   /* the square pointing at this one: the next one */
+                int found = -1;
+                for (int k = 0; k < 4 && found < 0; k++) {
+                    int nx = cx + ARX_DX[k], ny = cy + ARX_DY[k];
+                    if (inside(m, nx, ny) && !claimed[nx + ny * w] && g[nx + ny * ARX_MAXW] == BODY[(k + 2) & 3])
+                        found = k;
+                }
+                if (found < 0) break;
+                cx += ARX_DX[found];
+                cy += ARX_DY[found];
+                if (on_way(xx, y, d, cx, cy)) return 0;   /* its body on its own way out */
+                claimed[cx + cy * w] = 1;
+                p->step[p->len - 1] = (int8_t)found;
                 p->len++;
             }
-            m->n++;
         }
     for (int y = 0; y < h; y++)
         for (int xx = 0; xx < w; xx++) {
-            char c = g[xx + y * ARX_MAXW];
-            if (c == '.') continue;
-            if (!claimed[xx + y * w]) return 0;   /* a bar's square with no head, or a character not known */
+            if (g[xx + y * ARX_MAXW] == '.') continue;
+            if (!claimed[xx + y * w]) return 0;   /* a body square with no head, or a character not known */
             m->shape[xx + y * w] = 1;
         }
     return m->n > 0;
@@ -81,9 +110,9 @@ void arx_text(const arx_map *m, char *out)
     char g[ARX_CELLS];
     memset(g, '.', sizeof g);
     for (int i = 0; i < m->n; i++) {
-        int cells[ARX_MAXLEN], n = arx_cells(m, i, m->p[i].dir, cells);
-        for (int k = 0; k < n; k++) g[cells[k]] = BODY[(int)m->p[i].dir];
-        g[cells[0]] = m->p[i].turn ? (char)('0' + m->p[i].dir) : HEAD[(int)m->p[i].dir];
+        int cells[ARX_MAXLEN], n = arx_cells(m, i, cells);
+        g[cells[0]] = HEAD[(int)m->p[i].dir];
+        for (int k = 1; k < n; k++) g[cells[k]] = BODY[(m->p[i].step[k - 1] + 2) & 3];
     }
     int o = 0;
     for (int y = 0; y < m->h; y++) {
@@ -98,16 +127,15 @@ void arx_begin(arx_game *g)
 {
     memset(g->at, ARX_NONE, sizeof g->at);
     for (int i = 0; i < g->m.n; i++) {
-        g->dir[i] = (uint8_t)g->m.p[i].dir;
         g->gone[i] = 0;
-        int cells[ARX_MAXLEN], n = arx_cells(&g->m, i, g->dir[i], cells);
+        int cells[ARX_MAXLEN], n = arx_cells(&g->m, i, cells);
         for (int k = 0; k < n; k++) g->at[cells[k]] = (uint8_t)i;
     }
     g->nh = g->moves = g->mistakes = g->hints = 0;
     g->left = g->m.n;
 }
 
-/* the first tile from (x, y) the way d, not counting (x, y): -1 none; *gap the empty squares before it */
+/* the first arrow from (x, y) the way d, not counting (x, y): -1 none; *gap the empty squares before it */
 static int ray(const arx_map *m, const uint8_t *at, int x, int y, int d, int *gap)
 {
     int n = 0;
@@ -122,26 +150,10 @@ static int ray(const arx_map *m, const uint8_t *at, int x, int y, int d, int *ga
 
 int arx_blocker(const arx_game *g, int i, int *gap)
 {
-    return ray(&g->m, g->at, g->m.p[i].x, g->m.p[i].y, g->dir[i], gap);
+    return ray(&g->m, g->at, g->m.p[i].x, g->m.p[i].y, g->m.p[i].dir, gap);
 }
 
-int arx_free(const arx_game *g, int i)
-{
-    if (g->gone[i]) return 0;
-    if (!g->m.p[i].turn) return arx_blocker(g, i, NULL) < 0;
-    for (int d = 0; d < 4; d++)
-        if (ray(&g->m, g->at, g->m.p[i].x, g->m.p[i].y, d, NULL) < 0) return 1;
-    return 0;
-}
-
-static void push(arx_game *g, int i, int kind)
-{
-    if (g->nh == ARX_HIST) {                    /* (a turnstile turned for ever: the oldest steps forgotten) */
-        memmove(g->hist, g->hist + 1, (ARX_HIST - 1) * sizeof g->hist[0]);
-        g->nh--;
-    }
-    g->hist[g->nh++] = (arx_step){(uint8_t)i, (uint8_t)kind, g->dir[i]};
-}
+int arx_free(const arx_game *g, int i) { return !g->gone[i] && arx_blocker(g, i, NULL) < 0; }
 
 int arx_tap(arx_game *g, int i, int *blocker)
 {
@@ -149,34 +161,29 @@ int arx_tap(arx_game *g, int i, int *blocker)
     int b = arx_blocker(g, i, NULL);
     if (blocker) *blocker = b;
     g->moves++;
-    if (b < 0) {
-        int cells[ARX_MAXLEN], n = arx_cells(&g->m, i, g->dir[i], cells);
-        push(g, i, ARX_GONE);
-        for (int k = 0; k < n; k++) g->at[cells[k]] = ARX_NONE;
-        g->gone[i] = 1;
-        g->left--;
-        return ARX_GONE;
+    if (b >= 0) {
+        g->mistakes++;
+        return ARX_BUMP;
     }
-    if (g->m.p[i].turn) {
-        push(g, i, ARX_TURNED);
-        g->dir[i] = (uint8_t)((g->dir[i] + 1) & 3);
-        return ARX_TURNED;
+    if (g->nh == ARX_HIST) {                    /* (never: an arrow leaves once) */
+        memmove(g->hist, g->hist + 1, ARX_HIST - 1);
+        g->nh--;
     }
-    g->mistakes++;
-    return ARX_BUMP;
+    g->hist[g->nh++] = (uint8_t)i;
+    int cells[ARX_MAXLEN], n = arx_cells(&g->m, i, cells);
+    for (int k = 0; k < n; k++) g->at[cells[k]] = ARX_NONE;
+    g->gone[i] = 1;
+    g->left--;
+    return ARX_GONE;
 }
 
 int arx_undo(arx_game *g)
 {
     if (!g->nh) return 0;
-    arx_step s = g->hist[--g->nh];
-    g->dir[s.piece] = s.dir;
-    if (s.kind == ARX_GONE) {
-        int cells[ARX_MAXLEN], n = arx_cells(&g->m, s.piece, s.dir, cells);
-        for (int k = 0; k < n; k++) g->at[cells[k]] = s.piece;
-        g->gone[s.piece] = 0;
-        g->left++;
-    }
+    int i = g->hist[--g->nh], cells[ARX_MAXLEN], n = arx_cells(&g->m, i, cells);
+    for (int k = 0; k < n; k++) g->at[cells[k]] = (uint8_t)i;
+    g->gone[i] = 0;
+    g->left++;
     if (g->moves > 0) g->moves--;
     return 1;
 }
@@ -189,9 +196,8 @@ int arx_hint(const arx_game *g)
     for (int i = 0; i < g->m.n; i++) {
         if (!arx_free(g, i)) continue;
         int s = 0;
-        for (int j = 0; j < g->m.n; j++)        /* the tiles it stands in front of */
-            if (j != i && !g->gone[j] && arx_blocker(g, j, NULL) == i) s += 2;
-        if (!g->m.p[i].turn || arx_blocker(g, i, NULL) < 0) s += 100;   /* a tap takes it off */
+        for (int j = 0; j < g->m.n; j++)        /* the arrows it stands in front of */
+            if (j != i && !g->gone[j] && arx_blocker(g, j, NULL) == i) s++;
         if (s > score) { score = s; best = i; }
     }
     return best;
@@ -211,7 +217,7 @@ int arx_rounds(const arx_map *m, int *free_at_start)
         if (!n) return -1;
         if (!rounds && free_at_start) *free_at_start = n;
         for (int k = 0; k < n; k++) {
-            int i = list[k], cells[ARX_MAXLEN], c = arx_cells(&t.m, i, t.dir[i], cells);
+            int i = list[k], cells[ARX_MAXLEN], c = arx_cells(&t.m, i, cells);
             for (int j = 0; j < c; j++) t.at[cells[j]] = ARX_NONE;
             t.gone[i] = 1;
             t.left--;
@@ -245,11 +251,12 @@ void arx_shape(int shape, int w, int h, uint8_t *mask)
         }
 }
 
-/* ---- the maker ------------------------------------------------------------------------------------------------- */
+/* ---- the maker --------------------------------------------------------------------------------------------------- */
 typedef struct {
     arx_map *m;
-    uint8_t at[ARX_CELLS];                      /* the tiles laid so far */
-    uint8_t up[ARX_MAXP];                       /* the longest chain of tiles each one stands in front of */
+    uint8_t at[ARX_CELLS];                      /* the arrows laid so far */
+    uint8_t up[ARX_MAXP];                       /* the longest chain of arrows each one stands in front of */
+    uint8_t bv[ARX_CELLS];                      /* the longest chain an arrow there would stand in front of */
 } maker;
 
 static int empty_cell(const maker *k, int x, int y)
@@ -257,44 +264,7 @@ static int empty_cell(const maker *k, int x, int y)
     return inside(k->m, x, y) && k->m->shape[x + y * k->m->w] && k->at[x + y * k->m->w] == ARX_NONE;
 }
 
-static int ways_out(const maker *k, int c)      /* bit d: the way d from square c is clear of the tiles laid */
-{
-    int o = 0;
-    for (int d = 0; d < 4; d++)
-        if (ray(k->m, k->at, c % k->m->w, c / k->m->w, d, NULL) < 0) o |= 1 << d;
-    return o;
-}
-
-static int popcount4(int v) { return (v & 1) + (v >> 1 & 1) + (v >> 2 & 1) + (v >> 3 & 1); }
-
-/* the tile's image under the symmetry (sym 0 across, 1 half turn) */
-static arx_piece image(const arx_map *m, arx_piece p, int sym)
-{
-    arx_piece q = p;
-    q.x = (int8_t)(m->w - 1 - p.x);
-    if (sym == 1) {
-        q.y = (int8_t)(m->h - 1 - p.y);
-        q.dir = (int8_t)((p.dir + 2) & 3);
-    } else if (p.dir == ARX_LEFT || p.dir == ARX_RIGHT) q.dir = (int8_t)(p.dir ^ 2);
-    return q;
-}
-
-static int piece_cells(const arx_map *m, const arx_piece *p, int *cells)
-{
-    for (int k = 0; k < p->len; k++) {
-        int x = p->x - k * ARX_DX[(int)p->dir], y = p->y - k * ARX_DY[(int)p->dir];
-        if (!inside(m, x, y)) return 0;
-        cells[k] = x + y * m->w;
-    }
-    return p->len;
-}
-
-static int same_piece(const arx_piece *a, const arx_piece *b)
-{
-    return a->x == b->x && a->y == b->y && a->dir == b->dir && a->len == b->len;
-}
-
-/* the longest chain behind the tiles a new one at these squares stands in front of */
+/* the longest chain behind the arrows whose ways out pass over these squares */
 static int chain_behind(const maker *k, const int *cells, int n)
 {
     int best = 0;
@@ -306,66 +276,158 @@ static int chain_behind(const maker *k, const int *cells, int n)
                 int t = k->at[x + y * k->m->w];
                 if (t == ARX_NONE) continue;
                 const arx_piece *p = &k->m->p[t];
-                if (p->x == x && p->y == y && !p->turn && p->dir == ((e + 2) & 3) && k->up[t] > best) best = k->up[t];
+                if (p->x == x && p->y == y && p->dir == ((e + 2) & 3) && k->up[t] > best) best = k->up[t];
             }
     }
     return best;
 }
 
-/* lay tiles a (and b, its image, when nb) if they fit: their squares empty, each one's way clear of what is laid and
- * of the other, and no empty square of the shape left with no way out after them; 1: laid */
-static int try_lay(maker *k, arx_piece *a, arx_piece *b, int nb)
+static int mirror_dir(int d, int sym) { return sym == 1 ? (d + 2) & 3 : d == ARX_LEFT || d == ARX_RIGHT ? d ^ 2 : d; }
+
+static arx_piece image(const arx_map *m, const arx_piece *p, int sym)
+{
+    arx_piece q = *p;
+    q.x = (int8_t)(m->w - 1 - p->x);
+    if (sym == 1) q.y = (int8_t)(m->h - 1 - p->y);
+    q.dir = (int8_t)mirror_dir(p->dir, sym);
+    for (int k = 0; k + 1 < p->len; k++) q.step[k] = (int8_t)mirror_dir(p->step[k], sym);
+    return q;
+}
+
+/* an arrow's squares if they all lie on the board (0: not) */
+static int piece_cells(const arx_map *m, const arx_piece *p, int *cells)
+{
+    int x = p->x, y = p->y;
+    for (int k = 0; k < p->len; k++) {
+        if (!inside(m, x, y)) return 0;
+        cells[k] = x + y * m->w;
+        if (k + 1 < p->len) {
+            x += ARX_DX[(int)p->step[k]];
+            y += ARX_DY[(int)p->step[k]];
+        }
+    }
+    return p->len;
+}
+
+/* a body grown from a head through the empty squares (never on its own way out): a search trying the likeliest
+ * squares first (bending, running along what is laid, over the ways out of the arrows laid: they must wait), going
+ * back from dead ends, until the length wanted or its budget is spent; the longest found */
+typedef struct {
+    maker *k;
+    const arx_spec *sp;
+    uint32_t *r;
+    arx_piece cur, best;
+    int want, budget, turn;                     /* (each arrow its own taste for bends: S, L, U, spirals) */
+    uint8_t mine[ARX_CELLS];
+} growth;
+
+static void grow_from(growth *g, int x, int y, int last, int sense, int run)
+{
+    maker *k = g->k;
+    if (g->cur.len > g->best.len) g->best = g->cur;
+    if (g->cur.len >= g->want || --g->budget <= 0) return;
+    int ord[4], sc[4], n = 0;
+    for (int d = 0; d < 4; d++) {
+        int nx = x + ARX_DX[d], ny = y + ARX_DY[d];
+        if (!empty_cell(k, nx, ny) || g->mine[nx + ny * k->m->w] || on_way(g->cur.x, g->cur.y, g->cur.dir, nx, ny))
+            continue;
+        int s = pr_below(g->r, 100);
+        if (d != last) {
+            s += run >= 2 ? g->turn : g->turn / 3;   /* (a bend after a straight run: S, U, L more than zigzags) */
+            int sn = ((d - last) & 3) == 1 ? 1 : -1;   /* the way it turns: the same again winds a spiral */
+            if (sense && sn == sense) s += g->turn / 2;
+        }
+        int walls = 0;
+        for (int e = 0; e < 4; e++) {
+            int ex = nx + ARX_DX[e], ey = ny + ARX_DY[e];
+            walls += !empty_cell(k, ex, ey) || g->mine[ex + ey * k->m->w];
+        }
+        s += g->sp->hug * walls / 3 + k->bv[nx + ny * k->m->w] * g->sp->deep / 6;
+        int i = n++;
+        for (; i > 0 && sc[i - 1] < s; i--) { sc[i] = sc[i - 1]; ord[i] = ord[i - 1]; }
+        sc[i] = s;
+        ord[i] = d;
+    }
+    for (int i = 0; i < n; i++) {
+        int d = ord[i], nx = x + ARX_DX[d], ny = y + ARX_DY[d];
+        g->cur.step[g->cur.len - 1] = (int8_t)d;
+        g->cur.len++;
+        g->mine[nx + ny * k->m->w] = 1;
+        grow_from(g, nx, ny, d, d != last && g->cur.len > 2 ? (((d - last) & 3) == 1 ? 1 : -1) : sense,
+                  d != last ? 1 : run + 1);
+        g->mine[nx + ny * k->m->w] = 0;
+        g->cur.len--;
+        if (g->best.len >= g->want || g->budget <= 0) return;
+    }
+}
+
+static void grow(maker *k, arx_piece *a, int want, const arx_spec *sp, uint32_t *r)
+{
+    static growth g;
+    memset(g.mine, 0, sizeof g.mine);
+    g.k = k;
+    g.sp = sp;
+    g.r = r;
+    g.want = want;
+    g.budget = 300;
+    g.turn = sp->turn * (40 + pr_below(r, 80)) / 100;
+    a->len = 1;
+    g.cur = g.best = *a;
+    g.mine[a->x + a->y * k->m->w] = 1;
+    grow_from(&g, a->x, a->y, (a->dir + 2) & 3, 0, 2);
+    *a = g.best;
+}
+
+
+/* lay arrows a (and b, its image, when nb) if they fit: their squares empty and apart, each one's way out clear of
+ * what is laid and of the other; 1: laid */
+static int try_lay(maker *k, const arx_piece *a, const arx_piece *b, int nb)
 {
     arx_map *m = k->m;
     int ca[ARX_MAXLEN], cb[ARX_MAXLEN], na = piece_cells(m, a, ca), nbc = nb ? piece_cells(m, b, cb) : 0;
-    if (!na || (nb && !nbc)) return 0;
+    if (!na || (nb && !nbc) || m->n + 1 + nb > ARX_MAXP) return 0;
     for (int i = 0; i < na; i++)
         if (!empty_cell(k, ca[i] % m->w, ca[i] / m->w)) return 0;
     for (int i = 0; i < nbc; i++) {
         if (!empty_cell(k, cb[i] % m->w, cb[i] / m->w)) return 0;
         for (int j = 0; j < na; j++)
             if (cb[i] == ca[j]) return 0;
+        if (on_way(a->x, a->y, a->dir, cb[i] % m->w, cb[i] / m->w)) return 0;
     }
-    if (m->n + 1 + nb > ARX_MAXP) return 0;
-    int ia = m->n, ib = m->n + 1;
-    for (int i = 0; i < na; i++) k->at[ca[i]] = (uint8_t)ia;
-    for (int i = 0; i < nbc; i++) k->at[cb[i]] = (uint8_t)ib;
-    int ok = 1;
-    for (int t = 0; t < 1 + nb && ok; t++) {     /* each one's way out clear (a turnstile: some way) */
-        arx_piece *p = t ? b : a;
-        if (p->turn) {
-            int any = 0;
-            for (int d = 0; d < 4; d++) any |= ray(m, k->at, p->x, p->y, d, NULL) < 0;
-            ok = any;
-        } else ok = ray(m, k->at, p->x, p->y, p->dir, NULL) < 0;
-    }
-    for (int t = 0; t < 1 + nb && ok; t++) {     /* the empty squares in their rows and columns keep a way out */
-        const int *cc = t ? cb : ca;
-        int nn = t ? nbc : na;
-        for (int i = 0; i < nn && ok; i++)
-            for (int e = 0; e < 4 && ok; e++)
-                for (int x = cc[i] % m->w + ARX_DX[e], y = cc[i] / m->w + ARX_DY[e]; inside(m, x, y) && ok;
-                     x += ARX_DX[e], y += ARX_DY[e])
-                    if (empty_cell(k, x, y) && !ways_out(k, x + y * m->w)) ok = 0;
-    }
-    if (!ok) {
-        for (int i = 0; i < na; i++) k->at[ca[i]] = ARX_NONE;
-        for (int i = 0; i < nbc; i++) k->at[cb[i]] = ARX_NONE;
-        return 0;
-    }
-    /* the chains: what each stands in front of (the other of the pair: not counted, they go together) */
-    for (int i = 0; i < na; i++) k->at[ca[i]] = ARX_NONE;
-    for (int i = 0; i < nbc; i++) k->at[cb[i]] = ARX_NONE;
+    for (int i = 0; i < na && nb; i++)
+        if (on_way(b->x, b->y, b->dir, ca[i] % m->w, ca[i] / m->w)) return 0;
+    if (ray(m, k->at, a->x, a->y, a->dir, NULL) >= 0) return 0;
+    if (nb && ray(m, k->at, b->x, b->y, b->dir, NULL) >= 0) return 0;
     int ua = 1 + chain_behind(k, ca, na), ub = nb ? 1 + chain_behind(k, cb, nbc) : 0;
+    int ia = m->n;
     for (int i = 0; i < na; i++) k->at[ca[i]] = (uint8_t)ia;
-    for (int i = 0; i < nbc; i++) k->at[cb[i]] = (uint8_t)ib;
     m->p[ia] = *a;
     k->up[ia] = (uint8_t)(ua > 250 ? 250 : ua);
     if (nb) {
-        m->p[ib] = *b;
-        k->up[ib] = (uint8_t)(ub > 250 ? 250 : ub);
+        for (int i = 0; i < nbc; i++) k->at[cb[i]] = (uint8_t)(ia + 1);
+        m->p[ia + 1] = *b;
+        k->up[ia + 1] = (uint8_t)(ub > 250 ? 250 : ub);
     }
     m->n += 1 + nb;
+    return 1;
+}
+
+/* square c taken by the tail of arrow i (next to it) when no arrow laid after i has its way out over c */
+static int extend(maker *k, int i, int c)
+{
+    arx_map *m = k->m;
+    arx_piece *p = &m->p[i];
+    int cells[ARX_MAXLEN], n = arx_cells(m, i, cells), x = c % m->w, y = c / m->w;
+    if (n >= ARX_MAXLEN || on_way(p->x, p->y, p->dir, x, y)) return 0;
+    int tx = cells[n - 1] % m->w, ty = cells[n - 1] / m->w, d = -1;
+    for (int e = 0; e < 4; e++)
+        if (tx + ARX_DX[e] == x && ty + ARX_DY[e] == y) d = e;
+    if (d < 0) return 0;
+    for (int j = i + 1; j < m->n; j++)
+        if (on_way(m->p[j].x, m->p[j].y, m->p[j].dir, x, y)) return 0;
+    p->step[n - 1] = (int8_t)d;
+    p->len++;
+    k->at[c] = (uint8_t)i;
     return 1;
 }
 
@@ -395,6 +457,31 @@ static void trim(arx_map *m)
     m->h = h;
 }
 
+/* the squares left: taken by the tails next to them (in symmetric pairs when it can) */
+static void fill_tails(maker *k, int sym)
+{
+    arx_map *m = k->m;
+    for (int pass = 0; pass < 6; pass++)
+        for (int c = 0; c < m->w * m->h; c++) {
+            if (!empty_cell(k, c % m->w, c / m->w)) continue;
+            for (int e = 0; e < 4; e++) {
+                int nx = c % m->w + ARX_DX[e], ny = c / m->w + ARX_DY[e];
+                if (!inside(m, nx, ny) || k->at[nx + ny * m->w] == ARX_NONE) continue;
+                int i = k->at[nx + ny * m->w], cs[ARX_MAXLEN], n = arx_cells(m, i, cs);
+                if (cs[n - 1] != nx + ny * m->w || !extend(k, i, c)) continue;
+                if (sym < 2) {                  /* its image the same way */
+                    int ox = m->w - 1 - c % m->w, oy = sym == 1 ? m->h - 1 - c / m->w : c / m->w, oc = ox + oy * m->w;
+                    int tx = m->w - 1 - nx, ty = sym == 1 ? m->h - 1 - ny : ny;
+                    if (oc != c && empty_cell(k, ox, oy) && k->at[tx + ty * m->w] != ARX_NONE) {
+                        int j = k->at[tx + ty * m->w], cj[ARX_MAXLEN], nj = arx_cells(m, j, cj);
+                        if (cj[nj - 1] == tx + ty * m->w) extend(k, j, oc);
+                    }
+                }
+                break;
+            }
+        }
+}
+
 int arx_make(arx_map *m, const arx_spec *sp, uint32_t seed)
 {
     uint32_t r = pr_seed(seed);
@@ -403,80 +490,79 @@ int arx_make(arx_map *m, const arx_spec *sp, uint32_t seed)
     m->w = sp->w < 2 ? 2 : sp->w > ARX_MAXW ? ARX_MAXW : sp->w;
     m->h = sp->h < 2 ? 2 : sp->h > ARX_MAXH ? ARX_MAXH : sp->h;
     arx_shape(sp->shape, m->w, m->h, m->shape);
-    int sym = sp->sym;
+    int sym = sp->sym, cells = 0;
     for (int c = 0; c < m->w * m->h && sym < 2; c++) {   /* the shape must be the same under the symmetry (a heart
                                                             * turned half round is not: mirrored then) */
         int x = c % m->w, y = c / m->w, o = sym == 1 ? (m->w - 1 - x) + (m->h - 1 - y) * m->w : (m->w - 1 - x) + y * m->w;
         if (m->shape[c] != m->shape[o]) { sym = sym == 1 ? 0 : 2; c = -1; }
     }
+    for (int c = 0; c < m->w * m->h; c++) cells += m->shape[c];
     k.m = m;
     memset(k.at, ARX_NONE, sizeof k.at);
+    int lo = sp->lo < 1 ? 1 : sp->lo, hi = sp->hi < lo ? lo : sp->hi > ARX_MAXLEN ? ARX_MAXLEN : sp->hi;
+    /* arrows as long as wanted first; when no head can grow one, shorter ones (single squares last) */
+    int len_now = lo;
+    static uint8_t banned[ARX_CELLS * 4];
+    memset(banned, 0, sizeof banned);
     for (;;) {
-        int pick = -1, fewest = 9, ties = 0, any = 0;
+        /* the longest chain behind each square: the arrows whose way out passes over it */
+        memset(k.bv, 0, sizeof k.bv);
+        for (int j = 0; j < m->n; j++)
+            for (int x = m->p[j].x + ARX_DX[(int)m->p[j].dir], y = m->p[j].y + ARX_DY[(int)m->p[j].dir];
+                 inside(m, x, y); x += ARX_DX[(int)m->p[j].dir], y += ARX_DY[(int)m->p[j].dir])
+                if (k.up[j] > k.bv[x + y * m->w]) k.bv[x + y * m->w] = k.up[j];
+        /* the heads that can go: an empty square, a way whose squares are clear of what is laid; a long way across
+         * the shape first (the arrows laid later, over it, make it wait), next to what is laid */
+        int best = -1, bd = 0, bs = -1;
         for (int c = 0; c < m->w * m->h; c++) {
             if (!empty_cell(&k, c % m->w, c / m->w)) continue;
-            any = 1;
-            int o = popcount4(ways_out(&k, c));
-            if (!o) return 0;
-            if (o < fewest) { fewest = o; pick = c; ties = 1; }
-            else if (o == fewest && pr_below(&r, ++ties) == 0) pick = c;
-        }
-        if (!any) break;
-        int x = pick % m->w, y = pick / m->w, outs = ways_out(&k, pick);
-        /* the ways to try: the clear ones, the one standing in front of the longest chain first (by `deep`) */
-        int order[4], no = 0, score[4];
-        for (int d = 0; d < 4; d++)
-            if (outs >> d & 1) {
-                int cell = pick;
-                score[no] = chain_behind(&k, &cell, 1) * 16 + pr_below(&r, 16);
-                order[no++] = d;
-            }
-        if (pr_below(&r, 100) < sp->deep) {
-            for (int i = 0; i < no; i++)        /* the best first */
-                for (int j = i + 1; j < no; j++)
-                    if (score[j] > score[i]) {
-                        int t = score[i]; score[i] = score[j]; score[j] = t;
-                        t = order[i]; order[i] = order[j]; order[j] = t;
-                    }
-        } else {
-            for (int i = no - 1; i > 0; i--) {
-                int j = pr_below(&r, i + 1), t = order[i];
-                order[i] = order[j];
-                order[j] = t;
+            for (int d = 0; d < 4; d++) {
+                if (banned[c * 4 + d] || ray(m, k.at, c % m->w, c / m->w, d, NULL) >= 0) continue;
+                int span = 0;
+                for (int x = c % m->w + ARX_DX[d], y = c / m->w + ARX_DY[d]; inside(m, x, y); x += ARX_DX[d], y += ARX_DY[d])
+                    span += m->shape[x + y * m->w];
+                int s = pr_below(&r, 100) + span * sp->deep / 8 + 6 * k.bv[c] * sp->deep / 100;
+                int walls = 0;
+                for (int e = 0; e < 4; e++) walls += !empty_cell(&k, c % m->w + ARX_DX[e], c / m->w + ARX_DY[e]);
+                s += 12 * walls;
+                if (s > bs) { bs = s; best = c; bd = d; }
             }
         }
-        int laid = 0;
-        for (int oi = 0; oi < no && !laid; oi++) {
-            int d = order[oi];
-            int want = 1;
-            if (sp->maxlen > 1 && pr_below(&r, 100) < sp->bars) want = 2 + pr_below(&r, sp->maxlen - 1);
-            int turn = want == 1 && pr_below(&r, 100) < sp->turns;
-            for (int len = want; len >= 1 && !laid; len--) {
-                arx_piece a = {(int8_t)x, (int8_t)y, (int8_t)d, (int8_t)len, (int8_t)(len == 1 && turn)};
-                if (a.turn) {                   /* a turnstile starts pointing a way that is blocked, if any */
-                    int blocked[4], nbk = 0;
-                    for (int e = 0; e < 4; e++)
-                        if (!(outs >> e & 1)) blocked[nbk++] = e;
-                    if (nbk) a.dir = (int8_t)blocked[pr_below(&r, nbk)];
-                }
-                arx_piece b = a;
-                int nb = 0;
-                if (sym < 2) {
-                    b = image(m, a, sym);
-                    int ca[ARX_MAXLEN], cb[ARX_MAXLEN], na = piece_cells(m, &a, ca), n2 = piece_cells(m, &b, cb);
-                    int clash = 0;
-                    for (int i = 0; i < na; i++)
-                        for (int j = 0; j < n2; j++) clash += ca[i] == cb[j];
-                    /* its own image (or, turned half round, on the same squares: the middle): laid alone */
-                    if (na && n2 && (same_piece(&a, &b) || (clash == na && sym == 1))) nb = 0;
-                    else if (clash) continue;
-                    else nb = 1;
-                }
-                laid = try_lay(&k, &a, &b, nb);
-            }
+        if (best < 0) {
+            if (len_now <= 1) break;
+            len_now--;                          /* no head grows one that long: shorter ones */
+            if (len_now == 1) fill_tails(&k, sym);   /* (tails before single squares) */
+            memset(banned, 0, sizeof banned);
+            continue;
         }
-        if (!laid) return 0;
+        arx_piece a = {(int8_t)(best % m->w), (int8_t)(best / m->w), (int8_t)bd, 1, {0}};
+        int u1 = pr_below(&r, hi - lo + 1), u2 = pr_below(&r, hi - lo + 1), want = lo + (u1 > u2 ? u1 : u2), laid = 0;
+        if (want < len_now) want = len_now;
+        grow(&k, &a, want, sp, &r);
+        for (; a.len >= len_now && !laid; a.len--) {
+            if (sym >= 2) { laid = try_lay(&k, &a, &a, 0); continue; }
+            arx_piece b = image(m, &a, sym);
+            int ca[ARX_MAXLEN], cb[ARX_MAXLEN], na = piece_cells(m, &a, ca), n2 = piece_cells(m, &b, cb), same = 0;
+            for (int i = 0; i < na; i++)
+                for (int j = 0; j < n2; j++) same += ca[i] == cb[j];
+            /* its own image (the same squares, the same way: on the middle column), laid alone */
+            if (na && n2 && same == na && na == n2 && b.dir == a.dir && b.x == a.x && b.y == a.y)
+                laid = try_lay(&k, &a, &a, 0);
+            else if (!same) laid = try_lay(&k, &a, &b, 1);
+        }
+        if (laid) memset(banned, 0, sizeof banned);
+        else banned[best * 4 + bd] = 1;
     }
+    fill_tails(&k, sym);
+    int holes = 0;
+    for (int c = 0; c < m->w * m->h; c++) holes += empty_cell(&k, c % m->w, c / m->w);
+    if (holes * 30 > cells) return 0;
+    for (int c = 0; c < m->w * m->h && sym < 2; c++) {   /* the holes symmetric too (the shape stays so) */
+        int x = c % m->w, y = c / m->w, o = sym == 1 ? (m->w - 1 - x) + (m->h - 1 - y) * m->w : (m->w - 1 - x) + y * m->w;
+        if (empty_cell(&k, x, y) != empty_cell(&k, o % m->w, o / m->w)) return 0;
+    }
+    for (int c = 0; c < m->w * m->h; c++)       /* a hole stays out of the shape: no bed shows there */
+        if (empty_cell(&k, c % m->w, c / m->w)) m->shape[c] = 0;
     trim(m);
     return m->n > 0;
 }
@@ -488,21 +574,16 @@ int arx_script(arx_game *g, const char *moves)
     while (*s) {
         while (*s == ' ' || *s == ',') s++;
         if (!*s) break;
-        if (*s == 'h') {
-            int i = arx_hint(g);
-            if (i < 0) return 0;
-            g->hints++;
-            arx_tap(g, i, NULL);
+        if (*s == 'h' || *s == '=') {
+            int all = *s == '=';
             s++;
-            continue;
-        }
-        if (*s == '=') {
-            for (int guard = 0; !arx_solved(g) && guard < 4 * ARX_MAXP; guard++) {
+            for (int guard = 0; guard < ARX_MAXP && !arx_solved(g); guard++) {
                 int i = arx_hint(g);
                 if (i < 0) return 0;
+                if (!all) g->hints++;
                 arx_tap(g, i, NULL);
+                if (!all) break;
             }
-            s++;
             continue;
         }
         if (!islower((unsigned char)*s) || !isdigit((unsigned char)s[1])) return 0;
@@ -520,9 +601,9 @@ int arx_script(arx_game *g, const char *moves)
 void arx_variant(int v, arx_spec *sp)
 {
     static const arx_spec V[ARX_VARIANTS] = {
-        {6, 6, ARX_RECT, 0, 2, 25, 0, 60},
-        {8, 8, ARX_OCTAGON, 0, 3, 35, 8, 75},
-        {10, 11, ARX_ROUND, 0, 4, 40, 6, 90},
+        {6, 6, ARX_RECT, 0, 2, 5, 55, 40, 60},
+        {8, 9, ARX_OCTAGON, 0, 3, 8, 60, 50, 75},
+        {10, 11, ARX_ROUND, 0, 3, 12, 65, 60, 90},
     };
     *sp = V[v < 0 || v >= ARX_VARIANTS ? 0 : v];
 }
@@ -541,17 +622,17 @@ void arx_random(arx_game *g, int variant, uint32_t seed)
 {
     static const uint8_t LO[ARX_VARIANTS] = {3, 5, 6};
     static const int SHAPES[ARX_VARIANTS][3] = {
-        {ARX_RECT, ARX_DIAMOND, ARX_PLUS}, {ARX_OCTAGON, ARX_ROUND, ARX_HEART}, {ARX_ROUND, ARX_HEART, ARX_BLOB}};
+        {ARX_RECT, ARX_DIAMOND, ARX_OCTAGON}, {ARX_OCTAGON, ARX_ROUND, ARX_HEART}, {ARX_ROUND, ARX_HEART, ARX_BLOB}};
     arx_spec sp;
     arx_variant(variant, &sp);
     int v = variant < 0 || variant >= ARX_VARIANTS ? 0 : variant;
     uint32_t r = pr_seed(seed);
     for (int tries = 0; tries < 200; tries++) {
         sp.shape = SHAPES[v][pr_below(&r, 3)];
-        sp.sym = pr_below(&r, 3) == 0 ? 1 : 0;
-        int f0, n;
+        sp.sym = pr_below(&r, 4) == 0 ? 1 : 0;
+        int f0;
         if (!arx_make(&g->m, &sp, pr_next(&r))) continue;
-        n = arx_rounds(&g->m, &f0);
+        int n = arx_rounds(&g->m, &f0);
         if (n >= LO[v] && f0 * 2 <= g->m.n) { arx_begin(g); return; }
     }
     arx_level(g, 0);

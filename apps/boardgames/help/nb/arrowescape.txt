@@ -1,11 +1,10 @@
 Piler ut
 # Målet
-Tøm brettet: hver brikke må ut av det.
+Tøm brettet: hver pil må ut av det.
 # Et trekk
-Trykk på en brikke: den glir av brettet i pilens retning hvis ingenting står mellom spissen og kanten. En lang brikke flytter seg samlet, med pilen foran.
-Står en annen brikke i veien, støter den trykkede brikken borti den og blir stående: det er en feil.
-En brikke på en messingskive som ikke kan komme ut, dreier i stedet en kvart omdreining med klokka, uten feil.
+Trykk på en pil: er alle rutene fra spissen rett fram til kanten ledige, glir den ut dit spissen peker, og kroppen følger hodets vei som en slange.
+Står en annen pil i veien, støter den trykkede pilen borti den og blir stående: det er en feil.
 # Slutten på spillet
-Når den siste brikken er ute, er brettet tomt.
+Når den siste pilen er ute, er brettet tomt.
 # Nivåer og stjerner
 Uten hint og uten feil: 3 stjerner; opptil to hint og feil til sammen: 2 stjerner; ellers 1.

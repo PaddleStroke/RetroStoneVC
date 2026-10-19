@@ -1,11 +1,10 @@
 Nuolet pois
 # Tavoite
-Tyhjennä lauta: jokaisen laatan on lähdettävä siltä.
+Tyhjennä lauta: jokaisen nuolen on lähdettävä siltä.
 # Siirto
-Napauta laattaa: se liukuu laudalta nuolensa suuntaan, jos sen kärjen ja reunan välissä ei ole mitään. Pitkä laatta liikkuu kokonaan, nuoli edessä.
-Jos toinen laatta on tiellä, napautettu laatta törmää siihen ja jää paikalleen: se on virhe.
-Messinkilevyllä oleva laatta, joka ei pääse ulos, kääntyy sen sijaan neljänneskierroksen myötäpäivään, ilman virhettä.
+Napauta nuolta: jos kaikki ruudut sen kärjestä suoraan reunaan asti ovat vapaita, se liukuu ulos kärkensä suuntaan, ja sen vartalo seuraa pään reittiä kuin käärme.
+Jos toinen nuoli on tiellä, napautettu nuoli törmää siihen ja jää paikalleen: se on virhe.
 # Pelin loppu
-Kun viimeinen laatta on lähtenyt, lauta on tyhjä.
+Kun viimeinen nuoli on lähtenyt, lauta on tyhjä.
 # Tasot ja tähdet
 Ei vihjeitä eikä virheitä: 3 tähteä; enintään kaksi vihjettä ja virhettä yhteensä: 2 tähteä; muuten 1.

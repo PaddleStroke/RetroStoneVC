@@ -1,11 +1,10 @@
 Flechas para fora
 # O objetivo
-Esvazie o tabuleiro: todas as peças precisam sair dele.
+Esvazie o tabuleiro: todas as flechas precisam sair dele.
 # Uma jogada
-Toque numa peça: ela desliza para fora do tabuleiro na direção da sua flecha, se nada estiver entre a ponta e a borda. Uma peça comprida se move inteira, com a flecha na frente.
-Se outra peça estiver no caminho, a peça tocada bate nela e fica onde estava: isso é um erro.
-Uma peça sobre um disco de latão que não pode sair gira um quarto de volta no sentido horário, sem erro.
+Toque numa flecha: se todas as casas da ponta, em linha reta, até a borda estiverem livres, ela sai na direção da ponta, com o corpo seguindo o caminho da cabeça como uma cobra.
+Se outra flecha estiver no caminho, a flecha tocada bate nela e fica onde estava: isso é um erro.
 # O fim da partida
-Quando a última peça sai, o tabuleiro fica vazio.
+Quando a última flecha sai, o tabuleiro fica vazio.
 # Níveis e estrelas
 Sem dicas nem erros: 3 estrelas; até duas dicas e erros no total: 2 estrelas; senão, 1.

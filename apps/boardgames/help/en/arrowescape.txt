@@ -1,11 +1,10 @@
 Clear the Arrows
 # The aim
-Clear the board: every tile must leave it.
+Clear the board: every arrow must leave it.
 # A move
-Tap a tile: it slides off the board the way its arrow points, if nothing stands between its head and the edge. A long tile moves whole, its arrow at its head.
-If another tile is in the way, the tapped tile bumps into it and stays where it was: that is a mistake.
-A tile on a brass disc that cannot go turns a quarter turn clockwise instead, with no mistake.
+Tap an arrow: if every square from its head straight to the edge is free, it slides out the way its head points, its body following the head's path like a snake.
+If another arrow is in the way, the tapped arrow bumps into it and stays where it was: that is a mistake.
 # The end of the game
-When the last tile has left, the board is clear.
+When the last arrow has left, the board is clear.
 # Levels and stars
 No hint and no mistake: 3 stars; up to two hints and mistakes together: 2 stars; otherwise 1.

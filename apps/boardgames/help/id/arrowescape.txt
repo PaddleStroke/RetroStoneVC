@@ -1,11 +1,10 @@
 Panah Keluar
 # Tujuan
-Kosongkan papan: setiap ubin harus keluar darinya.
+Kosongkan papan: setiap panah harus keluar darinya.
 # Satu langkah
-Ketuk sebuah ubin: ubin itu meluncur keluar papan ke arah panahnya, jika tidak ada apa pun di antara ujungnya dan tepi papan. Ubin panjang bergerak utuh, panahnya di depan.
-Jika ada ubin lain yang menghalangi, ubin yang diketuk menabraknya dan tetap di tempatnya: itu kesalahan.
-Ubin di atas cakram kuningan yang tidak bisa keluar berputar seperempat putaran searah jarum jam sebagai gantinya, tanpa kesalahan.
+Ketuk sebuah panah: jika semua kotak dari ujungnya lurus sampai tepi kosong, panah itu meluncur keluar ke arah ujungnya, badannya mengikuti jalan kepalanya seperti ular.
+Jika ada panah lain yang menghalangi, panah yang diketuk menabraknya dan tetap di tempatnya: itu kesalahan.
 # Akhir permainan
-Saat ubin terakhir keluar, papan kosong.
+Saat panah terakhir keluar, papan kosong.
 # Level dan bintang
 Tanpa petunjuk dan tanpa kesalahan: 3 bintang; paling banyak dua petunjuk dan kesalahan seluruhnya: 2 bintang; selain itu 1.

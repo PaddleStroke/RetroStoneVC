@@ -1,11 +1,10 @@
 Šipky ven
 # Cíl hry
-Vyprázdni desku: každá destička z ní musí odjet.
+Vyprázdni desku: každá šipka z ní musí odjet.
 # Tah
-Klepni na destičku: vyjede z desky ve směru své šipky, pokud mezi její špičkou a okrajem nic nestojí. Dlouhá destička jede celá, šipku má vpředu.
-Když jí stojí v cestě jiná destička, klepnutá destička do ní narazí a zůstane na místě: to je chyba.
-Destička na mosazném kotouči, která nemůže odjet, se místo toho otočí o čtvrt otáčky po směru hodinových ručiček, bez chyby.
+Klepni na šipku: když jsou všechna pole od její špičky rovně až k okraji volná, vyjede ve směru špičky a její tělo jede za hlavou po stejné cestě jako had.
+Když jí stojí v cestě jiná šipka, klepnutá šipka do ní narazí a zůstane na místě: to je chyba.
 # Konec hry
-Když odjede poslední destička, deska je prázdná.
+Když odjede poslední šipka, deska je prázdná.
 # Úrovně a hvězdy
 Bez nápovědy a bez chyby: 3 hvězdy; nejvýš dvě nápovědy a chyby dohromady: 2 hvězdy; jinak 1.

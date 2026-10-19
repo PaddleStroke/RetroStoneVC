@@ -1,11 +1,10 @@
 Pile væk
 # Målet
-Ryd brættet: hver brik skal ud af det.
+Ryd brættet: hver pil skal ud af det.
 # Et træk
-Tryk på en brik: den glider af brættet i pilens retning, hvis intet står mellem dens spids og kanten. En lang brik flytter sig samlet, med pilen forrest.
-Står en anden brik i vejen, støder den trykkede brik ind i den og bliver, hvor den var: det er en fejl.
-En brik på en messingskive, der ikke kan komme ud, drejer i stedet en kvart omgang med uret, uden fejl.
+Tryk på en pil: er alle felter fra dens spids lige ud til kanten fri, glider den ud i spidsens retning, og kroppen følger hovedets vej som en slange.
+Står en anden pil i vejen, støder den trykkede pil ind i den og bliver, hvor den var: det er en fejl.
 # Spillets afslutning
-Når den sidste brik er ude, er brættet ryddet.
+Når den sidste pil er ude, er brættet ryddet.
 # Baner og stjerner
 Uden tip og uden fejl: 3 stjerner; op til to tip og fejl i alt: 2 stjerner; ellers 1.
