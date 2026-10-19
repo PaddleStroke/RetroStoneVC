@@ -227,6 +227,10 @@ static int players_of(int g)
     return nplayers[g];
 }
 static box grid_ext;                            /* the board as the game fitted it (ui_grid_fit; w 0: not known) */
+static box used_ext;                            /* all the game's board takes, as it told (ui_board_used; w 0: not) */
+static int used_on, used_game = -1;             /* its layout() is being called (it may tell); the game that told */
+static float board_cut;                         /* landscape, game.fill: the room cut to the board's width (0: not) */
+#define CUT_GAP 0.6f                            /* units between a cut room and the column */
 static int last_status, over_hidden, instant;   /* instant: the picture mode (no pause before the end card) */
 static Uint32 end_seen;                         /* when the end of the game was first shown (0: not yet) */
 #define END_PAUSE 900                           /* ms of the final position before the end card */
@@ -1758,7 +1762,11 @@ static void layout_game(void)
         u = floorf(fminf((ui.h - 2 * m) / 9, (ui.w - 2 * m) / 13.45f));
         float x = floorf((ui.w - 13.45f * u) / 2), y = floorf((ui.h - 9 * u) / 2), cx = x + 9.45f * u;
         L.board = (box){x, y, 9 * u, 9 * u};
-        if (fill) {                             /* all the width left of the column, the column at the right */
+        if (fill && board_cut > 0) {            /* only as wide as the board takes: it and the column, centred */
+            x = floorf((ui.w - board_cut - (CUT_GAP + 4) * u) / 2);
+            cx = floorf(x + board_cut + CUT_GAP * u);
+            L.board = (box){x, y, board_cut, 9 * u};
+        } else if (fill) {                      /* all the width left of the column, the column at the right */
             cx = floorf(ui.w - m - 4 * u);
             L.board = (box){floorf(m), y, cx - 0.45f * u - floorf(m), 9 * u};
         }
@@ -1832,8 +1840,38 @@ static void layout_game(void)
             games[cur]->layout(half);
         }
         laid_light[cur] = (signed char)(1 + light);
+        used_ext = (box){0, 0, 0, 0};
+        used_on = 1;
         games[cur]->layout(L.board);
+        used_on = 0;
+        used_game = used_ext.w > 0 ? cur : -1;
+        /* landscape, a fill board narrower than its room by more than a unit (ui_board_used): laid out again in a room
+         * cut to its width (a square at least, as other boards), the board and the column centred together */
+        if (ui.w > ui.h && fill && !view && board_cut <= 0 && used_ext.w > 0 && used_ext.w < L.board.w - u) {
+            board_cut = fmaxf(ceilf(used_ext.w), 9 * u);
+            if (board_cut < L.board.w - 0.5f * u) layout_game();
+            board_cut = 0;
+        }
     }
+}
+
+void ui_board_used(float x, float y, float w, float h)
+{
+    if (!used_on || w <= 0 || h <= 0) return;
+    if (used_ext.w > 0) {
+        float x1 = fmaxf(used_ext.x + used_ext.w, x + w), y1 = fmaxf(used_ext.y + used_ext.h, y + h);
+        x = fminf(used_ext.x, x);
+        y = fminf(used_ext.y, y);
+        w = x1 - x;
+        h = y1 - y;
+    }
+    used_ext = (box){x, y, w, h};
+}
+
+void ui_grid_used(const ui_grid *g, float frame)
+{
+    ui_board_used(g->x - frame * g->cell, g->y - frame * g->cell, (g->cols + 2 * frame) * g->cell,
+                  (g->rows + 2 * frame) * g->cell);
 }
 
 /* ---- a grid of square cells fitted into a box (game.fill's room): turned a quarter when that makes them bigger --- */
@@ -3586,6 +3624,7 @@ static void start_game(int v, int same)
     card_t0 = 0;
     nt_cut(&NT[cur], 0);                        /* (its moves' notation: none yet) */
     jr_begin(v, card);
+    if (screen == SCR_GAME && used_game == cur) layout_game();   /* (its board's width: this puzzle's) */
 }
 
 /* the game's kept record looked at again soon (a game left, a new one) */

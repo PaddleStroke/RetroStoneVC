@@ -113,10 +113,10 @@ typedef struct game {
     int  (*par)(void);
     /* optional, the room on the screen. fill 1: layout() gets the whole rectangle between the bars and the buttons
      * (portrait: the bars' width, all the height between them; landscape: all the width left of the side column), not
-     * the 9-unit square: a wide or tall board, a grid fitted with ui_grid_fit (VIEW_* games always get it). tools: how
-     * many round buttons of its own the game shows beside its board (0..UI_MAX_TOOLS: a flag mode, a hint, a
-     * magnifier, digits to enter): the shell lays them out where they cost the board least (ui_tool*), and their
-     * presses come to press() as any other. */
+     * the 9-unit square: a wide or tall board, a grid fitted with ui_grid_fit (VIEW_* games always get it; one that
+     * tells what it takes, ui_board_used, gets in landscape only that width). tools: how many round buttons of its own
+     * the game shows beside its board (0..UI_MAX_TOOLS: a flag mode, a hint, a magnifier, digits to enter): the shell
+     * lays them out where they cost the board least (ui_tool*), and their presses come to press() as any other. */
     int fill;
     int tools;
     /* optional, variants on two axes (the logic grids: a size, then a level): axes {sizes, levels}, variant =
@@ -288,6 +288,13 @@ typedef struct {
 ui_grid ui_grid_fit(box b, int cols, int rows, float frame);
 void ui_grid_cell(const ui_grid *g, int col, int row, float *x, float *y);   /* the game's cell: its top left */
 int  ui_grid_hit(const ui_grid *g, float x, float y, int *col, int *row);    /* the game's cell there: 1, else 0 */
+
+/* ---- a game.fill board tells, from layout(), all it takes in the room it got (its plank, a digit pad, a tray beside
+ * it: a call for each part, or one for all). In landscape, narrower than the room by more than a unit, it is laid out
+ * again in a room cut to that width (a 9-unit square at least) and the board and the side column are centred together,
+ * as other boards are (cut again for each puzzle started). Portrait: no change. Called elsewhere: nothing. */
+void ui_board_used(float x, float y, float w, float h);
+void ui_grid_used(const ui_grid *g, float frame);   /* the same for a grid as ui_grid_fit fitted it (its frame) */
 
 /* ---- the loupe, for boards whose cells are small for a finger (go 19 x 19, gomoku, hex 11 x 11, word tiles): while
  * a finger is down on the board, a square window beside it shows the cells under it magnified (the ghost stone, the
