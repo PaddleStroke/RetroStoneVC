@@ -661,23 +661,6 @@ static void paint_cable_pic(int cut, int w, int h, uint8_t *o)
     free(b);
 }
 
-static void paint_star(int size, const uint8_t rgb[3], uint8_t *o)
-{
-    memset(o, 0, (size_t)size * size * 4);
-    art_style st = style(rgb, 0.35f, fmaxf(1, 0.04f * size));
-    fig *f = fig_new();
-    float p[20];
-    for (int i = 0; i < 10; i++) {
-        float a = -3.14159265f / 2 + i * 3.14159265f / 5, r = (i & 1 ? 0.21f : 0.48f) * size;
-        p[2 * i] = size / 2.0f + r * cosf(a);
-        p[2 * i + 1] = size * 0.53f + r * sinf(a);
-    }
-    fig_poly(f, ART_PART, p, 10);
-    fig_render(f, &st, size, size, o);
-    fig_free(f);
-}
-
-/* ---- the casing, the board, the timer's digits ------------------------------------------------------------------ */
 /* the bomb's casing (w x h): red enamel, a lighter rim, a dark edge, a screw in each corner; the timer's window (a
  * box in it: dark glass) */
 static void paint_casing(int w, int h, box win, uint8_t *o)
@@ -931,8 +914,8 @@ static void thumb(int variant, int size, uint8_t *rgba)
 
 /* ---- the textures ------------------------------------------------------------------------------------------------- */
 static SDL_Texture *t_casing, *t_pcb, *t_chip, *t_gate[LG_KINDS][2][2], *t_plate[2], *t_lever, *t_battery, *t_flip[2],
-    *t_cap, *t_tmr, *t_led[3][2], *t_post[2], *t_dot, *t_glow, *t_puff, *t_digit[11], *t_emblem[DF_CHAPTERS], *t_bar_sw,
-    *t_bar_star;
+    *t_cap, *t_tmr, *t_led[3][2], *t_post[2], *t_dot, *t_glow, *t_puff, *t_digit[11], *t_emblem[DF_CHAPTERS],
+    *t_bar_par;
 static long long made_room = -1;
 static int made_parts = -1, made_shared = -1, made_digits = -1, made_bar = -1;
 static float pw, ph, sw_w, sw_h, tg_w, tg_h, lamp_w, lamp_h, post_d, cable_t, gate_w[2], gate_h, dig_w, dig_h;
@@ -2371,34 +2354,30 @@ static void bar(int player, box b)
     (void)player;
     float u = ui.unit, cy = b.y + b.h / 2;
     int sz = (int)(0.6f * u);
-    if (made_bar != sz) {
+    if (made_bar != sz) {                       /* the par's flag (the house's: the fewest moves) */
         made_bar = sz;
         uint8_t *bf = calloc((size_t)sz * sz, 4);
         if (bf) {
-            paint_toggle_pic(1, sz, sz, bf);
-            ui_free(&t_bar_sw);
-            t_bar_sw = ui_tex(sz, sz, bf);
-            static const uint8_t gold[3] = {255, 200, 80};
-            paint_star(sz, gold, bf);
-            ui_free(&t_bar_star);
-            t_bar_star = ui_tex(sz, sz, bf);
+            art_icon(ICON_PAR, sz, bf);
+            ui_free(&t_bar_par);
+            t_bar_par = ui_tex(sz, sz, bf);
             free(bf);
         }
     }
     float x = b.x;
-    if (G.level >= 0 && !wide) x = draw_label(x, cy, 0) + 0.5f * u;   /* the level (lying: in the side column) */
-    ui_count c[2] = {{t_bar_sw, G.nh}, {t_bar_star, G.par}};
-    float w = 0;
-    for (int i = 0; i < 2; i++) w += 0.72f * u + ui_number_w(c[i].value, 0.46f * u) + (i ? 0.35f * u : 0);
-    float room = b.x + b.w - x, k = w > room - 0.1f * u ? fmaxf(0.55f, (room - 0.1f * u) / w) : 1, s = 0.6f * u * k;
-    for (int i = 0; i < 2; i++) {
-        if (i) x += 0.35f * u * k;
-        ui_put(c[i].pic, x, cy - s / 2, s, s);
-        x += s + 0.12f * u * k;
-        float nw = ui_number_w(c[i].value, 0.46f * u * k);
-        ui_number(x + nw / 2, cy, 0.46f * u * k, c[i].value, 1);
-        x += nw;
-    }
+    if (G.level >= 0 && !wide) x = draw_label(x, cy, 0) + 1.0f * u;   /* the level (lying: aside), apart */
+    /* the moves, a bare number as in the other level puzzles; the par by its flag at the bar's right end (nearer in a
+     * narrow bar) */
+    float dh = 0.46f * u, mw = ui_number_w(G.nh, dh), pw_ = ui_number_w(G.par, dh), s = 0.6f * u, gap = 0.12f * u;
+    float need = mw + 0.4f * u + s + gap + pw_, room = b.x + b.w - x;
+    float k = need > room ? fmaxf(0.55f, room / need) : 1;
+    dh *= k, mw *= k, pw_ *= k, s *= k, gap *= k;
+    ui_number(x + mw / 2, cy, dh, G.nh, 1);
+    float px = fmaxf(x + mw + 0.4f * u * k + s + gap, b.x + b.w - pw_);
+    if (t_bar_par && ui_ink_dark()) SDL_SetTextureColorMod(t_bar_par, 48, 43, 35);   /* inked on a light bar */
+    if (t_bar_par) ui_put(t_bar_par, px - gap - s, cy - s / 2, s, s);
+    if (t_bar_par) SDL_SetTextureColorMod(t_bar_par, 255, 255, 255);
+    ui_number(px + pw_ / 2, cy, dh, G.par, 1);
 }
 
 static const game defuse_game = {
