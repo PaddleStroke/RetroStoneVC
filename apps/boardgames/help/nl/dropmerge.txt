@@ -1,0 +1,11 @@
+Fruitregen
+# Het doel
+Laat fruit in de glazen pot vallen. Twee gelijke vruchten die elkaar raken, smelten samen tot de volgende, grotere: kers, aardbei, druif, mandarijn, citroen, appel, perzik, peer, kokosnoot, meloen, watermeloen. Twee watermeloenen die elkaar raken, verdwijnen.
+# Een zet
+Schuif de dispenser langs de bovenkant van de pot en laat los: de vrucht valt.
+- Een nieuwe vrucht kan een gelijke raken en opnieuw samensmelten: een ketting.
+- Hoe groter de vruchten, hoe meer punten: 1 voor twee kersen, tot 66 voor twee watermeloenen.
+# Het einde van het spel
+Blijft een vrucht twee seconden boven de stippellijn, dan is het spel uit. Een level heeft een doel voordat het fruit op is: een vrucht maken, een score halen, meerdere vruchten van één soort maken of een ketting uit één worp.
+# Levels en sterren
+Niet meer vruchten dan het vlaggetje aangeeft: 3 sterren; tot de helft meer: 2 sterren; anders 1. Met een hint hoogstens 2 sterren; met drie 1. Eindeloos: 900 punten voor 2 sterren, 2200 voor 3.

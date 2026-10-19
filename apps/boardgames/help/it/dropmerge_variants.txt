@@ -1,0 +1,3 @@
+Barattolo largo
+Barattolo medio
+Barattolo stretto

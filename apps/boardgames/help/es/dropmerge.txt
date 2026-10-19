@@ -1,0 +1,11 @@
+Lluvia de frutas
+# El objetivo
+Deja caer frutas en el tarro de cristal. Dos frutas iguales que se tocan se funden en la siguiente, más grande: cereza, fresa, uva, mandarina, limón, manzana, melocotón, pera, coco, melón, sandía. Dos sandías que se juntan desaparecen.
+# Una jugada
+Desliza el dispensador por lo alto del tarro y suelta: su fruta cae.
+- Una fruta nueva puede tocar otra igual y fundirse de nuevo: una cadena.
+- Una fusión da más puntos cuanto más grandes son las frutas: 1 por dos cerezas, hasta 66 por dos sandías.
+# El final de la partida
+Una fruta que se queda dos segundos por encima de la línea discontinua termina la partida. Un nivel tiene un objetivo antes de que se acaben sus frutas: hacer una fruta, llegar a una puntuación, hacer varias frutas de un tipo o una cadena con una sola caída.
+# Niveles y estrellas
+Sin pasar del número de la bandera: 3 estrellas; hasta la mitad más: 2 estrellas; si no, 1. Con una pista, 2 estrellas como mucho; con tres, 1. Partida sin fin: 900 puntos para 2 estrellas, 2200 para 3.

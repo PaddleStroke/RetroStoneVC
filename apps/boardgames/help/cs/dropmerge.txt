@@ -1,0 +1,11 @@
+Ovocný déšť
+# Cíl hry
+Pouštěj ovoce do skleněné sklenice. Dva stejné plody, které se dotknou, splynou v další, větší: třešeň, jahoda, hroznové víno, mandarinka, citron, jablko, broskev, hruška, kokos, meloun, vodní meloun. Dva vodní melouny, které se potkají, zmizí.
+# Tah
+Posuň dávkovač podél horního okraje sklenice a pusť: plod spadne.
+- Nový plod se může dotknout stejného a znovu splynout: řetěz.
+- Čím větší plody, tím víc bodů: 1 za dvě třešně, až 66 za dva vodní melouny.
+# Konec hry
+Plod, který zůstane dvě sekundy nad přerušovanou čárou, ukončí hru. Úroveň má cíl, kterého je třeba dosáhnout, než dojde ovoce: udělat plod, dosáhnout skóre, udělat několik plodů jednoho druhu nebo řetěz z jediného puštění.
+# Úrovně a hvězdy
+Nejvýše tolik plodů, kolik ukazuje vlaječka: 3 hvězdy; nejvýše o polovinu více: 2 hvězdy; jinak 1. S nápovědou nejvýše 2 hvězdy; se třemi 1. Nekonečná hra: 900 bodů za 2 hvězdy, 2200 za 3.

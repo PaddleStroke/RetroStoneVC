@@ -1,0 +1,11 @@
+Chuva de Frutas
+# O objetivo
+Solte frutas no pote de vidro. Duas frutas iguais que se tocam se fundem na seguinte, maior: cereja, morango, uva, tangerina, limão, maçã, pêssego, pera, coco, melão, melancia. Duas melancias que se encontram desaparecem.
+# Uma jogada
+Deslize o dosador pelo alto do pote e solte: a fruta cai.
+- Uma fruta nova pode tocar outra igual e se fundir de novo: uma corrente.
+- Uma fusão vale mais quanto maiores as frutas: 1 ponto por duas cerejas, até 66 por duas melancias.
+# O fim da partida
+Uma fruta que fica acima da linha tracejada por dois segundos termina a partida. Um nível tem um objetivo antes de as frutas acabarem: fazer uma fruta, chegar a uma pontuação, fazer várias frutas de um tipo ou uma corrente com uma só queda.
+# Níveis e estrelas
+Sem passar do número da bandeira: 3 estrelas; com até metade a mais: 2 estrelas; senão, 1. Com uma dica, no máximo 2 estrelas; com três, 1. Partida sem fim: 900 pontos para 2 estrelas, 2200 para 3.

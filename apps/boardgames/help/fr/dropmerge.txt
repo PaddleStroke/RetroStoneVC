@@ -1,0 +1,11 @@
+Chute de fruits
+# Le but
+Fais tomber des fruits dans le bocal. Deux fruits de même sorte qui se touchent fusionnent en un fruit plus gros, le suivant : cerise, fraise, raisin, mandarine, citron, pomme, pêche, poire, noix de coco, melon, pastèque. Deux pastèques qui se rencontrent disparaissent.
+# Un coup
+Fais glisser le distributeur le long du haut du bocal et lâche : son fruit tombe.
+- Un nouveau fruit peut toucher un fruit de sa sorte et fusionner encore : une chaîne.
+- Une fusion rapporte d'autant plus que les fruits sont gros : 1 point pour deux cerises, jusqu'à 66 pour deux pastèques.
+# La fin de la partie
+Un fruit qui reste au-dessus de la ligne pointillée pendant deux secondes termine la partie. Un niveau a un objectif à atteindre avant la fin de ses fruits : faire un fruit, atteindre un score, faire plusieurs fruits d'une sorte, ou une chaîne d'un seul lâcher.
+# Niveaux et étoiles
+Sans dépasser le nombre du drapeau : 3 étoiles ; jusqu'à moitié plus de fruits lâchés : 2 étoiles ; sinon 1. Avec un indice, 2 étoiles au plus ; trois, 1. Partie sans fin : 900 points pour 2 étoiles, 2200 pour 3.

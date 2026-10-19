@@ -1,0 +1,11 @@
+Obstfall
+# Das Ziel
+Lass Früchte in das Glas fallen. Zwei gleiche Früchte, die sich berühren, verschmelzen zur nächstgrößeren: Kirsche, Erdbeere, Traube, Mandarine, Zitrone, Apfel, Pfirsich, Birne, Kokosnuss, Melone, Wassermelone. Zwei Wassermelonen, die sich treffen, verschwinden.
+# Ein Zug
+Schiebe den Spender oben am Glas entlang und lass los: Seine Frucht fällt.
+- Eine neue Frucht kann eine gleiche berühren und wieder verschmelzen: eine Kette.
+- Je größer die Früchte, desto mehr Punkte: 1 für zwei Kirschen, bis zu 66 für zwei Wassermelonen.
+# Das Ende der Partie
+Bleibt eine Frucht zwei Sekunden über der gestrichelten Linie, endet die Partie. Ein Level hat ein Ziel, das vor dem Ende seiner Früchte erreicht sein muss: eine Frucht machen, eine Punktzahl erreichen, mehrere Früchte einer Sorte machen oder eine Kette aus einem einzigen Wurf.
+# Level und Sterne
+Höchstens so viele Früchte, wie die Fahne zeigt: 3 Sterne; bis zu halb so viele mehr: 2 Sterne; sonst 1. Mit einem Tipp höchstens 2 Sterne; mit drei 1. Endlos: 900 Punkte für 2 Sterne, 2200 für 3.

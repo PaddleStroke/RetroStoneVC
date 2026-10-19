@@ -1,0 +1,11 @@
+Meyve Yağmuru
+# Amaç
+Cam kavanoza meyve bırak. Birbirine değen iki aynı meyve bir sonraki, daha büyük meyveye dönüşür: kiraz, çilek, üzüm, mandalina, limon, elma, şeftali, armut, hindistancevizi, kavun, karpuz. Karşılaşan iki karpuz yok olur.
+# Bir hamle
+Bırakıcıyı kavanozun üstü boyunca kaydır ve bırak: meyve düşer.
+- Yeni meyve kendi türünden birine değip yeniden birleşebilir: bir zincir.
+- Meyveler büyüdükçe birleşme daha çok puan getirir: iki kiraz 1 puan, iki karpuz 66 puana kadar.
+# Oyunun sonu
+Kesikli çizginin üstünde iki saniye kalan bir meyve oyunu bitirir. Bir seviyenin, meyveleri bitmeden ulaşılacak bir hedefi vardır: bir meyve yapmak, bir puana ulaşmak, bir türden birkaç meyve yapmak ya da tek bırakışla bir zincir.
+# Seviyeler ve yıldızlar
+Bayrağın gösterdiğinden fazla meyve bırakmadan: 3 yıldız; en fazla yarısı kadar fazlasıyla: 2 yıldız; yoksa 1. Bir ipucuyla en fazla 2 yıldız; üç ipucuyla 1. Sonsuz oyun: 2 yıldız için 900 puan, 3 için 2200.

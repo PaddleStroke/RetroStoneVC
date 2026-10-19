@@ -1,0 +1,11 @@
+Frugtregn
+# Målet
+Slip frugter ned i glasset. To ens frugter, der rører hinanden, smelter sammen til den næste, større frugt: kirsebær, jordbær, drue, mandarin, citron, æble, fersken, pære, kokosnød, melon, vandmelon. To vandmeloner, der mødes, forsvinder.
+# Et træk
+Skub dispenseren hen langs glassets top og slip: frugten falder.
+- En ny frugt kan røre en af sin slags og smelte sammen igen: en kæde.
+- Jo større frugter, jo flere point: 1 for to kirsebær, op til 66 for to vandmeloner.
+# Spillets afslutning
+En frugt, der bliver over den stiplede linje i to sekunder, slutter spillet. En bane har et mål, før frugterne slipper op: lav en frugt, nå en score, lav flere frugter af én slags eller en kæde fra et enkelt slip.
+# Baner og stjerner
+Højst så mange frugter, som flaget viser: 3 stjerner; op til halvanden gang så mange: 2 stjerner; ellers 1. Med et tip højst 2 stjerner; med tre 1. Uendeligt spil: 900 point for 2 stjerner, 2200 for 3.

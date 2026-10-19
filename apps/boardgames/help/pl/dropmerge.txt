@@ -1,0 +1,11 @@
+Owocowy deszcz
+# Cel gry
+Wrzucaj owoce do szklanego słoja. Dwa takie same owoce, które się zetkną, łączą się w następny, większy: wiśnia, truskawka, winogrono, mandarynka, cytryna, jabłko, brzoskwinia, gruszka, kokos, melon, arbuz. Dwa arbuzy, które się spotkają, znikają.
+# Ruch
+Przesuń dozownik wzdłuż górnej krawędzi słoja i puść: owoc spada.
+- Nowy owoc może dotknąć takiego samego i znów się połączyć: łańcuch.
+- Im większe owoce, tym więcej punktów: 1 za dwie wiśnie, do 66 za dwa arbuzy.
+# Koniec gry
+Owoc, który przez dwie sekundy zostaje nad przerywaną linią, kończy grę. Poziom ma cel do osiągnięcia, zanim skończą się owoce: zrobić owoc, zdobyć wynik, zrobić kilka owoców jednego rodzaju albo łańcuch z jednego zrzutu.
+# Poziomy i gwiazdki
+Najwyżej tyle owoców, ile pokazuje chorągiewka: 3 gwiazdki; najwyżej o połowę więcej: 2 gwiazdki; inaczej 1. Z podpowiedzią najwyżej 2 gwiazdki; z trzema 1. Gra bez końca: 900 punktów na 2 gwiazdki, 2200 na 3.

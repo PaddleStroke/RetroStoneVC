@@ -1,0 +1,11 @@
+Hedelmäsade
+# Tavoite
+Pudota hedelmiä lasipurkkiin. Kaksi samanlaista hedelmää, jotka koskettavat toisiaan, yhdistyvät seuraavaksi, isommaksi hedelmäksi: kirsikka, mansikka, viinirypäle, mandariini, sitruuna, omena, persikka, päärynä, kookospähkinä, meloni, vesimeloni. Kaksi kohtaavaa vesimelonia katoaa.
+# Siirto
+Liu'uta annostelijaa purkin yläreunaa pitkin ja päästä irti: hedelmä putoaa.
+- Uusi hedelmä voi koskettaa samanlaista ja yhdistyä taas: ketju.
+- Mitä isommat hedelmät, sitä enemmän pisteitä: 1 kahdesta kirsikasta, jopa 66 kahdesta vesimelonista.
+# Pelin loppu
+Jos hedelmä pysyy katkoviivan yläpuolella kaksi sekuntia, peli päättyy. Tasolla on tavoite ennen kuin hedelmät loppuvat: tee hedelmä, saavuta pistemäärä, tee useita samanlaisia hedelmiä tai ketju yhdellä pudotuksella.
+# Tasot ja tähdet
+Enintään lipun näyttämä määrä hedelmiä: 3 tähteä; enintään puolitoista kertaa niin monta: 2 tähteä; muuten 1. Vihjeen kanssa enintään 2 tähteä; kolmen kanssa 1. Loputon peli: 900 pistettä 2 tähteen, 2200 kolmeen.

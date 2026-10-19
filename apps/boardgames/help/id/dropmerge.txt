@@ -1,0 +1,11 @@
+Hujan Buah
+# Tujuan
+Jatuhkan buah ke dalam toples kaca. Dua buah yang sama yang bersentuhan menyatu menjadi buah berikutnya yang lebih besar: ceri, stroberi, anggur, jeruk mandarin, lemon, apel, persik, pir, kelapa, melon, semangka. Dua semangka yang bertemu menghilang.
+# Satu langkah
+Geser penuang di sepanjang atas toples lalu lepaskan: buahnya jatuh.
+- Buah baru bisa menyentuh buah sejenis dan menyatu lagi: sebuah rantai.
+- Makin besar buahnya, makin banyak poinnya: 1 untuk dua ceri, sampai 66 untuk dua semangka.
+# Akhir permainan
+Buah yang tetap di atas garis putus-putus selama dua detik mengakhiri permainan. Sebuah level punya tujuan sebelum buahnya habis: membuat sebuah buah, mencapai skor, membuat beberapa buah sejenis, atau rantai dari satu jatuhan.
+# Level dan bintang
+Tidak lebih dari jumlah buah pada bendera: 3 bintang; paling banyak satu setengah kalinya: 2 bintang; selain itu 1. Dengan petunjuk paling banyak 2 bintang; dengan tiga, 1. Permainan tanpa akhir: 900 poin untuk 2 bintang, 2200 untuk 3.

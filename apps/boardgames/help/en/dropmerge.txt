@@ -1,0 +1,11 @@
+Fruit Drop
+# The aim
+Drop fruits into the glass jar. Two fruits of the same kind that touch merge into the next, bigger fruit: cherry, strawberry, grape, mandarin, lemon, apple, peach, pear, coconut, melon, watermelon. Two watermelons that meet disappear.
+# A move
+Slide the dropper along the top of the jar and let go: its fruit falls.
+- A new fruit can touch its own kind and merge again: a chain.
+- A merge scores more the bigger the fruits: 1 point for two cherries, up to 66 for two watermelons.
+# The end of the game
+A fruit that stays above the dashed line for two seconds ends the game. A level has a goal to reach before its fruits run out: make a fruit, reach a score, make several fruits of one kind, or a chain from a single drop.
+# Levels and stars
+In no more drops than the flag shows: 3 stars; up to half as many again: 2 stars; otherwise 1. With a hint, 2 stars at most; with three, 1. Endless play: 900 points for 2 stars, 2200 for 3.

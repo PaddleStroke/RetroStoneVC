@@ -1,0 +1,11 @@
+Fruktregn
+# Målet
+Slipp frukt ned i glasskrukken. To like frukter som berører hverandre, smelter sammen til den neste, større frukten: kirsebær, jordbær, drue, mandarin, sitron, eple, fersken, pære, kokosnøtt, melon, vannmelon. To vannmeloner som møtes, forsvinner.
+# Et trekk
+Skyv dispenseren langs toppen av krukken og slipp: frukten faller.
+- En ny frukt kan berøre en av sitt slag og smelte sammen igjen: en kjede.
+- Jo større frukter, desto flere poeng: 1 for to kirsebær, opptil 66 for to vannmeloner.
+# Slutten på spillet
+En frukt som blir værende over den stiplede linjen i to sekunder, avslutter spillet. Et nivå har et mål før frukten tar slutt: lag en frukt, nå en poengsum, lag flere frukter av ett slag eller en kjede fra ett enkelt slipp.
+# Nivåer og stjerner
+Høyst så mange frukter som flagget viser: 3 stjerner; opptil halvparten flere: 2 stjerner; ellers 1. Med et hint høyst 2 stjerner; med tre 1. Uendelig spill: 900 poeng for 2 stjerner, 2200 for 3.

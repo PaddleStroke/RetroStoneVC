@@ -1,0 +1,11 @@
+Fruktregn
+# Målet
+Släpp frukter i glasburken. Två likadana frukter som rör vid varandra smälter samman till nästa, större frukt: körsbär, jordgubbe, druva, mandarin, citron, äpple, persika, päron, kokosnöt, melon, vattenmelon. Två vattenmeloner som möts försvinner.
+# Ett drag
+Dra doseraren längs burkens överkant och släpp: frukten faller.
+- En ny frukt kan röra vid en av sitt slag och smälta samman igen: en kedja.
+- Ju större frukter, desto fler poäng: 1 för två körsbär, upp till 66 för två vattenmeloner.
+# Partiets slut
+En frukt som stannar ovanför den streckade linjen i två sekunder avslutar partiet. En bana har ett mål innan frukterna tar slut: gör en frukt, nå en poäng, gör flera frukter av ett slag eller en kedja från ett enda släpp.
+# Banor och stjärnor
+Högst så många frukter som flaggan visar: 3 stjärnor; upp till hälften fler: 2 stjärnor; annars 1. Med en ledtråd högst 2 stjärnor; med tre 1. Oändligt spel: 900 poäng för 2 stjärnor, 2200 för 3.

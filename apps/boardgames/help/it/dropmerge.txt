@@ -1,0 +1,11 @@
+Pioggia di frutta
+# Lo scopo
+Fai cadere la frutta nel barattolo di vetro. Due frutti uguali che si toccano si fondono nel successivo, più grande: ciliegia, fragola, uva, mandarino, limone, mela, pesca, pera, cocco, melone, anguria. Due angurie che si incontrano spariscono.
+# Una mossa
+Fai scorrere il dosatore lungo il bordo del barattolo e lascia: il suo frutto cade.
+- Un frutto nuovo può toccarne uno uguale e fondersi ancora: una catena.
+- Una fusione vale di più quanto più grossi sono i frutti: 1 punto per due ciliegie, fino a 66 per due angurie.
+# La fine della partita
+Un frutto che resta sopra la linea tratteggiata per due secondi termina la partita. Un livello ha uno scopo da raggiungere prima che finisca la frutta: fare un frutto, raggiungere un punteggio, fare più frutti di un tipo o una catena da una sola caduta.
+# Livelli e stelle
+Entro il numero della bandierina: 3 stelle; con fino a metà frutti in più: 2 stelle; altrimenti 1. Con un aiuto, al massimo 2 stelle; con tre, 1. Partita infinita: 900 punti per 2 stelle, 2200 per 3.

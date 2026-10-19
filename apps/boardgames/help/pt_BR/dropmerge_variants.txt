@@ -1,0 +1,3 @@
+Pote largo
+Pote médio
+Pote estreito
