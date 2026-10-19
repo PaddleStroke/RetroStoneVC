@@ -1,0 +1,26 @@
+# Goat Gorge's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = 등반
+CHAPTER_N = 챕터 %d
+CH_1 = 초원
+CH_2 = 소나무 숲
+CH_3 = 수정 동굴
+CH_4 = 바람 부는 능선
+CH_5 = 정상
+RECORD = 최고 %s - 실패 %d
+NOT_YET = 아직 오르지 않음
+BERRIES_N = 베리 %d/%d
+CLEAR = 챕터 클리어!
+SUMMIT = 협곡 꼭대기!
+RES_TIME = 시간
+RES_DEATHS = 실패
+RES_BERRIES = 베리
+PAUSE_QUIT = B: 타이틀로
+HINT_JUMP = A를 길게 누르면 더 높이 점프
+HINT_WALL = 벽으로 점프해서 벽 점프
+HINT_DASH = B: 대시 - 화살표로 방향
+HINT_SPRING = 버섯이 높이 튕겨 줘요
+HINT_GEM = 수정이 대시를 돌려줘요
+HINT_CRUMBLE = 금 간 바위는 떨어져요
+HINT_RAFT = 움직이는 뗏목을 타요
+HINT_WIND = 바람이 밀어요 - 버텨요
+HINT_BERRY = 베리는 선택 - 그리고 어려워요

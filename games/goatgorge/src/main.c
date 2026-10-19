@@ -450,7 +450,9 @@ static void game_init(void)
     hu_title_cfg tc = {START_INPUTS, 1, TR(VERB), NULL, 0};
     hu_title_setup(&tc);
     hu_players_set(1);
-    sel = rs_option_int("chapter", 1) - 1;
+    sel = 0;                                    /* the furthest chapter the climbs opened (not unlock=1's) */
+    while (sel + 1 < CHAPTERS && nrooms[sel + 1] && SV.cleared[sel]) sel++;
+    if (rs_option("chapter")) sel = rs_option_int("chapter", 1) - 1;
     if (sel < 0 || sel >= CHAPTERS || !nrooms[sel]) sel = 0;
     if (!unlocked(sel)) opt_unlock = opt_unlock || opt_bot;
     if (!unlocked(sel)) sel = last_unlocked();
@@ -493,6 +495,6 @@ const rs_game *rs_game_main(void)
 {
     /* max_width: the game draws any width up to 560 (widescreen: the mountain past the room's sides) */
     static const rs_game g = {"Goat Gorge", "goatgorge", "0.1.0", game_init, game_update, game_draw, game_shutdown,
-                              gg_assets, game_state, game_state_loaded, 1, RS_SCREEN_W_MAX};
+                              gg_assets, game_state, game_state_loaded, 1, RS_SCREEN_W_MAX, 0};
     return &g;
 }

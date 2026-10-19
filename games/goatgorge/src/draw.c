@@ -686,7 +686,7 @@ void draw_frame(const world *w, const room *r, const view *v)
     }
     if (v->state == ST_TITLE && !narrow) {
         hu_title_draw(v->st_t, 0);
-        chapter_lines(v, 13, 0);
+        chapter_lines(v, 12, 0);
     }
     if (v->state == ST_RESULTS) {
         if (narrow) ht_retry_line_at(RES_RETRY, v->st_t, RETRY_LOCK, HTR(BACK_TITLE));

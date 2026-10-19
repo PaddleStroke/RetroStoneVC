@@ -55,9 +55,16 @@ breadth-first search over the touch buttons' inputs, run through the game's own 
 the inputs of each room's exit and berry routes, `tests/test_rooms.c` replays them all in `make goatgorge-check`,
 and the bot (`--opt bot=1`) plays them in the game.
 
-| Chapter | Rooms | New |
-|---|---|---|
-| 1 the meadow | 12 | steps, gaps, ledges, spikes, wall jumps, the dash, springs |
+| Chapter | Rooms | New | Look |
+|---|---|---|---|
+| 1 the meadow | 12 | steps, gaps, ledges, spikes, wall jumps, the dash, springs | blue sky, green hills, firs, grass |
+| 2 the pine wood | 10 | crumbling rocks, refill crystals, longer climbs | misty teal, dark pines, moss |
+| 3 the crystal cave | 10 | rafts (sideways, up and down), ceiling spikes, crystals in a row | dark purple, glowing crystals |
+| 4 the windy ridge | 10 | wind: steady, in gusts, updrafts and downdrafts | sunset, red sandstone, stone spires |
+| 5 the summit | 10 | everything at once, spike-lined shafts | night, snowy granite, snow falling |
+
+52 rooms, a berry in each. The solver's times (an expert's route) are 1-4 s a room; a first climb of a chapter takes
+a few minutes and some deaths.
 
 ## Screen and layers
 320 x 240 at 60 Hz. Backdrop: the chapter's sky (a raster gradient). BG4 far mountains, BG3 the middle ground

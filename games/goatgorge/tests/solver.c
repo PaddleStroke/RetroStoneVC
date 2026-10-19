@@ -232,8 +232,8 @@ int main(int argc, char **argv)
         for (int berry = 0; berry <= rooms[i].has_berry; berry++) {
             int k, got = -1, len2 = 0;
             /* the coarse steps first (fast), finer ones when the room needs a sharper timing */
-            int steps[3] = {step, step > 2 ? step / 2 : 2, 1};
-            for (k = 0; k < 3 && got < 0; k++) {
+            int steps[2] = {step, step > 2 ? step / 2 : 2};
+            for (k = 0; k < 2 && got < 0; k++) {
                 got = solve(&rooms[i], berry, steps[k], keep, frames, in, &len2);
                 if (got >= 0 && !verify(&rooms[i], in, len2, berry)) {
                     fprintf(stderr, "room %d-%d: the solution does not replay\n", chapter, i + 1);

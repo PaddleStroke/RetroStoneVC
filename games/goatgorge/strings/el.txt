@@ -1,0 +1,26 @@
+# Goat Gorge's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ΑΝΕΒΕΙΣ
+CHAPTER_N = ΚΕΦΑΛΑΙΟ %d
+CH_1 = ΤΟ ΛΙΒΑΔΙ
+CH_2 = ΤΟ ΠΕΥΚΟΔΑΣΟΣ
+CH_3 = Η ΣΠΗΛΙΑ ΤΩΝ ΚΡΥΣΤΑΛΛΩΝ
+CH_4 = Η ΑΝΕΜΟΔΑΡΤΗ ΚΟΡΥΦΟΓΡΑΜΜΗ
+CH_5 = Η ΚΟΡΥΦΗ
+RECORD = ΡΕΚΟΡ %s - ΠΤΩΣΕΙΣ %d
+NOT_YET = ΔΕΝ ΤΟ ΑΝΕΒΗΚΕΣ ΑΚΟΜΑ
+BERRIES_N = ΜΟΥΡΑ %d/%d
+CLEAR = ΤΕΛΟΣ ΚΕΦΑΛΑΙΟΥ!
+SUMMIT = ΣΤΗΝ ΚΟΡΥΦΗ!
+RES_TIME = ΧΡΟΝΟΣ
+RES_DEATHS = ΠΤΩΣΕΙΣ
+RES_BERRIES = ΜΟΥΡΑ
+PAUSE_QUIT = B: ΣΤΗΝ ΑΡΧΙΚΗ ΟΘΟΝΗ
+HINT_JUMP = ΚΡΑΤΑ ΤΟ A ΓΙΑ ΨΗΛΟΤΕΡΟ ΑΛΜΑ
+HINT_WALL = ΠΗΔΑ ΣΕ ΤΟΙΧΟ ΓΙΑ ΑΛΜΑ ΤΟΙΧΟΥ
+HINT_DASH = B: ΟΡΜΗ - ΣΤΟΧΕΥΣΕ ΜΕ ΤΑ ΒΕΛΗ
+HINT_SPRING = ΤΑ ΜΑΝΙΤΑΡΙΑ ΣΕ ΠΕΤΑΝΕ ΨΗΛΑ
+HINT_GEM = ΟΙ ΚΡΥΣΤΑΛΛΟΙ ΔΙΝΟΥΝ ΞΑΝΑ ΟΡΜΗ
+HINT_CRUMBLE = ΟΙ ΡΑΓΙΣΜΕΝΟΙ ΒΡΑΧΟΙ ΠΕΦΤΟΥΝ
+HINT_RAFT = ΑΝΕΒΑ ΣΤΙΣ ΣΧΕΔΙΕΣ ΠΟΥ ΚΙΝΟΥΝΤΑΙ
+HINT_WIND = Ο ΑΝΕΜΟΣ ΣΕ ΣΠΡΩΧΝΕΙ
+HINT_BERRY = ΤΑ ΜΟΥΡΑ ΕΙΝΑΙ ΠΡΟΑΙΡΕΤΙΚΑ

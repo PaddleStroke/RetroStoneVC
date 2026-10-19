@@ -1,0 +1,26 @@
+# Goat Gorge's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = のぼる
+CHAPTER_N = チャプター%d
+CH_1 = のはら
+CH_2 = まつのもり
+CH_3 = すいしょうのどうくつ
+CH_4 = かぜのおね
+CH_5 = さんちょう
+RECORD = ベスト %s - ミス %d
+NOT_YET = まだ のぼっていない
+BERRIES_N = ベリー %d/%d
+CLEAR = チャプタークリア!
+SUMMIT = けいこくの てっぺん!
+RES_TIME = タイム
+RES_DEATHS = ミス
+RES_BERRIES = ベリー
+PAUSE_QUIT = B: タイトルへ
+HINT_JUMP = Aを ながおしで たかく ジャンプ
+HINT_WALL = かべに むかって かべジャンプ
+HINT_DASH = B: ダッシュ - やじるしで ねらう
+HINT_SPRING = キノコで たかく はねる
+HINT_GEM = すいしょうで ダッシュが もどる
+HINT_CRUMBLE = ひびわれた いわは おちる
+HINT_RAFT = うごく いかだに のろう
+HINT_WIND = かぜに おされる - ふんばろう
+HINT_BERRY = ベリーは おまけ - むずかしい

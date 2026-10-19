@@ -1,0 +1,26 @@
+# Goat Gorge's strings, translated from en.txt (docs/i18n.md). Translated by AI (Claude), review welcome.
+VERB = ЛІЗТИ
+CHAPTER_N = РОЗДІЛ %d
+CH_1 = ЛУКА
+CH_2 = СОСНОВИЙ ЛІС
+CH_3 = КРИШТАЛЕВА ПЕЧЕРА
+CH_4 = ВІТРЯНИЙ ХРЕБЕТ
+CH_5 = ВЕРШИНА
+RECORD = РЕКОРД %s - ПАДІНЬ %d
+NOT_YET = ЩЕ НЕ ПРОЙДЕНО
+BERRIES_N = ЯГОДИ %d/%d
+CLEAR = РОЗДІЛ ПРОЙДЕНО!
+SUMMIT = ВЕРШИНА УЩЕЛИНИ!
+RES_TIME = ЧАС
+RES_DEATHS = ПАДІННЯ
+RES_BERRIES = ЯГОДИ
+PAUSE_QUIT = B: НА ПОЧАТОК
+HINT_JUMP = ТРИМАЙ A - СТРИБОК ВИЩЕ
+HINT_WALL = СТРИБНИ НА СТІНУ: ВІДСКОК
+HINT_DASH = B: РИВОК - ЦІЛЬСЯ СТРІЛКАМИ
+HINT_SPRING = ГРИБИ ПІДКИДАЮТЬ ВИСОКО
+HINT_GEM = КРИСТАЛИ ПОВЕРТАЮТЬ РИВОК
+HINT_CRUMBLE = ТРІСНУТІ КАМЕНІ ПАДАЮТЬ
+HINT_RAFT = КАТАЙСЯ НА ПЛОТАХ
+HINT_WIND = ВІТЕР ШТОВХАЄ - ТРИМАЙСЯ
+HINT_BERRY = ЯГОДИ - ЗА БАЖАННЯМ
