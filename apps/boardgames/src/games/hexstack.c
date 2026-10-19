@@ -10,9 +10,9 @@
  * over in its arc and landing with a click; ten or more of a colour on top burst in gold, the tiles flying up and
  * fading, the count rising over them; a lock whose count is reached springs open. A press while the chain plays
  * plays it out at once. The lamp (the shell's tool): a hint, a stack and its cell in gold light. Undo takes back the
- * last placement. A level's bar: the tiles still to clear (a stack of the goal's colour, gold: any colour), the stacks
- * placed and the par by its flag; endless: the score and the best. The end: a gold wave over the board (solved), or
- * the stacks dimming row by row (the board full).
+ * last placement. A level's bar: the stacks placed, the tiles cleared of the target (by a stack of the goal's
+ * colour, gold: any colour) and the par by its flag; endless: the score and the best. The end: a gold wave over the
+ * board (solved), or the stacks dimming row by row (the board full).
  */
 #include <math.h>
 #include <stdlib.h>
@@ -55,7 +55,7 @@ static int bw, bh;                              /* the board picture's size */
 static box slot_box[HX_TRAY];
 static int made_w = -1, made_small = -1, made_lock_serial = -1, serial;
 static SDL_Texture *t_board, *t_tile[2][HX_COLOURS], *t_top[2][HX_COLOURS], *t_shadow[2], *t_lock, *t_mat;
-static SDL_Texture *t_goal, *t_placed, *t_tok, *t_star, *t_par;
+static SDL_Texture *t_goal, *t_star, *t_par;
 
 static int sel = -1;                            /* the tray stack chosen by a tap */
 static struct { int on, moving, slot; float x, y, x0, y0; Uint32 t0; } drag;
@@ -351,14 +351,6 @@ static void paint_goal(int col, int size, uint8_t *o)   /* the goal's stack: its
     put_stack(o, size, size, t, 7, size / 2.0f, 0.64f * size, 0.82f * size, col < 0);
 }
 
-static void paint_placed(int size, uint8_t *o)  /* a stack set down on a sunk cell */
-{
-    memset(o, 0, (size_t)size * size * 4);
-    static const uint8_t t[4] = {1, 1, 2, 2};
-    float w = 0.78f * size;
-    put_stack(o, size, size, t, 4, size / 2.0f, 0.6f * size, w, 0);
-}
-
 static void paint_star(int size, uint8_t *o)
 {
     memset(o, 0, (size_t)size * size * 4);
@@ -480,10 +472,6 @@ static void layout(box b)
     int small = (int)(0.6f * ui.unit);
     if (made_small != small && small > 3) {
         made_small = small;
-        ui_free(&t_tok);
-        t_tok = tex_paint(small, small, paint_token, small);
-        ui_free(&t_placed);
-        t_placed = tex_paint(small, small, paint_placed, small);
         ui_free(&t_star);
         t_star = tex_paint(small, small, paint_star, small);
         ui_free(&t_par);
@@ -1124,22 +1112,72 @@ static void release(float x, float y)
     ui_animate();
 }
 
-/* ---- the bar ------------------------------------------------------------------------------------------------- */
+/* ---- the bar ------------------------------------------------------------------------------------------------- *
+ * A level: the stacks placed (a bare number: the moves, as in the other level puzzles; the shell's token glows before
+ * it), then the goal: its stack and the tiles cleared of the target ("12 / 60"), then the par by its flag at the right
+ * end. A narrow bar (landscape's) sets them closer and smaller, and only then the goal's picture aside. Endless:
+ * the score, and the best by its star. */
+static void bar_slash(float x, float cy, float h, float k)     /* the goal's "of": a slanted stroke, the digits' ink */
+{
+    uint8_t c = ui_ink_dark() ? 48 : 246, g = ui_ink_dark() ? 43 : 238, bl = ui_ink_dark() ? 35 : 220;
+    float t = fmaxf(1.5f, 0.12f * h * k), w = 0.34f * h, x0 = x - w / 2, x1 = x + w / 2, y0 = cy + 0.42f * h,
+          y1 = cy - 0.42f * h;
+    SDL_Color col = {c, g, bl, 255};
+    SDL_Vertex v[4] = {{{x0 - t / 2, y0}, col, {0, 0}}, {{x0 + t / 2, y0}, col, {0, 0}},
+                       {{x1 + t / 2, y1}, col, {0, 0}}, {{x1 - t / 2, y1}, col, {0, 0}}};
+    static const int idx[6] = {0, 1, 2, 0, 2, 3};
+    SDL_RenderGeometry(ui.r, NULL, v, 4, idx, 6);
+}
+
 static void bar(int player, box b)
 {
     (void)player;
     if (G.goal == HX_ENDLESS) {
         int v = G.variant < 0 ? 0 : G.variant, s = hx_score(&G), top = best[v] > s ? best[v] : s;
-        ui_bar_fit(b, (ui_count[]){{t_tok, s}, {t_star, top}}, 2, 0);
+        ui_bar_fit(b, (ui_count[]){{NULL, s}, {t_star, top}}, 2, 0);
         return;
     }
     hx_pos p;
     shown(ui_ms(), &p);                         /* the goal's count as the chain plays */
     int done = G.goal == HX_COLOUR ? p.by_colour[G.colour] : p.cleared;
-    int left = G.target - done < 0 ? 0 : G.target - done;
-    pzt_cream_ink(t_par);
-    ui_bar_fit(b, (ui_count[]){{t_goal, left}, {t_placed, G.p.placed}, {t_par, G.par}}, 3, 0);
-    pzt_cream_end(t_par);
+    done = done < 0 ? 0 : done > G.target ? G.target : done;
+    int moves = G.p.placed, pr = G.par;
+    float u = ui.unit, cy = b.y + b.h / 2, dh = 0.46f * u, sz = 0.6f * u, gap = 0.12f * u, sep = 0.5f * u;
+    float mw = ui_number_w(moves, dh), dw = ui_number_w(done, dh), tw = ui_number_w(G.target, dh),
+          sw = 0.5f * dh, pw = pr > 0 ? ui_number_w(pr, dh) : 0, flag = pr > 0 ? sz + gap : 0;
+    float goal = dw + sw + tw, need = mw + 2 * sep + sz + gap + goal + flag + pw;
+    int pic = 1;
+    float k = 1;
+    if (need > b.w) {                           /* narrow: closer, then smaller (its picture kept), then without it */
+        need -= sep;
+        sep *= 0.5f;
+        k = b.w / need;
+        if (k < 0.68f) {
+            pic = 0;
+            k = fmaxf(0.6f, b.w / (need - sz - gap));
+        }
+        k = fminf(1, k);
+    }
+    float x = b.x;
+    ui_number(x + mw * k / 2, cy, dh * k, moves, 1);
+    x += (mw + sep) * k;
+    if (pic && t_goal) {
+        ui_put(t_goal, x, cy - sz * k / 2, sz * k, sz * k);
+        x += (sz + gap) * k;
+    }
+    ui_number(x + dw * k / 2, cy, dh * k, done, 1);
+    x += dw * k;
+    bar_slash(x + sw * k / 2, cy, dh * k, 1);
+    x += sw * k;
+    ui_number(x + tw * k / 2, cy, dh * k, G.target, 1);
+    x += tw * k;
+    if (pr > 0) {                               /* the par: at the bar's right end, its flag before it */
+        float px = fmaxf(x + sep * k + flag * k, b.x + b.w - pw * k);
+        pzt_cream_ink(t_par);
+        if (t_par) ui_put(t_par, px - (gap + sz) * k, cy - sz * k / 2, sz * k, sz * k);
+        pzt_cream_end(t_par);
+        ui_number(px + pw * k / 2, cy, dh * k, pr, 1);
+    }
 }
 
 /* ---- the shell's pictures ------------------------------------------------------------------------------------ */
