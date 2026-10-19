@@ -1753,7 +1753,7 @@ static void layout_game(void)
         }
         float t0 = n[1] ? y + u + fminf(n[1] * 1.1f * u, 4.4f * u) : y + u;   /* below the others' bars */
         TL.room = (box){cx, t0, 4 * u, y + 6.5f * u - t0};
-        TL.d0 = 0.84f * u;
+        TL.d0 = 2 * L.br;                       /* the tools as big as the buttons under them */
     } else {                                    /* the board, then a column: bar, tools, buttons, bar */
         u = floorf(fminf((ui.h - 2 * m) / 9, (ui.w - 2 * m) / 13.45f));
         float x = floorf((ui.w - 13.45f * u) / 2), y = floorf((ui.h - 9 * u) / 2), cx = x + 9.45f * u;
@@ -1780,7 +1780,7 @@ static void layout_game(void)
         }
         float t0 = top_end + 0.1f * u;
         TL.room = (box){cx, t0, 4 * u, fmaxf(0.5f * u, by - L.br - 0.2f * u - t0)};
-        TL.d0 = 0.84f * u;
+        TL.d0 = 2 * L.br;                       /* the tools as big as the buttons under them */
     }
     ui.unit = u;
     if (ui.w > ui.h) L.room = L.board;
