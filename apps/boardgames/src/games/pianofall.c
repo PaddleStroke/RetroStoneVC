@@ -219,7 +219,8 @@ static void paint_icon_tinted(int icon, int d, const uint8_t rgb[3], uint8_t *o)
 
 static void make_textures(void)
 {
-    int w = (int)kw - 1, h = (int)kh, b = (int)bw, bhh = (int)bh, sig = w * 4099 + h * 131 + b;
+    int w = (int)kw - 1, h = (int)kh, b = (int)bw, bhh = (int)bh, n = (int)fmaxf(4, 0.62f * ui.unit);
+    int sig = w * 4099 + h * 131 + b + n * 1000003;   /* (the bar's note: the shell's unit, not the keys') */
     if (sig != made_k) {
         made_k = sig;
         pk_key_textures(w, h, b, bhh, t_white, t_black);
@@ -240,7 +241,6 @@ static void make_textures(void)
         ui_free(&t_ring);
         art_ring(d, 0.74f, PUZ_CREAM, 0.9f, ui_buf(d, d));
         t_ring = ui_tex(d, d, ui_buf(d, d));
-        int n = (int)fmaxf(4, 0.62f * ui.unit);
         ui_free(&t_note_small);
         memset(ui_buf(n, n), 0, (size_t)n * n * 4);
         pk_paint_glyph(ui_buf(n, n), n, n, 0, 0, (float)n, PUZ_CREAM, (const uint8_t[3]){120, 110, 96});
