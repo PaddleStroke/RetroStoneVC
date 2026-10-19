@@ -1,0 +1,12 @@
+# Save states (tools/state_audit.py): the mutable statics that are NOT saved, and why.
+# Everything else is registered in the game's state functions (main.c game_state(), draw.c draw_state(), the house
+# kit's hu_state() and ha_state()).
+main.snd_buf        sound_init(): the synthesis buffer (the samples are made at start-up, not saved)
+main.text_buf       chunks_load(): start-up scratch (the chunks' text, parsed once)
+main.CHUNKS         the chunks, parsed at start-up from the asset pack: the same in every run
+main.nchunks        ... their count, the same
+main.SV             the battery save's copy (the best score, the dive kept): stays in the .srm, a state never takes it back
+draw.r_pin          per frame: the UI layer's pin for the raster, set by draw_frame before every picture
+draw.band           ... the frame's sprite budget, counted again by each draw_frame
+draw.oam_n          ... the same
+draw.cam            ... the frame's camera, worked out from the world by each draw_frame
