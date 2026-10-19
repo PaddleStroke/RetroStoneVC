@@ -45,8 +45,8 @@ static struct { int piece; Uint32 t; } last_tap = {-1, 0};
 
 static box last_box;
 static float k, tx, ty;                         /* pixels a unit; the table's top left (inside the frame) */
-static int made_level = -1, made_k = -1, made_right = -1, made_small = -1, frame;
-static SDL_Texture *t_board, *t_tan[TGM_PIECES][16], *t_small;
+static int made_level = -1, made_k = -1, made_right = -1, frame;
+static SDL_Texture *t_board, *t_tan[TGM_PIECES][16];
 static float tan_off[TGM_PIECES][16][2];        /* each texture's top left from the tan's middle (pixels) */
 static int tan_w[TGM_PIECES][16], tan_h[TGM_PIECES][16];
 
@@ -242,14 +242,6 @@ static void layout(box b)
     made_level = G.level;
     made_k = (int)k;
     made_right = G.tray_right;
-    int small = (int)(0.6f * ui.unit);
-    if (made_small != small) {
-        made_small = small;
-        ui_free(&t_small);
-        memset(ui_buf(small, small), 0, (size_t)small * small * 4);
-        token(0, small, ui_buf(small, small));
-        t_small = ui_tex(small, small, ui_buf(small, small));
-    }
 }
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
@@ -511,7 +503,7 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    puz_bar_moves(b, t_small, G.moves);
+    puz_bar_moves(b, NULL, G.moves);   /* a bare number: the shell draws the token */
 }
 
 /* ---- the pictures for the shell: the level screen's tiles (the silhouette), its tabs (the chapter's first
