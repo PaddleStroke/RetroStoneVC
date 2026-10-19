@@ -592,11 +592,26 @@ def pip(full=1):
 
 
 def bubble_shot(k=0):
+    """a soap bubble: a white rim round a pale inside, a shine (round: never mistaken for a gem's diamond)"""
     cv = Canvas(8, 8)
-    r = 2.6 if k == 0 else 1.8
-    hs.ellipse(cv, 3.5, 3.5, r, r + 0.6, [I["white"], I["bl"], I["bm"], I["gd"]])
-    cv.set(2, 2, I["white"])
-    cv.outline(I["out"])
+    r = 3.1 if k == 0 else 2.2
+    for y in range(8):
+        for x in range(8):
+            d = math.hypot(x + 0.5 - 4, y + 0.5 - 4)
+            if d < r:
+                cv.set(x, y, I["white"] if d > r - 1.0 else I["bl"])
+    cv.set(3, 2, I["white"]), cv.set(2, 3, I["white"])
+    cv.outline(I["bm"])
+    return cv
+
+
+def bar(k):
+    """the walrus's health: an 8x8 piece of the bar, k eighths full"""
+    cv = Canvas(8, 8)
+    for x in range(8):
+        cv.set(x, 1, I["out"]), cv.set(x, 6, I["out"])
+        for y in range(2, 6):
+            cv.set(x, y, (I["rl"] if y == 2 else I["r"]) if x < k else I["dgrey"])
     return cv
 
 
@@ -770,7 +785,7 @@ UP_ICONS = ["heart", "heal", "ammo", "spread", "beam", "burst", "magnet", "sprin
 def items_frames():
     out = [("gem", lambda f: gem(0, f), 8, 8, 2), ("biggem", lambda f: gem(1, f), 8, 8, 2),
            ("heart", lambda f: heart(1 - f), 8, 8, 2), ("pip", lambda f: pip(1 - f), 8, 8, 2),
-           ("shot", lambda f: bubble_shot(f), 8, 8, 2), ("casing", casing, 8, 8, 4), ("puff", puff, 8, 8, 3),
+           ("shot", lambda f: bubble_shot(f), 8, 8, 2), ("bar", bar, 8, 8, 9), ("casing", casing, 8, 8, 4), ("puff", puff, 8, 8, 3),
            ("spark", spark, 8, 8, 3), ("shard", shard, 8, 8, 3), ("snowball", snowball, 8, 8, 2)]
     for ch in "0123456789x+-":
         out.append(("d_" + {"x": "x", "+": "plus", "-": "minus"}.get(ch, ch), lambda f, ch=ch: small_digit(ch, 0), 8, 8, 1))
@@ -1023,30 +1038,47 @@ def terrain_tiles(z):
 
 
 def back_tiles(z):
+    """the back wall's 8x8 tiles (BG palette 3), 12 a zone: 0-3 the dark rock, 4-7 a lighter patch of it (draw.c lays
+    them in big soft patches: depth), 8-9 the zone's motif (crystal glints, seaweed and a bubble, glowing spores, frost
+    flakes), 10 a glint, 11 a crack"""
     Bk = BACK[z]
     tiles = []
-    for k in range(8):
+    for k in range(12):
         cv = Canvas(8, 8)
+        light = 4 <= k < 8 or k in (9, 10)
         for y in range(8):
             for x in range(8):
                 h = hsh(x, y, k, z) % 100
-                c = Bk[1] if h < 50 else Bk[2] if h < 85 else Bk[0]
+                if light:
+                    c = Bk[2] if h < 55 else Bk[3] if h < 85 else Bk[1]
+                else:
+                    c = Bk[1] if h < 55 else Bk[0] if h < 80 else Bk[2]
                 cv.set(x, y, c)
-        if k == 4:                                                       # the zone's motif, dim
-            if z == 1:
-                cv.set(3, 2, Bk[5]), cv.set(3, 3, Bk[6]), cv.set(4, 3, Bk[5]), cv.set(3, 4, Bk[5])
-            elif z == 2:
-                for y in range(1, 8):
-                    cv.set(2 + (y % 2), y, Bk[5])
-            elif z == 3:
-                cv.set(4, 4, Bk[6]), cv.set(5, 4, Bk[5]), cv.set(4, 5, Bk[5])
-            else:
-                cv.set(1, 3, Bk[6]), cv.set(2, 3, Bk[5]), cv.set(6, 6, Bk[5])
-        if k == 5:
-            cv.set(5, 5, Bk[7])
-        if k in (6, 7):                                                  # a vein, a crack
+        if k in (8, 9):                                                  # the zone's motif, dim
+            if z == 1:                                                   # a little crystal cluster
+                for (x, y, c) in ((3, 2, 6), (3, 3, 5), (3, 4, 5), (4, 3, 5), (4, 4, 4), (2, 4, 4), (5, 5, 4)):
+                    cv.set(x - (k - 8) * 2, y + (k - 8), Bk[c] if c < 8 else Bk[7])
+            elif z == 2:                                                 # a seaweed strand, a bubble
+                if k == 8:
+                    for y in range(8):
+                        cv.set(3 + (y // 2) % 2, y, Bk[5])
+                else:
+                    cv.set(4, 2, Bk[6]), cv.set(3, 3, Bk[6]), cv.set(5, 3, Bk[6]), cv.set(4, 4, Bk[6]), cv.set(4, 3, Bk[2])
+            elif z == 3:                                                 # glowing spores
+                cv.set(2, 2, Bk[6]), cv.set(5, 5, Bk[5]), cv.set(6, 1, Bk[5])
+                if k == 9:
+                    cv.set(3, 6, Bk[7])
+            else:                                                        # frost flakes
+                for d in range(-1, 2):
+                    cv.set(4 + d, 4, Bk[5]), cv.set(4, 4 + d, Bk[5])
+                cv.set(4, 4, Bk[6])
+                if k == 9:
+                    cv.set(1, 1, Bk[6]), cv.set(6, 6, Bk[5])
+        if k == 10:
+            cv.set(5, 5, Bk[7]), cv.set(4, 5, Bk[6])
+        if k == 11:                                                      # a crack
             for x in range(8):
-                cv.set(x, (x // 2 + k) % 8, Bk[3] if k == 6 else Bk[4])
+                cv.set(x, (x // 2 + 3) % 8, Bk[0])
         tiles.append(("back%d" % k, cv))
     return tiles, Bk
 

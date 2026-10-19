@@ -70,7 +70,7 @@ of two free). Every chunk is checked passable from every column of its top (test
 | 3 the mushroom cave | 3-1 .. 3-3 | beetles (3 hits), moths (weaving), puffcaps (shoot spores up), jellyfish, thorny burrs | brown rock, moss, glowing mushrooms |
 | 4 the frozen deep | 4-1 .. 4-3 | woolly grubs, ice bats (fast), icicles (drop when the puffin passes under), frost wisps (drift through the rock to it), ice spikes | icy rock, snow, frozen fish |
 
-The bottom (level 4-3 ends in a cave): the Grumpy Walrus (40 hits): it waits for the puffin, slides along the floor,
+The bottom (level 4-3 ends in a cave): the Grumpy Walrus (32 hits; its health bar over the shaft): it waits for the puffin, slides along the floor,
 rears up and throws snowballs at it (three when angry, under half its health), bounces on its belly. Stomps hurt it
 (soft), bubbles too; its snowballs pop. Beaten: the results (YOU DID IT!).
 

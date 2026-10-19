@@ -20,9 +20,6 @@ RUN_AT = IN PROGRESS: LEVEL %s
 CHOICE_CONTINUE = CONTINUE THE DIVE
 #. max 22
 CHOICE_NEW = NEW DIVE
-#. The title: the deepest level reached (%s: like 3-2).
-#. max 30
-DEEPEST = DEEPEST: LEVEL %s
 #. The controls' hint at the start of a first dive (the pad), two lines.
 #. max 30
 HINT_PAD = A: JUMP
@@ -74,9 +71,6 @@ FREE = FREE
 #. The shop's last line: leave the shop and dive on.
 #. max 20
 GO_ON = DIVE ON
-#. The shop's keys line (the pad).
-#. max 24
-SHOP_KEYS = A: BUY
 
 #. The upgrades: a name (max 16) and what it does (max 20).
 #. max 16

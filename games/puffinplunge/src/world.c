@@ -35,7 +35,7 @@ const enemy_info EN_INFO[ET_COUNT] = {
     {B_FLY,      2, 1,  6, 5, 3,  230},    /* ice bat */
     {B_DROP,     1, 0,  4, 7, 2,  0},      /* icicle: drops when the puffin passes under */
     {B_WISP,     2, 0,  6, 6, 4,  72},     /* frost wisp: drifts through the rock to the puffin */
-    {B_BOSS,     40, 1, 20, 12, 40, 160},  /* the Grumpy Walrus */
+    {B_BOSS,     32, 1, 20, 12, 40, 160},  /* the Grumpy Walrus */
     {B_BULLET,   1, 1,  4, 4, 0,  0},      /* a snowball */
 };
 
@@ -224,12 +224,14 @@ void world_new_run(world *w, uint32_t seed)
 
 static int spawn_enemy(world *w, int type, int x, int y)
 {
-    if (w->n_en >= MAX_EN) {
-        for (int i = 0; i < w->n_en; i++)       /* a dead one's place */
-            if (!w->en[i].alive) { w->en[i] = w->en[--w->n_en]; break; }
-        if (w->n_en >= MAX_EN) return -1;
+    int k = w->n_en;
+    if (k >= MAX_EN) {                              /* full: a gone one's place (nothing moves: the indices stay) */
+        for (k = 0; k < MAX_EN && w->en[k].alive; k++) {}
+        if (k >= MAX_EN) return -1;
+    } else {
+        w->n_en++;
     }
-    enemy *e = &w->en[w->n_en];
+    enemy *e = &w->en[k];
     memset(e, 0, sizeof *e);
     e->type = (uint8_t)type;
     e->x = x * SUB;
@@ -239,7 +241,7 @@ static int spawn_enemy(world *w, int type, int x, int y)
     e->home_y = (int16_t)y;
     e->face = (uint8_t)(rnd(w) & 1);
     e->t = (uint16_t)rndn(w, 120);
-    return w->n_en++;
+    return k;
 }
 
 static void spawn_gem(world *w, int x, int y, int big, int burst)

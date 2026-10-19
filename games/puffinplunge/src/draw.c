@@ -337,7 +337,11 @@ static void back_rows(void)
         back_cache[mr] = ty;
         for (int tx = 0; tx < 32; tx++) {
             uint32_t h = hsh(tx * 7, ty * 13) % 100;
-            int t = h < 46 ? 0 : h < 80 ? 1 : h < 88 ? 2 : h < 92 ? 3 : h < 95 ? 4 : h < 96 ? 5 : h < 98 ? 6 : 7;
+            int patch = hsh(fdiv(tx + (ty / 6) % 2, 3), fdiv(ty, 5)) % 5 < 2;    /* big soft patches of lighter rock */
+            int t = (patch ? 4 : 0) + (int)((h >> 2) & 3);
+            if (h < 3) t = 8 + (int)(h & 1);            /* the zone's motif */
+            else if (h < 4) t = 10;
+            else if (h < 6) t = 11;
             map[mr * 32 + tx] = RS_MAP(1 + T_COUNT + t, PAL_BACK, 0, (h & 1), 0);
         }
     }
@@ -602,12 +606,12 @@ static void gem_target(int narrow, int gems, int *x, int *y)
     *y = p.gem_y + 4;
 }
 
-static void draw_hud(const world *w, int narrow)
+static void draw_hud(const world *w, int narrow, int gems_only)
 {
     hudpos p;
     char s[16];
     hud_layout(narrow, w->gems, &p);
-    for (int i = 0; i < w->hpmax; i++) {                /* hearts: 4 a row (8 upright) */
+    for (int i = 0; i < w->hpmax && !gems_only; i++) {               /* hearts: 4 a row (8 upright) */
         int per = narrow ? 8 : 4, cx = i % per, cy = i / per;
         int x = p.heart_x + p.heart_dir * cx * 9 - (p.heart_dir < 0 ? 8 : 0);
         int beat = i == w->hp - 1 && w->hp <= 1 && (tick & 16);
@@ -620,6 +624,7 @@ static void draw_hud(const world *w, int narrow)
     hu_number(w->gems, cx - ux, p.gem_y - (gem_pulse > 4 ? 1 : 0), 3);
     budget_kit(p.gem_y, 16);
     spr(SPR_BIGGEM + (gem_pulse ? 1 : 0), p.gem_x - len * 12 - 10, p.gem_y + 4, 3, 0);
+    if (gems_only) return;                              /* (a shop upright: its gems) */
     /* the depth: 2-3 */
     level_str(s, sizeof s, w->level);
     small_text(s, p.depth_x - 7, p.depth_y, 0, 3);
@@ -635,6 +640,15 @@ static void draw_hud(const world *w, int narrow)
         int pop = w->combo_t > 32 ? hu_ease_back(40 - w->combo_t, 8, 3) - 3 : 0;
         small_text(s, p.depth_x - 7, p.depth_y + 10 + pop, 1, 3);
     }
+    /* the walrus's health, over the shaft */
+    if (w->boss >= 0 && w->boss < w->n_en && w->en[w->boss].alive && w->en[w->boss].st > 0) {
+        int n = 12, x0 = SHAFT_X + SHAFT_W / 2 - n * 4, y = narrow ? rs_screen_top() + 36 : 4;
+        int fill = w->boss_hpmax ? w->en[w->boss].hp * n * 8 / w->boss_hpmax : 0;
+        for (int i = 0; i < n; i++) {
+            int k = fill - i * 8;
+            spr(SPR_BAR + (k < 0 ? 0 : k > 8 ? 8 : k), x0 + i * 8, y, 3, 0);
+        }
+    }
     /* the gems flying to the counter */
     int tx, ty;
     gem_target(narrow, w->gems, &tx, &ty);
@@ -648,15 +662,41 @@ static void draw_hud(const world *w, int narrow)
 }
 
 /* ---- the panels ------------------------------------------------------------------------------------------------------------ */
-#define SHOP_ROW(i)  (11 + 4 * (i))
+/* the offers' rows: the name, the line two rows under it (its accents free), the price on the name's row or, upright
+ * when it does not fit, two rows under the line; landscape: the gems on row 9, upright: the HUD's counter */
+#define SHOP_ROW(n, i) ((n) ? 9 + 6 * (i) : 12 + 5 * (i))
+#define SHOP_GO      27
 static void shop_box(int narrow, int *x, int *w)
 {
-    *w = narrow ? (ht_ncols() < 28 ? ht_ncols() : 28) : 30;
+    *w = narrow ? (ht_ncols() - 2 < 28 ? ht_ncols() - 2 : 28) : 30;   /* (upright: room for the cursor on both sides) */
     *x = narrow ? ht_center_w(*w) : (40 - *w) / 2;
 }
 static const char *shop_title(int kind)
 {
     return kind == 2 ? TR(GIFT) : kind == 1 ? TR(LITTLE_SHOP) : TR(LEVEL_CLEAR);
+}
+/* where an offer's lines go: its icon, its name, its line, its price (and a gem before it); upright the panel is
+ * narrow: the icon beside the name, the line from the panel's edge, the price under them when it does not fit */
+typedef struct offer_lay { int icon_x, icon_y, nx, dx, px, prow, gem; } offer_lay;
+static void offer_layout(const world *w, int i, int narrow, int x, int wd, offer_lay *l, char *price, int n)
+{
+    const offer *o = &w->offers[i];
+    int r = SHOP_ROW(narrow, i), right = x + wd - 1;
+    int nw = hu_width(upgrade_name(o->up), 0), dw = hu_width(upgrade_desc(o->up), 0);
+    if (o->sold) snprintf(price, (size_t)n, "%s", TR(SOLD));
+    else if (!o->price) snprintf(price, (size_t)n, "%s", TR(FREE));
+    else snprintf(price, (size_t)n, "%d", o->price);
+    l->gem = !o->sold && o->price;
+    l->icon_x = (x + 1) * 8 + 2;
+    l->icon_y = narrow ? r * 8 - 9 : r * 8 - 4;
+    l->nx = x + 4 + nw > right ? right - nw : x + 4;
+    if (l->nx < x + 1) l->nx = x + 1;
+    int d0 = narrow ? x + 1 : x + 4;
+    l->dx = d0 + dw > right ? right - dw : d0;
+    if (l->dx < x + 1) l->dx = x + 1;
+    int pw = hu_width(price, 0);
+    l->px = right - pw;
+    l->prow = l->nx + nw < l->px - l->gem - 1 ? r : narrow ? r + 4 : r + 2;
 }
 static void shop_panel(const world *w, const view *v, int narrow)
 {
@@ -665,23 +705,19 @@ static void shop_panel(const world *w, const view *v, int narrow)
     shop_box(narrow, &x, &wd);
     if (narrow) ht_banner(3, shop_title(v->shop_kind));
     else hu_banner(2, shop_title(v->shop_kind));
-    int last = SHOP_ROW(w->n_offers) + 1;
-    hu_panel(x, 7, wd, last - 7 + 3);
-    rs_strf(s, sizeof s, TR(GEMS_N), w->gems);
-    hu_box_text(x + (wd - hu_width(s, 0)) / 2, 8, s);
+    int last = SHOP_GO;
+    hu_panel(x, 7, wd, last - 7 + 2);
+    if (!narrow) {
+        rs_strf(s, sizeof s, TR(GEMS_N), w->gems);
+        hu_box_text(x + (wd - hu_width(s, 0)) / 2, 9, s);
+    }
     for (int i = 0; i < w->n_offers; i++) {
-        const offer *o = &w->offers[i];
-        int r = SHOP_ROW(i);
-        const char *nm = upgrade_name(o->up), *d = upgrade_desc(o->up);
-        hu_box_text(x + 4, r, nm);
-        hu_box_text(x + 4, r + 1, d);
-        if (o->sold) snprintf(s, sizeof s, "%s", TR(SOLD));
-        else if (!o->price) snprintf(s, sizeof s, "%s", TR(FREE));
-        else snprintf(s, sizeof s, "%d", o->price);
-        int pw = hu_width(s, 0), nw = hu_width(nm, 0);
-        int px = x + wd - 2 - pw;
-        if (x + 4 + nw >= px - (o->sold || !o->price ? 0 : 1)) px = x + wd - 2 - pw;   /* (long names: the price row) */
-        hu_box_text(px, x + 4 + nw + 1 < px - 1 ? r : r + 1, s);
+        offer_lay l;
+        offer_layout(w, i, narrow, x, wd, &l, s, sizeof s);
+        int r = SHOP_ROW(narrow, i);
+        hu_box_text(l.nx, r, upgrade_name(w->offers[i].up));
+        hu_box_text(l.dx, r + 2, upgrade_desc(w->offers[i].up));
+        hu_box_text(l.px, l.prow, s);
     }
     const char *go = TR(GO_ON);
     hu_box_text(x + (wd - hu_width(go, 0)) / 2, last, go);
@@ -689,20 +725,15 @@ static void shop_panel(const world *w, const view *v, int narrow)
 static void shop_sprites(const world *w, const view *v, int narrow, int pdy)
 {
     int x, wd, ux = hu_ui_x();
-    char s[16];
+    char s[48];
     shop_box(narrow, &x, &wd);
     for (int i = 0; i < w->n_offers; i++) {
-        const offer *o = &w->offers[i];
-        int r = SHOP_ROW(i);
-        spr(SPR_I_HEART + o->up, (x + 1) * 8 + ux + 2, r * 8 - 2 + pdy, 3, 0);
-        if (!o->sold && o->price) {                        /* a gem by the price */
-            snprintf(s, sizeof s, "%d", o->price);
-            int pw = hu_width(s, 0), nw = hu_width(upgrade_name(o->up), 0), px = x + wd - 2 - pw;
-            int row = x + 4 + nw + 1 < px - 1 ? r : r + 1;
-            spr(SPR_GEM, (px - 1) * 8 + ux - 1, row * 8 + pdy, 3, 0);
-        }
+        offer_lay l;
+        offer_layout(w, i, narrow, x, wd, &l, s, sizeof s);
+        spr(SPR_I_HEART + w->offers[i].up, l.icon_x + ux, l.icon_y + pdy, 3, 0);
+        if (l.gem) spr(SPR_GEM, (l.px - 1) * 8 + ux - 1, l.prow * 8 + pdy, 3, 0);
     }
-    int sel = v->shop_sel, r = sel < w->n_offers ? SHOP_ROW(sel) : SHOP_ROW(w->n_offers) + 1, b = (tick / 8) & 1;
+    int sel = v->shop_sel, r = sel < w->n_offers ? SHOP_ROW(narrow, sel) : SHOP_GO, b = (tick / 8) & 1;
     int y = r * 8 + pdy + (sel < w->n_offers ? 4 : 0);
     spr(SPR_CURSOR + b, x * 8 + ux - 7, y, 3, 0);
     spr(SPR_CURSOR + b, (x + wd) * 8 + ux - 1, y, 3, RS_SPR_HFLIP);
@@ -777,7 +808,7 @@ void draw_frame(const world *w, const view *v)
             } else {
                 hu_banner(4, ttl);
                 hu_gameover_panel(1, v->new_best, w->score, 0);
-                hu_gameover_note(note);
+                hu_text(hu_center(note, 0), 23, note);      /* (under the panel: the retry line stays on its row 19) */
             }
         } else {
             if (card) {                                 /* the level's card: LEVEL 2-1 and the zone's name */
@@ -840,6 +871,7 @@ void draw_frame(const world *w, const view *v)
     }
     if (v->state == ST_SHOP) {
         shop_sprites(w, v, narrow, pdy);
+        if (narrow) draw_hud(w, narrow, 1);
         return;
     }
     if (v->state == ST_OVER) {
@@ -852,13 +884,13 @@ void draw_frame(const world *w, const view *v)
             if (v->st_t >= RETRY_LOCK) ht_retry_line_at(ht_gameover_retry_row(note), v->st_t, RETRY_LOCK, HTR(BACK_TITLE));
         } else {
             hu_gameover_sprites(1, w->score, 0, v->best, medal, v->st_t, slide);
-            hu_retry_line_at(24, v->st_t, RETRY_LOCK, HTR(BACK_TITLE));
+            hu_retry_line(v->st_t, RETRY_LOCK, HTR(BACK_TITLE));
         }
         budget_kit(rs_screen_top(), 48);
         return;
     }
     /* play */
-    draw_hud(w, narrow);
+    draw_hud(w, narrow, 0);
     draw_parts();
     int shx = hu_shake_x(), shy = hu_shake_y();
     const hero *h = &w->h;

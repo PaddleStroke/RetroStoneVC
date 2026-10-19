@@ -8,8 +8,8 @@ tiles, the four zones' terrain and back-wall tiles, the palettes; the music (mak
 VRAM (tiles, absolute; docs/spec.md "Video memory": the guideline is 64 KiB = 2048 tiles with the maps):
     0..296      BG1 the house kit (font, panel font, 2x cache, panel frame)
     297..319    BG1 the HUD's own tiles
-    320..447    BG1 the glyph pool of the translated text (docs/i18n.md)
-    448..767    BG1 the title's logo
+    320..575    BG1 the glyph pool of the translated text (docs/i18n.md: a Japanese title takes 256)
+    576..895    BG1 the title's logo
     1024..      BG2 the shaft (the zone's terrain: rock quarters, crystals, doors, the floor, the side panels'
                 decorations) and BG3 the back wall, after it (one zone's tiles at a time, loaded with the level)
     2048..      the sprites: the puffin, the critters, the walrus, the items, the effects, then the kit's
@@ -32,7 +32,7 @@ sys.path.insert(0, os.path.join(ROOT, "tools"))
 import rsasset  # noqa: E402
 import make_art  # noqa: E402
 
-VR_BG1, EXT_TILE, EXT_COUNT, LOGO_TILE, UI_TILE, VR_SHAFT, VR_OBJ = 0, 320, 128, 448, 297, 1024, 2048
+VR_BG1, EXT_TILE, EXT_COUNT, LOGO_TILE, UI_TILE, VR_SHAFT, VR_OBJ = 0, 320, 256, 576, 297, 1024, 2048
 PAL_UI, PAL_ROCK, PAL_SIDE, PAL_BACK, PAL_LOGO = 0, 1, 2, 3, 5
 OBJ_HERO, OBJ_CRIT, OBJ_ITEMS, OBJ_KIT, OBJ_FX, OBJ_BOSS, OBJ_FLASH = 0, 1, 2, 3, 4, 5, 6
 

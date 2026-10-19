@@ -17,7 +17,7 @@ run() { $H --scale "$S" --opt music=0 "$@" > "$O/log.txt" 2>&1; }
 run --frames 130 --shot 125:"$O/title.png"
 run --frames 130 --opt fakerun=1 --opt best=1234 --shot 125:"$O/title-continue.png"
 run --frames 60 --opt ready=1 --opt seed=3 --shot 50:"$O/card.png"
-run --frames 700 --opt bot=1 --opt ready=1 --opt seed=7 --shot 560:"$O/play.png"
+run --frames 700 --opt bot=1 --opt ready=1 --opt seed=7 --shot 300:"$O/play.png"
 run --frames 900 --opt bot=1 --opt ready=1 --opt seed=7 --opt level=5 --opt god=1 --shot 640:"$O/play-coral.png"
 run --frames 900 --opt bot=1 --opt ready=1 --opt seed=7 --opt level=8 --opt god=1 --shot 700:"$O/play-mushroom.png"
 run --frames 900 --opt bot=1 --opt ready=1 --opt seed=7 --opt level=11 --opt god=1 --shot 700:"$O/play-frozen.png"
@@ -35,12 +35,12 @@ fi
 shots="title title-continue card play play-coral play-mushroom play-frozen shop gift pause results"
 if [ -n "$A" ]; then
     run --frames 130 --display 1080x2340 --shot 125:"$O/title-tall.png"
-    run --frames 700 --display 1080x2340 --opt bot=1 --opt ready=1 --opt seed=7 --shot 560:"$O/play-tall.png"
+    run --frames 700 --display 1080x2340 --opt bot=1 --opt ready=1 --opt seed=7 --shot 300:"$O/play-tall.png"
     run --frames 40 --display 1080x2340 --opt ready=1 --opt seed=7 --opt shop=1 --opt gems=60 --shot 35:"$O/shop-tall.png"
     [ -n "$f" ] && run --frames $((f + 60)) --display 1080x2340 --opt ready=1 --opt seed=7 --opt hurtat=100 --opt score=640 --shot $((f + 50)):"$O/results-tall.png"
     run --frames 130 --width 427 --shot 125:"$O/title-427.png"
-    run --frames 700 --width 520 --opt bot=1 --opt ready=1 --opt seed=7 --shot 560:"$O/play-520.png"
-    run --frames 3000 --opt bot=1 --opt ready=1 --opt seed=7 --opt level=12 --opt god=1 --shot 2900:"$O/boss.png"
+    run --frames 700 --width 520 --opt bot=1 --opt ready=1 --opt seed=7 --opt level=5 --shot 300:"$O/play-520.png"
+    run --frames 3000 --opt bot=1 --opt ready=1 --opt seed=7 --opt level=12 --opt god=1 --shot 1900:"$O/boss.png"
     shots="$shots title-tall play-tall shop-tall results-tall title-427 play-520 boss"
 fi
 n=0
