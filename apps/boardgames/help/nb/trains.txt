@@ -1,11 +1,11 @@
 Sporveksler
 # Målet
-Leketog venter ved portalene sine. Still sporvekslene, og send så togene av gårde: hvert tog må stoppe ved en stasjon i sin farge.
+Still sporvekslene, og send så togene av gårde: hvert tog må stoppe ved en stasjon i sin farge.
 # Et trekk
 Et trekk legger om én sporveksel. Et tog som kjører inn i en sporveksel fra enden med ett spor, tar grenen vekselen er lagt mot; kjører det inn fra en gren, kjører det bare gjennom.
-- Togene kjører ett om gangen, i rekkefølgen på førerhusene, hvert først når det forrige har stoppet.
+- Togene kjører ett om gangen, i rekkefølgen på førerhusene.
 - En sporveksel med messingskive legger seg om av seg selv etter hvert tog som kjører over den.
-- I en kryssing kjører togene rett fram. En tunnel fører til den andre tunnelen med samme nummer.
+- En tunnel fører til den andre tunnelen med samme nummer.
 - Når alle togene kjører samtidig, kolliderer to tog som møtes på en rute eller front mot front.
 En feil stasjon, et blindspor eller en kollisjon avslutter turen: togene kommer tilbake for et nytt forsøk.
 # Slutten på spillet

@@ -1,11 +1,11 @@
 Tren makasları
 # Amaç
-Oyuncak trenler girişlerinde bekliyor. Makasları ayarla, sonra trenleri yola çıkar: her biri kendi rengindeki bir istasyonda durmalı.
+Makasları ayarla, sonra trenleri yola çıkar: her biri kendi rengindeki bir istasyonda durmalı.
 # Bir hamle
 Bir hamle bir makası değiştirir. Makasa tek hatlı ucundan giren tren, makasın ayarlı olduğu kola sapar; kollardan birinden giren tren ise doğrudan geçer.
-- Trenler kabinlerinde yazan sırayla tek tek kalkar; her biri, önceki durunca yola çıkar.
+- Trenler kabinlerinde yazan sırayla tek tek kalkar.
 - Pirinç diskli bir makas, üzerinden geçen her trenden sonra kendiliğinden değişir.
-- Bir kavşakta trenler dümdüz geçer. Bir tünel, aynı numaralı öbür tünele çıkar.
+- Bir tünel, aynı numaralı öbür tünele çıkar.
 - Bütün trenler aynı anda kalktığında, bir karede buluşan ya da kafa kafaya gelen iki tren çarpışır.
 Yanlış istasyon, çıkmaz hat ya da çarpışma seferi bitirir: trenler yeni bir deneme için geri gelir.
 # Oyunun sonu

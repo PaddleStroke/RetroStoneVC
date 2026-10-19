@@ -1,11 +1,11 @@
 Zwrotnice
 # Cel gry
-Zabawkowe pociągi czekają przy swoich portalach. Ustaw zwrotnice, a potem wypuść pociągi: każdy musi zatrzymać się na stacji swojego koloru.
+Ustaw zwrotnice, a potem wypuść pociągi: każdy musi zatrzymać się na stacji swojego koloru.
 # Ruch
 Ruch przestawia jedną zwrotnicę. Pociąg, który wjeżdża na zwrotnicę od strony pojedynczego toru, jedzie w odnogę, na którą jest ustawiona; wjeżdżając z odnogi, po prostu przejeżdża.
-- Pociągi ruszają po kolei, w kolejności podanej na kabinach, każdy dopiero gdy poprzedni się zatrzyma.
+- Pociągi ruszają po kolei, w kolejności podanej na kabinach.
 - Zwrotnica z mosiężną tarczą przestawia się sama po każdym pociągu, który po niej przejedzie.
-- Na skrzyżowaniu pociągi jadą prosto. Tunel prowadzi do drugiego tunelu z tym samym numerem.
+- Tunel prowadzi do drugiego tunelu z tym samym numerem.
 - Gdy wszystkie pociągi ruszają naraz, dwa pociągi, które spotkają się na jednym polu lub czołowo, zderzają się.
 Zła stacja, ślepy tor lub zderzenie kończy przejazd: pociągi wracają na kolejną próbę.
 # Koniec gry

@@ -1,11 +1,11 @@
 Weichenstellwerk
 # Das Ziel
-Spielzeugzüge warten an ihren Portalen. Stell die Weichen, dann schick die Züge los: Jeder muss an einem Bahnhof seiner Farbe halten.
+Stell die Weichen, dann schick die Züge los: Jeder muss an einem Bahnhof seiner Farbe halten.
 # Ein Zug
 Jeder Spielzug stellt eine Weiche um. Ein Zug, der von der Weichenspitze her einfährt, nimmt den Zweig, auf den die Weiche gestellt ist; kommt er von einem Zweig, fährt er einfach durch.
-- Die Züge fahren einzeln los, in der Reihenfolge auf ihren Führerhäusern, jeder erst, wenn der vorige hält.
+- Die Züge fahren einzeln los, in der Reihenfolge auf ihren Führerhäusern.
 - Eine Weiche mit Messingscheibe stellt sich nach jedem Zug, der über sie fährt, von selbst um.
-- Auf einer Kreuzung fahren die Züge geradeaus. Ein Tunnel führt zum anderen Tunnel mit derselben Nummer.
+- Ein Tunnel führt zum anderen Tunnel mit derselben Nummer.
 - Fahren alle Züge zugleich los, stoßen zwei Züge zusammen, die auf dasselbe Feld kommen oder frontal aufeinandertreffen.
 Ein falscher Bahnhof, eine Sackgasse oder ein Zusammenstoß beendet die Fahrt: Die Züge kommen für einen neuen Versuch zurück.
 # Das Ende der Partie

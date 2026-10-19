@@ -1,11 +1,11 @@
 Ratavaihteet
 # Tavoite
-Lelujunat odottavat lähtöporteillaan. Käännä vaihteet ja lähetä sitten junat: jokaisen on pysähdyttävä oman värisensä asemalle.
+Käännä vaihteet ja lähetä sitten junat: jokaisen on pysähdyttävä oman värisensä asemalle.
 # Siirto
 Siirto kääntää yhden vaihteen. Juna, joka tulee vaihteeseen sen kärjestä, kulkee haaraan, johon vaihde on käännetty; haarasta tuleva juna vain ajaa läpi.
-- Junat lähtevät yksi kerrallaan ohjaamoon merkityssä järjestyksessä, kukin vasta kun edellinen on pysähtynyt.
+- Junat lähtevät yksi kerrallaan ohjaamoon merkityssä järjestyksessä.
 - Messinkikiekollinen vaihde kääntyy itsestään jokaisen sen yli ajavan junan jälkeen.
-- Risteyksessä junat jatkavat suoraan. Tunneli vie toiseen samanumeroiseen tunneliin.
+- Tunneli vie toiseen samanumeroiseen tunneliin.
 - Kun kaikki junat lähtevät yhtä aikaa, kaksi junaa törmää, jos ne kohtaavat samassa ruudussa tai nokat vastakkain.
 Väärä asema, umpikuja tai törmäys päättää ajon: junat palaavat uutta yritystä varten.
 # Pelin loppu

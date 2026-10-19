@@ -1,11 +1,11 @@
 Mudança de agulhas
 # O objetivo
-Comboios de brincar esperam nos seus portais. Acerta as agulhas e depois manda os comboios: cada um tem de parar numa estação da sua cor.
+Acerta as agulhas e depois manda os comboios: cada um tem de parar numa estação da sua cor.
 # Uma jogada
 Uma jogada muda uma agulha. Um comboio que entra numa agulha pelo lado de via única segue pelo ramo para o qual ela está virada; se entrar por um ramo, passa simplesmente.
-- Os comboios partem um de cada vez, pela ordem marcada na cabina, cada um depois de o anterior parar.
+- Os comboios partem um de cada vez, pela ordem marcada na cabina.
 - Uma agulha com um disco de latão muda sozinha depois de cada comboio que passa por ela.
-- Num cruzamento, os comboios seguem em frente. Um túnel leva ao outro túnel com o mesmo número.
+- Um túnel leva ao outro túnel com o mesmo número.
 - Quando todos os comboios partem ao mesmo tempo, dois comboios que se encontram numa casa, ou de frente, chocam.
 Uma estação errada, uma linha sem saída ou um choque termina o percurso: os comboios voltam para nova tentativa.
 # O fim do jogo

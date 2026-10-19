@@ -1,11 +1,11 @@
 Cambio de agujas
 # El objetivo
-Unos trenes de juguete esperan en sus portales. Coloca las agujas y luego envía los trenes: cada uno debe parar en una estación de su color.
+Coloca las agujas y luego envía los trenes: cada uno debe parar en una estación de su color.
 # Una jugada
 Una jugada cambia una aguja. Un tren que entra en una aguja por la punta toma la rama a la que está puesta; si entra por una rama, simplemente pasa.
-- Los trenes salen de uno en uno, en el orden marcado en su cabina, cada uno cuando el anterior se ha detenido.
+- Los trenes salen de uno en uno, en el orden marcado en su cabina.
 - Una aguja con un disco de latón cambia sola después de cada tren que pasa por ella.
-- En un cruce, los trenes siguen recto. Un túnel lleva al otro túnel con el mismo número.
+- Un túnel lleva al otro túnel con el mismo número.
 - Cuando todos los trenes salen a la vez, dos trenes que coinciden en una casilla, o de frente, chocan.
 Una estación equivocada, una vía muerta o un choque terminan el recorrido: los trenes vuelven para otro intento.
 # El final de la partida

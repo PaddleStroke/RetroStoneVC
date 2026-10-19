@@ -1,11 +1,11 @@
 Spårväxlar
 # Målet
-Leksakståg väntar vid sina portaler. Ställ in växlarna och skicka sedan iväg tågen: varje tåg måste stanna vid en station i sin färg.
+Ställ in växlarna och skicka sedan iväg tågen: varje tåg måste stanna vid en station i sin färg.
 # Ett drag
 Ett drag lägger om en växel. Ett tåg som kör in i en växel från änden med ett spår tar den gren växeln är lagd mot; kör det in från en gren kör det bara igenom.
-- Tågen kör ett i taget, i ordningen på sina förarhytter, vart och ett först när det förra har stannat.
+- Tågen kör ett i taget, i ordningen på sina förarhytter.
 - En växel med en mässingsskiva lägger om sig själv efter varje tåg som kör över den.
-- I en korsning kör tågen rakt fram. En tunnel leder till den andra tunneln med samma nummer.
+- En tunnel leder till den andra tunneln med samma nummer.
 - När alla tåg kör samtidigt krockar två tåg som möts på en ruta eller front mot front.
 Fel station, ett stickspår eller en krock avslutar körningen: tågen kommer tillbaka för ett nytt försök.
 # Partiets slut

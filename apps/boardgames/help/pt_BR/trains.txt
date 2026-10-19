@@ -1,11 +1,11 @@
 Chaves de desvio
 # O objetivo
-Trens de brinquedo esperam em seus portais. Acerte as chaves e depois mande os trens: cada um precisa parar numa estação da sua cor.
+Acerte as chaves e depois mande os trens: cada um precisa parar numa estação da sua cor.
 # Uma jogada
 Uma jogada vira uma chave. Um trem que entra numa chave pelo lado de via única segue pelo ramal para o qual ela está virada; entrando por um ramal, ele simplesmente passa.
-- Os trens saem um de cada vez, na ordem marcada na cabine, cada um depois que o anterior parou.
+- Os trens saem um de cada vez, na ordem marcada na cabine.
 - Uma chave com um disco de latão vira sozinha depois de cada trem que passa por ela.
-- Num cruzamento, os trens seguem em frente. Um túnel leva ao outro túnel com o mesmo número.
+- Um túnel leva ao outro túnel com o mesmo número.
 - Quando todos os trens saem juntos, dois trens que se encontram numa casa, ou de frente, batem.
 Uma estação errada, um fim de linha ou uma batida encerra o percurso: os trens voltam para outra tentativa.
 # O fim da partida
