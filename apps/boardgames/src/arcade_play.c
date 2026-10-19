@@ -23,6 +23,7 @@
 const char *save_path(void);                    /* save.c: the app's save file (NULL: the picture mode's memory) */
 const char *text_lang(void);                    /* text.c: the app's language ("fr", "pt_BR") */
 void snd_open(int on);                          /* sound.c: the app's own device, closed while a game plays */
+void shell_system_bars(uint32_t top, uint32_t bottom);   /* shell.c: Android's system bars' colours, 0xRRGGBB */
 
 #define ARCADE_XP_PLAYED 5                      /* a session of ARCADE_MIN_S seconds or more */
 #define ARCADE_XP_BEST 20                       /* a new best score */
@@ -124,6 +125,7 @@ int arcade_play(const char *id, SDL_Renderer *r)
     if (!SDL_WasInit(SDL_INIT_GAMECONTROLLER)) SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER);
     if (!SDL_WasInit(SDL_INIT_AUDIO)) SDL_InitSubSystem(SDL_INIT_AUDIO);
     full_screen(ww > wh);                       /* landscape: no system bars */
+    shell_system_bars(0, 0);                    /* upright: the bars black, as round the picture (then the shell's) */
     SDL_AudioSpec want, have;
     SDL_zero(want);
     want.freq = RS_AUDIO_RATE;

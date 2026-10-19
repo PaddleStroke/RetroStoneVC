@@ -43,6 +43,9 @@
 #ifdef __IPHONEOS__
 #include "ios_app.h"                            /* the iPhone and iPad app (apps/ios): the safe area */
 #endif
+#ifdef __ANDROID__
+#include <jni.h>                                /* the system bars' colours (BoardActivity.setBarColors) */
+#endif
 
 #include <math.h>
 #include <stdio.h>
@@ -1503,28 +1506,34 @@ static void shared_textures(void)
     set_keep();
 }
 
+/* the table's colour at its row y of 256 (top to bottom): a dark green, lighter in the middle (the light theme: a
+ * warm ivory, the same way) */
+static void table_rgb(int y, uint8_t *p)
+{
+    float k = 1 - fabsf((float)(y - 110)) / 256.0f * 0.55f;
+    if (!TH.dark) {
+        float l = 0.9f + 0.1f * k;
+        p[0] = (uint8_t)(250 * l);
+        p[1] = (uint8_t)(245 * l);
+        p[2] = (uint8_t)(233 * l);
+    } else {
+        p[0] = (uint8_t)(34 * k);
+        p[1] = (uint8_t)(52 * k);
+        p[2] = (uint8_t)(46 * k);
+    }
+}
+
 static void bg_texture(void)
 {
     static int bg_dark = -1;
     if (t_bg && bg_dark != TH.dark) ui_free(&t_bg);
     bg_dark = TH.dark;
-    if (!t_bg) {                                /* the table: a dark green, lighter in the middle (the light theme: a
-                                                 * warm ivory, the same way) */
+    if (!t_bg) {                                /* the table, top to bottom */
         uint8_t *b = ui_buf(2, 256);
         for (int y = 0; y < 256; y++)
             for (int x = 0; x < 2; x++) {
-                float k = 1 - fabsf((float)(y - 110)) / 256.0f * 0.55f;
                 uint8_t *p = b + 4 * (y * 2 + x);
-                if (!TH.dark) {
-                    float l = 0.9f + 0.1f * k;
-                    p[0] = (uint8_t)(250 * l);
-                    p[1] = (uint8_t)(245 * l);
-                    p[2] = (uint8_t)(233 * l);
-                } else {
-                    p[0] = (uint8_t)(34 * k);
-                    p[1] = (uint8_t)(52 * k);
-                    p[2] = (uint8_t)(46 * k);
-                }
+                table_rgb(y, p);
                 p[3] = 255;
             }
         t_bg = ui_tex(2, 256, b);
@@ -6730,6 +6739,50 @@ static void safe_frame(void)
 }
 #endif
 
+/* Android: the system bars' colours, 0xRRGGBB (BoardActivity.setBarColors: the ground round the app's surface from
+ * Android 15, the bars' own before it; light or dark icons on them), told when they change. Also the Arcade's
+ * (arcade_play.c: black while a game plays). */
+void shell_system_bars(uint32_t top, uint32_t bottom)
+{
+#ifdef __ANDROID__
+    static uint32_t told[2] = {0xffffffffu, 0xffffffffu};
+    if (top == told[0] && bottom == told[1]) return;
+    JNIEnv *env = (JNIEnv *)SDL_AndroidGetJNIEnv();
+    jobject act = (jobject)SDL_AndroidGetActivity();
+    if (env && act) {
+        jclass ac = (*env)->GetObjectClass(env, act);
+        jmethodID m = (*env)->GetMethodID(env, ac, "setBarColors", "(II)V");
+        if (m) (*env)->CallVoidMethod(env, act, m, (jint)top, (jint)bottom);
+        if ((*env)->ExceptionCheck(env)) (*env)->ExceptionClear(env);
+        (*env)->DeleteLocalRef(env, ac);
+        told[0] = top;
+        told[1] = bottom;
+    }
+    if (act) (*env)->DeleteLocalRef(env, act);
+#else
+    (void)top;
+    (void)bottom;
+#endif
+}
+
+#ifdef __ANDROID__
+/* the colours at the screen's top and bottom: the menu's page and its ribbon (below it upright; beside it on its
+ * side: the page's), else the table's first and last rows (as iOS fills round its safe area: safe_frame) */
+static void bars_follow(void)
+{
+    uint8_t t[3], b[3];
+    if (screen == SCR_MENU) {
+        memcpy(t, TH.bg, 3);
+        memcpy(b, ui.w < ui.h ? TH.nav : TH.bg, 3);
+    } else {
+        table_rgb(0, t);
+        table_rgb(255, b);
+    }
+    shell_system_bars((uint32_t)t[0] << 16 | (uint32_t)t[1] << 8 | t[2],
+                      (uint32_t)b[0] << 16 | (uint32_t)b[1] << 8 | b[2]);
+}
+#endif
+
 static void to_pixels(int x, int y, float *fx, float *fy)
 {
     int ww, wh;
@@ -7223,6 +7276,9 @@ int main(int argc, char **argv)
         unlock_poll();                          /* the in-app purchase: bought, restored, its price */
 #ifdef __IPHONEOS__
         safe_frame();
+#endif
+#ifdef __ANDROID__
+        bars_follow();                          /* the system bars the colour of the screen's edges */
 #endif
         double t0 = perf_now();
         draw();
