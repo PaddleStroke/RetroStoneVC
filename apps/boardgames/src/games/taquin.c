@@ -33,8 +33,8 @@ static struct { int on, place, k, dx, dy, moved; float x0, y0, off; } push;   /*
 
 static box last_box;
 static float bx, by, side;
-static int fr, tile, gap, made_key = -1, made_small = -1;
-static SDL_Texture *t_tray, *t_tile[TQ_PLACES], *t_small;
+static int fr, tile, gap, made_key = -1;
+static SDL_Texture *t_tray, *t_tile[TQ_PLACES];
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* the chess position the picture shows (rank 8 first, files a..h): a piece in every 2 x 2 block of squares, none
@@ -158,14 +158,6 @@ static void layout(box b)
         free(src);
     }
     ui_board_used(bx, by, S, S);
-    int small = (int)(0.6f * ui.unit);
-    if (made_small != small) {
-        made_small = small;
-        ui_free(&t_small);
-        memset(ui_buf(small, small), 0, (size_t)small * small * 4);
-        token(0, small, ui_buf(small, small));
-        t_small = ui_tex(small, small, ui_buf(small, small));
-    }
 }
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
@@ -370,7 +362,7 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    ui_bar_number(b, t_small, G.moves);
+    ui_bar_number(b, NULL, G.moves);   /* a bare number: the shell draws the token */
 }
 
 /* ---- the menu's and the picker's cards --------------------------------------------------------------------------- */

@@ -45,8 +45,8 @@ static float bx, by, bw, bh, gx, gy;          /* the board's picture on the scre
 static float tx, ty, tw, th;                    /* the tray (tw 0: none), under the grid or beside it */
 static int tray_side;
 static long long made_board = -1;
-static int fr, cs, made_small = -1;
-static SDL_Texture *t_board, *t_plate, *t_glass, *t_base, *t_rivet, *t_lamp, *t_gem[2], *t_bomb, *t_small;
+static int fr, cs;
+static SDL_Texture *t_board, *t_plate, *t_glass, *t_base, *t_rivet, *t_lamp, *t_gem[2], *t_bomb;
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* a plate lying along x in a w x h picture: polished brass (the light along its upper edge), or glass */
@@ -286,14 +286,6 @@ static void layout(box b)
         }
     }
     ui_board_used(bx, by, bw, bh);
-    int small = (int)(0.6f * ui.unit);
-    if (made_small != small) {
-        made_small = small;
-        ui_free(&t_small);
-        memset(ui_buf(small, small), 0, (size_t)small * small * 4);
-        token(0, small, ui_buf(small, small));
-        t_small = ui_tex(small, small, ui_buf(small, small));
-    }
 }
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
@@ -621,7 +613,7 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    ui_count c[1] = {{t_small, G.moves}};
+    ui_count c[1] = {{NULL, G.moves}};   /* a bare number: the shell draws the token */
     ui_bar_fit(b, c, 1, 0);
 }
 

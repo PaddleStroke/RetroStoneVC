@@ -62,7 +62,7 @@ static box last_box;
 static int turned, made_u = -1, made_serial = -1, made_light = -1, made_small = -1;
 static float U, ox, oy, SW, SH;                 /* a unit (pixels), the plank's top left and size on the screen */
 static SDL_Texture *t_board, *t_gear[GEA_SIZES + 1], *t_light[GEA_SIZES + 1], *t_shadow[GEA_SIZES + 1], *t_cap,
-                   *t_redcap, *t_knob, *t_arm[GEA_SIZES + 1], *t_arrow[GEA_SIZES + 1][2], *t_badge, *t_icon, *t_par;
+                   *t_redcap, *t_knob, *t_arm[GEA_SIZES + 1], *t_arrow[GEA_SIZES + 1][2], *t_badge, *t_par;
 static int gear_px[GEA_SIZES + 1];
 
 static int mat_of(int s) { return s == 1 ? MAT_STEEL : s == 2 ? MAT_BRASS : MAT_WOOD; }
@@ -374,10 +374,6 @@ static void layout(box b)
         memset(ui_buf(small, small), 0, (size_t)small * small * 4);
         art_icon(ICON_PAR, small, ui_buf(small, small));
         t_par = ui_tex(small, small, ui_buf(small, small));
-        ui_free(&t_icon);
-        memset(ui_buf(small, small), 0, (size_t)small * small * 4);
-        paint_gear(ui_buf(small, small), small, small, small / 2.0f, small / 2.0f, 2, small / 4.8f, 0.1f, 1);
-        t_icon = ui_tex(small, small, ui_buf(small, small));
     }
     ui_tools_shown(T_SIZE + ntray);
 }
@@ -927,7 +923,7 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    pzt_bar_two_cream(b, t_icon, score(), t_par, par(), solved() && score() <= par());
+    pzt_bar_two_cream(b, NULL, score(), t_par, par(), solved() && score() <= par());
 }
 
 /* ---- the shell's pictures ------------------------------------------------------------------------------------------ */

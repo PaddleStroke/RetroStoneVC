@@ -40,7 +40,7 @@ static box last_box;
 static float bx, by, bw, bh, px0, py0, pwx, pwy, dot;   /* the field: its corner, its size; the pins' room (a place
                                                          * 0..1 across and down it); a pin's size */
 static int fr, made_key = -1, made_small = -1, made_dot = -1;
-static SDL_Texture *t_board, *t_pin, *t_small, *t_knot;
+static SDL_Texture *t_board, *t_pin, *t_knot;
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* a brass pin seen from above: its round head, lit from the top left, a dark rim */
@@ -123,10 +123,6 @@ static void layout(box b)
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
         made_small = small;
-        ui_free(&t_small);
-        memset(ui_buf(small, small), 0, (size_t)small * small * 4);
-        token(0, small, ui_buf(small, small));
-        t_small = ui_tex(small, small, ui_buf(small, small));
         int k = (int)(0.5f * ui.unit);
         ui_free(&t_knot);
         memset(ui_buf(k, k), 0, (size_t)k * k * 4);
@@ -330,7 +326,7 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    ui_count c[2] = {{t_small, G.moves}, {t_knot, ut_crossings(&G)}};
+    ui_count c[2] = {{NULL, G.moves}, {t_knot, ut_crossings(&G)}};
     ui_bar_fit(b, c, 2, 0);
 }
 

@@ -45,8 +45,8 @@ static int route[TK_CELLS + 2], route_in[TK_CELLS + 2], nroute;   /* the line in
 
 static box last_box;
 static float bx, by, side, gx, gy;
-static int fr, cs, made_key = -1, made_small = -1;
-static SDL_Texture *t_board, *t_piece[2][6], *t_cross, *t_loco, *t_wagon[2], *t_small;
+static int fr, cs, made_key = -1;
+static SDL_Texture *t_board, *t_piece[2][6], *t_cross, *t_loco, *t_wagon[2];
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* a piece in a q x q picture: sleepers across the line, two brass rails along it */
@@ -261,14 +261,6 @@ static void layout(box b)
         }
     }
     ui_board_used(bx, by, S, S);
-    int small = (int)(0.6f * ui.unit);
-    if (made_small != small) {
-        made_small = small;
-        ui_free(&t_small);
-        memset(ui_buf(small, small), 0, (size_t)small * small * 4);
-        token(0, small, ui_buf(small, small));
-        t_small = ui_tex(small, small, ui_buf(small, small));
-    }
 }
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
@@ -568,7 +560,7 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    ui_count c[1] = {{t_small, G.moves}};
+    ui_count c[1] = {{NULL, G.moves}};   /* a bare number: the shell draws the token */
     ui_bar_fit(b, c, 1, 0);
 }
 

@@ -56,7 +56,7 @@ static int turned, SC, SR;                      /* the rectangle on the screen: 
 static int fw, fh, th, gap, pw, ph;             /* a tile's face, its thickness, the gap; the cells' pitch */
 static float ox, oy;                            /* the top left cell's tile */
 static int made_key = -1, made_small = -1;
-static SDL_Texture *t_tile, *t_shadow, *t_face[TCN_FACES], *t_block, *t_board, *t_small, *t_fall[TCN_FALLS];
+static SDL_Texture *t_tile, *t_shadow, *t_face[TCN_FACES], *t_block, *t_board, *t_fall[TCN_FALLS];
 static float board_x, board_y;
 static int board_w, board_h;
 
@@ -179,9 +179,6 @@ static void small_textures(void)
     int s = (int)(0.6f * ui.unit);
     if (made_small == s) return;
     made_small = s;
-    ui_free(&t_small);
-    tile_pic(MJ_DOTS, s, ui_buf(s, s));
-    t_small = ui_tex(s, s, ui_buf(s, s));
     for (int f = 0; f < TCN_FALLS; f++) {
         ui_free(&t_fall[f]);
         paint_fall(f, s, ui_buf(s, s), PZT_CREAM);
@@ -507,7 +504,7 @@ static void bar(int player, box b)
     (void)player;
     small_textures();
     int falls = G.b.fall != TCN_STILL;
-    float d = ui_bar_fit(b, (ui_count[]){{t_small, G.tiles}}, 1, falls);
+    float d = ui_bar_fit(b, (ui_count[]){{NULL, G.tiles}}, 1, falls);   /* a bare number: the shell draws the token */
     if (falls) {
         float cx, cy;
         ui_bar_spot(b, 0, d, &cx, &cy);

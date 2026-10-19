@@ -42,8 +42,8 @@ enum { K_BASIN = 1, K_WET = 2, K_TANK = 4 };
 static pp_game G;
 static box last_box;
 static float bx, by, side;
-static int fr, cs, ox, oy, made_key = -1, made_small = -1, serial;
-static SDL_Texture *t_board, *t_pipe[4], *t_strip, *t_hub, *t_basin, *t_tank, *t_small;
+static int fr, cs, ox, oy, made_key = -1, serial;
+static SDL_Texture *t_board, *t_pipe[4], *t_strip, *t_hub, *t_basin, *t_tank;
 
 /* the water and the turns, on the screen */
 static uint8_t wet[PP_TILES], wet_mask[PP_TILES];
@@ -266,14 +266,6 @@ static void layout(box b)
         t_basin = water_disc(RBI * cs);
     }
     ui_board_used(bx, by, S, S);
-    int small = (int)(0.6f * ui.unit);
-    if (made_small != small) {
-        made_small = small;
-        ui_free(&t_small);
-        memset(ui_buf(small, small), 0, (size_t)small * small * 4);
-        token(0, small, ui_buf(small, small));
-        t_small = ui_tex(small, small, ui_buf(small, small));
-    }
 }
 
 /* ---- the water --------------------------------------------------------------------------------------------------- */
@@ -593,7 +585,7 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    ui_count c[1] = {{t_small, G.moves}};
+    ui_count c[1] = {{NULL, G.moves}};   /* a bare number: the shell draws the token */
     ui_bar_fit(b, c, 1, 0);
 }
 

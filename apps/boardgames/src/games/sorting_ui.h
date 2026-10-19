@@ -62,13 +62,13 @@ typedef struct {
     Uint32 extra_t0;
     /* the layout: the board bs x bh at (bx, by), the rows of tubes on it */
     box last_box;
-    int made_key, made_small, fr, rows, per[SUI_ROWS], show;   /* show: the places drawn (the menu's card: a few); 0
+    int made_key, fr, rows, per[SUI_ROWS], show;   /* show: the places drawn (the menu's card: a few); 0
                                                                  * all */
     float bx, by, bs, bh, pitch, tw, th, lh, gw, iw, base_y[SUI_ROWS];
     float row_need;                             /* the height a row of tubes takes: its layers, head room, shelf, lift */
     float area[SRT_CAP + 1];                    /* the interior's area below each layer's top, upright */
     float poly[2 * SUI_ARC];                    /* the interior, the tube's centre at 0, 0 */
-    SDL_Texture *t_board, *t_back, *t_front, *t_cork, *t_band, *t_plus, *t_small, *t_ball[HUE_N + 1],
+    SDL_Texture *t_board, *t_back, *t_front, *t_cork, *t_band, *t_plus, *t_ball[HUE_N + 1],
         *t_mark[HUE_N + 1];
 } sui;
 
@@ -982,7 +982,7 @@ static inline void sui_release(sui *s, float x, float y)
 /* ---- the bar: the moves; the hint: the shell's tool 0 (its lamp) ---------------------------------------------------- */
 static inline void sui_bar(sui *s, box b)
 {
-    puz_bar_moves(b, b.w > 2.2f * ui.unit ? s->t_small : NULL, s->G.moves);
+    puz_bar_moves(b, NULL, s->G.moves);   /* a bare number: the shell draws the token */
 }
 
 static inline void sui_tool_draw(sui *s)
@@ -1072,17 +1072,6 @@ static inline void sui_token(int balls, int size, uint8_t *rgba)   /* a tube of 
     sui_paint_tube(rgba, size, size, (size - tw) / 2, (int)(0.06f * size), tw, th, balls, u, 4, 0);
 }
 
-static inline void sui_make_small(sui *s)
-{
-    int small = (int)(0.6f * ui.unit);
-    if (s->made_small == small) return;
-    s->made_small = small;
-    ui_free(&s->t_small);
-    memset(ui_buf(small, small), 0, (size_t)small * small * 4);
-    sui_token(s->balls, small, ui_buf(small, small));
-    s->t_small = ui_tex(small, small, ui_buf(small, small));
-}
-
 /* a rack painted into a picture: G's tubes (show: only the first few, close up; 0 all) */
 static inline void sui_rack_pic(int balls, const srt_game *G, int show, int size, uint8_t *rgba)
 {
@@ -1139,7 +1128,7 @@ static inline void sui_chapter_icon(int balls, sui_level_fn level_of, int first,
 
 /* ---- the game for the shell: one state, the shell's calls passed to it ----------------------------------------------- */
 #define SUI_GAME(NAME, ID, ORDER, BALLS, MAKE, LEVEL, LEVELS, CHAPTERS)                                             \
-    static sui S = {.balls = BALLS, .make = MAKE, .lifted = -1, .made_key = -1, .made_small = -1};                  \
+    static sui S = {.balls = BALLS, .make = MAKE, .lifted = -1, .made_key = -1};                                    \
     static void token(int player, int size, uint8_t *rgba) { (void)player; sui_token(BALLS, size, rgba); }        \
     static void thumb(int variant, int size, uint8_t *rgba) { sui_thumb(BALLS, MAKE, variant, size, rgba); }      \
     static void level_thumb(int level, int size, uint8_t *rgba)                                                     \
@@ -1155,7 +1144,7 @@ static inline void sui_chapter_icon(int balls, sui_level_fn level_of, int first,
     static int level_stars(void) { return sui_stars(&S); }                                                          \
     static int score(void) { return S.G.moves; }                                                                    \
     static int par(void) { return S.G.par; }                                                                        \
-    static void layout(box b) { sui_layout(&S, b); sui_make_small(&S); }                                           \
+    static void layout(box b) { sui_layout(&S, b); }                                                              \
     static void draw(void) { sui_draw(&S); }                                                                        \
     static void press(float x, float y) { sui_press(&S, x, y); }                                                    \
     static void motion(float x, float y) { sui_motion(&S, x, y); }                                                  \

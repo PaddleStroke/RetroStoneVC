@@ -37,9 +37,9 @@
 static const uint8_t BRASS[3] = {226, 182, 86};
 
 static psgame G;
-static int q, fr, made_w = -1, made_b = -1, made_goal = -2, made_small = -1;
+static int q, fr, made_w = -1, made_b = -1, made_goal = -2;
 static float bx, by, cx, cy, s;                 /* the board's corner, its middle, the spacing (pixels) */
-static SDL_Texture *t_board, *t_marble, *t_tray, *t_small;
+static SDL_Texture *t_board, *t_marble, *t_tray;
 static int sel = -1;                            /* the marble picked */
 static psmove opts[8];                          /* its jumps */
 static int nopts;
@@ -324,13 +324,6 @@ static void layout(box b)
         }
     }
     ui_board_used(bx, by, (float)w, (float)w);
-    int small = (int)(0.6f * ui.unit);
-    if (made_small != small) {
-        made_small = small;
-        ui_free(&t_small);
-        art_counter(COUNTER_STONE, COLOUR, small, ui_buf(small, small));
-        t_small = ui_tex(small, small, ui_buf(small, small));
-    }
 }
 
 /* ---- the board on the screen ------------------------------------------------------------------------------------- */
@@ -501,7 +494,7 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    ui_bar_count(b, t_small, G.pegs);
+    ui_bar_count(b, NULL, G.pegs);   /* a bare number: the shell draws the token */
 }
 
 static void token(int player, int size, uint8_t *rgba)

@@ -49,8 +49,8 @@ static int light_colour(int c)                  /* 1: a light colour (its mark d
 static nk_game G;
 static box last_box;
 static float bx, by, side;
-static int fr, cs, ox, oy, made_key = -1, made_small = -1, serial;
-static SDL_Texture *t_board, *t_dot[NK_COLOURS], *t_small;
+static int fr, cs, ox, oy, made_key = -1, serial;
+static SDL_Texture *t_board, *t_dot[NK_COLOURS];
 static int active = -1, anchor = -1;           /* the colour picked for taps (its path's end marked), its dot */
 static struct { int on, cell, moved, line, was_active, from, linked; } ptr;
 static int from_cell(void);
@@ -174,14 +174,6 @@ static void layout(box b)
         }
     }
     ui_board_used(bx, by, S, S);
-    int small = (int)(0.6f * ui.unit);
-    if (made_small != small) {
-        made_small = small;
-        ui_free(&t_small);
-        memset(ui_buf(small, small), 0, (size_t)small * small * 4);
-        token(0, small, ui_buf(small, small));
-        t_small = ui_tex(small, small, ui_buf(small, small));
-    }
 }
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
@@ -475,7 +467,7 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    ui_count c[1] = {{t_small, G.moves}};
+    ui_count c[1] = {{NULL, G.moves}};   /* a bare number: the shell draws the token */
     ui_bar_fit(b, c, 1, 0);
 }
 

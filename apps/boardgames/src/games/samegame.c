@@ -48,9 +48,9 @@ static box last_box;
 static float bx, by, bw, bh, gx, gy, q;         /* the tray; the grid's top left on the screen, a cell's side */
 static int turned;                              /* the tray on its side (upright in portrait): the columns run down
                                                  * the screen from the top, the tiles fall to the left */
-static int fr, made_small = -1;
+static int fr;
 static long long made_key = -1;
-static SDL_Texture *t_tray, *t_tile[6], *t_small, *t_plaque;
+static SDL_Texture *t_tray, *t_tile[6], *t_plaque;
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* a tile of colour c (1..5: COLOURS), d x d: lacquered wood, bevelled, its mark inlaid */
@@ -175,14 +175,6 @@ static void layout(box b)
         t_plaque = ui_tex(pw, ph, ui_buf(pw, ph));
     }
     ui_board_used(bx, by, bw, bh);
-    int small = (int)(0.6f * ui.unit);
-    if (made_small != small) {
-        made_small = small;
-        ui_free(&t_small);
-        memset(ui_buf(small, small), 0, (size_t)small * small * 4);
-        token(0, small, ui_buf(small, small));
-        t_small = ui_tex(small, small, ui_buf(small, small));
-    }
 }
 
 /* ---- the position ------------------------------------------------------------------------------------------------ */
@@ -457,7 +449,7 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    puz_bar_moves(b, b.w > 2.4f * ui.unit ? t_small : NULL, G.score);
+    puz_bar_moves(b, NULL, G.score);   /* a bare number: the shell draws the token */
 }
 
 static void use_hint(void)
