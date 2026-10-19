@@ -1,0 +1,12 @@
+Jalur Metro
+# Tujuan
+Hubungkan stasiun-stasiun kota yang terus tumbuh dengan jalur metro dan angkut para penumpangnya. Setiap penumpang menunjukkan bentuk stasiun yang ingin dicapainya.
+# Satu langkah
+Seret dari sebuah stasiun melewati stasiun lain untuk menggambar jalur. Seret ujung jalur untuk memperpanjangnya, atau kembali ke atas pemberhentian terakhirnya untuk memendekkannya. Seret sepotong jalur ke sebuah stasiun agar jalur melewatinya. Ketuk warna jalur di bawah peta dua kali untuk menghapus jalur itu.
+- Sebuah kereta berjalan di setiap jalur. Penumpang naik kereta yang membawa mereka lebih dekat ke bentuknya, dan berganti jalur di stasiun yang dilalui dua jalur.
+- Jalur memerlukan satu terowongan setiap kali menyeberangi air.
+- Setiap minggu, pilih satu hadiah: jalur baru, satu gerbong, dua terowongan, atau stasiun transit yang menampung lebih banyak penumpang dan menaikkan mereka lebih cepat.
+# Akhir permainan
+Stasiun dengan terlalu banyak penumpang menunggu memulai pengatur waktu di sekelilingnya. Saat penuh, permainan berakhir.
+# Level dan bintang
+Setiap level punya tiga target penumpang yang diantar: tiap target yang tercapai bernilai satu bintang, dan yang ketiga mengakhiri level. Dengan petunjuk, paling banyak 2 bintang; dengan tiga, 1. Main tanpa akhir: makin besar kotanya, makin sedikit penumpang untuk tiap bintang.

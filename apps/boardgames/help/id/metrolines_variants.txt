@@ -1,0 +1,3 @@
+Kota kecil
+Kota sedang
+Kota besar

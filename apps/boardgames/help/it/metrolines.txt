@@ -1,0 +1,12 @@
+Linee della metro
+# Lo scopo
+Collega le stazioni di una città che cresce con linee della metro e trasporta i suoi passeggeri. Ogni passeggero mostra la forma della stazione che vuole raggiungere.
+# Una mossa
+Trascina da una stazione attraverso altre per tracciare una linea. Trascina il capolinea di una linea per allungarla, o indietro sulla sua ultima fermata per accorciarla. Trascina un tratto di linea su una stazione per farla passare di lì. Tocca due volte il colore di una linea sotto la mappa per toglierla.
+- Su ogni linea corre un treno. I passeggeri salgono su un treno che li avvicina alla loro forma e cambiano linea dove due linee hanno una stazione in comune.
+- Una linea ha bisogno di un tunnel ogni volta che attraversa l'acqua.
+- Ogni settimana scegli un dono: una nuova linea, un vagone, due tunnel o un interscambio, una stazione che contiene più passeggeri e li fa salire più in fretta.
+# La fine della partita
+Una stazione con troppi passeggeri in attesa fa partire un timer intorno a sé. Quando è pieno, la partita finisce.
+# Livelli e stelle
+Un livello ha tre obiettivi di passeggeri trasportati: ognuno raggiunto vale una stella, e il terzo chiude il livello. Con un suggerimento, al massimo 2 stelle; con tre, 1. Partita infinita: più grande è la città, meno passeggeri servono per ogni stella.

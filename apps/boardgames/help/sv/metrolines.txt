@@ -1,0 +1,12 @@
+Tunnelbanelinjer
+# Målet
+Förbind stationerna i en växande stad med tunnelbanelinjer och kör passagerarna. Varje passagerare visar formen på stationen den vill till.
+# Ett drag
+Dra från en station genom andra för att rita en linje. Dra i en linjes ände för att förlänga den, eller tillbaka över dess sista hållplats för att korta den. Dra en bit av en linje till en station för att leda linjen genom den. Tryck två gånger på en linjes färg under kartan för att ta bort linjen.
+- Ett tåg går på varje linje. Passagerarna kliver på ett tåg som för dem närmare deras form och byter linje där två linjer delar station.
+- En linje behöver en tunnel varje gång den korsar vatten.
+- Varje vecka väljer du en gåva: en ny linje, en vagn, två tunnlar eller en bytesstation, en station som rymmer fler passagerare och tar ombord dem snabbare.
+# Partiets slut
+En station med för många väntande passagerare startar en klocka runt sig. När den är full tar spelet slut.
+# Banor och stjärnor
+En bana har tre mål för körda passagerare: varje nått mål ger en stjärna, och det tredje avslutar banan. Med en ledtråd högst 2 stjärnor; med tre, 1. Oändligt spel: ju större stad, desto färre passagerare krävs för varje stjärna.

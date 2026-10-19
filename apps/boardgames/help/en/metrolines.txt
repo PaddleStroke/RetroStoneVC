@@ -1,0 +1,12 @@
+Metro Lines
+# The aim
+Link the stations of a growing city with metro lines and carry its passengers. Each passenger shows the shape of the station it wants to reach.
+# A move
+Drag from a station through others to draw a line. Drag a line's end to lengthen it, or back over its last stop to shorten it. Drag a piece of a line onto a station to take the line through it. Tap a line's colour under the map twice to take the line away.
+- A train runs along each line. Passengers board a train that brings them closer to their shape, and change lines where two lines share a station.
+- A line needs a tunnel each time it crosses water.
+- Each week, choose a gift: a new line, a carriage, two tunnels, or an interchange, a station that holds more passengers and loads them faster.
+# The end of the game
+A station with too many passengers waiting starts a timer around it. When the timer is full, the game ends.
+# Levels and stars
+A level has three goals of passengers delivered: each one reached is a star, and the third ends the level. With a hint, 2 stars at most; with three, 1. Endless play: the bigger the city, the fewer passengers each star takes.

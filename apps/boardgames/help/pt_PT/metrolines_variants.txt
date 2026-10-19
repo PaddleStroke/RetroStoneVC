@@ -1,0 +1,3 @@
+Cidade pequena
+Cidade média
+Cidade grande

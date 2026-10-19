@@ -1,0 +1,12 @@
+Linie metra
+# Cel gry
+Połącz stacje rosnącego miasta liniami metra i przewoź pasażerów. Każdy pasażer pokazuje kształt stacji, do której chce dojechać.
+# Ruch
+Przeciągnij od stacji przez inne, aby narysować linię. Przeciągnij koniec linii, aby ją wydłużyć, albo z powrotem na jej ostatni przystanek, aby ją skrócić. Przeciągnij odcinek linii na stację, aby linia przez nią przechodziła. Dotknij dwa razy koloru linii pod mapą, aby ją usunąć.
+- Po każdej linii jeździ pociąg. Pasażerowie wsiadają do pociągu, który zbliża ich do ich kształtu, i przesiadają się tam, gdzie dwie linie mają wspólną stację.
+- Linia potrzebuje tunelu za każdym razem, gdy przecina wodę.
+- Co tydzień wybierz prezent: nową linię, wagon, dwa tunele albo węzeł przesiadkowy, czyli stację, która mieści więcej pasażerów i szybciej ich wpuszcza.
+# Koniec gry
+Gdy na stacji czeka zbyt wielu pasażerów, wokół niej rusza licznik. Gdy się zapełni, gra się kończy.
+# Poziomy i gwiazdki
+Poziom ma trzy cele przewiezionych pasażerów: każdy osiągnięty to gwiazdka, a trzeci kończy poziom. Z podpowiedzią najwyżej 2 gwiazdki, z trzema 1. Gra bez końca: im większe miasto, tym mniej pasażerów potrzeba na każdą gwiazdkę.

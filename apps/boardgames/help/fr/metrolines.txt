@@ -1,0 +1,12 @@
+Lignes de métro
+# Le but
+Relie les stations d'une ville qui grandit par des lignes de métro et transporte ses voyageurs. Chaque voyageur montre la forme de la station qu'il veut rejoindre.
+# Un coup
+Fais glisser le doigt d'une station à travers d'autres pour tracer une ligne. Tire le bout d'une ligne pour l'allonger, ou ramène-le sur son dernier arrêt pour la raccourcir. Tire un morceau de ligne sur une station pour faire passer la ligne par elle. Touche deux fois la couleur d'une ligne sous le plan pour la retirer.
+- Un train roule sur chaque ligne. Les voyageurs montent dans un train qui les rapproche de leur forme et changent de ligne là où deux lignes partagent une station.
+- Une ligne a besoin d'un tunnel chaque fois qu'elle traverse l'eau.
+- Chaque semaine, choisis un cadeau : une nouvelle ligne, une voiture, deux tunnels, ou une correspondance, une station qui accueille plus de voyageurs et les fait monter plus vite.
+# La fin de la partie
+Une station où attendent trop de voyageurs lance un compte à rebours autour d'elle. Quand il est plein, la partie s'arrête.
+# Niveaux et étoiles
+Un niveau a trois objectifs de voyageurs transportés : chacun atteint vaut une étoile, et le troisième termine le niveau. Avec un indice, 2 étoiles au plus ; avec trois, 1. Partie sans fin : plus la ville est grande, moins il faut de voyageurs par étoile.

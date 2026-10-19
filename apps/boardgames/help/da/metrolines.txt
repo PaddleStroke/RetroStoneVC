@@ -1,0 +1,12 @@
+Metrolinjer
+# Målet
+Forbind stationerne i en voksende by med metrolinjer, og kør passagererne. Hver passager viser formen på den station, den vil hen til.
+# Et træk
+Træk fra en station gennem andre for at tegne en linje. Træk i en linjes ende for at forlænge den, eller tilbage over dens sidste stop for at afkorte den. Træk et stykke af en linje hen på en station for at føre linjen gennem den. Tryk to gange på en linjes farve under kortet for at fjerne linjen.
+- Et tog kører på hver linje. Passagerer stiger på et tog, der bringer dem nærmere deres form, og skifter linje, hvor to linjer deler en station.
+- En linje skal bruge en tunnel, hver gang den krydser vand.
+- Hver uge vælger du en gave: en ny linje, en vogn, to tunneler eller et knudepunkt, en station, der kan rumme flere passagerer og får dem hurtigere ombord.
+# Spillets afslutning
+En station med for mange ventende passagerer starter et ur omkring sig. Når uret er fuldt, slutter spillet.
+# Baner og stjerner
+En bane har tre mål for kørte passagerer: hvert nået mål giver en stjerne, og det tredje afslutter banen. Med et tip højst 2 stjerner; med tre, 1. Uendeligt spil: jo større by, jo færre passagerer kræver hver stjerne.

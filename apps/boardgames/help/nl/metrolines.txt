@@ -1,0 +1,12 @@
+Metrolijnen
+# Het doel
+Verbind de stations van een groeiende stad met metrolijnen en vervoer de reizigers. Elke reiziger toont de vorm van het station waar hij heen wil.
+# Een zet
+Sleep vanaf een station langs andere om een lijn te tekenen. Sleep het eind van een lijn om haar te verlengen, of terug over haar laatste halte om haar in te korten. Sleep een stuk lijn naar een station om de lijn erlangs te leiden. Tik twee keer op de kleur van een lijn onder de kaart om haar weg te halen.
+- Op elke lijn rijdt een trein. Reizigers stappen in een trein die hen dichter bij hun vorm brengt en stappen over waar twee lijnen een station delen.
+- Een lijn heeft een tunnel nodig telkens als ze water oversteekt.
+- Elke week kies je een cadeau: een nieuwe lijn, een rijtuig, twee tunnels of een overstapstation, dat meer reizigers kwijt kan en ze sneller laat instappen.
+# Het einde van het spel
+Een station waar te veel reizigers wachten, start een klok om zich heen. Is die vol, dan is het spel voorbij.
+# Levels en sterren
+Een level heeft drie doelen van vervoerde reizigers: elk gehaald doel is een ster, en het derde beëindigt het level. Met een hint hoogstens 2 sterren; met drie, 1. Eindeloos: hoe groter de stad, hoe minder reizigers elke ster vraagt.

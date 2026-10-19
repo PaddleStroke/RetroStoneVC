@@ -1,0 +1,12 @@
+T-banelinjer
+# Målet
+Knytt sammen stasjonene i en voksende by med T-banelinjer, og frakt passasjerene. Hver passasjer viser formen på stasjonen den vil til.
+# Et trekk
+Dra fra en stasjon gjennom andre for å tegne en linje. Dra i enden av en linje for å forlenge den, eller tilbake over siste stopp for å korte den ned. Dra et stykke av en linje bort på en stasjon for å føre linjen gjennom den. Trykk to ganger på fargen til en linje under kartet for å fjerne linjen.
+- Et tog går på hver linje. Passasjerene går på et tog som bringer dem nærmere formen sin, og bytter linje der to linjer deler en stasjon.
+- En linje trenger en tunnel hver gang den krysser vann.
+- Hver uke velger du en gave: en ny linje, en vogn, to tunneler eller et knutepunkt, en stasjon som rommer flere passasjerer og får dem raskere om bord.
+# Slutten på spillet
+En stasjon med for mange ventende passasjerer starter en klokke rundt seg. Når den er full, er spillet slutt.
+# Nivåer og stjerner
+Et nivå har tre mål for fraktede passasjerer: hvert nådde mål gir en stjerne, og det tredje avslutter nivået. Med et hint høyst 2 stjerner; med tre, 1. Uendelig spill: jo større by, jo færre passasjerer trengs for hver stjerne.

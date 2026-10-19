@@ -1,0 +1,12 @@
+Metrolinjat
+# Tavoite
+Yhdistä kasvavan kaupungin asemat metrolinjoilla ja kuljeta matkustajat. Jokainen matkustaja näyttää sen aseman muodon, jolle se haluaa päästä.
+# Siirto
+Vedä asemalta muiden kautta piirtääksesi linjan. Vedä linjan päästä pidentääksesi sitä tai takaisin viimeisen pysäkin yli lyhentääksesi sitä. Vedä linjan pala asemalle, niin linja kulkee sen kautta. Napauta linjan väriä kartan alla kahdesti poistaaksesi linjan.
+- Jokaisella linjalla kulkee juna. Matkustajat nousevat junaan, joka vie heitä lähemmäs heidän muotoaan, ja vaihtavat linjaa, missä kaksi linjaa jakaa aseman.
+- Linja tarvitsee tunnelin aina, kun se ylittää vettä.
+- Joka viikko valitset lahjan: uuden linjan, vaunun, kaksi tunnelia tai vaihtoaseman, joka mahduttaa enemmän matkustajia ja ottaa heidät kyytiin nopeammin.
+# Pelin loppu
+Kun asemalla odottaa liikaa matkustajia, sen ympärille käynnistyy ajastin. Kun se täyttyy, peli päättyy.
+# Tasot ja tähdet
+Tasolla on kolme tavoitetta kuljetetuista matkustajista: jokainen saavutettu antaa tähden, ja kolmas päättää tason. Vihjeen kanssa enintään 2 tähteä, kolmen kanssa 1. Loputon peli: mitä suurempi kaupunki, sitä vähemmän matkustajia kukin tähti vaatii.

@@ -1,0 +1,12 @@
+Linky metra
+# Cíl hry
+Propojte stanice rostoucího města linkami metra a vozte jeho cestující. Každý cestující ukazuje tvar stanice, kam se chce dostat.
+# Tah
+Táhněte od stanice přes další a nakreslete linku. Tažením konce linky ji prodloužíte, tažením zpět přes její poslední zastávku ji zkrátíte. Přetáhněte úsek linky na stanici a linka povede přes ni. Dvojím klepnutím na barvu linky pod mapou linku odstraníte.
+- Po každé lince jezdí vlak. Cestující nastoupí do vlaku, který je přiblíží k jejich tvaru, a přestupují tam, kde mají dvě linky společnou stanici.
+- Linka potřebuje tunel pokaždé, když přechází vodu.
+- Každý týden si vyberte dárek: novou linku, vagon, dva tunely nebo přestupní uzel, stanici, která pojme víc cestujících a rychleji je nakládá.
+# Konec hry
+Když na stanici čeká příliš mnoho cestujících, rozběhne se kolem ní časovač. Když se naplní, hra končí.
+# Úrovně a hvězdy
+Úroveň má tři cíle přepravených cestujících: každý dosažený je hvězda a třetí úroveň ukončí. S nápovědou nejvýš 2 hvězdy, se třemi 1. Nekonečná hra: čím větší město, tím méně cestujících stačí na každou hvězdu.

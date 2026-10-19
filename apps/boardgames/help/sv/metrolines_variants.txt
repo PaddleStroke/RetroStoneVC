@@ -1,0 +1,3 @@
+Liten stad
+Mellanstor stad
+Stor stad

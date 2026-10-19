@@ -1,0 +1,12 @@
+Metro Hatları
+# Amaç
+Büyüyen bir şehrin istasyonlarını metro hatlarıyla bağla ve yolcularını taşı. Her yolcu, gitmek istediği istasyonun şeklini gösterir.
+# Bir hamle
+Bir hat çizmek için bir istasyondan başlayıp diğerlerinin üzerinden sürükle. Bir hattı uzatmak için ucunu sürükle, kısaltmak için son durağının üzerine geri getir. Hattın bir parçasını bir istasyonun üzerine sürüklersen hat oradan geçer. Bir hattı kaldırmak için haritanın altındaki rengine iki kez dokun.
+- Her hatta bir tren gider. Yolcular kendilerini şekillerine yaklaştıran trene biner ve iki hattın ortak istasyonunda aktarma yapar.
+- Bir hat suyu her geçişinde bir tünele ihtiyaç duyar.
+- Her hafta bir hediye seç: yeni bir hat, bir vagon, iki tünel ya da daha çok yolcu alan ve onları daha hızlı bindiren bir aktarma istasyonu.
+# Oyunun sonu
+Çok fazla yolcunun beklediği bir istasyonun çevresinde bir sayaç başlar. Sayaç dolunca oyun biter.
+# Seviyeler ve yıldızlar
+Her seviyenin taşınan yolcu için üç hedefi vardır: ulaşılan her hedef bir yıldızdır, üçüncüsü seviyeyi bitirir. İpucuyla en fazla 2 yıldız; üç ipucuyla 1. Sonsuz oyun: şehir büyüdükçe her yıldız için daha az yolcu gerekir.

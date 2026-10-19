@@ -1,0 +1,12 @@
+Metrolinien
+# Das Ziel
+Verbinde die Stationen einer wachsenden Stadt mit Metrolinien und befördere ihre Fahrgäste. Jeder Fahrgast zeigt die Form der Station, zu der er will.
+# Ein Zug
+Ziehe von einer Station über andere, um eine Linie zu zeichnen. Ziehe das Ende einer Linie, um sie zu verlängern, oder zurück über ihren letzten Halt, um sie zu kürzen. Ziehe ein Stück einer Linie auf eine Station, um die Linie dort entlangzuführen. Tippe zweimal auf die Farbe einer Linie unter der Karte, um sie zu entfernen.
+- Auf jeder Linie fährt ein Zug. Fahrgäste steigen in einen Zug, der sie ihrer Form näher bringt, und steigen um, wo sich zwei Linien eine Station teilen.
+- Eine Linie braucht für jede Querung von Wasser einen Tunnel.
+- Jede Woche wählst du ein Geschenk: eine neue Linie, einen Wagen, zwei Tunnel oder einen Umsteigebahnhof, eine Station, die mehr Fahrgäste fasst und sie schneller einsteigen lässt.
+# Das Ende der Partie
+Warten an einer Station zu viele Fahrgäste, läuft um sie ein Zeitring. Ist er voll, endet die Partie.
+# Level und Sterne
+Ein Level hat drei Ziele an beförderten Fahrgästen: Jedes erreichte bringt einen Stern, das dritte beendet das Level. Mit einem Tipp höchstens 2 Sterne, mit dreien 1. Endlos: Je größer die Stadt, desto weniger Fahrgäste braucht jeder Stern.

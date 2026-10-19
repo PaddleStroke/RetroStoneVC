@@ -1,0 +1,12 @@
+Linhas de metro
+# O objetivo
+Liga as estações de uma cidade que cresce com linhas de metro e transporta os seus passageiros. Cada passageiro mostra a forma da estação onde quer chegar.
+# Uma jogada
+Arrasta de uma estação, passando por outras, para traçar uma linha. Arrasta a ponta de uma linha para a prolongar, ou de volta sobre a última paragem para a encurtar. Arrasta um troço de linha para uma estação para a linha passar por ela. Toca duas vezes na cor de uma linha por baixo do mapa para a retirar.
+- Um comboio percorre cada linha. Os passageiros entram no comboio que os aproxima da sua forma e mudam de linha onde duas linhas partilham uma estação.
+- Uma linha precisa de um túnel sempre que atravessa a água.
+- Todas as semanas, escolhe uma oferta: uma linha nova, uma carruagem, dois túneis ou uma estação de correspondência, que acolhe mais passageiros e os faz entrar mais depressa.
+# O fim do jogo
+Uma estação com demasiados passageiros à espera inicia um relógio à sua volta. Quando fica cheio, o jogo acaba.
+# Níveis e estrelas
+Um nível tem três metas de passageiros transportados: cada uma atingida vale uma estrela, e a terceira termina o nível. Com uma dica, no máximo 2 estrelas; com três, 1. Jogo sem fim: quanto maior a cidade, menos passageiros pede cada estrela.
