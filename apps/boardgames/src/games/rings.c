@@ -29,7 +29,7 @@
 
 static rg_game G;
 static box last_box;
-static int turned, made_key = -1, made_small = -1, serial, made_serial = -1;
+static int turned, made_key = -1, made_bw = -1, made_bh = -1, made_small = -1, serial, made_serial = -1;
 static float S, ox, oy, bead;                   /* the scale (a ring's radius, pixels), the unit's origin; a bead */
 static float bx, by;                            /* the board picture's top left */
 static int bw, bh;
@@ -242,6 +242,8 @@ static void token(int player, int size, uint8_t *rgba)   /* two beads, ivory and
 }
 
 /* ---- the layout --------------------------------------------------------------------------------------------- */
+static float shrink = 1;                        /* the scale cut so the arrows fit the room too */
+
 static void layout(box b)
 {
     last_box = b;
@@ -254,7 +256,7 @@ static void layout(box b)
     float uw = x1 - x0 + 2 * MARGIN, uh = y1 - y0 + 2 * MARGIN;
     float s0 = fminf(b.w / uw, b.h / uh), s1 = fminf(b.w / uh, b.h / uw);
     turned = s1 > 1.04f * s0;
-    S = floorf(fminf(turned ? s1 : s0, 0.3f * fminf((float)ui.w, (float)ui.h)));
+    S = floorf(shrink * fminf(turned ? s1 : s0, 0.3f * fminf((float)ui.w, (float)ui.h)));
     float mx = (x0 + x1) / 2, my = (y0 + y1) / 2, smx, smy;
     ox = oy = 0;
     float save = S;
@@ -270,9 +272,31 @@ static void layout(box b)
     bh = (int)fminf(bhu * S, b.h);
     bx = floorf(b.x + (b.w - bw) / 2);
     by = floorf(b.y + (b.h - bh) / 2);
+    /* the plank grown to hold the arrows as well (else they straddle its edge), within the room */
+    float px0 = bx, py0 = by, px1 = bx + bw, py1 = by + bh, ar = arrow_d() / 2 + 0.12f * bead;
+    for (int k = 0; k < m->rings; k++)
+        for (int w = 0; w < 2; w++) {
+            float ax, ay;
+            arrow_at(k, w, &ax, &ay);
+            px0 = fminf(px0, ax - ar), px1 = fmaxf(px1, ax + ar);
+            py0 = fminf(py0, ay - ar), py1 = fmaxf(py1, ay + ar);
+        }
+    float over = fmaxf((px1 - px0) / b.w, (py1 - py0) / b.h);
+    if (over > 1.001f && shrink == 1) {         /* the arrows out of the room: all a little smaller */
+        shrink = 1 / over;
+        layout(b);
+        shrink = 1;
+        return;
+    }
+    bx = floorf(fmaxf(px0, b.x));
+    by = floorf(fmaxf(py0, b.y));
+    bw = (int)(fminf(px1, b.x + b.w) - bx);
+    bh = (int)(fminf(py1, b.y + b.h) - by);
     int key = (int)S * 16 + turned * 4 + m->kind;
-    if (made_key != key || made_serial != serial) {
+    if (made_key != key || made_serial != serial || made_bw != bw || made_bh != bh) {
         made_key = key;
+        made_bw = bw;
+        made_bh = bh;
         made_serial = serial;
         ui_free(&t_board);
         uint8_t *o = malloc((size_t)bw * bh * 4);
