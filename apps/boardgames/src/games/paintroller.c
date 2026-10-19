@@ -231,7 +231,8 @@ static void layout(box b)
     if (made_small != small) {
         made_small = small;
         ui_free(&t_small);
-        paint_ball(small, ui_buf(small, small));
+        memset(ui_buf(small, small), 0, (size_t)small * small * 4);
+        art_icon(ICON_PAR, small, ui_buf(small, small));   /* the par's flag, as in the other level puzzles */
         t_small = ui_tex(small, small, ui_buf(small, small));
     }
 }
@@ -508,7 +509,7 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    pzt_bar_two(b, NULL, G.moves, t_small, par(), solved() && G.moves <= par());
+    pzt_bar_two_cream(b, NULL, G.moves, t_small, par(), solved() && G.moves <= par());
 }
 
 /* ---- the shell's pictures: the floor, the start painted, the ball on it ------------------------------------------ */
