@@ -176,6 +176,8 @@ static void test_random(void)
     slap_new(&G, SLAP_DOUBLE, 2, 3);
     CHECK(slap_script(&G, "#") && whole(P));
     CHECK(!slap_script(&G, "q"));
+    slap_new(&G, SLAP_DOUBLE, 2, 3);           /* a bot's moves: the actions it saw after each */
+    CHECK(slap_script(&G, "p/0 p/1") && G.n == 2 && !slap_script(&G, "p/") && !slap_script(&G, "px"));
 }
 
 int main(void)

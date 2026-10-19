@@ -206,6 +206,10 @@ int slap_script(slgame *g, const char *s)
             continue;
         default: return 0;
         }
+        if (*s == '/') {                        /* "/n": the actions a bot saw (slap_show judges it; here: none) */
+            if (*++s < '0' || *s > '9') return 0;
+            while (*s >= '0' && *s <= '9') s++;
+        }
         if (!slap_play(g, a)) return 0;
     }
     return 1;

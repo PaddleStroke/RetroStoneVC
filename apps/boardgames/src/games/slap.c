@@ -31,7 +31,9 @@
 static slgame G;
 static ct_moves MV = {.rest = 300};
 static int variant;
-static Uint32 claim_at;                         /* when the pile became the claimer's (0: not yet seen) */
+static Uint32 claim_at;                         /* the last action: the wait for a slap starts there, or as the cards
+                                                 * land (on the clock, not at a frame: a kept game played again draws
+                                                 * few) */
 static struct { int q, good; Uint32 t0; } flash;
 enum { TAG_CENTRE = 1, TAG_PILE, TAG_UNDER };
 
@@ -171,32 +173,28 @@ static void act(int a)
     slpos before = G.pos;
     if (!slap_play(&G, a)) { ui_sound(SND_DENY); return; }
     animate(&before);
-    claim_at = 0;
+    claim_at = ui_ms();
 }
 
 static int busy(void) { return ct_busy(&MV); }
 
 /* ---- the bot (slap_bot.c): the game read-only; its action played as a touch does; its reaction time is real here.
- * The humans may touch while it thinks (slaps are real time): the actions it saw are noted when it reads the game
- * (the worker thread: an atomic), and a move made for a game that has moved on since is let go, as a hand too late
- * (the bot looks again). */
-static _Atomic int bot_saw = -1;
-
-const slgame *slap_live(void)
-{
-    bot_saw = G.n;
-    return &G;
-}
+ * The humans may touch while it thinks (slaps are real time): its move carries the actions it saw ("s1/57"), and a
+ * move made for a game that has moved on since is let go, as a hand too late (the bot looks again). The count is in
+ * the move, so the record judges it the same way when the game is played again (a move without one: in time). */
+const slgame *slap_live(void) { return &G; }
 
 int slap_realtime(void) { return 1; }
 
 int slap_show(const char *move)
 {
-    int a = !strcmp(move, "p") ? SLA_PLAY : !strcmp(move, "c") ? SLA_CLAIM : -1;
-    if (move[0] == 's' && move[1] >= '0' && move[1] <= '9' && !move[2]) a = SLA_SLAP | (move[1] - '0');
+    const char *sl = strchr(move, '/');
+    int len = sl ? (int)(sl - move) : (int)strlen(move);
+    int a = len == 1 && move[0] == 'p' ? SLA_PLAY : len == 1 && move[0] == 'c' ? SLA_CLAIM : -1;
+    if (len == 2 && move[0] == 's' && move[1] >= '0' && move[1] <= '9') a = SLA_SLAP | (move[1] - '0');
     if (a < 0) return 0;
-    if ((bot_saw != G.n && !ui_replaying()) || (SLA_KIND(a) == SLA_SLAP && !slap_right(&G.pos)))
-        return 1;                               /* too late: nothing (played again: no bot looked, taken as in time) */
+    if ((sl && atoi(sl + 1) != G.n) || (SLA_KIND(a) == SLA_SLAP && !slap_right(&G.pos)))
+        return 1;                               /* too late: nothing */
     if (!slap_legal(&G.pos, a)) return 0;
     act(a);
     return 1;
@@ -209,7 +207,7 @@ static void start(int v)
     slap_new(&G, variant, ui.players, (uint32_t)ui_random(1 << 30));
     ct_calm(&MV);
     flash.t0 = 0;
-    claim_at = 0;
+    claim_at = ui_ms();
 }
 
 static int status(void)
@@ -225,7 +223,7 @@ static int undo(void)
     if (!slap_undo(&G)) return 0;
     ct_calm(&MV);
     flash.t0 = 0;
-    claim_at = 0;
+    claim_at = ui_ms();
     return 1;
 }
 
@@ -234,7 +232,7 @@ static int script(const char *s)
     int ok = slap_script(&G, s);
     ct_calm(&MV);
     flash.t0 = 0;
-    claim_at = 0;
+    claim_at = ui_ms();
     return ok;
 }
 
@@ -308,9 +306,9 @@ static void draw(void)
     /* an unpaid tribute: the pile waits a moment for a slap, then goes to the face card's player */
     if (p->phase == SLP_CLAIM) {
         ui_animate();
-        if (ct_busy(&MV)) claim_at = 0;
-        else if (!claim_at) claim_at = now;
-        else if (now - claim_at > CLAIM_WAIT) act(SLA_CLAIM);
+        Uint32 from = ct_quiet(&MV);
+        if ((Sint32)(claim_at - from) > 0) from = claim_at;
+        if (!ct_busy(&MV) && now - from > CLAIM_WAIT) act(SLA_CLAIM);
     }
 }
 

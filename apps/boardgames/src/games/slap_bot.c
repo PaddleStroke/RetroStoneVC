@@ -12,8 +12,8 @@
  * Runs on the worker thread: it copies the position at entry and touches nothing else (bots.h). No SDL.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
- * Its moves are the game's notation: "p" a card turned, "c" the pile gathered, "s1" player 1 slaps; played by
- * slap_show().
+ * Its moves are the game's notation: "p" a card turned, "c" the pile gathered, "s1" player 1 slaps, each followed by
+ * "/n", the actions it saw (slgame.n: "s1/57"); played by slap_show(), which lets a move go that the game moved past.
  */
 #ifndef _WIN32
 #define _POSIX_C_SOURCE 200809L                 /* nanosleep */
@@ -51,8 +51,10 @@ static int reaction(int level, ai_rng *r)
 static int think(int seat, int level, char *move, int cap)
 {
     double t0 = ai_now_ms();
-    slpos p = slap_live()->pos;                 /* the copy, at entry: nothing else is read */
-    if (p.phase == SLP_OVER || p.turn != seat || cap < 4) return 0;
+    const slgame *g = slap_live();
+    int saw = g->n;                             /* the actions seen: in the move (one the game moved past: let go) */
+    slpos p = g->pos;                           /* the copy, at entry: nothing else is read */
+    if (p.phase == SLP_OVER || p.turn != seat || cap < 12) return 0;
     ai_rng r;
     ai_seed(&r, ai_mix(ai_session_seed(), (uint64_t)p.nc * 64 + (uint64_t)seat));
     int wait = slap_right(&p) ? reaction(level, &r) : 0;
@@ -61,9 +63,9 @@ static int think(int seat, int level, char *move, int cap)
             if (ai_cancelled()) return 0;
             nap(5);
         }
-        snprintf(move, (size_t)cap, "s%d", seat);
+        snprintf(move, (size_t)cap, "s%d/%d", seat, saw);
     } else {
-        snprintf(move, (size_t)cap, p.phase == SLP_CLAIM ? "c" : "p");
+        snprintf(move, (size_t)cap, "%s/%d", p.phase == SLP_CLAIM ? "c" : "p", saw);
     }
     return !ai_cancelled();
 }

@@ -6,6 +6,9 @@
  * part (slap_live(), slap_show(), slap_realtime(): no waiting but in the timing check). --full for 200 games a pairing.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
+#include <stdlib.h>
+#include <string.h>
+
 #include "ai_selfplay.h"
 
 #include "games/slap.h"
@@ -88,14 +91,15 @@ int main(int argc, char **argv)
             slap_new(&T, s & 1 ? SLAP_SANDWICH : SLAP_DOUBLE, 2 + s % 3, s);
             for (int k = 0; k < 3000 && T.pos.phase != SLP_OVER && ok; k++) {
                 char m[BOT_MOVE_CAP] = "";
-                int right = slap_right(&T.pos), phase = T.pos.phase;
+                int right = slap_right(&T.pos), phase = T.pos.phase, seen = T.n;
                 ai_set_seed(ai_mix(s, (uint64_t)k));
                 ok &= b->think(T.pos.turn, k % 3, m, sizeof m) == 1;
                 ok &= m[0] == 's' ? right : m[0] == (phase == SLP_CLAIM ? 'c' : 'p');
+                ok &= strchr(m, '/') && atoi(strchr(m, '/') + 1) == seen;   /* the actions it saw */
                 ok &= one(m);
             }
         }
-        check("never a wrong slap; otherwise its card turned, or the pile gathered", ok);
+        check("never a wrong slap; otherwise its card turned, or the pile gathered; the actions seen in the move", ok);
     }
     {   /* the reaction time, waited for real: hard about half a second, easy about a second or more */
         double ms[AI_LEVELS] = {0};
