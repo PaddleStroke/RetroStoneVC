@@ -12,6 +12,9 @@
  * reasoning fills, its tile flying there). The keys: the arrows move a frame over the hollows and the tray, Return
  * (Enter, Space) taps what it frames. Undo takes back one action, all the way to the start. The bar: the moves.
  * Solved: a wave of gold light runs over the board; the stars count the hints and the mistakes (ui_logic_stars).
+ * A board that would fit a phone's width only with small numbers is drawn bigger, in a window: a drag off the tiles
+ * pans it (the keys' frame and the hint bring their cell into sight). The tray's tiles get their own size, as big as
+ * the rest of the room allows, in rows.
  * The shell's level screen chooses a level (150 in six chapters: mathcross_levels.h), or its die tab a puzzle made
  * at random (three variants).
  */
@@ -38,8 +41,10 @@ static int serial;
 
 static struct {
     box room;
-    int q, made;                                /* a cell's side; the pictures' key */
-    float bx, by, bw, bh, gx, gy;               /* the board's plank, the grid's corner */
+    int q, tq, made;                            /* a cell's side, a tray slot's; the pictures' key */
+    float bx, by, bw, bh, gx, gy;               /* the board's plank (panned), the grid's corner */
+    float vx, vy, vw, vh, px, py;               /* the board's window on the screen; the pan (0 or less) */
+    int pan, centre;                            /* the board bigger than its window: a drag off the tiles pans it */
     float tx, ty, tw, th;                       /* the tray's plank */
     float hx[MCR_GAPS], hy[MCR_GAPS];           /* each tile's home in the tray */
 } L;
@@ -47,8 +52,8 @@ static SDL_Texture *t_board, *t_tray, *t_tile, *t_small;
 static int made_small = -1;
 
 static int sel_tile = -1, sel_gap = -1, cur = -1;   /* cur: the keys' frame (gaps, then the tray's tiles) */
-static struct { int on, tile, gap, moved; float x0, y0, x, y; } drag;
-typedef struct { float x, y; Uint32 t0; int on; } flight;
+static struct { int on, tile, gap, moved, panning; float x0, y0, x, y, px0, py0; } drag;
+typedef struct { float x, y, s; Uint32 t0; int on; } flight;   /* s: the slot's side it left */
 static flight fly[MCR_GAPS];
 static bench_flash hint;
 static bench_wave win;
@@ -109,59 +114,116 @@ static void token(int player, int size, uint8_t *rgba)
     free(b);
 }
 
-/* ---- the layout: the board and the tray, as big as the room allows ---------------------------------------------- */
-static void fit(box b)
+/* ---- the layout: the board as big as the room allows but never under a readable cell (beyond its window, it pans),
+ * the tray beside it or under it, its tiles as big as the rest of the room allows, in rows ------------------------- */
+#define MARGIN 0.7f                             /* the board's plank's margins (both sides), in cells */
+#define BETWEEN 0.35f                           /* the room between the board and the tray */
+
+/* the tray's tiles: n of them, t big in tc columns across a and rows along b; the biggest t (cap at most), the fewest
+ * rows when even */
+static float tray_fit(int n, float a, float b, float cap, int *cols)
 {
-    int W = G.p.w, H = G.p.h, n = G.ntray > 0 ? G.ntray : 1;
-    float best = 0, M = 0.7f, GAP = 0.35f;      /* the planks' margins (both sides), the room between them */
-    int bt = n, bside = 0, btr = 99;
-    float cap = fminf(b.w, b.h) / 5.5f;
-    for (int side = 0; side < 2; side++)
-        for (int tc = 1; tc <= n; tc++) {
-            int tr = (n + tc - 1) / tc;
-            float tw = tc * PITCH + 0.5f, th = tr * PITCH + 0.5f, nw, nh;
-            if (side) nw = W + M + GAP + tw, nh = fmaxf(H + M, th);
-            else nw = fmaxf(W + M, tw), nh = H + M + GAP + th;
-            float q = fminf(fminf(b.w / nw, b.h / nh), cap);   /* as big as can be, then the fewest rows */
-            if (q > best * 1.02f || (q > best * 0.98f && tr < btr)) best = q, bt = tc, bside = side, btr = tr;
-        }
-    int q = (int)best;
-    if (q < 4) q = 4;
-    int tr = (n + bt - 1) / bt, mg = (int)(M / 2 * q);
-    L.q = q;
-    L.bw = (float)(W * q + 2 * mg);
-    L.bh = (float)(H * q + 2 * mg);
-    L.tw = floorf((bt * PITCH + 0.5f) * q);
-    L.th = floorf((tr * PITCH + 0.5f) * q);
-    float gap = floorf(GAP * q);
-    if (bside) {
-        float all = L.bw + gap + L.tw;
-        L.bx = floorf(b.x + (b.w - all) / 2);
-        L.by = floorf(b.y + (b.h - L.bh) / 2);
-        L.tx = L.bx + L.bw + gap;
-        L.ty = floorf(b.y + (b.h - L.th) / 2);
-    } else {
-        float all = L.bh + gap + L.th;
-        L.bx = floorf(b.x + (b.w - L.bw) / 2);
-        L.by = floorf(b.y + (b.h - all) / 2);
-        L.tx = floorf(b.x + (b.w - L.tw) / 2);
-        L.ty = L.by + L.bh + gap;
+    float best = 0;
+    *cols = n;
+    for (int tc = n; tc >= 1; tc--) {
+        int tr = (n + tc - 1) / tc;
+        float t = fminf(fminf(a / (tc * PITCH + 0.5f), b / (tr * PITCH + 0.5f)), cap);
+        if (t > best * 1.02f) best = t, *cols = tc;
     }
+    return best;
+}
+
+static void pan_to(float px, float py)          /* the pan, the board always covering its window */
+{
+    L.px = floorf(clampf(px, L.vw - L.bw, 0));
+    L.py = floorf(clampf(py, L.vh - L.bh, 0));
+    L.bx = L.vx + L.px;
+    L.by = L.vy + L.py;
+    int mg = (int)(MARGIN / 2 * L.q);
     L.gx = L.bx + mg;
     L.gy = L.by + mg;
+}
+
+static void fit(box b)
+{
+    int W = G.p.w, H = G.p.h, n = G.ntray > 0 ? G.ntray : 1, side = b.w > b.h;   /* the tray beside, or under */
+    /* qmin: a readable cell (its numbers); a board that fits only well under it is drawn at it, and pans */
+    float cap = fminf(b.w, b.h) / 5.5f, qmin = fminf(1.1f * ui.unit, cap);
+    float A = side ? b.h : b.w, B = side ? b.w : b.h;   /* the room across the board and the tray, and along them */
+    int bA = side ? H : W, bB = side ? W : H;
+    float qhi = fminf(A / (bA + MARGIN), cap), best = -1, bq = qmin, bt = qmin;
+    int big = !side && qhi < 0.9f * qmin;      /* (in landscape the board keeps to the height: no pan both ways) */
+    if (big) qhi = qmin;
+    for (int i = 0; i <= 40; i++) {             /* the board's cell against the tray's tiles: the smaller the biggest */
+        float q = qhi * (1 - 0.015f * i), room = B - (bB + MARGIN + BETWEEN) * q;
+        if (i && (big || (!side && q < 0.9f * qmin))) break;   /* (in landscape, the old way: smaller) */
+        if (big) room = fmaxf(room, 0.3f * B);  /* a board that pans: the tray keeps some room */
+        int cols;
+        float t = room > 0 ? tray_fit(n, A, room, fminf(fmaxf(q, fminf(1.3f * ui.unit, 1.3f * q)), cap), &cols) : 0;
+        float s = fminf(q, t) + 0.01f * q;
+        if (s > best) best = s, bq = q, bt = t;
+    }
+    int q = (int)fmaxf(4, bq), tq = (int)fmaxf(4, bt), mg = (int)(MARGIN / 2 * q);
+    L.q = q;
+    L.tq = tq;
+    L.bw = (float)(W * q + 2 * mg);
+    L.bh = (float)(H * q + 2 * mg);
+    float gap = floorf(BETWEEN * q);
+    /* the tray's lines across the room (A): as many tiles in each as fit, so it takes the least room along it; then
+     * evened out */
+    int across = (int)fmaxf(1, fminf((float)n, floorf((A / tq - 0.5f) / PITCH))), lines = (n + across - 1) / across;
+    across = (n + lines - 1) / lines;
+    int sc = side ? lines : across, sr = side ? across : lines;   /* the tray's columns and rows on the screen */
+    L.tw = floorf((sc * PITCH + 0.5f) * tq);
+    L.th = floorf((sr * PITCH + 0.5f) * tq);
+    if (side) {
+        L.vw = fminf(L.bw, b.w - gap - L.tw);
+        L.vh = fminf(L.bh, b.h);
+        float all = L.vw + gap + L.tw;
+        L.vx = floorf(b.x + (b.w - all) / 2);
+        L.vy = floorf(b.y + (b.h - L.vh) / 2);
+        L.tx = L.vx + L.vw + gap;
+        L.ty = floorf(b.y + (b.h - L.th) / 2);
+    } else {
+        L.vw = fminf(L.bw, b.w);
+        L.vh = fminf(L.bh, b.h - gap - L.th);
+        float all = L.vh + gap + L.th;
+        L.vx = floorf(b.x + (b.w - L.vw) / 2);
+        L.vy = floorf(b.y + (b.h - all) / 2);
+        L.tx = floorf(b.x + (b.w - L.tw) / 2);
+        L.ty = L.vy + L.vh + gap;
+    }
+    L.pan = L.bw > L.vw + 0.5f || L.bh > L.vh + 0.5f;
+    if (L.centre) pan_to((L.vw - L.bw) / 2, (L.vh - L.bh) / 2);   /* a new board: its middle in the window */
+    else pan_to(L.px, L.py);
+    L.centre = 0;
     for (int t = 0; t < G.ntray; t++) {
-        int r = t / bt, in_row = r == tr - 1 ? G.ntray - r * bt : bt;
-        L.hx[t] = L.tx + (0.25f + PITCH * (t % bt + 0.5f + (bt - in_row) / 2.0f)) * q;
-        L.hy[t] = L.ty + (0.25f + PITCH * (r + 0.5f)) * q;
+        int r = t / sc, in_row = r == sr - 1 ? G.ntray - r * sc : sc;
+        L.hx[t] = L.tx + (0.25f + PITCH * (t % sc + 0.5f + (sc - in_row) / 2.0f)) * tq;
+        L.hy[t] = L.ty + (0.25f + PITCH * (r + 0.5f)) * tq;
     }
 }
+
+/* the pan brought so cell c shows whole in the board's window */
+static void show_cell(int c)
+{
+    if (!L.pan || c < 0) return;
+    float x = L.gx + (c % G.p.w) * L.q, y = L.gy + (c / G.p.w) * L.q, m = 0.3f * L.q, px = L.px, py = L.py;
+    if (x - m < L.vx) px += L.vx - (x - m);
+    if (x + L.q + m > L.vx + L.vw) px -= x + L.q + m - (L.vx + L.vw);
+    if (y - m < L.vy) py += L.vy - (y - m);
+    if (y + L.q + m > L.vy + L.vh) py -= y + L.q + m - (L.vy + L.vh);
+    pan_to(px, py);
+}
+
+static int in_view(float x, float y) { return x >= L.vx && y >= L.vy && x < L.vx + L.vw && y < L.vy + L.vh; }
 
 static void layout(box b)
 {
     L.room = b;
     if (!G.neq) return;
     fit(b);
-    int key = (L.q * 64 + (int)L.tw % 64) * 4096 + serial % 4096;
+    int key = ((L.q * 64 + L.tq % 64) * 64 + (int)L.tw % 64) * 4096 + serial % 4096;
     if (L.made != key || !t_board) {
         L.made = key;
         int w = (int)L.bw, h = (int)L.bh, fr = (int)fmaxf(2, 0.12f * L.q);
@@ -170,15 +232,16 @@ static void layout(box b)
         ui_free(&t_board);
         t_board = ui_tex(w, h, o);
         int tw = (int)L.tw, th = (int)L.th;     /* the tray: a darker plank, a hollow for each tile */
+        fr = (int)fmaxf(2, 0.12f * L.tq);
         o = ui_buf(tw, th);
         art_plank(tw - 2 * fr, th - 2 * fr, fr, o);
         for (int i = 0; i < tw * th; i++)
             for (int k = 0; k < 3; k++) o[4 * i + k] = (uint8_t)(o[4 * i + k] * TONE_TRAY[k] + 0.5f);
-        float s = 0.92f * L.q;
+        float s = 0.92f * L.tq;
         for (int t = 0; t < G.ntray; t++) paint_hollow(o, tw, th, L.hx[t] - L.tx - s / 2, L.hy[t] - L.ty - s / 2, s);
         ui_free(&t_tray);
         t_tray = ui_tex(tw, th, o);
-        int ts = (int)(0.9f * L.q);             /* a tile: honey wood, bevelled */
+        int ts = (int)(0.9f * (L.q > L.tq ? L.q : L.tq));   /* a tile: honey wood, bevelled */
         o = ui_buf(ts, ts);
         bench_tile(o, ts, ts, 0.16f * ts, BENCH_TONE[1]);
         ui_free(&t_tile);
@@ -201,8 +264,11 @@ static void tile_pos(int t, float *x, float *y)  /* where tile t rests: its gap,
     else *x = L.hx[t], *y = L.hy[t];
 }
 
+static float tile_cell(int t) { return mcr_holder(&G, t) >= 0 ? (float)L.q : (float)L.tq; }   /* its slot's side */
+
 static int gap_at(float x, float y)
 {
+    if (L.pan && !in_view(x, y)) return -1;
     float ix = x - L.gx, iy = y - L.gy;
     if (ix < 0 || iy < 0 || ix >= G.p.w * L.q || iy >= G.p.h * L.q) return -1;
     return mcr_gap_of(&G, (int)(iy / L.q) * G.p.w + (int)(ix / L.q));
@@ -211,7 +277,7 @@ static int gap_at(float x, float y)
 static int tray_at(float x, float y)            /* a free tile of the tray under the finger */
 {
     for (int t = 0; t < G.ntray; t++)
-        if (mcr_tile_free(&G, t) && fabsf(x - L.hx[t]) <= PITCH * L.q / 2 && fabsf(y - L.hy[t]) <= PITCH * L.q / 2)
+        if (mcr_tile_free(&G, t) && fabsf(x - L.hx[t]) <= PITCH * L.tq / 2 && fabsf(y - L.hy[t]) <= PITCH * L.tq / 2)
             return t;
     return -1;
 }
@@ -233,6 +299,7 @@ static void begin(void)
     serial++;
     calm();
     cur = -1;
+    L.centre = 1;
     if (L.room.w > 0) layout(L.room);
 }
 
@@ -263,11 +330,11 @@ static int score(void) { return G.moves; }
 static int stars(void) { return ui_logic_stars(G.hints, G.mistakes); }
 
 /* an action: the tiles that moved fly from where they were (but the one the finger carried); solved: the wave */
-typedef struct { float x[MCR_GAPS], y[MCR_GAPS]; } spots;
+typedef struct { float x[MCR_GAPS], y[MCR_GAPS], s[MCR_GAPS]; } spots;
 
 static void spots_now(spots *s)
 {
-    for (int t = 0; t < G.ntray; t++) tile_pos(t, &s->x[t], &s->y[t]);
+    for (int t = 0; t < G.ntray; t++) tile_pos(t, &s->x[t], &s->y[t]), s->s[t] = tile_cell(t);
 }
 
 static void after(const spots *was, int carried, int mistakes)
@@ -276,7 +343,7 @@ static void after(const spots *was, int carried, int mistakes)
         float x, y;
         tile_pos(t, &x, &y);
         if (t != carried && (fabsf(x - was->x[t]) > 1 || fabsf(y - was->y[t]) > 1))
-            fly[t] = (flight){was->x[t], was->y[t], ui_ms(), 1};
+            fly[t] = (flight){was->x[t], was->y[t], was->s[t], ui_ms(), 1};
     }
     sel_tile = sel_gap = -1;
     if (G.mistakes > mistakes) ui_sound(SND_DENY);
@@ -311,7 +378,8 @@ static int undo(void)
     for (int t = 0; t < G.ntray; t++) {
         float x, y;
         tile_pos(t, &x, &y);
-        if (fabsf(x - was.x[t]) > 1 || fabsf(y - was.y[t]) > 1) fly[t] = (flight){was.x[t], was.y[t], ui_ms(), 1};
+        if (fabsf(x - was.x[t]) > 1 || fabsf(y - was.y[t]) > 1)
+            fly[t] = (flight){was.x[t], was.y[t], was.s[t], ui_ms(), 1};
     }
     return 1;
 }
@@ -332,19 +400,21 @@ static void do_hint(void)
     int m = G.mistakes, i = mcr_hint(&G);
     if (i < 0) { ui_sound(SND_DENY); return; }
     bench_flash_start(&hint, G.gaps[i]);
+    show_cell(G.gaps[i]);
+    spots_now(&was);                            /* the pan moved the board: the flight from the tray */
     after(&was, -1, m);
 }
 
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
-static void tile_at(int t, float x, float y, float s, Uint8 a)
+static void tile_at(int t, float x, float y, float q, float s, Uint8 a)   /* q: its slot's side */
 {
-    float d = 0.9f * L.q * s;
+    float d = 0.9f * q * s;
     ui_shadow_flat(x, y, d, d, a / 255.0f * 0.7f);
     SDL_SetTextureAlphaMod(t_tile, a);
     ui_put_c(t_tile, x, y, d, d);
     SDL_SetTextureAlphaMod(t_tile, 255);
     int v = G.tray[t];
-    ui_number_ex(x, y + 0.02f * L.q * s, digits_h(v, (float)L.q) * s, v, PUZ_INK, a, UI_NUM_TIGHT);
+    ui_number_ex(x, y + 0.02f * q * s, digits_h(v, q) * s, v, PUZ_INK, a, UI_NUM_TIGHT);
 }
 
 /* the keys' frame: a gap, or a tile's home in the tray */
@@ -359,8 +429,9 @@ static void draw(void)
     if (!t_board) layout(L.room);
     if (!t_board) return;
     int q = L.q, solved = mcr_solved(&G);
+    SDL_Rect view = {(int)L.vx, (int)L.vy, (int)L.vw, (int)L.vh};
+    if (L.pan) SDL_RenderSetClipRect(ui.r, &view);   /* the board cut at its window */
     ui_put(t_board, L.bx, L.by, L.bw, L.bh);
-    ui_put(t_tray, L.tx, L.ty, L.tw, L.th);
     for (int e = 0; e < G.neq && !solved; e++) {   /* the equations filled: true (gold), false (red) */
         int st = mcr_eq_state(&G, e);
         const mcr_eq *eq = &G.eq[e];
@@ -393,37 +464,46 @@ static void draw(void)
         }
     bench_wave_tick(&win);
     Uint32 now = ui_ms();
-    for (int t = 0; t < G.ntray; t++) {        /* the tiles: in the tray, in the gaps, flying */
-        if (drag.on && drag.moved && drag.tile == t) continue;
-        float x, y;
-        tile_pos(t, &x, &y);
-        if (fly[t].on) {
-            float f = (now - fly[t].t0) / (float)FLY_MS;
-            if (f >= 1) fly[t].on = 0;
-            else {
-                f = ui_ease(f);
-                x = fly[t].x + (x - fly[t].x) * f;
-                y = fly[t].y + (y - fly[t].y) * f;
-                ui_animate();
-            }
+    for (int pass = 0; pass < 2; pass++) {     /* the tiles: in the gaps (in the board's window), then in the tray
+                                                 * and flying */
+        if (pass) {
+            SDL_RenderSetClipRect(ui.r, NULL);
+            ui_put(t_tray, L.tx, L.ty, L.tw, L.th);
         }
-        if (t == sel_tile) ui_mark_gold(x, y, 1.6f * q);
-        tile_at(t, x, y, t == sel_tile ? 1.08f : 1, 255);
+        for (int t = 0; t < G.ntray; t++) {
+            if (drag.on && drag.moved && drag.tile == t) continue;
+            if ((mcr_holder(&G, t) >= 0 && !fly[t].on) != !pass) continue;
+            float x, y, s = tile_cell(t);
+            tile_pos(t, &x, &y);
+            if (fly[t].on) {
+                float f = (now - fly[t].t0) / (float)FLY_MS;
+                if (f >= 1) fly[t].on = 0;
+                else {
+                    f = ui_ease(f);
+                    x = fly[t].x + (x - fly[t].x) * f;
+                    y = fly[t].y + (y - fly[t].y) * f;
+                    s = fly[t].s + (s - fly[t].s) * f;
+                    ui_animate();
+                }
+            }
+            if (t == sel_tile) ui_mark_gold(x, y, 1.6f * s);
+            tile_at(t, x, y, s, t == sel_tile ? 1.08f : 1, 255);
+        }
     }
     if (cur >= 0 && cur < G.ngap + G.ntray && !solved) {
-        float x, y;
+        float x, y, s = cur < G.ngap ? (float)q : (float)L.tq;
         cur_xy(cur, &x, &y);
-        ui_mark_select(x - q * 0.55f, y - q * 0.55f, 1.1f * q, 1.1f * q);
+        ui_mark_select(x - s * 0.55f, y - s * 0.55f, 1.1f * s, 1.1f * s);
     }
     if (drag.on && drag.moved) {               /* the tile carried, above the finger; the gap under it */
-        float x = drag.x, y = drag.y - 0.55f * q;
+        float x = drag.x, y = drag.y - 0.55f * L.tq;
         int i = gap_at(x, y);
         if (i >= 0) {
             float cx, cy;
             cell_mid(G.gaps[i], &cx, &cy);
             ui_mark_select(cx - q / 2.0f, cy - q / 2.0f, (float)q, (float)q);
         }
-        tile_at(drag.tile, x, y, 1.12f, 255);
+        tile_at(drag.tile, x, y, (float)L.tq, 1.12f, 255);
     }
     ui_tool(T_HINT, ICON_HINT, solved ? UI_DIM : 0);
 }
@@ -443,6 +523,8 @@ static void press(float x, float y)
     drag.gap = i;
     drag.x = drag.x0 = x;
     drag.y = drag.y0 = y;
+    drag.px0 = L.px;
+    drag.py0 = L.py;
     ui_animate();
 }
 
@@ -451,7 +533,12 @@ static void motion(float x, float y)
     if (!drag.on) return;
     drag.x = x;
     drag.y = y;
-    if (drag.tile >= 0 && hypotf(x - drag.x0, y - drag.y0) > 0.25f * L.q) drag.moved = 1;
+    if (drag.tile < 0 && L.pan && in_view(drag.x0, drag.y0)) {   /* off the tiles on a big board: it pans */
+        if (drag.panning || hypotf(x - drag.x0, y - drag.y0) > 0.25f * L.q) {
+            drag.panning = 1;
+            pan_to(drag.px0 + x - drag.x0, drag.py0 + y - drag.y0);
+        }
+    } else if (drag.tile >= 0 && hypotf(x - drag.x0, y - drag.y0) > 0.25f * L.q) drag.moved = 1;
     ui_animate();
 }
 
@@ -478,11 +565,12 @@ static void release(float x, float y)
     if (!drag.on) return;
     drag.on = 0;
     ui_animate();
+    if (drag.panning) return;
     if (!drag.moved) {
         tap(drag.gap >= 0 ? -1 : drag.tile, drag.gap);
         return;
     }
-    int t = drag.tile, to = gap_at(x, y - 0.55f * L.q);
+    int t = drag.tile, to = gap_at(x, y - 0.55f * L.tq);
     if (to < 0) to = gap_at(x, y);
     if (drag.gap >= 0) {                        /* from a gap: to another (swapped), or back to the tray */
         if (to == drag.gap) return;
@@ -517,6 +605,7 @@ static void key(SDL_Keycode k)
             }
             if (to < 0) { ui_sound(SND_DENY); return; }
             cur = to;
+            if (cur < G.ngap) show_cell(G.gaps[cur]);
         }
         ui_sound(SND_TAP);
         ui_animate();
@@ -528,7 +617,7 @@ static void key(SDL_Keycode k)
     else if (mcr_tile_free(&G, cur - G.ngap)) {
         tap(cur - G.ngap, -1);
         for (int i = 0; i < G.ngap && sel_tile >= 0; i++)   /* a tile taken: the frame to the first empty gap */
-            if (G.at[i] < 0) { cur = i; break; }
+            if (G.at[i] < 0) { cur = i; show_cell(G.gaps[i]); break; }
     }
 }
 
