@@ -69,7 +69,7 @@ static unsigned ops_of(const mcr_puzzle *p, int *three)
 
 static void test_levels(void)
 {
-    int mediums = 0;
+    int mediums = 0, open[3] = {0};
     for (int i = 0; i < MCR_LEVELS; i++) {
         mcr_puzzle p;
         int ok = mcr_decode(mcr_levels[i], &p), medium = 0, three;
@@ -93,8 +93,10 @@ static void test_levels(void)
         else CHECK(three > 0);
         mcr_game g;
         CHECK(mcr_load(&g, &p) && g.ngap >= 2);
+        if (i < 3) open[i] = g.ngap;
         for (int j = 0; j < i; j++) CHECK(strcmp(mcr_levels[j], mcr_levels[i]));
     }
+    CHECK(open[2] > open[0] && open[2] > open[1]);   /* level 3 a step up from the first two */
     CHECK(mediums > 30);
     printf("levels: %d need more than the plain steps\n", mediums);
 }

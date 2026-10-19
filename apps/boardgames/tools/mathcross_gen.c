@@ -9,8 +9,9 @@
  *   - the plain rounds: how many waves of "an equation with one number missing" fill it (one: a list of separate
  *     sums, trivial), or none when they stall and a medium step is needed.
  * Each chapter has three makes (the board, the equations, the operations, the ranges, how many levels, and what each
- * must ask at least: medium steps, gaps, not trivial): an opening of its easiest (three in the first chapter, two in
- * the others), then two makes of bigger boards and more gaps, picked evenly over those asking enough. Plus alone first
+ * must ask at least: medium steps, gaps, not trivial): an opening of its two easiest, then two makes of bigger boards
+ * and more gaps, picked evenly over those asking enough (in the first chapter led by a board of three sums and three
+ * gaps, one sum giving the next: level 3 a step up from the opening, a medium step from level 4). Plus alone first
  * (sums to ten), then minus, times, divided, bigger boards (up to 13 x 13), and last equations of three numbers worked
  * out in the usual order. The per-level table and the chapters' summary go to stderr (-DREPORT: the same for the
  * levels in mathcross_levels.h).
@@ -41,22 +42,26 @@ typedef struct {
 #define M (1u << MCR_MUL)
 #define D (1u << MCR_DIV)
 /* a make: the maker's settings, how many levels it gives, and what each must ask at least: medium steps, gaps, and
- * (nontrivial) more than one plain round or a medium step */
-typedef struct { mcr_make m; int count, minmed, mingaps, nontrivial; } make;
+ * (nontrivial) more than one plain round or a medium step; lead: a first level of its boards with that share of gaps
+ * instead, its easiest asking what the make asks (the step from the opening; 0: none) */
+typedef struct { mcr_make m; int count, minmed, mingaps, nontrivial, lead; } make;
 #define MAKES 3
 static const make CHAPTER[MCR_CHAPTERS][MAKES] = {
-    {{{7, 7, 2, A, 10, 10, 0, 40}, 3, 0, 2, 0}, {{7, 7, 3, A, 10, 10, 0, 50}, 9, 0, 3, 1},
-     {{9, 9, 4, A, 10, 10, 0, 60}, 13, 0, 4, 1}},
-    {{{9, 9, 4, A | S, 20, 10, 0, 50}, 2, 0, 3, 0}, {{9, 9, 5, A | S, 20, 10, 0, 60}, 11, 1, 4, 1},
-     {{11, 11, 6, A | S, 20, 10, 0, 65}, 12, 1, 5, 1}},
-    {{{9, 9, 5, A | S | M, 30, 10, 0, 55}, 2, 0, 4, 0}, {{11, 11, 6, A | S | M, 40, 10, 0, 60}, 11, 1, 5, 1},
-     {{11, 11, 7, A | S | M, 40, 10, 0, 65}, 12, 2, 6, 1}},
-    {{{11, 11, 6, A | S | M | D, 50, 10, 0, 55}, 2, 0, 5, 0}, {{11, 11, 7, A | S | M | D, 50, 10, 0, 65}, 11, 2, 6, 1},
-     {{13, 13, 8, A | S | M | D, 50, 10, 0, 70}, 12, 2, 7, 1}},
-    {{{11, 11, 8, A | S | M | D, 99, 12, 0, 65}, 2, 1, 7, 0}, {{13, 13, 9, A | S | M | D, 99, 12, 0, 70}, 11, 3, 9, 1},
-     {{13, 13, 10, A | S | M | D, 99, 12, 0, 72}, 12, 3, 10, 1}},
-    {{{11, 11, 6, A | S | M | D, 99, 12, 60, 55}, 2, 1, 6, 0}, {{11, 11, 8, A | S | M | D, 99, 12, 60, 65}, 11, 3, 9, 1},
-     {{13, 13, 9, A | S | M | D, 99, 12, 70, 70}, 12, 4, 10, 1}},
+    {{{7, 7, 2, A, 10, 10, 0, 40}, 2, 0, 2, 0, 0}, {{7, 7, 3, A, 10, 10, 0, 50}, 10, 0, 3, 1, 40},
+     {{9, 9, 4, A, 10, 10, 0, 60}, 13, 0, 4, 1, 0}},
+    {{{9, 9, 4, A | S, 20, 10, 0, 50}, 2, 0, 3, 0, 0}, {{9, 9, 5, A | S, 20, 10, 0, 60}, 11, 1, 4, 1, 0},
+     {{11, 11, 6, A | S, 20, 10, 0, 65}, 12, 1, 5, 1, 0}},
+    {{{9, 9, 5, A | S | M, 30, 10, 0, 55}, 2, 0, 4, 0, 0}, {{11, 11, 6, A | S | M, 40, 10, 0, 60}, 11, 1, 5, 1, 0},
+     {{11, 11, 7, A | S | M, 40, 10, 0, 65}, 12, 2, 6, 1, 0}},
+    {{{11, 11, 6, A | S | M | D, 50, 10, 0, 55}, 2, 0, 5, 0, 0},
+     {{11, 11, 7, A | S | M | D, 50, 10, 0, 65}, 11, 2, 6, 1, 0},
+     {{13, 13, 8, A | S | M | D, 50, 10, 0, 70}, 12, 2, 7, 1, 0}},
+    {{{11, 11, 8, A | S | M | D, 99, 12, 0, 65}, 2, 1, 7, 0, 0},
+     {{13, 13, 9, A | S | M | D, 99, 12, 0, 70}, 11, 3, 9, 1, 0},
+     {{13, 13, 10, A | S | M | D, 99, 12, 0, 72}, 12, 3, 10, 1, 0}},
+    {{{11, 11, 6, A | S | M | D, 99, 12, 60, 55}, 2, 1, 6, 0, 0},
+     {{11, 11, 8, A | S | M | D, 99, 12, 60, 65}, 11, 3, 9, 1, 0},
+     {{13, 13, 9, A | S | M | D, 99, 12, 70, 70}, 12, 4, 10, 1, 0}},
 };
 
 /* ---- the difficulty metrics ------------------------------------------------------------------------------------- */
@@ -230,18 +235,33 @@ int main(int argc, char **argv)
     for (int ch = 0; ch < MCR_CHAPTERS; ch++) {
         for (int p = 0; p < MAKES; p++) {
             const make *m = &CHAPTER[ch][p];
-            int k = make_pool(m, 1000u * (uint32_t)(ch * MAKES + p + 1)), ok[CANDS], nk = 0, first = nchosen;
+            uint32_t seed = 1000u * (uint32_t)(ch * MAKES + p + 1);
+            int n = m->count - !!m->lead, first = nchosen;
+            if (m->lead) {                      /* its lead: its easiest board with fewer gaps */
+                make l = *m;
+                l.m.gaps = m->lead;
+                int kl = make_pool(&l, seed), j = 0;
+                while (j < kl && (pool[j].medium < m->minmed || pool[j].gaps < m->mingaps || seen(pool[j].key) ||
+                                  (m->nontrivial && trivial(pool[j].rounds, pool[j].medium))))
+                    j++;
+                if (j >= kl) {
+                    fprintf(stderr, "chapter %d: no lead for make %d\n", ch + 1, p + 1);
+                    return 1;
+                }
+                chosen[nchosen++] = pool[j];
+            }
+            int k = make_pool(m, seed), ok[CANDS], nk = 0;
             for (int i = 0; i < k; i++)         /* the ones asking what the make asks */
                 if (pool[i].medium >= m->minmed && pool[i].gaps >= m->mingaps &&
                     !(m->nontrivial && trivial(pool[i].rounds, pool[i].medium)) && !seen(pool[i].key))
                     ok[nk++] = i;
             fprintf(stderr, "chapter %d, make %d: %d candidates, %d asking enough\n", ch + 1, p + 1, k, nk);
-            if (nk < m->count) {
+            if (nk < n) {
                 fprintf(stderr, "chapter %d: not enough of make %d\n", ch + 1, p + 1);
                 return 1;
             }
-            for (int i = 0; i < m->count; i++)  /* spread over them (an opening: the easiest) */
-                chosen[nchosen++] = pool[ok[!m->nontrivial ? i : m->count > 1 ? i * (nk - 1) / (m->count - 1) : 0]];
+            for (int i = 0; i < n; i++)         /* spread over them (an opening: the easiest) */
+                chosen[nchosen++] = pool[ok[!m->nontrivial ? i : n > 1 ? i * (nk - 1) / (n - 1) : 0]];
             for (int i = first + 1; i < nchosen; i++)   /* the make's from its smallest and easiest */
                 for (int j = i; j > first; j--) {
                     cand *a = &chosen[j - 1], *b = &chosen[j];
