@@ -5,9 +5,9 @@
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * Tap a cell to erase its digit (again: back); hold it a moment to ring it instead (a note: kept). Drag along a row or
- * a column to do the same to a stretch (the cells as the first one was). The shell's tools: what a tap does (erase,
- * or ring: tap it to swap tap and hold), and the hint (a wrong cell put right, else the next cell reasoning finds, in
- * gold light). A target its line makes glows gold; one its line can no longer make turns red. The keys: the arrows
+ * a column to do the same to a stretch (the cells as the first one was). The shell's tools: what a tap does (the
+ * eraser, or a ring round a digit, lit: tap it to swap tap and hold), and the hint (a wrong cell put right, else the
+ * next cell reasoning finds, in gold light). A target its line makes glows gold; one its line can no longer make turns red. The keys: the arrows
  * move a frame over the cells, Return (or Enter) does what a tap does, Space what a hold does. Undo takes back one
  * action, all the way to the start. The bar: the moves. Solved: a wave of gold light runs over the grid; the stars
  * count the hints and the mistakes (bench.h).
@@ -224,15 +224,21 @@ static int paint(const int *cells, int n, int state) { return sme_paint(&G, cell
 static const bench_marks marks = {st_of, free_of, tap_of, hold_of, paint, NULL, 0};
 
 /* ---- the board on the screen, the tools -------------------------------------------------------------------------- */
-static void paint_button(int kind, int size, uint8_t *o)   /* what a tap puts: a hollow, or a ring */
+/* the mode tool's picture when taps ring: a ring round a digit, as the board shows a digit kept (erasing: the shell's
+ * eraser) */
+static void paint_button(int kind, int size, uint8_t *o)
 {
-    if (kind == K_ERASE) {
-        hole_pic(size, o);
-        puz_digits(o, size, size, 7, size / 2.0f, size * 0.52f, 0.5f * size, PUZ_CREAM, 0.5f, 1);
-    } else {
-        ring_pic(size, o);
-        puz_digits(o, size, size, 7, size / 2.0f, size * 0.52f, 0.5f * size, PUZ_CREAM, 1, 1);
-    }
+    (void)kind;
+    float r = 0.4f * size, t = fmaxf(1.5f, 0.08f * size), c = size / 2.0f;
+    for (int y = 0; y < size; y++)
+        for (int x = 0; x < size; x++) {
+            float d = fabsf(hypotf(x + 0.5f - c, y + 0.5f - c) - r), a = clampf(t / 2 + 0.5f - d, 0, 1);
+            if (a <= 0) continue;
+            uint8_t *p = o + 4 * ((size_t)y * size + x);
+            p[0] = p[1] = p[2] = 255;
+            p[3] = (uint8_t)(a * 255);
+        }
+    puz_digits(o, size, size, 7, c, size * 0.52f, 0.46f * size, PUZ_WHITE, 1, 1);
 }
 
 static void draw(void)
@@ -272,7 +278,8 @@ static void draw(void)
     }
     if (hint.at >= 0) bench_glow(&hint, bench_mid_x(&geo, hint.at), bench_mid_y(&geo, hint.at), 2.6f * q);
     bench_wave_cells(&win, &geo, 2.3f);
-    ui_tool_paint(T_MODE, paint_button, rings ? K_RING : K_ERASE, 0.72f, solved ? UI_DIM : rings ? UI_ON : 0);
+    if (rings) ui_tool_paint(T_MODE, paint_button, K_RING, 0.72f, (solved ? UI_DIM : UI_ON) | UI_TINT);
+    else ui_tool(T_MODE, ICON_ERASER, solved ? UI_DIM : 0);
     ui_tool(T_HINT, ICON_HINT, solved ? UI_DIM : 0);
 }
 
