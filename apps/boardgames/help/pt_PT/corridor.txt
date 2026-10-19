@@ -6,7 +6,7 @@ Move o teu peão ou coloca uma parede.
 - Passo: uma casa para a frente, para trás ou para o lado, nunca através de uma parede.
 - Salto: se houver um peão à tua frente, salta por cima dele em linha reta. Se atrás dele houver uma parede, a borda ou outro peão, vai antes para a esquerda ou para a direita dele.
 - Parede: uma parede cobre duas casas. As paredes não se podem sobrepor nem cruzar, e nenhuma parede pode deixar um peão sem caminho até à meta.
-- Cada um tem 10 paredes, ou 5 com quatro jogadores. Arrasta uma da tua barra até um sulco, ou toca duas vezes num sulco.
+- Cada um tem 10 paredes, ou 5 com quatro jogadores.
 - Quem não pode fazer nada passa a vez.
 # O fim do jogo
 Ganha o primeiro peão a chegar à sua meta. Se ninguém lá chegar ao fim de 100 vezes cada um, o jogo fica empatado.

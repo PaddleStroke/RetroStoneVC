@@ -6,7 +6,7 @@ Posuň figurku, nebo postav zeď.
 - Krok: o jedno pole dopředu, dozadu nebo do strany, nikdy přes zeď.
 - Skok: stojí-li před tebou figurka, přeskoč ji rovně. Je-li za ní zeď, okraj nebo jiná figurka, postav se místo toho vlevo nebo vpravo od ní.
 - Zeď: zabírá dvě pole. Zdi se nesmějí překrývat ani křížit a žádná zeď nesmí figurce nikdy úplně zatarasit cestu k cíli.
-- Každý má 10 zdí, ve čtyřech hráčích 5. Přetáhni zeď ze svého pruhu do drážky, nebo dvakrát klepni na drážku.
+- Každý má 10 zdí, ve čtyřech hráčích 5.
 - Kdo nemůže nic udělat, stojí.
 # Konec hry
 Vyhrává první figurka, která dojde do cíle. Pokud po 100 tazích každého nikdo nedošel, hra končí remízou.

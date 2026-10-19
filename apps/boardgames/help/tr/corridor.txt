@@ -6,7 +6,7 @@ Piyonunu oynat ya da bir duvar koy.
 - Adım: bir kare ileri, geri ya da yana; asla bir duvarın içinden geçmeden.
 - Atlama: önünde bir piyon varsa üstünden düz atla. Arkasında bir duvar, kenar ya da başka bir piyon varsa onun yerine soluna ya da sağına geç.
 - Duvar: bir duvar iki kareyi kapatır. Duvarlar üst üste binemez ve kesişemez; hiçbir duvar bir piyonun hedefe giden yolunu tamamen kapatamaz.
-- Herkesin 10 duvarı var, dört kişide 5. Çubuğundan bir duvarı bir oluğa sürükle ya da bir oluğa iki kez dokun.
+- Herkesin 10 duvarı var, dört kişide 5.
 - Hiçbir şey yapamayan pas geçer.
 # Oyunun sonu
 Hedefine ilk varan piyon kazanır. Herkes 100 tur oynadıktan sonra kimse varmamışsa oyun berabere biter.

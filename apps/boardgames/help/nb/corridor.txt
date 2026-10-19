@@ -6,7 +6,7 @@ Flytt brikken din, eller sett opp en mur.
 - Skritt: én rute fram, tilbake eller til siden, aldri gjennom en mur.
 - Hopp: står en brikke foran deg, hopper du rett over den. Er det en mur, kanten eller en annen brikke bak den, går du i stedet til venstre eller høyre for den.
 - Mur: en mur dekker to ruter. Murer kan ikke overlappe eller krysse hverandre, og ingen mur kan noen gang stenge en brikke helt ute fra målet.
-- Hver har 10 murer, eller 5 med fire spillere. Dra en fra feltet ditt ned i en rille, eller trykk to ganger på en rille.
+- Hver har 10 murer, eller 5 med fire spillere.
 - Den som ikke kan gjøre noe, står over.
 # Slutten på spillet
 Den første brikken ved målet sitt vinner. Har ingen kommet fram etter 100 turer hver, blir det uavgjort.

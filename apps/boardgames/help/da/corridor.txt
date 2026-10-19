@@ -6,7 +6,7 @@ Flyt din brik, eller sæt en mur.
 - Skridt: ét felt frem, tilbage eller til siden, aldrig gennem en mur.
 - Hop: står der en brik foran dig, så hop lige over den. Er der en mur, kanten eller en anden brik bag den, så gå i stedet til venstre eller højre for den.
 - Mur: en mur dækker to felter. Mure må ikke overlappe eller krydse hinanden, og ingen mur må nogensinde spærre en brik helt ude fra dens mål.
-- Hver har 10 mure, eller 5 med fire spillere. Træk en fra din bjælke ned i en rille, eller tryk to gange på en rille.
+- Hver har 10 mure, eller 5 med fire spillere.
 - Den, der intet kan gøre, melder pas.
 # Spillets afslutning
 Den første brik ved sit mål vinder. Er ingen nået frem efter 100 ture hver, ender spillet uafgjort.

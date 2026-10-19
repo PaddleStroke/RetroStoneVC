@@ -6,7 +6,7 @@ Zieh deine Figur oder setz eine Wand.
 - Schritt: ein Feld vor, zurück oder zur Seite, nie durch eine Wand.
 - Sprung: Steht eine Figur vor dir, spring gerade über sie. Ist hinter ihr eine Wand, der Rand oder eine andere Figur, geh stattdessen links oder rechts neben sie.
 - Wand: Eine Wand deckt zwei Felder. Wände dürfen sich nicht überlappen oder kreuzen, und keine Wand darf je einer Figur den Weg zu ihrem Ziel ganz versperren.
-- Jeder hat 10 Wände, zu viert 5. Zieh eine aus deiner Leiste in eine Rille, oder tippe zweimal auf eine Rille.
+- Jeder hat 10 Wände, zu viert 5.
 - Wer nichts tun kann, setzt aus.
 # Das Ende der Partie
 Die erste Figur an ihrem Ziel gewinnt. Ist nach 100 Zügen pro Spieler niemand angekommen, endet die Partie unentschieden.

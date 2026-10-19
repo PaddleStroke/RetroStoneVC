@@ -6,7 +6,7 @@ Verzet je pion of plaats een muur.
 - Stap: één veld vooruit, achteruit of opzij, nooit door een muur.
 - Sprong: staat er een pion voor je, spring er dan recht overheen. Staat er achter die pion een muur, de rand of een andere pion, ga dan links of rechts naast hem.
 - Muur: een muur dekt twee velden. Muren mogen elkaar niet overlappen of kruisen, en geen muur mag een pion ooit helemaal afsluiten van zijn doel.
-- Iedereen heeft 10 muren, of 5 met vier spelers. Sleep er een vanuit je balk naar een gleuf, of tik twee keer op een gleuf.
+- Iedereen heeft 10 muren, of 5 met vier spelers.
 - Wie niets kan doen, past.
 # Het einde van de partij
 De eerste pion op zijn doel wint. Is na 100 beurten per speler niemand aangekomen, dan is het remise.

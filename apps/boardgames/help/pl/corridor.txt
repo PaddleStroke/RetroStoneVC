@@ -6,7 +6,7 @@ Przesuń pionek albo postaw ściankę.
 - Krok: jedno pole do przodu, do tyłu lub w bok, nigdy przez ściankę.
 - Skok: jeśli przed tobą stoi pionek, przeskocz go w linii prostej. Jeśli za nim jest ścianka, krawędź lub inny pionek, stań zamiast tego po jego lewej lub prawej stronie.
 - Ścianka: zajmuje dwa pola. Ścianki nie mogą na siebie zachodzić ani się krzyżować i żadna nie może odciąć pionka od jego celu.
-- Każdy ma 10 ścianek, a w czterech graczy 5. Przeciągnij ściankę ze swojego paska do rowka albo stuknij dwa razy w rowek.
+- Każdy ma 10 ścianek, a w czterech graczy 5.
 - Kto nie może nic zrobić, pasuje.
 # Koniec gry
 Wygrywa pierwszy pionek, który dotrze do celu. Jeśli po 100 turach każdego nikt nie dotarł, gra kończy się remisem.

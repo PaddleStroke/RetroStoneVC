@@ -6,7 +6,7 @@ Muovi la tua pedina o metti un muro.
 - Passo: una casella avanti, indietro o di lato, mai attraverso un muro.
 - Salto: se davanti c'è una pedina, saltala in linea retta. Se dietro di lei c'è un muro, il bordo o un'altra pedina, vai invece alla sua sinistra o alla sua destra.
 - Muro: un muro copre due caselle. I muri non possono sovrapporsi né incrociarsi, e nessun muro può mai togliere a una pedina ogni via verso la sua meta.
-- Ognuno ha 10 muri, o 5 in quattro. Trascinane uno dalla tua barra in una scanalatura, o tocca due volte una scanalatura.
+- Ognuno ha 10 muri, o 5 in quattro.
 - Chi non può fare nulla passa.
 # La fine della partita
 Vince la prima pedina che raggiunge la sua meta. Se nessuno ci è riuscito dopo 100 turni a testa, la partita è patta.

@@ -6,7 +6,7 @@ Flytta din pjäs eller sätt ut en mur.
 - Steg: en ruta framåt, bakåt eller åt sidan, aldrig genom en mur.
 - Hopp: står en pjäs framför dig, hoppa rakt över den. Finns en mur, kanten eller en annan pjäs bakom den, gå i stället till vänster eller höger om den.
 - Mur: en mur täcker två rutor. Murar får inte överlappa eller korsa varandra, och ingen mur får någonsin stänga ute en pjäs helt från dess mål.
-- Var och en har 10 murar, eller 5 med fyra spelare. Dra en från din list till ett spår, eller tryck två gånger på ett spår.
+- Var och en har 10 murar, eller 5 med fyra spelare.
 - Den som inte kan göra något står över.
 # Partiets slut
 Den första pjäsen vid sitt mål vinner. Har ingen kommit fram efter 100 turer var blir det oavgjort.

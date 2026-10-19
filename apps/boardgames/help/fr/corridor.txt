@@ -6,7 +6,7 @@ Déplace ton pion ou pose un mur.
 - Pas : une case en avant, en arrière ou sur le côté, jamais à travers un mur.
 - Saut : face à un pion, saute par-dessus en ligne droite. Si un mur, le bord ou un autre pion est derrière lui, va plutôt à sa gauche ou à sa droite.
 - Mur : un mur couvre deux cases. Les murs ne peuvent ni se chevaucher ni se croiser, et aucun mur ne doit jamais couper un pion de son but.
-- Chacun a 10 murs, ou 5 à quatre joueurs. Fais-en glisser un depuis ta barre jusqu'à une rainure, ou touche deux fois une rainure.
+- Chacun a 10 murs, ou 5 à quatre joueurs.
 - Un joueur qui ne peut rien faire passe.
 # La fin de la partie
 Le premier pion qui atteint son but gagne. Si personne n'y est arrivé après 100 tours chacun, la partie est nulle.
