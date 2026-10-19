@@ -101,7 +101,9 @@ One look across the app, like the Arcade games' house kit:
   a dark point), `ui_mark_ring` (a capture), `ui_mark_glow` (danger), `ui_mark_gold` (a success: a mill, a winning
   line; `ui_mark_gold_a` fainter, a light coming or pulsing).
 - **Numbers**: `ui_number()` (cream or dark), `ui_number_rot`, `ui_number_signed`; `ui_number_ex` in any colour and
-  alpha, regular or bold, set tight (a number in a cell); `ui_number_w` its width.
+  alpha, regular or bold, set tight (a number in a cell); `ui_number_w` its width. `ui_number_table` for digits on
+  the table itself (beside the board, not on it): cream on the dark theme's green, the dark ink on the light theme's
+  ivory; `ui_table_ink()` that colour, for the game's own marks there.
 - **The bars**: `ui_bar_count(box, piece, n)` for a small piece and how many (the pieces taken; 0 shows nothing),
   `ui_bar_number` the same showing 0 too, the piece optional (a move counter; it returns the x after the number).
   `ui_bar_box(player, &upside)`: where a player's bar is (something flying to it). `ui_bar_fit(box, counts, n,
@@ -163,7 +165,10 @@ One look across the app, like the Arcade games' house kit:
   between. **The whole room** (`fill` 1): `layout(box)` gets all of it, a rectangle (portrait: the bars' width, all the
   height between them; landscape: all the width left of the side column), as the card games' tables;
   `ui_grid_fit(box, cols, rows, frame)` fits a grid of square cells in it, turned a quarter when the cells grow
-  (`ui_grid_cell`, `ui_grid_hit`); `art_plank(w, h, fr)` a plain plank of any shape. **Tools** (`tools` n, up to
+  (`ui_grid_cell`, `ui_grid_hit`); `art_plank(w, h, fr)` a plain plank of any shape. From `layout()`, a fill board
+  tells all it takes (`ui_board_used(x, y, w, h)`, a call a part or one for all; `ui_grid_used(&grid, frame)` for a
+  grid as `ui_grid_fit` fitted it): in landscape, narrower than the room by more than a unit, it is laid out again in
+  a room cut to that width and centred with the side column, as the other boards (portrait: no change). **Tools** (`tools` n, up to
   `UI_MAX_TOOLS`): the game's own round buttons, laid out by the shell where they cost the board least (portrait: up
   to three at the right end of the bottom bar, more in a row above it; landscape: in the side column); the game draws
   them (`ui_tool(i, ICON_*, how)`, `ui_tool_paint`) and finds them in `press()` (`ui_tool_hit`); `ui_tools_shown(n)`
@@ -173,7 +178,8 @@ One look across the app, like the Arcade games' house kit:
   a finger shown magnified beside it while it is down (go 19 x 19, hex, word tiles).
 - **The game's pictures for the shell**: `thumb(variant, size)` (the menu's card, -1, and the picker's cards),
   `token(player, size)` (the bars, the end-of-game card: a piece of that player).
-- **Undo** goes back one move (all the way to the start), **status** says who won, **turn** who moves,
+- **Undo** goes back one move (all the way to the start; `.undo = NULL`: a game without undo, no undo button: Falling
+  Notes, Map Quiz), **status** says who won, **turn** who moves,
   **can_pass / pass** if the game has a pass (go), **bar** what a player's bar shows (pieces taken, a score),
   **script** plays moves in the game's own notation (the screenshots, the tests).
 - **Keys** (optional `key(k)`): a key pressed in the game (once, not its repeats) that the shell does not use itself
@@ -187,6 +193,14 @@ One look across the app, like the Arcade games' house kit:
   level). `ui_par_stars(moves, par)`, `ui_logic_stars(hints, mistakes)`: the house's rules for stars.
 - **Variants on two axes** (`axes` {sizes, levels}, variant = size * levels + level; `axis_pic[2]` optional): the
   picker shows the sizes above a row of the levels (by default as many ebony stones) instead of a card each.
+- **The first variant** (optional `variant_first`): the one the picker offers before one is chosen (0: the first;
+  Havannah 1, its board of 8; a game of levels: its random play's).
+- **Time** (`ui_ms()`): the clock for animations, never `SDL_GetTicks` (the picture mode has its own). `ui_real_ms()`:
+  the real time, for a game's own clock (the replay jumps it where the game was off the screen). `ui_replaying()`: 1
+  while a game kept from the last run is played again from its record, silently: a setting the game turns as it is
+  played is already as the record left it, don't turn it again. The replay draws its frames only where the record had
+  them (and every 50 ms while `busy()`), so input gating uses `ui_ms()` arithmetic (an animation's end time), never a
+  flag cleared in `draw()`.
 - **Secret hands in some games only** (optional `hidden()`): asked at each hand-off instead of `VIEW_HIDDEN` (Durak
   with open hands).
 
