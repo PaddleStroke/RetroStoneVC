@@ -4,10 +4,11 @@
  * allows; balance_rules.c). Each candidate's work: the items on its scales, its weights' size, and its pair steps
  * (two scales compared), which weigh most; near-duplicates (the same scales) dropped. Each chapter has three makes
  * (shapes, scales, the heaviest weight, shapes on both pans or not, a pair step needed or not, items on a pan): its
- * opening (three single shapes on one scale first, then two of the chapter's new idea), then two makes of more shapes,
- * their levels picked evenly over the harder part of a make's candidates ranked by work; then the chapter put in
- * order. Two and three shapes, shapes on both pans (up to five shapes), scales to compare, four and five shapes. The
- * per-level table and the chapters' summary go to stderr (-DREPORT: the same for the levels in balance_levels.h).
+ * opening (two single shapes on one scale first, then two of the chapter's new idea; an opening of more shapes has two
+ * on a scale, one found from another), then two makes of more shapes, their levels picked evenly over the harder part
+ * of a make's candidates ranked by work; then the chapter put in order. One step of two shapes at level 3, then three
+ * shapes (not trivial from level 4), shapes on both pans (up to five shapes), scales to compare, four and five shapes.
+ * The per-level table and the chapters' summary go to stderr (-DREPORT: the same for the levels in balance_levels.h).
  * Deterministic (fixed seeds): run it again after a change to the maker and check the diff.
  *   gcc -O2 -Iapps/boardgames/src -o /tmp/balgen apps/boardgames/tools/balance_gen.c \
  *       apps/boardgames/src/games/balance_rules.c -lm && /tmp/balgen > apps/boardgames/src/games/balance_levels.h
@@ -34,7 +35,7 @@ typedef struct { bal_make m; int count; float lo; } make;
 #define MAKES 3
 /* {k, m, wmax, both, pair, pan} */
 static const make CHAPTER[BAL_CHAPTERS][MAKES] = {
-    {{{1, 1, 5, 0, 0, 3}, 3, 0}, {{2, 2, 9, 0, 0, 4}, 7, 0.5f}, {{3, 3, 9, 0, 0, 4}, 15, 0.1f}},
+    {{{1, 1, 5, 0, 0, 3}, 2, 0}, {{2, 2, 9, 0, 0, 4}, 1, -1}, {{3, 3, 9, 0, 0, 4}, 22, 0.1f}},
     {{{2, 2, 9, 1, 0, 4}, 2, -1}, {{3, 3, 9, 1, 0, 4}, 11, 0.3f}, {{4, 4, 9, 1, 0, 4}, 12, 0.2f}},
     {{{3, 3, 12, 1, 0, 5}, 2, -1}, {{4, 4, 15, 1, 0, 5}, 11, 0.3f}, {{5, 5, 15, 1, 0, 5}, 12, 0.2f}},
     {{{2, 2, 9, 0, 1, 4}, 2, -1}, {{3, 3, 12, 0, 1, 4}, 11, 0.3f}, {{3, 3, 15, 1, 1, 4}, 12, 0.3f}},
@@ -61,6 +62,18 @@ static int seen(const char *key)
 /* ---- the difficulty metrics: the shapes, the scales' items, the heaviest weight, the plain and pair steps. Trivial:
  * two shapes or fewer, found one scale at a time (no pair step). --------------------------------------------------- */
 static int trivial(const cand *c) { return c->p.k <= 2 && !c->pair; }
+
+/* a scale holding two kinds of shape: one found from another (what an opening of more than one shape asks) */
+static int mixed(const bal_puzzle *p)
+{
+    for (int i = 0; i < p->m; i++) {
+        unsigned kinds = 0;
+        for (int s = 0; s < 2; s++)
+            for (int j = 0; j < p->sc[i].n[s]; j++) kinds |= 1u << p->sc[i].s[s][j];
+        if (kinds & (kinds - 1)) return 1;
+    }
+    return 0;
+}
 
 static void table(const cand *c, int n)
 {
@@ -141,7 +154,7 @@ int main(void)
             fprintf(stderr, "chapter %d, make %d: %d candidates\n", ch + 1, p + 1, k);
             for (int i = 0; i < m->count; i++) {
                 int at = m->lo < 0 ? i : (int)((m->lo + (1 - m->lo) * (i + 0.5f) / m->count) * (k - 1));
-                while (at < k && seen(pool[at].key)) at++;
+                while (at < k && (seen(pool[at].key) || (m->lo < 0 && m->m.k > 1 && !mixed(&pool[at].p)))) at++;
                 if (at >= k) {
                     fprintf(stderr, "chapter %d: not enough of make %d\n", ch + 1, p + 1);
                     return 1;

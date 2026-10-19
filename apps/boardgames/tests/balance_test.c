@@ -49,8 +49,9 @@ static void test_levels(void)
         int ch = i / 25;
         if (ch < 3) CHECK(pair == 0);           /* the first chapters: one scale at a time */
         if (ch == 3) CHECK(pair >= 1);
-        if (i < 3) CHECK(p.k == 1 && p.m == 1 && bal_most(&p) <= 5);    /* a short start */
-        if (i >= 3) CHECK(p.k >= 2);
+        if (i < 2) CHECK(p.k == 1 && p.m == 1 && bal_most(&p) <= 5);    /* a short start */
+        if (i >= 2) CHECK(p.k >= 2);           /* level 3 a step up: two shapes */
+        if (i >= 3 && i < 25) CHECK(p.k >= 3);  /* then not trivial: three shapes */
         if (i < 40) CHECK(bal_most(&p) <= 9);
         for (int j = 0; j < i; j++) CHECK(strcmp(bal_levels[j], bal_levels[i]));
     }

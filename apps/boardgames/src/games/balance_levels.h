@@ -6,33 +6,33 @@
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 static const char *const bal_levels[BAL_LEVELS] = {
-    "3;a/3", /* 1: 1 plain, 0 pair */
-    "3;a,a/6", /* 2: 1 plain, 0 pair */
-    "2;a,a,a/6", /* 3: 1 plain, 0 pair */
-    "9,7;a,a,b/25|b/7", /* 4: 2 plain, 0 pair */
-    "1,3;b,b/6|a,a,a,b/6", /* 5: 2 plain, 0 pair */
-    "4,5;a,a,b,b/18|b,b/10", /* 6: 2 plain, 0 pair */
-    "9,4;a,a,a,b/31|b/4", /* 7: 2 plain, 0 pair */
-    "6,5;a,b,b/16|b,b,b/15", /* 8: 2 plain, 0 pair */
-    "6,9;a,b,b,b/33|a,a/12", /* 9: 2 plain, 0 pair */
-    "8,1;a,b,b/10|a,a,a,a/32", /* 10: 2 plain, 0 pair */
-    "9,5,3;c/3|a,a/18|b,c/8", /* 11: 3 plain, 0 pair */
-    "6,5,3;b,c/8|b/5|a,b,c/14", /* 12: 3 plain, 0 pair */
-    "2,5,8;a,b,c,c/23|b/5|c/8", /* 13: 3 plain, 0 pair */
-    "6,5,9;b/5|c/9|a,b,c,c/29", /* 14: 3 plain, 0 pair */
-    "2,6,7;a/2|a,a,c/11|a,b,c/15", /* 15: 3 plain, 0 pair */
-    "4,3,1;b/3|b,b,c/7|a,a,c,c/10", /* 16: 3 plain, 0 pair */
-    "2,5,1;b/5|b,b,b,c/16|a,b,c/8", /* 17: 3 plain, 0 pair */
-    "8,4,9;c/9|b,b,b,c/21|a,c/17", /* 18: 3 plain, 0 pair */
-    "1,6,5;a/1|a,a,b,c/13|c,c,c/15", /* 19: 3 plain, 0 pair */
-    "8,3,6;a,b,c/17|a/8|a,a,c,c/28", /* 20: 3 plain, 0 pair */
-    "3,4,6;a,a,a/9|a,a,b,c/16|a,b/7", /* 21: 3 plain, 0 pair */
-    "7,5,1;a,a,c/15|a,b,b,b/22|a,a/14", /* 22: 3 plain, 0 pair */
-    "2,3,9;b/3|b,b,b,c/18|a,a,b,c/16", /* 23: 3 plain, 0 pair */
-    "1,6,9;b/6|a,b,b,b/19|a,a,b,c/17", /* 24: 3 plain, 0 pair */
-    "9,4,1;a,a,c,c/20|a,a,b,b/26|a,a/18", /* 25: 3 plain, 0 pair */
-    "2,4;b/4|a/2", /* 26: 2 plain, 0 pair */
-    "2,4;a,a/4|b/4", /* 27: 2 plain, 0 pair */
+    "4;a/4", /* 1: 1 plain, 0 pair */
+    "5;a,a/10", /* 2: 1 plain, 0 pair */
+    "3,4;a,b/7|b/4", /* 3: 2 plain, 0 pair */
+    "4,5,3;a,c/7|c/3|a,a,b/13", /* 4: 3 plain, 0 pair */
+    "3,4,6;c/6|a,b,b,c/17|a/3", /* 5: 3 plain, 0 pair */
+    "7,2,5;a/7|b,b,c/9|c,c/10", /* 6: 3 plain, 0 pair */
+    "4,8,6;a,c/10|b/8|a,b,b/20", /* 7: 3 plain, 0 pair */
+    "6,5,9;b/5|b,c/14|a,a,c/21", /* 8: 3 plain, 0 pair */
+    "2,4,9;c/9|a,a/4|a,b,c/15", /* 9: 3 plain, 0 pair */
+    "1,3,2;b,c/5|c,c,c/6|a,b,b/7", /* 10: 3 plain, 0 pair */
+    "7,5,4;a,a,b,c/23|a/7|c,c/8", /* 11: 3 plain, 0 pair */
+    "4,3,2;a,a,a,b/15|a/4|c,c,c/6", /* 12: 3 plain, 0 pair */
+    "2,5,1;b/5|b,b,b,c/16|a,b,c/8", /* 13: 3 plain, 0 pair */
+    "9,5,8;a,b,b,c/27|b/5|b,c/13", /* 14: 3 plain, 0 pair */
+    "2,8,9;b,b/16|a,a,a,b/14|c/9", /* 15: 3 plain, 0 pair */
+    "1,6,5;a/1|a,a,b,c/13|c,c,c/15", /* 16: 3 plain, 0 pair */
+    "7,5,8;a,b,c/20|b,b,b/15|b,c/13", /* 17: 3 plain, 0 pair */
+    "8,2,9;a,b,c,c/28|a,c/17|a,a/16", /* 18: 3 plain, 0 pair */
+    "5,6,3;b,b,b/18|b,c/9|a,a,b,c/19", /* 19: 3 plain, 0 pair */
+    "7,1,5;a,c,c,c/22|a,b,b,c/14|c/5", /* 20: 3 plain, 0 pair */
+    "7,2,8;a,b/9|a,a,a/21|a,a,c,c/30", /* 21: 3 plain, 0 pair */
+    "2,3,9;b/3|b,b,b,c/18|a,a,b,c/16", /* 22: 3 plain, 0 pair */
+    "9,3,4;b,b/6|a,a,b,c/25|b,c,c/11", /* 23: 3 plain, 0 pair */
+    "8,7,5;b,b,b/21|a,a,b/23|a,a,a,c/29", /* 24: 3 plain, 0 pair */
+    "9,3,6;a,b,b,c/21|b,c/9|c,c,c,c/24", /* 25: 3 plain, 0 pair */
+    "5,2;b/2|a,b/7", /* 26: 2 plain, 0 pair */
+    "1,2;a,b/3|a,a/2", /* 27: 2 plain, 0 pair */
     "2,9,1;b/9|a,b/11|a,a,c,c/6", /* 28: 3 plain, 0 pair */
     "1,5,6;c/6|a,b,c,c/18|c,4/b,b", /* 29: 3 plain, 0 pair */
     "8,1,4;a/8|a,b,b,b/c,c,3|b/1", /* 30: 3 plain, 0 pair */
@@ -56,8 +56,8 @@ static const char *const bal_levels[BAL_LEVELS] = {
     "9,5,8,1;a,a,c,d/b,b,b,12|b,c,d/14|b/5|b,d/6", /* 48: 4 plain, 0 pair */
     "7,6,3,8;a,a,b,b/c,c,c,17|b/c,c|d,2/a,c|b/6", /* 49: 4 plain, 0 pair */
     "9,1,3,7;a,a,a,c/30|c,c,c/9|b,c,d/11|c,c,d,d/20", /* 50: 4 plain, 0 pair */
-    "6,11,7;b/11|c/7|a/6", /* 51: 3 plain, 0 pair */
-    "2,5,7;a,b,b/12|a/2|c/7", /* 52: 3 plain, 0 pair */
+    "2,5,7;a,b,b/12|a/2|c/7", /* 51: 3 plain, 0 pair */
+    "1,4,6;a,c,c/b,9|b/4|c/6", /* 52: 3 plain, 0 pair */
     "14,4,5,6;b,c/9|b,15/a,c|b/4|c,c,d,d,d/28", /* 53: 4 plain, 0 pair */
     "11,9,12,7;c/12|a,d,6/c,c|a,c/23|a,a,b,c/d,36", /* 54: 4 plain, 0 pair */
     "5,3,1,7;d,1/b,b,c,c|c/1|b,c/4|a,c,d,d,d/b,24", /* 55: 4 plain, 0 pair */
