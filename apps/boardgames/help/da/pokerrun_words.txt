@@ -1,0 +1,137 @@
+Pokerrejse: amuletternes navne (40), deres virkninger (40), bossernes navne (10) og kneb (10), håndtyperne (9), forbedringernes navne (7) og virkninger (7), pakkernes navne (3) og indhold (3), og til sidst nogle få ord
+Rubinmedaljon
+Gagatbroche
+Topasring
+Jadespænde
+Stenpung
+Esfjer
+Hoflinse
+Ulige kompas
+Kongens segl
+Forgyldt klokke
+Tvillingespejl
+Tredobbelt knude
+Rebstige
+Tidevandsskal
+Tre graner
+Ensomt lys
+Åben hånd
+Grublesten
+Messinganker
+Sidste skær
+Stille vand
+Timeglas
+Mølvinge
+Pengepung
+Tilbageholdt ånde
+Snebold
+Udklipsbog
+Klatrevedbend
+Karvestok
+Dyb lomme
+Reservehandske
+Skræddersaks
+Åben dør
+Lersparegris
+Regnskabsbog
+Prutterens ring
+Firkløverfrø
+Glarmesterklud
+Smedehammer
+Morgengong
++4 faktor for hvert hjerter, der tæller.
++30 jetoner for hver spar, der tæller.
++1 mønt for hver ruder, der tæller.
+×1,25 faktor for hver klør, der tæller.
++3 faktor for hver 2, 3, 4 eller 5, der tæller.
++20 jetoner og +4 faktor for hvert es, der tæller.
+Knægte, damer og konger tæller to gange.
++25 jetoner for hvert es, 3, 5, 7 eller 9, der tæller.
+×1,5 faktor for hver konge, der tæller.
++1 mønt for hver knægt, dame eller konge, der tæller.
++8 faktor, hvis hånden indeholder et par.
++14 faktor, hvis hånden indeholder tre ens.
+×2,5 faktor, hvis hånden er en straight.
++16 faktor, hvis hånden er en flush.
+×1,75 faktor, hvis der spilles præcis 3 kort.
+×3 faktor, hvis der spilles præcis 1 kort.
++60 jetoner, hvis der spilles 5 kort.
++5 faktor.
++45 jetoner.
+×3 faktor på den sidste hånd i en blind.
++15 jetoner for hver kassering, der er tilbage.
++3 faktor for hver hånd, der er tilbage efter denne.
+×2 faktor, hvis ingen kassering er brugt i denne blind.
++1 faktor for hver 3 mønter, du har.
++2 faktor for hvert kort, der bliver på hånden.
+Vokser med +1 faktor for hver spillet hånd.
+Vokser med +4 jetoner for hvert kasseret kort.
+Starter på ×1 faktor og vokser med ×0,2 for hver vundet blind.
+Vokser med +3 faktor, hver gang et par spilles.
++1 kort på hånden.
++1 hånd i hver blind.
++1 kassering i hver blind.
+Alle spillede kort tæller.
++4 mønter efter hver vundet blind.
+Renter op til 10 mønter i stedet for 5.
+Alt i butikken koster 1 mønt mindre.
+Firkløverkort er dobbelt så heldige.
+Krystalkort går aldrig i stykker.
+Jernkort giver ×2 faktor i stedet for ×1,5.
+Den første hånd i hver blind tæller to gange.
+Falmende kulør
+Kort reb
+Knyttet næve
+Tør brønd
+Høj mur
+Tåge
+Lavvande
+Smal port
+Betalingsbro
+Gammel rust
+Kortene i én kulør, vist på dens skilt, tæller ingenting.
+Kun 3 hænder.
+Ét kort mindre på hånden.
+Ingen kasseringer.
+Målet er halvanden gang så højt.
+Nogle kort gives med billedsiden nedad.
+Hændernes jetoner og faktor halveres.
+Hver hånd skal være på 5 kort.
+Hver spillet hånd koster 1 mønt.
+Kortforbedringer virker ikke.
+Højeste kort
+Et par
+To par
+Tre ens
+Straight
+Flush
+Fuldt hus
+Fire ens
+Straight flush
+Forgyldt
+Krystal
+Jern
+Firkløver
+Ætset
+Glød
+Prisme
++3 mønter, hvis kortet er på hånden, når en blind vindes.
+×2 faktor, når kortet tæller; 1 chance ud af 4 for at gå i stykker.
+×1,5 faktor, så længe kortet bliver på hånden.
+Når kortet tæller: 1 chance ud af 5 for +20 faktor, 1 ud af 12 for 15 mønter.
++30 jetoner, når kortet tæller.
++4 faktor, når kortet tæller.
+Tæller som alle kulører.
+Amuletpung
+Foliantbundt
+Kortbundt
+Vælg 1 ud af 3 amuletter.
+Vælg 1 ud af 3 folianter.
+Læg 1 ud af 4 kort i dit spil.
+Foliant
+Ét niveau op for denne hånd.
+Lille blind
+Stor blind
+Bossblind
+Uendelig
+Afslut rejsen

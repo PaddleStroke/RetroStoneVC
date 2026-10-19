@@ -1,0 +1,13 @@
+Course au poker
+# Le but
+Franchir huit antes de trois blindes chacune : une petite blinde, une grosse blinde et un boss. Chaque blinde est un score à atteindre.
+# Une blinde
+Tu tiens 8 cartes de ton propre jeu de 52, avec 4 mains et 3 défausses. Choisis jusqu'à 5 cartes et joue-les comme une main de poker, ou défausse-les pour en piocher d'autres. Les mains, de la plus faible : carte haute, paire, double paire, brelan, quinte, couleur, full, carré, quinte flush.
+# Le score
+(Les jetons de la main + les jetons des cartes qui la forment) × le mult de la main. Les cartes numérotées valent leur nombre, les figures 10, les as 11. Tes talismans agissent ensuite de gauche à droite. Atteins l'objectif avant la fin de tes mains, sinon la course s'arrête.
+# La boutique
+Tu gagnes des pièces par blinde gagnée, par main restante, et des intérêts : 1 pour 5 pièces possédées, jusqu'à 5. Achète des talismans (5 au plus), des grimoires qui montent le niveau d'une main, des améliorations pour tes cartes, et des paquets. Un talisman se revend à moitié prix.
+# Les boss
+Chaque boss a sa particularité, annoncée avant le début.
+# La fin de la partie
+Bats le huitième boss pour gagner. La course peut ensuite continuer, sans fin.

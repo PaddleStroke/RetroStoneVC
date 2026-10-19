@@ -1,0 +1,137 @@
+Course au poker : les noms des talismans (40), leurs effets (40), les noms des boss (10) et leurs particularités (10), les types de mains (9), les noms des améliorations (7) et leurs effets (7), les noms des paquets (3) et leurs contenus (3), puis quelques mots
+Médaillon de rubis
+Broche de jais
+Bague de topaze
+Fermoir de jade
+Bourse à cailloux
+Plume d'as
+Loupe de la cour
+Boussole impaire
+Sceau du roi
+Cloche dorée
+Miroir jumeau
+Triple nœud
+Échelle de corde
+Coquillage des marées
+Trois pins
+Bougie solitaire
+Main ouverte
+Pierre à soucis
+Ancre de laiton
+Dernière lueur
+Eau dormante
+Sablier
+Aile de phalène
+Porte-monnaie
+Souffle retenu
+Boule de neige
+Album de souvenirs
+Lierre grimpant
+Bâton de taille
+Poche profonde
+Gant de rechange
+Ciseaux de tailleur
+Porte ouverte
+Cochon d'argile
+Grand livre
+Bague du marchandeur
+Graine de trèfle
+Chiffon du vitrier
+Marteau du forgeron
+Gong du matin
++4 mult pour chaque cœur qui marque.
++30 jetons pour chaque pique qui marque.
++1 pièce pour chaque carreau qui marque.
+×1,25 mult pour chaque trèfle qui marque.
++3 mult pour chaque 2, 3, 4 ou 5 qui marque.
++20 jetons et +4 mult pour chaque as qui marque.
+Les valets, dames et rois marquent deux fois.
++25 jetons pour chaque as, 3, 5, 7 ou 9 qui marque.
+×1,5 mult pour chaque roi qui marque.
++1 pièce pour chaque valet, dame ou roi qui marque.
++8 mult si la main contient une paire.
++14 mult si la main contient un brelan.
+×2,5 mult si la main est une quinte.
++16 mult si la main est une couleur.
+×1,75 mult si exactement 3 cartes sont jouées.
+×3 mult si exactement 1 carte est jouée.
++60 jetons si 5 cartes sont jouées.
++5 mult.
++45 jetons.
+×3 mult sur la dernière main d'une blinde.
++15 jetons pour chaque défausse restante.
++3 mult pour chaque main restante après celle-ci.
+×2 mult si aucune défausse n'a servi dans cette blinde.
++1 mult par tranche de 3 pièces que tu as.
++2 mult pour chaque carte gardée en main.
+Gagne +1 mult à chaque main jouée.
+Gagne +4 jetons à chaque carte défaussée.
+Commence à ×1 mult et gagne ×0,2 à chaque blinde gagnée.
+Gagne +3 mult chaque fois qu'une paire est jouée.
++1 carte en main.
++1 main dans chaque blinde.
++1 défausse dans chaque blinde.
+Toutes les cartes jouées marquent.
++4 pièces après chaque blinde gagnée.
+Intérêts jusqu'à 10 pièces au lieu de 5.
+Tout coûte 1 pièce de moins à la boutique.
+Les cartes porte-bonheur ont deux fois plus de chance.
+Les cartes de cristal ne se brisent jamais.
+Les cartes de fer donnent ×2 mult au lieu de ×1,5.
+La première main de chaque blinde marque deux fois.
+Couleur fanée
+Corde courte
+Poing serré
+Puits à sec
+Haut mur
+Brouillard
+Marée basse
+Porte étroite
+Pont à péage
+Vieille rouille
+Les cartes d'une couleur, indiquée sur son panneau, ne marquent rien.
+Seulement 3 mains.
+Une carte de moins en main.
+Aucune défausse.
+L'objectif est augmenté de moitié.
+Certaines cartes sont distribuées face cachée.
+Les jetons et le mult des mains sont divisés par deux.
+Chaque main doit compter 5 cartes.
+Chaque main jouée coûte 1 pièce.
+Les améliorations des cartes ne font rien.
+Carte haute
+Paire
+Double paire
+Brelan
+Quinte
+Couleur
+Full
+Carré
+Quinte flush
+Dorée
+Cristal
+Fer
+Porte-bonheur
+Gravée
+Braise
+Prisme
++3 pièces si elle est en main quand une blinde est gagnée.
+×2 mult quand elle marque ; 1 chance sur 4 de se briser.
+×1,5 mult tant qu'elle reste en main.
+Quand elle marque : 1 chance sur 5 de +20 mult, 1 sur 12 de 15 pièces.
++30 jetons quand elle marque.
++4 mult quand elle marque.
+Compte comme toutes les couleurs.
+Bourse à talismans
+Liasse de grimoires
+Liasse de cartes
+Choisis 1 talisman parmi 3.
+Choisis 1 grimoire parmi 3.
+Ajoute à ton jeu 1 carte parmi 4.
+Grimoire
+Un niveau de plus pour cette main.
+Petite blinde
+Grosse blinde
+Blinde de boss
+Sans fin
+Finir la course

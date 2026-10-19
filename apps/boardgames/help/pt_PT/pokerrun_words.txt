@@ -1,0 +1,137 @@
+Corrida de póquer: os nomes dos amuletos (40), os seus efeitos (40), os nomes dos chefes (10) e as suas surpresas (10), os tipos de mão (9), os nomes das melhorias (7) e os seus efeitos (7), os nomes dos pacotes (3) e o seu conteúdo (3), e depois algumas palavras
+Medalhão de rubi
+Broche de azeviche
+Anel de topázio
+Fecho de jade
+Saquinho de seixos
+Pena de ás
+Lupa da corte
+Bússola ímpar
+Selo do rei
+Sino dourado
+Espelho gémeo
+Nó triplo
+Escada de corda
+Concha da maré
+Três pinheiros
+Vela solitária
+Palma aberta
+Pedra da calma
+Âncora de latão
+Última luz
+Água parada
+Ampulheta
+Asa de traça
+Porta-moedas
+Fôlego suspenso
+Bola de neve
+Álbum de recortes
+Hera trepadeira
+Vara de contagem
+Bolso fundo
+Luva sobresselente
+Tesoura de alfaiate
+Porta aberta
+Porquinho de barro
+Livro de contas
+Anel do regateador
+Semente de trevo
+Pano do vidraceiro
+Martelo do ferreiro
+Gongo da manhã
++4 mult por carta de copas que pontue.
++30 fichas por carta de espadas que pontue.
++1 moeda por carta de ouros que pontue.
+×1,25 mult por carta de paus que pontue.
++3 mult por 2, 3, 4 ou 5 que pontue.
++20 fichas e +4 mult por ás que pontue.
+Valetes, damas e reis pontuam duas vezes.
++25 fichas por ás, 3, 5, 7 ou 9 que pontue.
+×1,5 mult por rei que pontue.
++1 moeda por valete, dama ou rei que pontue.
++8 mult se a mão tiver um par.
++14 mult se a mão tiver um trio.
+×2,5 mult se a mão for uma sequência.
++16 mult se a mão for uma cor.
+×1,75 mult se forem jogadas exatamente 3 cartas.
+×3 mult se for jogada exatamente 1 carta.
++60 fichas se forem jogadas 5 cartas.
++5 mult.
++45 fichas.
+×3 mult na última mão de um blind.
++15 fichas por cada descarte que sobre.
++3 mult por cada mão que sobre depois desta.
+×2 mult se nenhum descarte foi usado neste blind.
++1 mult por cada 3 moedas que tenhas.
++2 mult por cada carta guardada na mão.
+Cresce +1 mult a cada mão jogada.
+Cresce +4 fichas a cada carta descartada.
+Começa em ×1 mult e cresce ×0,2 a cada blind vencido.
+Cresce +3 mult sempre que um par é jogado.
++1 carta na mão.
++1 mão em cada blind.
++1 descarte em cada blind.
+Todas as cartas jogadas pontuam.
++4 moedas depois de cada blind vencido.
+Juros até 10 moedas em vez de 5.
+Tudo na loja custa menos 1 moeda.
+As cartas de trevo têm o dobro da sorte.
+As cartas de cristal nunca se partem.
+As cartas de ferro dão ×2 mult em vez de ×1,5.
+A primeira mão de cada blind pontua duas vezes.
+Naipe desbotado
+Corda curta
+Punho fechado
+Poço seco
+Muro alto
+Nevoeiro
+Maré baixa
+Portão estreito
+Ponte de portagem
+Ferrugem velha
+As cartas de um naipe, mostrado na placa, não pontuam nada.
+Só 3 mãos.
+Menos uma carta na mão.
+Sem descartes.
+A meta fica uma vez e meia mais alta.
+Algumas cartas são dadas voltadas para baixo.
+As fichas e o mult das mãos ficam reduzidos a metade.
+Cada mão tem de ter 5 cartas.
+Cada mão jogada custa 1 moeda.
+As melhorias das cartas não fazem nada.
+Carta alta
+Par
+Dois pares
+Trio
+Sequência
+Cor
+Full house
+Póquer
+Sequência de cor
+Dourada
+Cristal
+Ferro
+Trevo
+Gravada
+Brasa
+Prisma
++3 moedas se estiver na mão quando um blind for vencido.
+×2 mult ao pontuar; 1 hipótese em 4 de se partir.
+×1,5 mult enquanto ficar na mão.
+Ao pontuar: 1 hipótese em 5 de +20 mult, 1 em 12 de 15 moedas.
++30 fichas ao pontuar.
++4 mult ao pontuar.
+Conta como todos os naipes.
+Bolsa de amuletos
+Pacote de tomos
+Pacote de cartas
+Escolhe 1 de 3 amuletos.
+Escolhe 1 de 3 tomos.
+Junta 1 de 4 cartas ao teu baralho.
+Tomo
+Mais um nível para esta mão.
+Blind pequeno
+Blind grande
+Blind do chefe
+Sem fim
+Terminar a corrida

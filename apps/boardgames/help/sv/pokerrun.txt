@@ -1,0 +1,13 @@
+Pokerresan
+# Målet
+Ta dig igenom åtta etapper med tre blinds var: en liten blind, en stor blind och en boss. Varje blind är en poängsumma att nå.
+# En blind
+Du har 8 kort på handen ur din egen kortlek på 52 kort, och du har 4 händer och 3 kast. Välj upp till 5 kort och spela dem som en pokerhand, eller kasta dem för att dra nya. Händerna, svagast först: högt kort, par, två par, triss, stege, färg, kåk, fyrtal, färgstege.
+# Poängen
+(Handens marker + markerna från korten som bildar den) × handens faktor. Sifferkort ger sitt värde, klädda kort 10, ess 11. Sedan verkar dina amuletter från vänster till höger. Nå målet innan händerna tar slut, annars är resan över.
+# Butiken
+Mynt får du för varje vunnen blind, varje hand som är kvar och ränta: 1 per 5 mynt du har, upp till 5. Köp amuletter (högst 5), folianter som höjer en hands nivå, förbättringar till dina kort och paket. En amulett säljs för halva priset.
+# Bossarna
+Varje bossblind har en egen knorr, som visas innan den börjar.
+# Partiets slut
+Besegra den åttonde bossen för att vinna. Sedan kan resan fortsätta utan slut.

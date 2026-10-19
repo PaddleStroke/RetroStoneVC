@@ -822,8 +822,8 @@ static void layout(box b)
     L.pilew = floorf(fminf(L.hw * 0.72f, L.play.h * 0.36f / 1.4f));
     L.pilex = L.play.x + L.play.w - 0.75f * L.pilew - 0.15f * u;
     float room = L.pilex - 0.7f * L.pilew - L.play.x - 0.2f * u;   /* left of the pile: five cards */
-    L.pw = floorf(fminf(fminf(L.hw * 1.0f, L.play.h * 0.5f / 1.4f), room / 5.5f));
-    L.py = L.play.y + L.play.h * 0.4f;
+    L.pw = floorf(fminf(fminf(L.hw * 1.0f, L.play.h * 0.46f / 1.4f), room / 5.5f));
+    L.py = L.play.y + L.play.h * 0.36f;
     L.pcx = L.play.x + 0.1f * u + room / 2;
     L.piley = L.py;
     L.bossd = L.hud.h * 0.62f;
@@ -834,7 +834,7 @@ static void layout(box b)
 
 /* ---- the cards' motion ------------------------------------------------------------------------------------------ */
 typedef struct { float x, y, deg, w; } vpos;
-static struct { vpos from, to; Uint32 t0; int dur, on; } V[PKR_DECK_MAX];
+static struct { vpos from, to; Uint32 t0; int dur, on, deal; } V[PKR_DECK_MAX];   /* deal: from the pile, face down */
 
 static float speedk(void) { return fast ? 0.45f : 1.0f; }
 
@@ -855,7 +855,7 @@ static int vmoving(int i) { return V[i].on && (int)(ui_ms() - V[i].t0) < V[i].du
 static vpos vgo(int i, vpos to, int ms, int delay)
 {
     if (!V[i].on) {
-        V[i].on = 1;
+        V[i].on = 1, V[i].deal = 1;
         V[i].from = (vpos){L.pilex, L.piley, 0, L.pilew};
         V[i].to = to;
         V[i].t0 = ui_ms() + (Uint32)delay;
@@ -864,7 +864,7 @@ static vpos vgo(int i, vpos to, int ms, int delay)
     }
     if (fabsf(V[i].to.x - to.x) > 0.5f || fabsf(V[i].to.y - to.y) > 0.5f || fabsf(V[i].to.deg - to.deg) > 0.2f ||
         fabsf(V[i].to.w - to.w) > 0.5f) {
-        V[i].from = vnow(i);
+        V[i].from = vnow(i), V[i].deal = 0;
         V[i].to = to;
         V[i].t0 = ui_ms() + (Uint32)delay;
         V[i].dur = ms;
@@ -1042,7 +1042,11 @@ static void act(int a)
     }
     case A_SORT: ui_sound(SND_TAP); break;
     case A_CASH: ui_sound(SND_DROP); break;
-    case A_BUY: case A_PICK: ui_sound(SND_PLACE); break;
+    case A_BUY:
+        if (G.s.phase == PH_PACK) info = INF_PACK, info_i = 0;   /* a pack opened: its first choice shown */
+        ui_sound(SND_PLACE);
+        break;
+    case A_PICK: ui_sound(SND_PLACE); break;
     case A_SELL: ui_sound(SND_DROP); break;
     case A_REROLL: ui_sound(SND_DICE); break;
     case A_ENH: ui_sound(SND_PLACE); break;
@@ -1173,6 +1177,7 @@ static void draw_hand(const pkr_state *s, const uint8_t *hand, int n, unsigned r
         int how = (raised >> i & 1 ? CD_GLOW : 0) | (s->hid[di] ? CD_DOWN : 0) | (dim_all ? CD_DIM : 0);
         if (debuffed(s, di) && !(how & CD_DOWN)) how |= CD_DIM;
         if ((int)(ui_ms() - V[di].t0) < 0 && V[di].on) continue;   /* not dealt yet */
+        if (V[di].deal && (int)(ui_ms() - V[di].t0) < V[di].dur / 2) how |= CD_DOWN;   /* turned up on the way */
         card_at(s->deck[di], p.x, p.y, p.w, p.deg, how, 1);
     }
 }
@@ -1230,8 +1235,8 @@ static void draw_charm_slot(int i, const pkr_charm *c, int lit)
     if (v > 0) ct_badge(x + 0.36f * d, y + 0.36f * d, 0.42f * d, v);
     if (c->id == CH_IVY && c->val > 100) {      /* the ivy's times-mult now */
         float h = 0.26f * d, w = value_w(2, c->val, 1, h) + 0.4f * h;
-        round_box(x + 0.36f * d - w / 2, y + 0.36f * d - 0.6f * h, w, 1.2f * h, (const uint8_t[3]){28, 30, 28}, 230);
-        value_at(2, c->val, 1, x + 0.36f * d, y + 0.36f * d, h, WHITE, 1);
+        round_box(x - w / 2, y + 0.44f * d - 0.6f * h, w, 1.2f * h, (const uint8_t[3]){28, 30, 28}, 230);
+        value_at(2, c->val, 1, x, y + 0.44f * d, h, WHITE, 1);
     }
 }
 
@@ -1506,7 +1511,7 @@ static void info_text(box p, int name_line, int fx_line, const char *extra)
 static void item_pic(const pkr_item *it, int pack_kind, float x, float y, float d)
 {
     if (pack_kind == PK_CARD) {
-        card_at(it->c, x, y, d * 0.62f, 0, 0, 1);
+        card_at(it->c, x, y, d * 0.72f, 0, 0, 1);
         return;
     }
     switch (it->kind) {
@@ -1559,10 +1564,13 @@ static void tome_numbers(int type, float x, float y, float h)
 
 /* the panel for the open item, in box p; its button (1 take, 2 sell: the coins it gives, 3 buy: the price) at the
  * right end: info_btn_box */
+static int info_tall(box p) { return p.h > p.w * 0.8f; }   /* a tall panel: picture, words, button down it */
+
 static box info_btn_box(box p)
 {
-    float pad = 0.25f * L.u, bd = fminf(1.1f * L.u, p.h * 0.6f);
+    float pad = 0.25f * L.u, bd = fminf(1.1f * L.u, (info_tall(p) ? p.w * 0.3f : p.h * 0.6f));
     float bx = p.x + p.w - pad - bd * 0.7f, by = p.y + p.h / 2 - 0.12f * bd;
+    if (info_tall(p)) by = p.y + pad + fminf(p.w * 0.35f, 1.4f * L.u) / 2 - 0.12f * bd;   /* beside the picture */
     return (box){bx - bd / 2, by - bd / 2, bd, bd};
 }
 
@@ -1570,26 +1578,33 @@ static void draw_info(box p, const pkr_item *it, int pack_kind, int charm_slot, 
                       int btn_ok)
 {
     panel(p.x, p.y, p.w, p.h, 235);
-    float pad = 0.25f * L.u, pd = fminf(p.h - 2 * pad, 1.5f * L.u), bd = fminf(1.1f * L.u, p.h * 0.6f);
+    int tall = info_tall(p);
+    float pad = 0.25f * L.u, pd = fminf(p.h - 2 * pad, 1.5f * L.u), bd = info_btn_box(p).w;
     float tx = p.x + pad * 2 + pd, tw = p.w - (tx - p.x) - pad - (btn_kind ? bd * 1.6f : 0);
+    float px = p.x + pad + pd / 2, py = p.y + p.h / 2, ty = p.y + pad * 0.5f, th = p.h - pad;
+    if (tall) {                                 /* the picture on top, the words under it */
+        pd = fminf(p.w * 0.35f, 1.4f * L.u);
+        px = p.x + pad + pd / 2, py = p.y + pad + pd / 2;
+        tx = p.x + pad, tw = p.w - 2 * pad, ty = py + pd / 2 + 1.6f * pad;
+        th = p.y + p.h - pad - ty;
+    }
     int name = -1, fx = -1;
-    char extra[64] = "";
     if (charm_slot >= 0) {
         const pkr_charm *c = &G.s.charm[charm_slot];
         pkr_item tmp = {IT_CHARM, c->id, c->price, 0, {0, 0}};
-        item_pic(&tmp, -1, p.x + pad + pd / 2, p.y + p.h / 2, pd);
+        item_pic(&tmp, -1, px, py, pd);
         name = W_CNAME + c->id, fx = W_CFX + c->id;
     } else if (it) {
-        item_pic(it, pack_kind, p.x + pad + pd / 2, p.y + p.h / 2, pd);
+        item_pic(it, pack_kind, px, py, pd);
         item_lines(it, pack_kind, &name, &fx);
     }
     if (it && it->kind == IT_TOME && pack_kind != PK_CARD) {
-        box tb = {tx, p.y + pad * 0.6f, tw, p.h * 0.5f};
+        box tb = {tx, ty, tw, th * 0.55f};
         info_text(tb, name, fx, NULL);
-        tome_numbers(it->id, tx, p.y + p.h * 0.7f, fminf(0.42f * L.u, p.h * 0.2f));
-    } else if (name >= 0) info_text((box){tx, p.y + pad * 0.5f, tw, p.h - pad}, name, fx, extra);
+        tome_numbers(it->id, tx, ty + th * 0.75f, fminf(0.42f * L.u, fminf(th * 0.2f, tw / 6.5f)));
+    } else if (name >= 0) info_text((box){tx, ty, tw, th}, name, fx, NULL);
     else if (pack_kind == PK_CARD && it) {     /* a plain card: its chips */
-        value_at(1, pkr_rank_chips(CARD_RANK(it->c.card)), 0, tx + 0.8f * L.u, p.y + p.h / 2, 0.5f * L.u, BLUE, 1);
+        value_at(1, pkr_rank_chips(CARD_RANK(it->c.card)), 0, tx + 0.8f * L.u, ty + th / 2, 0.5f * L.u, BLUE, 1);
     }
     if (btn_kind) {
         box bb = info_btn_box(p);
@@ -1624,7 +1639,7 @@ static void draw_blind_screen(void)
         if (b == s->blind) ui_mark_gold(x, y, d * 1.6f);
         blind_disc(b, s->boss, s->boss_suit, x, y, b == s->blind ? d * 1.1f : d * 0.85f, a);
         if (b < s->blind) ui_put_c(ct_picture(paint_misc, K_TICK, (int)(0.6f * d)), x, y, 0.6f * d, 0.6f * d);
-        word_at(b == 0 ? W_SMALL : b == 1 ? W_BIG : W_BOSSB, x, y + 0.85f * d, 0.3f * u, lw * 0.3f,
+        word_at(b == 0 ? W_SMALL : b == 1 ? W_BIG : W_BOSSB, x, y + 0.85f * d, 0.3f * u, lw * 0.27f,
                 b == s->blind ? panel_ink() : DIMC);
     }
     y += 1.4f * d;
@@ -1822,8 +1837,8 @@ static void pack_layout(void)
     int n = s->npack;
     PK.bd = fminf(1.1f * u, r.h * 0.12f);
     if (!L.land) {
-        PK.d = fminf(r.w * 0.85f / n, r.h * 0.26f);
-        PK.y = r.y + r.h * 0.26f;
+        PK.d = fminf(r.w * 0.85f / n, r.h * 0.3f);
+        PK.y = r.y + r.h * 0.3f;
         for (int i = 0; i < n; i++) PK.x[i] = r.x + r.w * (i + 0.5f) / n;
         PK.info = (box){r.x + 0.2f * u, r.y + r.h * 0.5f, r.w - 0.4f * u, r.h * 0.3f};
         PK.skip[0] = r.x + r.w / 2, PK.skip[1] = r.y + r.h - PK.bd * 0.8f;
@@ -1991,22 +2006,23 @@ static void draw_book(void)
     SDL_SetTextureColorMod(sl, 255, 255, 255);
     num(x + 0.45f * u + num_w(CH_N, h) / 2, ry, h, CH_N, panel_ink(), 1);
     /* the hand types */
-    float ty = ry + 0.75f * u, lw = L.land ? p.w * 0.45f : p.w, rh = fminf(0.62f * u, (BK.gy - ty - 0.3f * u) / HT_N);
+    float ty = ry + 0.75f * u, lw = L.land ? p.w * 0.47f : p.w, rh = fminf(0.62f * u, (BK.gy - ty - 0.3f * u) / HT_N);
     if (L.land) rh = fminf(0.62f * u, (p.y + p.h - ty - 0.2f * u) / HT_N);
     for (int t = HT_N - 1, k = 0; t >= 0; t--, k++) {
         float y = ty + (k + 0.5f) * rh, nh = 0.48f * rh;
         int w, hh;
-        SDL_Texture *tx = ui_word(WORDS, W_HAND + t, 0.5f * rh, lw * 0.42f, panel_ink(), &w, &hh);
+        float nw = lw * 0.47f - 0.45f * u - 0.5f * rh;
+        SDL_Texture *tx = ui_word(WORDS, W_HAND + t, 0.5f * rh, nw, panel_ink(), &w, &hh);
         if (tx) ui_put(tx, p.x + 0.4f * u, y - hh / 2.0f, (float)w, (float)hh);
-        float lx = p.x + lw * 0.5f;
+        float lx = p.x + lw * 0.47f;
         num(lx, y, nh, s->level[t], s->level[t] > 1 ? GOLD : DIMC, 1);
-        float bx = p.x + lw * 0.58f, bw = lw * 0.15f;
+        float bx = p.x + lw * 0.52f, bw = lw * 0.14f;
         round_box(bx, y - 0.4f * rh, bw, 0.8f * rh, BLUE, 255);
         num(bx + bw / 2, y, nh, pkr_hand_chips(s, t), WHITE, 1);
         sign_at(2, bx + bw + 0.2f * rh, y, 0.5f * rh, panel_ink(), 1);
         round_box(bx + bw + 0.4f * rh, y - 0.4f * rh, bw, 0.8f * rh, RED, 255);
         num(bx + 1.5f * bw + 0.4f * rh, y, nh, pkr_hand_mult(s, t), WHITE, 1);
-        num(p.x + lw - 0.5f * u, y, 0.4f * rh, s->played_n[t], DIMC, 1);
+        num(p.x + lw - 0.35f * u, y, 0.4f * rh, s->played_n[t], DIMC, 1);
     }
     /* the charms met: in colour; the others, dark */
     for (int i = 0; i < CH_N; i++) {

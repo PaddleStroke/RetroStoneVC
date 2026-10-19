@@ -1,0 +1,137 @@
+Poker Yolculuğu: tılsımların adları (40), etkileri (40), bossların adları (10) ve hileleri (10), el türleri (9), geliştirmelerin adları (7) ve etkileri (7), paketlerin adları (3) ve içerikleri (3), son olarak birkaç sözcük
+Yakut Madalyon
+Oltu Taşı Broş
+Topaz Yüzük
+Yeşim Toka
+Çakıl Kesesi
+As Tüyü
+Saray Merceği
+Tek Pusula
+Papazın Mührü
+Yaldızlı Çan
+İkiz Ayna
+Üçlü Düğüm
+İp Merdiven
+Gelgit Kabuğu
+Üç Çam
+Yalnız Mum
+Açık Avuç
+Dert Taşı
+Pirinç Çapa
+Son Işık
+Durgun Su
+Kum Saati
+Güve Kanadı
+Para Kesesi
+Tutulan Nefes
+Kartopu
+Anı Defteri
+Sarmaşık
+Çetele Çubuğu
+Derin Cep
+Yedek Eldiven
+Terzi Makası
+Açık Kapı
+Toprak Kumbara
+Hesap Defteri
+Pazarlıkçı Yüzüğü
+Yonca Tohumu
+Camcı Bezi
+Demirci Çekici
+Sabah Gongu
+Puan getiren her kupa için +4 çarpan.
+Puan getiren her maça için +30 fiş.
+Puan getiren her karo için +1 altın.
+Puan getiren her sinek için ×1,25 çarpan.
+Puan getiren her 2, 3, 4 ya da 5 için +3 çarpan.
+Puan getiren her as için +20 fiş ve +4 çarpan.
+Valeler, kızlar ve papazlar iki kez puan getirir.
+Puan getiren her as, 3, 5, 7 ya da 9 için +25 fiş.
+Puan getiren her papaz için ×1,5 çarpan.
+Puan getiren her vale, kız ya da papaz için +1 altın.
+El bir per içeriyorsa +8 çarpan.
+El bir üçlü içeriyorsa +14 çarpan.
+El bir kentse ×2,5 çarpan.
+El bir renkse +16 çarpan.
+Tam 3 kart oynanırsa ×1,75 çarpan.
+Tam 1 kart oynanırsa ×3 çarpan.
+5 kart oynanırsa +60 fiş.
++5 çarpan.
++45 fiş.
+Bir körün son elinde ×3 çarpan.
+Kalan her atma hakkı için +15 fiş.
+Bundan sonra kalan her el için +3 çarpan.
+Bu körde hiç atma yapılmadıysa ×2 çarpan.
+Elindeki her 3 altın için +1 çarpan.
+Elinde tuttuğun her kart için +2 çarpan.
+Oynanan her elle +1 çarpan büyür.
+Atılan her kartla +4 fiş büyür.
+×1 çarpanla başlar ve kazanılan her körle ×0,2 büyür.
+Her per oynandığında +3 çarpan büyür.
+Elinde +1 kart.
+Her körde +1 el.
+Her körde +1 atma hakkı.
+Oynanan her kart puan getirir.
+Kazanılan her körden sonra +4 altın.
+Faiz 5 yerine 10 altına kadar.
+Dükkândaki her şey 1 altın daha ucuz.
+Yonca kartları iki kat şanslıdır.
+Kristal kartlar asla kırılmaz.
+Demir kartlar ×1,5 yerine ×2 çarpan verir.
+Her körün ilk eli iki kez puan getirir.
+Solan Takım
+Kısa İp
+Sıkı Yumruk
+Kuru Kuyu
+Yüksek Duvar
+Sis
+Cezir
+Dar Kapı
+Paralı Köprü
+Eski Pas
+İşaretinde gösterilen bir takımın kartları hiç puan getirmez.
+Yalnızca 3 el.
+Elinde bir kart eksik.
+Atma hakkı yok.
+Hedef bir buçuk kat yüksek.
+Bazı kartlar kapalı dağıtılır.
+Ellerin fişleri ve çarpanı yarıya iner.
+Her el 5 kart olmalıdır.
+Oynanan her el 1 altına mal olur.
+Kart geliştirmeleri işe yaramaz.
+Yüksek kart
+Per
+İki per
+Üçlü
+Kent
+Renk
+Ful
+Kare
+Floş
+Yaldızlı
+Kristal
+Demir
+Yonca
+Oymalı
+Kor
+Prizma
+Bir kör kazanıldığında elindeyse +3 altın.
+Puan getirdiğinde ×2 çarpan; 4'te 1 ihtimalle kırılır.
+Elinde kaldığı sürece ×1,5 çarpan.
+Puan getirdiğinde: 5'te 1 ihtimalle +20 çarpan, 12'de 1 ihtimalle 15 altın.
+Puan getirdiğinde +30 fiş.
+Puan getirdiğinde +4 çarpan.
+Her takım yerine geçer.
+Tılsım Kesesi
+Kitap Paketi
+Kart Paketi
+3 tılsımdan 1'ini seç.
+3 kitaptan 1'ini seç.
+4 karttan 1'ini destene ekle.
+Kitap
+Bu el için bir seviye yukarı.
+Küçük kör
+Büyük kör
+Boss körü
+Sonsuz
+Yolculuğu bitir

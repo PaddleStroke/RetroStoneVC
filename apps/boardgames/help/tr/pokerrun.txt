@@ -1,0 +1,13 @@
+Poker Yolculuğu
+# Amaç
+Her birinde üç kör bulunan sekiz aşamayı geçmek: küçük kör, büyük kör ve bir boss. Her kör, ulaşılması gereken bir puandır.
+# Bir kör
+Kendi 52 kartlık destenden elinde 8 kart tutarsın; 4 elin ve 3 atma hakkın vardır. En çok 5 kart seç ve onları bir poker eli olarak oyna ya da atıp yenilerini çek. Eller, en zayıftan başlayarak: yüksek kart, per, iki per, üçlü, kent, renk, ful, kare, floş.
+# Puan
+(Elin fişleri + eli oluşturan kartların fişleri) × elin çarpanı. Sayı kartları kendi değerini, resimli kartlar 10, aslar 11 verir. Ardından tılsımların soldan sağa işler. Ellerin bitmeden hedefe ulaş, yoksa yolculuk sona erer.
+# Dükkân
+Altın, kazanılan her körden, kalan her elden ve faizden gelir: elindeki her 5 altın için 1, en çok 5. Tılsımlar (en çok 5), bir elin seviyesini yükselten kitaplar, kartların için geliştirmeler ve paketler satın al. Bir tılsım, fiyatının yarısına satılır.
+# Bosslar
+Her boss körünün, başlamadan önce gösterilen bir hilesi vardır.
+# Oyunun sonu
+Kazanmak için sekizinci boss'u yen. Ardından yolculuk sonsuza dek sürebilir.

@@ -1,0 +1,137 @@
+Petualangan Poker: nama jimat (40), efeknya (40), nama bos (10) dan aturan khususnya (10), jenis kombinasi (9), nama peningkatan (7) dan efeknya (7), nama paket (3) dan isinya (3), lalu beberapa kata
+Liontin Rubi
+Bros Oniks
+Cincin Topaz
+Gesper Giok
+Kantong Kerikil
+Bulu As
+Lensa Istana
+Kompas Ganjil
+Segel Raja
+Lonceng Emas
+Cermin Kembar
+Simpul Tiga
+Tangga Tali
+Kerang Pasang
+Tiga Pinus
+Lilin Tunggal
+Telapak Terbuka
+Batu Penenang
+Jangkar Kuningan
+Cahaya Terakhir
+Air Tenang
+Jam Pasir
+Sayap Ngengat
+Dompet Koin
+Napas Tertahan
+Bola Salju
+Album Kliping
+Sulur Merambat
+Tongkat Hitung
+Saku Dalam
+Sarung Tangan Cadangan
+Gunting Penjahit
+Pintu Terbuka
+Celengan Tanah Liat
+Buku Besar
+Cincin Penawar
+Benih Semanggi
+Lap Tukang Kaca
+Palu Pandai Besi
+Gong Pagi
++4 pengali untuk tiap hati yang dihitung.
++30 chip untuk tiap sekop yang dihitung.
++1 koin untuk tiap wajik yang dihitung.
+×1,25 pengali untuk tiap keriting yang dihitung.
++3 pengali untuk tiap 2, 3, 4, atau 5 yang dihitung.
++20 chip dan +4 pengali untuk tiap as yang dihitung.
+Jack, queen, dan king dihitung dua kali.
++25 chip untuk tiap as, 3, 5, 7, atau 9 yang dihitung.
+×1,5 pengali untuk tiap king yang dihitung.
++1 koin untuk tiap jack, queen, atau king yang dihitung.
++8 pengali jika kombinasi berisi sepasang.
++14 pengali jika kombinasi berisi tiga sejenis.
+×2,5 pengali jika kombinasinya straight.
++16 pengali jika kombinasinya flush.
+×1,75 pengali jika tepat 3 kartu dimainkan.
+×3 pengali jika tepat 1 kartu dimainkan.
++60 chip jika 5 kartu dimainkan.
++5 pengali.
++45 chip.
+×3 pengali pada jatah main terakhir sebuah blind.
++15 chip untuk tiap jatah buang yang tersisa.
++3 pengali untuk tiap jatah main yang tersisa setelah ini.
+×2 pengali jika belum ada kartu dibuang di blind ini.
++1 pengali untuk tiap 3 koin yang kamu pegang.
++2 pengali untuk tiap kartu yang tetap di tanganmu.
+Bertambah +1 pengali setiap kali main.
+Bertambah +4 chip untuk tiap kartu yang dibuang.
+Mulai dari ×1 pengali dan bertambah ×0,2 untuk tiap blind yang dimenangkan.
+Bertambah +3 pengali setiap kali sepasang dimainkan.
++1 kartu di tanganmu.
++1 jatah main di setiap blind.
++1 jatah buang di setiap blind.
+Setiap kartu yang dimainkan dihitung.
++4 koin setelah tiap blind yang dimenangkan.
+Bunga sampai 10 koin, bukan 5.
+Semua di toko 1 koin lebih murah.
+Kartu semanggi dua kali lebih beruntung.
+Kartu kristal tidak pernah pecah.
+Kartu besi memberi ×2 pengali, bukan ×1,5.
+Main pertama tiap blind dihitung dua kali.
+Jenis Memudar
+Tali Pendek
+Kepalan Erat
+Sumur Kering
+Tembok Tinggi
+Kabut
+Air Surut
+Gerbang Sempit
+Jembatan Tol
+Karat Tua
+Kartu dari satu jenis, yang tampil di lambangnya, tidak dihitung.
+Hanya 3 jatah main.
+Satu kartu lebih sedikit di tanganmu.
+Tidak ada jatah buang.
+Targetnya satu setengah kali lebih tinggi.
+Beberapa kartu dibagikan tertutup.
+Chip dan pengali kombinasi dibagi dua.
+Setiap main harus 5 kartu.
+Setiap main berbiaya 1 koin.
+Peningkatan kartu tidak berpengaruh.
+Kartu tinggi
+Sepasang
+Dua pasang
+Tiga sejenis
+Straight
+Flush
+Full house
+Empat sejenis
+Straight flush
+Bersepuh
+Kristal
+Besi
+Semanggi
+Berukir
+Bara
+Prisma
++3 koin jika ada di tanganmu saat blind dimenangkan.
+×2 pengali saat dihitung; peluang 1 dari 4 untuk pecah.
+×1,5 pengali selama tetap di tanganmu.
+Saat dihitung: peluang 1 dari 5 untuk +20 pengali, 1 dari 12 untuk 15 koin.
++30 chip saat dihitung.
++4 pengali saat dihitung.
+Terhitung sebagai semua jenis.
+Kantong Jimat
+Bundel Kitab
+Bundel Kartu
+Pilih 1 dari 3 jimat.
+Pilih 1 dari 3 kitab.
+Tambahkan 1 dari 4 kartu ke dekmu.
+Kitab
+Naik satu level untuk kombinasi ini.
+Blind kecil
+Blind besar
+Blind bos
+Tanpa akhir
+Akhiri petualangan

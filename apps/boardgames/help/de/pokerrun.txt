@@ -1,0 +1,13 @@
+Poker-Tour
+# Das Ziel
+Acht Antes mit je drei Blinds überstehen: einem Small Blind, einem Big Blind und einem Boss. Jeder Blind ist eine Punktzahl, die du erreichen musst.
+# Ein Blind
+Du hältst 8 Karten aus deinem eigenen Deck mit 52 Karten, dazu hast du 4 Hände und 3 Abwürfe. Wähle bis zu 5 Karten und spiele sie als Pokerhand, oder wirf sie ab, um neue zu ziehen. Die Hände, von der schwächsten an: höchste Karte, Paar, zwei Paare, Drilling, Straße, Flush, Full House, Vierling, Straight Flush.
+# Die Wertung
+(Die Chips der Hand + die Chips ihrer Karten) × der Mult der Hand. Zahlenkarten geben ihren Wert, Bilder 10, Asse 11. Danach wirken deine Talismane von links nach rechts. Erreiche den Zielwert, bevor deine Hände aufgebraucht sind, sonst ist die Tour vorbei.
+# Der Laden
+Münzen gibt es für jeden gewonnenen Blind, jede übrige Hand und als Zinsen: 1 für je 5 Münzen in deinem Besitz, bis zu 5. Kaufe Talismane (höchstens 5), Folianten, die die Stufe einer Hand erhöhen, Veredelungen für deine Karten und Päckchen. Ein Talisman wird zum halben Preis verkauft.
+# Die Bosse
+Jeder Boss-Blind hat einen Kniff, der vor dem Start gezeigt wird.
+# Das Ende der Partie
+Besiege den achten Boss, um zu gewinnen. Danach kann die Tour endlos weitergehen.

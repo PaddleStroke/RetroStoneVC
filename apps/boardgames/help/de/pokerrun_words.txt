@@ -1,0 +1,137 @@
+Poker-Tour: die Namen der Talismane (40), ihre Effekte (40), die Namen der Bosse (10) und ihre Kniffe (10), die Handarten (9), die Namen der Veredelungen (7) und ihre Effekte (7), die Namen der Päckchen (3) und ihr Inhalt (3), dann ein paar Wörter
+Rubinmedaillon
+Gagatbrosche
+Topasring
+Jadespange
+Kieselbeutel
+Assfeder
+Hoflupe
+Ungerader Kompass
+Königssiegel
+Goldene Glocke
+Zwillingsspiegel
+Dreifachknoten
+Strickleiter
+Gezeitenmuschel
+Drei Kiefern
+Einsame Kerze
+Offene Hand
+Handschmeichler
+Messinganker
+Letztes Licht
+Stilles Wasser
+Sanduhr
+Mottenflügel
+Geldbeutel
+Angehaltener Atem
+Schneeball
+Sammelalbum
+Kletterefeu
+Kerbholz
+Tiefe Tasche
+Ersatzhandschuh
+Schneiderschere
+Offene Tür
+Tonschwein
+Kassenbuch
+Feilscherring
+Kleesamen
+Glaserlappen
+Schmiedehammer
+Morgengong
++4 Mult für jedes zählende Herz.
++30 Chips für jedes zählende Pik.
++1 Münze für jedes zählende Karo.
+×1,25 Mult für jedes zählende Kreuz.
++3 Mult für jede zählende 2, 3, 4 oder 5.
++20 Chips und +4 Mult für jedes zählende Ass.
+Buben, Damen und Könige zählen zweimal.
++25 Chips für jede zählende Karte Ass, 3, 5, 7 oder 9.
+×1,5 Mult für jeden zählenden König.
++1 Münze für jeden zählenden Buben, jede Dame, jeden König.
++8 Mult, wenn die Hand ein Paar enthält.
++14 Mult, wenn die Hand einen Drilling enthält.
+×2,5 Mult, wenn die Hand eine Straße ist.
++16 Mult, wenn die Hand ein Flush ist.
+×1,75 Mult, wenn genau 3 Karten gespielt werden.
+×3 Mult, wenn genau 1 Karte gespielt wird.
++60 Chips, wenn 5 Karten gespielt werden.
++5 Mult.
++45 Chips.
+×3 Mult in der letzten Hand eines Blinds.
++15 Chips für jeden übrigen Abwurf.
++3 Mult für jede Hand, die danach noch übrig ist.
+×2 Mult, wenn in diesem Blind kein Abwurf genutzt wurde.
++1 Mult je 3 Münzen in deinem Besitz.
++2 Mult für jede Karte, die auf der Hand bleibt.
+Wächst um +1 Mult mit jeder gespielten Hand.
+Wächst um +4 Chips mit jeder abgeworfenen Karte.
+Beginnt bei ×1 Mult und wächst um ×0,2 mit jedem gewonnenen Blind.
+Wächst um +3 Mult, jedes Mal wenn ein Paar gespielt wird.
++1 Karte auf der Hand.
++1 Hand in jedem Blind.
++1 Abwurf in jedem Blind.
+Jede gespielte Karte zählt.
++4 Münzen nach jedem gewonnenen Blind.
+Zinsen bis 10 Münzen statt 5.
+Alles im Laden kostet 1 Münze weniger.
+Kleeblatt-Karten haben doppelt so viel Glück.
+Kristall-Karten zerbrechen nie.
+Eisen-Karten geben ×2 Mult statt ×1,5.
+Die erste Hand jedes Blinds zählt zweimal.
+Welkende Farbe
+Kurzes Seil
+Geizhals
+Trockener Brunnen
+Hohe Mauer
+Nebel
+Ebbe
+Enges Tor
+Zollbrücke
+Alter Rost
+Die Karten einer Farbe, auf ihrem Schild gezeigt, zählen nichts.
+Nur 3 Hände.
+Eine Karte weniger auf der Hand.
+Keine Abwürfe.
+Der Zielwert ist um die Hälfte höher.
+Manche Karten werden verdeckt ausgeteilt.
+Chips und Mult der Hände werden halbiert.
+Jede Hand muss aus 5 Karten bestehen.
+Jede gespielte Hand kostet 1 Münze.
+Karten-Veredelungen wirken nicht.
+Höchste Karte
+Paar
+Zwei Paare
+Drilling
+Straße
+Flush
+Full House
+Vierling
+Straight Flush
+Vergoldet
+Kristall
+Eisen
+Kleeblatt
+Graviert
+Glut
+Prisma
++3 Münzen, wenn sie beim Sieg über einen Blind auf der Hand ist.
+×2 Mult, wenn sie zählt; zerbricht in 1 von 4 Fällen.
+×1,5 Mult, solange sie auf der Hand bleibt.
+Wenn sie zählt: in 1 von 5 Fällen +20 Mult, in 1 von 12 Fällen 15 Münzen.
++30 Chips, wenn sie zählt.
++4 Mult, wenn sie zählt.
+Zählt als jede Farbe.
+Talismanbeutel
+Foliantenbündel
+Kartenbündel
+Wähle 1 von 3 Talismanen.
+Wähle 1 von 3 Folianten.
+Lege 1 von 4 Karten in dein Deck.
+Foliant
+Eine Stufe mehr für diese Hand.
+Small Blind
+Big Blind
+Boss-Blind
+Endlos
+Tour beenden

@@ -1,0 +1,137 @@
+Carrera de póquer: los nombres de los amuletos (40), sus efectos (40), los nombres de los jefes (10) y sus giros (10), los tipos de mano (9), los nombres de las mejoras (7) y sus efectos (7), los nombres de los sobres (3) y su contenido (3), y después algunas palabras
+Relicario de rubí
+Broche de azabache
+Anillo de topacio
+Cierre de jade
+Bolsa de guijarros
+Pluma de as
+Lupa de la corte
+Brújula impar
+Sello del rey
+Campana dorada
+Espejo gemelo
+Nudo triple
+Escala de cuerda
+Concha de marea
+Tres pinos
+Vela solitaria
+Palma abierta
+Piedra de la calma
+Ancla de latón
+Última luz
+Agua quieta
+Reloj de arena
+Ala de polilla
+Monedero
+Aliento contenido
+Bola de nieve
+Álbum de recortes
+Hiedra trepadora
+Palo de cuentas
+Bolsillo hondo
+Guante de repuesto
+Tijeras de sastre
+Puerta abierta
+Cerdito de barro
+Libro de cuentas
+Anillo del regateador
+Semilla de la suerte
+Trapo del vidriero
+Martillo del herrero
+Gong del alba
++4 mult por cada corazón que puntúe.
++30 fichas por cada pica que puntúe.
++1 moneda por cada diamante que puntúe.
+×1,25 mult por cada trébol que puntúe.
++3 mult por cada 2, 3, 4 o 5 que puntúe.
++20 fichas y +4 mult por cada as que puntúe.
+Las sotas, reinas y reyes puntúan dos veces.
++25 fichas por cada as, 3, 5, 7 o 9 que puntúe.
+×1,5 mult por cada rey que puntúe.
++1 moneda por cada sota, reina o rey que puntúe.
++8 mult si la mano tiene una pareja.
++14 mult si la mano tiene un trío.
+×2,5 mult si la mano es una escalera.
++16 mult si la mano es un color.
+×1,75 mult si se juegan exactamente 3 cartas.
+×3 mult si se juega exactamente 1 carta.
++60 fichas si se juegan 5 cartas.
++5 mult.
++45 fichas.
+×3 mult en la última mano de una ciega.
++15 fichas por cada descarte que quede.
++3 mult por cada mano que quede después de esta.
+×2 mult si no se usó ningún descarte en esta ciega.
++1 mult por cada 3 monedas que tengas.
++2 mult por cada carta que guardes en la mano.
+Crece +1 mult con cada mano jugada.
+Crece +4 fichas con cada carta descartada.
+Empieza en ×1 mult y crece ×0,2 con cada ciega ganada.
+Crece +3 mult cada vez que se juega una pareja.
++1 carta en la mano.
++1 mano en cada ciega.
++1 descarte en cada ciega.
+Todas las cartas jugadas puntúan.
++4 monedas después de cada ciega ganada.
+Intereses hasta 10 monedas en vez de 5.
+Todo en la tienda cuesta 1 moneda menos.
+Las cartas de la suerte tienen el doble de suerte.
+Las cartas de cristal nunca se rompen.
+Las cartas de hierro dan ×2 mult en vez de ×1,5.
+La primera mano de cada ciega puntúa dos veces.
+Palo marchito
+Cuerda corta
+Puño cerrado
+Pozo seco
+Muro alto
+Niebla
+Marea baja
+Puerta estrecha
+Puente de peaje
+Óxido viejo
+Las cartas de un palo, mostrado en su cartel, no puntúan nada.
+Solo 3 manos.
+Una carta menos en la mano.
+Sin descartes.
+El objetivo es una vez y media más alto.
+Algunas cartas se reparten boca abajo.
+Las fichas y el mult de las manos se reducen a la mitad.
+Cada mano debe tener 5 cartas.
+Cada mano jugada cuesta 1 moneda.
+Las mejoras de las cartas no hacen nada.
+Carta alta
+Pareja
+Doble pareja
+Trío
+Escalera
+Color
+Full
+Póquer
+Escalera de color
+Dorada
+Cristal
+Hierro
+Suerte
+Grabada
+Brasa
+Prisma
++3 monedas si está en tu mano al ganar una ciega.
+×2 mult al puntuar; 1 posibilidad entre 4 de romperse.
+×1,5 mult mientras siga en tu mano.
+Al puntuar: 1 posibilidad entre 5 de +20 mult, 1 entre 12 de 15 monedas.
++30 fichas al puntuar.
++4 mult al puntuar.
+Cuenta como todos los palos.
+Bolsa de amuletos
+Lote de tomos
+Lote de cartas
+Elige 1 de 3 amuletos.
+Elige 1 de 3 tomos.
+Añade 1 de 4 cartas a tu baraja.
+Tomo
+Un nivel más para esta mano.
+Ciega pequeña
+Ciega grande
+Ciega de jefe
+Sin fin
+Terminar la carrera

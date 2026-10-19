@@ -1,0 +1,13 @@
+Pokertocht
+# Het doel
+Door acht antes van elk drie blinds komen: een kleine blind, een grote blind en een baas. Elke blind is een score die je moet halen.
+# Een blind
+Je hebt 8 kaarten uit je eigen spel van 52, met 4 handen en 3 aflegbeurten. Kies tot 5 kaarten en speel ze als pokerhand, of leg ze af om nieuwe te trekken. De handen, van zwak naar sterk: hoge kaart, paar, twee paar, drie gelijke, straat, flush, full house, carré, straight flush.
+# De score
+(De fiches van de hand + de fiches van de kaarten die haar vormen) × de mult van de hand. Getalkaarten geven hun waarde, plaatjes 10, azen 11. Daarna werken je amuletten van links naar rechts. Haal de doelscore voordat je handen op zijn, anders is de tocht voorbij.
+# De winkel
+Munten krijg je voor elke gewonnen blind, elke overgebleven hand en als rente: 1 per 5 munten die je hebt, tot 5. Koop amuletten (hoogstens 5), folianten die het niveau van een hand verhogen, verbeteringen voor je kaarten en pakjes. Een amulet verkoop je voor half geld.
+# De bazen
+Elke baas heeft een gril, die je vooraf ziet.
+# Het einde van de partij
+Versla de achtste baas om te winnen. Daarna kan de tocht eindeloos doorgaan.

@@ -1,0 +1,13 @@
+Pokerová výprava
+# Cíl hry
+Projít osmi etapami, každou po třech blindech: malý blind, velký blind a boss. Každý blind je skóre, kterého musíš dosáhnout.
+# Blind
+Máš v ruce 8 karet ze svého vlastního balíčku 52 karet, k tomu 4 tahy a 3 odhozy. Vyber až 5 karet a zahraj je jako pokerovou kombinaci, nebo je odhoď a lízni si nové. Kombinace od nejslabší: nejvyšší karta, pár, dva páry, trojice, postupka, barva, full house, čtveřice, postupka v barvě.
+# Skóre
+(Žetony kombinace + žetony karet, které ji tvoří) × násobič kombinace. Číselné karty dávají svou hodnotu, figury 10, esa 11. Pak působí tvé amulety zleva doprava. Dosáhni cíle, než ti dojdou tahy, jinak výprava končí.
+# Obchod
+Mince dostaneš za každý vyhraný blind, každý zbylý tah a úroky: 1 za každých 5 mincí, které máš, nejvýš 5. Kupuj amulety (nejvýš 5), knihy, které zvyšují úroveň kombinace, vylepšení karet a sady. Amulet se prodává za polovinu ceny.
+# Bossové
+Každý blind s bossem má svůj háček, který se ukáže před začátkem.
+# Konec hry
+Poraz osmého bosse a vyhraješ. Výprava pak může pokračovat bez konce.

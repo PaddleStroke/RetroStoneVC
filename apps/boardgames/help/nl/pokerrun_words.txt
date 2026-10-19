@@ -1,0 +1,137 @@
+Pokertocht: de namen van de amuletten (40), hun effecten (40), de namen van de bazen (10) en hun grillen (10), de soorten handen (9), de namen van de verbeteringen (7) en hun effecten (7), de namen van de pakjes (3) en hun inhoud (3), daarna een paar woorden
+Robijnmedaillon
+Gitbroche
+Topaasring
+Jadesluiting
+Kiezelbuidel
+Aasveer
+Hofloep
+Oneven kompas
+Koningszegel
+Vergulde bel
+Tweelingspiegel
+Drievoudige knoop
+Touwladder
+Getijdenschelp
+Drie dennen
+Eenzame kaars
+Open hand
+Zorgensteen
+Koperen anker
+Laatste licht
+Stil water
+Zandloper
+Mottenvleugel
+Portemonnee
+Ingehouden adem
+Sneeuwbal
+Plakboek
+Klimop
+Kerfstok
+Diepe zak
+Reservehandschoen
+Kleermakersschaar
+Open deur
+Kleien spaarvarken
+Kasboek
+Afdingersring
+Klaverzaadje
+Glazenmakersdoek
+Smidshamer
+Ochtendgong
++4 mult voor elke hartenkaart die scoort.
++30 fiches voor elke schoppenkaart die scoort.
++1 munt voor elke ruitenkaart die scoort.
+×1,25 mult voor elke klaverenkaart die scoort.
++3 mult voor elke 2, 3, 4 of 5 die scoort.
++20 fiches en +4 mult voor elke aas die scoort.
+Boeren, vrouwen en heren scoren twee keer.
++25 fiches voor elke aas, 3, 5, 7 of 9 die scoort.
+×1,5 mult voor elke heer die scoort.
++1 munt voor elke boer, vrouw of heer die scoort.
++8 mult als de hand een paar bevat.
++14 mult als de hand drie gelijke bevat.
+×2,5 mult als de hand een straat is.
++16 mult als de hand een flush is.
+×1,75 mult als er precies 3 kaarten gespeeld worden.
+×3 mult als er precies 1 kaart gespeeld wordt.
++60 fiches als er 5 kaarten gespeeld worden.
++5 mult.
++45 fiches.
+×3 mult bij de laatste hand van een blind.
++15 fiches voor elke overgebleven aflegbeurt.
++3 mult voor elke hand die hierna overblijft.
+×2 mult als er in deze blind niet is afgelegd.
++1 mult per 3 munten die je hebt.
++2 mult voor elke kaart die je in je hand houdt.
+Groeit met +1 mult bij elke gespeelde hand.
+Groeit met +4 fiches bij elke afgelegde kaart.
+Begint op ×1 mult en groeit met ×0,2 bij elke gewonnen blind.
+Groeit met +3 mult telkens als er een paar gespeeld wordt.
++1 kaart in je hand.
++1 hand in elke blind.
++1 aflegbeurt in elke blind.
+Elke gespeelde kaart scoort.
++4 munten na elke gewonnen blind.
+Rente tot 10 munten in plaats van 5.
+Alles in de winkel kost 1 munt minder.
+Klavertjekaarten hebben dubbel zoveel geluk.
+Kristalkaarten breken nooit.
+IJzerkaarten geven ×2 mult in plaats van ×1,5.
+De eerste hand van elke blind scoort twee keer.
+Verbleekte kleur
+Kort touw
+Gesloten vuist
+Droge put
+Hoge muur
+Mist
+Laagwater
+Smalle poort
+Tolbrug
+Oude roest
+De kaarten van één kleur, getoond op het bord, scoren niets.
+Maar 3 handen.
+Eén kaart minder in je hand.
+Geen aflegbeurten.
+De doelscore is de helft hoger.
+Sommige kaarten worden gedekt gedeeld.
+De fiches en mult van de handen worden gehalveerd.
+Elke hand moet 5 kaarten tellen.
+Elke gespeelde hand kost 1 munt.
+Kaartverbeteringen doen niets.
+Hoge kaart
+Paar
+Twee paar
+Drie gelijke
+Straat
+Flush
+Full house
+Carré
+Straight flush
+Verguld
+Kristal
+IJzer
+Klavertje
+Gegraveerd
+Gloed
+Prisma
++3 munten als ze in je hand zit wanneer een blind gewonnen wordt.
+×2 mult als ze scoort; 1 kans op 4 dat ze breekt.
+×1,5 mult zolang ze in je hand blijft.
+Als ze scoort: 1 kans op 5 op +20 mult, 1 op 12 op 15 munten.
++30 fiches als ze scoort.
++4 mult als ze scoort.
+Telt als elke kleur.
+Amulettenbuidel
+Foliantenbundel
+Kaartenbundel
+Kies 1 van 3 amuletten.
+Kies 1 van 3 folianten.
+Voeg 1 van 4 kaarten toe aan je spel.
+Foliant
+Eén niveau hoger voor deze hand.
+Kleine blind
+Grote blind
+Baasblind
+Eindeloos
+Tocht beëindigen

@@ -1,0 +1,137 @@
+Pokerreise: amulettenes navn (40), virkningene deres (40), bossenes navn (10) og vrier (10), håndtypene (9), forbedringenes navn (7) og virkninger (7), pakkenes navn (3) og innhold (3), og til slutt noen få ord
+Rubinmedaljong
+Gagatbrosje
+Topasring
+Jadespenne
+Steinpung
+Essfjær
+Hofflinse
+Oddekompass
+Kongens segl
+Forgylt bjelle
+Tvillingspeil
+Trippelknute
+Taustige
+Tidevannsskjell
+Tre furuer
+Ensomt lys
+Åpen hånd
+Grublestein
+Messinganker
+Siste glimt
+Stille vann
+Timeglass
+Møllvinge
+Pengepung
+Holdt pust
+Snøball
+Utklippsbok
+Klatreeføy
+Karvestokk
+Dyp lomme
+Reservehanske
+Skreddersaks
+Åpen dør
+Leirgris
+Regnskapsbok
+Pruterens ring
+Firkløverfrø
+Glassmesterklut
+Smedhammer
+Morgengong
++4 faktor for hvert hjerter som teller.
++30 sjetonger for hver spar som teller.
++1 mynt for hver ruter som teller.
+×1,25 faktor for hver kløver som teller.
++3 faktor for hver 2, 3, 4 eller 5 som teller.
++20 sjetonger og +4 faktor for hvert ess som teller.
+Knekter, damer og konger teller to ganger.
++25 sjetonger for hvert ess, 3, 5, 7 eller 9 som teller.
+×1,5 faktor for hver konge som teller.
++1 mynt for hver knekt, dame eller konge som teller.
++8 faktor hvis hånden inneholder et par.
++14 faktor hvis hånden inneholder tre like.
+×2,5 faktor hvis hånden er en straight.
++16 faktor hvis hånden er en flush.
+×1,75 faktor hvis nøyaktig 3 kort spilles.
+×3 faktor hvis nøyaktig 1 kort spilles.
++60 sjetonger hvis 5 kort spilles.
++5 faktor.
++45 sjetonger.
+×3 faktor på den siste hånden i en blind.
++15 sjetonger for hvert kast som er igjen.
++3 faktor for hver hånd som er igjen etter denne.
+×2 faktor hvis ingen kast er brukt i denne blinden.
++1 faktor for hver 3 mynter du har.
++2 faktor for hvert kort du beholder på hånden.
+Vokser med +1 faktor for hver hånd som spilles.
+Vokser med +4 sjetonger for hvert kort som kastes.
+Starter på ×1 faktor og vokser med ×0,2 for hver vunnet blind.
+Vokser med +3 faktor hver gang et par spilles.
++1 kort på hånden.
++1 hånd i hver blind.
++1 kast i hver blind.
+Alle kort som spilles, teller.
++4 mynter etter hver vunnet blind.
+Renter opptil 10 mynter i stedet for 5.
+Alt i butikken koster 1 mynt mindre.
+Firkløverkort har dobbelt så mye flaks.
+Krystallkort knuses aldri.
+Jernkort gir ×2 faktor i stedet for ×1,5.
+Den første hånden i hver blind teller to ganger.
+Falmende farge
+Kort tau
+Knyttet neve
+Tørr brønn
+Høy mur
+Tåke
+Fjære
+Trang port
+Bombru
+Gammel rust
+Kortene i én farge, vist på skiltet, teller ingenting.
+Bare 3 hender.
+Ett kort færre på hånden.
+Ingen kast.
+Målet er halvannen gang så høyt.
+Noen kort deles ut med bildesiden ned.
+Hendenes sjetonger og faktor halveres.
+Hver hånd må ha 5 kort.
+Hver hånd som spilles, koster 1 mynt.
+Kortforbedringer virker ikke.
+Høyt kort
+Ett par
+To par
+Tre like
+Straight
+Flush
+Fullt hus
+Fire like
+Straight flush
+Forgylt
+Krystall
+Jern
+Firkløver
+Etset
+Glød
+Prisme
++3 mynter hvis kortet er på hånden når en blind vinnes.
+×2 faktor når kortet teller; 1 sjanse av 4 for å knuses.
+×1,5 faktor så lenge kortet blir på hånden.
+Når kortet teller: 1 sjanse av 5 for +20 faktor, 1 av 12 for 15 mynter.
++30 sjetonger når kortet teller.
++4 faktor når kortet teller.
+Teller som alle farger.
+Amulettpung
+Foliantbunt
+Kortbunt
+Velg 1 av 3 amuletter.
+Velg 1 av 3 folianter.
+Legg 1 av 4 kort i kortstokken din.
+Foliant
+Ett nivå opp for denne hånden.
+Liten blind
+Stor blind
+Bossblind
+Uendelig
+Avslutt reisen

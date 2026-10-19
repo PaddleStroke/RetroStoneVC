@@ -1,0 +1,13 @@
+Carrera de póquer
+# El objetivo
+Superar ocho antes de tres ciegas cada una: una ciega pequeña, una ciega grande y un jefe. Cada ciega es una puntuación que alcanzar.
+# Una ciega
+Tienes 8 cartas de tu propia baraja de 52, con 4 manos y 3 descartes. Elige hasta 5 cartas y juégalas como una mano de póquer, o descártalas para robar otras. Las manos, de la más débil: carta alta, pareja, doble pareja, trío, escalera, color, full, póquer, escalera de color.
+# La puntuación
+(Las fichas de la mano + las fichas de las cartas que la forman) × el mult de la mano. Las cartas numéricas dan su valor, las figuras 10, los ases 11. Después, tus amuletos actúan de izquierda a derecha. Alcanza el objetivo antes de quedarte sin manos o la carrera termina.
+# La tienda
+Ganas monedas por cada ciega ganada, cada mano que te quede y los intereses: 1 por cada 5 monedas que tengas, hasta 5. Compra amuletos (5 como máximo), tomos que suben el nivel de una mano, mejoras para tus cartas y sobres. Un amuleto se vende a mitad de precio.
+# Los jefes
+Cada jefe tiene un giro, mostrado antes de empezar.
+# El final de la partida
+Vence al octavo jefe para ganar. Después, la carrera puede seguir, sin fin.

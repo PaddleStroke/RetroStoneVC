@@ -1,0 +1,137 @@
+Pokerowa wyprawa: nazwy amuletów (40), ich działanie (40), nazwy bossów (10) i ich haczyki (10), układy (9), nazwy ulepszeń (7) i ich działanie (7), nazwy pakietów (3) i ich zawartość (3), a na koniec kilka słów
+Rubinowy medalion
+Gagatowa broszka
+Topazowy pierścień
+Jadeitowa klamra
+Woreczek kamyków
+Pióro asa
+Dworska soczewka
+Nieparzysty kompas
+Pieczęć króla
+Złocony dzwonek
+Bliźniacze lustro
+Potrójny węzeł
+Drabinka sznurowa
+Muszla przypływu
+Trzy sosny
+Samotna świeca
+Otwarta dłoń
+Kamień zmartwień
+Mosiężna kotwica
+Ostatnie światło
+Cicha woda
+Klepsydra
+Skrzydło ćmy
+Sakiewka
+Wstrzymany oddech
+Kula śnieżna
+Album wycinków
+Pnący bluszcz
+Karbownica
+Głęboka kieszeń
+Zapasowa rękawica
+Nożyce krawca
+Otwarte drzwi
+Gliniana świnka
+Kajet rachunkowy
+Pierścień przekupnia
+Nasiono koniczyny
+Szmatka szklarza
+Młot kowala
+Poranny gong
++4 do mnożnika za każdy punktujący kier.
++30 żetonów za każdy punktujący pik.
++1 moneta za każde punktujące karo.
+Mnożnik ×1,25 za każdy punktujący trefl.
++3 do mnożnika za każdą punktującą 2, 3, 4 lub 5.
++20 żetonów i +4 do mnożnika za każdego punktującego asa.
+Walety, damy i króle punktują podwójnie.
++25 żetonów za każdego punktującego asa, 3, 5, 7 lub 9.
+Mnożnik ×1,5 za każdego punktującego króla.
++1 moneta za każdego punktującego waleta, damę lub króla.
++8 do mnożnika, jeśli układ zawiera parę.
++14 do mnożnika, jeśli układ zawiera trójkę.
+Mnożnik ×2,5, jeśli układ to strit.
++16 do mnożnika, jeśli układ to kolor.
+Mnożnik ×1,75, jeśli zagrasz dokładnie 3 karty.
+Mnożnik ×3, jeśli zagrasz dokładnie 1 kartę.
++60 żetonów, jeśli zagrasz 5 kart.
++5 do mnożnika.
++45 żetonów.
+Mnożnik ×3 w ostatnim zagraniu ciemnej.
++15 żetonów za każde pozostałe odrzucenie.
++3 do mnożnika za każde zagranie, które zostanie po tym.
+Mnożnik ×2, jeśli w tej ciemnej nie było odrzucenia.
++1 do mnożnika za każde 3 posiadane monety.
++2 do mnożnika za każdą kartę zatrzymaną na ręce.
+Rośnie o +1 do mnożnika z każdym zagraniem.
+Rośnie o +4 żetony z każdą odrzuconą kartą.
+Zaczyna od mnożnika ×1 i rośnie o ×0,2 z każdą wygraną ciemną.
+Rośnie o +3 do mnożnika za każdym razem, gdy zagrasz parę.
++1 karta na ręce.
++1 zagranie w każdej ciemnej.
++1 odrzucenie w każdej ciemnej.
+Punktuje każda zagrana karta.
++4 monety po każdej wygranej ciemnej.
+Odsetki do 10 monet zamiast 5.
+Wszystko w sklepie kosztuje 1 monetę mniej.
+Karty koniczyny mają dwa razy więcej szczęścia.
+Kryształowe karty nigdy się nie tłuką.
+Żelazne karty dają mnożnik ×2 zamiast ×1,5.
+Pierwsze zagranie każdej ciemnej punktuje podwójnie.
+Blaknący kolor
+Krótka lina
+Zaciśnięta pięść
+Wyschnięta studnia
+Wysoki mur
+Mgła
+Odpływ
+Wąska brama
+Płatny most
+Stara rdza
+Karty jednego koloru, pokazanego na znaku, nic nie dają.
+Tylko 3 zagrania.
+O jedną kartę mniej na ręce.
+Bez odrzuceń.
+Cel jest o połowę wyższy.
+Niektóre karty są rozdawane zakryte.
+Żetony i mnożnik układów spadają o połowę.
+Każde zagranie musi mieć 5 kart.
+Każde zagranie kosztuje 1 monetę.
+Ulepszenia kart nie działają.
+Wysoka karta
+Para
+Dwie pary
+Trójka
+Strit
+Kolor
+Ful
+Kareta
+Poker
+Złocona
+Kryształowa
+Żelazna
+Koniczyna
+Grawerowana
+Żar
+Pryzmat
++3 monety, jeśli karta jest na ręce, gdy wygrywasz ciemną.
+Mnożnik ×2, gdy karta punktuje; 1 szansa na 4, że się stłucze.
+Mnożnik ×1,5, dopóki karta zostaje na ręce.
+Gdy karta punktuje: 1 szansa na 5 na +20 do mnożnika, 1 na 12 na 15 monet.
++30 żetonów, gdy karta punktuje.
++4 do mnożnika, gdy karta punktuje.
+Liczy się jako każdy kolor.
+Mieszek amuletów
+Pakiet ksiąg
+Pakiet kart
+Wybierz 1 z 3 amuletów.
+Wybierz 1 z 3 ksiąg.
+Dodaj do talii 1 z 4 kart.
+Księga
+Jeden poziom wyżej dla tego układu.
+Mała ciemna
+Duża ciemna
+Ciemna bossa
+Bez końca
+Zakończ wyprawę

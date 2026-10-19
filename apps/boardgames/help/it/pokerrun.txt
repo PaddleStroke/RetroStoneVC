@@ -1,0 +1,13 @@
+Corsa al poker
+# Lo scopo
+Superare otto ante di tre bui ciascuno: un piccolo buio, un grande buio e un boss. Ogni buio è un punteggio da raggiungere.
+# Un buio
+Hai in mano 8 carte del tuo mazzo di 52, con 4 mani e 3 scarti. Scegli fino a 5 carte e giocale come una mano di poker, oppure scartale per pescarne altre. Le mani, dalla più debole: carta alta, coppia, doppia coppia, tris, scala, colore, full, poker, scala colore.
+# Il punteggio
+(Le fiches della mano + le fiches delle carte che la formano) × il mult della mano. Le carte numeriche valgono il loro numero, le figure 10, gli assi 11. Poi i tuoi amuleti agiscono da sinistra a destra. Raggiungi l'obiettivo prima di finire le mani, o la corsa è finita.
+# Il negozio
+Le monete arrivano da ogni buio vinto, da ogni mano rimasta e dagli interessi: 1 ogni 5 monete possedute, fino a 5. Compra amuleti (5 al massimo), tomi che alzano il livello di una mano, potenziamenti per le tue carte e buste. Un amuleto si rivende a metà prezzo.
+# I boss
+Ogni buio del boss ha un imprevisto, mostrato prima che cominci.
+# La fine della partita
+Batti l'ottavo boss per vincere. Poi la corsa può continuare, senza fine.

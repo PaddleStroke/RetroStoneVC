@@ -1,0 +1,13 @@
+Pokerrejse
+# Målet
+Kom igennem otte etaper med tre blinds hver: en lille blind, en stor blind og en boss. Hver blind er en score, du skal nå.
+# En blind
+Du har 8 kort på hånden fra dit eget spil med 52 kort, og du har 4 hænder og 3 kasseringer. Vælg op til 5 kort, og spil dem som en pokerhånd, eller kassér dem for at trække nye. Hænderne, svageste først: højeste kort, et par, to par, tre ens, straight, flush, fuldt hus, fire ens, straight flush.
+# Scoren
+(Håndens jetoner + jetonerne fra de kort, der danner den) × håndens faktor. Talkort giver deres værdi, billedkort 10, esser 11. Derefter virker dine amuletter fra venstre mod højre. Nå målet, før du løber tør for hænder, ellers er rejsen slut.
+# Butikken
+Mønter får du for hver vundet blind, hver hånd, der er tilbage, og renter: 1 for hver 5 mønter, du har, op til 5. Køb amuletter (højst 5), folianter, der hæver en hånds niveau, forbedringer til dine kort og pakker. En amulet sælges for halv pris.
+# Bosserne
+Hver bossblind har sit eget kneb, som vises, før den begynder.
+# Spillets afslutning
+Slå den ottende boss for at vinde. Derefter kan rejsen fortsætte i det uendelige.

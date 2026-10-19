@@ -1,0 +1,13 @@
+Pokerreise
+# Målet
+Kom deg gjennom åtte etapper med tre blinds hver: en liten blind, en stor blind og en boss. Hver blind er en poengsum du må nå.
+# En blind
+Du har 8 kort på hånden fra din egen kortstokk på 52 kort, og du har 4 hender og 3 kast. Velg opptil 5 kort og spill dem som en pokerhånd, eller kast dem for å trekke nye. Hendene, svakeste først: høyt kort, ett par, to par, tre like, straight, flush, fullt hus, fire like, straight flush.
+# Poengene
+(Håndens sjetonger + sjetongene fra kortene som danner den) × håndens faktor. Tallkort gir verdien sin, bildekort 10, ess 11. Deretter virker amulettene dine fra venstre mot høyre. Nå målet før hendene tar slutt, ellers er reisen over.
+# Butikken
+Mynter får du for hver vunnet blind, hver hånd som er igjen, og renter: 1 for hver 5 mynter du har, opptil 5. Kjøp amuletter (høyst 5), folianter som hever en hånds nivå, forbedringer til kortene dine og pakker. En amulett selges for halv pris.
+# Bossene
+Hver bossblind har sin egen vri, som vises før den begynner.
+# Slutten på spillet
+Slå den åttende bossen for å vinne. Deretter kan reisen fortsette uten ende.

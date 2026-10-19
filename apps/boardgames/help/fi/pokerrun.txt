@@ -1,0 +1,13 @@
+Pokerimatka
+# Tavoite
+Selviä läpi kahdeksan etapin, joissa kussakin on kolme blindiä: pieni blindi, iso blindi ja pomo. Jokainen blindi on pistemäärä, joka pitää saavuttaa.
+# Blindi
+Kädessäsi on 8 korttia omasta 52 kortin pakastasi, ja sinulla on 4 kättä ja 3 hylkäystä. Valitse enintään 5 korttia ja pelaa ne pokerikätenä, tai hylkää ne ja nosta uudet. Kädet heikoimmasta alkaen: hai, pari, kaksi paria, kolmoset, suora, väri, täyskäsi, neloset, värisuora.
+# Pisteet
+(Käden pelimerkit + sen muodostavien korttien pelimerkit) × käden kerroin. Numerokortit antavat arvonsa, kuvakortit 10, ässät 11. Sitten amulettisi vaikuttavat vasemmalta oikealle. Saavuta tavoite ennen kuin kädet loppuvat, tai matka päättyy.
+# Kauppa
+Kolikoita saat jokaisesta voitetusta blindistä, jokaisesta jäljellä olevasta kädestä ja korkoa: 1 jokaista 5 hallussasi olevaa kolikkoa kohden, enintään 5. Osta amuletteja (enintään 5), kirjoja, jotka nostavat käden tasoa, parannuksia korteillesi ja paketteja. Amuletin voi myydä puoleen hintaan.
+# Pomot
+Jokaisella pomoblindillä on oma juonensa, joka näytetään ennen sen alkua.
+# Pelin loppu
+Kukista kahdeksas pomo, niin voitat. Sen jälkeen matka voi jatkua loputtomiin.

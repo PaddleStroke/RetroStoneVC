@@ -1,0 +1,13 @@
+Corrida de póquer
+# O objetivo
+Passar oito antes de três blinds cada: um blind pequeno, um blind grande e um chefe. Cada blind é uma pontuação a atingir.
+# Um blind
+Tens 8 cartas do teu próprio baralho de 52, com 4 mãos e 3 descartes. Escolhe até 5 cartas e joga-as como uma mão de póquer, ou descarta-as para tirar outras. As mãos, da mais fraca: carta alta, par, dois pares, trio, sequência, cor, full house, póquer, sequência de cor.
+# A pontuação
+(As fichas da mão + as fichas das cartas que a formam) × o mult da mão. As cartas numeradas valem o seu número, as figuras 10, os ases 11. Depois, os teus amuletos atuam da esquerda para a direita. Atinge a meta antes de acabarem as tuas mãos, ou a corrida termina.
+# A loja
+Ganhas moedas por cada blind vencido, por cada mão que sobre e com os juros: 1 por cada 5 moedas que tenhas, até 5. Compra amuletos (5 no máximo), tomos que sobem o nível de uma mão, melhorias para as tuas cartas e pacotes. Um amuleto vende-se por metade do preço.
+# Os chefes
+Cada chefe tem uma surpresa, mostrada antes de começar.
+# O fim do jogo
+Vence o oitavo chefe para ganhar. Depois, a corrida pode continuar, sem fim.

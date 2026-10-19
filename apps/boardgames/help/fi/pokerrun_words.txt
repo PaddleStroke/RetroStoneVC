@@ -1,0 +1,137 @@
+Pokerimatka: amulettien nimet (40), niiden vaikutukset (40), pomojen nimet (10) ja juonet (10), käsityypit (9), parannusten nimet (7) ja vaikutukset (7), pakettien nimet (3) ja sisällöt (3), sitten muutama sana
+Rubiinimedaljonki
+Gagaattineula
+Topaasisormus
+Jadesolki
+Kivipussi
+Ässän sulka
+Hovin linssi
+Pariton kompassi
+Kuninkaan sinetti
+Kullattu kello
+Kaksoispeili
+Kolmoissolmu
+Köysitikkaat
+Vuorovesisimpukka
+Kolme mäntyä
+Yksinäinen kynttilä
+Avoin kämmen
+Huolikivi
+Messinkiankkuri
+Viimeinen valo
+Tyyni vesi
+Tiimalasi
+Koin siipi
+Kukkaro
+Pidätetty henki
+Lumipallo
+Leikekirja
+Kiipeävä muratti
+Pykäläkeppi
+Syvä tasku
+Varahansikas
+Räätälin sakset
+Avoin ovi
+Savipossu
+Tilikirja
+Tinkijän sormus
+Apilansiemen
+Lasittajan liina
+Sepän vasara
+Aamugongi
++4 kertoimeen jokaisesta pisteytyvästä hertasta.
++30 pelimerkkiä jokaisesta pisteytyvästä padasta.
++1 kolikko jokaisesta pisteytyvästä ruudusta.
+×1,25 kertoimeen jokaisesta pisteytyvästä rististä.
++3 kertoimeen jokaisesta pisteytyvästä 2:sta, 3:sta, 4:stä tai 5:stä.
++20 pelimerkkiä ja +4 kertoimeen jokaisesta pisteytyvästä ässästä.
+Jätkät, kuningattaret ja kuninkaat pisteytyvät kahdesti.
++25 pelimerkkiä jokaisesta pisteytyvästä ässästä, 3:sta, 5:stä, 7:stä tai 9:stä.
+×1,5 kertoimeen jokaisesta pisteytyvästä kuninkaasta.
++1 kolikko jokaisesta pisteytyvästä jätkästä, kuningattaresta tai kuninkaasta.
++8 kertoimeen, jos kädessä on pari.
++14 kertoimeen, jos kädessä on kolmoset.
+×2,5 kertoimeen, jos käsi on suora.
++16 kertoimeen, jos käsi on väri.
+×1,75 kertoimeen, jos pelataan tasan 3 korttia.
+×3 kertoimeen, jos pelataan tasan 1 kortti.
++60 pelimerkkiä, jos pelataan 5 korttia.
++5 kertoimeen.
++45 pelimerkkiä.
+×3 kertoimeen blindin viimeisellä kädellä.
++15 pelimerkkiä jokaisesta jäljellä olevasta hylkäyksestä.
++3 kertoimeen jokaisesta tämän jälkeen jäljellä olevasta kädestä.
+×2 kertoimeen, jos tässä blindissä ei ole käytetty hylkäystä.
++1 kertoimeen jokaista 3 hallussasi olevaa kolikkoa kohden.
++2 kertoimeen jokaisesta käteen jäävästä kortista.
+Kasvaa +1 kertoimella jokaisesta pelatusta kädestä.
+Kasvaa +4 pelimerkillä jokaisesta hylätystä kortista.
+Alkaa ×1 kertoimesta ja kasvaa ×0,2 jokaisesta voitetusta blindistä.
+Kasvaa +3 kertoimella aina, kun pelataan pari.
++1 kortti käteen.
++1 käsi jokaiseen blindiin.
++1 hylkäys jokaiseen blindiin.
+Jokainen pelattu kortti pisteytyy.
++4 kolikkoa jokaisen voitetun blindin jälkeen.
+Korkoa enintään 10 kolikkoa 5:n sijaan.
+Kaikki kaupassa maksaa 1 kolikon vähemmän.
+Apilakortit ovat kaksi kertaa onnekkaampia.
+Kristallikortit eivät koskaan rikkoudu.
+Rautakortit antavat ×2 kertoimeen ×1,5:n sijaan.
+Jokaisen blindin ensimmäinen käsi pisteytyy kahdesti.
+Haalistuva maa
+Lyhyt köysi
+Tiukka nyrkki
+Kuiva kaivo
+Korkea muuri
+Sumu
+Laskuvesi
+Kapea portti
+Tullisilta
+Vanha ruoste
+Yhden maan kortit, jotka näkyvät sen kyltissä, eivät tuo mitään.
+Vain 3 kättä.
+Yksi kortti vähemmän kädessä.
+Ei hylkäyksiä.
+Tavoite on puolitoistakertainen.
+Osa korteista jaetaan kuvapuoli alaspäin.
+Käsien pelimerkit ja kerroin puolittuvat.
+Jokaisessa kädessä on oltava 5 korttia.
+Jokainen pelattu käsi maksaa 1 kolikon.
+Korttien parannukset eivät vaikuta.
+Hai
+Pari
+Kaksi paria
+Kolmoset
+Suora
+Väri
+Täyskäsi
+Neloset
+Värisuora
+Kullattu
+Kristalli
+Rauta
+Apila
+Kaiverrettu
+Hiillos
+Prisma
++3 kolikkoa, jos kortti on kädessä, kun blindi voitetaan.
+×2 kertoimeen, kun kortti pisteytyy; 1 mahdollisuus 4:stä rikkoutua.
+×1,5 kertoimeen niin kauan kuin kortti pysyy kädessä.
+Kun kortti pisteytyy: 1 mahdollisuus 5:stä saada +20 kertoimeen, 1 12:sta saada 15 kolikkoa.
++30 pelimerkkiä, kun kortti pisteytyy.
++4 kertoimeen, kun kortti pisteytyy.
+Käy kaikkina maina.
+Amulettipussi
+Kirjanippu
+Korttinippu
+Valitse 1 amuletti 3:sta.
+Valitse 1 kirja 3:sta.
+Lisää pakkaasi 1 kortti 4:stä.
+Kirja
+Yksi taso ylöspäin tälle kädelle.
+Pieni blindi
+Iso blindi
+Pomoblindi
+Loputon
+Lopeta matka

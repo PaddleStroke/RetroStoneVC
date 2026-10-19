@@ -1,0 +1,137 @@
+Pokerresan: amuletternas namn (40), deras verkan (40), bossarnas namn (10) och knorrar (10), handtyperna (9), förbättringarnas namn (7) och verkan (7), paketens namn (3) och innehåll (3), sedan några ord
+Rubinmedaljong
+Gagatbrosch
+Topasring
+Jadespänne
+Stenpung
+Essfjäder
+Hovlins
+Udda kompass
+Kungens sigill
+Förgylld klocka
+Tvillingspegel
+Trippelknut
+Repstege
+Tidvattensnäcka
+Tre tallar
+Ensamt ljus
+Öppen hand
+Orossten
+Mässingsankare
+Sista skimret
+Stilla vatten
+Timglas
+Malvinge
+Penningpung
+Hållen andning
+Snöboll
+Klippbok
+Klättermurgröna
+Karvstock
+Djup ficka
+Reservhandske
+Skräddarsax
+Öppen dörr
+Lergris
+Kassabok
+Köpslagarens ring
+Fyrklöverfrö
+Glasmästartrasa
+Smedshammare
+Gryningsgonggong
++4 faktor för varje hjärter som räknas.
++30 marker för varje spader som räknas.
++1 mynt för varje ruter som räknas.
+×1,25 faktor för varje klöver som räknas.
++3 faktor för varje 2, 3, 4 eller 5 som räknas.
++20 marker och +4 faktor för varje ess som räknas.
+Knektar, damer och kungar räknas två gånger.
++25 marker för varje ess, 3, 5, 7 eller 9 som räknas.
+×1,5 faktor för varje kung som räknas.
++1 mynt för varje knekt, dam eller kung som räknas.
++8 faktor om handen innehåller ett par.
++14 faktor om handen innehåller triss.
+×2,5 faktor om handen är en stege.
++16 faktor om handen är en färg.
+×1,75 faktor om exakt 3 kort spelas.
+×3 faktor om exakt 1 kort spelas.
++60 marker om 5 kort spelas.
++5 faktor.
++45 marker.
+×3 faktor på den sista handen i en blind.
++15 marker för varje kast som är kvar.
++3 faktor för varje hand som är kvar efter den här.
+×2 faktor om inget kast har använts i den här blinden.
++1 faktor per 3 mynt du har.
++2 faktor för varje kort du behåller på handen.
+Växer med +1 faktor för varje spelad hand.
+Växer med +4 marker för varje kastat kort.
+Börjar på ×1 faktor och växer med ×0,2 för varje vunnen blind.
+Växer med +3 faktor varje gång ett par spelas.
++1 kort på handen.
++1 hand i varje blind.
++1 kast i varje blind.
+Alla spelade kort räknas.
++4 mynt efter varje vunnen blind.
+Ränta upp till 10 mynt i stället för 5.
+Allt i butiken kostar 1 mynt mindre.
+Fyrklöverkort har dubbelt så mycket tur.
+Kristallkort går aldrig sönder.
+Järnkort ger ×2 faktor i stället för ×1,5.
+Den första handen i varje blind räknas två gånger.
+Blekande färg
+Kort rep
+Knuten näve
+Torr brunn
+Hög mur
+Dimma
+Lågvatten
+Trång port
+Tullbro
+Gammal rost
+Korten i en färg, som visas på skylten, ger ingenting.
+Bara 3 händer.
+Ett kort färre på handen.
+Inga kast.
+Målet är en och en halv gång så högt.
+Vissa kort delas ut med baksidan upp.
+Händernas marker och faktor halveras.
+Varje hand måste ha 5 kort.
+Varje spelad hand kostar 1 mynt.
+Kortförbättringar gör ingenting.
+Högt kort
+Par
+Två par
+Triss
+Stege
+Färg
+Kåk
+Fyrtal
+Färgstege
+Förgylld
+Kristall
+Järn
+Fyrklöver
+Etsad
+Glöd
+Prisma
++3 mynt om kortet är på handen när en blind vinns.
+×2 faktor när kortet räknas; 1 chans på 4 att gå sönder.
+×1,5 faktor så länge kortet stannar på handen.
+När kortet räknas: 1 chans på 5 till +20 faktor, 1 på 12 till 15 mynt.
++30 marker när kortet räknas.
++4 faktor när kortet räknas.
+Räknas som alla färger.
+Amulettpung
+Foliantknippe
+Kortknippe
+Välj 1 av 3 amuletter.
+Välj 1 av 3 folianter.
+Lägg 1 av 4 kort i din kortlek.
+Foliant
+En nivå upp för den här handen.
+Liten blind
+Stor blind
+Bossblind
+Oändlig
+Avsluta resan

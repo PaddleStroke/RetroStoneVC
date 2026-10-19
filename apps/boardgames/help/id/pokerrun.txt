@@ -1,0 +1,13 @@
+Petualangan Poker
+# Tujuan
+Lewati delapan ante yang masing-masing berisi tiga blind: blind kecil, blind besar, dan bos. Setiap blind adalah skor yang harus dicapai.
+# Satu blind
+Kamu memegang 8 kartu dari dek 52 kartu milikmu sendiri, dengan 4 jatah main dan 3 jatah buang. Pilih sampai 5 kartu lalu mainkan sebagai kombinasi poker, atau buang untuk mengambil kartu baru. Kombinasi, dari yang terlemah: kartu tinggi, sepasang, dua pasang, tiga sejenis, straight, flush, full house, empat sejenis, straight flush.
+# Skor
+(Chip kombinasi + chip kartu-kartu pembentuknya) × pengali kombinasi. Kartu angka bernilai sesuai angkanya, kartu bergambar 10, as 11. Lalu jimatmu bekerja dari kiri ke kanan. Capai target sebelum jatah mainmu habis, atau petualangan berakhir.
+# Toko
+Koin didapat dari setiap blind yang dimenangkan, setiap jatah main yang tersisa, dan bunga: 1 untuk tiap 5 koin yang dipegang, paling banyak 5. Beli jimat (paling banyak 5), kitab yang menaikkan level kombinasi, peningkatan untuk kartumu, dan paket. Jimat bisa dijual setengah harga.
+# Bos
+Setiap blind bos punya aturan khusus, yang ditampilkan sebelum dimulai.
+# Akhir permainan
+Kalahkan bos kedelapan untuk menang. Setelah itu petualangan bisa berlanjut tanpa akhir.

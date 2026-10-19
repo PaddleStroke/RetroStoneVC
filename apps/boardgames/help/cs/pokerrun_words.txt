@@ -1,0 +1,137 @@
+Pokerová výprava: jména amuletů (40), jejich účinky (40), jména bossů (10) a jejich háčky (10), kombinace (9), jména vylepšení (7) a jejich účinky (7), jména sad (3) a jejich obsah (3), nakonec pár slov
+Rubínový medailon
+Gagátová brož
+Topazový prsten
+Nefritová spona
+Váček oblázků
+Pero esa
+Dvorní čočka
+Lichý kompas
+Královská pečeť
+Zlacený zvonek
+Dvojité zrcadlo
+Trojitý uzel
+Provazový žebřík
+Mušle přílivu
+Tři borovice
+Osamělá svíčka
+Otevřená dlaň
+Kámen starostí
+Mosazná kotva
+Poslední světlo
+Tichá voda
+Přesýpací hodiny
+Můří křídlo
+Měšec
+Zatajený dech
+Sněhová koule
+Album výstřižků
+Popínavý břečťan
+Rabuše
+Hluboká kapsa
+Náhradní rukavice
+Krejčovské nůžky
+Otevřené dveře
+Hliněné prasátko
+Pokladní deník
+Prsten smlouvače
+Semínko čtyřlístku
+Sklenářův hadr
+Kovářské kladivo
+Ranní gong
++4 k násobiči za každé bodující srdce.
++30 žetonů za každý bodující pik.
++1 mince za každé bodující káro.
+Násobič ×1,25 za každý bodující kříž.
++3 k násobiči za každou bodující 2, 3, 4 nebo 5.
++20 žetonů a +4 k násobiči za každé bodující eso.
+Kluci, dámy a králové bodují dvakrát.
++25 žetonů za každé bodující eso, 3, 5, 7 nebo 9.
+Násobič ×1,5 za každého bodujícího krále.
++1 mince za každého bodujícího kluka, dámu nebo krále.
++8 k násobiči, když kombinace obsahuje pár.
++14 k násobiči, když kombinace obsahuje trojici.
+Násobič ×2,5, když je kombinace postupka.
++16 k násobiči, když je kombinace barva.
+Násobič ×1,75, když zahraješ přesně 3 karty.
+Násobič ×3, když zahraješ přesně 1 kartu.
++60 žetonů, když zahraješ 5 karet.
++5 k násobiči.
++45 žetonů.
+Násobič ×3 v posledním tahu blindu.
++15 žetonů za každý zbylý odhoz.
++3 k násobiči za každý tah, který zbude po tomto.
+Násobič ×2, když jsi v tomto blindu nic neodhodil.
++1 k násobiči za každé 3 mince, které máš.
++2 k násobiči za každou kartu, která ti zůstane v ruce.
+Roste o +1 k násobiči s každým zahraným tahem.
+Roste o +4 žetony s každou odhozenou kartou.
+Začíná na násobiči ×1 a roste o ×0,2 s každým vyhraným blindem.
+Roste o +3 k násobiči pokaždé, když zahraješ pár.
++1 karta v ruce.
++1 tah v každém blindu.
++1 odhoz v každém blindu.
+Boduje každá zahraná karta.
++4 mince po každém vyhraném blindu.
+Úroky až 10 mincí místo 5.
+Všechno v obchodě stojí o 1 minci méně.
+Čtyřlístkové karty mají dvakrát víc štěstí.
+Křišťálové karty se nikdy nerozbijí.
+Železné karty dávají násobič ×2 místo ×1,5.
+První tah každého blindu boduje dvakrát.
+Blednoucí barva
+Krátký provaz
+Sevřená pěst
+Vyschlá studna
+Vysoká zeď
+Mlha
+Odliv
+Úzká brána
+Mýtný most
+Stará rez
+Karty jedné barvy, ukázané na jejím znaku, nebodují.
+Jen 3 tahy.
+O jednu kartu méně v ruce.
+Žádné odhozy.
+Cíl je o polovinu vyšší.
+Některé karty se rozdávají rubem nahoru.
+Žetony a násobič kombinací jsou poloviční.
+Každý tah musí mít 5 karet.
+Každý zahraný tah stojí 1 minci.
+Vylepšení karet nefungují.
+Nejvyšší karta
+Pár
+Dva páry
+Trojice
+Postupka
+Barva
+Full house
+Čtveřice
+Postupka v barvě
+Zlacená
+Křišťálová
+Železná
+Čtyřlístek
+Rytá
+Žár
+Hranol
++3 mince, když je karta v ruce při výhře blindu.
+Násobič ×2, když karta boduje; 1 šance ze 4, že se rozbije.
+Násobič ×1,5, dokud karta zůstává v ruce.
+Když karta boduje: 1 šance z 5 na +20 k násobiči, 1 z 12 na 15 mincí.
++30 žetonů, když karta boduje.
++4 k násobiči, když karta boduje.
+Počítá se jako každá barva.
+Váček amuletů
+Svazek knih
+Svazek karet
+Vyber 1 ze 3 amuletů.
+Vyber 1 ze 3 knih.
+Přidej do balíčku 1 ze 4 karet.
+Kniha
+O úroveň výš pro tuto kombinaci.
+Malý blind
+Velký blind
+Blind s bossem
+Bez konce
+Ukončit výpravu

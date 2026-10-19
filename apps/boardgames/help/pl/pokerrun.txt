@@ -1,0 +1,13 @@
+Pokerowa wyprawa
+# Cel gry
+Przejść osiem etapów, po trzy ciemne w każdym: małą ciemną, dużą ciemną i bossa. Każda ciemna to wynik do osiągnięcia.
+# Ciemna
+Masz na ręce 8 kart z własnej talii 52 kart, a do tego 4 zagrania i 3 odrzucenia. Wybierz do 5 kart i zagraj je jako układ pokerowy albo odrzuć je, by dobrać nowe. Układy od najsłabszego: wysoka karta, para, dwie pary, trójka, strit, kolor, ful, kareta, poker.
+# Wynik
+(Żetony układu + żetony kart, które go tworzą) × mnożnik układu. Blotki dają swoją wartość, figury 10, asy 11. Potem działają twoje amulety, od lewej do prawej. Osiągnij cel, zanim skończą ci się zagrania, inaczej wyprawa się kończy.
+# Sklep
+Monety dostajesz za każdą wygraną ciemną, każde pozostałe zagranie i odsetki: 1 za każde 5 posiadanych monet, najwyżej 5. Kupuj amulety (najwyżej 5), księgi podnoszące poziom układu, ulepszenia kart i pakiety. Amulet sprzedaje się za połowę ceny.
+# Bossowie
+Każda ciemna bossa ma swój haczyk, pokazany przed jej początkiem.
+# Koniec gry
+Pokonaj ósmego bossa, by wygrać. Potem wyprawa może trwać dalej, bez końca.

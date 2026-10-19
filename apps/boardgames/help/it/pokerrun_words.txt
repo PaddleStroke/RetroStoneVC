@@ -1,0 +1,137 @@
+Corsa al poker: i nomi degli amuleti (40), i loro effetti (40), i nomi dei boss (10) e i loro imprevisti (10), i tipi di mano (9), i nomi dei potenziamenti (7) e i loro effetti (7), i nomi delle buste (3) e il loro contenuto (3), poi alcune parole
+Medaglione di rubino
+Spilla di giaietto
+Anello di topazio
+Fermaglio di giada
+Sacchetto di sassi
+Piuma d'asso
+Lente di corte
+Bussola dispari
+Sigillo del re
+Campana dorata
+Specchio gemello
+Nodo triplo
+Scala di corda
+Conchiglia di marea
+Tre pini
+Candela solitaria
+Palmo aperto
+Pietra dei pensieri
+Ancora d'ottone
+Ultima luce
+Acqua ferma
+Clessidra
+Ala di falena
+Borsellino
+Fiato sospeso
+Palla di neve
+Album di ritagli
+Edera rampicante
+Bastone delle tacche
+Tasca profonda
+Guanto di riserva
+Forbici da sarto
+Porta aperta
+Porcellino d'argilla
+Libro mastro
+Anello del mercante
+Seme di trifoglio
+Straccio del vetraio
+Martello del fabbro
+Gong del mattino
++4 mult per ogni carta di cuori che segna.
++30 fiches per ogni carta di picche che segna.
++1 moneta per ogni carta di quadri che segna.
+×1,25 mult per ogni carta di fiori che segna.
++3 mult per ogni 2, 3, 4 o 5 che segna.
++20 fiches e +4 mult per ogni asso che segna.
+Fanti, donne e re segnano due volte.
++25 fiches per ogni asso, 3, 5, 7 o 9 che segna.
+×1,5 mult per ogni re che segna.
++1 moneta per ogni fante, donna o re che segna.
++8 mult se la mano contiene una coppia.
++14 mult se la mano contiene un tris.
+×2,5 mult se la mano è una scala.
++16 mult se la mano è un colore.
+×1,75 mult se si giocano esattamente 3 carte.
+×3 mult se si gioca esattamente 1 carta.
++60 fiches se si giocano 5 carte.
++5 mult.
++45 fiches.
+×3 mult nell'ultima mano di un buio.
++15 fiches per ogni scarto rimasto.
++3 mult per ogni mano rimasta dopo questa.
+×2 mult se in questo buio non hai usato scarti.
++1 mult ogni 3 monete che hai.
++2 mult per ogni carta tenuta in mano.
+Cresce di +1 mult a ogni mano giocata.
+Cresce di +4 fiches a ogni carta scartata.
+Parte da ×1 mult e cresce di ×0,2 a ogni buio vinto.
+Cresce di +3 mult ogni volta che si gioca una coppia.
++1 carta in mano.
++1 mano in ogni buio.
++1 scarto in ogni buio.
+Ogni carta giocata segna.
++4 monete dopo ogni buio vinto.
+Interessi fino a 10 monete invece di 5.
+Tutto nel negozio costa 1 moneta in meno.
+Le carte quadrifoglio sono fortunate il doppio.
+Le carte di cristallo non si rompono mai.
+Le carte di ferro danno ×2 mult invece di ×1,5.
+La prima mano di ogni buio segna due volte.
+Seme sbiadito
+Corda corta
+Pugno stretto
+Pozzo secco
+Muro alto
+Nebbia
+Bassa marea
+Porta stretta
+Ponte a pedaggio
+Vecchia ruggine
+Le carte di un seme, mostrato sul cartello, non segnano nulla.
+Solo 3 mani.
+Una carta in meno in mano.
+Nessuno scarto.
+L'obiettivo cresce della metà.
+Alcune carte sono date coperte.
+Fiches e mult delle mani sono dimezzati.
+Ogni mano deve essere di 5 carte.
+Ogni mano giocata costa 1 moneta.
+I potenziamenti delle carte non fanno nulla.
+Carta alta
+Coppia
+Doppia coppia
+Tris
+Scala
+Colore
+Full
+Poker
+Scala colore
+Dorata
+Cristallo
+Ferro
+Quadrifoglio
+Incisa
+Brace
+Prisma
++3 monete se è in mano quando vinci un buio.
+×2 mult quando segna; 1 probabilità su 4 di rompersi.
+×1,5 mult finché resta in mano.
+Quando segna: 1 probabilità su 5 di +20 mult, 1 su 12 di 15 monete.
++30 fiches quando segna.
++4 mult quando segna.
+Vale come ogni seme.
+Sacchetto di amuleti
+Fascio di tomi
+Fascio di carte
+Scegli 1 amuleto su 3.
+Scegli 1 tomo su 3.
+Aggiungi al tuo mazzo 1 carta su 4.
+Tomo
+Un livello in più per questa mano.
+Piccolo buio
+Grande buio
+Buio del boss
+Senza fine
+Termina la corsa
