@@ -8,12 +8,12 @@
  * Tap the digits: as soon as the answer has its digits it is checked; right, a gold light and the next sum; wrong, a
  * red glow, the hollow shakes and empties (a mistake). The shell's tool: the hint (the answer typed, counted). Undo
  * takes back a digit typed. The keys: the digits type, the arrows move a frame over the pad, Return presses it. The
- * bar: the seconds so far, and the best time of this drill (a medal) once there is one. The clock starts when the
- * first sum shows and waits while the game is not on the screen (mmh_clock: the rules page, the menu, the app in
- * the background). Over: the stars (the time against par, capped by the hints and mistakes: mentalmath.h), the time
- * beside par on the end card; the best time is kept for each level and each kind of random drill.
- * The shell's level screen chooses a level (150 in six chapters: mentalmath_levels.h), or its die tab a random drill
- * of a kind (the variants).
+ * bar: the seconds so far (by an hourglass), and the best time of this drill (a medal) once there is one. The clock
+ * starts when the first sum shows and waits while the game is not on the screen (mmh_clock: the rules page, the menu,
+ * the app in the background). Over: the stars (the time against par, capped by the hints and mistakes:
+ * mentalmath.h), the time beside par on the end card; the best time is kept for each level and each kind of random
+ * drill. The shell's level screen chooses a level (150 in six chapters: mentalmath_levels.h), or its die
+ * tab a random drill of a kind (the variants).
  */
 #include <math.h>
 #include <stdio.h>
@@ -146,6 +146,12 @@ static void token(int player, int size, uint8_t *rgba)
     free(b);
 }
 
+static void paint_clock(int player, int size, uint8_t *rgba)   /* the bar's time: the shell's hourglass, cream */
+{
+    (void)player;
+    art_icon(ICON_HOURGLASS, size, rgba);
+}
+
 /* ---- the layout -------------------------------------------------------------------------------------------------- */
 static void layout(box b)
 {
@@ -189,7 +195,7 @@ static void layout(box b)
         ui_free(&t_bead);
         t_bead = pic(bd, bd, paint_bead, 0);
     }
-    bench_small(&t_small, &made_small, token);
+    bench_small(&t_small, &made_small, paint_clock);   /* the time's picture (not the token: the shell shows it) */
     int m = (int)(0.6f * ui.unit);
     if (!t_medal || m != made_medal) {
         made_medal = m;
@@ -496,8 +502,10 @@ static void key(SDL_Keycode k)
 static void bar(int player, box b)
 {
     (void)player;
+    if (t_small && ui_ink_dark()) SDL_SetTextureColorMod(t_small, 48, 43, 35);   /* inked on a light bar */
     ui_count c[2] = {{t_small, (tenths() + 9) / 10}, {t_medal, which >= 0 && which < BESTS ? (best[which] + 9) / 10 : 0}};
     ui_bar_fit(b, c, which >= 0 && which < BESTS && best[which] ? 2 : 1, 0);
+    if (t_small) SDL_SetTextureColorMod(t_small, 255, 255, 255);
 }
 
 /* ---- the pictures for the shell ---------------------------------------------------------------------------------- */

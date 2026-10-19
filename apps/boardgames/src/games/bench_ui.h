@@ -423,10 +423,14 @@ static inline void bench_wave_cells(bench_wave *w, const bench_geo *g, float d)
     bench_wave_tick(w);
 }
 
-/* ---- the bar: the moves (the room the shell's tools leave) ------------------------------------------------------ */
+/* ---- the bar: the moves (the room the shell's tools leave) ------------------------------------------------------ *
+ * A bare number, as in the other level puzzles: the shell already draws the player's token, glowing, at the bar's
+ * left end, so the game's token again beside the count read as a second, different count. icon: not drawn (kept so
+ * the games' calls stay as they are). */
 static inline void bench_bar_moves(box b, SDL_Texture *icon, int moves)
 {
-    ui_count c = {icon, moves};
+    (void)icon;
+    ui_count c = {NULL, moves};
     ui_bar_fit(b, &c, 1, 0);
 }
 
