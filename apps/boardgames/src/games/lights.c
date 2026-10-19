@@ -36,7 +36,7 @@ static int down = -1;                           /* the lamp under the finger */
 static box last_box;
 static float gx, gy, gw;
 static int cs, fr, made_key = -1, made_small = -1;
-static SDL_Texture *t_board, *t_lit, *t_dark, *t_small, *t_par;
+static SDL_Texture *t_board, *t_lit, *t_dark, *t_par;
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* a glass dome seen from above (size x size): lit (warm, bright in the middle) or dark (smoky), a highlight at its
@@ -155,13 +155,9 @@ static void layout(box b)
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
         made_small = small;
-        ui_free(&t_small);
         ui_free(&t_par);
         memset(ui_buf(small, small), 0, (size_t)small * small * 4);
-        lamp_pic(small, 0, ui_buf(small, small));
-        t_small = ui_tex(small, small, ui_buf(small, small));
-        memset(ui_buf(small, small), 0, (size_t)small * small * 4);
-        lamp_pic(small, 1, ui_buf(small, small));
+        art_icon(ICON_PAR, small, ui_buf(small, small));   /* the par's flag, as in the other level puzzles */
         t_par = ui_tex(small, small, ui_buf(small, small));
     }
 }
@@ -356,7 +352,7 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    pzt_bar_two(b, t_small, G.moves, t_par, G.best, lmp_solved(&G) && G.moves == G.best);
+    pzt_bar_two_cream(b, NULL, G.moves, t_par, G.best, lmp_solved(&G) && G.moves == G.best);
 }
 
 /* ---- the pictures of the shell's screens: a board of n x n lamps, those of `on` lit ---------------------------- */

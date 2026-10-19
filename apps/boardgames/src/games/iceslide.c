@@ -18,6 +18,7 @@
 
 #include "games/iceslide.h"
 #include "games/puzzles.h"
+#include "games/pztools.h"
 #include "games/swipepad.h"
 #include "shell.h"
 
@@ -41,7 +42,7 @@ static int down = -1;                           /* the tool held (its push, or S
 static box last_box;
 static float bx, by, ox, oy;                    /* the board's top left (its frame's); the ice's, inside the frame */
 static int fr, cell, bw, bh, serial, made_cell = -1, made_serial = -1, made_small = -1;
-static SDL_Texture *t_board, *t_puck, *t_small, *t_par;
+static SDL_Texture *t_board, *t_puck, *t_par;
 
 /* ---- the pictures ------------------------------------------------------------------------------------------------ */
 /* the ice: the house plank in its frame (w x h squares of sq pixels, the frame f), turned pale blue-white with its
@@ -140,18 +141,6 @@ static void token(int player, int size, uint8_t *rgba)   /* the puck */
     free(b);
 }
 
-/* the par's picture in the bar: a small hole on a patch of ice */
-static void par_pic(int size, uint8_t *rgba)
-{
-    uint8_t *b = calloc((size_t)size * size, 4);
-    if (!b) return;
-    static const uint8_t ice[4] = {212, 230, 242, 255};
-    art_roundrect(size, size, 0.22f * size, ice, b);
-    paint_hole(b, size, size, size / 2.0f, size / 2.0f, (int)(0.86f * size));
-    art_blend(rgba, size, size, b, size, size, 0, 0);
-    free(b);
-}
-
 static void fit(float W, float H, int w, int h, int *f, int *sq)   /* in a W x H room */
 {
     *f = (int)(fminf(W, H) * FRAME);
@@ -187,13 +176,9 @@ static void layout(box b)
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
         made_small = small;
-        ui_free(&t_small);
-        memset(ui_buf(small, small), 0, (size_t)small * small * 4);
-        token(0, small, ui_buf(small, small));
-        t_small = ui_tex(small, small, ui_buf(small, small));
         ui_free(&t_par);
         memset(ui_buf(small, small), 0, (size_t)small * small * 4);
-        par_pic(small, ui_buf(small, small));
+        art_icon(ICON_PAR, small, ui_buf(small, small));   /* the par's flag, as in the other level puzzles */
         t_par = ui_tex(small, small, ui_buf(small, small));
     }
 }
@@ -428,18 +413,7 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    float u = ui.unit, dh = 0.46f * u, cy = b.y + b.h / 2, sz = 0.6f * u;
-    int digits = G.par >= 10 ? 2 : 1;
-    float nw = (0.74f * (digits - 1) + 0.62f) * dh, x = b.x + b.w - nw;
-    float need = 1.4f * dh + 0.35f * u + sz + 0.12f * u + nw;
-    if (b.w < need) {
-        puz_bar_moves(b, NULL, G.moves);
-        return;
-    }
-    puz_bar_moves(b, b.w >= need + sz + 0.12f * u ? t_small : NULL, G.moves);
-    ui_mark_gold(x - 0.12f * u - sz / 2, cy, (perfect() ? 2.4f : 1.5f) * sz);
-    ui_put(t_par, x - 0.12f * u - sz, cy - sz / 2, sz, sz);
-    ui_number(x + nw / 2, cy, dh, G.par, 1);
+    pzt_bar_two_cream(b, NULL, G.moves, t_par, G.par, perfect());   /* the moves bare (the shell draws the token) */
 }
 
 /* ---- the menu's and the picker's cards: a puzzle of that size, the puck at its start --------------------------- */

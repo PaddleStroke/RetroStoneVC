@@ -16,6 +16,7 @@
 
 #include "games/hanoi.h"
 #include "games/puzzles.h"
+#include "games/pztools.h"
 #include "shell.h"
 
 #define FRAME 0.035f
@@ -38,7 +39,7 @@ static struct { int on, peg, moved; float x, y, x0, y0, gx, gy; } drag;   /* gx,
 static box last_box;
 static float bx, by, bw, bh, pitch, dh, yb, yp, hover;
 static int fr, made_key = -1, made_small = -1;
-static SDL_Texture *t_board, *t_disc[HN_MAX + 1], *t_small, *t_tower;
+static SDL_Texture *t_board, *t_disc[HN_MAX + 1], *t_par;
 
 /* ---- the geometry ------------------------------------------------------------------------------------------------ */
 static float disc_w(int n, int size, float p) { return p * (0.30f + 0.62f * (size - 1) / (float)(n - 1)); }
@@ -135,7 +136,7 @@ static void paint_scene(uint8_t *o, int w, int h, int f, int n, float d)
     }
 }
 
-/* a small tower: three discs on a peg (the token, the bar) */
+/* a small tower: three discs on a peg (the token) */
 static void tower_pic(int size, int discs, uint8_t *rgba)
 {
     float d = size / (discs + 1.6f), P = size * 0.96f;
@@ -193,14 +194,10 @@ static void layout(box b)
     int small = (int)(0.6f * ui.unit);
     if (made_small != small) {
         made_small = small;
-        ui_free(&t_small);
+        ui_free(&t_par);
         memset(ui_buf(small, small), 0, (size_t)small * small * 4);
-        tower_pic(small, 2, ui_buf(small, small));
-        t_small = ui_tex(small, small, ui_buf(small, small));
-        ui_free(&t_tower);
-        memset(ui_buf(small, small), 0, (size_t)small * small * 4);
-        tower_pic(small, 3, ui_buf(small, small));
-        t_tower = ui_tex(small, small, ui_buf(small, small));
+        art_icon(ICON_PAR, small, ui_buf(small, small));   /* the par's flag, as in the other level puzzles */
+        t_par = ui_tex(small, small, ui_buf(small, small));
     }
 }
 
@@ -459,26 +456,11 @@ static void release(float x, float y)
     }
 }
 
-/* ---- the bar: the moves; the fewest possible at the right ---------------------------------------------------- */
+/* ---- the bar: the moves; the fewest possible (a flag) at the right ------------------------------------------ */
 static void bar(int player, box b)
 {
     (void)player;
-    float u = ui.unit, dh2 = 0.46f * u, cy = b.y + b.h / 2, sz = 0.6f * u;
-    int best = G.par;
-    int digits = best >= 100 ? 3 : best >= 10 ? 2 : 1;
-    float nw = (0.74f * (digits - 1) + 0.62f) * dh2, x = b.x + b.w - nw;
-    /* a narrow bar (landscape): the moves without their picture, so the fewest still fit */
-    float need = (0.74f * (digits - 1) + 0.62f) * dh2 + 0.35f * u + sz + 0.12f * u + nw;
-    int room = b.w >= need + sz + 0.12f * u;
-    if (b.w < need) {
-        ui_bar_number(b, NULL, G.moves);
-        return;
-    }
-    ui_bar_number(b, room ? t_small : NULL, G.moves);
-    int perfect = hn_solved(&G) && G.moves == best;
-    ui_mark_gold(x - 0.12f * u - sz / 2, cy, (perfect ? 2.4f : 1.5f) * sz);
-    ui_put(t_tower, x - 0.12f * u - sz, cy - sz / 2, sz, sz);
-    ui_number(x + nw / 2, cy, dh2, best, 1);
+    pzt_bar_two_cream(b, NULL, G.moves, t_par, G.par, hn_solved(&G) && G.moves == G.par);   /* the moves bare */
 }
 
 /* ---- the menu's and the picker's cards --------------------------------------------------------------------------- */

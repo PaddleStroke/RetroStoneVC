@@ -473,7 +473,7 @@ static int diag_way(float dx, float dy)
 }
 
 /* ---- the layout ------------------------------------------------------------------------------------------------- */
-static void block_pic(int size, uint8_t *rgba)  /* a small standing block (the token, the bar) */
+static void block_pic(int size, uint8_t *rgba)  /* a small standing block (the token) */
 {
     float c = 0.5f * size;
     paint_iso_block(rgba, size, size, size / 2.0f, (size + 2 * KZ * c - 2 * KB * c) / 2, c, 2);
@@ -573,7 +573,7 @@ static void layout(box b)
         made_small = small;
         ui_free(&t_small);
         memset(ui_buf(small, small), 0, (size_t)small * small * 4);
-        block_pic(small, ui_buf(small, small));
+        art_icon(ICON_PAR, small, ui_buf(small, small));   /* the par's flag, as in the other level puzzles */
         t_small = ui_tex(small, small, ui_buf(small, small));
     }
     ui_tools_shown(G.m.split >= 0 ? BTNS : SWP_KNOBS);
@@ -906,7 +906,7 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    pzt_bar_two(b, NULL, G.moves, t_small, par(), solved() && G.moves <= par());
+    pzt_bar_two_cream(b, NULL, G.moves, t_small, par(), solved() && G.moves <= par());
 }
 
 /* ---- the shell's pictures: a map with the block standing at its start ------------------------------------------- */

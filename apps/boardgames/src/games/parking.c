@@ -282,7 +282,7 @@ static void paint_lot(uint8_t *o, int cq, int f)
         }
 }
 
-static void car_pic(int size, uint8_t *rgba)    /* the red car fitted in a square (the token, the bar) */
+static void car_pic(int size, uint8_t *rgba)    /* the red car fitted in a square (the token) */
 {
     int w = (int)(0.92f * size), h = (int)(0.5f * size);
     uint8_t *b = malloc((size_t)w * h * 4);
@@ -334,7 +334,7 @@ static void layout(box b)
         made_small = small;
         ui_free(&t_small);
         memset(ui_buf(small, small), 0, (size_t)small * small * 4);
-        car_pic(small, ui_buf(small, small));
+        art_icon(ICON_PAR, small, ui_buf(small, small));   /* the par's flag, as in the other level puzzles */
         t_small = ui_tex(small, small, ui_buf(small, small));
     }
 }
@@ -636,7 +636,7 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    pzt_bar_two(b, NULL, G.moves, t_small, G.par, pkj_solved(&G) && G.moves <= G.par);
+    pzt_bar_two_cream(b, NULL, G.moves, t_small, G.par, pkj_solved(&G) && G.moves <= G.par);
 }
 
 /* ---- the pictures of the shell's screens: a lot, its vehicles where they are ----------------------------------- */

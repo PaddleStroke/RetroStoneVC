@@ -91,7 +91,7 @@ static void paint_tray(uint8_t *o, int cq, int f)
         }
 }
 
-static void block_pic(int kind, int size, uint8_t *rgba)   /* a block fitted in a square (the token, the bar) */
+static void block_pic(int kind, int size, uint8_t *rgba)   /* a block fitted in a square (the token) */
 {
     int w = (int)(size * PW[kind] / 2.0f * 0.9f), h = (int)(size * PH[kind] / 2.0f * 0.9f);
     uint8_t *b = calloc((size_t)w * h, 4);
@@ -136,7 +136,7 @@ static void layout(box b)
         made_small = small;
         ui_free(&t_small);
         memset(ui_buf(small, small), 0, (size_t)small * small * 4);
-        block_pic(KLT_BIG, small, ui_buf(small, small));
+        art_icon(ICON_PAR, small, ui_buf(small, small));   /* the par's flag, as in the other level puzzles */
         t_small = ui_tex(small, small, ui_buf(small, small));
     }
 }
@@ -453,7 +453,7 @@ static void release(float x, float y)
 static void bar(int player, box b)
 {
     (void)player;
-    pzt_bar_two(b, NULL, G.moves, t_small, G.par, klt_solved(&G) && G.moves <= G.par);
+    pzt_bar_two_cream(b, NULL, G.moves, t_small, G.par, klt_solved(&G) && G.moves <= G.par);
 }
 
 /* ---- the pictures of the shell's screens: a tray, its blocks where they are ------------------------------------- */
