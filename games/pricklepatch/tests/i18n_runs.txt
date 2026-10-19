@@ -1,0 +1,28 @@
+# Prickle Patch: the screens of the language test (tools/i18n_test.sh, docs/i18n.md), one headless run per line:
+#   <name> <frames> <shot frame> [options] [; input lines]
+title       130  125
+locked      130  125  --opt chr=1 --opt coins=120 --opt best=754
+buy         130  125  --opt chr=2 --opt coins=900 --opt unlock=0
+cont        130  125  --opt fakerun=1 --opt best=754 --opt coins=380 --opt unlock=1
+shed        60   55   --opt shed=1 --opt coins=420 --opt boosts=2
+shedmax     60   55   --opt shed=1 --opt coins=9999 --opt boosts=5
+hint        120  110  --opt ready=1 --opt seed=7
+hint_touch  120  110  --opt ready=1 --opt seed=7 --opt touch=1
+levelup     40   35   --opt ready=1 --opt seed=7 --opt time=240 --opt levelup=1
+levelup2    40   35   --opt ready=1 --opt seed=11 --opt time=600 --opt levelup=1
+chest       40   35   --opt ready=1 --opt seed=7 --opt time=480 --opt chest=1
+warn        200  150  --opt ready=1 --opt seed=7 --opt time=299 --opt god=1 --opt bot=1
+late        200  190  --opt ready=1 --opt seed=7 --opt time=600 --opt god=1 --opt bot=1
+pause       320  315  --opt bot=1 --opt ready=1 --opt seed=7 ; 300 tap START
+results     1400 1390 --opt ready=1 --opt frail=1 --opt seed=7
+title_t     130  125  --display 1080x2340
+cont_t      130  125  --display 1080x2340 --opt fakerun=1 --opt best=754 --opt coins=380 --opt unlock=1
+locked_t    130  125  --display 1080x2340 --opt chr=1 --opt coins=120 --opt best=754
+shed_t      60   55   --display 1080x2340 --opt shed=1 --opt coins=420 --opt boosts=2
+hint_t      120  110  --display 1080x2340 --opt ready=1 --opt seed=7 --opt touch=1
+levelup_t   40   35   --display 1080x2340 --opt ready=1 --opt seed=7 --opt time=240 --opt levelup=1
+levelup2_t  40   35   --display 1080x2340 --opt ready=1 --opt seed=11 --opt time=600 --opt levelup=1
+chest_t     40   35   --display 1080x2340 --opt ready=1 --opt seed=7 --opt time=480 --opt chest=1
+warn_t      200  150  --display 1080x2340 --opt ready=1 --opt seed=7 --opt time=299 --opt god=1 --opt bot=1
+pause_t     320  315  --display 1080x2340 --opt bot=1 --opt ready=1 --opt seed=7 ; 300 tap START
+results_t   1400 1390 --display 1080x2340 --opt ready=1 --opt frail=1 --opt seed=7

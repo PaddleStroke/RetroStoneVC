@@ -1,0 +1,268 @@
+# Prickle Patch (games/pricklepatch): its strings, the English source (docs/i18n.md).
+# A little gardener (a hedgehog, a tortoise or a hen) walks around a vegetable patch while its garden tools work by
+# themselves against endless garden pests (slugs, beetles, ants, wasps, crows...). Pests drop gems; each level offers
+# three new tools or upgrades. Survive 15 minutes and beat the Crow King to save the garden. Coins buy small permanent
+# boosts in the garden shed. Everything else comes from the house kit (games/common/strings/en.txt). The game's name is
+# never translated. Keep it gentle and family-friendly: the pests are "chased off" or "popped", never killed.
+
+#. The title prompt's verb: PRESS A TO <VERB>.
+#. max 10
+VERB = PLAY
+#. The same when a run was left half-way: PRESS A TO CONTINUE (it).
+#. max 10
+VERB_CONTINUE = CONTINUE
+
+#. The gardeners (the title: Left / Right choose one; arrows are drawn around the name).
+#. max 16
+CHAR_HEDGEHOG = HEDGEHOG
+#. max 16
+CHAR_TORTOISE = TORTOISE
+#. max 16
+CHAR_HEN = HEN
+#. The title, under the gardener's name: the tool it starts with (%s: a tool's name, like SEED SHOT).
+#. max 30
+STARTS_WITH = STARTS WITH %s
+#. The title, a gardener not bought yet: its price in coins.
+#. max 30
+LOCKED_N = LOCKED - %d COINS
+#. The same when there are enough coins: A buys it.
+#. max 30
+BUY_N = A: BUY FOR %d COINS
+#. The title: the best run (%s: a time like 12:34; %d: the pests chased off in it).
+#. max 30
+BEST_RUN = BEST %s - %d PESTS
+#. The title: a run left half-way (%s: its time like 7:32; %d: its level). A continues it.
+#. max 30
+RUN_AT = IN PROGRESS: %s - LEVEL %d
+#. The title, with a run in progress: B starts a new run instead (the old one is dropped).
+#. max 30
+NEW_RUN = B: NEW RUN
+#. The title: X opens the shop where coins buy permanent boosts (%d: the coins saved).
+#. max 30
+SHED_LINE = X: GARDEN SHED - %d COINS
+#. The title: the garden chosen (Up / Down), when the second one is open.
+#. max 30
+MAP_DAY = THE SUNNY PATCH
+#. max 30
+MAP_NIGHT = THE MOONLIT PATCH
+#. The controls' hint during the first seconds of a first run (the pad).
+#. max 38
+HINT_PAD = MOVE WITH THE D-PAD
+#. The same on a touch screen.
+#. max 38
+HINT_TOUCH = DRAG ANYWHERE TO MOVE
+#. The second line of that hint.
+#. max 38
+HINT_TOOLS = YOUR TOOLS WORK BY THEMSELVES
+
+#. The shop's banner (2x letters on a panel).
+#. max 18
+SHED = GARDEN SHED
+#. The shop's last line: A buys the boost chosen, B goes back to the title.
+#. max 30
+SHED_KEYS = A: BUY - B: BACK
+#. The shop: the coins saved (%d).
+#. max 20
+COINS_N = %d COINS
+#. A boost at its top level.
+#. max 8
+MAX = MAX
+#. The shop's six boosts: a name and what each level adds.
+#. max 12
+B_MIGHT = MIGHT
+#. max 22
+BD_MIGHT = +4% DAMAGE
+#. max 12
+B_VIGOR = VIGOR
+#. max 22
+BD_VIGOR = +8 HEALTH
+#. max 12
+B_SWIFT = SWIFT
+#. max 22
+BD_SWIFT = +3% SPEED
+#. max 12
+B_REACH = REACH
+#. max 22
+BD_REACH = +10% GEM REACH
+#. max 12
+B_GROWTH = GROWTH
+#. max 22
+BD_GROWTH = +4% XP
+#. max 12
+B_HASTE = HASTE
+#. max 22
+BD_HASTE = -3% COOLDOWNS
+
+#. A level up: the banner over the three choices (2x letters on a panel).
+#. max 18
+LEVEL_UP = LEVEL UP!
+#. A chest opened: the banner over what it gave.
+#. max 18
+TREASURE = TREASURE!
+#. A choice that is a new tool or passive.
+#. max 10
+NEW = NEW!
+#. A choice that turns a tool at its top level into a stronger one.
+#. max 12
+EVOLVE = EVOLUTION!
+
+#. The tools (they work by themselves). Names (max 18) and what each does (max 24).
+#. max 18
+W_SEED = SEED SHOT
+#. max 24
+D_SEED = SHOOTS THE NEAREST PEST
+#. max 18
+W_CAN = WATERING CAN
+#. max 24
+D_CAN = SPLASHES AHEAD
+#. max 18
+W_BEES = BEE BUDDIES
+#. max 24
+D_BEES = BEES CIRCLE AROUND YOU
+#. max 18
+W_MOWER = TOY MOWER
+#. max 24
+D_MOWER = MOWS A STRAIGHT LINE
+#. max 18
+W_RAKE = BOOMERANG RAKE
+#. max 24
+D_RAKE = FLIES OUT, COMES BACK
+#. max 18
+W_PUMPKIN = PUMPKIN BOMB
+#. max 24
+D_PUMPKIN = LOBBED, IT BURSTS
+#. max 18
+W_THORNS = PRICKLE RING
+#. max 24
+D_THORNS = PRICKLES ALL AROUND YOU
+#. max 18
+W_CHILI = CHILI TRAIL
+#. max 24
+D_CHILI = HOT STEPS BEHIND YOU
+#. max 18
+W_PUFF = DANDELION PUFFS
+#. max 24
+D_PUFF = SEEDS ON THE WIND
+
+#. The tools evolved (a tool at its top level with its passive): names (max 18) and what changes (max 24).
+#. max 18
+E_SEED = SUNFLOWER STORM
+#. max 24
+DE_SEED = A STORM OF SEEDS
+#. max 18
+E_CAN = RAINBOW SPRAY
+#. max 24
+DE_CAN = SPRAYS ALL AROUND
+#. max 18
+E_BEES = ROYAL HIVE
+#. max 24
+DE_BEES = THE QUEEN BEE JOINS
+#. max 18
+E_MOWER = TURBO MOWER
+#. max 24
+DE_MOWER = BOUNCES ALL AROUND
+#. max 18
+E_RAKE = GOLDEN RAKE
+#. max 24
+DE_RAKE = FOUR RAKES THAT GATHER
+#. max 18
+E_PUMPKIN = GIANT PUMPKIN
+#. max 24
+DE_PUMPKIN = A HUGE BURST OF SEEDS
+#. max 18
+E_THORNS = BRAMBLE CROWN
+#. max 24
+DE_THORNS = WIDER, IT HEALS YOU
+#. max 18
+E_CHILI = FIRE PATH
+#. max 24
+DE_CHILI = FLAMES WHEREVER YOU GO
+#. max 18
+E_PUFF = WISHING WIND
+#. max 24
+DE_PUFF = PUFFS FIND THE PESTS
+
+#. The next level of a tool: what it adds.
+#. max 24
+UP_DAMAGE = MORE DAMAGE
+#. max 24
+UP_MORE = ONE MORE
+#. max 24
+UP_FASTER = MORE OFTEN
+#. max 24
+UP_AREA = BIGGER
+#. max 24
+UP_LONGER = LASTS LONGER
+#. max 24
+UP_PIERCE = GOES THROUGH PESTS
+
+#. The passives (always on): names (max 18) and what each level adds (max 24).
+#. max 18
+P_COMPOST = COMPOST
+#. max 24
+DP_COMPOST = +10% DAMAGE
+#. max 18
+P_HAT = SUN HAT
+#. max 24
+DP_HAT = +10% AREA
+#. max 18
+P_BOOTS = GARDEN BOOTS
+#. max 24
+DP_BOOTS = +8% SPEED
+#. max 18
+P_HONEY = HONEY POT
+#. max 24
+DP_HONEY = +15 HEALTH, HEALS
+#. max 18
+P_MAGNET = MAGNET
+#. max 24
+DP_MAGNET = +25% GEM REACH
+#. max 18
+P_SUNDIAL = SUNDIAL
+#. max 24
+DP_SUNDIAL = -6% COOLDOWNS
+#. max 18
+P_POUCH = SEED POUCH
+#. max 24
+DP_POUCH = MORE SHOTS
+#. max 18
+P_CLOVER = CLOVER
+#. max 24
+DP_CLOVER = MORE XP AND COINS
+
+#. When every tool and passive is at its top: a snack (heals) or a pouch of coins.
+#. max 18
+HEAL = SNACK
+#. max 24
+HEAL_D = +30 HEALTH
+#. max 18
+COINS = COIN POUCH
+#. max 24
+COINS_D = +25 COINS
+
+#. The HUD: the gardener's level (%d); also a level-up's choice that is the next level of a tool or passive (2..5).
+#. max 6
+HUD_LV = LV %d
+#. A boss comes (2x letters over the garden, for two seconds).
+#. max 20
+WARN_QUEEN = SLUG QUEEN!
+#. max 20
+WARN_STAG = STAG BEETLE!
+#. max 20
+WARN_CROWKING = CROW KING!
+
+#. The results' banner after beating the Crow King (2x letters on a panel); a lost run shows the kit's GAME OVER.
+#. max 18
+SAVED = GARDEN SAVED!
+#. The results' labels (each over its value in big gold letters).
+#. max 14
+RES_TIME = TIME
+#. max 14
+RES_PESTS = PESTS CHASED
+#. max 14
+RES_LEVEL = LEVEL
+#. max 14
+RES_COINS = COINS
+#. Paused: B goes back to the title, the run is kept (CONTINUE on the title).
+#. max 38
+PAUSE_QUIT = B: TITLE - THE RUN IS KEPT

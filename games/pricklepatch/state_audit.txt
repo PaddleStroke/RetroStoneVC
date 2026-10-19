@@ -1,0 +1,24 @@
+# Save states (tools/state_audit.py): the mutable statics that are NOT saved, and why.
+# Everything else is registered in the game's state functions (main.c game_state(), draw.c draw_state(), soft.c
+# soft_state(), the house kit's hu_state() and ha_state()).
+main.snd_buf        sound_init(): the synthesis buffer (the samples are made at start-up, not saved)
+main.SV             the battery save's copy (the best run, coins, boosts): stays in the .srm, a state never takes it back
+world.g_head        the collision grid: scratch, rebuilt from the pests at each step before it is read
+world.g_next        ... the same
+world.g_ox          ... its origin, the same
+world.g_oy          ... the same
+soft.cell_tile      the soft layer's frame: scratch, all clear between frames (soft_end clears what it used)
+soft.px             ... the pool's pixels, drawn again each frame before they are uploaded
+soft.cur            ... the cells used this frame, the same
+soft.n_cur          ... the same
+soft.cam_x          ... the frame's camera and window, set by soft_begin each frame
+soft.cam_y          ... the same
+soft.wx0            ... the same
+soft.wy0            ... the same
+soft.wx1            ... the same
+soft.wy1            ... the same
+soft.overflow       ... the pixels dropped this frame, the same
+draw.r_pin          per frame: the UI layer's pin for the raster, set by draw_frame before every picture
+draw.r_hud          ... the HUD pinned at a tall screen's top, the same
+draw.band           ... the frame's sprite budget, counted again by each draw_frame
+draw.oam_n          ... the same
