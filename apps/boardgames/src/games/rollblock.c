@@ -16,11 +16,14 @@
  * the hint first takes back the moves that led there). Undo takes back one move, all the way to the start. The bar:
  * the moves, and at its right end the par (the fewest possible) by a small block. Solved: the block sinks into the
  * hole, gold light rising from it.
+ * The view fits the tiles themselves (isoview.h); a map too big for a readable block is drawn at it, and the view
+ * follows the block (the chosen cube).
  */
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
 
+#include "games/isoview.h"
 #include "games/puzzles.h"
 #include "games/pzkit.h"
 #include "games/pztools.h"
@@ -53,6 +56,8 @@ static Uint32 bridge_t0[RLB_GROUPS];
 
 static box last_box;
 static float ox, oy, cell;                      /* the map's picture's top left on the screen, a diamond's width */
+static float ex0, ey0, exw, exh;                /* the tiles' picture in the map's (extent(), in cells) */
+static int scroll;                              /* the map bigger than its room: the view follows the block */
 static int bw, bh, made_cell = -1, made_serial = -1, made_small = -1, made_wood = -1;
 static SDL_Texture *t_board, *t_bridge[4], *t_long, *t_square, *t_small;
 
@@ -489,18 +494,49 @@ static void token(int player, int size, uint8_t *rgba)
     block_pic(size, rgba);
 }
 
-static float extent_w(const rlb_map *m) { return (m->w + m->h) * 0.5f + 0.2f; }   /* in cells */
-static float extent_h(const rlb_map *m) { return board_h(m->w + m->h) + 2 * KZ + 0.1f; }
+/* the tiles' picture in cells (isoview.h), bridges too: room for the block standing on the back tiles, the edges in
+ * front */
+static void extent(const rlb_map *m, float *x0, float *y0, float *w, float *h)
+{
+    iso_span p;
+    iso_span_init(&p);
+    for (int c = 0; c < m->w * m->h; c++)
+        if (m->t[c] != RLB_VOID) iso_span_add(&p, c % m->w, c / m->w);
+    iso_span_box(&p, m->h, KB, 2 * KZ, TH * KZ + 0.34f, x0, y0, w, h);
+}
+
+/* a state's focus on the map (the block's middle, the chosen cube's) */
+static void focus_of(const rlb_state *s, float *fx, float *fy)
+{
+    float b[2][5];
+    boxes(s, b);
+    int i = s->o == RLB_TWO && s->act ? 1 : 0;
+    *fx = (b[i][0] + b[i][2]) / 2;
+    *fy = (b[i][1] + b[i][3]) / 2;
+}
+
+/* the picture's place: the tiles centred in the room, or when they are bigger, the block (at fx, fy on the map) kept
+ * in the middle, the map's edges kept in */
+static void follow(float fx, float fy)
+{
+    float sx, sy;
+    iso(fx, fy, 0, cell, map_h, &sx, &sy);
+    ox = iso_follow(last_box.x, last_box.w, ex0 * cell, exw * cell, sx);
+    oy = iso_follow(last_box.y, last_box.h, ey0 * cell, exh * cell, sy);
+}
 
 static void layout(box b)
 {
     last_box = b;
     map_h = G.m.h;
-    cell = floorf(fminf(b.w / extent_w(&G.m), b.h / extent_h(&G.m)));
+    extent(&G.m, &ex0, &ey0, &exw, &exh);
+    cell = iso_cell(exw, exh, b.w, b.h, 1.4f * ui.unit);   /* never too small to read on a phone */
+    scroll = exw * cell > b.w + 0.5f || exh * cell > b.h + 0.5f;
     bw = (int)ceilf((G.m.w + G.m.h) * 0.5f * cell) + 1;
     bh = (int)ceilf(board_h(G.m.w + G.m.h) * cell) + 1;
-    ox = floorf(b.x + (b.w - bw) / 2);
-    oy = floorf(b.y + (b.h - extent_h(&G.m) * cell) / 2 + 2 * KZ * cell);
+    float fx, fy;
+    focus_of(&G.s, &fx, &fy);
+    follow(fx, fy);
     if (made_cell != (int)cell || made_serial != serial) {
         made_cell = (int)cell;
         made_serial = serial;
@@ -702,6 +738,19 @@ static void draw(void)
 {
     if (made_cell < 0 || made_serial != serial) layout(last_box);
     Uint32 now = ui_ms();
+    if (scroll) {                               /* the view follows the block as it rolls; the map cut at the room */
+        float fx, fy;
+        focus_of(&G.s, &fx, &fy);
+        if (roll.on && now - roll.t0 < ROLL_MS) {
+            float t = puz_ease((now - roll.t0) / (float)ROLL_MS), gx, gy;
+            focus_of(&roll.from, &gx, &gy);
+            fx = gx + (fx - gx) * t;
+            fy = gy + (fy - gy) * t;
+        }
+        follow(fx, fy);
+        SDL_Rect clip = {(int)last_box.x, (int)last_box.y, (int)last_box.w, (int)last_box.h};
+        SDL_RenderSetClipRect(ui.r, &clip);
+    }
     ui_put(t_board, ox, oy, (float)bw, (float)bh);
     for (int y = 0; y < G.m.h; y++)             /* the bridges, back to front: open, shut (a ghost), changing */
         for (int x = 0; x < G.m.w; x++) {
@@ -774,6 +823,7 @@ static void draw(void)
             draw_state(&G.s, dir, deg, 0, 0, now);
         }
     }
+    if (scroll) SDL_RenderSetClipRect(ui.r, NULL);
     if (G.s.o == RLB_TWO) ui_animate();         /* the chosen cube's glow breathes */
     unsigned can = 0;
     for (int w = 0; w < 4; w++) {
@@ -862,13 +912,15 @@ static void bar(int player, box b)
 /* ---- the shell's pictures: a map with the block standing at its start ------------------------------------------- */
 static void paint_map(const rlb_map *m, int size, uint8_t *rgba, unsigned open)
 {
-    float c = floorf(fminf(size * 0.96f / extent_w(m), size * 0.96f / extent_h(m)));
+    float e0, f0, ew, eh;
+    extent(m, &e0, &f0, &ew, &eh);
+    float c = floorf(fminf(size * 0.96f / ew, size * 0.96f / eh));
     if (c < 3) return;
     int W = (int)ceilf((m->w + m->h) * 0.5f * c) + 1, H = (int)ceilf(board_h(m->w + m->h) * c) + 1;
     uint8_t *o = malloc((size_t)W * H * 4);
     if (!o) return;
     paint_board(m, c, W, H, o, 1, open);
-    int x0 = (size - W) / 2, y0 = (int)((size - extent_h(m) * c) / 2 + 2 * KZ * c);
+    int x0 = (int)floorf((size - ew * c) / 2 - e0 * c), y0 = (int)floorf((size - eh * c) / 2 - f0 * c);
     art_blend(rgba, size, size, o, W, H, x0, y0);
     free(o);
     float sx, sy;                               /* the block standing at the start */
