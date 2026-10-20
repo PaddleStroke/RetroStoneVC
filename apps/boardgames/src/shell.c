@@ -251,6 +251,7 @@ static struct {
     box board, bar[MAX_PLAYERS];                /* bar[player] */
     box room;                                   /* all the room between the bars (the board: a square in it) */
     float bx[NBTN], by[NBTN], br;               /* the buttons: centres, radius */
+    float bcx, bstep, bmax;                     /* their row (not with the tools): its middle, pitch, widest span */
     float tk;                                   /* a token's size */
     /* the menu and the picker */
     int cols, card, label;                      /* label: the height of a card's name under its picture */
@@ -355,15 +356,26 @@ static int solved_card(void)
     return g->status() == GS_WIN0 && (g->levels || (ui.players == 1 && g->level_stars));
 }
 
-/* a one-player game lost (a solitaire out of moves, a board filled, a level failed): its end card has a retry button
- * under the result (the same deal, the same level: the stars card's replay); a tap elsewhere hides it as any end card */
-#define RETRY_H 1.2f                            /* the retry row, in the end card's unit, under its usual 3.8 */
+/* a one-player game lost (a solitaire out of moves, a board filled, a level failed): its end card's button is a retry
+ * (the same deal, the same level: the stars card's replay) */
 static int lost_card(void)
 {
     if (screen != SCR_GAME || cur < 0 || ui.players != 1) return 0;
     int st = games[cur]->status();
     return st != GS_PLAY && st != GS_WIN0;
 }
+
+/* any other end card (a win, a draw, a loss; against bots; a card game's final table in it; one player's score): a
+ * play again button under the result, a row more (RETRY_H): the same players, seats, bots and variant, a new deal.
+ * Lost alone: the retry. A tap elsewhere hides the card; the buttons' row then has the button too (B_NEW), unless the
+ * game shows a replay tool of its own. Not with seats played elsewhere (a rematch is theirs to agree). */
+#define RETRY_H 1.2f                            /* the button's row, in the end card's unit, under its usual 3.8 */
+static int again_card(void)
+{
+    return screen == SCR_GAME && cur >= 0 && !remotemask && games[cur]->status() != GS_PLAY && !solved_card();
+}
+static int game_replay_tool;                    /* the game drew a tool with ICON_REPLAY (its own restart) last frame */
+static int replay_tool_now;
 
 /* the game's gesture still going on: its pointer (or its fingers) down. A game that ends under it (a puzzle solved by
  * a drag, a move that wins) keeps hearing that gesture to its lifting, and its end waits: the tune, the pause, then
@@ -1591,7 +1603,9 @@ static SDL_Texture *big_tok(int p)
  * board (home, new game and the rules: the header's back and i) */
 static int shown(int i)
 {
-    if (i == B_HOME || i == B_NEW || i == B_HELP) return 0;
+    if (i == B_NEW) return over_hidden && !game_replay_tool && again_card();   /* the end card hidden: play again */
+    if (i == B_HOME || i == B_HELP) return 0;
+    if (i == B_F2F && shown(B_NEW)) return 0;   /* (the game over: play again in its place, the row as wide) */
     if (i == B_UNDO && (cur < 0 || !games[cur]->undo)) return 0;
     return (humans() > 1 && !is_view()) || (i != B_FLIP && i != B_F2F);
 }
@@ -1623,15 +1637,23 @@ static void tools_place(void)
 {
     TL.dirty = 0;
     int n = TL.shown;
+    if (!TL.row) {                              /* the buttons' own row, centred (a button more or less: B_NEW) */
+        int nb = 0;
+        for (int i = 0; i < NBTN; i++) nb += shown(i);
+        float step = nb > 1 ? fminf(L.bstep, L.bmax / (nb - 1)) : L.bstep;
+        for (int i = 0, k = 0; i < NBTN; i++)
+            if (shown(i)) L.bx[i] = floorf(L.bcx + (k++ - (nb - 1) / 2.0f) * step);
+    }
     if (TL.row) {                               /* the buttons and the tools shown, one row centred */
         int nb = 0;
         for (int i = 0; i < NBTN; i++) nb += shown(i);
-        float x0 = ui.w / 2.0f - (nb + n - 1) / 2.0f * TL.step;
+        float step = nb + n > 1 ? fminf(TL.step, L.bmax / (nb + n - 1)) : TL.step;   /* (B_NEW too: closer) */
+        float x0 = ui.w / 2.0f - (nb + n - 1) / 2.0f * step;
         for (int i = 0, k = 0; i < NBTN; i++)
-            if (shown(i)) L.bx[i] = floorf(x0 + k++ * TL.step);
+            if (shown(i)) L.bx[i] = floorf(x0 + k++ * step);
         TL.d = floorf(TL.d0);
         for (int i = 0; i < n; i++) {
-            TL.x[i] = floorf(x0 + (nb + i) * TL.step);
+            TL.x[i] = floorf(x0 + (nb + i) * step);
             TL.y[i] = TL.by;
         }
         return;
@@ -1678,6 +1700,7 @@ int ui_tool_at(int i, float *cx, float *cy, float *d)
 void ui_tool(int i, int icon, int how)
 {
     float x, y, d;
+    if (icon == ICON_REPLAY) replay_tool_now = 1;
     if (ui_tool_at(i, &x, &y, &d)) ui_button(x, y, d, icon, how);
 }
 
@@ -1718,7 +1741,7 @@ static void layout_game(void)
         side[s][k] = p;
     }
     int nb = 0;
-    for (int i = 0; i < NBTN; i++) nb += shown(i);
+    for (int i = 0; i < NBTN; i++) nb += shown(i) && i != B_NEW;   /* (B_NEW, an end card hidden: the room the same) */
     box top, bottom;
     TL.n = TL.shown = nt;
     TL.room = (box){0, 0, 0, 0};
@@ -1740,11 +1763,10 @@ static void layout_game(void)
         bottom = (box){x, floorf(ui.h - m - 1.35f * u - 2 * L.br), 9 * u, u};
         float step = 1.5f * u, by = bottom.y + bottom.h + 0.35f * u + L.br;
         float bx0 = ui.w / 2.0f - ((in_row ? nb + nt : nb) - 1) / 2.0f * step;
-        for (int i = 0, k = 0; i < NBTN; i++) {
-            if (!shown(i)) continue;
-            L.bx[i] = floorf(bx0 + k++ * step);
-            L.by[i] = by;
-        }
+        for (int i = 0; i < NBTN; i++) L.by[i] = by;   /* (their x: tools_place) */
+        L.bcx = ui.w / 2.0f;
+        L.bstep = step;
+        L.bmax = fminf(ui.w - 2 * m, 9 * u + 2 * m) - 2 * L.br;
         float r0 = n[1] ? top.y + 1.2f * u : top.y, r1 = bottom.y - 0.2f * u;
         TL.d0 = 0.84f * u;
         if (in_row) {                           /* the tools after the buttons, as big, the same pitch */
@@ -1772,11 +1794,10 @@ static void layout_game(void)
         top = (box){cx, y + u, 4 * u, u};
         bottom = (box){cx, y + 8 * u, 4 * u, u};
         L.br = 0.55f * u;
-        for (int i = 0, k = 0; i < NBTN; i++) { /* one row, over the viewer's bar */
-            if (!shown(i)) continue;
-            L.bx[i] = cx + 2 * u + (k++ - (nb - 1) / 2.0f) * 1.35f * u;
-            L.by[i] = y + 7.25f * u;
-        }
+        for (int i = 0; i < NBTN; i++) L.by[i] = y + 7.25f * u;   /* one row, over the viewer's bar (tools_place) */
+        L.bcx = cx + 2 * u;
+        L.bstep = 1.35f * u;
+        L.bmax = 4.4f * u - 2 * L.br;
         float t0 = n[1] ? y + u + fminf(n[1] * 1.1f * u, 4.4f * u) : y + u;   /* below the others' bars */
         TL.room = (box){cx, t0, 4 * u, y + 6.5f * u - t0};
         TL.d0 = 2 * L.br;                       /* the tools as big as the buttons under them */
@@ -1803,11 +1824,10 @@ static void layout_game(void)
          * top bars (stacked down from under the header) */
         float top_end = top.y + n[1] * 1.1f * u, bot_start = y + 8 * u - (n[0] > 1 ? n[0] - 1 : 0) * 1.1f * u;
         float by = bot_start - 0.3f * u - L.br;
-        for (int i = 0, k = 0; i < NBTN; i++) {
-            if (!shown(i)) continue;
-            L.bx[i] = cx + 2 * u + (k++ - (nb - 1) / 2.0f) * 1.35f * u;
-            L.by[i] = by;
-        }
+        for (int i = 0; i < NBTN; i++) L.by[i] = by;   /* (their x: tools_place) */
+        L.bcx = cx + 2 * u;
+        L.bstep = 1.35f * u;
+        L.bmax = 4.4f * u - 2 * L.br;
         float t0 = top_end + 0.1f * u;
         TL.room = (box){cx, t0, 4 * u, fmaxf(0.5f * u, by - L.br - 0.2f * u - t0)};
         TL.d0 = 2 * L.br;                       /* the tools as big as the buttons under them */
@@ -3786,6 +3806,13 @@ static void level_next(void)
 /* the solved puzzle's card: replay (the same puzzle, the same level), next (the next level; a new puzzle of the same
  * variant) */
 static void card_replay(void) { restart(1); }
+/* any other end card's button (and B_NEW, it hidden): lost alone, the same again (retry); else play again, a new deal
+ * of the same game (players, seats, bots, variant, level) */
+static void card_again(void)
+{
+    finished_unseen();
+    restart(lost_card());
+}
 static void card_next(void)
 {
     if (games[cur]->levels && !in_random(cur)) level_next();
@@ -4024,10 +4051,10 @@ static void draw_result(float cx, float cy, float u)
         draw_solved(cx, cy, u);
         return;
     }
-    if (lost_card()) {                          /* lost alone: the retry button under the result (a card RETRY_H taller) */
+    if (again_card()) {                         /* play again (lost alone: retry) under the result, a row more */
         replay_btn.x = cx;
         replay_btn.y = cy + 1.45f * u;
-        replay_btn.d = fminf(1.1f * fmaxf(u, 0.8f * ui.unit), 2.1f * L.br);   /* (the stars card's; in a small card
+        replay_btn.d = fminf(1.1f * fmaxf(u, ui.unit), 2.1f * L.br);   /* (the stars card's; in a small card
                                                                                 * still a thumb's) */
         ui_button(replay_btn.x, replay_btn.y, replay_btn.d, ICON_REPLAY, 0);
         cy -= RETRY_H / 2 * u;
@@ -4108,7 +4135,7 @@ box ui_end_room(float w, float h)
     float u = ui.unit, pad = floorf(0.3f * u), cx = b.x + b.w / 2, cy = b.y + b.h / 2;
     float ks = 0.72f, hs = 6.8f * u * ks;       /* beside: the result's part, this wide */
     int side = b.w > 1.3f * b.h && w + hs + 3 * pad <= b.w * 0.98f;
-    float k = side ? ks : 0.62f, hw = 6.8f * u * k, hh = (3.8f + (lost_card() ? RETRY_H : 0)) * u * k;
+    float k = side ? ks : 0.62f, hw = 6.8f * u * k, hh = (3.8f + (again_card() ? RETRY_H : 0)) * u * k;
     w = floorf(fminf(w, b.w * 0.98f - 2 * pad - (side ? hw + pad : 0)));
     h = floorf(fminf(h, b.h * 0.98f - 2 * pad - (side ? 0 : hh)));
     float cw, ch;
@@ -4282,7 +4309,7 @@ static void draw_over(void)
         SDL_FRect d = {b.x, b.y, b.w, b.h};
         SDL_RenderCopyF(ui.r, t_bg, &src, &d);
     } else end_veil(b, 90);
-    if (lost_card()) {                          /* lost alone: a row more, its retry button (t_card's look, taller) */
+    if (again_card()) {                         /* a row more, its play again button (t_card's look, taller) */
         static const uint8_t card_c[4] = {28, 34, 32, 236};
         float w = floorf(6.8f * u), h = floorf((3.8f + RETRY_H) * u);
         if (TH.dark) ui_put(rounded((int)w, (int)h, 0.4f * u, card_c), floorf(cx - w / 2), floorf(cy - h / 2), w, h);
@@ -4450,8 +4477,15 @@ static void draw_game(void)
     card_was = E.due;
     game_textures();
     card_ink = 0;
+    replay_tool_now = 0;
     g->draw();                                  /* under the cover too: ui.viewer -1, no hand shown */
     card_ink = 0;                               /* (a white panel's ink: to the end of draw()) */
+    game_replay_tool = replay_tool_now;
+    static int new_was;                         /* the buttons' row: B_NEW come or gone (an end card hidden) */
+    if (shown(B_NEW) != new_was) {
+        new_was = shown(B_NEW);
+        TL.dirty = 1;
+    }
     game_textures();                           /* again: the game may have changed its tokens while drawing */
     for (int p = 0; p < ui.players; p++) draw_bar(p);
     if (armed && SDL_GetTicks() - armed > 2500) armed = 0;
@@ -4459,7 +4493,7 @@ static void draw_game(void)
     for (int i = 0; i < NBTN; i++) {
         if (!shown(i)) continue;
         SDL_Texture *disc = i == B_NEW && armed ? t_btn_armed : i == B_F2F && ui.f2f ? t_btn_on : NULL;
-        int icon = i == B_NEW && g->levels ? ICON_GRID : BTN_ICON[i];   /* a level: back to the level screen */
+        int icon = i == B_NEW ? ICON_REPLAY : BTN_ICON[i];   /* (B_NEW: the end card's play again, hidden) */
         draw_button(L.bx[i], L.by[i], L.br, icon, disc);
     }
     draw_header();
@@ -5648,7 +5682,11 @@ static void press(float x, float y)
         else if (i == B_FLIP) { snd_play(SND_TAP); ui.flipped = !ui.flipped; layout(); jr_view(); }
         else if (i == B_F2F) { snd_play(SND_TAP); ui.f2f = !ui.f2f; jr_view(); }
         else if (i == B_HELP) { snd_play(SND_TAP); open_help(cur); }
-        else if (games[cur]->status() == GS_PLAY && !armed && games[cur]->turn() >= 0 && started[cur]) {
+        else if (i == B_NEW && games[cur]->status() != GS_PLAY) {   /* the end card hidden: play again (retry) */
+            snd_play(SND_TAP);
+            card_again();
+            PT.stray = 1;                       /* (its lifting: nobody's) */
+        } else if (games[cur]->status() == GS_PLAY && !armed && games[cur]->turn() >= 0 && started[cur]) {
             armed = SDL_GetTicks();
             snd_play(SND_TAP);
         } else { snd_play(SND_TAP); new_game(); }
@@ -5666,8 +5704,9 @@ static void press(float x, float y)
             return;
         }
         if (replay_btn.d > 0 && ui_button_hit(replay_btn.x, replay_btn.y, replay_btn.d, x, y)) {   /* the same again */
-            snd_play(SND_TAP);                  /* (the stars card's replay, a lost game's retry) */
-            card_replay();
+            snd_play(SND_TAP);                  /* (the stars card's replay; any other card's play again, retry) */
+            if (solved) card_replay();
+            else card_again();
             PT.stray = 1;
             return;
         }
@@ -5680,6 +5719,7 @@ static void press(float x, float y)
             }
         if (!solved || ui_tool_hit(x, y) < 0) { /* the end card: a tap hides it; the stars card stays (only its */
             if (!solved) over_hidden = 1;       /* buttons, undo or the game's tools) */
+            if (!solved) tools_place();         /* (the buttons' row: play again in it now) */
             PT.stray = 1;                       /* the rest of this tap: nobody's */
             return;
         }
