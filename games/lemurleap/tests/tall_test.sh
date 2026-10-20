@@ -1,8 +1,9 @@
 #!/bin/sh
-# Lemur Leap on a tall screen (a phone held upright; DESIGN.md "Screen": rs_screen_zoom 480) and the phone turning.
+# Lemur Leap on a tall screen (a phone held upright; DESIGN.md "Screen": zoomed so that the 192-px column fills the
+# display's width: 416 lines on 1080x2340, 448 on 1080x2520, 384 on 720x1440, 341 on 1080x1920) and the phone turning.
 # The climb is the same at every size: the bot's climbs log the same states frame for frame at 320x240, on three phones
 # upright and at 520 columns (the camera's window is the 240-line stage at every size; a tall screen shows more above
-# it). The picture is 320 x 480 upright. And the phone turning (the app restarts the game from a save state at the new
+# it). The picture: 320 columns, 192 of them shown upright. And the phone turning (the app restarts the game from a save state at the new
 # size): after an upright -> landscape turn the picture is exactly the one a landscape run shows at that frame, and back,
 # on the title, in a climb, paused, the results.
 #   tall_test.sh <lemurleap_headless> <out dir>
@@ -16,7 +17,7 @@ ko() { echo "  FAIL $1"; fail=1; }
 png_wh() { od -An -tu1 -j16 -N8 "$1" | awk '{print $1 * 16777216 + $2 * 65536 + $3 * 256 + $4 "x" $5 * 16777216 + $6 * 65536 + $7 * 256 + $8}'; }
 game_log() { grep -v "RetroStone VC\|vram\|tall screen:\|frame [0-9]* ->"; }
 
-for d in 1080x2340:320x480 1080x2520:320x480 720x1440:320x480 2340x1080:520x240; do
+for d in 1080x2340:320x416 1080x2520:320x448 720x1440:320x384 1080x1920:320x341 2340x1080:520x240; do
     disp=${d%%:*} want=${d#*:}
     $H --display "$disp" --frames 130 --opt music=0 --png "$O/t$disp.png" > /dev/null 2>&1
     wh=$(png_wh "$O/t$disp.png")

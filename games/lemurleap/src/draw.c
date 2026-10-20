@@ -709,6 +709,7 @@ void draw_frame(const world *w, const view *v)
     rs_bg_scroll(RS_BG4, (tick / 8) & 255, (cam / 4) & 255);
     rs_bg_scroll(RS_BG3, 0, (cam / 8) & 511);
     rs_bg_scroll(RS_BG2, 0, (cam / 2) & 255);
+    rs_bg_enable(RS_BG2, !tall());                       /* upright: no side panels, the column is the whole width */
     rs_brightness(15);
 
     /* the UI layer: redrawn when what it shows changes */
@@ -805,10 +806,12 @@ void draw_frame(const world *w, const view *v)
             cur_fur = -1;
         }
         if (!narrow) spr(SPR_LEAF + (frame == HERO_SQUASH), mx - 16, my + 23 + 1, 2, 0);
-        else {                                             /* upright: a real bounce off the ground, leaves above it */
-            lift = lift * 5;
-            static const int16_t LV[3][2] = {{36, 150}, {124, 116}, {72, 84}};
-            for (int k = 0; k < 3; k++) spr(SPR_LEAF, COL_X + LV[k][0], LV[k][1], 2, 0);
+        else {                                             /* upright: a bounce off the ground, under the credits */
+            int free = (STAGE_H - 36) - (ht_pin_screen_y(HT_PIN_TITLE) + 30 * 8 - rs_screen_origin_y());
+            int room = free - 28;                          /* (the lines between the credits and the ground) */
+            lift = room > 12 ? lift * (room < 60 ? room : 60) / 12 : lift;
+            if (free > 64) spr(SPR_LEAF, COL_X + 14, STAGE_H - 36 - free / 2, 2, 0);
+            if (free > 64) spr(SPR_LEAF, COL_X + COL_W - 46, STAGE_H - 36 - free * 3 / 4, 2, 0);
         }
         draw_lemur_at(NULL, frame, 0, mx - 12, my - lift + 2, hat, 0);
         if (!(v->owned & (1 << v->look))) spr(SPR_LOCK, mx + 12, my + 20, 3, 0);

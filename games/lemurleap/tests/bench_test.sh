@@ -25,5 +25,5 @@ scene() {   # scene <name> <frames> <options...>
 scene "the garden, the bot (4:3)" 2400 --opt bot=1 --opt ready=1 --opt seed=7
 scene "the clouds, pests (4:3)" 2400 --opt bot=1 --opt ready=1 --opt seed=3 --opt height=300 --opt god=1
 scene "space at 520 columns" 2400 --opt bot=1 --opt ready=1 --opt seed=3 --opt height=1100 --opt god=1 --width 520
-scene "space upright (320 x 480)" 2400 --opt bot=1 --opt ready=1 --opt seed=3 --opt height=1100 --opt god=1 --display 1080x2340
+scene "space upright (320 x 416)" 2400 --opt bot=1 --opt ready=1 --opt seed=3 --opt height=1100 --opt god=1 --display 1080x2340
 exit $fail

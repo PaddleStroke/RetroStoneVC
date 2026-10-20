@@ -32,7 +32,6 @@
 #include <stdio.h>
 #include <string.h>
 
-#define ZOOM_H        480           /* a phone held upright: 480 lines zoomed to the display's height (docs/spec.md) */
 #define START_INPUTS  (RS_BTN_START)
 #define BOT_START     30
 #define SNAP_EVERY    (30 * SEC)    /* the climb kept this often (and when left from the pause) */
@@ -427,9 +426,29 @@ static void game_draw(void)
     draw_frame(&W, &v);
 }
 
+/* A phone held upright: the zoom (docs/spec.md "Tall screen") whose columns shown are exactly the climb's column
+ * (COL_W): the screen's height is COL_W x the display's height / its width (416 lines on 1080x2340, 448 on 1080x2520,
+ * 384 on 720x1440), so the column fills the display's whole width and wraps at its edges. The display's shape is read
+ * back from a first zoom: every column of a display up to 320 x 720 (its height then), else the columns it shows. The
+ * climb is the same at every size (the world never reads the screen); only the picture changes. Landscape, 4:3, a
+ * display less tall than that: 240 lines, the column between its side panels. */
+static void portrait_zoom(void)
+{
+    int h1 = rs_screen_zoom(RS_SCREEN_H_MAX);
+    if (h1 <= RS_SCREEN_H) return;
+    int v1 = rs_screen_visible_x1() - rs_screen_visible_x0();
+    long req = v1 >= RS_SCREEN_W ? h1 : (long)RS_SCREEN_W * h1 / v1;      /* the display's height at 320 columns */
+    int h = (int)(req * COL_W / RS_SCREEN_W) - 4;
+    for (int k = 0; k < 16; k++, h++) {
+        if (h <= RS_SCREEN_H) { rs_screen_zoom(RS_SCREEN_H); continue; }
+        rs_screen_zoom(h);
+        if (rs_screen_visible_x1() - rs_screen_visible_x0() >= COL_W) return;
+    }
+}
+
 static void game_init(void)
 {
-    rs_screen_zoom(ZOOM_H);                     /* a phone held upright: zoomed, the climb above the stage */
+    portrait_zoom();                            /* a phone held upright: zoomed so that the column fills its width */
     save_load();
     opt_music = rs_option_int("music", 1);
     opt_sound = rs_option_int("sound", 1);

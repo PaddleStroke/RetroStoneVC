@@ -80,11 +80,14 @@ a moving one, shoots the pests above) climbs 1500 m on every seed with the pests
 | BG2 | the side panels: the giant beanstalk's stalks, their leaves, a vine on the column's edge; high priority: they hide what passes outside the column (the lemur crossing the wrap shows on both sides, cut at the edges); their background takes the zone's colours | 1/2 |
 | BG1 | the house kit: the HUD in boxes on the panels (the height, the record, the coins, the power-up's bar: icons and digits only), the title, the results, PAUSED | |
 
-**Widescreen**: wider panels (more beanstalk). **Tall screen** (a phone held upright): `rs_screen_zoom(480)`: 480
-lines fill the display's height, 204 to 220 columns shown (the column and a strip of each stalk); the stage at the
-screen's bottom, so the 240 lines above it show the climb ahead; the HUD pinned at the top (the height big in the
-middle, the coins and the record at the sides, clear of the app's corner buttons). The title and the results use
-house_tall.h's layouts, pinned on the screen; the lemur hops on the garden's ground at the bottom of the title.
+**Widescreen**: wider panels (more beanstalk). **Tall screen** (a phone held upright, the owner's note: the column
+fills the whole width): the zoom (`rs_screen_zoom`, main.c `portrait_zoom`) is chosen from the display's shape so that
+the columns shown are exactly the 192 of the column: 416 lines on 1080x2340, 448 on 1080x2520, 384 on 720x1440, 341
+on 1080x1920. No side panels upright (BG2 off): the lemur leaving one edge comes in at the other, seamlessly. The climb
+is the same at every size (only the zoom changes). The stage sits at the screen's bottom, so the lines above it show
+the climb ahead; the HUD is pinned at the top on a band (the height big in the middle, the coins and the record at the
+sides). The title and the results use house_tall.h's layouts, pinned on the screen; the lemur hops on the garden's
+ground at the bottom of the title. The touch halves are the screen's (the column's) halves.
 
 ## Screens
 title (the logo, the lemur hopping on a leaf wearing the look shown, the wardrobe's line, its price or WORN, the
