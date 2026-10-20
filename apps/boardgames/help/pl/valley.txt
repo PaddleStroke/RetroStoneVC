@@ -1,0 +1,17 @@
+Plony doliny
+# Cel gry
+Rozbuduj swoją wioskę we wspólnej dolinie. Po ostatniej rundzie wygrywa gracz z największą liczbą punktów.
+# Tura
+- Wyślij robotnika na wolny teren w swojej wiosce lub obok niej i zbierz plon: jeden towar, jeden więcej za każdy pasujący warsztat obok i jeden więcej za pole nad rzeką. Warsztat innego gracza daje jego właścicielowi monetę.
+- Potem buduj i handluj, ile chcesz.
+# Budowanie
+Buduj obok swojej wioski.
+- Droga: twoja wioska sięga dalej; teren nadal można zbierać.
+- Dom: punkt i jeden robotnik więcej.
+- Tartak, młyn, kamieniołom: punkty i więcej towarów z terenu wokół nich.
+- Dwór, na jednym z twoich domów: więcej punktów.
+Budowa obok zakrytego terenu odkrywa go. Ruiny nagradzają znalazcę.
+# Targ
+Ceny rosną, gdy zapas maleje. W każdej rundzie dolina zużywa po jednym z każdego towaru.
+# Koniec gry
+Tury idą kolejno, aż wszyscy robotnicy wyjdą; gracz z najmniejszą liczbą punktów zaczyna następną rundę. Na końcu każde cztery monety dają punkt. Przy remisie wygrywa ten, kto ma więcej monet.

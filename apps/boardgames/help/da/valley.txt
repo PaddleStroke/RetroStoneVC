@@ -1,0 +1,17 @@
+Dalens høst
+# Målet
+Lad din landsby vokse i en fælles dal. Efter sidste runde vinder den med flest point.
+# En tur
+- Send en arbejder ud på et ledigt stykke land i eller ved din landsby og høst det: én vare, én mere for hvert passende værksted ved siden af, én mere for en mark ved floden. En andens værksted giver sin ejer en mønt.
+- Byg og handl derefter, som du vil.
+# At bygge
+Byg ved siden af din landsby.
+- Vej: din landsby rækker længere; landet er stadig frit at høste.
+- Hus: et point og en arbejder mere.
+- Savværk, mølle, stenbrud: point og flere varer fra deres land omkring dem.
+- Herregård, på et af dine huse: flere point.
+At bygge ved siden af land med bagsiden op vender det. Ruiner belønner den, der finder dem.
+# Markedet
+Priserne stiger, når lageret svinder. Hver runde bruger dalen én af hver vare.
+# Spillets afslutning
+Turene går rundt, til alle arbejdere er ude; den med færrest point begynder næste runde. Til sidst giver hver fire mønter et point. Ved lighed vinder den med flest mønter.

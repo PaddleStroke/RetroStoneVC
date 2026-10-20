@@ -1,0 +1,17 @@
+Laakson sato
+# Tavoite
+Kasvata kyläsi yhteisessä laaksossa. Viimeisen kierroksen jälkeen eniten pisteitä saanut voittaa.
+# Vuoro
+- Lähetä työläinen vapaalle maalle kyläsi sisällä tai vieressä ja korjaa sato: yksi tavara, yksi lisää jokaisesta viereisestä sopivasta pajasta ja yksi lisää joen varren pellosta. Toisen pelaajan paja tuo omistajalleen kolikon.
+- Rakenna ja käy kauppaa sitten mielesi mukaan.
+# Rakentaminen
+Rakenna kyläsi viereen.
+- Tie: kyläsi ulottuu kauemmas; maa jää vapaaksi korjata.
+- Talo: piste ja yksi työläinen lisää.
+- Saha, mylly, louhos: pisteitä ja lisää tavaraa ympäröivältä maalta.
+- Kartano, jonkin talosi päälle: lisää pisteitä.
+Rakentaminen nurin päin olevan maan viereen kääntää sen. Rauniot palkitsevat löytäjänsä.
+# Tori
+Hinnat nousevat, kun varasto hupenee. Joka kierroksella laakso kuluttaa yhden kutakin tavaraa.
+# Pelin loppu
+Vuorot kiertävät, kunnes kaikki työläiset ovat liikkeellä; vähiten pisteitä saanut aloittaa seuraavan kierroksen. Lopuksi joka neljä kolikkoa on piste. Tasapelin ratkaisevat kolikot.

@@ -1,0 +1,17 @@
+Cosecha del valle
+# El objetivo
+Haz crecer tu aldea en un valle compartido. Tras la última ronda, gana quien tenga más puntos.
+# Un turno
+- Envía un trabajador a una tierra libre en tu aldea o junto a ella y cosecha: un bien, uno más por cada taller a juego a su lado y uno más por un campo junto al río. El taller de otro jugador da una moneda a su dueño.
+- Después construye y comercia como quieras.
+# Construir
+Construye junto a tu aldea.
+- Camino: tu aldea llega más lejos; la tierra sigue libre para cosechar.
+- Casa: un punto y un trabajador más.
+- Aserradero, molino, cantera: puntos, y más bienes de sus tierras alrededor.
+- Mansión, sobre una de tus casas: más puntos.
+Construir junto a una tierra boca abajo la descubre. Las ruinas pagan a quien las encuentra.
+# El mercado
+Los precios suben cuando baja la existencia. Cada ronda, el valle consume uno de cada bien.
+# El final de la partida
+Los turnos siguen hasta que todos los trabajadores han salido; quien tenga menos puntos empieza la ronda siguiente. Al final, cada cuatro monedas valen un punto. Un empate lo gana quien tenga más monedas.

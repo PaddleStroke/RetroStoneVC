@@ -1,0 +1,17 @@
+Dalens skörd
+# Målet
+Låt din by växa i en gemensam dal. Efter sista omgången vinner den med flest poäng.
+# En tur
+- Skicka en arbetare till ett ledigt land i eller intill din by och skörda det: en vara, en till för varje passande verkstad bredvid, en till för en åker vid floden. En annans verkstad ger sin ägare ett mynt.
+- Bygg och handla sedan så mycket du vill.
+# Att bygga
+Bygg intill din by.
+- Väg: din by når längre; landet är fortfarande fritt att skörda.
+- Hus: en poäng och en arbetare till.
+- Sågverk, kvarn, stenbrott: poäng och fler varor från landet runt dem.
+- Herrgård, på ett av dina hus: fler poäng.
+Att bygga intill land med baksidan upp vänder det. Ruiner belönar den som hittar dem.
+# Marknaden
+Priserna stiger när lagret sinar. Varje omgång förbrukar dalen en av varje vara.
+# Partiets slut
+Turerna går runt tills alla arbetare är ute; den med minst poäng börjar nästa omgång. Till sist ger var fjärde mynt en poäng. Vid lika vinner den med flest mynt.

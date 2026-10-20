@@ -1,0 +1,17 @@
+Talernte
+# Das Ziel
+Lass dein Dorf in einem gemeinsamen Tal wachsen. Nach der letzten Runde gewinnt, wer die meisten Punkte hat.
+# Ein Zug
+- Schicke einen Arbeiter auf ein freies Land in oder neben deinem Dorf und ernte es: ein Gut, eines mehr für jede passende Werkstatt daneben, eines mehr für ein Feld am Fluss. Die Werkstatt eines anderen bringt ihrem Besitzer eine Münze.
+- Dann baue und handle, so viel du willst.
+# Bauen
+Baue neben deinem Dorf.
+- Weg: Dein Dorf reicht weiter; das Land bleibt frei zum Ernten.
+- Haus: ein Punkt und ein Arbeiter mehr.
+- Sägewerk, Mühle, Steinbruch: Punkte und mehr Güter von ihrem Land ringsum.
+- Gutshof, auf einem deiner Häuser: mehr Punkte.
+Wer neben verdecktem Land baut, deckt es auf. Ruinen belohnen ihren Finder.
+# Der Markt
+Die Preise steigen, wenn der Vorrat schwindet. In jeder Runde verbraucht das Tal eines von jedem Gut.
+# Das Ende der Partie
+Die Züge gehen reihum, bis alle Arbeiter unterwegs sind; wer die wenigsten Punkte hat, beginnt die nächste Runde. Am Ende zählen je vier Münzen einen Punkt. Bei Gleichstand entscheiden die meisten Münzen.

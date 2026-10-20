@@ -1,0 +1,17 @@
+Panen Lembah
+# Tujuan
+Kembangkan desamu di sebuah lembah bersama. Setelah ronde terakhir, poin terbanyak menang.
+# Satu giliran
+- Kirim seorang pekerja ke tanah kosong di dalam atau di samping desamu dan panen: satu barang, tambah satu untuk tiap bengkel yang cocok di sebelahnya, tambah satu untuk ladang di tepi sungai. Bengkel milik pemain lain memberi pemiliknya satu koin.
+- Lalu bangun dan berdaganglah sesukamu.
+# Membangun
+Bangunlah di samping desamu.
+- Jalan: desamu menjangkau lebih jauh; tanahnya tetap bebas dipanen.
+- Rumah: satu poin dan satu pekerja lagi.
+- Penggergajian, kincir, tambang batu: poin, dan lebih banyak barang dari tanah di sekitarnya.
+- Rumah besar, di atas salah satu rumahmu: lebih banyak poin.
+Membangun di samping tanah yang tertutup akan membukanya. Reruntuhan memberi hadiah kepada penemunya.
+# Pasar
+Harga naik saat persediaan menipis. Setiap ronde, lembah memakai satu dari tiap barang.
+# Akhir permainan
+Giliran berputar sampai semua pekerja keluar; pemain dengan poin paling sedikit memulai ronde berikutnya. Di akhir, tiap empat koin bernilai satu poin. Jika seri, yang koinnya terbanyak menang.

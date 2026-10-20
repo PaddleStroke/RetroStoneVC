@@ -1,0 +1,17 @@
+Valley Harvest
+# The aim
+Grow your village in a shared valley. After the last round, the most points wins.
+# A turn
+- Send a worker to a free land in or next to your village and harvest it: one good, plus one for each matching workshop beside it, plus one for a field by the river. Another player's workshop earns its owner a coin.
+- Then build and trade as you like.
+# Building
+Build next to your village.
+- Road: your village reaches further; the land stays free to harvest.
+- House: a point and one more worker.
+- Sawmill, mill, quarry: points, and more goods from their land around them.
+- Manor, on one of your houses: more points.
+Building beside face-down land turns it up. Ruins pay their finder.
+# The market
+Prices rise as the stock runs low. Each round, the valley uses one of each good.
+# The end of the game
+Turns go round until every worker is out; the player with the fewest points starts the next round. At the end, every four coins score a point. A tie goes to the most coins.

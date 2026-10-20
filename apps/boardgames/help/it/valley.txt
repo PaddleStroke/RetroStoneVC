@@ -1,0 +1,17 @@
+Raccolto della valle
+# Lo scopo
+Fai crescere il tuo villaggio in una valle condivisa. Dopo l'ultimo round vince chi ha più punti.
+# Un turno
+- Manda un lavoratore su una terra libera nel tuo villaggio o accanto, e raccoglila: un bene, uno in più per ogni bottega adatta lì accanto, uno in più per un campo lungo il fiume. La bottega di un altro giocatore dà una moneta al suo padrone.
+- Poi costruisci e commercia come vuoi.
+# Costruire
+Costruisci accanto al tuo villaggio.
+- Strada: il tuo villaggio arriva più lontano; la terra resta libera da raccogliere.
+- Casa: un punto e un lavoratore in più.
+- Segheria, mulino, cava: punti, e più beni dalle loro terre intorno.
+- Villa, su una delle tue case: più punti.
+Costruire accanto a una terra coperta la scopre. Le rovine pagano chi le trova.
+# Il mercato
+I prezzi salgono quando le scorte calano. A ogni round la valle consuma un bene di ogni tipo.
+# La fine della partita
+I turni continuano finché tutti i lavoratori sono usciti; chi ha meno punti comincia il round seguente. Alla fine ogni quattro monete valgono un punto. In caso di parità vince chi ha più monete.

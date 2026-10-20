@@ -1,0 +1,17 @@
+Úroda údolí
+# Cíl hry
+Rozšiřuj svou vesnici ve společném údolí. Po posledním kole vyhrává hráč s nejvíce body.
+# Tah
+- Pošli dělníka na volnou zemi ve své vesnici nebo vedle ní a sklízej: jedno zboží, o jedno víc za každou odpovídající dílnu vedle a o jedno víc za pole u řeky. Dílna jiného hráče vynese svému majiteli minci.
+- Pak stav a obchoduj, jak chceš.
+# Stavění
+Stav vedle své vesnice.
+- Cesta: tvá vesnice dosáhne dál; země zůstává volná ke sklizni.
+- Dům: bod a o dělníka víc.
+- Pila, mlýn, lom: body a víc zboží ze země kolem nich.
+- Statek, na jednom z tvých domů: víc bodů.
+Stavba vedle země lícem dolů ji otočí. Zříceniny odmění toho, kdo je najde.
+# Trh
+Ceny rostou, když zásoba ubývá. Každé kolo údolí spotřebuje jedno od každého zboží.
+# Konec hry
+Tahy jdou dokola, dokud nejsou všichni dělníci venku; hráč s nejméně body začíná další kolo. Na konci dávají každé čtyři mince bod. Při shodě vyhrává ten, kdo má víc mincí.

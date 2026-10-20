@@ -1,0 +1,17 @@
+Vadi Hasadı
+# Amaç
+Köyünü ortak bir vadide büyüt. Son turdan sonra en çok puanı olan kazanır.
+# Bir sıra
+- Bir işçiyi köyünün içindeki ya da yanındaki boş bir araziye gönder ve hasat et: bir mal, yanındaki her uygun atölye için bir fazlası, nehir kıyısındaki bir tarla için bir fazlası. Başka bir oyuncunun atölyesi sahibine bir sikke kazandırır.
+- Sonra dilediğin kadar inşa et ve ticaret yap.
+# İnşa etmek
+Köyünün yanına inşa et.
+- Yol: köyün daha uzağa uzanır; arazi hasat için serbest kalır.
+- Ev: bir puan ve bir işçi daha.
+- Kereste atölyesi, değirmen, taş ocağı: puanlar ve çevrelerindeki araziden daha çok mal.
+- Konak, evlerinden birinin üstüne: daha çok puan.
+Ters duran bir arazinin yanına inşa etmek onu çevirir. Harabeler bulana ödül verir.
+# Pazar
+Stok azaldıkça fiyatlar yükselir. Her turda vadi her maldan birini tüketir.
+# Oyunun sonu
+Sıralar bütün işçiler çıkana kadar döner; en az puanı olan oyuncu sonraki turu başlatır. Sonunda her dört sikke bir puan eder. Beraberlikte en çok sikkesi olan kazanır.

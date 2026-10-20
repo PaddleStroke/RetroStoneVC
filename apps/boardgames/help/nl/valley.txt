@@ -1,0 +1,17 @@
+Dalgoogst
+# Het doel
+Laat je dorp groeien in een gedeeld dal. Na de laatste ronde wint wie de meeste punten heeft.
+# Een beurt
+- Stuur een arbeider naar een vrij stuk land in of naast je dorp en oogst het: één goed, één meer voor elke passende werkplaats ernaast, één meer voor een akker aan de rivier. De werkplaats van een ander levert de eigenaar een munt op.
+- Bouw en handel daarna zoveel je wilt.
+# Bouwen
+Bouw naast je dorp.
+- Weg: je dorp reikt verder; het land blijft vrij om te oogsten.
+- Huis: een punt en een arbeider meer.
+- Zagerij, molen, steengroeve: punten, en meer goederen van hun land eromheen.
+- Landhuis, op een van je huizen: meer punten.
+Bouwen naast omgekeerd land draait het om. Ruïnes belonen wie ze vindt.
+# De markt
+De prijzen stijgen als de voorraad slinkt. Elke ronde verbruikt het dal één van elk goed.
+# Het einde van de partij
+De beurten gaan rond tot alle arbeiders weg zijn; wie de minste punten heeft, begint de volgende ronde. Aan het eind is elke vier munten een punt waard. Bij gelijkspel wint wie de meeste munten heeft.

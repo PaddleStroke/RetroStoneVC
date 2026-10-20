@@ -1,0 +1,17 @@
+Moissons du vallon
+# Le but
+Fais grandir ton village dans un vallon partagé. Après la dernière manche, le plus de points gagne.
+# Un tour
+- Envoie un ouvrier sur une terre libre dans ton village ou à côté, et récolte-la : un bien, plus un par atelier assorti voisin, plus un pour un champ au bord de la rivière. L'atelier d'un autre joueur rapporte une pièce à son propriétaire.
+- Puis construis et commerce à ta guise.
+# Construire
+Construis à côté de ton village.
+- Chemin : ton village porte plus loin ; la terre reste libre à récolter.
+- Maison : un point et un ouvrier de plus.
+- Scierie, moulin, carrière : des points, et plus de biens de leurs terres autour d'eux.
+- Manoir, sur une de tes maisons : plus de points.
+Construire à côté d'une terre face cachée la retourne. Des ruines paient celui qui les trouve.
+# Le marché
+Les prix montent quand le stock baisse. À chaque manche, le vallon consomme un bien de chaque sorte.
+# La fin de la partie
+Les tours s'enchaînent jusqu'à ce que tous les ouvriers soient sortis ; le joueur qui a le moins de points commence la manche suivante. À la fin, quatre pièces valent un point. En cas d'égalité, le plus de pièces l'emporte.

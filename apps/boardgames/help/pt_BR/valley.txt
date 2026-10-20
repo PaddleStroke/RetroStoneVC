@@ -1,0 +1,17 @@
+Colheita do vale
+# O objetivo
+Faça sua aldeia crescer num vale compartilhado. Depois da última rodada, vence quem tiver mais pontos.
+# Uma jogada
+- Mande um trabalhador para uma terra livre na sua aldeia ou ao lado dela e colha: um bem, mais um para cada oficina correspondente ao lado, mais um para um campo à beira do rio. A oficina de outro jogador rende uma moeda ao dono.
+- Depois construa e negocie à vontade.
+# Construir
+Construa ao lado da sua aldeia.
+- Estrada: sua aldeia alcança mais longe; a terra continua livre para colher.
+- Casa: um ponto e mais um trabalhador.
+- Serraria, moinho, pedreira: pontos, e mais bens das terras em volta.
+- Solar, sobre uma das suas casas: mais pontos.
+Construir ao lado de uma terra virada para baixo a revela. Ruínas pagam quem as encontra.
+# O mercado
+Os preços sobem quando o estoque diminui. A cada rodada, o vale consome um de cada bem.
+# O fim da partida
+As jogadas seguem até todos os trabalhadores saírem; quem tiver menos pontos começa a rodada seguinte. No fim, cada quatro moedas valem um ponto. Num empate, vence quem tiver mais moedas.
