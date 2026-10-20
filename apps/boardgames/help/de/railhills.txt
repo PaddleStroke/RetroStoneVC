@@ -1,0 +1,14 @@
+Talbahnen
+# Das Ziel
+Am Ende der Partie die meisten Münzen haben.
+# Die Aufträge
+Jeder erhält drei geheime Aufträge und behält mindestens zwei: Jeder verbindet zwei Städte. Zwei öffentliche Strecken stehen allen offen; wer eine zuerst liefert, bekommt 3 Münzen extra.
+# Ein Zug
+Du hast 2 Punkte:
+- Lege Gleis auf ein Feld neben deinem Gleis oder einer Stadt. Wiesen, Wälder und Äcker kosten 1, Hügel und Flüsse 2; auf Berge und Seen kommt kein Gleis. Ein Gleis pro Feld.
+- Ein verdecktes Feld wird zuerst aufgedeckt. Kostet es mehr, als du noch hast, verlierst du 1 Punkt. Ein Weiler darunter bringt 2 Münzen.
+- Erkunden (1 Punkt): Decke ein verdecktes Feld und seine Nachbarn auf.
+- Liefern (1 Punkt): Sind die Städte eines Auftrags verbunden, bekommst du seinen Wert. Jedes Feld fremden Gleises, das du benutzt, kostet 1 Münze für seinen Besitzer.
+Oder, vor allem anderen: Ziehe drei Aufträge und behalte mindestens einen.
+# Das Ende der Partie
+Nach 18 Runden (16 zu dritt, 14 zu viert) kostet jeder Auftrag, der noch auf der Hand ist, seinen Wert. Die Spieler beginnen in Zugreihenfolge mit 0, 1, 2 und 3 Münzen. Die meisten Münzen gewinnen.

@@ -1,0 +1,14 @@
+Valley Rails
+# The aim
+Have the most coins at the end.
+# Contracts
+Each player is dealt three secret contracts and keeps at least two: each links two towns. Two public lines are open to all; the first to deliver one earns 3 more coins.
+# A turn
+You have 2 points:
+- Lay track on a hex next to your track or to a town. Meadows, forests and fields cost 1, hills and rivers 2; mountains and lakes take no track. One track per hex.
+- A face-down hex turns up first. If it costs more than you have left, you lose 1 point. A hamlet hidden there gives 2 coins.
+- Survey (1 point): turn up a face-down hex and its neighbours.
+- Deliver (1 point): once a contract's towns are linked, earn its value. Each hex of another player's track you use costs 1 coin, paid to its owner.
+Or, before anything else, draw three contracts and keep at least one.
+# The end of the game
+After 18 rounds (16 with three players, 14 with four), each contract still in hand costs its value. Players start with 0, 1, 2 and 3 coins in turn order.

@@ -1,0 +1,14 @@
+Trilhos do Vale
+# O objetivo
+Ter mais moedas no fim da partida.
+# Os contratos
+Cada jogador recebe três contratos secretos e fica com pelo menos dois: cada um liga duas cidades. Duas linhas públicas estão abertas a todos; o primeiro a entregar uma ganha 3 moedas a mais.
+# Uma jogada
+Você tem 2 pontos:
+- Coloque trilho num hexágono vizinho ao seu trilho ou a uma cidade. Campinas, florestas e plantações custam 1, colinas e rios 2; montanhas e lagos não recebem trilho. Um só trilho por hexágono.
+- Um hexágono virado para baixo é revelado primeiro. Se custar mais do que lhe resta, você perde 1 ponto. Um vilarejo escondido ali dá 2 moedas.
+- Explorar (1 ponto): revele um hexágono virado para baixo e seus vizinhos.
+- Entregar (1 ponto): quando as cidades de um contrato estão ligadas, ganhe seu valor. Cada hexágono de trilho de outro jogador que você usar custa 1 moeda, paga ao dono.
+Ou, antes de tudo, compre três contratos e fique com pelo menos um.
+# O fim da partida
+Depois de 18 rodadas (16 com três jogadores, 14 com quatro), cada contrato ainda na mão custa seu valor. Os jogadores começam com 0, 1, 2 e 3 moedas na ordem das jogadas. Vence quem tiver mais moedas.

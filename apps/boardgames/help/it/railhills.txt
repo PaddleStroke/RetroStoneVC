@@ -1,0 +1,14 @@
+Binari della valle
+# Lo scopo
+Avere più monete alla fine della partita.
+# I contratti
+Ogni giocatore riceve tre contratti segreti e ne tiene almeno due: ognuno collega due città. Due linee pubbliche sono aperte a tutti; il primo che ne consegna una guadagna 3 monete in più.
+# Un turno
+Hai 2 punti:
+- Posa binari su un esagono accanto ai tuoi binari o a una città. Prati, boschi e campi costano 1, colline e fiumi 2; su montagne e laghi non si posano binari. Un solo binario per esagono.
+- Un esagono coperto si scopre prima. Se costa più di quanto ti resta, perdi 1 punto. Un borgo nascosto lì dà 2 monete.
+- Esplorare (1 punto): scopri un esagono coperto e i suoi vicini.
+- Consegnare (1 punto): quando le città di un contratto sono collegate, ne guadagni il valore. Ogni esagono di binari altrui che usi costa 1 moneta, pagata al proprietario.
+Oppure, prima di ogni altra cosa, pesca tre contratti e tienine almeno uno.
+# La fine della partita
+Dopo 18 giri (16 in tre, 14 in quattro), ogni contratto ancora in mano costa il suo valore. I giocatori iniziano con 0, 1, 2 e 3 monete nell'ordine di gioco. Vince chi ha più monete.

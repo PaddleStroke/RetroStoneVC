@@ -1,0 +1,14 @@
+Dalsporen
+# Het doel
+Aan het einde van de partij de meeste munten hebben.
+# De opdrachten
+Iedere speler krijgt drie geheime opdrachten en houdt er minstens twee: elk verbindt twee steden. Twee openbare lijnen staan voor iedereen open; wie er als eerste een levert, krijgt 3 munten extra.
+# Een beurt
+Je hebt 2 punten:
+- Leg spoor op een vak naast je eigen spoor of een stad. Weiden, bossen en akkers kosten 1, heuvels en rivieren 2; op bergen en meren komt geen spoor. Eén spoor per vak.
+- Een gesloten vak wordt eerst omgedraaid. Kost het meer dan je nog hebt, dan verlies je 1 punt. Een gehucht eronder levert 2 munten op.
+- Verkennen (1 punt): draai een gesloten vak en zijn buren om.
+- Leveren (1 punt): zijn de steden van een opdracht verbonden, dan krijg je de waarde. Elk vak spoor van een ander dat je gebruikt, kost 1 munt voor de eigenaar.
+Of, vóór al het andere: trek drie opdrachten en houd er minstens één.
+# Het einde van de partij
+Na 18 rondes (16 met drie spelers, 14 met vier) kost elke opdracht die je nog hebt haar waarde. De spelers beginnen in beurtvolgorde met 0, 1, 2 en 3 munten. De meeste munten winnen.

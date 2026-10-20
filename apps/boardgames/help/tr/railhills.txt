@@ -1,0 +1,14 @@
+Vadi Rayları
+# Amaç
+Oyunun sonunda en çok paraya sahip olmak.
+# Sözleşmeler
+Her oyuncu üç gizli sözleşme alır ve en az ikisini tutar: her biri iki kasabayı birbirine bağlar. İki ortak hat herkese açıktır; birini ilk teslim eden 3 para daha kazanır.
+# Bir sıra
+2 puanınız var:
+- Kendi rayınızın ya da bir kasabanın yanındaki bir altıgene ray döşeyin. Çayır, orman ve tarla 1, tepe ve nehir 2 tutar; dağlara ve göllere ray döşenmez. Her altıgende tek ray olur.
+- Kapalı bir altıgen önce açılır. Kalan puanınızdan pahalıysa 1 puan kaybedersiniz. Altında saklı bir mezra 2 para verir.
+- Keşif (1 puan): kapalı bir altıgeni ve komşularını açın.
+- Teslim (1 puan): bir sözleşmenin kasabaları bağlanınca değerini kazanın. Kullandığınız her başka oyuncu rayı altıgeni 1 para tutar ve sahibine ödenir.
+Ya da her şeyden önce: üç sözleşme çekin ve en az birini tutun.
+# Oyunun sonu
+18 turdan sonra (üç oyuncuyla 16, dört oyuncuyla 14) elde kalan her sözleşme değeri kadar para kaybettirir. Oyuncular sıra düzeninde 0, 1, 2 ve 3 parayla başlar. En çok parası olan kazanır.

@@ -1,0 +1,14 @@
+Kolej w dolinie
+# Cel gry
+Mieć na koniec gry najwięcej monet.
+# Zlecenia
+Każdy gracz dostaje trzy tajne zlecenia i zatrzymuje co najmniej dwa: każde łączy dwa miasta. Dwie linie publiczne są otwarte dla wszystkich; kto pierwszy zrealizuje jedną z nich, dostaje 3 monety więcej.
+# Tura
+Masz 2 punkty:
+- Połóż tory na polu obok swoich torów lub miasta. Łąki, lasy i pola kosztują 1, wzgórza i rzeki 2; w górach i na jeziorach torów się nie kładzie. Jeden tor na pole.
+- Zakryte pole najpierw się odkrywa. Jeśli kosztuje więcej, niż ci zostało, tracisz 1 punkt. Ukryta tam osada daje 2 monety.
+- Zwiad (1 punkt): odkryj zakryte pole i jego sąsiadów.
+- Dostawa (1 punkt): gdy miasta zlecenia są połączone, zyskujesz jego wartość. Każde użyte pole cudzych torów kosztuje 1 monetę dla jego właściciela.
+Albo, przed czymkolwiek innym: dobierz trzy zlecenia i zatrzymaj co najmniej jedno.
+# Koniec gry
+Po 18 rundach (16 przy trzech graczach, 14 przy czterech) każde zlecenie, które zostało w ręce, kosztuje swoją wartość. Gracze zaczynają w kolejności ruchu z 0, 1, 2 i 3 monetami. Wygrywa najwięcej monet.

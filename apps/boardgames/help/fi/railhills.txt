@@ -1,0 +1,14 @@
+Laakson radat
+# Tavoite
+Eniten kolikoita pelin lopussa.
+# Sopimukset
+Jokainen pelaaja saa kolme salaista sopimusta ja pitää niistä vähintään kaksi: kukin yhdistää kaksi kaupunkia. Kaksi julkista linjaa on kaikkien käytössä; ensimmäinen, joka toimittaa sellaisen, saa 3 kolikkoa lisää.
+# Vuoro
+Sinulla on 2 pistettä:
+- Rakenna rataa ruutuun oman ratasi tai kaupungin viereen. Niityt, metsät ja pellot maksavat 1, kukkulat ja joet 2; vuorille ja järville ei rakenneta. Yksi rata ruutua kohden.
+- Kuvapuoli alaspäin oleva ruutu käännetään ensin. Jos se maksaa enemmän kuin sinulla on jäljellä, menetät 1 pisteen. Sen alle kätketty kylä antaa 2 kolikkoa.
+- Tutki (1 piste): käännä piilossa oleva ruutu ja sen naapurit.
+- Toimita (1 piste): kun sopimuksen kaupungit on yhdistetty, saat sen arvon. Jokainen käyttämäsi toisen pelaajan rataruutu maksaa 1 kolikon sen omistajalle.
+Tai ennen kaikkea muuta: nosta kolme sopimusta ja pidä vähintään yksi.
+# Pelin loppu
+18 kierroksen jälkeen (kolmella pelaajalla 16, neljällä 14) jokainen kädessä oleva sopimus maksaa arvonsa. Pelaajat aloittavat vuorojärjestyksessä 0, 1, 2 ja 3 kolikolla. Eniten kolikoita voittaa.

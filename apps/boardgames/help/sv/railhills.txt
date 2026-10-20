@@ -1,0 +1,14 @@
+Dalens räls
+# Målet
+Ha flest mynt när partiet är slut.
+# Uppdragen
+Varje spelare får tre hemliga uppdrag och behåller minst två: vart och ett förbinder två städer. Två allmänna linjer är öppna för alla; den som först levererar en får 3 mynt extra.
+# En tur
+Du har 2 poäng:
+- Lägg spår på en ruta intill ditt spår eller en stad. Ängar, skogar och åkrar kostar 1, kullar och floder 2; berg och sjöar tar inget spår. Ett spår per ruta.
+- En dold ruta vänds först. Kostar den mer än du har kvar förlorar du 1 poäng. En by gömd där ger 2 mynt.
+- Utforska (1 poäng): vänd en dold ruta och dess grannar.
+- Leverera (1 poäng): när ett uppdrags städer är förbundna får du dess värde. Varje ruta av någon annans spår du använder kostar 1 mynt till ägaren.
+Eller, före allt annat: dra tre uppdrag och behåll minst ett.
+# Partiets slut
+Efter 18 omgångar (16 med tre spelare, 14 med fyra) kostar varje uppdrag som finns kvar på handen sitt värde. Spelarna börjar med 0, 1, 2 och 3 mynt i turordning. Flest mynt vinner.

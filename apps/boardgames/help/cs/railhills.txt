@@ -1,0 +1,14 @@
+Údolní koleje
+# Cíl hry
+Mít na konci hry nejvíc mincí.
+# Zakázky
+Každý hráč dostane tři tajné zakázky a ponechá si aspoň dvě: každá spojuje dvě města. Dvě veřejné linky jsou otevřené všem; kdo jednu doručí první, získá 3 mince navíc.
+# Tah
+Máte 2 body:
+- Položte kolej na pole vedle své koleje nebo města. Louky, lesy a pole stojí 1, kopce a řeky 2; na hory a jezera se kolej nepokládá. Na každém poli jen jedna kolej.
+- Pole lícem dolů se nejprve otočí. Stojí-li víc, než vám zbývá, ztratíte 1 bod. Osada pod ním skrytá dá 2 mince.
+- Průzkum (1 bod): otočte skryté pole a jeho sousedy.
+- Doručení (1 bod): jakmile jsou města zakázky spojena, získáte její hodnotu. Každé použité pole cizí koleje stojí 1 minci, kterou dostane její majitel.
+Nebo, před čímkoli jiným: lízněte tři zakázky a ponechte si aspoň jednu.
+# Konec hry
+Po 18 kolech (se třemi hráči 16, se čtyřmi 14) stojí každá zakázka, která zůstala v ruce, svou hodnotu. Hráči začínají v pořadí tahů s 0, 1, 2 a 3 mincemi. Vyhrává nejvíc mincí.

@@ -1,0 +1,14 @@
+Rel Lembah
+# Tujuan
+Punya koin paling banyak di akhir permainan.
+# Kontrak
+Setiap pemain mendapat tiga kontrak rahasia dan menyimpan minimal dua: masing-masing menghubungkan dua kota. Dua jalur umum terbuka untuk semua; yang pertama mengantarkan salah satunya mendapat 3 koin lagi.
+# Satu giliran
+Kamu punya 2 poin:
+- Pasang rel di petak di samping relmu atau sebuah kota. Padang rumput, hutan, dan ladang bernilai 1, bukit dan sungai 2; gunung dan danau tidak bisa diberi rel. Satu rel per petak.
+- Petak tertutup dibuka dulu. Jika biayanya lebih dari sisa poinmu, kamu kehilangan 1 poin. Dusun yang tersembunyi di sana memberi 2 koin.
+- Jelajah (1 poin): buka petak tertutup beserta tetangganya.
+- Antar (1 poin): setelah kota-kota sebuah kontrak terhubung, dapatkan nilainya. Setiap petak rel pemain lain yang kamu pakai berharga 1 koin, dibayar ke pemiliknya.
+Atau, sebelum hal lain: ambil tiga kontrak dan simpan minimal satu.
+# Akhir permainan
+Setelah 18 ronde (16 untuk tiga pemain, 14 untuk empat), setiap kontrak yang masih di tangan mengurangi koin sebesar nilainya. Pemain mulai dengan 0, 1, 2, dan 3 koin sesuai urutan giliran. Koin terbanyak menang.

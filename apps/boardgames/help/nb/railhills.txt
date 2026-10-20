@@ -1,0 +1,14 @@
+Dalens skinner
+# Målet
+Ha flest mynter når spillet er slutt.
+# Oppdragene
+Hver spiller får tre hemmelige oppdrag og beholder minst to: hvert binder sammen to byer. To offentlige linjer er åpne for alle; den første som leverer en, får 3 mynter ekstra.
+# En tur
+Du har 2 poeng:
+- Legg spor på en rute ved siden av ditt spor eller en by. Enger, skoger og åkrer koster 1, åser og elver 2; fjell og innsjøer kan ikke få spor. Ett spor per rute.
+- En skjult rute snus først. Koster den mer enn du har igjen, mister du 1 poeng. En grend skjult der gir 2 mynter.
+- Utforsk (1 poeng): snu en skjult rute og naboene.
+- Lever (1 poeng): når et oppdrags byer er forbundet, får du verdien. Hver rute med en annens spor du bruker, koster 1 mynt til eieren.
+Eller, før alt annet: trekk tre oppdrag og behold minst ett.
+# Slutten på spillet
+Etter 18 runder (16 med tre spillere, 14 med fire) koster hvert oppdrag du fortsatt har, verdien sin. Spillerne starter med 0, 1, 2 og 3 mynter i turrekkefølge. Flest mynter vinner.

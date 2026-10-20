@@ -1,0 +1,14 @@
+Rails de la vallée
+# Le but
+Avoir le plus de pièces à la fin de la partie.
+# Les contrats
+Chaque joueur reçoit trois contrats secrets et en garde au moins deux : chacun relie deux villes. Deux lignes publiques sont ouvertes à tous ; le premier qui en livre une gagne 3 pièces de plus.
+# Un tour
+Vous avez 2 points :
+- Posez une voie sur un hexagone voisin de votre voie ou d'une ville. Prairies, forêts et champs coûtent 1, collines et rivières 2 ; montagnes et lacs n'en reçoivent pas. Une seule voie par hexagone.
+- Un hexagone face cachée se retourne d'abord. S'il coûte plus que ce qu'il vous reste, vous perdez 1 point. Un hameau caché dessous rapporte 2 pièces.
+- Explorer (1 point) : retournez un hexagone caché et ses voisins.
+- Livrer (1 point) : dès que les villes d'un contrat sont reliées, gagnez sa valeur. Chaque hexagone de la voie d'un autre joueur que vous empruntez coûte 1 pièce, payée à son propriétaire.
+Ou, avant toute autre chose, piochez trois contrats et gardez-en au moins un.
+# La fin de la partie
+Après 18 tours (16 à trois joueurs, 14 à quatre), chaque contrat encore en main coûte sa valeur. Les joueurs commencent avec 0, 1, 2 et 3 pièces dans l'ordre du jeu. Le plus riche gagne.

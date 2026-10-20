@@ -1,0 +1,14 @@
+Carris do Vale
+# O objetivo
+Ter mais moedas no fim do jogo.
+# Os contratos
+Cada jogador recebe três contratos secretos e fica com pelo menos dois: cada um liga duas cidades. Duas linhas públicas estão abertas a todos; o primeiro a entregar uma ganha mais 3 moedas.
+# Uma vez
+Tens 2 pontos:
+- Põe carris num hexágono junto aos teus carris ou a uma cidade. Prados, florestas e campos custam 1, colinas e rios 2; montanhas e lagos não levam carris. Só uma via por hexágono.
+- Um hexágono voltado para baixo é virado primeiro. Se custar mais do que te resta, perdes 1 ponto. Uma aldeia escondida aí dá 2 moedas.
+- Explorar (1 ponto): vira um hexágono voltado para baixo e os seus vizinhos.
+- Entregar (1 ponto): quando as cidades de um contrato estão ligadas, ganhas o seu valor. Cada hexágono de via de outro jogador que usares custa 1 moeda, paga ao dono.
+Ou, antes de tudo o resto, tira três contratos e fica com pelo menos um.
+# O fim do jogo
+Ao fim de 18 rondas (16 com três jogadores, 14 com quatro), cada contrato ainda na mão custa o seu valor. Os jogadores começam com 0, 1, 2 e 3 moedas pela ordem de jogo. Ganha quem tiver mais moedas.

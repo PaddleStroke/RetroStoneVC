@@ -1,0 +1,14 @@
+Raíles del valle
+# El objetivo
+Tener más monedas al final de la partida.
+# Los contratos
+Cada jugador recibe tres contratos secretos y se queda al menos con dos: cada uno une dos ciudades. Dos líneas públicas están abiertas a todos; el primero que entrega una gana 3 monedas más.
+# Un turno
+Tienes 2 puntos:
+- Pon vía en una casilla junto a tu vía o a una ciudad. Prados, bosques y campos cuestan 1, colinas y ríos 2; montañas y lagos no admiten vía. Una sola vía por casilla.
+- Una casilla boca abajo se descubre primero. Si cuesta más de lo que te queda, pierdes 1 punto. Una aldea escondida allí da 2 monedas.
+- Explorar (1 punto): descubre una casilla boca abajo y sus vecinas.
+- Entregar (1 punto): cuando las ciudades de un contrato están unidas, ganas su valor. Cada casilla de vía ajena que uses cuesta 1 moneda, que se paga a su dueño.
+O, antes de nada, roba tres contratos y quédate al menos con uno.
+# El final de la partida
+Tras 18 rondas (16 con tres jugadores, 14 con cuatro), cada contrato que quede en la mano cuesta su valor. Los jugadores empiezan con 0, 1, 2 y 3 monedas por orden de turno. Gana quien tenga más monedas.
