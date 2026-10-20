@@ -815,6 +815,8 @@ void pages_link_open(int i)
     }
 }
 
+int pages_panel_open(void) { return TIP.open; }
+
 int pages_panel_draw(void)
 {
     if (!TIP.open) return 0;

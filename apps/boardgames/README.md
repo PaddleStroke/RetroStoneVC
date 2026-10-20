@@ -196,11 +196,13 @@ One look across the app, like the Arcade games' house kit:
 - **The first variant** (optional `variant_first`): the one the picker offers before one is chosen (0: the first;
   Havannah 1, its board of 8; a game of levels: its random play's).
 - **Time** (`ui_ms()`): the clock for animations, never `SDL_GetTicks` (the picture mode has its own). `ui_real_ms()`:
-  the real time, for a game's own clock (the replay jumps it where the game was off the screen). `ui_replaying()`: 1
-  while a game kept from the last run is played again from its record, silently: a setting the game turns as it is
-  played is already as the record left it, don't turn it again. The replay draws its frames only where the record had
-  them (and every 50 ms while `busy()`), so input gating uses `ui_ms()` arithmetic (an animation's end time), never a
-  flag cleared in `draw()`.
+  the real time, for a game's own clock (the replay jumps it where the game was off the screen, or covered: the rules
+  page, a panel, the hand-off's cover). `ui_play_ms()`: `ui_ms()` less the time away or covered, for a simulation or a
+  clock stepped from a start time (Pull the Pins, Fruit Drop). `ui_covered()`: 1 while an overlay covers the game.
+  `ui_replaying()`: 1 while a game kept from the last run is played again from its record, silently: a setting the
+  game turns as it is played is already as the record left it, don't turn it again. The replay draws its frames only
+  where the record had them (and every 50 ms while `busy()`), so input gating uses `ui_ms()` arithmetic (an
+  animation's end time), never a flag cleared in `draw()`.
 - **Secret hands in some games only** (optional `hidden()`): asked at each hand-off instead of `VIEW_HIDDEN` (Durak
   with open hands).
 

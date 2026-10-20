@@ -59,6 +59,7 @@ enum { PAGES_LINK_REVIEW, PAGES_LINK_REPORT, PAGES_LINK_SUPPORT };
 int  pages_link(int i, int *icon, const uint8_t **colour, int *word);
 void pages_link_open(int i);                    /* the store's page, the mail, the tip panel (or the support page) */
 int  pages_panel_draw(void);                    /* off the menu: the tip panel when open (1: drawn) */
+int  pages_panel_open(void);                    /* the tip panel open (over a game: the game away) */
 int  pages_panel_press(float x, float y);       /* 1: the panel's */
 int  pages_panel_key(SDL_Keycode k);            /* 1: the panel's (Back closes it, other keys wait) */
 

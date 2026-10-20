@@ -3113,7 +3113,9 @@ enum { EV_PRESS = 1, EV_MOTION, EV_RELEASE, EV_FINGER, EV_KEY, EV_PASS, EV_UNDO,
  * nothing drawn, and ui_real_ms() jumps (the game's clock waits, as it did). */
 /* Version 4: EV_BACK is written at the first frame drawn after the return (or with the first event, if one comes
  * first), not at the return itself: the record plays again with nothing drawn until the game was drawn again, so a
- * clock that skips the time away skips the same time in both (played the same way as version 3). */
+ * clock that skips the time away skips the same time in both (played the same way as version 3). An overlay over
+ * the game (ui_covered: the rules page, a panel, the hand-off's cover) is recorded as away too (EV_AWAY at the first
+ * frame drawn under it); a record kept before, played again, draws under it as it did. */
 #define JR_VERSION 4
 #define JR_EVERY 1000                           /* the record kept at most this often (ms) while a finger moves */
 static struct jrec {
@@ -3128,6 +3130,8 @@ static struct jrec {
     int away;                                   /* EV_AWAY the last of EV_AWAY / EV_BACK */
     int back;                                   /* back on the screen, its EV_BACK not yet written (at the next
                                                  * frame drawn, or the next event) */
+    int off;                                    /* ui_play_ms() stopped since off_at (its EV_AWAY), its EV_BACK to come */
+    Uint32 off_at, off_ms;                      /* off_ms: the time stopped so far (away, covered), ui_ms() */
 } J[MAX_GAMES];
 static int jr_quiet;                            /* 1 while a record plays again: nothing recorded */
 static int jr_dirty = -1;                       /* the game whose record changed since it was last kept (-1: none) */
@@ -3136,7 +3140,9 @@ static Uint32 jr_kept_at;                       /* SDL_GetTicks() when it was la
 static unsigned frames_drawn;                   /* the game's frames drawn (draw_game) */
 static Uint32 frame_at;                         /* ui_ms() at the last one */
 static Uint32 rp_real;                          /* added to the real time while a record plays again (EV_BACK) */
-Uint32 ui_real_ms(void) { return SDL_GetTicks() + (rp_on ? rp_real : 0); }
+static Uint32 cover_real;                       /* added to the real time: a jump at each frame drawn under an overlay
+                                                 * and at the first one after (draw_game: as if the game were away) */
+Uint32 ui_real_ms(void) { return SDL_GetTicks() + (rp_on ? rp_real : 0) + cover_real; }
 
 static int jr_room(struct jrec *r, int n)
 {
@@ -3235,16 +3241,15 @@ static void jr_view_mark(struct jrec *r)       /* the screen, if it changed (tur
 }
 
 static void jr_done(struct jrec *r);
+static void jr_back(struct jrec *r);
+static void cover_check(void);
 static struct jrec *jr_event(int type)
 {
     if (!JR_ON || jr_quiet || cur < 0) return NULL;
     struct jrec *r = &J[cur];
     if (!r->ok) return NULL;
     if (jr_dirty >= 0 && jr_dirty != cur) jr_flush();
-    if (r->back && type != EV_BACK) {          /* back, and an event before any frame: EV_BACK first */
-        r->back = 0;
-        jr_done(jr_event(EV_BACK));
-    }
+    if (r->back && type != EV_BACK) jr_back(r);   /* back, and an event before any frame: EV_BACK first */
     Uint32 now = ui_ms();
     if (r->frames != frames_drawn) {            /* the last frame drawn since the last event */
         Uint32 f = frame_at - r->last <= now - r->last ? frame_at : r->last, df = f - r->last;
@@ -3325,6 +3330,9 @@ static void jr_begin(int v, int card)
     r->frames = frames_drawn;
     r->away = 0;
     r->back = 0;
+    if (r->off) r->off_ms += ui_ms() - r->off_at;   /* (begun off the screen: the play clock goes on from where it
+                                                 * stood, as start() saw it) */
+    r->off = 0;
     jr_dirty = cur;
     jr_soon = 1;
 }
@@ -3341,14 +3349,30 @@ static void jr_view(void)
     jr_soon = 1;
 }
 
-/* the game off the screen (away 1: the menu, the picker, the app in the background), or on it again (0) */
+/* the game off the screen (away 1: the menu, the picker, the app in the background, an overlay over it), or on it
+ * again (0). Its play clock (ui_play_ms) stops at the EV_AWAY and goes on at the EV_BACK: the record's instants, the
+ * same when it plays again (kept up with no record too: one too long) */
 static void jr_away(int away)
 {
-    if (!JR_ON || jr_quiet || cur < 0 || !J[cur].ok || !started[cur] || J[cur].away == away) return;
-    J[cur].away = away;
-    if (!away) { J[cur].back = 1; return; }     /* (written as the game is drawn again: draw_game) */
-    if (J[cur].back) { J[cur].back = 0; return; }   /* (away again before a frame: as if it never came back) */
-    jr_done(jr_event(EV_AWAY));
+    if (!JR_ON || jr_quiet || cur < 0 || !started[cur] || J[cur].away == away) return;
+    struct jrec *r = &J[cur];
+    r->away = away;
+    if (!away) { r->back = 1; return; }         /* (written as the game is drawn again: draw_game) */
+    if (r->back) { r->back = 0; return; }       /* (away again before a frame: as if it never came back) */
+    struct jrec *e = jr_event(EV_AWAY);
+    r->off = 1;
+    r->off_at = e ? e->last : ui_ms();
+    jr_done(e);
+}
+
+static void jr_back(struct jrec *r)             /* back on the screen (r: J[cur]): its EV_BACK now */
+{
+    r->back = 0;
+    struct jrec *e = jr_event(EV_BACK);
+    Uint32 at = e ? e->last : ui_ms();
+    jr_done(e);
+    if (r->off) r->off_ms += at - r->off_at;
+    r->off = 0;
 }
 
 /* ---- the moves' notation (game.history) ---------------------------------------------------------------------------
@@ -4359,10 +4383,15 @@ static void draw_header(void)
 static void draw_game(void)
 {
     const game *g = games[cur];
-    if (J[cur].back && !jr_quiet) {           /* the first frame back: the record's EV_BACK now */
-        J[cur].back = 0;
-        jr_done(jr_event(EV_BACK));
-    }
+    /* an overlay over the game (the rules, a panel, the hand-off's cover): the game away, as off the screen (its
+     * record's EV_AWAY / EV_BACK, its play clock stopped), and each frame under it, and the first one after it, a
+     * gap in ui_real_ms(): a clock that waits while the game is away waits (as the record plays it again) */
+    static int was_covered;
+    int covered = ui_covered();
+    cover_check();                              /* (the hand-off's cover: up in a frame) */
+    if (J[cur].back && !jr_quiet) jr_back(&J[cur]);   /* the first frame back: the record's EV_BACK now */
+    if (!rp_on && (covered || was_covered)) cover_real += 3600000;
+    was_covered = covered;
     frames_drawn++;                             /* (the record: the last frame before an event) */
     frame_at = ui_ms();
     handoff_settle();
@@ -6872,6 +6901,28 @@ static uint32_t jr_rdvar(const uint8_t *b, int n, int *p)
 }
 
 static int rp_hidden;                           /* the record played again is at an EV_AWAY: nothing drawn */
+
+int ui_covered(void)
+{
+    if (rp_on) return rp_hidden;                /* (played again: where the record has the game away) */
+    return screen == SCR_GAME && cur >= 0 && (help.open || FV.open || pages_panel_open() || hand.up);
+}
+
+/* the game on the screen: away while an overlay covers it (its EV_AWAY as it opens, its EV_BACK at the first frame
+ * after it closes) */
+static void cover_check(void)
+{
+    if (screen != SCR_GAME || cur < 0 || jr_quiet) return;
+    int covered = ui_covered();
+    if (covered != J[cur].away) jr_away(covered);
+}
+
+Uint32 ui_play_ms(void)
+{
+    if (cur < 0) return ui_ms();
+    const struct jrec *r = &J[cur];
+    return (r->off ? r->off_at : ui_ms()) - r->off_ms;
+}
 static int rp_draws, rp_pos, rp_len, rp_w, rp_h; /* the frames drawn; how far in the record; the screen */
 static Uint32 rp_shown;                         /* SDL_GetTicks() at the last frame shown meanwhile */
 
@@ -6968,6 +7019,8 @@ static int jr_resume(int g)
     rp_on = 1;
     start_rng[g] = r0;
     rp_hidden = rp_draws = 0;
+    J[g].off = 0;
+    J[g].off_ms = 0;
     rp_pos = p;
     rp_len = n;
     rp_w = sw;
@@ -7026,10 +7079,15 @@ static int jr_resume(int g)
             if (gm->pass) gm->pass();
         } else if (type == EV_UNDO) undo_human();
         else if (type == EV_UNCOVER) uncover();
-        else if (type == EV_AWAY) rp_hidden = 1;   /* off the screen: nothing drawn until it comes back */
-        else if (type == EV_BACK) {
+        else if (type == EV_AWAY) {             /* off the screen: nothing drawn until it comes back */
+            rp_hidden = 1;
+            if (!J[g].off) J[g].off_at = t;     /* (ui_play_ms stopped, as it was) */
+            J[g].off = 1;
+        } else if (type == EV_BACK) {
             rp_hidden = 0;
             rp_real += 3600000;                 /* ui_real_ms(): a gap (the game was away) */
+            if (J[g].off) J[g].off_ms += t - J[g].off_at;
+            J[g].off = 0;
         }
         else if (type == EV_SCRIPT || type == EV_BOT) {
             int seat = (int)jr_rd(b, n, &p, 1), len = (int)jr_rd(b, n, &p, 2);
@@ -7258,6 +7316,7 @@ int main(int argc, char **argv)
                     break;
                 }
                 }
+                cover_check();                  /* (an overlay opened or closed: the game away from now) */
             } while (SDL_PollEvent(&e));
         }
         bot_step();                             /* a bot's turn: it starts, or its move is played */

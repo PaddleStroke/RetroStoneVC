@@ -231,8 +231,17 @@ Uint32 ui_ms(void);                             /* the clock for animations: use
  * use ui_ms() arithmetic (an animation's end time), not a flag cleared in draw(). */
 int  ui_replaying(void);
 /* the real time, ms (a gap of more than a frame or so between two frames drawn: the game was away, its clock waits):
- * use it, not SDL_GetTicks, the replay jumps it where the game was off the screen */
+ * use it, not SDL_GetTicks, the replay jumps it where the game was off the screen. An overlay over the game (the
+ * rules page, a panel, the hand-off's cover) is the game away too: each frame drawn under it, and the first one
+ * after it, comes after such a gap */
 Uint32 ui_real_ms(void);
+/* 1 while an overlay covers the game (the rules page, the full version's or the tip panel, the hand-off's cover; the
+ * game is still drawn under it, its input waits). Played again from its record: 1 where the record has it away */
+int  ui_covered(void);
+/* the game's play clock, ms: ui_ms() less the time the game was away (off the screen, or covered), standing still
+ * meanwhile. Its stops are the record's own instants: a game played again from its record has the same clock. For
+ * a clock or a simulation that runs on ui_ms() itself (physics stepped from a start time, a quiz's time) */
+Uint32 ui_play_ms(void);
 
 /* the shared marks, made for the board's size by the shell (a square of side `size`) */
 void ui_mark_last(float x, float y, float w, float h);   /* the last move's squares (a warm tint) */
