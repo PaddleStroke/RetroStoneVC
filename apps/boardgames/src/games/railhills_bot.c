@@ -1,5 +1,5 @@
 /*
- * Valley Rails' bot (bots.h). Two pieces, both pure (no SDL, no statics written):
+ * Hill Railways' bot (bots.h). Two pieces, both pure (no SDL, no statics written):
  *   the planner (greedy): it values each contract it holds and each public line by its value against what is left to
  *   build (Dijkstra over the map: its own track and towns free, empty hexes their terrain, face-down ones a guess,
  *   other players' track its rent), builds along the best one's route, delivers when the rent is small, surveys with

@@ -1,5 +1,5 @@
 /*
- * Valley Rails: the rules (no SDL; the tests and the bot link them). See railhills.h.
+ * Hill Railways: the rules (no SDL; the tests and the bot link them). See railhills.h.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  */
 #include <math.h>

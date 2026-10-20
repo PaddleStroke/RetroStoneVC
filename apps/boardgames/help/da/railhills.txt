@@ -1,4 +1,4 @@
-Dalens skinner
+Bakkebaner
 # Målet
 Have flest mønter, når spillet slutter.
 # Opgaverne

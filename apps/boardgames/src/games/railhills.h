@@ -1,5 +1,5 @@
 /*
- * Valley Rails for 2 to 4 players: the rules. A hex map of meadows, forests, fields, hills, mountains, a river and
+ * Hill Railways for 2 to 4 players: the rules. A hex map of meadows, forests, fields, hills, mountains, a river and
  * lakes, with towns. Each player holds secret contracts (two towns to link); a few public lines are open to all.
  * A turn: build track (up to RH_PTS points: each hex costs its terrain; each new hex must touch your own track or a
  * town; one track a hex), survey a face-down hex (1 point: it and its neighbours turn up), or draw contracts (keep at

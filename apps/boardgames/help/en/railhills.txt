@@ -1,4 +1,4 @@
-Valley Rails
+Hill Railways
 # The aim
 Have the most coins at the end.
 # Contracts

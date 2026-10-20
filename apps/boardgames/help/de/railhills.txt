@@ -1,4 +1,4 @@
-Talbahnen
+Hügelbahnen
 # Das Ziel
 Am Ende der Partie die meisten Münzen haben.
 # Die Aufträge

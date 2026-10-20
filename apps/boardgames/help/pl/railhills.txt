@@ -1,4 +1,4 @@
-Kolej w dolinie
+Koleje wśród wzgórz
 # Cel gry
 Mieć na koniec gry najwięcej monet.
 # Zlecenia

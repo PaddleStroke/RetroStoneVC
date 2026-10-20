@@ -1,5 +1,5 @@
 /*
- * Valley Rails: the rules' test (the maps for every count and variant, the contracts, building, blind building,
+ * Hill Railways: the rules' test (the maps for every count and variant, the contracts, building, blind building,
  * surveying, delivering with rent, drawing and keeping, the turns and the end, the scores, whole random games from
  * seeds, the notation, determinism). No SDL.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).

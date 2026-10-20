@@ -1,4 +1,4 @@
-Údolní koleje
+Železnice v kopcích
 # Cíl hry
 Mít na konci hry nejvíc mincí.
 # Zakázky

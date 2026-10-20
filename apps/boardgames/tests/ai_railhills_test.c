@@ -1,5 +1,5 @@
 /*
- * Valley Rails' bot (src/games/railhills_bot.c): its registry entry, honesty (the hidden things dealt again: the
+ * Hill Railways' bot (src/games/railhills_bot.c): its registry entry, honesty (the hidden things dealt again: the
  * others' hands, the decks, the face-down hexes give the same move at the greedy levels), games of three and four bots
  * to the end at every level, then self-play at every level for two, in both variants (tests/ai_selfplay.h).
  * Headless: this file plays the screen's part (railhills_live(), railhills_show()). --full for the 200 games a pairing.

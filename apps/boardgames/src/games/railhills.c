@@ -1,5 +1,5 @@
 /*
- * Valley Rails in RetroStone Board, for 2 to 4 players (people and bots): rail lines laid hex by hex across an island
+ * Hill Railways in RetroStone Board, for 2 to 4 players (people and bots): rail lines laid hex by hex across an island
  * of meadows, forests, fields, hills, mountains, a river and lakes, seen as Hex Landscape's diorama (raised tiles at a
  * gentle tilt, painted by code: pines, wheat, houses, the river shimmering), each player's track in their colour. The
  * rules: railhills_rules.c.

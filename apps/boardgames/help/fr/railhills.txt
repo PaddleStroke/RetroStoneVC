@@ -1,4 +1,4 @@
-Rails de la vallée
+Chemins de fer des collines
 # Le but
 Avoir le plus de pièces à la fin de la partie.
 # Les contrats

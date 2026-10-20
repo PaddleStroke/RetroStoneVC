@@ -1,4 +1,4 @@
-Rel Lembah
+Kereta Perbukitan
 # Tujuan
 Punya koin paling banyak di akhir permainan.
 # Kontrak

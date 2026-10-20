@@ -1,4 +1,4 @@
-Laakson radat
+Kukkularadat
 # Tavoite
 Eniten kolikoita pelin lopussa.
 # Sopimukset
