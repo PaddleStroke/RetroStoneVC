@@ -15,7 +15,7 @@ const int dmj_widths[DMJ_VARIANTS] = {DMJ_WIDE, 336, 280};
 #define VMAX (10 * DMJ_FP)                      /* a tick */
 #define BOUNCE_MIN (3 * DMJ_FP / 2)             /* an impact faster than this bounces back a little */
 #define BOUNCE_K 3                              /* sixteenths of it */
-#define REST_V 10                               /* at rest: nothing faster than this (steps a tick)... */
+#define REST_V 32                               /* at rest: nothing faster than this (steps a tick)... */
 #define REST_TICKS 30                           /* ...for this long */
 #define POP (DMJ_FP * 3 / 4)                    /* a merged fruit's hop */
 #define TOUCH (DMJ_FP / 2)                      /* two fruits closer than this touch (they merge) */
@@ -88,8 +88,9 @@ static int add_ball(dmj_world *w, int size, int32_t x, int32_t y)
 /* two fruits pushed apart (by their masses); 1 they touch */
 static int pair(dmj_ball *a, dmj_ball *b)
 {
-    int32_t dx = b->x - a->x, dy = b->y - a->y, rs = a->r + b->r;
-    if (dx >= rs || -dx >= rs || dy >= rs || -dy >= rs) return 0;
+    int32_t dx = b->x - a->x, dy = b->y - a->y, rs = a->r + b->r, rt = rs + TOUCH;
+    if (dx >= rt || -dx >= rt || dy >= rt || -dy >= rt) return 0;   /* (the touching margin too: one resting right on
+                                                                      * top of another touches it) */
     int64_t d2 = (int64_t)dx * dx + (int64_t)dy * dy;
     if (d2 >= (int64_t)rs * rs) return d2 <= (int64_t)(rs + TOUCH) * (rs + TOUCH);
     int32_t d = (int32_t)isq((uint64_t)d2);
@@ -300,10 +301,13 @@ static void physics(dmj_world *w, int merging)
         int32_t v = b->vx < 0 ? -b->vx : b->vx, u = b->vy < 0 ? -b->vy : b->vy;
         if (v > fastest) fastest = v;
         if (u > fastest) fastest = u;
+        if (b->fresh && v < REST_V && u < REST_V) b->fresh = 0;   /* still: it has landed, seen touching or not */
         if (b->r < R(b->size) || b->fresh) fastest = VMAX;
     }
     if (merging) merge_all(w);
-    if (fastest < REST_V) {
+    int32_t lim = REST_V + (w->tick - w->last_drop) / 16;   /* a pile that keeps trembling: let it be, in time */
+    if (lim > 4 * REST_V) lim = 4 * REST_V;
+    if (fastest < lim) {
         if (++w->calm >= REST_TICKS) {
             w->rest = 1;
             for (int i = 0; i < w->nb; i++) {

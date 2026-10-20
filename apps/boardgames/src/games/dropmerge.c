@@ -894,7 +894,9 @@ static int script(const char *moves)
     }
     int ok = dmj_script(&G, buf);
     if (live >= 0 && G.w.end == DMJ_PLAYING) {
-        while (G.w.end == DMJ_PLAYING && !(dmj_can_drop(&G.w) && G.w.rest)) dmj_step(&G.w);
+        for (int t = 0; t < 20 * DMJ_HZ && G.w.end == DMJ_PLAYING && !(dmj_can_drop(&G.w) && G.w.rest); t++)
+            dmj_step(&G.w);
+        while (G.w.end == DMJ_PLAYING && G.w.cur && !dmj_can_drop(&G.w)) dmj_step(&G.w);
         rebase();
         if (dmj_can_drop(&G.w)) {
             drop_x = live == 1 << 20 ? dmj_aim(&G.w, 0, NULL) : live * DMJ_FP;

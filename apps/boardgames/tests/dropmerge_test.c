@@ -211,6 +211,19 @@ static void test_hard(void)
 {
     dmj_jar j;
     dmj_world w;
+    /* the hang found by the hunt: level 1, a mandarin then a cherry dropped at the same place (x 200): the cherry rests
+     * exactly on top, at exactly the touching distance, was never seen touching, stayed "just dropped" and the jar never
+     * came to rest (the pictures' third drop waited for ever; the app stepped every tick of any gap) */
+    CHECK(dmj_level(&G, 0));
+    int at = 200;
+    for (int d = 0; d < 2; d++) {
+        dmj_play(&G.w, &at, 1, 0, NULL, 1, NULL);
+        dmj_settle(&G.w, 2000);
+        CHECK(G.w.rest);
+    }
+    CHECK(G.w.nb == 2 && !G.w.b[0].fresh && !G.w.b[1].fresh && G.w.b[1].x == G.w.b[0].x);
+    for (int t = 0; t < 4 * DMJ_HZ && !(dmj_can_drop(&G.w) && G.w.rest); t++) dmj_step(&G.w);
+    CHECK(dmj_can_drop(&G.w) && G.w.rest);
     /* the same place twice, and twice again: pushed apart without a division by zero, then merged */
     CHECK(dmj_parse(&j, DMJ_SCORE, 9999, 0, 280, "5555", "140 300 12", "11 140 200 11 140 200 10 106 300 10 106 300 1 140 100 1 140 100"));
     dmj_build(&w, &j);
