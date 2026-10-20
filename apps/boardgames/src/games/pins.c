@@ -8,7 +8,8 @@
  * wrong, the restart lit; a tap restarts. Solved: the cup glows gold.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
- * The physics runs on the shell's clock (ui_ms): the world steps PTP_HZ times a second from the try's start, so a game
+ * The physics runs on the shell's play clock (ui_play_ms: still while the game is away or covered): the world steps
+ * PTP_HZ times a second from the try's start, so a game
  * played again from its record (and the pictures) comes out the same. The tools: restart, the lamp (a hint: the next
  * pin of a winning order glows; after a wrong pull, the restart glows). No undo (physics): restart instead. The bar:
  * the balls still to bring to the cups. Stars: no hint and no restart 3, up to two of them 2, else 1.
@@ -68,7 +69,7 @@ static Uint32 tick_ms(int tick) { return t0 + (Uint32)((double)(tick - base_tick
 
 static void rebase(void)
 {
-    t0 = ui_ms();
+    t0 = ui_play_ms();
     base_tick = G.s.tick;
     seen = G.s.nev;
     nfx = 0;
@@ -381,7 +382,7 @@ static int lost(void) { return G.s.end != PTP_PLAYING && G.s.end != PTP_WON; }
 
 static int busy(void)
 {
-    Uint32 now = ui_ms();
+    Uint32 now = ui_play_ms();
     advance(now);
     if (!G.s.rest && (G.s.end == PTP_PLAYING || G.s.end == PTP_WON)) return 1;
     if (G.s.end == PTP_WON && (!win_t0 || now - win_t0 < WIN_MS)) return 1;
@@ -401,7 +402,7 @@ static void restart(void)
 
 static void pull(int i)
 {
-    advance(ui_ms());
+    advance(ui_play_ms());
     if (!ptp_pull(&G.w, &G.s, i)) return;
     if (hint_pin == i) hint_pin = -1;
     ui_sound(SND_MOVE);
@@ -412,7 +413,7 @@ static void hint(void)
 {
     if (G.s.end != PTP_PLAYING) { ui_sound(SND_DENY); return; }
     int p = ptp_hint(&G);
-    Uint32 now = ui_ms();
+    Uint32 now = ui_play_ms();
     if (p == -2) { ui_sound(SND_DENY); return; }
     int again = (p >= 0 && hint_pin == p) || (p == -1 && hint_restart);
     if (!again || now - hint_t0 > HINT_MS) G.hints += !again;
@@ -427,7 +428,7 @@ static int script(const char *moves)
 {
     int ok = ptp_script(&G, moves);
     rebase();
-    if (G.s.end == PTP_WON) win_t0 = ui_ms() - WIN_MS;
+    if (G.s.end == PTP_WON) win_t0 = ui_play_ms() - WIN_MS;
     return ok;
 }
 
@@ -519,7 +520,7 @@ static void liquid(int kind, float frac, Uint32 now)
 static void draw(void)
 {
     if (made_k < 0 || made_serial != serial) layout(last_box);
-    Uint32 now = ui_ms();
+    Uint32 now = ui_play_ms();
     advance(now);
     take_events(now);
     double tp = tpos(now);
@@ -633,7 +634,7 @@ static void draw(void)
 /* ---- the pointer ------------------------------------------------------------------------------------------------- */
 static int pin_at(float x, float y)
 {
-    double tp = tpos(ui_ms());
+    double tp = tpos(ui_play_ms());
     float best = fmaxf(1.9f * k, 0.035f * fminf((float)ui.w, (float)ui.h));
     int at = -1;
     for (int i = 0; i < G.w.np; i++) {

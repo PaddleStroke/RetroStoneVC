@@ -203,15 +203,15 @@ static inline void pt_clock(float cx, float cy, float h, int secs, const uint8_t
     ui_number_ex(x + wm + gap + 1.5f * wd, cy, h, s % 10, rgb, 255, UI_NUM_TIGHT);
 }
 
-/* a clock that runs while its screen is drawn: each frame adds the time since the last, at most a second (the app
- * away, the rules page open: it waits; the picture mode's clock jumps: a second) */
+/* a clock that runs while its screen is drawn: each frame adds the time since the last on the play clock, at most a
+ * second (the app away, the rules page open: it waits; the picture mode's clock jumps: a second) */
 typedef struct { int on, ms; Uint32 last; } pt_timer;
 
 static inline void pt_timer_reset(pt_timer *t) { t->on = 0; t->ms = 0; }
 
 static inline int pt_timer_tick(pt_timer *t)    /* the ms run so far */
 {
-    Uint32 now = ui_ms();
+    Uint32 now = ui_play_ms();
     if (!t->on) { t->on = 1; t->ms = 0; }
     else {
         Sint64 d = (Sint64)now - (Sint64)t->last;

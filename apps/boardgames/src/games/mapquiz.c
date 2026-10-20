@@ -42,7 +42,7 @@ static mq_map M;
 static int loaded = -1;
 static mq_quiz Q;
 static int16_t set[MQ_MAX_REG];
-static Uint32 t_start, t_end;                   /* the quiz's clock (t_end: 0 while it runs) */
+static Uint32 t_start, t_end;                   /* the quiz's clock, ui_play_ms (t_end: 0 while it runs) */
 static uint32_t best_ms;                        /* the best time kept for this quiz (0: none) */
 static int new_best;
 
@@ -387,7 +387,7 @@ static void begin(int map, const char *codes)
     if (!map_use(map)) return;
     int n = mq_set(&M, codes, set);
     mq_quiz_start(&Q, &M, set, n, (uint32_t)ui_random(0x7fffffff) + 1u);
-    t_start = ui_ms();
+    t_start = ui_play_ms();
     t_end = 0;
     new_best = 0;
     char k[32];
@@ -416,13 +416,13 @@ static void start_random(int variant)           /* the die tab: a whole map */
 
 static uint32_t elapsed(void)
 {
-    Uint32 e = t_end ? t_end : ui_ms();
+    Uint32 e = t_end ? t_end : ui_play_ms();
     return e > t_start ? e - t_start : 0;
 }
 
 static void finished(void)
 {
-    t_end = ui_ms();
+    t_end = ui_play_ms();
     if (t_end == t_start) t_end = t_start + 1;
     uint32_t ms = elapsed();
     if (!best_ms || ms < best_ms) {

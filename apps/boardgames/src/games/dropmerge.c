@@ -6,7 +6,8 @@
  * A dashed line marks the rim: it glows amber when the fruits come near it and red while one stays above it.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
- * The physics runs on the shell's clock (ui_ms): the world steps DMJ_HZ times a second from the game's start, and a
+ * The physics runs on the shell's play clock (ui_play_ms: still while the game is away or covered): the world steps
+ * DMJ_HZ times a second from the game's start, and a
  * drop made before the dropper is ready waits in the game for its tick, so a game played again from its record (and
  * the pictures) comes out the same. No undo (physics): the restart tool plays the same jar again from the start. The
  * lamp (a hint) lights a gold line where the fruit would best fall. The bar: endless, the score and the best; a
@@ -113,7 +114,7 @@ static void advance(Uint32 now)
 
 static void rebase(void)
 {
-    t0 = ui_ms();
+    t0 = ui_play_ms();
     base_tick = G.w.tick;
     seen_ev = G.w.nev;
     nfx = nsq = 0;
@@ -829,7 +830,7 @@ static int over_shown(Uint32 now) { return end_t0 && now - end_t0 >= (G.w.end ==
 
 static int status(void)
 {
-    Uint32 now = ui_ms();
+    Uint32 now = ui_play_ms();
     advance(now);
     if (G.w.end == DMJ_PLAYING) return GS_PLAY;
     if (G.w.J.goal == DMJ_ENDLESS) return GS_WIN0;
@@ -846,7 +847,7 @@ static int level_stars(void)
 
 static int busy(void)
 {
-    Uint32 now = ui_ms();
+    Uint32 now = ui_play_ms();
     advance(now);
     if (pend) return 1;
     if (G.w.end == DMJ_PLAYING) return !G.w.rest;
@@ -864,7 +865,7 @@ static void restart(void)
 
 static void hint(void)
 {
-    Uint32 now = ui_ms();
+    Uint32 now = ui_play_ms();
     advance(now);
     if (!dmj_can_drop(&G.w) && !(G.w.end == DMJ_PLAYING && G.w.cur)) { ui_sound(SND_DENY); return; }
     int x = dmj_aim(&G.w, 0, NULL);
@@ -1078,7 +1079,7 @@ static void draw_line(Uint32 now)               /* the rim line, dashed: amber n
 static void draw(void)
 {
     if (made_k < 0 || made_serial != serial) layout(last_box);
-    Uint32 now = ui_ms();
+    Uint32 now = ui_play_ms();
     advance(now);
     take_events(now);
     if (G.w.end != DMJ_PLAYING && !end_t0) end_t0 = now;
@@ -1261,7 +1262,7 @@ static void motion(float x, float y)
 
 static void let_go(void)
 {
-    Uint32 now = ui_ms();
+    Uint32 now = ui_play_ms();
     advance(now);
     if (G.w.end != DMJ_PLAYING || !G.w.cur) { ui_sound(SND_DENY); return; }
     if (dmj_can_drop(&G.w)) dropped(drop_x);
