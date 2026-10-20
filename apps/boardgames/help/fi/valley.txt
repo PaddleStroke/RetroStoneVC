@@ -14,4 +14,4 @@ Rakentaminen nurin päin olevan maan viereen kääntää sen. Rauniot palkitseva
 # Tori
 Hinnat nousevat, kun varasto hupenee. Joka kierroksella laakso kuluttaa yhden kutakin tavaraa.
 # Pelin loppu
-Vuorot kiertävät, kunnes kaikki työläiset ovat liikkeellä; vähiten pisteitä saanut aloittaa seuraavan kierroksen. Lopuksi joka neljä kolikkoa on piste. Tasapelin ratkaisevat kolikot.
+Vuorot kiertävät, kunnes kaikki työläiset ovat liikkeellä; vähiten pisteitä (sitten vähiten kolikoita) saanut aloittaa seuraavan kierroksen. Lopuksi joka neljä kolikkoa on piste. Tasapelin ratkaisevat kolikot.

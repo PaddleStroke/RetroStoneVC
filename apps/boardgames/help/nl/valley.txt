@@ -14,4 +14,4 @@ Bouwen naast omgekeerd land draait het om. Ruïnes belonen wie ze vindt.
 # De markt
 De prijzen stijgen als de voorraad slinkt. Elke ronde verbruikt het dal één van elk goed.
 # Het einde van de partij
-De beurten gaan rond tot alle arbeiders weg zijn; wie de minste punten heeft, begint de volgende ronde. Aan het eind is elke vier munten een punt waard. Bij gelijkspel wint wie de meeste munten heeft.
+De beurten gaan rond tot alle arbeiders weg zijn; wie de minste punten (dan de minste munten) heeft, begint de volgende ronde. Aan het eind is elke vier munten een punt waard. Bij gelijkspel wint wie de meeste munten heeft.

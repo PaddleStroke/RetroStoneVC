@@ -14,4 +14,4 @@ Building beside face-down land turns it up. Ruins pay their finder.
 # The market
 Prices rise as the stock runs low. Each round, the valley uses one of each good.
 # The end of the game
-Turns go round until every worker is out; the player with the fewest points starts the next round. At the end, every four coins score a point. A tie goes to the most coins.
+Turns go round until every worker is out; the player with the fewest points (then the fewest coins) starts the next round. At the end, every four coins score a point. A tie goes to the most coins.

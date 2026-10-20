@@ -14,4 +14,4 @@ Stavba vedle země lícem dolů ji otočí. Zříceniny odmění toho, kdo je na
 # Trh
 Ceny rostou, když zásoba ubývá. Každé kolo údolí spotřebuje jedno od každého zboží.
 # Konec hry
-Tahy jdou dokola, dokud nejsou všichni dělníci venku; hráč s nejméně body začíná další kolo. Na konci dávají každé čtyři mince bod. Při shodě vyhrává ten, kdo má víc mincí.
+Tahy jdou dokola, dokud nejsou všichni dělníci venku; hráč s nejméně body (pak s nejméně mincemi) začíná další kolo. Na konci dávají každé čtyři mince bod. Při shodě vyhrává ten, kdo má víc mincí.

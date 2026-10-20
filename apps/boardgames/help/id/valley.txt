@@ -14,4 +14,4 @@ Membangun di samping tanah yang tertutup akan membukanya. Reruntuhan memberi had
 # Pasar
 Harga naik saat persediaan menipis. Setiap ronde, lembah memakai satu dari tiap barang.
 # Akhir permainan
-Giliran berputar sampai semua pekerja keluar; pemain dengan poin paling sedikit memulai ronde berikutnya. Di akhir, tiap empat koin bernilai satu poin. Jika seri, yang koinnya terbanyak menang.
+Giliran berputar sampai semua pekerja keluar; pemain dengan poin paling sedikit (lalu koin paling sedikit) memulai ronde berikutnya. Di akhir, tiap empat koin bernilai satu poin. Jika seri, yang koinnya terbanyak menang.

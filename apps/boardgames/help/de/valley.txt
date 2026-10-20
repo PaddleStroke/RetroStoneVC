@@ -14,4 +14,4 @@ Wer neben verdecktem Land baut, deckt es auf. Ruinen belohnen ihren Finder.
 # Der Markt
 Die Preise steigen, wenn der Vorrat schwindet. In jeder Runde verbraucht das Tal eines von jedem Gut.
 # Das Ende der Partie
-Die Züge gehen reihum, bis alle Arbeiter unterwegs sind; wer die wenigsten Punkte hat, beginnt die nächste Runde. Am Ende zählen je vier Münzen einen Punkt. Bei Gleichstand entscheiden die meisten Münzen.
+Die Züge gehen reihum, bis alle Arbeiter unterwegs sind; wer die wenigsten Punkte (dann die wenigsten Münzen) hat, beginnt die nächste Runde. Am Ende zählen je vier Münzen einen Punkt. Bei Gleichstand entscheiden die meisten Münzen.

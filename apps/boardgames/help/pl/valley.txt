@@ -14,4 +14,4 @@ Budowa obok zakrytego terenu odkrywa go. Ruiny nagradzają znalazcę.
 # Targ
 Ceny rosną, gdy zapas maleje. W każdej rundzie dolina zużywa po jednym z każdego towaru.
 # Koniec gry
-Tury idą kolejno, aż wszyscy robotnicy wyjdą; gracz z najmniejszą liczbą punktów zaczyna następną rundę. Na końcu każde cztery monety dają punkt. Przy remisie wygrywa ten, kto ma więcej monet.
+Tury idą kolejno, aż wszyscy robotnicy wyjdą; gracz z najmniejszą liczbą punktów (potem monet) zaczyna następną rundę. Na końcu każde cztery monety dają punkt. Przy remisie wygrywa ten, kto ma więcej monet.

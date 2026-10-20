@@ -14,4 +14,4 @@ Costruire accanto a una terra coperta la scopre. Le rovine pagano chi le trova.
 # Il mercato
 I prezzi salgono quando le scorte calano. A ogni round la valle consuma un bene di ogni tipo.
 # La fine della partita
-I turni continuano finché tutti i lavoratori sono usciti; chi ha meno punti comincia il round seguente. Alla fine ogni quattro monete valgono un punto. In caso di parità vince chi ha più monete.
+I turni continuano finché tutti i lavoratori sono usciti; chi ha meno punti (poi meno monete) comincia il round seguente. Alla fine ogni quattro monete valgono un punto. In caso di parità vince chi ha più monete.

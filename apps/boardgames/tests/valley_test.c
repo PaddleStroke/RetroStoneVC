@@ -247,10 +247,10 @@ int main(void)
         for (int c = 0; c < VL_CELLS; c++) CHECK(g.s.wk[c] < 0);
         for (int gd = 0; gd < 3; gd++) CHECK(g.s.stock[gd] == VL.stock0 - VL.use);
         CHECK(g.s.phase == VL_HARVEST && g.s.cur == g.s.start);
-        int low = 0;                                            /* the fewest points starts */
+        int low = 0;                                            /* the fewest points, then coins, starts */
         for (int p = 1; p < 3; p++)
-            if (vl_score(&g.s, p) < vl_score(&g.s, low)) low = p;
-        CHECK(vl_score(&g.s, g.s.start) == vl_score(&g.s, low));
+            if (vl_score(&g.s, p) * 1000 + g.s.p[p].coins < vl_score(&g.s, low) * 1000 + g.s.p[low].coins) low = p;
+        CHECK(vl_score(&g.s, g.s.start) * 1000 + g.s.p[g.s.start].coins == vl_score(&g.s, low) * 1000 + g.s.p[low].coins);
     }
 
     /* ---- the notation ----------------------------------------------------------------------------------------- */

@@ -14,4 +14,4 @@ At bygge ved siden af land med bagsiden op vender det. Ruiner belønner den, der
 # Markedet
 Priserne stiger, når lageret svinder. Hver runde bruger dalen én af hver vare.
 # Spillets afslutning
-Turene går rundt, til alle arbejdere er ude; den med færrest point begynder næste runde. Til sidst giver hver fire mønter et point. Ved lighed vinder den med flest mønter.
+Turene går rundt, til alle arbejdere er ude; den med færrest point (dernæst færrest mønter) begynder næste runde. Til sidst giver hver fire mønter et point. Ved lighed vinder den med flest mønter.

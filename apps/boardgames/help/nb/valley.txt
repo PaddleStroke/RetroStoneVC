@@ -14,4 +14,4 @@ Bygg ved siden av landsbyen din.
 # Markedet
 Prisene stiger når lageret minker. Hver runde bruker dalen én av hver vare.
 # Slutten på spillet
-Turene går rundt til alle arbeiderne er ute; den med færrest poeng begynner neste runde. Til slutt gir hver fjerde mynt et poeng. Ved likt vinner den med flest mynter.
+Turene går rundt til alle arbeiderne er ute; den med færrest poeng (deretter færrest mynter) begynner neste runde. Til slutt gir hver fjerde mynt et poeng. Ved likt vinner den med flest mynter.

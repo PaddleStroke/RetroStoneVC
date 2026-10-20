@@ -14,4 +14,4 @@ Construir ao lado de uma terra virada para baixo revela-a. As ruínas pagam a qu
 # O mercado
 Os preços sobem quando o stock baixa. Em cada ronda, o vale consome um bem de cada tipo.
 # O fim do jogo
-As vezes seguem até todos os trabalhadores saírem; quem tiver menos pontos começa a ronda seguinte. No fim, cada quatro moedas valem um ponto. Num empate, ganha quem tiver mais moedas.
+As vezes seguem até todos os trabalhadores saírem; quem tiver menos pontos (depois menos moedas) começa a ronda seguinte. No fim, cada quatro moedas valem um ponto. Num empate, ganha quem tiver mais moedas.

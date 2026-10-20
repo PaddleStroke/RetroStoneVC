@@ -13,7 +13,7 @@ const
 vl_rules VL = {
     .rounds = {8, 6, 8},
     .workers0 = 2, .workers_max = 4,
-    .start_goods = 1, .start_coins = 3, .seat_coins = 0,
+    .start_goods = 1, .start_coins = 3,
     .cost = {
         [VL_ROAD] = {1, 0, 1},
         [VL_HOUSE] = {1, 2, 0},
@@ -159,7 +159,7 @@ void vl_new(vl_state *s, int players, int variant, uint32_t seed)
     }
     for (int p = 0; p < players; p++) {
         for (int g = 0; g < VL_GOODS; g++) s->p[p].goods[g] = (int8_t)VL.start_goods;
-        s->p[p].coins = (int16_t)(VL.start_coins + p * VL.seat_coins);
+        s->p[p].coins = (int16_t)VL.start_coins;
         s->p[p].workers = (uint8_t)VL.workers0;
     }
     for (int g = 0; g < VL_GOODS; g++) s->stock[g] = (uint8_t)VL.stock0;
@@ -328,11 +328,11 @@ static void next_turn(vl_state *s, vl_effect *e)
         return;
     }
     int st = (s->start + 1) % s->players;
-    if (VL.catchup) {                           /* the fewest points (ties: the next in turn from the last start) */
+    if (VL.catchup) {                           /* the fewest points, then the fewest coins, then the next in turn */
         int best = st;
         for (int i = 0; i < s->players; i++) {
             int q = (s->start + 1 + i) % s->players;
-            if (vl_score(s, q) < vl_score(s, best)) best = q;
+            if (vl_score(s, q) * 1000 + s->p[q].coins < vl_score(s, best) * 1000 + s->p[best].coins) best = q;
         }
         st = best;
     }

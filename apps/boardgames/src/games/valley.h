@@ -7,7 +7,8 @@
  * harvest), houses give a point and a worker, workshops points and their bonus, a manor on a house more points.
  * The middle of the valley starts face down: building beside it turns it up (ruins pay their finder). A round ends
  * when every worker is out; the valley then uses one of each good from the market (prices rise as stocks run low)
- * and the player with the fewest points starts the next. After the last round, coins count too; most points wins.
+ * and the player with the fewest points (then coins) starts the next. After the last round, coins count too; the
+ * most points wins.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * The map: a hexagon of radius 4 in axial coordinates (61 cells, by rows from the top: r -4..4, q from left to
@@ -70,7 +71,7 @@ typedef struct {
 typedef struct {
     int rounds[VL_VARIANTS];
     int workers0, workers_max;
-    int start_goods, start_coins, seat_coins;   /* each later seat starts with seat_coins more */
+    int start_goods, start_coins;
     int cost[VL_BLDS][VL_GOODS];
     int pts[VL_BLDS];
     int supply[VL_BLDS];                        /* each player's pieces of a kind (0: no limit; the workshops share
@@ -84,7 +85,7 @@ typedef struct {
     int hidden, reveal_build, explore;          /* the middle face down; building beside it turns it up; a worker
                                                  * may turn up a face-down land in reach and harvest it */
     int gifts, gift_coins;
-    int catchup;                                /* 1: the fewest points starts a round; 0: in turn */
+    int catchup;                                /* 1: the fewest points (then coins) starts a round; 0: in turn */
     int manor_upgrade;                          /* 1: a manor is built on a house of the player's */
 } vl_rules;
 #ifdef VL_TUNE

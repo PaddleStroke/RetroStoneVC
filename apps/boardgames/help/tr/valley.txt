@@ -14,4 +14,4 @@ Ters duran bir arazinin yanına inşa etmek onu çevirir. Harabeler bulana ödü
 # Pazar
 Stok azaldıkça fiyatlar yükselir. Her turda vadi her maldan birini tüketir.
 # Oyunun sonu
-Sıralar bütün işçiler çıkana kadar döner; en az puanı olan oyuncu sonraki turu başlatır. Sonunda her dört sikke bir puan eder. Beraberlikte en çok sikkesi olan kazanır.
+Sıralar bütün işçiler çıkana kadar döner; en az puanı (sonra en az sikkesi) olan oyuncu sonraki turu başlatır. Sonunda her dört sikke bir puan eder. Beraberlikte en çok sikkesi olan kazanır.

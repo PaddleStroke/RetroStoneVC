@@ -14,4 +14,4 @@ Construir ao lado de uma terra virada para baixo a revela. Ruínas pagam quem as
 # O mercado
 Os preços sobem quando o estoque diminui. A cada rodada, o vale consome um de cada bem.
 # O fim da partida
-As jogadas seguem até todos os trabalhadores saírem; quem tiver menos pontos começa a rodada seguinte. No fim, cada quatro moedas valem um ponto. Num empate, vence quem tiver mais moedas.
+As jogadas seguem até todos os trabalhadores saírem; quem tiver menos pontos (depois menos moedas) começa a rodada seguinte. No fim, cada quatro moedas valem um ponto. Num empate, vence quem tiver mais moedas.

@@ -1311,6 +1311,11 @@ static void draw_map(Uint32 now)
                 if (c == sel) draw_worker(s->cur, sx, sy + 0.12f * z - 0.12f * z * pulse, z, 210);
                 if (!s->hidden[c]) draw_badge(s->terr[c], vl_yield(s, c), sx, sy, z, c == sel ? 255 : 215);
             }
+            if (sel >= 0 && !vl_harvestable(s, sel, s->cur)) {   /* a land looked at, out of reach */
+                float sx, sy;
+                cell_screen(sel, &sx, &sy);
+                ui_mark_select_round(sx, sy, 1.3f * z);
+            }
             ui_animate();
         } else if (mode) {
             for (int c = 0; c < VL_CELLS; c++) {
@@ -1467,6 +1472,10 @@ static void draw_panel(Uint32 now)
         }
     float rd = fminf(0.2f * u, (r.w * (wide ? 0.6f : 0.28f)) / (s->rounds * 1.5f)), rx = r.x + r.w - s->rounds * rd * 1.5f;
     if (wide) wy = r.y + r.h * 0.9f;
+    if (!s->over) {                             /* the round's first player, before the rounds */
+        pic *f = pic_get(PIC_WORKER, s->start, 0, (int)(0.7f * d));
+        pic_at(f, rx - 0.5f * d, wy + 0.3f * d, 1, 255);
+    }
     for (int i = 0; i < s->rounds; i++) {       /* the rounds: those played, this one in gold light */
         float px = rx + (i + 0.5f) * rd * 1.5f;
         if (i == s->round && !s->over) ui_mark_gold_a(px, wy, 3 * rd, 0.9f);
@@ -1683,7 +1692,12 @@ static void tap_cell(int c)
     if (c < 0) { sel = -1; ui_animate(); return; }
     if (s->phase == VL_HARVEST) {
         peek = 0;
-        if (!vl_harvestable(s, c, s->cur)) { ui_sound(SND_DENY); sel = -1; ui_animate(); return; }
+        if (!vl_harvestable(s, c, s->cur)) {   /* out of reach or taken: no, but its harvest shows in the panel */
+            ui_sound(SND_DENY);
+            sel = !s->hidden[c] && s->terr[c] < VL_RIVER ? c : -1;
+            ui_animate();
+            return;
+        }
         if (sel == c) act(c);
         else { sel = c; ui_sound(SND_TAP); ui_animate(); }
         return;

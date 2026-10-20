@@ -14,4 +14,4 @@ Construire à côté d'une terre face cachée la retourne. Des ruines paient cel
 # Le marché
 Les prix montent quand le stock baisse. À chaque manche, le vallon consomme un bien de chaque sorte.
 # La fin de la partie
-Les tours s'enchaînent jusqu'à ce que tous les ouvriers soient sortis ; le joueur qui a le moins de points commence la manche suivante. À la fin, quatre pièces valent un point. En cas d'égalité, le plus de pièces l'emporte.
+Les tours s'enchaînent jusqu'à ce que tous les ouvriers soient sortis ; le joueur qui a le moins de points (puis le moins de pièces) commence la manche suivante. À la fin, quatre pièces valent un point. En cas d'égalité, le plus de pièces l'emporte.

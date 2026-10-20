@@ -14,4 +14,4 @@ Construir junto a una tierra boca abajo la descubre. Las ruinas pagan a quien la
 # El mercado
 Los precios suben cuando baja la existencia. Cada ronda, el valle consume uno de cada bien.
 # El final de la partida
-Los turnos siguen hasta que todos los trabajadores han salido; quien tenga menos puntos empieza la ronda siguiente. Al final, cada cuatro monedas valen un punto. Un empate lo gana quien tenga más monedas.
+Los turnos siguen hasta que todos los trabajadores han salido; quien tenga menos puntos (y luego menos monedas) empieza la ronda siguiente. Al final, cada cuatro monedas valen un punto. Un empate lo gana quien tenga más monedas.
