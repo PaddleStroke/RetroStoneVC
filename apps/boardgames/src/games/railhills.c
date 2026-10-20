@@ -1277,7 +1277,7 @@ static int act(int m, int quiet)
     sel = -1;
     if (phase == RH_KEEP || revealing) undo_floor = nmv;   /* nothing seen is ever taken back */
     if (G.phase == RH_OVER || G.turn != who || (phase == RH_KEEP && G.phase == RH_KEEP)) {
-        if (phase == RH_PLAY || G.round > round) turn_ended(who, G.turn);
+        if (phase == RH_PLAY || round > 0) turn_ended(who, G.turn);   /* not the first deal */
         undo_floor = nmv;
         if (G.phase != RH_OVER) ui_handoff(G.turn);
     }
