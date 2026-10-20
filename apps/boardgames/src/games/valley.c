@@ -598,7 +598,7 @@ static void put_tile(uint32_t code, float sx, float sy, float rp, Uint8 alpha, f
 }
 
 /* the other pictures: a building (kind, owner), a worker (player), an icon; keyed and kept at the size drawn */
-enum { PIC_BUILD, PIC_WORKER, PIC_ICON, PIC_MARKET };
+enum { PIC_BUILD, PIC_WORKER, PIC_ICON, PIC_MARKET, PIC_TOOL };
 enum { IC_WOOD, IC_GRAIN, IC_STONE, IC_COIN, IC_STAR, IC_PAWN, IC_GOODS };
 typedef struct { uint32_t key; SDL_Texture *t; int w, h; float ax, ay; Uint32 used; } pic;
 #define PICS 120
@@ -699,6 +699,8 @@ static void paint_market(int kind, int size, uint8_t *rgba)
     art_fig_paint(rgba, size, f, WHITE, NULL, 0, 0);
 }
 
+static void paint_tool(int kind, int size, uint8_t *rgba);   /* a building card's picture (below) */
+
 static pic *pic_get(int type, int a, int b, int size)
 {
     if (size < 2) size = 2;
@@ -730,6 +732,7 @@ static pic *pic_get(int type, int a, int b, int size)
     if (type == PIC_BUILD) paint_building(o, p->w, p->h, p->ax, p->ay, s, a, b);
     else if (type == PIC_WORKER) paint_worker(o, p->w, p->h, p->ax - 0.5f * s, 2, s, a);
     else if (type == PIC_ICON) paint_icon(o, size, a, b);
+    else if (type == PIC_TOOL) paint_tool(a + 8 * b, size, o);
     else paint_market(a, size, o);
     p->t = ui_tex(p->w, p->h, o);
     return p;
@@ -789,7 +792,7 @@ static void make_flat(float rp)
 }
 
 /* ---- the game ---------------------------------------------------------------------------------------------------- */
-enum { T_ROAD, T_HOUSE, T_SAW, T_MILL, T_QUARRY, T_MANOR, T_OK, TOOLS };
+enum { T_OK, TOOLS };                           /* the tick: the shell's one tool (the buildings are cards) */
 static const int TOOL_BLD[6] = {VL_ROAD, VL_HOUSE, VL_SAW, VL_MILL, VL_QUARRY, VL_MANOR};
 
 static vl_game G;
@@ -852,8 +855,8 @@ static float cam_x, cam_y, cam_s = 40, cam_ex, cam_ey, cam_es, cam_tx, cam_ty, c
 static Uint32 cam_t0;
 static int cam_go, user_cam;
 /* the panel's places */
-static float mk_x[3], mk_y[3], mk_buy[3][2], mk_sell[3][2], mk_d, mk_icon, pip_w;
-static box row_player, row_info;
+static float mk_x[3], mk_y[3], mk_icon;                 /* the stalls' goods (where bought goods fly from) */
+static box row_track, row_player, row_info, stall[3], stock_box[3], pill_buy[3], pill_sell[3], card[6];
 static SDL_Texture *t_panel;
 static int made_pw = -1, made_ph = -1;
 
@@ -941,43 +944,62 @@ static void cam_home(int at_once)               /* the whole valley (its roofs a
 static void layout(box b)
 {
     room = b;
-    float u = ui.unit;
+    float u = ui.unit, g = 0.1f * u, pad = 0.16f * u;
     wide = b.w > b.h * 1.15f;
-    if (!wide) {                                /* upright: the panel under the valley */
-        float ph = clampf(0.32f * b.h, 3.3f * u, 3.6f * u);
+    if (!wide) {                                /* upright: the panel under the valley, its rows from the top */
+        float th = 0.34f * u, sh = 1.32f * u, rh = 0.74f * u, ch = 1.46f * u, ih = 0.62f * u;
+        float ph = 2 * pad + th + sh + rh + ch + ih + 4 * g, k = fminf(1, 0.46f * b.h / ph);
+        th *= k, sh *= k, rh *= k, ch *= k, ih *= k, g *= k, pad *= k, ph *= k;
         panel = (box){b.x, b.y + b.h - ph, b.w, ph};
         view = (box){b.x, b.y, b.w, b.h - ph - 0.1f * u};
-        float pad = 0.18f * u, cw = (panel.w - 2 * pad) / 3;
-        mk_d = fminf(0.92f * u, cw * 0.34f);
-        mk_icon = fminf(0.72f * u, cw * 0.26f);
-        float my = panel.y + pad + 0.5f * u;
-        for (int g = 0; g < 3; g++) {
-            float x0 = panel.x + pad + g * cw;
-            mk_x[g] = x0 + 0.06f * cw + mk_icon / 2, mk_y[g] = my - 0.08f * u;
-            mk_buy[g][0] = x0 + 0.46f * cw, mk_buy[g][1] = my;
-            mk_sell[g][0] = x0 + 0.80f * cw, mk_sell[g][1] = my;
+        float x0 = panel.x + pad, W = panel.w - 2 * pad, y = panel.y + pad;
+        row_track = (box){x0, y, W, th};
+        y += th + g;
+        float sw = (W - 2 * g) / 3;
+        for (int i = 0; i < 3; i++) {           /* the stalls: the good and its stock on the left, buy over sell */
+            box s = stall[i] = (box){x0 + i * (sw + g), y, sw, sh};
+            float lc = 0.34f * sw, ic = fminf(0.8f * lc, 0.5f * sh), m = 0.07f * sh;
+            mk_icon = ic;
+            mk_x[i] = s.x + lc / 2 + 0.02f * sw, mk_y[i] = s.y + 0.38f * sh;
+            stock_box[i] = (box){s.x + 0.1f * lc, s.y + 0.74f * sh, 0.86f * lc, 0.13f * sh};
+            float px = s.x + lc + 0.02f * sw, pw = s.x + sw - m - px, pb = (sh - 3 * m) / 2;
+            pill_buy[i] = (box){px, s.y + m, pw, pb};
+            pill_sell[i] = (box){px, s.y + 2 * m + pb, pw, pb};
         }
-        pip_w = cw * 0.9f;
-        row_player = (box){panel.x + pad, my + 0.72f * u, panel.w - 2 * pad, 0.8f * u};
-        row_info = (box){panel.x + pad, row_player.y + row_player.h + 0.05f * u, panel.w - 2 * pad,
-                         panel.y + panel.h - pad - (row_player.y + row_player.h + 0.05f * u)};
+        y += sh + g;
+        row_player = (box){x0, y, W, rh};
+        y += rh + g;
+        float cw = (W - 5 * 0.6f * g) / 6;
+        for (int i = 0; i < 6; i++) card[i] = (box){x0 + i * (cw + 0.6f * g), y, cw, ch};
+        y += ch + g;
+        row_info = (box){x0, y, W, ih};
     } else {                                    /* wide: the panel on the valley's right */
-        float pw = clampf(0.32f * b.w, 3.6f * u, 4.6f * u);
+        float pw = clampf(0.34f * b.w, 3.9f * u, 4.8f * u);
+        float th = 0.32f * u, rh = 1.2f * u, sh = 0.86f * u, ch = 1.34f * u, ih = 0.6f * u;
+        float need = 2 * pad + th + rh + 3 * sh + 2 * ch + ih + 7 * g, k = fminf(1, b.h / need);
+        th *= k, rh *= k, sh *= k, ch *= k, ih *= k, g *= k, pad *= k;
         panel = (box){b.x + b.w - pw, b.y, pw, b.h};
         view = (box){b.x, b.y, b.w - pw - 0.1f * u, b.h};
-        float pad = 0.18f * u, rh = fminf(1.25f * u, (panel.h - 2 * pad) / 7.0f);
-        row_player = (box){panel.x + pad, panel.y + pad, panel.w - 2 * pad, 2.1f * rh};
-        mk_d = fminf(0.92f * u, 0.8f * rh);
-        mk_icon = fminf(0.72f * u, 0.62f * rh);
-        for (int g = 0; g < 3; g++) {
-            float y = row_player.y + row_player.h + 0.2f * u + (g + 0.5f) * rh * 1.15f;
-            mk_x[g] = panel.x + pad + 0.1f * u + mk_icon / 2, mk_y[g] = y - 0.12f * rh;
-            mk_buy[g][0] = panel.x + 0.52f * panel.w, mk_buy[g][1] = y;
-            mk_sell[g][0] = panel.x + 0.80f * panel.w, mk_sell[g][1] = y;
+        float x0 = panel.x + pad, W = panel.w - 2 * pad, y = panel.y + pad;
+        row_track = (box){x0, y, W, th};
+        y += th + g;
+        row_player = (box){x0, y, W, rh};
+        y += rh + g;
+        for (int i = 0; i < 3; i++) {           /* the stalls: a row each, buy and sell side by side */
+            box s = stall[i] = (box){x0, y, W, sh};
+            float lc = 0.22f * W, ic = fminf(0.8f * lc, 0.56f * sh), m = 0.12f * sh;
+            mk_icon = ic;
+            mk_x[i] = s.x + lc / 2, mk_y[i] = s.y + 0.4f * sh;
+            stock_box[i] = (box){s.x + 0.1f * lc, s.y + 0.76f * sh, 0.8f * lc, 0.12f * sh};
+            float px = s.x + lc + 0.03f * W, pw2 = (s.x + W - m - px - m) / 2;
+            pill_buy[i] = (box){px, s.y + m, pw2, sh - 2 * m};
+            pill_sell[i] = (box){px + pw2 + m, s.y + m, pw2, sh - 2 * m};
+            y += sh + g;
         }
-        pip_w = 0.30f * panel.w;
-        float iy = mk_y[2] + 0.75f * rh + 0.2f * u;
-        row_info = (box){panel.x + pad, iy, panel.w - 2 * pad, fmaxf(0.8f * u, panel.y + panel.h - pad - iy)};
+        float cw = (W - 2 * 0.6f * g) / 3;
+        for (int i = 0; i < 6; i++) card[i] = (box){x0 + (i % 3) * (cw + 0.6f * g), y + (i / 3) * (ch + g), cw, ch};
+        y += 2 * ch + 2 * g;
+        row_info = (box){x0, y, W, fmaxf(ih, panel.y + panel.h - pad - y)};
     }
     int w = (int)panel.w, h = (int)panel.h;
     if (w != made_pw || h != made_ph) {
@@ -997,7 +1019,6 @@ static void layout(box b)
     if (!user_cam) cam_home(1);
     else cam_set(cam_x, cam_y, cam_s);
 }
-
 /* ---- playing ----------------------------------------------------------------------------------------------------- */
 static void begin(void)
 {
@@ -1419,96 +1440,205 @@ static float count_at(float x, float cy, float d, int icon, int player, int v, U
 
 static int market_ok(int m) { return people_turn() && S()->phase == VL_ACT && vl_legal(S(), m); }
 
+/* ---- the panel's own buttons, made at the size shown: a lacquered pill (a trade), a cream card (a building), a gold
+ * rim (the card chosen, or one that can be built), a shallow inlay (a stall) ---------------------------------------- */
+enum { PL_BUTTON, PL_CARD, PL_GOLD, PL_INLAY, PLS };
+static SDL_Texture *t_pl[PLS];
+static int pl_w[PLS] = {-1, -1, -1, -1}, pl_h[PLS] = {-1, -1, -1, -1};
+
+static void draw_pl(int kind, box b, Uint8 alpha)
+{
+    int w = (int)lroundf(b.w), h = (int)lroundf(b.h);
+    if (w < 4 || h < 4) return;
+    if (w != pl_w[kind] || h != pl_h[kind]) {
+        static const uint8_t FILL[PLS][4] = {{108, 72, 44, 255}, {242, 230, 206, 255}, {236, 186, 70, 255},
+                                             {92, 60, 36, 255}};
+        pl_w[kind] = w, pl_h[kind] = h;
+        uint8_t *o = ui_buf(w, h);
+        float rad = kind == PL_BUTTON ? 0.3f * h : 0.16f * fminf(w, h);
+        art_roundrect(w, h, rad, FILL[kind], o);
+        for (int y = 0; y < h; y++)             /* lit at the top, a darker foot; a pale lip on a button */
+            for (int x = 0; x < w; x++) {
+                uint8_t *p = o + 4 * ((size_t)y * w + x);
+                float k = kind == PL_INLAY ? 1 : 1.10f - 0.22f * y / h;
+                if (kind == PL_BUTTON && y < 0.12f * h) k += 0.18f;
+                for (int i = 0; i < 3; i++) p[i] = (uint8_t)clampf(p[i] * k, 0, 255);
+                if (kind == PL_INLAY) p[3] = (uint8_t)(p[3] * 0.28f);
+            }
+        ui_free(&t_pl[kind]);
+        t_pl[kind] = ui_tex(w, h, o);
+    }
+    SDL_SetTextureAlphaMod(t_pl[kind], alpha);
+    ui_put(t_pl[kind], b.x, b.y, b.w, b.h);
+    SDL_SetTextureAlphaMod(t_pl[kind], 255);
+}
+
+/* a small arrow head pointing right (a trade's way), cream */
+static void chevron(float cx, float cy, float h, Uint8 a)
+{
+    pzk_rgba c = {250, 240, 214, a};
+    float l = fmaxf(1.2f, 0.11f * h);
+    pzk_line(cx - 0.09f * h, cy - 0.16f * h, cx + 0.07f * h, cy, l, 1, c, 0);
+    pzk_line(cx + 0.07f * h, cy, cx - 0.09f * h, cy + 0.16f * h, l, 1, c, 0);
+}
+
+/* a trade button: buy is "coins, the price, into the good"; sell is "the good, into coins, the price" */
+static void trade_pill(box b, int g, int buy, int price, int ok)
+{
+    static const uint8_t cream[3] = {252, 244, 222};
+    Uint8 a = ok ? 255 : 95;
+    draw_pl(PL_BUTTON, b, ok ? 255 : 120);
+    float h = b.h, d = 0.66f * h, nh = 0.56f * h, gap = 0.08f * h, ch = 0.36f * h;
+    float wn = price ? ui_number_w(price, nh) : 0;
+    float tw = 2 * d + wn + ch + 4 * gap;
+    if (tw > 0.94f * b.w) {                     /* a narrow button: all smaller */
+        float k = 0.94f * b.w / tw;
+        d *= k, nh *= k, gap *= k, ch *= k, wn *= k, tw *= k;
+    }
+    float x = b.x + (b.w - tw) / 2, cy = b.y + b.h / 2;
+    if (buy) {
+        icon_at(IC_COIN, 0, x + d / 2, cy, d, a);
+        x += d + gap;
+        if (price) ui_number_ex(x + wn / 2, cy, nh, price, cream, a, 0);
+        x += wn + gap;
+        chevron(x + ch / 2, cy, h, a);
+        x += ch + gap;
+        icon_at(g, 0, x + d / 2, cy, d, a);
+    } else {
+        icon_at(g, 0, x + d / 2, cy, d, a);
+        x += d + gap;
+        chevron(x + ch / 2, cy, h, a);
+        x += ch + gap;
+        icon_at(IC_COIN, 0, x + d / 2, cy, d, a);
+        x += d + gap;
+        if (price) ui_number_ex(x + wn / 2, cy, nh, price, cream, a, 0);
+    }
+}
+
+static int card_ok(int i)                       /* building card i can be used now: paid, a place for it */
+{
+    const vl_state *s = S();
+    int k = TOOL_BLD[i];
+    if (!people_turn() || s->phase != VL_ACT || !vl_can_pay(s, s->cur, k)) return 0;
+    for (int c = 0; c < VL_CELLS; c++)
+        if (vl_can_build(s, s->cur, k, c)) return 1;
+    return 0;
+}
+
+/* a building's card: its picture, its points, the pieces still in hand, and its cost under it (the goods the
+ * player lacks faded, a red line under them) */
+static void draw_card(int i, int p, Uint32 now)
+{
+    const vl_state *s = S();
+    box b = card[i];
+    int k = TOOL_BLD[i], on = mode == k || peek == k, ok = card_ok(i);
+    if (p < 0) p = 0;
+    float rim = fmaxf(2, (on ? 0.1f : 0.045f) * fminf(b.w, b.h));
+    if (on) b.y -= 0.06f * b.h;                 /* the card chosen stands a little raised */
+    if (on || ok) {                             /* gold round the card chosen (or one that may be built now) */
+        float pulse = on ? 1 : 0.55f + 0.2f * sinf(now / 300.0f);
+        draw_pl(PL_GOLD, (box){b.x - rim, b.y - rim, b.w + 2 * rim, b.h + 2 * rim}, (Uint8)(255 * pulse));
+        if (!on) ui_animate();
+    }
+    Uint8 a = on || ok ? 255 : 150;
+    draw_pl(PL_CARD, b, a);
+    float ps = fminf(0.62f * b.w, 0.56f * b.h);
+    pic *t = pic_get(PIC_TOOL, i, p, (int)ps);
+    pic_at(t, b.x + b.w / 2, b.y + 0.06f * b.h + ps / 2, 1, a);
+    float nd = 0.2f * b.h;
+    if (VL.pts[k]) {                            /* its points: a star, top right */
+        icon_at(IC_STAR, 0, b.x + b.w - 0.62f * nd, b.y + 0.62f * nd, 1.1f * nd, a);
+        ui_number_ex(b.x + b.w - 0.62f * nd, b.y + 0.66f * nd, 0.62f * nd, VL.pts[k], PUZ_INK, a, UI_NUM_TIGHT);
+    }
+    int left = vl_left(s, p, k);
+    if (left >= 0) ink_number(b.x + 0.5f * nd, b.y + 0.6f * nd, 0.72f * nd, left, a, !left);   /* pieces in hand */
+    /* the cost: a little stack of each good */
+    int units = 0, groups = 0;
+    for (int g = 0; g < 3; g++)
+        if (VL.cost[k][g]) units += VL.cost[k][g], groups++;
+    float ci = fminf(0.26f * b.h, b.w / (groups * 1.15f + (units - groups) * 0.42f + 0.3f));
+    float tw = groups * ci + (units - groups) * 0.42f * ci + (groups - 1) * 0.15f * ci;
+    float x = b.x + (b.w - tw) / 2, cy = b.y + b.h - 0.62f * ci;
+    for (int g = 0; g < 3; g++) {
+        int n = VL.cost[k][g], have = s->p[p].goods[g];
+        if (!n) continue;
+        float x0 = x;
+        for (int j = 0; j < n; j++) {
+            int lack = j >= have;
+            icon_at(g, 0, x + ci / 2, cy, ci, lack ? (Uint8)(a / 3) : a);
+            x += 0.42f * ci;
+        }
+        x += ci - 0.42f * ci;
+        if (n > have && !s->over)               /* a red line under the goods that are missing */
+            ui_fill(x0 + 0.1f * ci, cy + 0.5f * ci, x - x0 - 0.2f * ci, fmaxf(2, 0.09f * ci), 196, 52, 40, a);
+        x += 0.15f * ci;
+    }
+}
+
 static void draw_panel(Uint32 now)
 {
-    (void)now;
     const vl_state *s = S();
     float u = ui.unit;
     if (t_panel) ui_put(t_panel, panel.x, panel.y, panel.w, panel.h);
-    /* the market */
-    for (int g = 0; g < 3; g++) {
-        icon_at(g, 0, mk_x[g], mk_y[g], mk_icon, 255);
-        float pd = fminf(pip_w / VL_STOCK_MAX * 0.7f, 0.2f * u), py = mk_y[g] + 0.5f * mk_icon + 0.6f * pd;
-        float px0 = mk_x[g] - mk_icon / 2;
-        if (wide) py = mk_y[g] + 0.48f * mk_icon + 0.5f * pd;
-        for (int i = 0; i < VL_STOCK_MAX; i++) {    /* the stock: a pip a good */
-            float px = px0 + (i + 0.5f) * (pd * 1.35f);
-            if (i < s->stock[g]) ui_fill(px - pd / 2, py - pd / 2, pd, pd, 120, 84, 50, 235);
-            else ui_fill(px - pd / 2, py - pd / 2, pd, pd, 84, 56, 36, 70);
-        }
-        int bp = vl_buy_price(s, g), sp = vl_sell_price(s, g);
-        int okb = market_ok(VL_MV_BUY(g)), oks = market_ok(VL_MV_SELL(g));
-        ui_button_paint(mk_buy[g][0], mk_buy[g][1], mk_d, paint_market, 0, 1, UI_TINT | (okb ? 0 : UI_DIM));
-        ui_button_paint(mk_sell[g][0], mk_sell[g][1], mk_d, paint_market, 1, 1, UI_TINT | (oks ? 0 : UI_DIM));
-        const uint8_t *ink = ui_table_ink();     /* the buttons' own ink: cream on the dark discs, dark on the light ones */
-        float nh = 0.44f * mk_d, nx = 0.12f * mk_d, ny = 0.08f * mk_d;
-        if (bp) ui_number_ex(mk_buy[g][0] + nx, mk_buy[g][1] + ny, nh, bp, ink, okb ? 255 : 110, 0);
-        if (sp) ui_number_ex(mk_sell[g][0] + nx, mk_sell[g][1] + ny, nh, sp, ink, oks ? 255 : 110, 0);
-    }
-    /* the player to move: goods, coins, workers left; the round */
     int p = s->over ? -1 : s->cur;
-    box r = row_player;
-    float d = fminf(0.62f * u, 0.62f * r.h), cy = r.y + r.h / 2, x = r.x;
-    if (wide) d = fminf(0.62f * u, r.w / 7.2f);
-    if (wide) cy = r.y + r.h * 0.2f;
+    /* the rounds: the round's first player, those played, this one in gold light */
+    {
+        box r = row_track;
+        float rd = fminf(0.42f * r.h, r.w / (s->rounds * 1.8f + 3)), cy = r.y + r.h / 2;
+        float tw = s->rounds * rd * 1.8f + 1.4f * r.h, x = r.x + (r.w - tw) / 2;
+        if (!s->over) {
+            pic *f = pic_get(PIC_WORKER, s->start, 0, (int)(0.95f * r.h));
+            pic_at(f, x + 0.4f * r.h, cy + 0.45f * r.h, 1, 255);
+        }
+        x += 1.4f * r.h;
+        for (int i = 0; i < s->rounds; i++) {
+            float px = x + (i + 0.5f) * rd * 1.8f;
+            if (i == s->round && !s->over) ui_mark_gold_a(px, cy, 3 * rd, 0.9f);
+            if (i < s->round || s->over) ui_fill(px - rd / 2, cy - rd / 2, rd, rd, 120, 84, 50, 235);
+            else if (i == s->round) ui_fill(px - rd / 2, cy - rd / 2, rd, rd, 230, 180, 60, 255);
+            else ui_fill(px - rd / 2, cy - rd / 2, rd, rd, 84, 56, 36, 80);
+        }
+    }
+    /* the market: a stall a good */
+    static const uint8_t GOODC[3][3] = {{150, 102, 60}, {222, 178, 70}, {150, 146, 138}};
+    for (int g = 0; g < 3; g++) {
+        draw_pl(PL_INLAY, stall[g], 255);
+        icon_at(g, 0, mk_x[g], mk_y[g], mk_icon, 255);
+        box sb = stock_box[g];
+        float q = sb.w / VL_STOCK_MAX, e = fmaxf(1, 0.14f * q);
+        for (int i = 0; i < VL_STOCK_MAX; i++) {   /* the stock: a block a good, the empty places faint */
+            if (i < s->stock[g]) ui_fill(sb.x + i * q + e, sb.y, q - 2 * e, sb.h, GOODC[g][0], GOODC[g][1], GOODC[g][2], 255);
+            else ui_fill(sb.x + i * q + e, sb.y, q - 2 * e, sb.h, 60, 40, 24, 60);
+        }
+        trade_pill(pill_buy[g], g, 1, vl_buy_price(s, g), market_ok(VL_MV_BUY(g)));
+        trade_pill(pill_sell[g], g, 0, vl_sell_price(s, g), market_ok(VL_MV_SELL(g)));
+    }
+    /* the player to move: their token, goods, coins, the workers still to send */
     if (p >= 0) {
-        float td = 1.25f * d;
+        box r = row_player;
+        float d = fminf(0.62f * u, (wide ? 0.42f : 0.8f) * r.h), cy = wide ? r.y + 0.28f * r.h : r.y + r.h / 2;
+        if (!wide) d = fminf(d, r.w / 11.5f);
+        else d = fminf(d, r.w / 7.2f);
+        float x = r.x, td = 1.25f * d;
         pic *w = pic_get(PIC_WORKER, p, 0, (int)td);
-        ui_mark_gold_a(x + 0.4f * td, cy, 1.4f * td, 0.5f);
-        pic_at(w, x + 0.4f * td, cy + 0.45f * td, 1, 255);
-        x += 0.95f * td;
-        for (int g = 0; g < 3; g++) {
-            int red = mode && VL.cost[mode][g] > s->p[p].goods[g];
-            x = count_at(x, cy, d, g, 0, s->p[p].goods[g], 255, red);
-        }
-        if (wide) x = r.x, cy = r.y + r.h * 0.55f;   /* a wide panel: the coins and the workers on a line below */
+        ui_mark_gold_a(x + 0.45f * td, cy, 1.5f * td, 0.5f);
+        pic_at(w, x + 0.45f * td, cy + 0.45f * td, 1, 255);
+        x += 1.05f * td;
+        for (int g = 0; g < 3; g++) x = count_at(x, cy, d, g, 0, s->p[p].goods[g], 255, 0);
+        if (wide) x = r.x + 0.2f * d, cy = r.y + 0.74f * r.h;
         x = count_at(x, cy, d, IC_COIN, 0, s->p[p].coins, 255, 0);
-    }
-    float wy = cy, wx = x + 0.1f * d;
-    if (p >= 0)                                 /* the workers: those still to send bright */
-        for (int i = 0; i < s->p[p].workers; i++) {
-            pic *w = pic_get(PIC_WORKER, p, 0, (int)(0.85f * d));
-            pic_at(w, wx + (i + 0.5f) * 0.55f * d, wy + 0.38f * d, 1, i < s->p[p].workers - s->p[p].placed ? 255 : 70);
+        float wx = fmaxf(x, r.x + r.w - s->p[p].workers * 0.62f * d - 0.1f * d);
+        for (int i = 0; i < s->p[p].workers; i++) {   /* the workers: those still to send bright */
+            pic *wk = pic_get(PIC_WORKER, p, 0, (int)(0.95f * d));
+            pic_at(wk, wx + (i + 0.5f) * 0.62f * d, cy + 0.42f * d, 1, i < s->p[p].workers - s->p[p].placed ? 255 : 70);
         }
-    float rd = fminf(0.2f * u, (r.w * (wide ? 0.6f : 0.28f)) / (s->rounds * 1.5f)), rx = r.x + r.w - s->rounds * rd * 1.5f;
-    if (wide) wy = r.y + r.h * 0.9f;
-    if (!s->over) {                             /* the round's first player, before the rounds */
-        pic *f = pic_get(PIC_WORKER, s->start, 0, (int)(0.7f * d));
-        pic_at(f, rx - 0.5f * d, wy + 0.3f * d, 1, 255);
     }
-    for (int i = 0; i < s->rounds; i++) {       /* the rounds: those played, this one in gold light */
-        float px = rx + (i + 0.5f) * rd * 1.5f;
-        if (i == s->round && !s->over) ui_mark_gold_a(px, wy, 3 * rd, 0.9f);
-        if (i < s->round || s->over) ui_fill(px - rd / 2, wy - rd / 2, rd, rd, 120, 84, 50, 235);
-        else if (i == s->round) ui_fill(px - rd / 2, wy - rd / 2, rd, rd, 230, 180, 60, 255);
-        else ui_fill(px - rd / 2, wy - rd / 2, rd, rd, 84, 56, 36, 80);
-    }
-    /* the line: a building's cost, a land's harvest, else what this turn (or the last) did */
+    /* the buildings, each with its cost */
+    for (int i = 0; i < 6; i++) draw_card(i, p, now);
+    /* the line: a land's harvest, else what this turn (or the last) did */
     box b = row_info;
     float ld = fminf(0.56f * u, 0.7f * b.h), ly = b.y + b.h / 2, lx = b.x + 0.1f * u;
-    int k = mode ? mode : peek;
-    if (k && p >= 0) {
-        if (k >= VL_HOUSE) draw_building(k, p, lx + 0.5f * ld, ly + 0.3f * ld - 0.16f * ld * TILT, 1.15f * ld, 0, 255);
-        if (k == VL_ROAD) {                     /* a road: a strip of earth */
-            static const uint8_t dirt[3] = {196, 168, 120};
-            pzk_line(lx, ly + 0.2f * ld, lx + ld, ly - 0.2f * ld, 0.28f * ld, 1.5f, (pzk_rgba){dirt[0], dirt[1], dirt[2], 255},
-                     0);
-        }
-        lx += 1.3f * ld;
-        for (int g = 0; g < 3; g++)
-            if (VL.cost[k][g]) lx = count_at(lx, ly, ld, g, 0, VL.cost[k][g], 255, VL.cost[k][g] > s->p[p].goods[g]);
-        if (VL.pts[k]) {
-            lx += 0.2f * ld;
-            lx = count_at(lx, ly, ld, IC_STAR, 0, VL.pts[k], 255, 0);
-        }
-        int left = vl_left(s, p, k);
-        if (left >= 0) {                        /* the pieces still in hand */
-            pic *w = pic_get(PIC_BUILD, k == VL_ROAD ? VL_HOUSE : k, p, (int)(0.55f * ld));
-            float bx = b.x + b.w - 1.4f * ld;
-            if (k >= VL_HOUSE) pic_at(w, bx, ly + 0.3f * ld, 1, 200);
-            ink_number(bx + 0.7f * ld, ly, 0.6f * ld, left, 220, !left);
-        }
-    } else if (sel >= 0 && p >= 0 && !s->hidden[sel] && s->terr[sel] < VL_RIVER) {   /* a land: its harvest now */
+    if (sel >= 0 && p >= 0 && !s->hidden[sel] && s->terr[sel] < VL_RIVER) {   /* a land: its harvest now */
         pic *w = pic_get(PIC_WORKER, p, 0, (int)ld);
         pic_at(w, lx + 0.3f * ld, ly + 0.47f * ld, 1, 255);
         lx += 0.8f * ld;
@@ -1583,30 +1713,16 @@ static void paint_tool(int kind, int size, uint8_t *rgba)
 static void draw_tools(void)
 {
     const vl_state *s = S();
-    int p = s->cur, me = people_turn();
-    for (int i = 0; i < 6; i++) {
-        int k = TOOL_BLD[i], how = 0;
-        if (mode == k || peek == k) how = UI_ON;
-        else if (me && s->phase == VL_ACT && sel >= 0 && !mode) how = build_place(k, sel) ? UI_LIT : UI_DIM;
-        else if (!me || s->phase != VL_ACT || !vl_can_pay(s, p, k)) how = UI_DIM;
-        else {
-            int any = 0;
-            for (int c = 0; c < VL_CELLS && !any; c++) any = vl_can_build(s, p, k, c);
-            if (!any) how = UI_DIM;
-        }
-        ui_tool_paint(i, paint_tool, i + 8 * p, 0.86f, how | UI_IVORY);
-    }
     int ok = 0;
-    if (me) {
+    if (people_turn()) {
         if (s->phase == VL_HARVEST) {
             int mv[VL_MAXMOVES];
-            ok = (sel >= 0 && vl_harvestable(s, sel, p)) || (vl_moves(s, mv) == 1 && mv[0] == VL_REST);
+            ok = (sel >= 0 && vl_harvestable(s, sel, s->cur)) || (vl_moves(s, mv) == 1 && mv[0] == VL_REST);
         } else ok = 1;
     }
     ui_tool(T_OK, ICON_TICK, ok ? UI_LIT : UI_DIM);
 }
 
-/* the final table in the end card: each player's buildings' points, coins' points and total, the best first */
 static void draw_final(void)
 {
     const vl_state *s = S();
@@ -1713,22 +1829,25 @@ static void tap_cell(int c)
     ui_animate();
 }
 
-static void tool(int t)
+static void ok_tap(void)                        /* the tick: harvest the land chosen, build there, or end the turn */
 {
     const vl_state *s = S();
     if (!people_turn()) return;
-    if (t == T_OK) {
-        if (s->phase == VL_HARVEST) {
-            int mv[VL_MAXMOVES];
-            if (sel >= 0 && vl_harvestable(s, sel, s->cur)) act(sel);
-            else if (vl_moves(s, mv) == 1 && mv[0] == VL_REST) act(VL_REST);
-            else ui_sound(SND_DENY);
-        } else if (mode && sel >= 0 && build_place(mode, sel)) act(VL_MV_BUILD(mode, sel));
-        else act(VL_MV_END);
-        return;
-    }
+    if (s->phase == VL_HARVEST) {
+        int mv[VL_MAXMOVES];
+        if (sel >= 0 && vl_harvestable(s, sel, s->cur)) act(sel);
+        else if (vl_moves(s, mv) == 1 && mv[0] == VL_REST) act(VL_REST);
+        else ui_sound(SND_DENY);
+    } else if (mode && sel >= 0 && build_place(mode, sel)) act(VL_MV_BUILD(mode, sel));
+    else act(VL_MV_END);
+}
+
+static void build_tap(int t)                    /* building card t: chosen (its places marked), or built */
+{
+    const vl_state *s = S();
+    if (!people_turn() || t < 0 || t >= 6) return;
     int k = TOOL_BLD[t];
-    if (s->phase != VL_ACT) {                   /* not now: its cost shows */
+    if (s->phase != VL_ACT) {                   /* not now: it is only marked */
         peek = peek == k ? 0 : k;
         ui_sound(SND_TAP);
         ui_animate();
@@ -1748,16 +1867,32 @@ static void tool(int t)
     peek = 0;
     if (sel >= 0 && !build_place(k, sel)) sel = -1;
     if (sel < 0) sel = only_place(k);
-    ui_sound(SND_TAP);
+    ui_sound(card_ok(t) ? SND_TAP : SND_DENY);
     ui_animate();
+}
+
+static int in_box(box b, float x, float y) { return x >= b.x && y >= b.y && x < b.x + b.w && y < b.y + b.h; }
+
+/* a finger's slack round the panel's buttons (half the gap between them) */
+static int in_pad(box b, float x, float y)
+{
+    float m = 0.05f * ui.unit;
+    return x >= b.x - m && y >= b.y - m && x < b.x + b.w + m && y < b.y + b.h + m;
 }
 
 static int market_hit(float x, float y)         /* a buy (0..2) or a sell (3..5) button, else -1 */
 {
     for (int g = 0; g < 3; g++) {
-        if (ui_button_hit(mk_buy[g][0], mk_buy[g][1], mk_d, x, y)) return g;
-        if (ui_button_hit(mk_sell[g][0], mk_sell[g][1], mk_d, x, y)) return 3 + g;
+        if (in_pad(pill_buy[g], x, y)) return g;
+        if (in_pad(pill_sell[g], x, y)) return 3 + g;
     }
+    return -1;
+}
+
+static int card_hit(float x, float y)           /* a building card, else -1 */
+{
+    for (int i = 0; i < 6; i++)
+        if (in_pad(card[i], x, y)) return i;
     return -1;
 }
 
@@ -1768,20 +1903,18 @@ static void market(int b)
     if (!market_ok(m)) { ui_sound(SND_DENY); return; }
     act(m);
 }
-
 #define MAX_FINGERS 2
 static struct { int id; float x, y; } fg[MAX_FINGERS];
-static int nfg, moved, pinching, mouse_down, mk_down = -1;
+static int nfg, moved, pinching, mouse_down, mk_down = -1, card_down = -1;
 static float g_x0, g_y0, g_cx0, g_cy0, g_d0, g_s0, g_wx, g_wy;
 
 static float slop(void) { return 0.016f * fminf(ui.w, ui.h); }
-static int in_box(box b, float x, float y) { return x >= b.x && y >= b.y && x < b.x + b.w && y < b.y + b.h; }
 
 static void tap_at(float x, float y)
 {
     if (in_box(panel, x, y)) {
         if (!people_turn()) return;
-        if (in_box(row_info, x, y) || in_box(row_player, x, y)) { peek = 0; ui_animate(); }
+        if (in_box(row_info, x, y) || in_box(row_player, x, y) || in_box(row_track, x, y)) { peek = 0; ui_animate(); }
         return;
     }
     if (in_box(view, x, y)) tap_cell(pick(x, y));
@@ -1810,8 +1943,8 @@ static int down_on_button(float x, float y)
 {
     tool_down = ui_tool_hit(x, y);
     if (tool_down >= 0) { ui_animate(); return 1; }
-    mk_down = market_hit(x, y);
-    return mk_down >= 0;
+    if ((mk_down = market_hit(x, y)) >= 0) return 1;
+    return (card_down = card_hit(x, y)) >= 0;
 }
 
 static int up_on_button(float x, float y)
@@ -1820,13 +1953,19 @@ static int up_on_button(float x, float y)
         int t = tool_down;
         tool_down = -1;
         ui_animate();
-        if (ui_tool_hit(x, y) == t) tool(t);
+        if (ui_tool_hit(x, y) == t && t == T_OK) ok_tap();
         return 1;
     }
     if (mk_down >= 0) {
         int b = mk_down;
         mk_down = -1;
         if (market_hit(x, y) == b) market(b);
+        return 1;
+    }
+    if (card_down >= 0) {
+        int b = card_down;
+        card_down = -1;
+        if (card_hit(x, y) == b) build_tap(b);
         return 1;
     }
     return 0;
@@ -1912,8 +2051,8 @@ static void key(SDL_Keycode k)
         ui_animate();
     } else if (k == SDLK_RETURN || k == SDLK_KP_ENTER || k == SDLK_SPACE) {
         if (s->phase == VL_HARVEST && sel >= 0 && vl_harvestable(s, sel, s->cur)) tap_cell(sel), tap_cell(sel);
-        else tool(T_OK);
-    } else if (k >= SDLK_1 && k <= SDLK_6) tool((int)(k - SDLK_1));
+        else ok_tap();
+    } else if (k >= SDLK_1 && k <= SDLK_6) build_tap((int)(k - SDLK_1));
     else if (k == SDLK_PLUS || k == SDLK_EQUALS || k == SDLK_KP_PLUS || k == SDLK_PAGEUP) {
         user_cam = 1;
         cam_to(cam_go ? cam_tx : cam_x, cam_go ? cam_ty : cam_y, (cam_go ? cam_ts : cam_s) * 1.3f);
@@ -1988,5 +2127,6 @@ static const game valley_game = {
     .press = press, .motion = motion, .release = release, .undo = undo, .turn = turn, .status = status,
     .bar = bar, .script = script, .busy = busy, .winners = winners, .key = key, .finger = finger,
     .players = 1u << 2 | 1u << 3 | 1u << 4, .home = home, .fill = 1, .tools = TOOLS, .history = history,
+    .variant_first = 2,                         /* a first game: the open valley, nothing face down */
 };
 REGISTER_GAME(valley_game)
