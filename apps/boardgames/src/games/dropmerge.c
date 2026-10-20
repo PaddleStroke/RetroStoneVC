@@ -999,6 +999,12 @@ static void put_fruit(int s, float cx, float cy, float r, float ang, float fw, f
     }
 }
 
+/* the height of the game's own digits on the screen (units): whole pixels, the same every frame. The shell keeps the
+ * digits of the last 6 heights only and makes 10 new textures (each digit drawn by the font) for any other: numbers
+ * whose height changed every frame (a popping chain count, a merge's points sized by its fruit, several at once) made
+ * dozens of textures a frame while fruits merged (up to 40; the likely cause of a crash on a phone while they merged) */
+static float num_h(float units) { return fmaxf(14, roundf(units * k)); }
+
 static void soft_dot(float cx, float cy, float d, const uint8_t *rgb, float a, int add)
 {
     if (!t_dot || a <= 0) return;
@@ -1151,7 +1157,7 @@ static void draw(void)
             }
         }
         if (fx[i].pts > 0) {
-            float f = t / 900, h = fmaxf(14, 26 * k * (0.8f + 0.04f * fx[i].size));
+            float f = t / 900, h = num_h(26);   /* one height for all (the shell keeps its digits by height) */
             float a = f < 0.7f ? 1 : (1 - f) / 0.3f;
             float yy = y - r - 10 * k - 40 * k * puz_ease(f);
             ui_number_ex(x + 0.04f * h, yy + 0.05f * h, h, fx[i].pts, (const uint8_t[]){40, 24, 12}, (Uint8)(120 * a), 0);
@@ -1209,7 +1215,7 @@ static void draw(void)
         SDL_SetTextureAlphaMod(t_chain, (Uint8)(255 * a));
         ui_put_c(t_chain, cx, cy, d, d);
         SDL_SetTextureAlphaMod(t_chain, 255);
-        float h = 24 * k * pop;
+        float h = num_h(28);                    /* steady (the mark pops, not the digits: see num_h) */
         ui_number_ex(cx + 0.9f * d + 0.04f * h, cy + 0.05f * h, h, chainfx.n, (const uint8_t[]){40, 24, 12}, (Uint8)(120 * a), 0);
         ui_number_ex(cx + 0.9f * d, cy, h, chainfx.n, PZK_GOLD, (Uint8)(255 * a), 0);
         ui_animate();

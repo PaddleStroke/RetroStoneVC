@@ -48,8 +48,9 @@ static void event(dmj_world *w, int type, int size, int32_t x, int32_t y, int pt
     e->type = (uint8_t)type;
     e->size = (uint8_t)size;
     e->chain = (uint8_t)(w->chain > 255 ? 255 : w->chain);
-    e->x = (int16_t)(x / (DMJ_FP / 16));
-    e->y = (int16_t)(y / (DMJ_FP / 16));
+    int32_t ex = x / (DMJ_FP / 16), ey = y / (DMJ_FP / 16);   /* (a fruit flung far: kept in range) */
+    e->x = (int16_t)(ex < -32000 ? -32000 : ex > 32000 ? 32000 : ex);
+    e->y = (int16_t)(ey < -32000 ? -32000 : ey > 32000 ? 32000 : ey);
     e->tick = w->tick;
     e->pts = pts;
     e->force = force;
@@ -293,7 +294,8 @@ static void physics(dmj_world *w, int merging)
             b->fresh = 0;
             event(w, DMJ_E_LAND, b->size, b->x, b->y, 0, vy0[i], b->id);
         }
-        if (hit[i]) b->ang += (int32_t)((int64_t)b->vx * 10430 / (b->r ? b->r : 1));
+        if (hit[i])                             /* (a turn: kept to one, never overflowing in a long game) */
+            b->ang = (int32_t)(((uint32_t)b->ang + (uint32_t)(int32_t)((int64_t)b->vx * 10430 / (b->r ? b->r : 1))) & 0xffff);
         b->hit = hit[i];
         int32_t v = b->vx < 0 ? -b->vx : b->vx, u = b->vy < 0 ? -b->vy : b->vy;
         if (v > fastest) fastest = v;

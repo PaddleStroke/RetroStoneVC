@@ -186,12 +186,92 @@ static void test_speed(void)
     CHECK(sane(&w));
 }
 
+/* every fruit sound: a size, a radius, a turn in range; the last events in range */
+static int whole(const dmj_world *w)
+{
+    if (w->nb < 0 || w->nb > DMJ_MAXB) return 0;
+    for (int i = 0; i < w->nb; i++) {
+        const dmj_ball *b = &w->b[i];
+        if (b->size < 1 || b->size > DMJ_SIZES || b->r <= 0 || b->r > dmj_radius[DMJ_SIZES] * DMJ_FP) return 0;
+        if (b->ang < -32768 || b->ang > 65535) return 0;
+    }
+    for (int i = w->nev > DMJ_EVENTS ? w->nev - DMJ_EVENTS : 0; i < w->nev; i++) {
+        const dmj_event *e = &w->ev[i % DMJ_EVENTS];
+        if (e->size < 1 || e->size > DMJ_SIZES || e->type > DMJ_E_GONE) return 0;
+    }
+    return 1;
+}
+
+/* the crash hunt's cases (the owner's phone, fruits merging): fruits at exactly the same place (no distance between
+ * their centres), the biggest ones merging in pairs (both gone) at the walls, on the floor and on pegs, chains, fruits
+ * crammed past what the jar holds, a long game rolling (the turn kept in range), the clock jumped; then random jars
+ * with drops at random times and places (a fuzz kept short here; the full one ran with ASan and UBSan, and on 32-bit
+ * ARM) */
+static void test_hard(void)
+{
+    dmj_jar j;
+    dmj_world w;
+    /* the same place twice, and twice again: pushed apart without a division by zero, then merged */
+    CHECK(dmj_parse(&j, DMJ_SCORE, 9999, 0, 280, "5555", "140 300 12", "11 140 200 11 140 200 10 106 300 10 106 300 1 140 100 1 140 100"));
+    dmj_build(&w, &j);
+    CHECK(whole(&w));
+    w.rest = 0;                                 /* (woken: the jar is built at rest) */
+    for (int t = 0; t < 600; t++) dmj_step(&w);
+    CHECK(whole(&w) && w.score >= 66);
+    /* drops onto one spot as fast as the dropper allows, at both walls: chains, watermelons gone */
+    CHECK(dmj_parse(&j, DMJ_SCORE, 999999, 0, 280, "111111111111111111111111111111111111111111111111111111111111", "", ""));
+    for (int side = 0; side < 3; side++) {
+        dmj_build(&w, &j);
+        for (int d = 0; d < 60; d++) {
+            while (!dmj_can_drop(&w) && w.end == DMJ_PLAYING) dmj_step(&w);
+            dmj_drop(&w, side == 0 ? 0 : side == 1 ? 280 * DMJ_FP : 140 * DMJ_FP);
+            CHECK(whole(&w));
+        }
+        dmj_settle(&w, 2000);
+        CHECK(whole(&w) && w.best_chain >= 2);
+    }
+    /* long endless games (many merges, the clock jumping now and then), their fruits rolling all the while */
+    uint32_t rs = 7;
+    for (int v = 0; v < DMJ_VARIANTS; v++) {
+        dmj_endless(&G, v, 4242u + (unsigned)v);
+        for (int d = 0; d < 400 && G.w.end == DMJ_PLAYING; d++) {
+            dmj_play(&G.w, NULL, 0, 120, &rs, 1, NULL);
+            if (d % 37 == 0) dmj_run(&G.w, 100000);
+            CHECK(whole(&G.w));
+        }
+    }
+    /* random jars, random drops at random times */
+    int bad = 0;
+    for (int s = 1; s <= 60; s++) {
+        rs = pr_seed((uint32_t)s);
+        char seq[DMJ_SEQ + 1], pegs[256] = "", pre[512] = "";
+        int L = 1 + pr_below(&rs, DMJ_SEQ);
+        for (int i = 0; i < L; i++) seq[i] = (char)('1' + pr_below(&rs, 5));
+        seq[L] = 0;
+        int width = 232 + pr_below(&rs, 169), np = pr_below(&rs, DMJ_MAXPEG + 1), nq = pr_below(&rs, DMJ_MAXPRE + 1);
+        char *p = pegs;
+        for (int i = 0; i < np; i++) p += sprintf(p, "%d %d %d ", pr_below(&rs, width + 1), pr_below(&rs, DMJ_JH + 1), 1 + pr_below(&rs, 30));
+        p = pre;
+        for (int i = 0; i < nq; i++) p += sprintf(p, "%d %d %d ", 1 + pr_below(&rs, 11), pr_below(&rs, width + 1), pr_below(&rs, DMJ_JH + 1));
+        CHECK(dmj_parse(&j, 1 + pr_below(&rs, 4), 1 + pr_below(&rs, 5000), 1 + pr_below(&rs, 11), width, seq, pegs, pre));
+        dmj_build(&w, &j);
+        for (int k = 0; k < 400 && w.end == DMJ_PLAYING; k++) {
+            if (pr_below(&rs, 2)) dmj_drop(&w, pr_below(&rs, width * DMJ_FP + 1));
+            for (int t = pr_below(&rs, 30); t > 0; t--) dmj_step(&w);
+            if (pr_below(&rs, 40) == 0) dmj_run(&w, pr_below(&rs, 100000));
+            if (!whole(&w)) bad++;
+        }
+    }
+    CHECK(bad == 0);
+}
+
 int main(void)
 {
     test_merge();
     test_physics();
     test_levels();
     test_script();
+    test_hard();
     test_speed();
     if (fails) {
         printf("dropmerge: %d FAILED\n", fails);
