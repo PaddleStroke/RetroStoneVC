@@ -15,7 +15,10 @@
  * are drawn from the time it was fired, so a game played again from its record looks the same; a new shot waits until
  * the last one has landed (ui_ms arithmetic). The tools: restart, the lamp (the hint: the aim of a way to win, in gold;
  * from a lost position it first takes shots back). Undo takes back one shot, all the way to the start. The bar: the
- * shots made, and the par by the flag; beside the launcher, the shots left. Stars: the shots against the par.
+ * shots made, and the par by the flag; beside the launcher, the shots left. Stars: the shots against the par. A try
+ * lost (out of shots, a marble past the line) shows what went wrong, then the box veils under a big restart button
+ * whose ring of lights goes out until the level starts again by itself; a tap anywhere restarts at once, and undo
+ * still takes back the losing shot (from the try before a restart too).
  */
 #include <math.h>
 #include <stdlib.h>
@@ -37,6 +40,7 @@
 #define AIM_MS 110                              /* the keys' aim easing to its next place */
 #define DROP_MS 360                             /* the ceiling coming down */
 #define WIN_MS 1500
+#define LOST_MS 2200                            /* a lost try shown before the level starts again */
 #define GRAV 0.00005f                           /* falling, steps a ms squared (scaled by BUB_D) */
 #define NFX 360
 
@@ -66,6 +70,8 @@ static struct {
 static struct { int on; Uint32 t0; } swp, load, win;
 static struct { int on, from, to; Uint32 t0; } aimk;
 static Uint32 lose_t0, deny_t0;
+static bub_game pre;                            /* the try before the last restart (undo goes back into it) */
+static int have_pre;
 
 typedef struct {
     uint8_t kind, code;
@@ -412,6 +418,7 @@ static void begin(void)
     serial++;
     calm();
     aim = 0;
+    have_pre = 0;
     if (last_box.w > 0) layout(last_box);
 }
 
@@ -576,26 +583,44 @@ static void do_swap(void)
     ui_animate();
 }
 
+/* a new try from the start; the try before it is kept, so undo can take back its last shot */
 static void restart(void)
 {
     if (!G.nh) { ui_sound(SND_DENY); return; }
-    int hints = G.hints;
-    bub_new(&G, &G.L);
-    G.hints = hints;
+    static bub_game fresh;
+    pre = G;
+    have_pre = 1;
+    bub_new(&fresh, &G.L);
+    fresh.hints = G.hints;
+    G = fresh;
     calm();
     ui_sound(SND_TAP);
     ui_animate();
 }
 
+/* a try lost (out of shots, a marble past the line): shown a moment, then the level starts again by itself */
+static void lost_tick(void)
+{
+    if (lost() && lose_t0 && (int)(ui_ms() - lose_t0) >= LOST_MS) restart();
+}
+
 static int undo(void)
 {
-    int ok = bub_undo(&G);
+    int ok;
+    lost_tick();
+    if (!G.nh && have_pre) {                    /* just restarted: back to the try before, its last shot taken back */
+        G = pre;
+        have_pre = 0;
+        ok = 1;
+        bub_undo(&G);
+    } else ok = bub_undo(&G);
     calm();
     return ok;
 }
 
 static void hint(void)
 {
+    lost_tick();
     if (won()) { ui_sound(SND_DENY); return; }
     bub_move m;
     int had = G.nh;
@@ -619,6 +644,7 @@ static int script(const char *moves)
     calm();
     int ok = bub_script(&G, moves);
     if (won()) { win.on = 1; win.t0 = ui_ms() - WIN_MS; }
+    if (lost()) lose_t0 = ui_ms();
     return ok;
 }
 
@@ -924,6 +950,7 @@ static void draw_launcher(Uint32 now)
 static void draw(void)
 {
     if (made_k < 0 || made_serial != serial) layout(last_box);
+    lost_tick();
     Uint32 now = ui_ms();
     ui_put(t_board, ox - fr, oy - fr, (float)bw, (float)bh);
     float drop = drop_now(now);
@@ -963,6 +990,20 @@ static void draw(void)
         }
         if (t < WIN_MS + 400) ui_animate();
     }
+    if (lost() && lose_t0 && (int)(now - lose_t0) >= 0) {   /* lost: the box veiled, a big restart in it, its ring
+                                                 * closing round it until the level starts again by itself */
+        float t = clampf((float)(int)(now - lose_t0) / LOST_MS, 0, 1), cx = SX(G.L.w * BUB_D / 2.0f);
+        float cy = SY(G.L.rows * BUB_ROWH * 0.55f), d = fmaxf(2.0f * BUB_D * k, 1.6f * ui.unit), a = clampf(t * 6, 0, 1);
+        ui_fill(ox, oy, G.L.w * BUB_D * k, (float)bub_field_h(&G.L) * k, 0, 0, 0, (Uint8)(90 * a));
+        ui_mark_gold_a(cx, cy, d * (1.9f + 0.15f * sinf(now / 180.0f)), 0.7f * a);
+        for (int i = 0; i < 24; i++) {          /* the countdown: dots round the button, going out one by one */
+            float ang = -PUZ_PI / 2 + i * 2 * PUZ_PI / 24, on = (float)i / 24 >= t;
+            pzk_dot(cx + cosf(ang) * 0.78f * d, cy + sinf(ang) * 0.78f * d, 0.1f * d, 1,
+                    (pzk_rgba){255, 226, 140, (Uint8)(a * (on ? 255 : 60))}, 0);
+        }
+        ui_button(cx, cy, d, ICON_REPLAY, UI_LIT);
+        ui_animate();
+    }
     if (busy()) ui_animate();
     int glow_restart = lost() || (deny_t0 && (int)(now - deny_t0) < 900);
     ui_tool(T_RESTART, ICON_REPLAY, (glow_restart ? UI_LIT : G.nh ? 0 : UI_DIM) | (tool_down == T_RESTART ? UI_ON : 0));
@@ -991,11 +1032,12 @@ enum { P_NONE, P_AIM, P_NEXT, P_LAUNCH };
 
 static void press(float x, float y)
 {
+    lost_tick();
     tool_down = ui_tool_hit(x, y);
     press_on = P_NONE;
     if (tool_down >= 0) { ui_animate(); return; }
     if (G.s.end != BUB_PLAYING) {
-        if (lost()) { deny_t0 = ui_ms(); ui_sound(SND_DENY); ui_animate(); }
+        if (lost()) restart();                  /* lost: a tap anywhere starts again */
         return;
     }
     fx0 = x;
@@ -1051,6 +1093,7 @@ static void release(float x, float y)
 /* the keys: left and right step the aim to the next landing place that way, up shoots, down swaps */
 static void key(SDL_Keycode kc)
 {
+    lost_tick();
     if (kc == SDLK_r) { restart(); return; }
     if (G.s.end != BUB_PLAYING) return;
     if (kc == SDLK_UP || kc == SDLK_RETURN || kc == SDLK_SPACE || kc == SDLK_KP_ENTER) { fire(aim, 0); return; }
