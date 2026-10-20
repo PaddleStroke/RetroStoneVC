@@ -271,7 +271,18 @@ static void chapters(const char *dir)
         count[c] = chapter_parse(s, rooms[c], MAX_ROOMS, err, sizeof err);
         CHECK(count[c] > 0, "%s: %s", path, count[c] < 0 ? err : count[c] ? "parsed" : "no room");
         free(s);
-        for (int i = 0; i < count[c]; i++) berries += rooms[c][i].has_berry;
+        for (int i = 0; i < count[c]; i++) {
+            berries += rooms[c][i].has_berry;
+            /* a side that is not the way out is a wall you can see: its column all rock */
+            const room *r = &rooms[c][i];
+            for (int side = 0; side < 2; side++) {
+                int col = side ? ROOM_W - 1 : 0, open = 0;
+                if (r->exit_side == (side ? EXIT_RIGHT : EXIT_LEFT)) continue;
+                for (int y = 0; y < ROOM_H; y++) open += r->cell[y][col] != C_ROCK;
+                CHECK(!open, "room %d-%d: its %s side is not the way out but has %d open cells (draw the wall)", c + 1,
+                      i + 1, side ? "right" : "left", open);
+            }
+        }
         if (count[c] > 0) total += count[c];
     }
     printf("  %d rooms, %d berries\n", total, berries);

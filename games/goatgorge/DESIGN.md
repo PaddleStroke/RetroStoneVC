@@ -55,9 +55,11 @@ a 2-px shake and a trail of 5 ghosts (added half), a burst on a death, a flash o
 
 ## The rooms (levels/README.md: the format; levels/chN.txt)
 Single screens of 20 x 15 cells of 16 px. The way out is one side (`exit=` on the room's line): leaving through it fades
-to the next room; falling out of the bottom is a death. Every other open side is sky: an unseen wall at the screen's
-sides, and above it the kid may jump off the screen (a small arrow shows where) and comes back down. Only the crystal
-cave has ceilings. Each room has one idea and a flow (the entrance, the challenge, a breather, the way out), its berry
+to the next room; falling out of the bottom is a death. Every other side is a wall drawn in the room (its column of
+rock: the way out is the one open side), and above the walls the sky is open: the kid may jump off the screen (a small
+arrow shows where) and comes back down. Only the crystal cave has ceilings. Each room has one idea and a flow (the
+entrance, the challenge, a breather, the way out), no empty stretch without a purpose (thorns under a jump, a thorny
+branch capping its height, a spike pillar in a gap, a safe long way beside a risky short one), its berry
 in sight of the main route, and the chapter's decorations (`d`: a flowering bush, mushrooms on a stump, crystals, a
 wind banner, a cairn; and moss, roots, crystals or icicles under the rock). Every room is checked and solved by `tests/solver.c` (a
 breadth-first search over the touch buttons' inputs, run through the game's own rules): `levels/solutions.txt` holds

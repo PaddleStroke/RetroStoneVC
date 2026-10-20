@@ -1,13 +1,15 @@
 # Goat Gorge, chapter 3: the crystal cave, the only enclosed chapter. Rafts that move (first over safe ground), spikes
-# under the ceiling, crystals in a row, crystal clusters. The format: levels/README.md.
+# under the ceiling and on the walls, crystals in a row, crystal clusters. Denser and sharper than the open chapters.
+# The format: levels/README.md.
 
-# 1 the raft: it waits, then carries you over the dark; the berry above its path, a jump off it
+# 1 the raft: it waits, then carries you over the dark; the berry above its path, a jump off it between the
+# stalactites
 room hint=7
 ####################
 ####################
 ###...######....####
 #.....######.......#
-#........##........#
+#.....vvv##v.......#
 #.........B........#
 #..................#
 #..................#
@@ -19,25 +21,25 @@ room hint=7
 ####...........#####
 ####...........#####
 
-# 2 a lift: a raft going up and down; ride it, jump off at the top; the berry: a dash right from the top
+# 2 a lift between spiked walls: ride it up, jump off at the top; the berry: a dash right from the top
 room
 #######....#########
 #######....#########
 #######....###...###
 #..................#
 #.......x..........#
-#..................#
-#..................#
-#................B.#
-#.............####.#
-#..................#
+#.....>............#
+#.....>....<.......#
+#.....>....<.....B.#
+#.....>....<..####.#
+#..........<.......#
 #..............d...#
 #.......VV.....#####
 #S.................#
 ####################
 ####################
 
-# 3 a raft under a ceiling of spikes: crouch the jumps (tap A), ride over the spike bed; the berry under the spikes
+# 3 a raft under a ceiling of spikes, over a spike bed: crouch the jumps (tap A); the berry under the ceiling
 room
 ####################
 ####################
@@ -55,7 +57,7 @@ room
 ####################
 ####################
 
-# 4 two crystals in a row over the spikes, the ceiling's spikes above: dash, crystal, dash; the berry between them
+# 4 crystals in a row over the spikes, a spike pillar between them to weave round; the berry over the pillar
 room
 ####################
 ####################
@@ -65,11 +67,11 @@ room
 #.........B........#
 #..................#
 #......*.....*.....#
-#...................
-#...................
-#S.d................
-###^^^^^^^^^^^^^^###
-####################
+#..................#
+#.........^.........
+#.........#.........
+#Sd.......#.........
+###^^^^^^^#^^^^^^###
 ####################
 ####################
 
@@ -91,7 +93,7 @@ room
 ####################
 ####################
 
-# 6 a raft, crumbling rocks, a crystal high up; the berry on a shelf at the left
+# 6 a raft, crumbling rocks, a crystal high up: the rocks fall while the raft comes back; the berry on a shelf left
 room
 ####################
 ####################
@@ -109,7 +111,7 @@ room
 ####################
 ####################
 
-# 7 two rafts at two heights, crossing over a long spike bed; the berry over the lower raft's far end
+# 7 two rafts at two heights over a long spike bed; the berry over the lower raft's far end
 room
 #################..#
 #################..#
@@ -137,7 +139,7 @@ room hint=9
 #..................#
 #.....o......o......
 #....###....###.....
-#.....^^^^^^^^......
+#....vvv....vvv.....
 #.......*...........
 #..................#
 #S.......d.........#
@@ -145,7 +147,7 @@ room hint=9
 ####################
 ####################
 
-# 9 a lift, a crystal, crumbling rocks: up to the cave's crack; the berry beside the crystal
+# 9 a lift, a crystal, crumbling rocks: up to the cave's crack, spikes on the right wall; the berry beside the crystal
 room
 ###...##############
 ###...##############
@@ -155,8 +157,8 @@ room
 #..........*.......#
 #...............B..#
 #.............####.#
-#..................#
-#...VV.............#
+#.................<#
+#...VV............<#
 #..................#
 #.........====.....#
 #S..............d..#
