@@ -11,8 +11,10 @@ crows and locusts come from every side, more and tougher with the minutes. The h
 work by themselves (a seed shot, a watering can, bees, a toy mower, a boomerang rake, pumpkin bombs, a ring of
 prickles, a chili trail, dandelion puffs). Pests pop into puffs and leave gems; gems bring levels; each level offers
 three choices: a new tool or a passive, or a level more of one. A tool at its top level with its passive evolves.
-Three bosses come at 5:00, 10:00 and 15:00; chase off the Crow King and the garden is saved. Coins buy small boosts in
-the garden shed for the next runs, and two more gardeners: a sturdy tortoise and a quick hen. Family-friendly: pests
+One endless run: survive as long as you can. Bosses come at 5:00, 10:00 and 15:00; chasing off the Crow King is a
+milestone (GARDEN SAVED!, the pests on the field pop, a big chest), then the run goes on, the bosses come back
+stronger every five minutes and the garden grows wilder until the gardener is down. The score: the time survived
+(and the pests chased). Coins buy small boosts in the garden shed for the next runs, and two more gardeners: a sturdy tortoise and a quick hen. Family-friendly: pests
 are chased off and pop, nothing is hurt.
 
 ## Controls
@@ -73,7 +75,7 @@ of the others. The moonlit garden (opened by a run past 10:00): health x1.25, sp
 | locust | 28 | 0.88 (hops x1.5) | 8 | 3 | 8:00 |
 | Slug Queen | 2500 | 0.5 | 14 | 60 | 5:00: six slugs come out every 4 s |
 | Stag Beetle | 9000 | 0.44 | 15 | 100 | 10:00: stops, shakes 0.75 s (the warning), charges 3 px/f for 0.73 s |
-| Crow King | 36000 | 0.75 | 22 | 140 | 15:00: circles at 110 px, dives through, calls crows; chased off: the garden is saved |
+| Crow King | 36000 | 0.75 | 22 | 140 | 15:00: circles at 110 px, dives through, calls crows; chased off: the 15:00 milestone, the run goes on |
 
 Events: a ring of 20 aphids closing in at 1:30, an elite beetle with a chest at 3:00, a column of 18 ants at 4:00, a
 ring of 32 aphids at 6:30, an elite thistle at 7:30, a wasp swarm at 8:30, a ring of 36 locusts at 11:30, an elite
@@ -96,10 +98,19 @@ Passives (5 levels): compost +10% damage, sun hat +10% area, garden boots +8% sp
 every 2 s a level, magnet +25% gem reach, sundial -6% cooldowns, seed pouch +1 shot (levels 1, 3, 5: seeds, rakes,
 pumpkins, bees, mowers, puffs), clover +8% XP and +15% coins (and luckier drops).
 
+### The endless run
+There is no end: the gardener plays until it is down. The 15:00 milestone (the Crow King chased off): the banner
+GARDEN SAVED!, two seconds with no new pest while the ones on the field pop, the boss's chest (3 upgrades) and its
+coins. Then: a boss again every 5 minutes from 20:00 (the Slug Queen, the Stag Beetle, the Crow King in turn, with
+health x(2 + round)), a ring, a column, a swarm or an elite every minute from 16:00, the pests' health climbing
+faster and faster (x10 at 20:00, x28 at 25:00, x58 at 30:00), their touch +0.2 a minute (x2.6 at 20:00, x3.8 at
+25:00), their speed +3% a minute. The results: TIME (NEW BEST, or the best to beat), PESTS CHASED, LEVEL, COINS; the
+best time and its pests are kept (the title shows them). The bot's strongest runs (a full build) end at 26:00-28:00.
+
 ### Difficulty
 A gentle first three minutes (the tests: the bot, with random choices, survives them on three seeds, and 5:00 on a
 fourth), the first boss and a real crowd by 5:00-7:00, the Stag Beetle and a full arena at 10:00, the most pests and
-the Crow King at 15:00: survivable with a good build, tense. The bot (it flees the pests, leaves many gems, chooses at
+the Crow King at 15:00: survivable with a good build, tense; then harder and harder. The bot (it flees the pests, leaves many gems, chooses at
 random) lasts to 10:00-11:00 on most seeds, to 15:00 on about one in four; a player who gathers the gems and chooses
 well gets further. A normal phone player meets the first elite (a chest) at 3:00 and should reach the Slug Queen.
 
@@ -145,14 +156,15 @@ in landscape and back (`ht_shape_reset`, tests/tall_test.sh).
 House synthesiser effects (main.c sound_init): a seed's pop, a hit's tick, a pest's pop, the gem's ping (pitched up
 by a quick run of gems; a coin: the same higher), the level-up chime, a hurt "oof", the splash, a pumpkin's burst, a
 rake's or a mower's whoosh, a chest's fanfare, a boss's rumble; the house set for the rest (the medal for a boss chased
-off and the garden saved). Two 4-channel MODs (tools/make_music.py, original): "Garden Patrol" (G mixolydian, the
+off and the 15:00 milestone). Two 4-channel MODs (tools/make_music.py, original): "Garden Patrol" (G mixolydian, the
 title and the run) and "Big Pest" (A minor, while a boss is out).
 
 ## Save RAM
 `PRKL`, version 1: the best run (its seconds at offset 8: apps/launcher/games.cfg best=8; its pests, its level), the
-coins, the gardeners bought, the boosts, the gardens open, the last gardener and garden, runs, wins, and the run in
-progress (a snapshot: the time, level, XP, health, tools and passives, the spawner's events done, the RNG; written
-every 30 s and when the run is left from the pause; CONTINUE starts it again on an empty field at that time).
+coins, the gardeners bought, the boosts, the gardens open, the last gardener and garden, runs, the runs past
+15:00, and the run in progress (a snapshot: the time, level, XP, health, tools and passives, the spawner's events
+done, the endless part's rounds, the RNG; written every 30 s and when the run is left from the pause; CONTINUE
+starts it again on an empty field at that time).
 
 ## Tests
 `make pricklepatch-check`: the libretro loader; the smoke tests (the title, buying a gardener, the shed, a level-up's

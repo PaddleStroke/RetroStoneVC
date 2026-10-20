@@ -3,7 +3,7 @@
 # shed), a run, a level-up's choice, a chest, pause (the time frozen; B: the run kept, CONTINUE or a new run on the
 # title), the game over and the best run in save RAM, the bot surviving its first minutes with random choices (several
 # seeds, the strict mode on: no sprite, VRAM or voice guideline exceeded), a late garden (minute 10, a boss) within
-# the guidelines too, determinism.
+# the guidelines too, the endless run (15:00's Crow King a milestone, the bosses back at 20:00), determinism.
 #   smoke_test.sh <headless binary> <tmp dir> [quick]
 # MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/pricklepatch/LICENSE.
 H=$1
@@ -103,6 +103,12 @@ if [ -z "$Q" ]; then
     out=$(run --frames 1800 --opt bot=1 --opt ready=1 --opt seed=7 --opt time=900 --opt god=1 --opt strict=1)
     check "15:00: the Crow King" "boss 3 at 15:00" "$out"
     nostrict "15:00" "$out"
+    out=$(run --frames 6000 --opt bot=1 --opt ready=1 --opt seed=2 --opt time=899 --opt god=1)
+    check "an endless run: the Crow King chased off is a milestone, the run goes on" \
+        "the garden is saved (the milestone) at 15:.*state: st=[123] .*won=1 " "$(echo $out)"
+    out=$(run --frames 1300 --opt bot=1 --opt ready=1 --opt seed=7 --opt time=1199 --opt god=1 --opt strict=1)
+    check "... and at 20:00 the Slug Queen comes back (stronger)" "boss [0-9]* at 20:00" "$out"
+    nostrict "20:00" "$out"
 fi
 
 # determinism: the same inputs, the same run (state hash and picture), twice

@@ -17,7 +17,12 @@
 /* ---- units ------------------------------------------------------------------------------------------------------- */
 #define FX           16             /* world positions: 1 px = 16 sub-pixels (Q4); speeds in sub-pixels per frame */
 #define SEC          60             /* frames per second */
-#define RUN_FRAMES   (15 * 60 * SEC)    /* the final boss comes at 15:00 */
+/* the run is endless: survive as long as you can. 15:00 is a milestone (the Crow King); then the bosses come back
+ * stronger every BOSS_EVERY seconds from BOSS_AGAIN, and a ring, a column, a swarm or an elite every EXTRA_EVERY s */
+#define BOSS_AGAIN   1200           /* s: the first return (20:00) */
+#define BOSS_EVERY   300
+#define EXTRA_EVERY  60
+#define CELEBRATE    120            /* frames: the milestone's pests pop, none come */
 
 /* ---- the gardener ------------------------------------------------------------------------------------------------- */
 #define HERO_R       7              /* px: the body's radius against the pests */
@@ -152,7 +157,11 @@ typedef struct world {
     int boss, boss_type, boss_hpmax;    /* the boss alive (an index), -1 none */
     int bosses_done;                /* bits: the bosses beaten */
     uint32_t events_done;           /* bits: the spawner's events already played */
-    int hitstop, won, dead, chest_open;   /* chest_open: a chest was just touched (main.c shows it) */
+    int hitstop, won, dead, chest_open;   /* won: the 15:00 milestone reached (the Crow King chased off, the run goes on);
+                                          * chest_open: a chest was just touched (main.c shows it) */
+    int celebrate;                  /* frames left of the milestone's celebration (the pests pop, no new ones) */
+    int boss_round, extra_round;    /* after 15:00: the bosses returned, the events played (world.c endless()) */
+    int boss_count, boss_kills;     /* bosses come and chased off in this run */
     choice offer[4];
     int n_offer;
     choice chest[3];
@@ -193,7 +202,7 @@ typedef struct snapshot {
     uint16_t kills, coins;
     int32_t t, xp, hp;
     uint32_t seed, events_done;
-    uint8_t bosses_done, pad2[3];
+    uint8_t bosses_done, boss_round, extra_round, won;   /* the endless part's progress */
     uint8_t wp[MAX_WEAPONS][3];     /* id, level, evo */
     uint8_t pas[MAX_PASSIVES][2];   /* id, level */
 } snapshot;

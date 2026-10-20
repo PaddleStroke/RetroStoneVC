@@ -37,7 +37,6 @@
 #define START_INPUTS  (RS_BTN_START)
 #define BOT_START     30
 #define DEAD_FRAMES   80            /* the gardener down: the results after this */
-#define WIN_FRAMES    150           /* the Crow King chased off: the celebration, then the results */
 #define SNAP_EVERY    (30 * SEC)    /* the run in progress saved this often (and when left from the pause) */
 #define STICK_DEAD    4             /* px: the touch stick's dead zone ... */
 #define STICK_FULL    22            /* ... and full speed this far from its centre ... */
@@ -48,7 +47,7 @@ static const int16_t SHED_BASE[B_COUNT] = {60, 50, 60, 40, 70, 80};
 
 /* ---- the game's state (saved in states) ----------------------------------------------------------------------- */
 static world W;
-static int st, st_t, paused, sel, chr, map, shed_sel, new_best, earned, runs_done, dead_t, win_t, snap_t;
+static int st, st_t, paused, sel, chr, map, shed_sel, new_best, earned, runs_done, dead_t, snap_t;
 static int opt_bot, opt_botstop, opt_god, opt_music, opt_sound, opt_seed_fixed, opt_frail, opt_touch, opt_time;
 static int opt_levelup, opt_chest;
 static uint32_t opt_seed;
@@ -292,7 +291,7 @@ static int can_continue(void) { return !opt_bot && PV.has_run && PV.run.chr >= 0
 
 static void run_save(void)
 {
-    if (opt_bot || W.dead || W.won) return;
+    if (opt_bot || W.dead) return;
     world_snapshot(&W, &SV.run);
     SV.has_run = 1;
     save_store();
@@ -325,7 +324,7 @@ static void start_run(int resume)
         world_skip_to(&W, opt_time);                    /* the spawner's past events done, its bosses beaten */
     }
     paused = 0;
-    dead_t = win_t = 0;
+    dead_t = 0;
     snap_t = 0;
     stick = 0;
     draw_reset_run();
@@ -347,8 +346,7 @@ static void back_to_title(void)
 static void run_over(void)
 {
     int secs = W.t / SEC;
-    int bosses = (W.bosses_done & 1) + ((W.bosses_done >> 1) & 1) + ((W.bosses_done >> 2) & 1);
-    earned = W.coins + secs / 12 + bosses * 25;
+    earned = W.coins + secs / 12 + W.boss_kills * 25;
     new_best = secs > PV.best_secs;
     if (new_best) PV.best_secs = (uint16_t)(secs > 65535 ? 65535 : secs);
     if (new_best || (secs == PV.best_secs && W.kills > PV.best_kills)) PV.best_kills = (uint16_t)(W.kills > 65535 ? 65535 : W.kills);
@@ -362,9 +360,8 @@ static void run_over(void)
     commit();
     runs_done++;
     rs_log("run over at frame %u: %s at %d:%02d, level %d, pests %d, coins +%d", rs_frame_count(),
-           W.won ? "the garden saved" : "the gardener down", secs / 60, secs % 60, W.level, W.kills, earned);
-    if (W.won) ha_play(HA_MEDAL);
-    else ha_play(HA_GAMEOVER);
+           W.won ? "past 15:00" : "before 15:00", secs / 60, secs % 60, W.level, W.kills, earned);
+    ha_play(HA_GAMEOVER);
     go(ST_OVER);
 }
 
@@ -393,9 +390,10 @@ static void play_events(void)
     if (ev & EV_BOSS) sfx(SFX_BOSS, HA_VOL_CRASH, 0);
     if (ev & EV_COIN) ha_play_pitched(SFX_GEM, 50, 160, RS_PITCH_1 * 3 / 2, 1);   /* a coin: the ping, higher */
     if (ev & (EV_HEAL | EV_MAGNET)) ha_play(HA_CONFIRM);
+    if (ev & EV_WIN) ha_play(HA_MEDAL);                /* the 15:00 milestone */
     if (ev & EV_BOSSKILL) { ha_play_pitched(SFX_BOOM, HA_VOL_CRASH, 160, RS_PITCH_1 * 2 / 3, 0); ha_play(HA_MEDAL); }
     if (ev & EV_ELITE) rs_log("an elite at %d:%02d", W.t / SEC / 60, W.t / SEC % 60);
-    if (ev & EV_BOSS) rs_log("boss %d at %d:%02d", W.boss_type - ET_BOSS0 + 1, W.t / SEC / 60, W.t / SEC % 60);
+    if (ev & EV_BOSS) rs_log("boss %d at %d:%02d", W.boss_count, W.t / SEC / 60, W.t / SEC % 60);
     if (ev & EV_BOSSKILL) rs_log("boss chased off at %d:%02d (frame %u)", W.t / SEC / 60, W.t / SEC % 60, rs_frame_count());
 }
 
@@ -409,7 +407,6 @@ static void play_update(void)
         if (++dead_t >= DEAD_FRAMES) run_over();
         return;
     }
-    if (W.won && ++win_t >= WIN_FRAMES) { run_over(); return; }
     int ix = 0, iy = 0;
     if (opt_bot) {
         if (!opt_botstop || W.t < opt_botstop * SEC) bot_move(&W, &ix, &iy);
@@ -426,7 +423,7 @@ static void play_update(void)
     play_events();
     if (W.events & EV_DEAD) rs_log("the gardener is down at %d:%02d (level %d, pests %d)", W.t / SEC / 60,
                                    W.t / SEC % 60, W.level, W.kills);
-    if (W.events & EV_WIN) rs_log("the garden is saved at %d:%02d (frame %u)", W.t / SEC / 60, W.t / SEC % 60, rs_frame_count());
+    if (W.events & EV_WIN) rs_log("the garden is saved (the milestone) at %d:%02d (frame %u)", W.t / SEC / 60, W.t / SEC % 60, rs_frame_count());
     state_hash = (state_hash ^ world_hash(&W)) * 16777619u;
     if (++snap_t >= SNAP_EVERY) { snap_t = 0; run_save(); }
     if (W.chest_open) {
@@ -558,7 +555,7 @@ static void game_update(void)
 {
     for (int i = 0; i < SFX_COUNT; i++) if (snd_gap[i]) snd_gap[i]--;
     if (gem_combo_t && !--gem_combo_t) gem_combo = 0;
-    music(st != ST_TITLE && st != ST_SHED && W.boss >= 0 && !W.won ? 1 : 0);
+    music(st != ST_TITLE && st != ST_SHED && W.boss >= 0 ? 1 : 0);
     int in_run = st == ST_PLAY || st == ST_LEVELUP || st == ST_CHEST;
     int tap = paused ? tapped(HOT_MAX) : -1;            /* paused, a tap: on the quit line, the title; elsewhere, go on */
     if (in_run && (((rs_pad_pressed(0) & (RS_BTN_SELECT | RS_BTN_START)) && !(st != ST_PLAY && !paused)) ||
@@ -691,7 +688,7 @@ static void game_shutdown(void)
 static void game_state(void)
 {
     S(W); S(st); S(st_t); S(paused); S(sel); S(chr); S(map); S(shed_sel); S(new_best); S(earned); S(runs_done);
-    S(dead_t); S(win_t); S(snap_t); S(opt_bot); S(opt_botstop); S(opt_god); S(opt_music); S(opt_sound);
+    S(dead_t); S(snap_t); S(opt_bot); S(opt_botstop); S(opt_god); S(opt_music); S(opt_sound);
     S(opt_seed_fixed); S(opt_frail); S(opt_touch); S(opt_time); S(opt_levelup); S(opt_chest); S(opt_seed);
     S(music_cur); S(gem_combo); S(gem_combo_t); S(snd_gap); S(stick); S(stick_x0); S(stick_y0); S(stick_x); S(stick_y);
     S(menu_lock); S(first_run); S(state_hash); S(PV);

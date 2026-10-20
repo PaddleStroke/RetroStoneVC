@@ -1,6 +1,6 @@
 /*
  * Prickle Patch: video. The layers (back to front):
- *   BG4       the garden (BG palette 1: grass, flowers, dirt patches, cabbages) and the XP gems lying on it: an 8x8 cell's
+ *   BG4       the garden (BG palette 1: the lawn, clover, flowers) and the XP gems lying on it: an 8x8 cell's
  *             tile is the gem's; the map is anchored on the world and written around the camera (a cell's look comes
  *             from a hash of its world position: the garden never repeats)
  *   sprites   prio 1: the pickups (apples, magnets, coins, chests) under the pests
@@ -306,18 +306,19 @@ static uint32_t hsh(int a, int b)
     v *= 0x5bd1e995u;
     return v ^ (v >> 15);
 }
-/* the garden's tile of world cell (cx, cy): grass, now and then a flower, a tuft, a pebble, a dirt patch, a cabbage */
+/* the garden's tile of world cell (cx, cy): the lawn (8 variants by a hash of the cell: no repeat, no grid; a third of
+ * them plain), now and then a tuft, a clover patch (2x2 cells), a daisy, a buttercup, a pebble */
 static int ground_tile(int cx, int cy)
 {
     uint32_t b = hsh(cx >> 1, (cy >> 1) + 7777) % 1000;
-    int q = (cx & 1) + (cy & 1) * 2;
-    if (b < 5) return GT_DIRT0 + q;
-    if (b < 9) return GT_CABBAGE0 + q;
+    if (b < 12) return GT_CLOVER0 + (cx & 1) + (cy & 1) * 2;
     uint32_t h = hsh(cx, cy) % 1000;
-    if (h < 12) return GT_FLOWER0 + (int)(h % 3);      /* (the violet flower stays out: the gems are violet) */
-    if (h < 46) return GT_TUFT0 + (int)(h & 1);
-    if (h < 52) return GT_PEBBLE0 + (int)(h & 1);
-    return GT_GRASS0 + (int)((h >> 3) & 3);
+    if (h < 4) return GT_FLOWER0;
+    if (h < 7) return GT_FLOWER1;
+    if (h < 9) return GT_PEBBLE;
+    if (h < 30) return GT_TUFT0 + (int)(h & 1);
+    int v = (int)((h >> 4) % 12);
+    return v < 5 ? GT_LAWN0 : GT_LAWN1 + v - 5;
 }
 
 static void garden(const world *w, int cam_x, int cam_y)
@@ -862,13 +863,17 @@ static void results_panel(const world *w, const view *v, int narrow)
     char s[64];
     const char *lab[4] = {TR(RES_TIME), TR(RES_PESTS), TR(RES_LEVEL), TR(RES_COINS)};
     int width = narrow ? ht_ncols() : 26, x = narrow ? ht_center_w(width) : (40 - width) / 2;
-    const char *title = w->won ? TR(SAVED) : HTR(GAME_OVER);
+    const char *title = HTR(GAME_OVER);                 /* (an endless run: it ends when the gardener is down) */
     if (narrow) ht_banner(4, title);
     else hu_banner(4, title);
     hu_panel(x, 8, width, 20);
     for (int i = 0; i < 4; i++) {
+        int fits = 0;                                    /* TIME: NEW BEST, or the best to beat */
         if (i == 0 && v->new_best) snprintf(s, sizeof s, "%s - %s", lab[i], HTR(NEW_BEST));
-        if (i != 0 || !v->new_best || hu_width(s, 0) > width - 2) snprintf(s, sizeof s, "%s", lab[i]);
+        else if (i == 0 && v->best_secs)
+            snprintf(s, sizeof s, "%s - %s %02d:%02d", lab[i], HTR(BEST), v->best_secs / 60 % 100, v->best_secs % 60);
+        if (i == 0 && (v->new_best || v->best_secs)) fits = hu_width(s, 0) <= width - 2;
+        if (!fits) snprintf(s, sizeof s, "%s", lab[i]);
         hu_box_text(x + (width - hu_width(s, 0)) / 2, RES_ROW(i), s);
     }
     char vals[4][24];
@@ -951,7 +956,7 @@ void draw_frame(const world *w, const view *v)
               (title ? v->chr * 31 + v->map * 37 + v->coins * 41 + v->can_continue * 43 + v->unlocked * 47 +
                            v->shed_sel * 59 + v->boosts[0] * 61 + v->boosts[1] * 67 + v->boosts[2] * 71 +
                            v->boosts[3] * 73 + v->boosts[4] * 79 + v->boosts[5] * 83 : 0) +
-              (hud ? secs * 101 + w->level * 103 + w->kills * 107 : 0) + (warn_t > 0) * 997 +
+              (hud ? secs * 101 + w->level * 103 + w->kills * 107 : 0) + (warn_t > 0) * (997 + warn_type * 13) +
               (v->state == ST_LEVELUP ? w->n_offer * 211 + w->offer[0].id * 13 + w->offer[0].kind * 17 + w->level : 0) +
               (v->state == ST_CHEST ? w->n_chest * 223 : 0) + (v->first_run && w->t < 8 * SEC && hud) * 5003;
     if (key != ui_key) {
@@ -967,7 +972,8 @@ void draw_frame(const world *w, const view *v)
             if (v->state == ST_LEVELUP) choices_panel(w->offer, w->n_offer, TR(LEVEL_UP), narrow);
             if (v->state == ST_CHEST) choices_panel(w->chest, w->n_chest, TR(TREASURE), narrow);
             if (v->state == ST_PLAY && warn_t) {
-                const char *s = warn_type == ET_QUEEN ? TR(WARN_QUEEN) : warn_type == ET_STAG ? TR(WARN_STAG) : TR(WARN_CROWKING);
+                const char *s = warn_type == ET_QUEEN ? TR(WARN_QUEEN) : warn_type == ET_STAG ? TR(WARN_STAG) :
+                                warn_type == ET_CROWKING ? TR(WARN_CROWKING) : TR(SAVED);     /* (99: the 15:00 milestone) */
                 if (narrow) ht_big(12, s, HU_BIG_FREE);
                 else hu_big(hu_center(s, 1), 12, s, HU_BIG_FREE);
             }
@@ -1066,11 +1072,13 @@ void draw_frame(const world *w, const view *v)
     draw_pops(cam_x, cam_y, 0);
     draw_hero(w, cam_x, cam_y, 0, 0);
     draw_hpbar(w, cam_x, cam_y);
-    if (lvl_t)                                          /* the level-up's flash round the gardener */
-        for (int k = 0; k < 4; k++) {
-            int a = (24 - lvl_t) * 2 + 8;
-            int dx = (k & 1 ? 1 : -1) * a, dy = (k & 2 ? 1 : -1) * a / 2;
-            spr(SPR_GLOW + (lvl_t < 12), (int)(w->h.x / FX) - cam_x - 8 + dx, (int)(w->h.y / FX) - cam_y - 10 + dy, 2, 0);
+    if (lvl_t)                                          /* the level-up: sparkles rising round the gardener */
+        for (int k = 0; k < 6; k++) {
+            static const int8_t X6[6] = {-14, -8, 0, 8, 14, 4}, Y6[6] = {0, -10, -16, -10, 0, 6};
+            int up = (24 - lvl_t) / 2;
+            int sx = (int)(w->h.x / FX) - cam_x + X6[k] - 4, sy = (int)(w->h.y / FX) - cam_y + Y6[k] - 8 - up;
+            hu_sparkle(sx - hu_ui_x(), sy, ((24 - lvl_t) / 4 + k) & 1, 2);
+            budget_kit(sx, sy, 8, 8);
         }
     draw_tools(w, cam_x, cam_y);
     draw_items(w, cam_x, cam_y);

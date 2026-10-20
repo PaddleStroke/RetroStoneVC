@@ -13,7 +13,7 @@ VRAM (tiles, absolute; docs/spec.md "Video memory": the guideline is 64 KiB = 20
                 the logo is drawn again when the title comes back)
     573..1595   BG2 the soft layer's pool (its tile 0 stays clear): 768 tiles at 320 x 240, 1023 on a wider or a
                 taller screen (a phone: more of the garden, more pests on it)
-    1600..      BG4 the garden (grass, flowers, dirt, cabbages, the XP gems)
+    1600..      BG4 the garden (the lawn, clover, flowers, pebbles, the XP gems)
     3072..      the sprites: the gardener, the tools, the items, the see-through effects, the number pops, then the kit's
 At 320 x 240 (the console) everything, the pool full and the glyph pool too, stays within the 64 KiB guideline. A phone
 held upright needs maps of 64 rows for BG2 and BG4 (8 KiB more) and gets the bigger pool: there a full pool goes past the

@@ -42,12 +42,13 @@ if [ -n "$A" ]; then
     run --frames 900 --width 520 --opt bot=1 --opt ready=1 --opt seed=7 --opt time=600 --opt god=1 --shot 890:"$O/play-520.png"
     run --frames 1700 --opt bot=1 --opt ready=1 --opt seed=7 --opt time=880 --opt god=1 --shot 1600:"$O/boss.png"
     shots="$shots title-tall play-tall levelup-tall shed-tall results-tall title-427 play-520 boss"
-    # the Crow King chased off: the garden saved, every pest left pops
-    run --frames 3000 --opt bot=1 --opt ready=1 --opt seed=2 --opt time=899 --opt god=1
-    k=$(sed -n 's/.*the garden is saved at .* (frame \([0-9]*\)).*/\1/p' "$O/log.txt" | head -1)
+    # the Crow King chased off: the 15:00 milestone (the banner, every pest left pops; the run goes on)
+    run --frames 6000 --opt bot=1 --opt ready=1 --opt seed=2 --opt time=899 --opt god=1
+    k=$(sed -n 's/.*the garden is saved (the milestone) at .* (frame \([0-9]*\)).*/\1/p' "$O/log.txt" | head -1)
     if [ -n "$k" ]; then
         run --frames $((k + 56)) --opt bot=1 --opt ready=1 --opt seed=2 --opt time=899 --opt god=1 --shot $((k + 50)):"$O/saved.png"
         shots="$shots saved"
+    else ko "the 15:00 milestone not reached"
     fi
 fi
 n=0

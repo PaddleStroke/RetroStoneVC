@@ -1,6 +1,7 @@
 /*
  * Prickle Patch: the rules. The gardener walks; the tools work by themselves; the pests come from every side, more and
- * tougher with the minutes, three bosses at 5:00, 10:00 and 15:00 (the Crow King: beat it and the garden is saved).
+ * tougher with the minutes, for as long as the gardener lasts (an endless run): bosses at 5:00, 10:00 and 15:00 (the Crow
+ * King: a milestone, the garden saved for now), then back every 5 minutes, stronger.
  * Pests drop gems (XP); each level offers three choices: a new tool or passive, or a level of one owned; a tool at its
  * top level with its passive evolves. No drawing, no sound, no SDK state but the RNG functions on the world's own RNG:
  * deterministic, and the same at every screen size.
@@ -97,10 +98,24 @@ static int alen(int dx, int dy)
 }
 static int rnd(world *w, int n) { return n > 0 ? rs_rng_range(&w->rng, n) : 0; }
 
-int hp_scale(int32_t t) { return 256 + (int)(t * 40 / (60 * SEC)); }
+/* the pests' health: x1 at 0:00, x1.67 at 10:00, x2 at 15:00; past 15:00 (the endless part) it climbs faster and
+ * faster (x10 at 20:00, x28 at 25:00, x58 at 30:00): sooner or later the pests win */
+int hp_scale(int32_t t)
+{
+    int s = 256 + (int)(t * 40 / (60 * SEC));
+    int32_t e = t / SEC - 900;
+    if (e > 0) s += (int)((int64_t)e * e * 60 / 3600);
+    return s;
+}
 int xp_for(int level) { int k = level - 1; return 5 + k * 3 + k * k / 4; }
-/* the pests' touch grows with the time too: x1 at 0:00, x1.25 at 7:30, x1.5 at 15:00 */
-static int dmg_scale(int32_t t) { return 256 + (int)(t * 8 / (60 * SEC)); }
+/* their touch too: x1.25 at 7:30, x1.5 at 15:00, then +0.2 a minute (x2.6 at 20:00, x3.8 at 25:00) */
+static int dmg_scale(int32_t t)
+{
+    int s = 256 + (int)(t * 8 / (60 * SEC));
+    int32_t e = t / SEC - 900;
+    if (e > 0) s += (int)(e * 51 / 60);
+    return s;
+}
 
 /* ---- derived stats ------------------------------------------------------------------------------------------------- */
 static void stats_update(world *w)
@@ -261,11 +276,40 @@ static void play_event(world *w, const sevent *ev)
         int32_t x, y;
         ring_point(w, a0, SPAWN_RX - 40, SPAWN_RY - 40, &x, &y);
         if (spawn_at(w, ev->type, x, y, 0)) {
+            w->boss_count++;
             w->events |= EV_BOSS;
             w->warn = ev->type + 1;
         }
         break;
     }
+    }
+}
+
+/* after 15:00 the run goes on: a boss comes back every BOSS_EVERY s from BOSS_AGAIN (the Slug Queen, the Stag Beetle, the
+ * Crow King in turn), each time with its health x(2 + round), and every EXTRA_EVERY s a ring, a column, a swarm or an
+ * elite (the pests of the late minutes) */
+static void endless(world *w, int sec)
+{
+    if (sec >= BOSS_AGAIN + BOSS_EVERY * w->boss_round && w->boss < 0) {
+        int type = ET_BOSS0 + w->boss_round % 3, a = rnd(w, 64);
+        int32_t x, y;
+        ring_point(w, a, SPAWN_RX - 40, SPAWN_RY - 40, &x, &y);
+        enemy *e = spawn_at(w, type, x, y, 0);
+        if (e) {
+            e->hp = e->hpmax = EN_INFO[type].hp * (2 + w->boss_round);
+            w->boss_hpmax = e->hpmax;
+            w->boss_count++;
+            w->events |= EV_BOSS;
+            w->warn = type + 1;
+        }
+        w->boss_round++;
+    }
+    if (sec >= 900 + EXTRA_EVERY * (w->extra_round + 1)) {
+        static const sevent EXTRA[6] = {
+            {0, EVK_RING, ET_LOCUST, 40}, {0, EVK_SWARM, ET_CROW, 18}, {0, EVK_MARCH, ET_ANT, 30},
+            {0, EVK_ELITE, ET_THISTLE, 1}, {0, EVK_RING, ET_WASP, 36}, {0, EVK_SWARM, ET_LOCUST, 24}};
+        play_event(w, &EXTRA[w->extra_round % 6]);
+        w->extra_round++;
     }
 }
 
@@ -279,6 +323,7 @@ static void spawner(world *w)
             if (EVENTS[i].kind == EVK_BOSS && w->boss >= 0) continue;
             play_event(w, &EVENTS[i]);
         }
+    endless(w, sec);
     int target = target_count(w), n = w->n_en - (w->boss >= 0);
     if (n >= target) return;
     /* the pests come at SPAWN_RATE(minute) a second at most (the field fills up to its target): 2 a second at 0:00,
@@ -400,14 +445,17 @@ static void kill(world *w, int i)
     if (w->n_kfx < MAX_KILLFX) w->kfx[w->n_kfx++] = (killfx){(int16_t)px, (int16_t)py, (uint8_t)type, e->elite};
     if (type >= ET_BOSS0) {
         w->bosses_done |= 1 << (type - ET_BOSS0);
+        w->boss_kills++;
         w->events |= EV_BOSSKILL;
         w->hitstop = 30;
         drop_item(w, IT_CHEST, e->x, e->y, 1);
         drop_gem(w, e->x + 16 * FX, e->y, 60 + 40 * (type - ET_BOSS0));
         for (int k = 0; k < 6; k++) drop_item(w, IT_COIN, e->x + (isin(k * 11) * 28 / 256) * FX, e->y + (icos(k * 11) * 28 / 256) * FX, 1);
-        if (type == ET_CROWKING && !w->won) {
+        if (type == ET_CROWKING && !w->won) {          /* 15:00's milestone: the garden is saved, for now */
             w->won = 1;
+            w->celebrate = CELEBRATE;
             w->events |= EV_WIN;
+            w->warn = 100;
         }
     } else {
         int xp = EN_INFO[type].xp;
@@ -903,6 +951,7 @@ static void enemies_step(world *w)
         }
         int sp = in->speed, vx = 0, vy = 0;
         if (w->map == 1) sp = sp * 9 / 8;
+        if (w->t > 900 * SEC) sp = sp * (100 + (w->t / SEC - 900) / 20) / 100;     /* (past 15:00: +3% a minute) */
         if (l < 1) l = 1;
         switch (e->type) {
         case ET_ANT:
@@ -1092,19 +1141,6 @@ void world_step(world *w, int ix, int iy)
     w->warn = 0;
     w->gems_got = 0;
     if (w->dead) return;
-    if (w->won) {                                     /* the garden saved: the pests left pop, a few a frame */
-        if (w->won < 255) w->won++;
-        for (int k = 0; k < 4 && w->n_en > 0; k++) {
-            enemy *e = &w->en[w->n_en - 1];
-            if (w->n_kfx < MAX_KILLFX)
-                w->kfx[w->n_kfx++] = (killfx){(int16_t)(e->x / FX), (int16_t)(e->y / FX), e->type, 1};
-            w->n_en--;
-        }
-        w->n_sh = 0;
-        w->boss = -1;
-        if (w->n_en) w->events |= EV_KILL;
-        return;
-    }
     w->t++;
     /* the gardener */
     hero *h = &w->h;
@@ -1129,7 +1165,18 @@ void world_step(world *w, int ix, int iy)
         w->regen_t = 0;
         if (h->hp < h->hpmax) h->hp = h->hp + w->regen > h->hpmax ? h->hpmax : h->hp + w->regen;
     }
-    if (!w->won) spawner(w);
+    if (w->celebrate) {                               /* the milestone: the pests on the field pop, a few a frame */
+        w->celebrate--;
+        for (int k = 0; k < 4 && w->n_en > 0; k++) {
+            enemy *e = &w->en[w->n_en - 1];
+            if (e->type >= ET_BOSS0) break;
+            if (w->n_kfx < MAX_KILLFX)
+                w->kfx[w->n_kfx++] = (killfx){(int16_t)(e->x / FX), (int16_t)(e->y / FX), e->type, 1};
+            w->n_en--;
+        }
+    } else {
+        spawner(w);
+    }
     grid_build(w);
     tools_step(w);
     shots_step(w);
@@ -1270,6 +1317,9 @@ void world_snapshot(const world *w, snapshot *s)
     s->seed = w->rng.s;
     s->events_done = w->events_done;
     s->bosses_done = (uint8_t)w->bosses_done;
+    s->boss_round = (uint8_t)(w->boss_round - (w->boss >= 0 && w->boss_round > 0 && w->t / SEC >= BOSS_AGAIN ? 1 : 0));
+    s->extra_round = (uint8_t)w->extra_round;
+    s->won = (uint8_t)w->won;
     s->n_wp = (uint8_t)w->n_wp;
     for (int i = 0; i < w->n_wp; i++) {
         s->wp[i][0] = w->wp[i].id;
@@ -1295,6 +1345,10 @@ void world_resume(world *w, const snapshot *s, const uint8_t boosts[B_COUNT])
     w->coins = s->coins;
     w->events_done = s->events_done;
     w->bosses_done = s->bosses_done;
+    w->boss_round = s->boss_round;
+    w->extra_round = s->extra_round;
+    w->won = s->won;
+    w->boss_count = (s->bosses_done & 1) + ((s->bosses_done >> 1) & 1) + ((s->bosses_done >> 2) & 1) + s->boss_round;
     w->n_wp = 0;
     for (int i = 0; i < s->n_wp && i < MAX_WEAPONS; i++) {
         if (s->wp[i][0] >= W_COUNT) continue;
@@ -1335,6 +1389,13 @@ void world_skip_to(world *w, int s)
     for (int i = 0; i < N_EVENTS; i++)
         if (EVENTS[i].sec < s) {
             w->events_done |= 1u << i;
-            if (EVENTS[i].kind == EVK_BOSS) w->bosses_done |= 1 << (EVENTS[i].type - ET_BOSS0);
+            if (EVENTS[i].kind == EVK_BOSS) {
+                w->bosses_done |= 1 << (EVENTS[i].type - ET_BOSS0);
+                w->boss_count++;
+            }
         }
+    if (s > BOSS_AGAIN) w->boss_round = (s - BOSS_AGAIN + BOSS_EVERY - 1) / BOSS_EVERY;
+    w->boss_count += w->boss_round;
+    if (s > 900) w->extra_round = (s - 900) / EXTRA_EVERY;
+    if (s > 900) w->won = 1;
 }

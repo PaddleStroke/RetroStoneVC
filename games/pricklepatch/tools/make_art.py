@@ -11,7 +11,7 @@ fixed 15-colour palette and is written as an indexed PNG (build_assets.py reads 
   tools.png       the weapons' sprites and the level-up icons (OBJ palette 1)
   items.png       the pickups, chests, the passives' icons, the HUD icons (OBJ palette 2)
   fx.png          the see-through effects: the water splash, the prickle ring, the joystick (OBJ palette 4, added)
-  ground.png      the garden's 8x8 tiles: grass, flowers, dirt, pebbles, cabbages, the XP gems (BG palette 1)
+  ground.png      the garden's 8x8 tiles: the lawn, tufts, clover, flowers, a pebble, the XP gems (BG palette 1)
   palettes.json   the palettes (and the moonlit map's ground palette) and the sheets' layouts
 and art/preview/*.png: the sheets at 3x on a grass colour, for review.
 
@@ -56,15 +56,15 @@ SOFT_PAL = [
 ]
 S = {n: SOFT_PAL[i] for i, n in enumerate(["out", "white", "cream", "yellow", "orange", "red", "maroon", "gl", "gm",
                                             "gd", "vl", "vm", "vd", "greyl", "greyd"])}
-# the garden (BG palette 1): grass, dirt, flowers, gems (index 15: the gems' glint, cycled by draw.c)
+# the garden (BG palette 1): the lawn (low-contrast shades), clover, flowers, gems (index 15: the gems' glint, cycled)
 GROUND_PAL = [
-    (30, 56, 48),     # 1 dark (outlines of flowers and gems)
-    (70, 128, 62),    # 2 grass dark
-    (100, 158, 72),   # 3 grass mid
-    (132, 186, 86),   # 4 grass light
-    (172, 212, 110),  # 5 grass highlight
-    (118, 84, 60),    # 6 dirt dark
-    (164, 122, 84),   # 7 dirt light
+    (30, 56, 48),     # 1 dark (outlines of the gems)
+    (84, 144, 66),    # 2 grass shade (a blade's foot)
+    (98, 158, 72),    # 3 the lawn
+    (112, 170, 78),   # 4 grass light (a blade)
+    (128, 182, 86),   # 5 clover
+    (76, 134, 60),    # 6 clover dark (its stem)
+    (200, 146, 40),   # 7 gold dark (a big gem, a buttercup's heart)
     (250, 250, 236),  # 8 white
     (250, 206, 60),   # 9 yellow
     (222, 64, 60),    # 10 red
@@ -74,12 +74,12 @@ GROUND_PAL = [
     (150, 150, 162),  # 14 stone
     (255, 255, 255),  # 15 glint (cycled)
 ]
-# the moonlit garden (the second map): the same tiles, night colours
+# the moonlit garden (the second map): the same tiles, night colours (the lawn as calm: neighbouring shades)
 GROUND_NIGHT = [
-    (14, 20, 40), (34, 62, 82), (48, 84, 98), (66, 108, 116), (96, 140, 140), (58, 52, 70), (84, 76, 98),
+    (14, 20, 40), (42, 72, 90), (48, 82, 98), (56, 92, 106), (66, 106, 118), (40, 68, 86), (196, 150, 70),
     (220, 230, 250), (250, 220, 110), (226, 92, 120), (176, 166, 255), (116, 98, 226), (90, 40, 70),
     (104, 112, 138), (255, 255, 255)]
-G = {n: GROUND_PAL[i] for i, n in enumerate(["dark", "g0", "g1", "g2", "g3", "dirt0", "dirt1", "white", "yellow",
+G = {n: GROUND_PAL[i] for i, n in enumerate(["dark", "g0", "g1", "g2", "g3", "cd", "gold", "white", "yellow",
                                               "red", "vl", "vm", "maroon", "stone", "glint"])}
 # OBJ 1: the tools (weapons)
 TOOLS_PAL = [
@@ -1078,87 +1078,44 @@ def hsh(*a):
     return v ^ (v >> 13)
 
 
-def grass(v):
+# The lawn: a calm ground under the swarm. One flat green with a few short blades a shade lighter (their foot a shade
+# darker): low contrast, no grid (8 variants with 0-3 blades each, picked by a hash of the world cell); now and then a
+# tuft, a clover patch (2x2 cells), a single daisy or buttercup, a pebble. No dirt, no high-contrast speckles: the pests
+# and the gems are what the eye looks for.
+BLADES = [[], [(2, 4)], [(5, 2)], [(1, 5), (6, 2)], [(3, 1), (6, 6)], [(0, 3), (4, 6)], [(1, 1), (4, 4), (7, 6)],
+          [(6, 4)]]
+
+
+def lawn(v):
     cv = Canvas(8, 8)
-    for y in range(8):
-        for x in range(8):
-            k = hsh(x, y, v) % 100
-            cv.set(x, y, G["g2"] if k < 4 else G["g0"] if k < 7 else G["g1"])
-    for i in range(2):                                       # a blade or two
-        k = hsh(v, i, 7)
-        x, y = k % 7, 2 + (k >> 4) % 5
-        cv.set(x, y, G["g2"]), cv.set(x + (v % 2), y - 1, G["g3"] if v % 2 else G["g2"])
-        cv.set(x, y + 1, G["g0"])
+    cv.rect(0, 0, 7, 7, G["g1"])
+    for (x, y) in BLADES[v % 8]:
+        cv.set(x, y, G["g2"])
+        cv.set(x, y + 1 if y < 7 else y, G["g2"])
+        if y + 2 <= 7:
+            cv.set(x, y + 2, G["g0"])
     return cv
 
 
 def tuft(v):
-    cv = grass(v + 10)
-    for i, x in enumerate((2, 4, 6)):
-        h = 3 + (i + v) % 2
-        for y in range(7 - h, 7):
-            cv.set(x - (1 if y < 4 and i == 0 else 0), y, G["g3"] if y < 5 else G["g2"])
-        cv.set(x, 7, G["g0"])
+    cv = lawn(0)
+    x0 = 2 + v
+    for i, (dx, h) in enumerate(((0, 2), (1, 3), (2, 2))):
+        for y in range(6 - h, 6):
+            cv.set(x0 + dx + (1 if i == 2 and y == 6 - h else -1 if i == 0 and y == 6 - h else 0), y, G["g2"])
+        cv.set(x0 + dx, 6, G["g0"])
     return cv
 
 
-def flower(kind):
-    cv = grass(20 + kind)
-    petal = [G["white"], G["yellow"], G["red"], G["vl"]][kind]
-    centre = [G["yellow"], G["dirt0"], G["dark"], G["white"]][kind]
-    cx, cy = 3 + kind % 2, 3 + (kind // 2) % 2
-    for dx, dy in ((0, -1), (-1, 0), (1, 0), (0, 1)):
-        cv.set(cx + dx, cy + dy, petal)
-    cv.set(cx, cy, centre)
-    cv.set(cx + 1, cy + 2, G["g0"]), cv.set(cx + 1, cy + 3, G["g0"])
-    if kind == 0:                                            # two daisies
-        for (x, y) in ((6, 5), (5, 6), (7, 6), (6, 7)):
-            cv.set(x, y, G["white"])
-        cv.set(6, 6, G["yellow"])
-    return cv
-
-
-def pebble(v):
-    cv = grass(30 + v)
-    hs.ellipse(cv, 4.0, 4.5, 2.6 - v * 0.6, 1.8, [G["white"], G["stone"], G["stone"], G["dark"]])
-    for x in range(2, 7):
-        if cv.get(x, 6) == G["g1"]:
-            cv.set(x, 6, G["g0"])
-    return cv
-
-
-def dirt(q):
-    """a quarter of a round dirt patch (q: 0 TL, 1 TR, 2 BL, 3 BR)"""
-    cv = Canvas(8, 8)
-    for y in range(8):
-        for x in range(8):
-            gx, gy = x + (8 if q % 2 else 0), y + (8 if q >= 2 else 0)
-            d = math.hypot(gx + 0.5 - 8, (gy + 0.5 - 8) * 1.15)
-            if d < 6.5:
-                cv.set(x, y, G["dirt0"] if hsh(gx, gy, 3) % 100 < 18 or d > 5.6 else G["dirt1"])
-            elif d < 7.3:
-                cv.set(x, y, G["g0"])
-            else:
-                k = hsh(gx, gy, 40) % 100
-                cv.set(x, y, G["g2"] if k < 8 else G["g0"] if k < 13 else G["g1"])
-    return cv
-
-
-def cabbage(q):
-    """a quarter of a 16x16 cabbage (the patch's vegetables)"""
+def clover(q):
+    """a quarter of a 16x16 clover patch: little three-leaf clovers a shade lighter than the lawn"""
     big = Canvas(16, 16)
-    for y in range(16):
-        for x in range(16):
-            k = hsh(x, y, 40) % 100
-            big.set(x, y, G["g2"] if k < 8 else G["g0"] if k < 13 else G["g1"])
-    for y in range(13, 16):
-        for x in range(3, 13):
-            big.set(x, y, G["dirt0"] if (x + y) % 3 else G["dirt1"])
-    leaf = [G["g3"], G["g2"], G["g2"], G["g0"]]
-    for (cx, cy, r) in ((5, 9, 4.2), (11, 9, 4.2), (8, 7, 4.6)):
-        hs.ellipse(big, cx, cy, r, r * 0.85, leaf)
-    hs.ellipse(big, 8, 8, 2.6, 2.2, [G["g3"], G["g3"], G["g2"], G["g1"]])
-    big.set(7, 7, G["white"])
+    big.rect(0, 0, 15, 15, G["g1"])
+    for (cx, cy) in ((4, 4), (10, 3), (7, 8), (12, 10), (3, 11), (9, 13)):
+        for dx, dy in ((0, -1), (-1, 0), (1, 0)):
+            big.set(cx + dx, cy + dy, G["g3"])
+        big.set(cx, cy, G["cd"])
+        big.set(cx, cy + 1, G["cd"])
     cv = Canvas(8, 8)
     for y in range(8):
         for x in range(8):
@@ -1166,9 +1123,28 @@ def cabbage(q):
     return cv
 
 
+def flower(kind):
+    cv = lawn(0)
+    petal, centre = [(G["white"], G["yellow"]), (G["yellow"], G["gold"])][kind]
+    cx, cy = 3 + kind, 3
+    cv.set(cx, cy + 2, G["g0"]), cv.set(cx, cy + 3, G["g0"])
+    for dx, dy in ((0, -1), (-1, 0), (1, 0), (0, 1)):
+        cv.set(cx + dx, cy + dy, petal)
+    cv.set(cx, cy, centre)
+    return cv
+
+
+def pebble():
+    cv = lawn(0)
+    cv.rect(3, 4, 5, 4, G["stone"])
+    cv.set(4, 3, G["stone"])
+    cv.rect(3, 5, 5, 5, G["g0"])
+    return cv
+
+
 def gem(tier):
-    cv = grass(50 + tier)
-    cols = [(G["vl"], G["vm"]), (G["red"], G["maroon"]), (G["yellow"], G["dirt1"])][tier]
+    cv = lawn(0)
+    cols = [(G["vl"], G["vm"]), (G["red"], G["maroon"]), (G["yellow"], G["gold"])][tier]
     h = [3, 3, 4][tier]
     for y in range(-h, h + 1):
         w = min(h - abs(y), [2, 3, 3][tier])
@@ -1189,12 +1165,11 @@ def gem(tier):
     return cv
 
 
-GROUND = ([("grass%d" % v, lambda v=v: grass(v)) for v in range(4)] +
+GROUND = ([("lawn%d" % v, lambda v=v: lawn(v)) for v in range(8)] +
           [("tuft%d" % v, lambda v=v: tuft(v)) for v in range(2)] +
-          [("flower%d" % k, lambda k=k: flower(k)) for k in range(4)] +
-          [("pebble%d" % v, lambda v=v: pebble(v)) for v in range(2)] +
-          [("dirt%d" % q, lambda q=q: dirt(q)) for q in range(4)] +
-          [("cabbage%d" % q, lambda q=q: cabbage(q)) for q in range(4)] +
+          [("flower%d" % k, lambda k=k: flower(k)) for k in range(2)] +
+          [("pebble", pebble)] +
+          [("clover%d" % q, lambda q=q: clover(q)) for q in range(4)] +
           [("gem%d" % t, lambda t=t: gem(t)) for t in range(3)])
 
 

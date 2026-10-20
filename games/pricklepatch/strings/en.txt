@@ -1,9 +1,10 @@
 # Prickle Patch (games/pricklepatch): its strings, the English source (docs/i18n.md).
 # A little gardener (a hedgehog, a tortoise or a hen) walks around a vegetable patch while its garden tools work by
 # themselves against endless garden pests (slugs, beetles, ants, wasps, crows...). Pests drop gems; each level offers
-# three new tools or upgrades. Survive 15 minutes and beat the Crow King to save the garden. Coins buy small permanent
-# boosts in the garden shed. Everything else comes from the house kit (games/common/strings/en.txt). The game's name is
-# never translated. Keep it gentle and family-friendly: the pests are "chased off" or "popped", never killed.
+# three new tools or upgrades. The run is endless: survive as long as you can (at 15:00 the Crow King, a
+# milestone; then the bosses come back). Coins buy small permanent boosts in the garden shed. Everything else comes
+# from the house kit (games/common/strings/en.txt). The game's name is never translated.
+# Keep it gentle and family-friendly: the pests are "chased off" or "popped", never killed.
 
 #. The title prompt's verb: PRESS A TO <VERB>.
 #. max 10
@@ -251,7 +252,7 @@ WARN_STAG = STAG BEETLE!
 #. max 20
 WARN_CROWKING = CROW KING!
 
-#. The results' banner after beating the Crow King (2x letters on a panel); a lost run shows the kit's GAME OVER.
+#. The 2x banner over the garden when the Crow King is chased off at 15:00: a milestone, the run goes on (the pests pop).
 #. max 18
 SAVED = GARDEN SAVED!
 #. The results' labels (each over its value in big gold letters).

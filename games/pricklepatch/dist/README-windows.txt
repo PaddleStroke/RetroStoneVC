@@ -3,8 +3,9 @@ PRICKLE PATCH - a RetroStone VC game for Windows
 
 A little hedgehog keeps the vegetable patch: slugs, beetles, ants, wasps and crows come from every side, more
 and more of them. You only walk: your garden tools work by themselves. Pests leave gems, gems bring levels,
-each level a new tool or an upgrade. Survive 15 minutes and chase off the Crow King to save the garden. Coins
-buy boosts in the garden shed, and two more gardeners: a tortoise and a hen.
+each level a new tool or an upgrade. One endless run: how long can you last? At 15:00 the Crow King comes;
+chase him off and the garden is saved... for a while. Your best time is kept. Coins buy boosts in the
+garden shed, and two more gardeners: a tortoise and a hen.
 
 Run PricklePatch.exe. No installation needed (SDL2 is built in).
 
