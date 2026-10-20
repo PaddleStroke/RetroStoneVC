@@ -111,7 +111,7 @@ static rs_color sky_at(int world_y, int line)
         g = SKY_RGB[k][1] + (SKY_RGB[k + 1][1] - SKY_RGB[k][1]) * t / 256;
         b = SKY_RGB[k][2] + (SKY_RGB[k + 1][2] - SKY_RGB[k][2]) * t / 256;
     }
-    if (line & 4) { r += 4; g += 2; b += 4; }
+    if ((line & 7) >= 6) { r += 4; g += 2; b += 4; }          /* the house's 2-line dither step every 8 lines */
     return RS_RGB8(imin(r, 255), imin(g, 255), imin(b, 255));
 }
 
@@ -120,7 +120,7 @@ static void raster(int line, void *user)
     (void)user;
     rs_pal_set(0, sky_at(r_cam + line, r_cam + line));
     if (r_pin) rs_bg_enable(RS_BG1, ht_pin_line(r_pin, line));
-    else if (r_hud) rs_bg_enable(RS_BG1, line < rs_screen_top() + HUD_ROWS * 8 + 8);
+    else if (r_hud) rs_bg_enable(RS_BG1, line < rs_screen_top() + HUD_ROWS * 8 || line >= 0);   /* (not its wrap above the stage) */
     else rs_bg_enable(RS_BG1, 1);
 }
 
@@ -181,8 +181,8 @@ static void layers_setup(void)
         uint16_t e = ll_clouds_map[i];
         rs_bg_put(RS_BG4, i % 32, i / 32, (uint16_t)(RS_MAP(RS_MAP_TILE(e), PAL_CLOUDS, 0, 0, 0) | (e & 0xc000)));
     }
-    rs_bg_setup(RS_BG3, 32, 32, VR_STARS);
-    for (int i = 0; i < 32 * 32; i++) {
+    rs_bg_setup(RS_BG3, 32, 64, VR_STARS);
+    for (int i = 0; i < 32 * 64; i++) {
         uint16_t e = ll_stars_map[i];
         rs_bg_put(RS_BG3, i % 32, i / 32, (uint16_t)(RS_MAP(RS_MAP_TILE(e), PAL_STARS, 0, 0, 0) | (e & 0xc000)));
     }
@@ -548,10 +548,11 @@ static void hud_top_text(const world *w, const view *v)
     int c0, c1;
     ht_cols(&c0, &c1);
     hu_clear_rows(0, HUD_ROWS);
+    hu_panel(c0 - 1, 0, c1 - c0 + 2, HUD_ROWS);                      /* a band behind the HUD, over the climb ahead */
     snprintf(s, sizeof s, "%d", w->coins);
-    hu_text(c0 + 2, 3, s);
+    hu_box_text(c0 + 2, 3, s);
     snprintf(s, sizeof s, "%d", v->best_m > world_height_m(w) ? v->best_m : world_height_m(w));
-    hu_text(c1 - 1 - hu_width(s, 0), 3, s);
+    hu_box_text(c1 - 1 - hu_width(s, 0), 3, s);
     int k, left = power_left(&w->h, &k);
     if (k) hud_bar(4, (c0 + c1) / 2 - 2, 4, left, 256);
 }
@@ -631,18 +632,19 @@ static void title_text(const view *v, int narrow, int last_row)
         }
         hot_set(HOT_PROMPT, HU_ROW_PROMPT - 1, HU_ROW_PROMPT + 1, 0);
     } else {
-        static const int8_t order[6] = {0, 1, 2, 3, 4, 5};
+        /* upright: the look and its state together, the coins, the climb kept (else the record); B: NEW CLIMB goes
+         * above the prompt (ht_title's hint) */
+        static const int8_t order[2] = {0, 1};
         int r = 15;
-        for (int i = 0; i < 6; i++) {
-            int k = order[i];
+        for (int i = 0; i < 3; i++) {
+            int k = i < 2 ? order[i] : 3;                  /* (the coins and the record: icons at the screen's top) */
             if (!title_line(v, k, s, sizeof s)) continue;
             int rows = ht_text_rows(s, 0) + (hu_tall(s) ? 1 : 0);
             if (r + rows > last_row) break;
             ht_text(r + (hu_tall(s) ? 1 : 0), s, 0);
             if (k == 0) { hot_set(HOT_PREV, r - 1, r + 1, HT_PIN_TITLE); hot_set(HOT_NEXT, r - 1, r + 1, HT_PIN_TITLE); }
             if (k == 1) hot_set(HOT_BUY, r - 1, r + rows - 1, HT_PIN_TITLE);
-            if (k == 5) hot_set(HOT_NEWRUN, r - 1, r + rows - 1, HT_PIN_TITLE);
-            r += rows + 1;
+            r += rows + (k == 0 ? 0 : 1);
         }
     }
     draw_hot[HOT_PREV].x1 = (int16_t)(rs_screen_width() / 2);
@@ -705,7 +707,7 @@ void draw_frame(const world *w, const view *v)
     zone_colours(m_mid < 0 ? 0 : m_mid);
     stars_colours(cam);
     rs_bg_scroll(RS_BG4, (tick / 8) & 255, (cam / 4) & 255);
-    rs_bg_scroll(RS_BG3, 0, (cam / 8) & 255);
+    rs_bg_scroll(RS_BG3, 0, (cam / 8) & 511);
     rs_bg_scroll(RS_BG2, 0, (cam / 2) & 255);
     rs_brightness(15);
 
@@ -731,15 +733,15 @@ void draw_frame(const world *w, const view *v)
                 if (narrow) ht_big(9, s, HU_BIG_FREE);
                 else hu_big(hu_center(s, 1), 7, s, HU_BIG_FREE);
             }
-            if (v->first_run && w->t < 6 * SEC) {
+            if (v->first_run && w->t < 6 * SEC && !v->paused && !banner_t) {
                 const char *a = v->touch ? TR(HINT_TOUCH) : TR(HINT_PAD), *b = v->touch ? TR(HINT_TOUCH2) : TR(HINT_SHOOT);
-                if (narrow) { int r = ht_text(18, a, 0); ht_text(r + 2, b, 0); }
+                if (narrow) { int r = ht_text_gap(7, a, 0, 1); ht_text_gap(r + 2 + hu_tall(b), b, 0, 1); }
                 else { hu_text(hu_center(a, 0), 18, a); hu_text(hu_center(b, 0), 20, b); }
             }
             if (v->paused) {
                 const char *q = TR(PAUSE_QUIT);
                 int last = 17;
-                if (narrow) last = ht_text(17, q, 0);
+                if (narrow) last = ht_text_gap(17, q, 0, 1);
                 else hu_text(hu_center(q, 0), 17, q);
                 hot_set(HOT_QUIT, 16, last + 1, 0);
             }
@@ -760,10 +762,30 @@ void draw_frame(const world *w, const view *v)
         int bounce = v->st_t % 48, lift = bounce * (48 - bounce) / 48;          /* a bouncy hop on the spot */
         int frame = bounce < 4 || bounce > 44 ? HERO_SQUASH : bounce < 24 ? HERO_UP : HERO_DOWN;
         if (narrow) {
-            ht_title tc = {v->can_continue ? TR(VERB_CONTINUE) : TR(VERB), 1, 15, 0, NULL};
+            ht_title tc = {v->can_continue ? TR(VERB_CONTINUE) : TR(VERB), 1, 15, 0, v->can_continue ? TR(NEW_RUN) : NULL};
             ht_title_out to;
             ht_title_draw(&tc, v->st_t, 0, &to);
             title_text(v, narrow, (to.gap_y1 - pdy) / 8 - 1);
+            {                                              /* the coins and the record at the screen's top, icons */
+                int top = rs_screen_top() + 36, x0, x1;
+                ht_view_px(&x0, &x1);
+                int ux = hu_ui_x();
+                char b[12];
+                snprintf(b, sizeof b, "%d", v->coins);
+                spr(SPR_HUD_COIN, ux + x0 + 2, top + 4, 3, 0);
+                hu_number(v->coins, x0 + 16 + (int)strlen(b) * 6, top, 3);
+                if (v->best_m) {
+                    snprintf(b, sizeof b, "%d", v->best_m);
+                    int w = (int)strlen(b) * 12;
+                    spr(SPR_FLAG, ux + x1 - w - 18, top, 3, 0);
+                    hu_number(v->best_m, x1 - w / 2 - 2, top, 3);
+                }
+                budget_kit(top, 16, 10);
+            }
+            if (v->can_continue) {                         /* the hint's rows: B: NEW CLIMB (a tap there: a new climb) */
+                int hr = (to.gap_y1 - pdy + 2) / 8;
+                hot_set(HOT_NEWRUN, hr, hr + ht_text_rows_gap(TR(NEW_RUN), 0, 1), HT_PIN_TITLE);
+            }
             ht_title_sprites(&tc, &to, v->st_t, NULL, NULL);
             hot_set(HOT_PROMPT, (to.glyph_y - pdy) / 8, (to.glyph_y - pdy) / 8 + 2, HT_PIN_TITLE);
             budget_kit(to.glyph_y, 16, 1);
@@ -783,6 +805,11 @@ void draw_frame(const world *w, const view *v)
             cur_fur = -1;
         }
         if (!narrow) spr(SPR_LEAF + (frame == HERO_SQUASH), mx - 16, my + 23 + 1, 2, 0);
+        else {                                             /* upright: a real bounce off the ground, leaves above it */
+            lift = lift * 5;
+            static const int16_t LV[3][2] = {{36, 150}, {124, 116}, {72, 84}};
+            for (int k = 0; k < 3; k++) spr(SPR_LEAF, COL_X + LV[k][0], LV[k][1], 2, 0);
+        }
         draw_lemur_at(NULL, frame, 0, mx - 12, my - lift + 2, hat, 0);
         if (!(v->owned & (1 << v->look))) spr(SPR_LOCK, mx + 12, my + 20, 3, 0);
         draw_ground(cam, 1);

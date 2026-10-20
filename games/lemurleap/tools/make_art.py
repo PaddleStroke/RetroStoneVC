@@ -463,18 +463,25 @@ def cloud_plat(f):
 
 
 def spring(f):
-    """a coiled vine tendril with a flower pad on top, 16x16 (its foot on the leaf's top at y 15); f 1: sprung"""
+    """a coiled vine tendril, a red flower pad on top, 16x16 (its foot on the leaf's top at y 15); f 1: sprung"""
     cv = Canvas(16, 16)
-    top = 9 if f == 0 else 3
-    n = 3 if f == 0 else 5
-    for k in range(n):
-        y = 15 - (15 - top - 2) * k / max(1, n - 1) - 1
-        for x in range(5, 11):
-            cv.set(x, int(y), P["lm"] if (x + k) % 2 else P["ld"])
-        cv.set(4 + (k % 2) * 7, int(y) + 1, P["ld"])
-    for x in range(3, 13):                                            # the pad: a red flower
+    top = 8 if f == 0 else 2
+    n = 3 if f == 0 else 4
+    span = 14 - top - 2
+    for k in range(n):                                                # the coil's loops, light in front, dark behind
+        y = int(round(14 - span * k / max(1, n - 1)))
+        for x in range(4, 12):
+            cv.set(x, y, P["ll"] if x < 9 else P["lm"])
+        cv.set(3, y, P["lm"]), cv.set(12, y, P["ld"])
+        if k < n - 1:
+            ny = int(round(14 - span * (k + 1) / max(1, n - 1)))
+            for yy in range(ny + 1, y):
+                cv.set(11 - (yy - ny) * 0 if k % 2 == 0 else 4, yy, P["ld"])
+    for x in range(2, 14):                                            # the pad: a red flower, a cream heart
         cv.set(x, top, P["red"]), cv.set(x, top + 1, P["redd"])
-    cv.set(6, top - 1, P["red"]), cv.set(9, top - 1, P["red"]), cv.set(8, top, P["cream"])
+    for x in (3, 7, 11):
+        cv.set(x, top - 1, P["red"])
+    cv.set(7, top, P["cream"]), cv.set(8, top, P["cream"]), cv.set(4, top, P["white"])
     cv.outline(P["out"])
     return cv
 
@@ -930,18 +937,18 @@ def clouds():
 
 
 def stars():
-    """the stars and planets (BG 3), 256 x 256"""
-    cv = Canvas(256, 256)
+    """the stars and planets (BG 3), 256 x 512"""
+    cv = Canvas(256, 512)
     S = STAR_PAL
     k = 1
-    for i in range(70):
+    for i in range(130):
         k = (k * 1103515245 + 12345) & 0x7fffffff
-        x, y = k % 256, (k // 256) % 256
+        x, y = k % 256, (k // 256) % 512
         b = (k >> 20) % 3
         cv.set(x, y, S[b])
         if b == 0 and i % 5 == 0:
             for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-                cv.set((x + dx) % 256, (y + dy) % 256, S[2])
+                cv.set((x + dx) % 256, (y + dy) % 512, S[2])
     # a ringed planet and a little moon
     for y in range(-12, 13):
         for x in range(-12, 13):
@@ -956,8 +963,8 @@ def stars():
         for x in range(-6, 7):
             if x * x + y * y <= 36:
                 nd = (-x * 0.6 - y * 0.8) / 6.0
-                cv.set(60 + x, 180 + y, S[8] if nd > 0.2 else S[9] if nd > -0.5 else S[10])
-    cv.set(58, 178, S[10]), cv.set(62, 182, S[10]), cv.set(61, 177, S[9])
+                cv.set(60 + x, 330 + y, S[8] if nd > 0.2 else S[9] if nd > -0.5 else S[10])
+    cv.set(58, 328, S[10]), cv.set(62, 332, S[10]), cv.set(61, 327, S[9])
     return cv
 
 

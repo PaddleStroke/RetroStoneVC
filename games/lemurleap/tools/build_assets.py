@@ -108,7 +108,7 @@ def main():
     ctiles, cent = bg_tiles(split8(indices(cim, 0, 0, 256, 256)))
     vr_stars = vr_clouds + len(ctiles)
     sim = Image.open(os.path.join(a.art, "stars.png"))
-    stiles, sent = bg_tiles(split8(indices(sim, 0, 0, 256, 256)))
+    stiles, sent = bg_tiles(split8(indices(sim, 0, 0, 256, 512)))
     vr_obj = vr_stars + len(stiles)
     vr_obj = (vr_obj + 7) // 8 * 8
     for name, tiles, ent, cols in (("panel", ptiles, pent, pw // 8), ("clouds", ctiles, cent, 32), ("stars", stiles, sent, 32)):

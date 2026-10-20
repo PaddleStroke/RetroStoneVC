@@ -58,6 +58,7 @@
 #define MAGNET_R    80              /* px: coins fly to the lemur from this far */
 #define COIN_R      11              /* px: a coin is picked up this close (centre to the body's centre) */
 #define PEST_COINS  3               /* a pest popped */
+#define HITSTOP     4               /* frames the climb holds still when a pest pops */
 
 /* ---- the zones (metres) ------------------------------------------------------------------------------------------- */
 enum { Z_GARDEN, Z_CLOUDS, Z_SKY, Z_SPACE, ZONES };
@@ -135,6 +136,7 @@ typedef struct world {
     uint8_t best_passed, over, god, bot_aim;    /* bot_aim: the bot's leaf + 1 (it keeps to it) */
     int32_t fall_t;                 /* frames since the fall out began */
     int32_t coins, kills, bounces;
+    int32_t hitstop;                /* frames the climb holds still (a pest popped) */
     plat p[MAX_PLAT];
     coin c[MAX_COIN];
     pest e[MAX_PEST];

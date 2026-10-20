@@ -369,6 +369,7 @@ static int span_hit(int a, int b, int c, int d)
 static void pest_pop(world *w, pest *e, int how)
 {
     e->dead_t = 1;
+    w->hitstop = HITSTOP;
     w->kills++;
     w->coins += PEST_COINS;
     fx_add(w, how, e->x / FX, e->y / FX, e->type);
@@ -642,6 +643,11 @@ void world_step(world *w, int in)
     hero *h = &w->h;
     w->events = 0;
     w->n_fx = 0;
+    if (w->hitstop) {                               /* a pest popped: the climb holds its breath */
+        w->hitstop--;
+        h->held = (uint8_t)in;
+        return;
+    }
     w->t++;
     plats_step(w);
     int32_t prev_feet = h->y;
@@ -687,7 +693,7 @@ uint32_t world_hash(const world *w)
     uint32_t v = 2166136261u;
 #define MIX(x) (v = (v ^ (uint32_t)(x)) * 16777619u)
     MIX(w->rng); MIX(w->t); MIX(w->h.x); MIX(w->h.y); MIX(w->h.vx); MIX(w->h.vy); MIX(w->h.fly); MIX(w->h.fly_t);
-    MIX(w->h.shield_t); MIX(w->h.knocked); MIX(w->cam_y); MIX(w->top_y); MIX(w->coins); MIX(w->kills); MIX(w->over);
+    MIX(w->h.shield_t); MIX(w->h.knocked); MIX(w->cam_y); MIX(w->top_y); MIX(w->coins); MIX(w->kills); MIX(w->over); MIX(w->hitstop);
     for (int i = 0; i < MAX_PLAT; i++)
         if (w->p[i].used) { MIX(i); MIX(w->p[i].x); MIX(w->p[i].y); MIX(w->p[i].state); MIX(w->p[i].item); }
     for (int i = 0; i < MAX_PEST; i++)
