@@ -2,7 +2,7 @@
 # Puffin Plunge: the frame cost. The host's average x 15-20 (the A20 estimate of docs/spec.md) must stay under the
 # RetroStone2's 16.7 ms: the test fails above 0.83 ms average on the host (16.7 / 20). The worst frame is reported
 # (a busy host's scheduler makes it noisy: it is not checked), with the sprites (the guideline: 128, 32 a line).
-# Scenes: the first levels (4:3), the frozen deep (the most critters), the boss, a wide screen and a tall one.
+# Scenes: the first metres (4:3), the frozen deep (the most critters), a walrus, a wide screen and a tall one.
 #   bench_test.sh <headless binary> [verbose]
 # MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/puffinplunge/LICENSE.
 H=$1
@@ -22,9 +22,9 @@ scene() {   # scene <name> <frames> <options...>
         echo "  FAIL $name: over the budget (or no measure)"; fail=1
     fi
 }
-scene "levels 1-2, the bot (4:3)" 4000 --opt bot=1 --opt ready=1 --opt seed=7
-scene "the frozen deep (4:3)" 2400 --opt bot=1 --opt ready=1 --opt seed=7 --opt level=11 --opt god=1
-scene "the boss (4:3)" 3000 --opt bot=1 --opt ready=1 --opt seed=7 --opt level=12 --opt god=1
-scene "the frozen deep at 520 columns" 2400 --opt bot=1 --opt ready=1 --opt seed=7 --opt level=11 --opt god=1 --width 520
-scene "the frozen deep upright (320 x 480)" 2400 --opt bot=1 --opt ready=1 --opt seed=7 --opt level=11 --opt god=1 --display 1080x2340
+scene "the first metres, the bot (4:3)" 4000 --opt bot=1 --opt ready=1 --opt seed=7
+scene "the frozen deep, 1000 m (4:3)" 2400 --opt bot=1 --opt ready=1 --opt seed=7 --opt depth=1000 --opt god=1
+scene "a walrus, 1180 m (4:3)" 3000 --opt bot=1 --opt ready=1 --opt seed=7 --opt depth=1150 --opt god=1
+scene "the frozen deep at 520 columns" 2400 --opt bot=1 --opt ready=1 --opt seed=7 --opt depth=1000 --opt god=1 --width 520
+scene "the frozen deep upright (320 x 480)" 2400 --opt bot=1 --opt ready=1 --opt seed=7 --opt depth=1000 --opt god=1 --display 1080x2340
 exit $fail

@@ -34,9 +34,11 @@ if [ -z "$Q" ]; then
     printf "10 tap A\n30 tap A\n" > "$O/puffinplunge-gift.input"
     scenario gift 20 100 ready=1 seed=7 room=2
     : > "$O/puffinplunge-deep.input"
-    scenario deep 400 300 bot=1 ready=1 seed=7 level=10 god=1
+    scenario deep 400 300 bot=1 ready=1 seed=7 depth=1000 god=1
     : > "$O/puffinplunge-boss.input"
-    scenario boss 1500 400 bot=1 ready=1 seed=7 level=12 god=1
+    scenario boss 1500 400 bot=1 ready=1 seed=7 depth=1150 god=1
+    : > "$O/puffinplunge-cycle.input"
+    scenario cycle 400 300 bot=1 ready=1 seed=7 depth=2700 god=1 bestdepth=2720
     : > "$O/puffinplunge-over.input"
     scenario over 140 200 ready=1 seed=7 hurtat=100 score=300
 fi

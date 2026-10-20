@@ -2,11 +2,11 @@
  * Puffin Plunge: shared declarations and the tuning (every gameplay number is here or in world.c's tables).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/puffinplunge/LICENSE.
  *
- * world.c is the rules: the shaft (assembled from the hand-made chunks of levels/chunks.txt), the puffin's movement,
- * its bubble boots, the critters, the gems, the side rooms, the shops, the boss and the bot. It uses no SDK call (no
- * drawing, no sound) and keeps its own RNG: deterministic on the frame clock, the same at every screen size (nothing
+ * world.c is the rules: the endless well (made chunk by chunk from the hand-made chunks of levels/chunks.txt), the
+ * puffin's movement, its bubble boots, the critters, the gems, the side rooms, the rest stops, the walrus and the bot.
+ * It uses no SDK call (no drawing, no sound) and keeps its own RNG: deterministic on the frame clock, the same at every screen size (nothing
  * depends on what the screen shows), linked alone by tests/test_world.c. draw.c is the video, main.c the flow (the
- * title, the dive from level to level, the shops, the results, pause), input, sound, the music, save RAM, save states.
+ * title, the endless dive, the shops, the results, pause), input, sound, the music, save RAM, save states.
  */
 #ifndef GAME_H
 #define GAME_H
@@ -21,17 +21,22 @@
 #define SHAFT_W      (COLS * CELL)  /* 192 px */
 #define CHUNK_W      10             /* a chunk: the 10 inner columns ... */
 #define CHUNK_H      12             /* ... and 12 rows (192 px) */
-#define TOP_ROWS     7              /* each level starts with a landing ledge and a short drop ... */
-#define END_ROWS     9              /* ... and ends on the bottom's floor (the shop's door) */
-#define MAX_CHUNKS   24
-#define MAX_ROWS     (TOP_ROWS + MAX_CHUNKS * CHUNK_H + END_ROWS + 16)
+#define TOP_ROWS     7              /* the dive starts on a landing ledge under a ceiling, then a short drop */
+#define RING         128            /* the well is endless: the rows kept, a ring (the puffin's ~45 above, ~64 below) */
+#define AHEAD_ROWS   64             /* rows generated below the puffin (more than any screen shows, the critters wake) */
 #define ZONES        4
-#define LEVELS_PER_ZONE 3
-#define LEVELS       (ZONES * LEVELS_PER_ZONE)
+#define ZONE_CHUNKS  25             /* a zone: 25 chunks (300 m); then the next, the four again, harder ("a cycle") */
+#define REST_EVERY   15             /* a rest stop (a ledge with a shop) every 15 chunks (180 m) */
+#define DIFF_M       120            /* the difficulty grows a step every 120 m (critters, speed, ledges, prices) */
+#define GENTLE_M     180            /* the first metres: as gentle as the first level was */
+#define M_PER_ROW    1              /* 1 m = one cell (16 px) */
+/* depth in metres of absolute row r (the dive's rows count from the first ceiling) */
+#define ROW_M(r)     ((r) - TOP_ROWS)
 
-/* the cells */
-enum { C_EMPTY, C_ROCK, C_CRYSTAL, C_CRACKED, C_DOOR, C_SHUT, C_FLOOR, C_COUNT };
-#define SOLID(c)     ((c) == C_ROCK || (c) == C_CRYSTAL || (c) == C_CRACKED || (c) == C_SHUT || (c) == C_FLOOR)
+/* the cells (C_FLOOR: a rest stop's ledge; C_ARENA: the walrus's floor, gone once it is beaten) */
+enum { C_EMPTY, C_ROCK, C_CRYSTAL, C_CRACKED, C_DOOR, C_SHUT, C_FLOOR, C_ARENA, C_COUNT };
+#define SOLID(c)     ((c) == C_ROCK || (c) == C_CRYSTAL || (c) == C_CRACKED || (c) == C_SHUT || (c) == C_FLOOR || \
+                      (c) == C_ARENA)
 
 /* ---- the puffin ------------------------------------------------------------------------------------------------------- */
 #define HB_W         10             /* its hitbox against the rock, px (x: the centre; y: the feet) */
@@ -101,9 +106,9 @@ typedef struct enemy {
     int32_t x, y;                   /* the centre, sub-px */
     int16_t vx, vy;
     uint8_t type, hp, alive, flash; /* flash: frames of the hit's white */
-    uint8_t st, face, awake, pad;   /* face: 1 = looks left */
+    uint8_t st, face, awake, zone;  /* face: 1 = looks left; zone: the zone it lives in (its palette: zone & 1) */
     uint16_t t;                     /* frames in its state */
-    int16_t home_y;                 /* its starting row (px): floaters bob round it */
+    int32_t home_y;                 /* where it started (world px): floaters bob round it, the walrus's floor */
 } enemy;
 #define MAX_EN       120
 #define WAKE_ABOVE   160            /* px: a critter moves while the puffin is less than this above it ... */
@@ -139,31 +144,35 @@ typedef struct hero {
     uint16_t walk_t;
 } hero;
 
-typedef struct pop { int16_t x, y, n; uint8_t kind, pad; } pop;     /* world px; kind: POP_* */
+typedef struct pop { int32_t x, y; int16_t n; uint8_t kind, pad; } pop;     /* world px; kind: POP_* */
 enum { POP_COMBO, POP_BONUS, POP_HEART };
-typedef struct fxev { int16_t x, y; uint8_t kind, a; } fxev;      /* world px; kind: FX_* (draw.c's effects) */
+typedef struct fxev { int32_t x, y; uint8_t kind, a, pad[2]; } fxev;   /* world px; kind: FX_* (draw.c's effects) */
 enum { FX_SHOT, FX_KILL, FX_HIT, FX_GEM, FX_BREAK, FX_LAND, FX_STOMP, FX_HURT, FX_JUMP, FX_BEAM, FX_SPORE_POP };
 #define MAX_FXEV     24
 #define MAX_POPS     4
 #define MAX_DIRTY    16
 
+#define MAX_DOORS    6
 typedef struct world {
-    /* the run */
+    /* the dive */
     uint32_t seed;
-    int level;                      /* 0 .. LEVELS - 1 */
     int hp, hpmax, ammo, ammo_max, weapon, passives;
-    int gems, score, kills, best_combo, depth_px;  /* gems: in the purse; score: the run's points */
-    /* the level */
-    uint32_t rng;
-    int rows;                       /* the shaft's height in cells */
-    uint8_t cell[MAX_ROWS][COLS];
-    uint8_t cell_hp[MAX_ROWS][COLS];
-    uint8_t chunk_of[MAX_CHUNKS];   /* (the chunks used: the tests, the logs) */
-    int nchunks;
-    int door_row[4], door_col[4], door_kind[4], ndoors;    /* the side rooms: where, and a shop (0) or a gift (1) */
-    int boss_level, boss, boss_hpmax;                   /* the boss: an enemy index, -1 none */
+    int gems, score, kills, best_combo, depth_m;   /* gems: in the purse; score: the dive's points (a metre is one) */
+    uint32_t rng;                   /* the play's RNG (each chunk has its own: the well is the same on a CONTINUE) */
+    /* the well: an endless ring of rows (absolute row r at cell[r % RING]) */
+    int gen_row, gen_chunk;         /* the next row and chunk to make */
+    int top_row;                    /* the dive's first row (its ceiling; a CONTINUE starts lower) */
+    int last_chunk;                 /* the last hand-made chunk picked (the logs) */
+    uint8_t cell[RING][COLS];
+    uint8_t cell_hp[RING][COLS];
+    uint16_t row_zone[RING];        /* the zone each row belongs to (0, 1, 2 ...: zone % 4 its look, zone / 4 its cycle) */
+    int door_row[MAX_DOORS], door_col[MAX_DOORS], door_kind[MAX_DOORS], ndoors;   /* side rooms: a shop (0), a gift (1) */
+    int rest_used;                  /* the rest stop whose shop was opened (its row), -1 none */
+    int boss, boss_hpmax, arena_row;    /* the walrus: an enemy index (-1 none), its health, its floor's first row */
+    int walruses;                   /* the walruses beaten */
+    int zone_now;                   /* the zone the puffin is in */
     hero h;
-    int t;                          /* frames in the level */
+    int t;                          /* frames of the dive */
     int combo, combo_t;             /* kills since the feet left the rock; combo_t: the counter's pop */
     enemy en[MAX_EN];
     int n_en;
@@ -172,26 +181,25 @@ typedef struct world {
     int beam_t, beam_x, beam_y0, beam_y1;
     int hitstop;
     int32_t look;                   /* the camera's look-ahead (sub-px, smoothed from the fall: the same at every size) */
-    int cleared;                    /* the bottom's floor reached: the level's shop */
+    int cleared;                    /* a rest stop reached: its shop */
     int room;                       /* a side room entered: its door's index + 1 */
     offer offers[MAX_OFFER];
     int n_offers;
-    int won;                        /* the boss beaten */
     int prev_in;                    /* the last step's input (its edges) */
-    int shop_mode;                  /* the offers: 0 the level end, 1 a side shop (cheaper), 2 a gift (one free) */
+    int shop_mode;                  /* the offers: 0 a rest stop, 1 a side shop (cheaper), 2 a gift (one free) */
     /* reported each step to draw.c and main.c */
     uint32_t events;
     fxev fx[MAX_FXEV];
     int n_fx;
     pop pops[MAX_POPS];
     int n_pops;
-    int dirty[MAX_DIRTY], n_dirty;  /* cell rows changed (a crystal broken, a door shut): redrawn */
+    int dirty[MAX_DIRTY], n_dirty;  /* cell rows changed (a crystal broken, a door shut, a floor gone): redrawn */
     int gems_got;                   /* gems picked up this step */
 } world;
 enum {
     EV_JUMP = 1, EV_SHOT = 2, EV_KILL = 4, EV_HIT = 8, EV_GEM = 16, EV_LAND = 32, EV_STOMP = 64, EV_HURT = 128,
     EV_BREAK = 256, EV_COMBO = 512, EV_CLEAR = 1024, EV_ROOM = 2048, EV_DEAD = 4096, EV_BOSS = 8192, EV_WIN = 16384,
-    EV_EMPTY = 32768, EV_BEAM = 65536, EV_SHIELD = 131072, EV_BOSSHIT = 262144, EV_REFILL = 524288
+    EV_EMPTY = 32768, EV_BEAM = 65536, EV_SHIELD = 131072, EV_BOSSHIT = 262144, EV_REFILL = 524288, EV_ZONE = 1048576
 };
 
 /* the chunks (levels/chunks.txt: levels/README.md) */
@@ -210,43 +218,51 @@ enum { IN_LEFT = 1, IN_RIGHT = 2, IN_JUMP = 4, IN_DOWN = 8 };
 
 /* world.c */
 void world_new_run(world *w, uint32_t seed);
-void world_start_level(world *w, int level, const chunk *defs, int ndefs);
-void world_step(world *w, int in);
+void world_begin(world *w, int k, const chunk *defs, int ndefs);     /* the dive from chunk k (0: the top) */
+void world_step(world *w, int in, const chunk *defs, int ndefs);
 uint32_t world_hash(const world *w);
-int  world_level_rows(int level);            /* its chunks */
-int  zone_of(int level);
+int  world_cell(const world *w, int c, int r);    /* cell (column c, absolute row r) */
+int  world_row_zone(const world *w, int r);       /* the zone of absolute row r */
+int  world_chunk_kind(int k);                     /* chunk k: CK_* */
+enum { CK_PLAIN, CK_GATE, CK_REST, CK_ARENA1, CK_ARENA2 };
+int  world_reach(const world *w, int row0, int rows, int cols_from, char *err, int errn);   /* (tests) */
+void world_gen_to(world *w, int r, const chunk *defs, int ndefs);                        /* (tests) */
+int  world_difficulty(int depth_m);               /* 0, 1, 2 ...: a step every DIFF_M */
+int  zone_look(int zone);                         /* 0..3: grotto, coral, mushroom, frozen */
 int  world_offer_price(const world *w, int up);
-void world_make_offers(world *w, int n, int mode);   /* the offers: mode 0 the level end, 1 a side shop, 2 a gift */
+void world_make_offers(world *w, int n, int mode);   /* the offers: mode 0 a rest stop, 1 a side shop, 2 a gift */
 int  world_buy(world *w, int k);              /* 1: bought */
 void world_leave_room(world *w);              /* back in the shaft from a side room */
+void world_leave_rest(world *w);              /* back in the shaft from a rest stop's shop */
 int  world_can_buy(const world *w, int up);   /* (a full purse aside) */
 int  bot_input(const world *w, uint32_t *bot_state);     /* the bot: the inputs of this frame */
 int  bot_shop(const world *w);                /* the bot in a shop: the offer to buy, -1 leave */
-/* the run's snapshot for CONTINUE (save RAM): kept at each level's start */
+/* the dive's snapshot for CONTINUE (save RAM): its chunk and everything the puffin carries */
 typedef struct snapshot {
-    int8_t level, hp, hpmax, ammo_max;
-    int8_t weapon, passives, pad[2];
+    int16_t chunk;
+    int8_t hp, hpmax, ammo_max, weapon, passives, walruses;
     uint16_t gems, kills;
     uint32_t seed, score;
-    uint16_t best_combo, pad2;
+    uint16_t best_combo, depth_m;
 } snapshot;
 void world_snapshot(const world *w, snapshot *s);
-void world_resume(world *w, const snapshot *s);
+void world_resume(world *w, const snapshot *s, const chunk *defs, int ndefs);
 
 /* ---- draw.c ------------------------------------------------------------------------------------------------------------------------ */
 enum { ST_TITLE, ST_PLAY, ST_CARD, ST_SHOP, ST_OVER };
 #define RETRY_LOCK   36
-#define CARD_FRAMES  110            /* a zone's (or a level's) title card */
+#define CARD_FRAMES  130            /* a zone's card */
 typedef struct view {
     int state, st_t, paused;
-    int best, new_best, can_continue, run_level, title_sel;   /* title_sel: 0 continue, 1 a new dive */
-    int medal, shop_sel, shop_kind;   /* shop_kind: 0 the level's end, 1 a side room's shop, 2 a gift */
-    int card, first_run, bot, touch;   /* card: the level's card, frames left */
+    int best, new_best, can_continue, run_depth, title_sel;   /* title_sel: 0 continue, 1 a new dive */
+    int medal, shop_sel, shop_kind;   /* shop_kind: 0 a rest stop, 1 a side room's shop, 2 a gift */
+    int card, first_run, bot, touch;   /* card: the zone's card, frames left */
+    int best_depth, new_depth;      /* the deepest dive (metres, the marker in the well); new_depth: frames of NEW BEST! */
 } view;
 void draw_init(void);
 void draw_frame(const world *w, const view *v);
 void draw_events(const world *w);
-void draw_level(const world *w);              /* a new level: the maps, the zone's colours */
+void draw_level(const world *w);              /* a new dive: the maps, the zones' colours */
 void draw_state(void);
 void draw_state_loaded(const world *w);
 const char *upgrade_name(int up);

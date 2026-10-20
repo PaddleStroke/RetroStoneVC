@@ -2,7 +2,7 @@
 #
 #   make puffinplunge                host builds: puffinplunge (SDL2), puffinplunge_headless, puffinplunge_libretro.so
 #   make puffinplunge-check          all its tests: the rules (tests/test_world.c: every chunk passable, the levels,
-#                                    the bot diving through levels 1-2 on 40 seeds, determinism), the libretro loader,
+#                                    the well to 4800 m, the bot past 150 m on 40 seeds, determinism), the libretro loader,
 #                                    the smoke tests (the flow, the shops, pause, the dive kept and continued, the bot,
 #                                    determinism), the UI screens, the save states and their audit, at 320 and at each
 #                                    widescreen width of WIDTHS (427 520), states across widths, the tall screen and the

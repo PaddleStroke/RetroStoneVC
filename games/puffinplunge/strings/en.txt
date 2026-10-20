@@ -2,7 +2,7 @@
 # A little puffin in bubble boots dives down a deep well: it jumps from the ledges, and in the air its boots fire bubbles
 # downward (that slows its fall). Landing refills the bubbles. Critters live in the well (snails, bats, crabs,
 # jellyfish, beetles, moths...): bubbles pop them, a stomp on a soft one bounces the puffin. Gems buy upgrades in the
-# shops. Four zones of three levels, the Grumpy Walrus at the bottom. Everything else comes from the house kit
+# shops. The well never ends: four zones again and again, deeper and harder, a grumpy walrus now and then. Everything else comes from the house kit
 # (games/common/strings/en.txt). The game's name is never translated. Keep it gentle and family-friendly: critters are
 # "popped", never killed.
 
@@ -12,9 +12,12 @@ VERB = DIVE
 #. The same when a dive was left half-way: PRESS A TO CONTINUE (it).
 #. max 10
 VERB_CONTINUE = CONTINUE
-#. The title, a dive left half-way (%s: its level, like 2-1). Left / Right choose between continuing it and a new dive.
+#. The title, a dive left half-way (%s: its depth, like 534 M). Left / Right choose between continuing it and a new dive.
 #. max 30
-RUN_AT = IN PROGRESS: LEVEL %s
+RUN_AT = IN PROGRESS: %s
+#. The title: the deepest dive ever (%s: a depth like 534 M); a rope marks it in the well.
+#. max 30
+BEST_DEPTH = DEEPEST: %s
 #. The title's two choices when a dive is in progress (arrows are drawn around the one chosen).
 #. max 22
 CHOICE_CONTINUE = CONTINUE THE DIVE
@@ -31,9 +34,6 @@ HINT_TOUCH = THE BIG BUTTON: JUMP
 #. max 30
 HINT_TOUCH2 = IN THE AIR, IT FIRES DOWN
 
-#. A level's card as it starts (%s: like 1-2), over the zone's name.
-#. max 16
-LEVEL_N = LEVEL %s
 #. The four zones of the well, deeper and deeper.
 #. max 24
 ZONE_1 = THE CRYSTAL GROTTO
@@ -43,16 +43,13 @@ ZONE_2 = THE CORAL TRENCH
 ZONE_3 = THE MUSHROOM CAVE
 #. max 24
 ZONE_4 = THE FROZEN DEEP
-#. The last level's card: the bottom of the well, where the boss waits.
-#. max 24
-BOTTOM = THE BOTTOM OF THE WELL
 #. The boss's name, shown as it wakes up.
 #. max 20
 WALRUS = THE GRUMPY WALRUS
 
-#. The shop at a level's bottom (a banner: 2x letters on a panel).
+#. A rest stop's shop (a ledge on the way down; a banner: 2x letters on a panel).
 #. max 18
-LEVEL_CLEAR = LEVEL CLEAR!
+REST = A REST STOP
 #. A side room's shop, a little cheaper (a banner).
 #. max 18
 LITTLE_SHOP = LITTLE SHOP
@@ -121,9 +118,9 @@ D_LUCKY = MORE GEMS
 #. The results' banner after the boss is beaten (2x letters on a panel).
 #. max 18
 WIN = YOU DID IT!
-#. The results: under the score, the level reached (%s: like 3-2) and the longest combo (%d).
+#. The results: under the score, the depth reached (%s: like 534 M) and the longest combo (%d).
 #. max 24
-RES_NOTE = LEVEL %s - COMBO %d
+RES_NOTE = %s - COMBO %d
 #. Paused: B goes back to the title; the dive is kept (it continues from the level's start).
 #. max 30
 PAUSE_QUIT = B: TITLE - THE DIVE IS KEPT

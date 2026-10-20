@@ -4,12 +4,12 @@ title       130  125
 cont        130  125  --opt fakerun=1 --opt best=1234
 cont_new    130  125  --opt fakerun=1 --opt best=1234 ; 60 tap RIGHT
 card        60   50   --opt ready=1 --opt seed=3
-card_boss   60   50   --opt ready=1 --opt seed=3 --opt level=12
+card_boss   60   50   --opt ready=1 --opt seed=3 --opt depth=1150
 hint        120  110  --opt ready=1 --opt seed=7 --opt touch=1
 hint_pad    120  110  --opt ready=1 --opt seed=7
 shop        40   35   --opt ready=1 --opt seed=7 --opt shop=1 --opt gems=60
-shop2       40   35   --opt ready=1 --opt seed=11 --opt level=6 --opt shop=1 --opt gems=300
-shop3       40   35   --opt ready=1 --opt seed=5 --opt level=9 --opt shop=1 --opt gems=300 --opt weapon=1
+shop2       40   35   --opt ready=1 --opt seed=11 --opt depth=650 --opt shop=1 --opt gems=300
+shop3       40   35   --opt ready=1 --opt seed=5 --opt depth=1000 --opt shop=1 --opt gems=300 --opt weapon=1
 little      40   35   --opt ready=1 --opt seed=7 --opt room=1 --opt gems=30
 gift        40   35   --opt ready=1 --opt seed=7 --opt room=2
 pause       320  315  --opt bot=1 --opt ready=1 --opt seed=7 ; 300 tap START
@@ -17,11 +17,15 @@ results     300  290  --opt ready=1 --opt seed=7 --opt hurtat=100 --opt score=64
 title_t     130  125  --display 1080x2340
 cont_t      130  125  --display 1080x2340 --opt fakerun=1 --opt best=1234
 card_t      60   50   --display 1080x2340 --opt ready=1 --opt seed=3
-card_boss_t 60   50   --display 1080x2340 --opt ready=1 --opt seed=3 --opt level=12
+card_boss_t 60   50   --display 1080x2340 --opt ready=1 --opt seed=3 --opt depth=1150
 hint_t      120  110  --display 1080x2340 --opt ready=1 --opt seed=7 --opt touch=1
 shop_t      40   35   --display 1080x2340 --opt ready=1 --opt seed=7 --opt shop=1 --opt gems=60
-shop2_t     40   35   --display 1080x2340 --opt ready=1 --opt seed=11 --opt level=6 --opt shop=1 --opt gems=300
-shop3_t     40   35   --display 1080x2340 --opt ready=1 --opt seed=5 --opt level=9 --opt shop=1 --opt gems=300 --opt weapon=1
+shop2_t     40   35   --display 1080x2340 --opt ready=1 --opt seed=11 --opt depth=650 --opt shop=1 --opt gems=300
+shop3_t     40   35   --display 1080x2340 --opt ready=1 --opt seed=5 --opt depth=1000 --opt shop=1 --opt gems=300 --opt weapon=1
 gift_t      40   35   --display 1080x2340 --opt ready=1 --opt seed=7 --opt room=2
 pause_t     320  315  --display 1080x2340 --opt bot=1 --opt ready=1 --opt seed=7 ; 300 tap START
 results_t   300  290  --display 1080x2340 --opt ready=1 --opt seed=7 --opt hurtat=100 --opt score=640
+title_best  130  125  --opt bestdepth=534 --opt best=1300
+title_best_t 130 125  --display 1080x2340 --opt bestdepth=534 --opt best=1300
+zone        200  160  --opt ready=1 --opt seed=7 --opt bot=1 --opt depth=290 --opt god=1
+zone_t      200  160  --display 1080x2340 --opt ready=1 --opt seed=7 --opt bot=1 --opt depth=290 --opt god=1

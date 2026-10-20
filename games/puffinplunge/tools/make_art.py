@@ -685,6 +685,7 @@ SMALL_FONT = {
     "8": ["###", "#.#", "###", "#.#", "###"], "9": ["###", "#.#", "###", "..#", "###"],
     "x": ["...", "#.#", ".#.", "#.#", "..."], "+": ["...", ".#.", "###", ".#.", "..."],
     "-": ["...", "...", "###", "...", "..."],
+    "m": ["#.#", "###", "###", "#.#", "#.#"],
 }
 
 
@@ -787,7 +788,7 @@ def items_frames():
            ("heart", lambda f: heart(1 - f), 8, 8, 2), ("pip", lambda f: pip(1 - f), 8, 8, 2),
            ("shot", lambda f: bubble_shot(f), 8, 8, 2), ("bar", bar, 8, 8, 9), ("casing", casing, 8, 8, 4), ("puff", puff, 8, 8, 3),
            ("spark", spark, 8, 8, 3), ("shard", shard, 8, 8, 3), ("snowball", snowball, 8, 8, 2)]
-    for ch in "0123456789x+-":
+    for ch in "0123456789x+-m":
         out.append(("d_" + {"x": "x", "+": "plus", "-": "minus"}.get(ch, ch), lambda f, ch=ch: small_digit(ch, 0), 8, 8, 1))
     for ch in "0123456789x+":
         out.append(("g_" + {"x": "x", "+": "plus"}.get(ch, ch), lambda f, ch=ch: small_digit(ch, 1), 8, 8, 1))
@@ -795,7 +796,37 @@ def items_frames():
     for k in UP_ICONS:
         out.append(("i_" + k, lambda f, k=k: icon(k), 16, 16, 1))
     out.append(("cursor", lambda f: cursor(f), 8, 8, 2))
+    out.append(("rope", lambda f: rope(), 64, 8, 1))
+    out.append(("flag", lambda f: flag(), 16, 16, 1))
     return out
+
+
+def rope():
+    """the deepest dive's marker: a gold rope across the shaft, knotted, a dashed glow under it"""
+    cv = Canvas(64, 8)
+    for x in range(64):
+        cv.set(x, 3, I["ol"] if (x // 3) % 2 else I["o"])
+        cv.set(x, 4, I["od"] if (x // 3) % 2 else I["o"])
+        if x % 16 == 8:
+            cv.rect(x - 1, 2, x + 1, 5, I["o"])
+            cv.set(x - 1, 2, I["ol"])
+        if x % 8 < 4:
+            cv.set(x, 6, I["od"])
+    return cv
+
+
+def flag():
+    """the deepest dive's pennant on its pole (the depth's digits beside it)"""
+    cv = Canvas(16, 16)
+    cv.rect(2, 1, 2, 15, I["grey"])
+    cv.set(2, 1, I["white"])
+    for y in range(2, 9):
+        w = 9 - abs(y - 5) * 2
+        for x in range(3, 3 + max(1, w)):
+            cv.set(x, y, I["ol"] if y < 5 else I["o"])
+    cv.set(5, 4, I["white"])
+    cv.outline(I["out"])
+    return cv
 
 
 def cursor(f):

@@ -10,7 +10,7 @@ VRAM (tiles, absolute; docs/spec.md "Video memory": the guideline is 64 KiB = 20
     297..319    BG1 the HUD's own tiles
     320..575    BG1 the glyph pool of the translated text (docs/i18n.md: a Japanese title takes 256)
     576..895    BG1 the title's logo
-    1024..      BG2 the shaft (the zone's terrain: rock quarters, crystals, doors, the floor, the side panels'
+    1024..      BG2 the shaft (two zones at a time, a slot each: the terrain, rock quarters, crystals, doors, the floors, the side panels'
                 decorations) and BG3 the back wall, after it (one zone's tiles at a time, loaded with the level)
     2048..      the sprites: the puffin, the critters, the walrus, the items, the effects, then the kit's
 MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/puffinplunge/LICENSE.
@@ -33,8 +33,8 @@ import rsasset  # noqa: E402
 import make_art  # noqa: E402
 
 VR_BG1, EXT_TILE, EXT_COUNT, LOGO_TILE, UI_TILE, VR_SHAFT, VR_OBJ = 0, 320, 256, 576, 297, 1024, 2048
-PAL_UI, PAL_ROCK, PAL_SIDE, PAL_BACK, PAL_LOGO = 0, 1, 2, 3, 5
-OBJ_HERO, OBJ_CRIT, OBJ_ITEMS, OBJ_KIT, OBJ_FX, OBJ_BOSS, OBJ_FLASH = 0, 1, 2, 3, 4, 5, 6
+PAL_UI, PAL_ROCK, PAL_SIDE, PAL_BACK, PAL_ROCK2, PAL_LOGO, PAL_SIDE2, PAL_BACK2 = 0, 1, 2, 3, 4, 5, 6, 7
+OBJ_HERO, OBJ_CRIT, OBJ_ITEMS, OBJ_KIT, OBJ_FX, OBJ_BOSS, OBJ_FLASH, OBJ_CRIT2 = 0, 1, 2, 3, 4, 5, 6, 7
 
 
 def indices(im, x, y, w, h):
@@ -73,6 +73,7 @@ def main():
     for k, v in (("VR_BG1", VR_BG1), ("EXT_TILE", EXT_TILE), ("EXT_COUNT", EXT_COUNT), ("LOGO_TILE", LOGO_TILE),
                  ("UI_TILE", UI_TILE), ("VR_SHAFT", VR_SHAFT), ("VR_OBJ", VR_OBJ), ("PAL_UI", PAL_UI),
                  ("PAL_ROCK", PAL_ROCK), ("PAL_SIDE", PAL_SIDE), ("PAL_BACK", PAL_BACK), ("PAL_LOGO", PAL_LOGO),
+                 ("PAL_ROCK2", PAL_ROCK2), ("PAL_SIDE2", PAL_SIDE2), ("PAL_BACK2", PAL_BACK2), ("OBJ_CRIT2", OBJ_CRIT2),
                  ("OBJ_HERO", OBJ_HERO), ("OBJ_CRIT", OBJ_CRIT), ("OBJ_ITEMS", OBJ_ITEMS), ("OBJ_KIT", OBJ_KIT),
                  ("OBJ_FX", OBJ_FX), ("OBJ_BOSS", OBJ_BOSS), ("OBJ_FLASH", OBJ_FLASH)):
         h.append("#define %s %d" % (k, v))

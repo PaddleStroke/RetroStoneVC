@@ -37,15 +37,16 @@ static const rs_color title_ramps[2][3] = {
     {RS_RGB8(170, 236, 255), RS_RGB8(80, 170, 236), RS_RGB8(40, 90, 180)}};      /* PLUNGE: the bubbles */
 
 /* ---- the drawing's state (saved: draw_state) --------------------------------------------------------------------- */
-static int laid_w = -1, laid_h = -1, zone_loaded = -1, ui_key = -1, level_drawn = -1;
+static int laid_w = -1, laid_h = -1, ui_key = -1;
+static int slot_zone[2] = {-1, -1};               /* the zone whose tiles and colours each slot holds (zone & 1) */
 static int row_cache[MAPH], back_cache[MAPH];   /* the world tile row each map row shows (-99999: none) */
 typedef struct part { int32_t x, y; int16_t vx, vy; uint8_t kind, t, life, a; } part;   /* world, Q8 */
 enum { P_FLASH, P_CASING, P_PUFF, P_SPARK, P_SHARD, P_POOF, P_POP, P_DUST };
 static part parts[MAX_PART];
 static int part_next;
-typedef struct zip { int16_t x, y; uint8_t t, big; } zip;    /* a gem flying to the counter: from world x, y */
+typedef struct zip { int32_t x, y; uint8_t t, big, pad[2]; } zip;    /* a gem flying to the counter: from world x, y */
 static zip zips[MAX_ZIP];
-static int zip_next, tick, gem_pulse, hurt_t, warn_t, shown_gems;
+static int zip_next, tick, gem_pulse, hurt_t, warn_t, shown_gems, win_t;
 /* per frame (set by draw_frame, read by the raster: not saved) */
 static int r_pin;
 static int band[RS_SCREEN_H_MAX / 8 + 2], oam_n;   /* the sprite budget of the frame (scratch) */
@@ -72,11 +73,7 @@ const char *zone_name(int z)
     static const int k[ZONES] = {GS_ZONE_1, GS_ZONE_2, GS_ZONE_3, GS_ZONE_4};
     return GSTR(k[z & 3]);
 }
-static void level_str(char *s, int n, int level)
-{
-    int l = level < 0 ? 0 : level >= LEVELS ? LEVELS - 1 : level;
-    if (n >= 4) { s[0] = (char)('0' + l / LEVELS_PER_ZONE + 1); s[1] = '-'; s[2] = (char)('0' + l % LEVELS_PER_ZONE + 1); s[3] = 0; }
-}
+static void metres_str(char *s, int n, int m) { rs_strf(s, (size_t)n, HTR(METRES_N), m < 0 ? 0 : m); }
 
 /* ---- sprites, within the guidelines (128, 32 a line) ------------------------------------------------------------------ */
 static void budget_reset(void) { memset(band, 0, sizeof band); oam_n = 0; }
@@ -123,6 +120,7 @@ static int small_text(const char *s, int x, int y, int gold, int prio)
         else if (*s == 'x') id = gold ? SPR_G_X : SPR_D_X;
         else if (*s == '+') id = gold ? SPR_G_PLUS : SPR_D_PLUS;
         else if (*s == '-') id = SPR_D_MINUS;
+        else if (*s == 'm') id = SPR_D_M;
         if (id >= 0) spr(id, x - 2, y - 1, prio, 0);
         x += 5;
     }
@@ -135,12 +133,10 @@ static int sy(int wy) { return wy - cam + rs_screen_top(); }
 
 static int camera(const world *w, int title)
 {
-    if (title) return 0;
+    if (title) return w->top_row * CELL;
     int hgt = rs_screen_height(), line = hgt * 3 / 10;
     int c = w->h.y / SUB - line + w->look / SUB;
-    int maxc = w->rows * CELL - hgt;
-    if (c > maxc) c = maxc;
-    if (c < 0) c = 0;
+    if (c < w->top_row * CELL) c = w->top_row * CELL;    /* (the dive's ceiling at the top) */
     return c;
 }
 
@@ -177,23 +173,53 @@ static void layers_setup(void)
     rs_screen_origin_v(tall() ? rs_screen_height() - RS_SCREEN_H : 0);
 }
 
-static void load_zone(int z)
+/* the zones' looks: two slots of tiles and colours (zone & 1: the zones on screen are at most two, one after the other);
+ * a zone of a later cycle (the four again, deeper) takes on a tint: violet, then crimson, then the night */
+static rs_color tint(rs_color c, int cycle)
 {
-    if (z == zone_loaded) return;
+    static const rs_color T[3] = {RS_RGB8(70, 30, 140), RS_RGB8(140, 30, 50), RS_RGB8(10, 14, 50)};
+    if (cycle <= 0) return c;
+    return hu_lerp_color(c, T[(cycle - 1) % 3], cycle > 3 ? 110 : 80);
+}
+static void tinted(int first, const uint16_t *src, int cycle, int scale)
+{
+    rs_color c[16];
+    for (int i = 0; i < 16; i++) c[i] = scale == 256 ? tint(src[i], cycle) : hu_scale_color(tint(src[i], cycle), scale);
+    c[0] = 0;
+    rs_pal_load(first, c, 16);
+}
+static int slot_tile(int slot) { return 1 + slot * (T_COUNT + BACK_TILES); }   /* the slot's first tile (0: clear) */
+static int slot_pal(int slot, int kind)     /* kind 0 the rock, 1 the side panels, 2 the back wall */
+{
+    static const int P[2][3] = {{PAL_ROCK, PAL_SIDE, PAL_BACK}, {PAL_ROCK2, PAL_SIDE2, PAL_BACK2}};
+    return P[slot & 1][kind];
+}
+static void load_zone(int zone)
+{
+    int s = zone & 1, z = zone_look(zone), cycle = zone / ZONES;
+    if (zone < 0 || slot_zone[s] == zone) return;
     static const uint8_t blank[32];
     rs_tiles_load(VR_SHAFT, blank, 1);
-    rs_tiles_load(VR_SHAFT + 1, pp_terrain[z], T_COUNT);
-    rs_tiles_load(VR_SHAFT + 1 + T_COUNT, pp_back[z], BACK_TILES);
-    rs_pal_load(RS_PAL_BG(PAL_ROCK), pp_pal_terrain[z], 16);
-    rs_color side[16];
-    for (int i = 0; i < 16; i++) side[i] = hu_scale_color(pp_pal_terrain[z][i], 150);   /* the side panels: darker */
-    side[1] = pp_pal_terrain[z][1];
-    rs_pal_load(RS_PAL_BG(PAL_SIDE), side, 16);
-    rs_pal_load(RS_PAL_BG(PAL_BACK), pp_pal_back[z], 16);
-    rs_pal_load(RS_PAL_OBJ(OBJ_CRIT), pp_pal_crit[z], 16);
-    rs_backdrop(pp_pal_back[z][1]);
-    zone_loaded = z;
+    rs_tiles_load(VR_SHAFT + slot_tile(s), pp_terrain[z], T_COUNT);
+    rs_tiles_load(VR_SHAFT + slot_tile(s) + T_COUNT, pp_back[z], BACK_TILES);
+    tinted(RS_PAL_BG(slot_pal(s, 0)), pp_pal_terrain[z], cycle, 256);
+    rs_color side1 = tint(pp_pal_terrain[z][1], cycle);
+    tinted(RS_PAL_BG(slot_pal(s, 1)), pp_pal_terrain[z], cycle, 150);  /* the side panels: darker ... */
+    rs_pal_set(RS_PAL_BG(slot_pal(s, 1)) + 1, side1);                   /* ... their outline the same */
+    tinted(RS_PAL_BG(slot_pal(s, 2)), pp_pal_back[z], cycle, 256);
+    tinted(RS_PAL_OBJ(s ? OBJ_CRIT2 : OBJ_CRIT), pp_pal_crit[z], cycle, 256);
+    slot_zone[s] = zone;
     for (int i = 0; i < MAPH; i++) row_cache[i] = back_cache[i] = -99999;
+}
+/* the zones the screen shows (the camera's top and bottom rows): their slots loaded; the backdrop: the puffin's zone */
+static void zones_for(const world *w)
+{
+    int top = world_row_zone(w, cam / CELL), bot = world_row_zone(w, (cam + rs_screen_height()) / CELL + 1);
+    load_zone(top);
+    if (bot != top) load_zone(bot);
+    int bz = world_row_zone(w, (cam / 2 + rs_screen_height()) / 8);    /* (the back wall's rows: at half the speed) */
+    if (bz != top && bz != bot && (bz & 1) != (top & 1) && (bz & 1) != (bot & 1)) load_zone(bz);
+    rs_backdrop(tint(pp_pal_back[zone_look(w->zone_now)][1], w->zone_now / ZONES));
 }
 
 void draw_init(void)
@@ -224,13 +250,12 @@ void draw_init(void)
 
 void draw_level(const world *w)
 {
-    load_zone(zone_of(w->level));
+    load_zone(w->zone_now);
     for (int i = 0; i < MAPH; i++) row_cache[i] = back_cache[i] = -99999;
     memset(parts, 0, sizeof parts);
     memset(zips, 0, sizeof zips);
-    hurt_t = warn_t = 0;
+    hurt_t = warn_t = win_t = 0;
     shown_gems = w->gems;
-    level_drawn = w->level;
     ui_key = -1;
 }
 
@@ -240,9 +265,10 @@ void draw_state_loaded(const world *w)
     if (!shape && laid_w == rs_screen_width() && laid_h == rs_screen_height()) return;   /* the same screen: as saved */
     layers_setup();
     rs_bg_enable(RS_BG4, 0);
-    int z = zone_loaded;
-    zone_loaded = -1;
-    load_zone(z >= 0 ? z : zone_of(w->level));
+    int z0 = slot_zone[0], z1 = slot_zone[1];
+    slot_zone[0] = slot_zone[1] = -1;
+    load_zone(z0 >= 0 ? z0 : w->zone_now);
+    load_zone(z1);
     flash_palette();
     hu_pause(0, 13);
 }
@@ -259,16 +285,11 @@ static uint32_t hsh(int a, int b)
 }
 static int fdiv(int a, int b) { return a >= 0 ? a / b : -((b - 1 - a) / b); }
 
-static int cellk(const world *w, int c, int r)
-{
-    if (c < 0 || c >= COLS || r < 0) return C_ROCK;
-    if (r >= w->rows) return C_FLOOR;
-    return w->cell[r][c];
-}
+static int cellk(const world *w, int c, int r) { return world_cell(w, c, r); }
 static int rocky(const world *w, int c, int r)
 {
     int k = cellk(w, c, r);
-    return k == C_ROCK || k == C_FLOOR || k == C_DOOR || k == C_SHUT;
+    return k == C_ROCK || k == C_FLOOR || k == C_DOOR || k == C_SHUT || k == C_ARENA;
 }
 static int deco_at(int c, int r)                      /* a side panel's decoration in cell (c, r): its kind + 1 */
 {
@@ -280,23 +301,24 @@ static int deco_at(int c, int r)                      /* a side panel's decorati
 static uint16_t shaft_entry(const world *w, int tx, int ty)
 {
     int c = fdiv(tx, 2), r = fdiv(ty, 2), qx = tx & 1, qy = ty & 1, k = cellk(w, c, r);
-    int side = c < 0 || c >= COLS, pal = side ? PAL_SIDE : PAL_ROCK;
-    if (k == C_EMPTY) return RS_MAP(BLANK, PAL_ROCK, 0, 0, 0);
+    int slot = world_row_zone(w, r) & 1, t0 = slot_tile(slot), rockp = slot_pal(slot, 0);
+    int side = c < 0 || c >= COLS, pal = side ? slot_pal(slot, 1) : rockp;
+    if (k == C_EMPTY) return RS_MAP(BLANK, rockp, 0, 0, 0);
     if (k == C_CRYSTAL || k == C_CRACKED)
-        return RS_MAP(1 + (k == C_CRYSTAL ? T_CRYS0 : T_CRK0) + qy * 2 + qx, PAL_ROCK, 0, 0, 0);
+        return RS_MAP(t0 + (k == C_CRYSTAL ? T_CRYS0 : T_CRK0) + qy * 2 + qx, rockp, 0, 0, 0);
     if (k == C_DOOR || k == C_SHUT) {
         int kind = 2, flip = c == COLS - 1;
         if (k == C_DOOR)
             for (int d = 0; d < w->ndoors; d++)
                 if (w->door_row[d] == r && w->door_col[d] == c) kind = w->door_kind[d];
         int base = kind == 0 ? T_DOOR_SHOP0 : kind == 1 ? T_DOOR_GIFT0 : T_DOOR_SHUT0;
-        return RS_MAP(1 + base + qy * 2 + (flip ? 1 - qx : qx), PAL_ROCK, 0, flip, 0);
+        return RS_MAP(t0 + base + qy * 2 + (flip ? 1 - qx : qx), rockp, 0, flip, 0);
     }
-    if (k == C_FLOOR && qy == 0 && cellk(w, c, r - 1) != C_FLOOR && !side)
-        return RS_MAP(1 + T_FLOOR_TOP0 + qx, PAL_ROCK, 0, 0, 0);
+    if ((k == C_FLOOR || k == C_ARENA) && qy == 0 && cellk(w, c, r - 1) != k && !side)   /* a rest stop, the walrus's floor */
+        return RS_MAP(t0 + T_FLOOR_TOP0 + qx, rockp, 0, 0, 0);
     if (side) {
         int d = deco_at(c, r);
-        if (d) return RS_MAP(1 + T_DECO0_0 + (d - 1) * 4 + qy * 2 + qx, pal, 0, 0, 0);
+        if (d) return RS_MAP(t0 + T_DECO0_0 + (d - 1) * 4 + qy * 2 + qx, pal, 0, 0, 0);
     }
     /* the rock: a quarter by its two neighbours on that side and the diagonal */
     int dx = qx ? 1 : -1, dy = qy ? 1 : -1;
@@ -304,7 +326,7 @@ static uint16_t shaft_entry(const world *w, int tx, int ty)
     int type = !v && !hh ? 0 : !v ? 1 : !hh ? 2 : !dg ? 3 : 4;
     int corner = qx + qy * 2;
     int tile = type == 4 ? T_INT0 + (int)(hsh(tx, ty) % 4) : T_Q00 + corner * 5 + type;
-    return RS_MAP(1 + tile, pal, 0, 0, 0);
+    return RS_MAP(t0 + tile, pal, 0, 0, 0);
 }
 
 static void shaft_rows(const world *w, int force_row)
@@ -326,7 +348,8 @@ static void shaft_rows(const world *w, int force_row)
     rs_bg_scroll(RS_BG2, (-SHAFT_X - shx) & (mw * 8 - 1), (cam - top - shy) & (MAPH * 8 - 1));
 }
 
-static void back_rows(void)
+/* the back wall: at half the speed; its row ty is the well's row ty (the same zone: a zone's change shows there too) */
+static void back_rows(const world *w)
 {
     uint16_t *map = rs_bg_map(RS_BG3);
     int top = rs_screen_top(), by = cam / 2;
@@ -335,6 +358,7 @@ static void back_rows(void)
         int mr = ty & (MAPH - 1);
         if (back_cache[mr] == ty) continue;
         back_cache[mr] = ty;
+        int slot = world_row_zone(w, ty) & 1;
         for (int tx = 0; tx < 32; tx++) {
             uint32_t h = hsh(tx * 7, ty * 13) % 100;
             int patch = hsh(fdiv(tx + (ty / 6) % 2, 3), fdiv(ty, 5)) % 5 < 2;    /* big soft patches of lighter rock */
@@ -342,7 +366,7 @@ static void back_rows(void)
             if (h < 3) t = 8 + (int)(h & 1);            /* the zone's motif */
             else if (h < 4) t = 10;
             else if (h < 6) t = 11;
-            map[mr * 32 + tx] = RS_MAP(1 + T_COUNT + t, PAL_BACK, 0, (h & 1), 0);
+            map[mr * 32 + tx] = RS_MAP(slot_tile(slot) + T_COUNT + t, slot_pal(slot, 2), 0, (h & 1), 0);
         }
     }
     rs_bg_scroll(RS_BG3, (-SHAFT_X - hu_shake_x() / 2) & 255, (by - top) & (MAPH * 8 - 1));
@@ -381,7 +405,7 @@ void draw_events(const world *w)
             else add_part(P_SPARK, f->x, f->y, 0, -100, 8, 0);
             break;
         case FX_GEM:
-            zips[zip_next] = (zip){f->x, f->y, 1, f->a};
+            zips[zip_next] = (zip){f->x, f->y, 1, f->a, {0, 0}};
             zip_next = (zip_next + 1) % MAX_ZIP;
             break;
         case FX_BREAK:
@@ -489,9 +513,9 @@ static void draw_enemies(const world *w)
         if (e->type == ET_URCHIN || e->type == ET_CRAB || e->type == ET_JELLY || e->type == ET_ICICLE) flip = 0;
         if (e->type == ET_WALRUS) flip = e->face ? RS_SPR_HFLIP : 0;
         if (e->type == ET_ICICLE && e->st == 1) x += (e->t & 2) ? 1 : -1;
-        int pal = e->flash && (e->flash & 2) ? OBJ_FLASH : -1;
-        if (pal >= 0) spr_pal(fr, x, y, pal, 2, flip);
-        else spr(fr, x, y, 2, flip);
+        int pal = e->flash && (e->flash & 2) ? OBJ_FLASH : e->type == ET_WALRUS ? OBJ_BOSS : e->type == ET_SNOWBALL ? OBJ_ITEMS :
+                  (e->zone & 1) ? OBJ_CRIT2 : OBJ_CRIT;
+        spr_pal(fr, x, y, pal, 2, flip);
     }
 }
 
@@ -636,9 +660,10 @@ static void draw_hud(const world *w, int narrow, int gems_only)
     budget_kit(p.gem_y, 16);
     spr(SPR_BIGGEM + (gem_pulse ? 1 : 0), p.gem_x - len * 12 - 10, p.gem_y + 4, 3, 0);
     if (gems_only) return;                              /* (a shop upright: its gems) */
-    /* the depth: 2-3 */
-    level_str(s, sizeof s, w->level);
-    small_text(s, p.depth_x - 7, p.depth_y, 0, 3);
+    /* the depth: 123m (landscape: right-aligned by the wall; upright: centred) */
+    snprintf(s, sizeof s, "%dm", w->depth_m < 0 ? 0 : w->depth_m);
+    int dw = (int)strlen(s) * 5, dx0 = narrow ? p.depth_x - dw / 2 : SHAFT_X - 8 - dw;
+    small_text(s, dx0, p.depth_y, 0, 3);
     /* the weapon worn */
     static const int wicon[W_COUNT] = {SPR_I_AMMO, SPR_I_SPREAD, SPR_I_BEAM, SPR_I_BURST};
     if (w->weapon) spr(wicon[w->weapon], p.wpn_x, p.wpn_y, 3, 0);
@@ -649,7 +674,8 @@ static void draw_hud(const world *w, int narrow, int gems_only)
     if (w->combo >= 2) {
         snprintf(s, sizeof s, "x%d", w->combo);
         int pop = w->combo_t > 32 ? hu_ease_back(40 - w->combo_t, 8, 3) - 3 : 0;
-        small_text(s, p.depth_x - 7, p.depth_y + 10 + pop, 1, 3);
+        int cw = (int)strlen(s) * 5;
+        small_text(s, narrow ? p.depth_x - cw / 2 : SHAFT_X - 8 - cw, p.depth_y + 10 + pop, 1, 3);
     }
     /* the walrus's health, over the shaft */
     if (w->boss >= 0 && w->boss < w->n_en && w->en[w->boss].alive && w->en[w->boss].st > 0) {
@@ -684,7 +710,7 @@ static void shop_box(int narrow, int *x, int *w)
 }
 static const char *shop_title(int kind)
 {
-    return kind == 2 ? TR(GIFT) : kind == 1 ? TR(LITTLE_SHOP) : TR(LEVEL_CLEAR);
+    return kind == 2 ? TR(GIFT) : kind == 1 ? TR(LITTLE_SHOP) : TR(REST);
 }
 /* where an offer's lines go: its icon, its name, its line, its price (and a gem before it); upright the panel is
  * narrow: the icon beside the name, the line from the panel's edge, the price under them when it does not fit */
@@ -750,13 +776,13 @@ static void shop_sprites(const world *w, const view *v, int narrow, int pdy)
     spr(SPR_CURSOR + b, (x + wd) * 8 + ux - 1, y, 3, RS_SPR_HFLIP);
 }
 
-/* the title's lines under the logo: a dive in progress (and the two choices), the deepest level */
+/* the title's lines under the logo: a dive in progress (and the two choices); the deepest dive */
 static int title_lines(const view *v, char out[4][64])
 {
-    char t[8];
+    char t[24];
     int n = 0;
     if (v->can_continue) {
-        level_str(t, sizeof t, v->run_level);
+        metres_str(t, sizeof t, v->run_depth);
         rs_strf(out[n++], 64, TR(RUN_AT), t);
         snprintf(out[n++], 64, "%s%s%s", v->title_sel == 0 ? HU_ARROW_RIGHT " " : "", TR(CHOICE_CONTINUE),
                  v->title_sel == 0 ? " " HU_ARROW_LEFT : "");
@@ -766,6 +792,19 @@ static int title_lines(const view *v, char out[4][64])
     return n;
 }
 
+/* the deepest dive: a gold rope across the shaft, a pennant and its depth */
+static void draw_best(const view *v)
+{
+    if (v->best_depth <= 0) return;
+    int y = sy((TOP_ROWS + v->best_depth) * CELL) + hu_shake_y();
+    if (y < rs_screen_top() - 24 || y > rs_screen_bottom() + 8) return;
+    for (int k = 0; k < 3; k++) spr(SPR_ROPE, sx(CELL) + k * 64 - 16 + hu_shake_x(), y - 4, 2, 0);
+    spr(SPR_FLAG, sx(CELL) + 2, y - 18, 2, 0);
+    char s[16];
+    snprintf(s, sizeof s, "%dm", v->best_depth);
+    small_text(s, sx(CELL) + 18, y - 14, 1, 2);
+}
+
 /* ---- the frame ------------------------------------------------------------------------------------------------------------- */
 void draw_frame(const world *w, const view *v)
 {
@@ -773,11 +812,11 @@ void draw_frame(const world *w, const view *v)
     tick++;
     if (laid_w != rs_screen_width() || laid_h != rs_screen_height()) {
         layers_setup();
-        int z = zone_loaded;
-        zone_loaded = -1;
-        load_zone(z >= 0 ? z : 0);
+        int z0 = slot_zone[0], z1 = slot_zone[1];
+        slot_zone[0] = slot_zone[1] = -1;
+        load_zone(z0 >= 0 ? z0 : 0);
+        load_zone(z1);
     }
-    load_zone(zone_of(w->level));
     rs_screen_fill(1);
     rs_screen_focus_x(-1);
     int title = v->state == ST_TITLE;
@@ -789,56 +828,70 @@ void draw_frame(const world *w, const view *v)
     int pdy = pin ? ht_pin_dy(pin) : 0;
 
     cam = camera(w, title);
+    zones_for(w);
     shaft_rows(w, -1);
-    back_rows();
+    back_rows(w);
     rs_brightness(15);
+    if (w->events & EV_WIN) win_t = 140;
+    if (win_t && v->state == ST_PLAY && !v->paused) win_t--;
 
     /* the UI layer: redrawn when what it shows changes */
-    int card = v->card > 0 && v->state == ST_PLAY, hint = v->first_run && v->state == ST_PLAY && w->level == 0 && w->t < 6 * SEC;
+    int card = v->card > 0 && v->state == ST_PLAY;
+    int hint = v->first_run && v->state == ST_PLAY && w->depth_m < 30 && w->t < 6 * SEC;
+    int nb = v->new_depth > 0 && v->state == ST_PLAY;
     int key = v->state * 7919 + narrow * 11 + v->paused * 53 + (v->state == ST_OVER && v->st_t >= RETRY_LOCK) * 3 +
-              card * 101 + hint * 103 + (warn_t > 0) * 997 + w->level * 31 +
-              (title ? v->can_continue * 43 + v->title_sel * 47 + v->best * 3 : 0) +
+              card * 101 + hint * 103 + (warn_t > 0) * 997 + w->zone_now * 31 + nb * 1009 + (win_t > 0) * 1013 +
+              (title ? v->can_continue * 43 + v->title_sel * 47 + v->best * 3 + v->best_depth * 7 : 0) +
               (v->state == ST_SHOP ? w->gems * 211 + w->n_offers * 17 + w->offers[0].sold * 19 + w->offers[1].sold * 23 +
                                      w->offers[2].sold * 29 + v->shop_kind * 37 : 0);
     if (key != ui_key) {
         hu_clear();
-        char s[64];
         if (title) {
             if (narrow) ht_logo("PUFFIN PLUNGE", title_ramps, 2, HT_ROW_LOGO, 0);
             else hu_logo("PUFFIN PLUNGE", title_ramps, 2, 2, 0);
         } else if (v->state == ST_SHOP) {
             shop_panel(w, v, narrow);
         } else if (v->state == ST_OVER) {
-            char t[8], note[64];
-            level_str(t, sizeof t, w->level);
+            char t[24], note[64];
+            metres_str(t, sizeof t, w->depth_m);
             rs_strf(note, sizeof note, TR(RES_NOTE), t, w->best_combo);
-            const char *ttl = w->won ? TR(WIN) : HTR(GAME_OVER);
             if (narrow) {
-                ht_banner(4, ttl);
+                ht_banner(4, HTR(GAME_OVER));
                 ht_gameover_panel(v->new_best, note, HTR(BACK_TITLE));
             } else {
-                hu_banner(4, ttl);
+                hu_banner(4, HTR(GAME_OVER));
                 hu_gameover_panel(1, v->new_best, w->score, 0);
                 hu_text(hu_center(note, 0), 23, note);      /* (under the panel: the retry line stays on its row 19) */
             }
         } else {
-            if (card) {                                 /* the level's card: LEVEL 2-1 and the zone's name */
-                char t[8];
-                level_str(t, sizeof t, w->level);
-                rs_strf(s, sizeof s, TR(LEVEL_N), t);
-                const char *zn = w->boss_level ? TR(BOTTOM) : zone_name(zone_of(w->level));
-                if (narrow) { ht_big(8, s, HU_BIG_FREE); ht_text(11, zn, 0); }
-                else { hu_big(hu_center(s, 1), 8, s, HU_BIG_FREE); hu_text(hu_center(zn, 0), 11, zn); }
+            if (card) {                                 /* a zone's card: its name, its depth */
+                char t[24];
+                const char *zn = zone_name(zone_look(w->zone_now));
+                metres_str(t, sizeof t, w->depth_m < 0 ? 0 : w->depth_m);
+                if (narrow) { ht_big(8, zn, HU_BIG_FREE); ht_text(11, t, 0); }
+                else {
+                    if (hu_width(zn, 1) <= 40) hu_big(hu_center(zn, 1), 8, zn, HU_BIG_FREE);
+                    else hu_text(hu_center(zn, 0), 9, zn);
+                    hu_text(hu_center(t, 0), 11, t);
+                }
+            } else if (nb) {                            /* past the deepest dive */
+                const char *b = HTR(NEW_BEST_EXCL);
+                if (narrow) ht_big(8, b, HU_BIG_FREE);
+                else hu_big(hu_center(b, 1), 8, b, HU_BIG_FREE);
+            } else if (win_t) {                         /* the walrus beaten */
+                const char *b = TR(WIN);
+                if (narrow) ht_big(8, b, HU_BIG_FREE);
+                else hu_big(hu_center(b, 1), 8, b, HU_BIG_FREE);
             }
             if (hint) {
                 const char *a = v->touch ? TR(HINT_TOUCH) : TR(HINT_PAD), *b = v->touch ? TR(HINT_TOUCH2) : TR(HINT_PAD2);
                 if (narrow) { int r = ht_text(20, a, 0); ht_text(r + 2, b, 0); }
                 else { hu_text(hu_center(a, 0), 20, a); hu_text(hu_center(b, 0), 22, b); }
             }
-            if (warn_t) {
+            if (warn_t && !card) {
                 const char *ws = TR(WALRUS);
-                if (narrow) ht_big(8, ws, HU_BIG_FREE);
-                else hu_big(hu_center(ws, 1), 8, ws, HU_BIG_FREE);
+                if (narrow) ht_big(18, ws, HU_BIG_FREE);           /* (under the walrus and its floor) */
+                else hu_big(hu_center(ws, 1), 18, ws, HU_BIG_FREE);
             }
             if (v->paused) {
                 const char *q = TR(PAUSE_QUIT);
@@ -866,6 +919,14 @@ void draw_frame(const world *w, const view *v)
             ht_title_draw(&tc, v->st_t, v->best, &to);
             int r = 15;
             for (int i = 0; i < n; i++) { ht_text(r, lines[i], 0); r += ht_text_rows(lines[i], 0) + 1; }
+            if (v->best_depth > 0 && !n) {              /* the deepest dive under the logo */
+                char t[24], b[64];
+                metres_str(t, sizeof t, v->best_depth);
+                rs_strf(b, sizeof b, TR(BEST_DEPTH), t);
+                ht_text(r, b, 0);
+                r += ht_text_rows(b, 0) + 1;
+                n = 1;
+            }
             ht_title_sprites(&tc, &to, v->st_t, NULL, NULL);
             budget_kit(to.glyph_y, 16);
             int gy0 = n ? (r - 1) * 8 + pdy : to.gap_y0, gy1 = to.gap_y1;
@@ -874,9 +935,15 @@ void draw_frame(const world *w, const view *v)
         } else {
             hu_title_draw(v->st_t, v->best);
             for (int i = 0; i < n; i++) hu_text(hu_center(lines[i], 0), 13 + i * 2, lines[i]);
+            if (v->best_depth > 0) {                    /* the deepest dive, under BEST */
+                char t[24], b[64];
+                metres_str(t, sizeof t, v->best_depth);
+                rs_strf(b, sizeof b, TR(BEST_DEPTH), t);
+                hu_text(hu_center(b, 0), v->best > 0 ? 26 : 24, b);
+            }
             hu_title_sprites(v->st_t, NULL, NULL);
             budget_kit(HU_ROW_PROMPT * 8 - 4, 16);
-            draw_hero(w, 160 - 12 + hu_ui_x(), (n ? 70 : 84) + hu_bob(v->st_t, 64, 2) - (n ? 0 : 0), 1);
+            draw_hero(w, 160 - 12 + hu_ui_x(), (n ? 70 : 84) + hu_bob(v->st_t, 64, 2), 1);
         }
         return;
     }
@@ -889,8 +956,8 @@ void draw_frame(const world *w, const view *v)
         int medal = v->medal;
         if (narrow) {
             ht_gameover_sprites(w->score, v->best, medal, v->st_t, slide);
-            char t[8], note[64];
-            level_str(t, sizeof t, w->level);
+            char t[24], note[64];
+            metres_str(t, sizeof t, w->depth_m);
             rs_strf(note, sizeof note, TR(RES_NOTE), t, w->best_combo);
             if (v->st_t >= RETRY_LOCK) ht_retry_line_at(ht_gameover_retry_row(note), v->st_t, RETRY_LOCK, HTR(BACK_TITLE));
         } else {
@@ -912,14 +979,15 @@ void draw_frame(const world *w, const view *v)
     draw_enemies(w);
     draw_doors(w);
     draw_gems(w);
+    draw_best(v);
     if (hurt_t) rs_brightness(hurt_t > 8 ? 12 : 15);
 }
 
 #define S(v) rs_state_var("draw." #v, &(v), sizeof(v))
 void draw_state(void)
 {
-    S(laid_w); S(laid_h); S(zone_loaded); S(ui_key); S(level_drawn); S(row_cache); S(back_cache); S(parts); S(part_next);
-    S(zips); S(zip_next); S(tick); S(gem_pulse); S(hurt_t); S(warn_t); S(shown_gems);
+    S(laid_w); S(laid_h); S(slot_zone); S(ui_key); S(row_cache); S(back_cache); S(parts); S(part_next);
+    S(zips); S(zip_next); S(tick); S(gem_pulse); S(hurt_t); S(warn_t); S(shown_gems); S(win_t);
     RS_STATE_RASTER(raster);
 }
 #undef S

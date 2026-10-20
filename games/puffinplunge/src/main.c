@@ -1,24 +1,25 @@
 /*
- * Puffin Plunge: the game flow (the title, the dive from level to level, the zone cards, the shops at each level's
- * bottom and in the side rooms, the results, pause), input (the pad; touch: the app's drawn buttons, games.cfg), the bot,
- * sound, the music, save RAM (the best score, the deepest level, the best combo, the dive under way), options, save states.
+ * Puffin Plunge: the game flow (the title, the endless dive, the zones' cards, the shops of the rest stops and the side
+ * rooms, the results, pause), input (the pad; touch: the app's drawn buttons, games.cfg), the bot, sound, the music, save
+ * RAM (the best score, the deepest dive, the best combo, the dive under way), options, save states.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/puffinplunge/LICENSE.
  *
- * The house flow (docs/art-direction.md, "Title and players"): the title is the only menu; A dives. A dive is kept in
- * save RAM at each level's start: the title then offers CONTINUE (Left / Right: or a new dive; B: a new dive). A level is
- * a shaft: fall, fire down, land, on to the bottom's floor; there the level's shop (Up / Down or Left / Right choose, A
- * buys, the last line goes on down). The twelfth level ends on the Grumpy Walrus. A lost dive (or a won one) shows the
- * results; one press goes back to the title. Select or Start pauses; paused, B goes back to the title (the dive kept).
+ * The house flow (docs/art-direction.md, "Title and players"): the title is the only menu; A dives. The well never ends:
+ * the deeper, the harder; every 300 m a new zone (its card, its tune), every 180 m a rest stop (land on its ledge: a
+ * shop; Up / Down or Left / Right choose, A buys, the last line dives on), a walrus at the end of every frozen zone. The
+ * deepest dive is a marker in the well. A dive left from the pause (B) is kept in save RAM: the title then offers
+ * CONTINUE (Left / Right: or a new dive; B: a new dive); it goes on from the start of the chunk where it was left.
+ * A lost dive shows the results; one press goes back to the title. Select or Start pauses.
  *
  * Options (--opt key=value on the desktop runners):
- *   bot=1          the bot dives (it fires at what is under it, buys in the shops); botlevels=N: it stops after N levels
+ *   bot=1          the bot dives (it fires at what is under it, buys in the shops); botdepth=M: it stops at M metres
  *   seed=N         a fixed dive (default: from the frame of the start)
- *   ready=1        skip the title;  level=N  start at level N (1..12, with a build of that depth: tests, screenshots)
- *   god=1          no damage (tests);  frail=1  one heart;  hurtat=N  the dive lost at the level's frame N (tests)
- *   gems=N         gems in the purse;  weapon=N (0..3), passives=N (bits)
- *   shop=1         the level's shop at once;  room=N  a side room's (1 shop, 2 gift) at once
- *   door=1         the puffin starts by the first side room's door (with level=N: a level that has one)
- *   fakerun=1      a dive under way at level 2-1 (in memory);  best=N  a best score (in memory)
+ *   ready=1        skip the title;  depth=M  start at about M metres (with a build of that depth: tests, screenshots)
+ *   god=1          no damage (tests);  frail=1  one heart;  hurtat=N  the dive lost at its frame N (tests)
+ *   gems=N         gems in the purse;  weapon=N (0..3), passives=N (bits);  score=N  points to start with
+ *   shop=1         a rest stop's shop at once;  room=N  a side room's (1 shop, 2 gift) at once
+ *   door=1         the puffin starts by the first side room's door (with depth=M: a dive that has one)
+ *   fakerun=1      a dive under way at 534 m (in memory);  best=N  a best score;  bestdepth=M  the deepest dive (in memory)
  *   touch=1        the hint for touch screens;  dump=1  log the final state at exit;  music=0, sound=0
  */
 #include "game.h"
@@ -35,10 +36,10 @@
 #define START_INPUTS  (RS_BTN_START | RS_BTN_B | RS_BTN_X | RS_BTN_Y)
 #define BOT_START     30
 #define DEAD_FRAMES   90            /* the puffin down: the results after this */
-#define WIN_FRAMES    170           /* the walrus beaten: the celebration, then the results */
-#define CLEAR_FRAMES  40            /* the bottom reached: a breath, then the shop */
+#define REST_FRAMES   24            /* a rest stop's ledge reached: a breath, then the shop */
 #define MENU_LOCK     14            /* frames a shop ignores the buttons (no accidental buy) */
-static const int MEDALS[4] = {300, 900, 1800, 3000};
+#define NEW_DEPTH_FRAMES 150        /* NEW BEST! as the puffin passes the deepest dive */
+static const int MEDALS[4] = {400, 1200, 2500, 4500};
 
 /* ---- the chunks (parsed once at start-up from the asset pack: the same every run, state_audit.txt) ------------- */
 static chunk CHUNKS[MAX_CHUNK_DEFS];
@@ -47,8 +48,8 @@ static int nchunks;
 /* ---- the game's state (saved in states) ----------------------------------------------------------------------- */
 static world W;
 static int st, st_t, paused, title_sel, shop_sel, shop_kind, menu_lock, new_best, dead_t, end_t, card_t, runs_done;
-static int opt_bot, opt_botlevels, opt_god, opt_music, opt_sound, opt_seed_fixed, opt_frail, opt_touch, opt_level;
-static int opt_gems, opt_weapon, opt_passives, opt_hurtat, opt_door, levels_done, first_run;
+static int opt_bot, opt_botdepth, opt_god, opt_music, opt_sound, opt_seed_fixed, opt_frail, opt_touch, opt_depth;
+static int opt_gems, opt_weapon, opt_passives, opt_hurtat, opt_door, first_run, new_depth_t, passed_best;
 static uint32_t opt_seed, bot_st;
 static int music_cur = -1, gem_chain, gem_chain_t, snd_gap[SFX_COUNT];
 static uint32_t state_hash = 2166136261u;
@@ -60,10 +61,11 @@ typedef struct save_data {
     char magic[4];
     uint8_t version, pad[3];
     uint16_t best;                  /* offset 8 (apps/launcher/games.cfg best=8): the best score (65535 at most) */
-    uint8_t best_level, best_combo; /* the deepest level reached (1..12), the longest combo */
-    uint32_t dives, wins;
-    uint8_t has_run, pad2[3];
-    snapshot run;                   /* the dive under way (has_run), as at its level's start */
+    uint8_t pad1, best_combo;       /* the longest combo */
+    uint32_t dives, walruses;       /* the dives begun, the walruses beaten */
+    uint8_t has_run, pad2;
+    uint16_t best_depth;            /* the deepest dive, metres (the marker in the well) */
+    snapshot run;                   /* the dive under way (has_run), from its chunk */
     uint16_t sum;
 } save_data;
 static save_data SV;
@@ -82,10 +84,20 @@ static uint16_t save_sum(const save_data *s)
 static void save_load(void)
 {
     memcpy(&SV, rs_sram(), sizeof SV);
-    if (memcmp(SV.magic, MAGIC, 4) || SV.version != 1 || SV.sum != save_sum(&SV)) {
+    if (!memcmp(SV.magic, MAGIC, 4) && SV.version == 1) {   /* the levels' version: its best score and combo kept */
+        uint16_t best = SV.best;
+        uint8_t combo = SV.best_combo;
         memset(&SV, 0, sizeof SV);
         memcpy(SV.magic, MAGIC, 4);
-        SV.version = 1;
+        SV.version = 2;
+        SV.best = best;
+        SV.best_combo = combo;
+        SV.sum = save_sum(&SV);
+    }
+    if (memcmp(SV.magic, MAGIC, 4) || SV.version != 2 || SV.sum != save_sum(&SV)) {
+        memset(&SV, 0, sizeof SV);
+        memcpy(SV.magic, MAGIC, 4);
+        SV.version = 2;
     }
 }
 
@@ -192,66 +204,63 @@ static int pad_input(void)
 /* ---- the flow ---------------------------------------------------------------------------------------------------------- */
 static void go(int s) { st = s; st_t = 0; }
 
-static int can_continue(void) { return !opt_bot && PV.has_run && PV.run.level >= 0 && PV.run.level < LEVELS; }
+static int can_continue(void) { return !opt_bot && PV.has_run && PV.run.chunk >= 0; }
 
 static void run_save(void)
 {
-    if (opt_bot || W.h.dead || W.won) return;
+    if (opt_bot || W.h.dead) return;
     world_snapshot(&W, &SV.run);
     SV.has_run = 1;
     save_store();
 }
 
-static void enter_level(int level)
+static void log_doors(void)
 {
-    world_start_level(&W, level, CHUNKS, nchunks);
-    bot_st = 0;
-    card_t = CARD_FRAMES;
-    draw_level(&W);
-    run_save();
-    if (level + 1 > PV.best_level) PV.best_level = SV.best_level = (uint8_t)(level + 1);
-    go(ST_PLAY);
-    rs_log("level %d-%d starts at frame %u: %d chunks, %d critters, %d side rooms", zone_of(level) + 1,
-           level % LEVELS_PER_ZONE + 1, rs_frame_count(), W.nchunks, W.n_en, W.ndoors);
     for (int d = 0; d < W.ndoors; d++)
         rs_log("side room %d: row %d, the %s wall, %s", d + 1, W.door_row[d], W.door_col[d] ? "right" : "left",
                W.door_kind[d] ? "a gift" : "a shop");
-    if (opt_door && W.ndoors) {                         /* (tests) the puffin on the first side room's ledge */
-        W.h.x = (W.door_col[0] ? SHAFT_W - CELL - 8 : CELL + 8) * SUB;
-        W.h.y = (W.door_row[0] + 1) * CELL * SUB;
-        opt_door = 0;
-    }
 }
 
 static void start_run(int resume)
 {
     uint32_t seed = opt_seed_fixed ? opt_seed : opt_seed ^ (uint32_t)rs_frame_count() * 2654435761u;
-    int level = 0;
     if (resume) {
-        world_resume(&W, &PV.run);
-        level = W.level;
+        world_resume(&W, &PV.run, CHUNKS, nchunks);
     } else {
         world_new_run(&W, seed);
-        level = opt_level;
-        if (level > 0) {                                /* (tests) a build of that depth */
-            W.hpmax = W.hp = START_HP + level / 3;
-            W.ammo_max = START_AMMO + 2 * (level / 3);
-            W.gems = 20 * level;
+        int k = opt_depth / CHUNK_H, lv = world_difficulty(opt_depth);
+        if (k > 0) {                                    /* (tests) a build of that depth */
+            W.hpmax = W.hp = START_HP + (lv + 1) / 2 > MAX_HP ? MAX_HP : START_HP + (lv + 1) / 2;
+            W.ammo_max = START_AMMO + 2 * (lv / 2) > MAX_AMMO ? MAX_AMMO : START_AMMO + 2 * (lv / 2);
+            W.gems = 25 * lv;
+            W.depth_m = k * CHUNK_H - 2;
         }
         if (opt_gems) W.gems = opt_gems;
-        W.score = rs_option_int("score", 0);         /* (tests) */
+        W.score = rs_option_int("score", 0) + (k > 0 ? W.depth_m : 0);   /* (tests) */
         if (opt_weapon) W.weapon = opt_weapon % W_COUNT;
         if (opt_passives) W.passives = opt_passives & 31;
         if (opt_frail) W.hp = W.hpmax = 1;
+        world_begin(&W, k, CHUNKS, nchunks);
         PV.dives++;                                     /* (PV: saved in states, a replay sees the same) */
         SV.dives = PV.dives;
         first_run = PV.dives == 1 && !PV.best;
     }
     paused = 0;
     dead_t = end_t = 0;
-    levels_done = 0;
-    rs_log("dive starts at frame %u: %s, seed %u", rs_frame_count(), resume ? "continued" : "new", W.seed);
-    enter_level(level);
+    bot_st = 0;
+    card_t = CARD_FRAMES;
+    passed_best = PV.best_depth == 0 || W.depth_m >= PV.best_depth;
+    new_depth_t = 0;
+    draw_level(&W);
+    go(ST_PLAY);
+    rs_log("dive starts at frame %u: %s, seed %u, at %d m (zone %d), %d critters", rs_frame_count(),
+           resume ? "continued" : "new", W.seed, W.depth_m, W.zone_now + 1, W.n_en);
+    log_doors();
+    if (opt_door && W.ndoors) {                         /* (tests) the puffin on the first side room's ledge */
+        W.h.x = (W.door_col[0] ? SHAFT_W - CELL - 8 : CELL + 8) * SUB;
+        W.h.y = (W.door_row[0] + 1) * CELL * SUB;
+        opt_door = 0;
+    }
 }
 
 static void back_to_title(void)
@@ -267,15 +276,15 @@ static void run_over(void)
     int score = W.score;
     new_best = score > PV.best;
     if (new_best) PV.best = SV.best = (uint16_t)(score > 65535 ? 65535 : score);
+    if (W.depth_m > SV.best_depth) SV.best_depth = (uint16_t)(W.depth_m > 65535 ? 65535 : W.depth_m);
     if (W.best_combo > SV.best_combo) SV.best_combo = (uint8_t)(W.best_combo > 255 ? 255 : W.best_combo);
-    if (W.won) SV.wins++;
+    SV.walruses += (uint32_t)W.walruses;
     SV.has_run = 0;
     save_store();
     runs_done++;
-    rs_log("dive over at frame %u: %s at level %d, score %d, gems %d, critters %d, best combo %d", rs_frame_count(),
-           W.won ? "the walrus beaten" : "the puffin down", W.level + 1, score, W.gems, W.kills, W.best_combo);
-    if (W.won) ha_play(HA_MEDAL);
-    else ha_play(HA_GAMEOVER);
+    rs_log("dive over at frame %u: the puffin down at %d m, score %d, gems %d, critters %d, best combo %d, walruses %d",
+           rs_frame_count(), W.depth_m, score, W.gems, W.kills, W.best_combo, W.walruses);
+    ha_play(HA_GAMEOVER);
     go(ST_OVER);
 }
 
@@ -307,11 +316,17 @@ static void play_events(void)
         int pitch = RS_PITCH_1 + W.combo * 100;
         ha_play_pitched(SFX_COMBO, 56, x + 64, pitch > RS_PITCH_1 * 2 ? RS_PITCH_1 * 2 : pitch, 0);
     }
-    if (ev & EV_BOSS) sfx(SFX_BOSS, HA_VOL_CRASH, 0, x);
+    if (ev & EV_BOSS) { sfx(SFX_BOSS, HA_VOL_CRASH, 0, x); rs_log("a walrus wakes at %d m", W.depth_m); }
     if (ev & EV_ROOM) sfx(SFX_DOOR, HA_VOL_ACTION, 0, x);
-    if (ev & EV_CLEAR) ha_play(HA_CONFIRM);
-    if (ev & EV_WIN) { ha_play(HA_MEDAL); rs_log("the walrus is beaten at frame %u", rs_frame_count()); }
-    if (ev & EV_DEAD) rs_log("the puffin is down at level %d (frame %u, score %d)", W.level + 1, rs_frame_count(), W.score);
+    if (ev & EV_CLEAR) { ha_play(HA_CONFIRM); rs_log("a rest stop at %d m (frame %u)", W.depth_m, rs_frame_count()); }
+    if (ev & EV_WIN) { ha_play(HA_MEDAL); rs_log("the walrus is beaten at %d m (frame %u)", W.depth_m, rs_frame_count()); }
+    if (ev & EV_ZONE) {
+        card_t = CARD_FRAMES;
+        rs_log("zone %d at %d m (frame %u)", W.zone_now + 1, W.depth_m, rs_frame_count());
+        log_doors();
+        run_save();                                     /* (a dive lost to a closed app goes on from here) */
+    }
+    if (ev & EV_DEAD) rs_log("the puffin is down at %d m (frame %u, score %d)", W.depth_m, rs_frame_count(), W.score);
 }
 
 static void open_shop(int kind)
@@ -325,21 +340,18 @@ static void open_shop(int kind)
 static void play_update(void)
 {
     if (card_t) card_t--;
+    if (new_depth_t) new_depth_t--;
     if (W.h.dead && !W.hitstop) {
         if (++dead_t >= DEAD_FRAMES) run_over();
         return;
     }
-    if (W.won && !W.hitstop) {
-        if (++end_t >= WIN_FRAMES) run_over();
-        return;
-    }
     if (W.cleared) {
-        if (++end_t >= CLEAR_FRAMES) { end_t = 0; open_shop(0); }
+        if (++end_t >= REST_FRAMES) { end_t = 0; open_shop(0); }
         return;
     }
     int in = opt_bot ? bot_input(&W, &bot_st) : pad_input();
     int hp = W.hp;
-    world_step(&W, in);
+    world_step(&W, in, CHUNKS, nchunks);
     if (opt_hurtat && W.t == opt_hurtat && !W.h.dead) {   /* (tests) the dive lost at that frame */
         W.hp = 0;
         W.h.dead = 1;
@@ -349,10 +361,17 @@ static void play_update(void)
     draw_events(&W);
     play_events();
     state_hash = (state_hash ^ world_hash(&W)) * 16777619u;
-    if (W.events & EV_CLEAR) {
-        levels_done++;
-        rs_log("level %d cleared at frame %u: hp %d/%d, gems %d, score %d", W.level + 1, rs_frame_count(), W.hp, W.hpmax,
-               W.gems, W.score);
+    if (!passed_best && W.depth_m > PV.best_depth) {   /* past the deepest dive: NEW BEST! */
+        passed_best = 1;
+        new_depth_t = NEW_DEPTH_FRAMES;
+        ha_play(HA_MEDAL);
+        rs_log("past the deepest dive (%d m) at frame %u", PV.best_depth, rs_frame_count());
+    }
+    if (opt_bot && opt_botdepth && W.depth_m >= opt_botdepth) {   /* the bot's depth reached: it stops */
+        rs_log("the bot reached %d m at frame %u (hp %d/%d)", W.depth_m, rs_frame_count(), W.hp, W.hpmax);
+        opt_bot = 0;
+        back_to_title();
+        return;
     }
     if (W.room) open_shop(W.door_kind[W.room - 1] ? 2 : 1);
 }
@@ -360,19 +379,10 @@ static void play_update(void)
 static void leave_shop(void)
 {
     ha_play(HA_SELECT);
-    if (shop_kind) {                                    /* a side room: back in the shaft */
-        world_leave_room(&W);
-        draw_events(&W);
-        go(ST_PLAY);
-        return;
-    }
-    if (opt_bot && opt_botlevels && levels_done >= opt_botlevels) {   /* the bot's levels done: it stops */
-        rs_log("the bot stops after %d levels at frame %u", levels_done, rs_frame_count());
-        opt_bot = 0;
-        back_to_title();
-        return;
-    }
-    enter_level(W.level + 1 < LEVELS ? W.level + 1 : LEVELS - 1);
+    if (shop_kind) world_leave_room(&W);                /* a side room: back in the shaft */
+    else world_leave_rest(&W);                          /* a rest stop: on down */
+    draw_events(&W);
+    go(ST_PLAY);
 }
 
 static void shop_update(void)
@@ -424,13 +434,14 @@ static void game_update(void)
     for (int i = 0; i < SFX_COUNT; i++) if (snd_gap[i]) snd_gap[i]--;
     if (gem_chain_t && !--gem_chain_t) gem_chain = 0;
     int boss_on = W.boss >= 0 && W.boss < W.n_en && W.en[W.boss].alive && W.en[W.boss].st > 0;
-    music(st == ST_TITLE ? 0 : boss_on ? ZONES : zone_of(W.level));
+    music(st == ST_TITLE ? 0 : boss_on ? ZONES : zone_look(W.zone_now));
     if (st == ST_PLAY && (rs_pad_pressed(0) & (RS_BTN_SELECT | RS_BTN_START))) {
         paused = !paused;
         ha_play(HA_PAUSE);
     } else if (st == ST_PLAY && paused && (rs_pad_pressed(0) & RS_BTN_B)) {
         ha_play(HA_SELECT);
-        back_to_title();                                /* the dive kept (saved at its level's start) */
+        run_save();                                     /* the dive kept: the title offers to continue it */
+        back_to_title();
         return;
     } else if (st == ST_PLAY && paused && (rs_pad_pressed(0) & RS_BTN_A)) {
         paused = 0;
@@ -460,13 +471,13 @@ static void game_draw(void)
 {
     view v;
     memset(&v, 0, sizeof v);
-    v.state = st == ST_PLAY && card_t ? ST_PLAY : st;
+    v.state = st;
     v.st_t = st_t;
     v.paused = paused;
     v.best = PV.best;
     v.new_best = new_best;
     v.can_continue = can_continue();
-    v.run_level = PV.run.level;
+    v.run_depth = PV.run.depth_m;
     v.title_sel = title_sel;
     v.medal = hu_medal_of(W.score, MEDALS);
     v.shop_sel = shop_sel;
@@ -475,6 +486,8 @@ static void game_draw(void)
     v.first_run = first_run;
     v.bot = opt_bot;
     v.touch = opt_touch;
+    v.best_depth = PV.best_depth;
+    v.new_depth = st == ST_PLAY ? new_depth_t : 0;
     draw_frame(&W, &v);
 }
 
@@ -498,12 +511,12 @@ static void game_init(void)
     opt_music = rs_option_int("music", 1);
     opt_sound = rs_option_int("sound", 1);
     opt_bot = rs_option_int("bot", 0);
-    opt_botlevels = rs_option_int("botlevels", 0);
+    opt_botdepth = rs_option_int("botdepth", 0);
     opt_god = rs_option_int("god", 0);
     opt_frail = rs_option_int("frail", 0);
     opt_touch = rs_option_int("touch", 0);
-    opt_level = rs_option_int("level", 1) - 1;
-    if (opt_level < 0 || opt_level >= LEVELS) opt_level = 0;
+    opt_depth = rs_option_int("depth", 0);
+    if (opt_depth < 0 || opt_depth > 30000) opt_depth = 0;
     opt_gems = rs_option_int("gems", 0);
     opt_hurtat = rs_option_int("hurtat", 0);
     opt_door = rs_option_int("door", 0);
@@ -512,10 +525,12 @@ static void game_init(void)
     opt_seed_fixed = rs_option("seed") != NULL;
     opt_seed = (uint32_t)rs_option_int("seed", 0x5eed);
     if (rs_option("best")) SV.best = (uint16_t)rs_option_int("best", 0);
-    if (rs_option_int("fakerun", 0)) {          /* (tests, screenshots) a dive under way at level 2-1, in memory only */
+    if (rs_option("bestdepth")) SV.best_depth = (uint16_t)rs_option_int("bestdepth", 0);
+    if (rs_option_int("fakerun", 0)) {          /* (tests, screenshots) a dive under way at 534 m, in memory only */
         world tmp;
         world_new_run(&tmp, 1234);
-        tmp.level = 3;
+        tmp.h.y = (TOP_ROWS + 534) * CELL * SUB;
+        tmp.depth_m = 534;
         tmp.gems = 57;
         tmp.score = 812;
         tmp.hpmax = 5;
@@ -531,12 +546,12 @@ static void game_init(void)
     hu_players_set(1);
     PV = SV;
     world_new_run(&W, 1);
-    world_start_level(&W, 0, CHUNKS, nchunks);
+    world_begin(&W, 0, CHUNKS, nchunks);
     draw_level(&W);
     go(ST_TITLE);
     if (rs_option_int("ready", 0)) start_run(0);
     int shop = rs_option_int("shop", 0), room = rs_option_int("room", 0);
-    if (shop && st == ST_PLAY) { world_make_offers(&W, MAX_OFFER, 0); open_shop(0); }
+    if (shop && st == ST_PLAY) { W.cleared = 1; world_make_offers(&W, MAX_OFFER, 0); open_shop(0); }
     if (room && st == ST_PLAY) { W.room = 1; world_make_offers(&W, 2, room == 2 ? 2 : 1); open_shop(room == 2 ? 2 : 1); }
 }
 
@@ -547,10 +562,10 @@ static void game_shutdown(void)
     for (int l = 0; l < RS_BG_COUNT; l++)
         vram += (long)(rs_screen_width() > 320 && rs_bg_map_w(l) > 64 ? 64 : rs_bg_map_w(l)) * rs_bg_map_h(l) * 2;
     rs_log("vram %ld bytes (tiles %d)", vram, rs_tiles_used());
-    rs_log("state: st=%d level=%d hp=%d/%d ammo=%d gems=%d score=%d kills=%d combo=%d depth=%d dead=%d won=%d paused=%d "
-           "weapon=%d passives=%d best=%d dives=%u runs=%d hash=%08x",
-           st, W.level + 1, W.hp, W.hpmax, W.ammo, W.gems, W.score, W.kills, W.best_combo, W.depth_px, W.h.dead, W.won,
-           paused, W.weapon, W.passives, SV.best, SV.dives, runs_done, state_hash);
+    rs_log("state: st=%d depth=%d zone=%d hp=%d/%d ammo=%d gems=%d score=%d kills=%d combo=%d walruses=%d dead=%d "
+           "paused=%d weapon=%d passives=%d best=%d bestdepth=%d dives=%u runs=%d hash=%08x",
+           st, W.depth_m, W.zone_now + 1, W.hp, W.hpmax, W.ammo, W.gems, W.score, W.kills, W.best_combo, W.walruses,
+           W.h.dead, paused, W.weapon, W.passives, SV.best, SV.best_depth, SV.dives, runs_done, state_hash);
 }
 
 /* ---- save states: the SDK saves the console; here are the game's objects (tools/state_audit.py checks them) ---- */
@@ -558,10 +573,10 @@ static void game_shutdown(void)
 static void game_state(void)
 {
     S(W); S(st); S(st_t); S(paused); S(title_sel); S(shop_sel); S(shop_kind); S(menu_lock); S(new_best); S(dead_t);
-    S(end_t); S(card_t); S(runs_done); S(opt_bot); S(opt_botlevels); S(opt_god); S(opt_music); S(opt_sound);
-    S(opt_seed_fixed); S(opt_frail); S(opt_touch); S(opt_level); S(opt_gems); S(opt_weapon); S(opt_passives); S(opt_hurtat); S(opt_door);
-    S(levels_done); S(first_run); S(opt_seed); S(bot_st); S(music_cur); S(gem_chain); S(gem_chain_t); S(snd_gap);
-    S(state_hash); S(PV);
+    S(end_t); S(card_t); S(runs_done); S(opt_bot); S(opt_botdepth); S(opt_god); S(opt_music); S(opt_sound);
+    S(opt_seed_fixed); S(opt_frail); S(opt_touch); S(opt_depth); S(opt_gems); S(opt_weapon); S(opt_passives);
+    S(opt_hurtat); S(opt_door); S(first_run); S(new_depth_t); S(passed_best); S(opt_seed); S(bot_st); S(music_cur);
+    S(gem_chain); S(gem_chain_t); S(snd_gap); S(state_hash); S(PV);
     draw_state();
     hu_state();
     ha_state();
@@ -573,7 +588,7 @@ static void game_state_loaded(void) { draw_state_loaded(&W); }
 const rs_game *rs_game_main(void)
 {
     /* widescreen: any width (more of the rock beside the shaft) */
-    static const rs_game g = {"Puffin Plunge", "puffinplunge", "0.1.0", game_init, game_update, game_draw,
+    static const rs_game g = {"Puffin Plunge", "puffinplunge", "0.2.0", game_init, game_update, game_draw,
                               game_shutdown, pp_assets, game_state, game_state_loaded, 1, RS_SCREEN_W_MAX, 0};
     return &g;
 }

@@ -34,7 +34,8 @@ same() {   # same <what> <headless options...>
     done
 }
 same "a run, the bot" --frames 4000 --opt bot=1 --opt ready=1 --opt seed=7
-same "the frozen deep" --frames 1500 --opt bot=1 --opt ready=1 --opt seed=7 --opt level=11 --opt god=1
+same "the frozen deep" --frames 1500 --opt bot=1 --opt ready=1 --opt seed=7 --opt depth=1000 --opt god=1
+same "a zone change, the marker" --frames 1200 --opt bot=1 --opt ready=1 --opt seed=7 --opt depth=290 --opt god=1 --opt bestdepth=320
 
 # the phone turns: the picture after the turn = the picture of a run on that screen from the start
 turn() {   # turn <what> <turn frame> <shot frame> <headless options...>

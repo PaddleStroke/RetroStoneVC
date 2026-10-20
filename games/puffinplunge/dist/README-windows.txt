@@ -4,8 +4,9 @@ PUFFIN PLUNGE - a RetroStone VC game for Windows
 A little puffin in bubble boots dives down a deep, deep well. Jump off a ledge, and in the air your boots fire
 bubbles straight down: they pop the critters below and slow your fall. Landing refills the bubbles; a stomp on a
 soft critter bounces you and refills them too. Pop critters one after the other without landing for a combo.
-Gems buy upgrades in the shops at each level's bottom and in the little side rooms: hearts, bigger tanks, triple
-bubbles, a sparkle beam, a gem magnet... Four zones of three levels, and the Grumpy Walrus at the very bottom.
+Gems buy upgrades at the rest stops and in the little side rooms: hearts, bigger tanks, triple bubbles, a
+sparkle beam, a gem magnet... The well never ends: four zones again and again, deeper and harder, a grumpy walrus
+now and then. How deep can you go?
 
 Run PuffinPlunge.exe. No installation needed (SDL2 is built in).
 
@@ -20,4 +21,4 @@ The mouse is a finger on the touch buttons only in the RetroStone app.
 
 F11 or Alt+Enter: fullscreen. F12: screenshot. Close the window to quit.
 Options: PuffinPlunge.exe --scale 4 --fullscreen
-The best score and the dive under way are saved in puffinplunge.srm next to the exe.
+The best score, the deepest dive and the dive under way are saved in puffinplunge.srm next to the exe.

@@ -1,8 +1,9 @@
 /*
- * Puffin Plunge: the rules. The shaft (assembled from hand-made chunks), the puffin (run, jump, the bubble boots: in the
- * air A fires down, slows the fall, uses a bubble; landing refills them), the critters of the four zones and the boss,
- * the gems, combos, the side rooms and the shops' offers, the bot. No SDK call (no drawing, no sound): deterministic,
- * its own RNG, the same at every screen size; linked alone by tests/test_world.c.
+ * Puffin Plunge: the rules. The endless well (made from hand-made chunks as the puffin dives), the puffin (run, jump,
+ * the bubble boots: in the air A fires down, slows the fall, uses a bubble; landing refills them), the critters of the
+ * four zones and the walrus, the gems, combos, the side rooms, the rest stops and the shops' offers, the bot. No SDK
+ * call (no drawing, no sound): deterministic, its own RNG, the same at every screen size; linked alone by
+ * tests/test_world.c.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/puffinplunge/LICENSE.
  */
 #include "game.h"
@@ -65,18 +66,18 @@ static int rndn(world *w, int n) { return n > 0 ? (int)(rnd(w) % (uint32_t)n) : 
 static int iabs(int v) { return v < 0 ? -v : v; }
 static int clampi(int v, int a, int b) { return v < a ? a : v > b ? b : v; }
 
-int zone_of(int level) { return clampi(level, 0, LEVELS - 1) / LEVELS_PER_ZONE; }
-int world_level_rows(int level) { return 9 + clampi(level, 0, LEVELS - 1); }    /* chunks: 9 .. 20 */
+int zone_look(int zone) { return (zone % ZONES + ZONES) % ZONES; }
+int world_difficulty(int depth_m) { return depth_m < GENTLE_M ? 0 : 1 + (depth_m - GENTLE_M) / DIFF_M; }
 
 static void fx(world *w, int kind, int x, int y, int a)
 {
     if (w->n_fx >= MAX_FXEV) return;
-    w->fx[w->n_fx++] = (fxev){(int16_t)x, (int16_t)y, (uint8_t)kind, (uint8_t)a};
+    w->fx[w->n_fx++] = (fxev){x, y, (uint8_t)kind, (uint8_t)a, {0, 0}};
 }
 static void popn(world *w, int kind, int x, int y, int n)
 {
     if (w->n_pops >= MAX_POPS) return;
-    w->pops[w->n_pops++] = (pop){(int16_t)x, (int16_t)y, (int16_t)n, (uint8_t)kind, 0};
+    w->pops[w->n_pops++] = (pop){x, y, (int16_t)n, (uint8_t)kind, 0};
 }
 static void dirty_row(world *w, int r)
 {
@@ -84,13 +85,25 @@ static void dirty_row(world *w, int r)
     if (w->n_dirty < MAX_DIRTY) w->dirty[w->n_dirty++] = r;
 }
 
+/* the ring: absolute row r (rows above what is kept are rock, rows not made yet are open) */
+int world_cell(const world *w, int c, int r)
+{
+    if (c < 0 || c >= COLS || r < w->top_row || r < w->gen_row - RING) return C_ROCK;
+    if (r >= w->gen_row) return C_EMPTY;
+    return w->cell[r % RING][c];
+}
+int world_row_zone(const world *w, int r)
+{
+    if (r >= w->gen_row) r = w->gen_row - 1;
+    if (r < w->gen_row - RING) r = w->gen_row - RING;
+    if (r < w->top_row) r = w->top_row;
+    return r < 0 ? 0 : w->row_zone[r % RING];
+}
+static int has_row(const world *w, int r) { return r >= w->top_row && r >= w->gen_row - RING && r < w->gen_row; }
 static int cell_at(const world *w, int px, int py)
 {
-    if (px < 0 || px >= SHAFT_W) return C_ROCK;
-    int r = py >> 4;
-    if (py < 0) return C_ROCK;
-    if (r >= w->rows) return C_FLOOR;
-    return w->cell[r][px >> 4];
+    if (px < 0 || px >= SHAFT_W || py < 0) return C_ROCK;
+    return world_cell(w, px >> 4, py >> 4);
 }
 static int solid_px(const world *w, int px, int py) { return SOLID(cell_at(w, px, py)); }
 
@@ -220,6 +233,10 @@ void world_new_run(world *w, uint32_t seed)
     w->ammo = w->ammo_max = START_AMMO;
     w->weapon = W_BUBBLE;
     w->boss = -1;
+    w->arena_row = -1;
+    w->rest_used = -1;
+    w->last_chunk = -1;
+    w->rng = w->seed * 747796405u + 2891336453u;
 }
 
 static int spawn_enemy(world *w, int type, int x, int y)
@@ -238,7 +255,8 @@ static int spawn_enemy(world *w, int type, int x, int y)
     e->y = y * SUB;
     e->hp = EN_INFO[type].hp;
     e->alive = 1;
-    e->home_y = (int16_t)y;
+    e->home_y = y;
+    e->zone = (uint8_t)world_row_zone(w, y >> 4);
     e->face = (uint8_t)(rnd(w) & 1);
     e->t = (uint16_t)rndn(w, 120);
     return k;
@@ -272,104 +290,57 @@ static void drop_gems(world *w, int x, int y, int n)
     while (n-- > 0) spawn_gem(w, x, y, 0, 1);
 }
 
-void world_start_level(world *w, int level, const chunk *defs, int ndefs)
+/* ---- the endless well ------------------------------------------------------------------------------------------------
+ * Chunk k (12 rows from absolute row TOP_ROWS + 12 k: metre 12 k) is made from k and the seed alone (its own RNG), so a
+ * CONTINUE makes the same well. Zone k / ZONE_CHUNKS (300 m each: grotto, coral, mushroom, frozen, then again, harder);
+ * a zone starts with a gate (two ledges, a gap); a rest stop (a ledge, a shop) every REST_EVERY chunks; the last two
+ * chunks of every frozen zone are the walrus's cave. The rest: the zone's hand-made chunks, harder with the depth. */
+int world_chunk_kind(int k)
 {
-    level = clampi(level, 0, LEVELS - 1);
-    w->level = level;
-    w->rng = w->seed * 2654435761u + (uint32_t)level * 40503u + 17u;
-    for (int i = 0; i < 4; i++) rnd(w);
-    memset(w->cell, 0, sizeof w->cell);
-    memset(w->cell_hp, 0, sizeof w->cell_hp);
-    w->n_en = 0;
-    memset(w->sh, 0, sizeof w->sh);
-    memset(w->gm, 0, sizeof w->gm);
-    w->ndoors = 0;
-    w->boss = -1;
-    w->boss_level = level == LEVELS - 1;
-    w->t = 0;
-    w->combo = w->combo_t = 0;
-    w->beam_t = 0;
-    w->hitstop = 0;
-    w->cleared = w->room = w->won = 0;
-    w->n_offers = 0;
-    int z = zone_of(level), li = level % LEVELS_PER_ZONE;
-    /* the top: a ceiling, a ledge to land on (the puffin starts there), a short drop */
-    for (int r = 0; r < TOP_ROWS; r++) {
-        w->cell[r][0] = w->cell[r][COLS - 1] = C_ROCK;
-        if (r < 2) for (int c = 1; c < COLS - 1; c++) w->cell[r][c] = C_ROCK;
+    int z = k / ZONE_CHUNKS, i = k % ZONE_CHUNKS;
+    if (zone_look(z) == 3 && i == ZONE_CHUNKS - 2) return CK_ARENA1;
+    if (zone_look(z) == 3 && i == ZONE_CHUNKS - 1) return CK_ARENA2;
+    if (k > 0 && i == 0) return CK_GATE;
+    if (k % REST_EVERY == REST_EVERY / 2) return CK_REST;
+    return CK_PLAIN;
+}
+
+static void set_cell(world *w, int r, int c, int k)
+{
+    w->cell[r % RING][c] = (uint8_t)k;
+    w->cell_hp[r % RING][c] = k == C_CRYSTAL ? 2 : 0;
+}
+
+/* a new row at the ring's end: walls, open between them, its zone */
+static void new_row(world *w, int r, int zone)
+{
+    for (int c = 0; c < COLS; c++) set_cell(w, r, c, c == 0 || c == COLS - 1 ? C_ROCK : C_EMPTY);
+    w->row_zone[r % RING] = (uint16_t)zone;
+}
+
+static int add_door(world *w, int r, int wc, int kind)
+{
+    int d = -1;
+    for (int i = 0; i < w->ndoors; i++)             /* a door far above the puffin: its slot again */
+        if (w->door_row[i] < w->h.y / SUB / CELL - 64) { d = i; break; }
+    if (d < 0) {
+        if (w->ndoors >= MAX_DOORS) return 0;
+        d = w->ndoors++;
     }
-    for (int c = 1; c <= 3; c++) w->cell[5][c] = C_ROCK;
-    /* the chunks: weighted picks among the zone's, never the same twice in a row */
-    int n = world_level_rows(level), row = TOP_ROWS, last = -1;
-    int total = 0;
-    for (int i = 0; i < ndefs; i++) if (defs[i].zones & (1 << z)) total += defs[i].weight;
-    w->nchunks = 0;
-    int spawn_p = 58 + level * 3 + li * 2;          /* % of the critter letters that bring one */
-    if (spawn_p > 92) spawn_p = 92;
-    for (int k = 0; k < n && k < MAX_CHUNKS; k++) {
-        int pick = -1;
-        for (int tries = 0; tries < 8 && total > 0; tries++) {
-            int v = rndn(w, total);
-            for (int i = 0; i < ndefs; i++) {
-                if (!(defs[i].zones & (1 << z))) continue;
-                v -= defs[i].weight;
-                if (v < 0) { pick = i; break; }
-            }
-            if (pick != last) break;
-        }
-        if (pick < 0) break;
-        last = pick;
-        w->chunk_of[w->nchunks++] = (uint8_t)pick;
-        const chunk *c = &defs[pick];
-        int mirror = rnd(w) & 1;                    /* a chunk may come mirrored: more variety */
-        int doors_here = 0;
-        for (int y = 0; y < CHUNK_H; y++) {
-            int r = row + y;
-            w->cell[r][0] = w->cell[r][COLS - 1] = C_ROCK;
-            for (int x = 0; x < CHUNK_W; x++) {
-                char ch = c->c[y][mirror ? CHUNK_W - 1 - x : x];
-                int col = x + 1, px = col * CELL + CELL / 2, py = r * CELL + CELL / 2;
-                switch (ch) {
-                case '#': w->cell[r][col] = C_ROCK; break;
-                case '?': if (rnd(w) % 100 < 55) w->cell[r][col] = C_ROCK; break;
-                case 'c': w->cell[r][col] = C_CRYSTAL; w->cell_hp[r][col] = 2; break;
-                case 'g': spawn_gem(w, px, py, 0, 0); break;
-                case 'G': spawn_gem(w, px, py, 1, 0); break;
-                case 'D':
-                    if (w->ndoors < 4 && !doors_here && rnd(w) % 100 < 70) {
-                        int wc = col == 1 ? 0 : COLS - 1;
-                        w->cell[r][wc] = C_DOOR;
-                        w->door_row[w->ndoors] = r;
-                        w->door_col[w->ndoors] = wc;
-                        w->door_kind[w->ndoors] = rnd(w) % 100 < 60 ? 0 : 1;
-                        w->ndoors++;
-                        doors_here = 1;
-                    }
-                    break;
-                case 'w': case 'f': case 'x': case 'j': case 't': {
-                    if ((int)(rnd(w) % 100) >= spawn_p) break;
-                    int role = ch == 'w' ? 0 : ch == 'f' ? 1 : ch == 'x' ? 2 : ch == 'j' ? 3 : 4;
-                    int type = ROLE[z][role];
-                    if (level == 0 && type == ET_URCHIN && rnd(w) % 100 < 50) type = ET_SNAIL;   /* a gentle start */
-                    spawn_enemy(w, type, px, py);
-                    break;
-                }
-                default: break;
-                }
-            }
-        }
-        row += CHUNK_H;
-    }
-    /* the bottom: open rows, then the floor (the boss: a taller cave) */
-    int open = w->boss_level ? 14 : END_ROWS - 3;
-    for (int r = row; r < row + open + 3; r++) {
-        w->cell[r][0] = w->cell[r][COLS - 1] = C_ROCK;
-        if (r >= row + open) for (int c = 1; c < COLS - 1; c++) w->cell[r][c] = C_FLOOR;
-    }
-    w->rows = row + open + 3;
-    /* the critters settle: walkers and puffcaps on the rock below them, icicles under the rock above */
+    set_cell(w, r, wc, C_DOOR);
+    w->door_row[d] = r;
+    w->door_col[d] = wc;
+    w->door_kind[d] = kind;
+    return 1;
+}
+
+/* the critters of a new chunk settle: walkers and puffcaps on the rock below, icicles and bats under the rock above */
+static void settle(world *w)
+{
     for (int i = 0; i < w->n_en; i++) {
         enemy *e = &w->en[i];
+        if (!e->alive || e->awake != 2) continue;     /* (2: just made, not settled yet) */
+        e->awake = 0;
         int beh = EN_INFO[e->type].beh, px = e->x / SUB, py = e->y / SUB;
         if (beh == B_WALK || beh == B_TURRET) {
             int y = py;
@@ -387,20 +358,187 @@ void world_start_level(world *w, int level, const chunk *defs, int ndefs)
             if (ok) e->y = y * SUB;
             else e->st = 2;
         }
-        e->home_y = (int16_t)(e->y / SUB);
+        e->home_y = e->y / SUB;
     }
-    if (w->boss_level) {
-        w->boss = spawn_enemy(w, ET_WALRUS, SHAFT_W / 2, (row + open) * CELL - EN_INFO[ET_WALRUS].hh);
-        w->boss_hpmax = EN_INFO[ET_WALRUS].hp;
+}
+
+static void gen_chunk(world *w, const chunk *defs, int ndefs)
+{
+    int k = w->gen_chunk, row = w->gen_row, zone = k / ZONE_CHUNKS, z = zone_look(zone), cycle = zone / ZONES;
+    int kind = world_chunk_kind(k), depth = ROW_M(row), diff = world_difficulty(depth);
+    uint32_t keep = w->rng;                         /* the chunk's own RNG: the same well every time */
+    w->rng = (w->seed ^ (uint32_t)k * 2654435761u) * 2246822519u + 374761393u;
+    for (int i = 0; i < 3; i++) rnd(w);
+    for (int r = row; r < row + CHUNK_H; r++) new_row(w, r, zone);
+    w->gen_row = row + CHUNK_H;                     /* (the chunk's rows exist from now: the critters settle in them) */
+    if (kind == CK_REST) {                          /* a rest stop: a ledge with a glow, a gap at one side, gems */
+        int gap = rnd(w) & 1 ? 1 : COLS - 3;
+        for (int c = 1; c < COLS - 1; c++) if (c != gap && c != gap + 1) set_cell(w, row + 7, c, C_FLOOR);
+        for (int c = 3; c <= 8; c += 5) spawn_gem(w, c * CELL + 8, (row + 4) * CELL + 8, 0, 0);
+    } else if (kind == CK_ARENA1) {                 /* the walrus's cave: open ... */
+        for (int c = 2; c <= 9; c += 7) spawn_gem(w, c * CELL + 8, (row + 3) * CELL + 8, 1, 0);
+    } else if (kind == CK_ARENA2) {                 /* ... and its floor, the walrus on it */
+        for (int r = row + 9; r < row + CHUNK_H; r++)
+            for (int c = 1; c < COLS - 1; c++) set_cell(w, r, c, C_ARENA);
+        if (w->n_en >= MAX_EN) {                    /* (a full list: the critter highest up makes room) */
+            int hi = 0;
+            for (int i = 1; i < w->n_en; i++) if (w->en[i].y < w->en[hi].y) hi = i;
+            int alive_all = 1;
+            for (int i = 0; i < w->n_en; i++) if (!w->en[i].alive) alive_all = 0;
+            if (alive_all) w->en[hi].alive = 0;
+        }
+        int b = spawn_enemy(w, ET_WALRUS, SHAFT_W / 2, (row + 9) * CELL - EN_INFO[ET_WALRUS].hh);
+        if (b >= 0) {
+            enemy *e = &w->en[b];
+            e->hp = (uint8_t)clampi(24 + 10 * cycle, 1, 250);
+            w->boss = b;
+            w->boss_hpmax = e->hp;
+            w->arena_row = row + 9;
+        }
+    } else {                                        /* a hand-made chunk of the zone, harder with the depth */
+        int total = 0, pick = -1;
+        for (int i = 0; i < ndefs; i++) if (defs[i].zones & (1 << z)) total += defs[i].weight;
+        if (total > 0) {                            /* (from k alone: a CONTINUE makes the same chunk) */
+            int v = rndn(w, total);
+            for (int i = 0; i < ndefs; i++) {
+                if (!(defs[i].zones & (1 << z))) continue;
+                v -= defs[i].weight;
+                if (v < 0) { pick = i; break; }
+            }
+        }
+        int spawn_p = depth < GENTLE_M ? 56 : 60 + diff * 4;     /* % of the critter letters that bring one */
+        if (spawn_p > 95) spawn_p = 95;
+        int ledge_p = 55 - diff * 3;                /* % of the "?" cells that are rock: fewer safe ledges deeper */
+        if (ledge_p < 25) ledge_p = 25;
+        if (pick >= 0) {
+            w->last_chunk = pick;
+            const chunk *c = &defs[pick];
+            int mirror = rnd(w) & 1, doors_here = 0;
+            for (int y = 0; y < CHUNK_H; y++) {
+                int r = row + y;
+                for (int x = 0; x < CHUNK_W; x++) {
+                    char ch = c->c[y][mirror ? CHUNK_W - 1 - x : x];
+                    int col = x + 1, px = col * CELL + CELL / 2, py = r * CELL + CELL / 2;
+                    switch (ch) {
+                    case '#': set_cell(w, r, col, C_ROCK); break;
+                    case '?': if ((int)(rnd(w) % 100) < ledge_p) set_cell(w, r, col, C_ROCK); break;
+                    case 'c': set_cell(w, r, col, C_CRYSTAL); break;
+                    case 'g': spawn_gem(w, px, py, 0, 0); break;
+                    case 'G': spawn_gem(w, px, py, 1, 0); break;
+                    case 'D':
+                        if (!doors_here && rnd(w) % 100 < 70 &&
+                            add_door(w, r, col == 1 ? 0 : COLS - 1, rnd(w) % 100 < 60 ? 0 : 1))
+                            doors_here = 1;
+                        break;
+                    case 'w': case 'f': case 'x': case 'j': case 't': {
+                        if ((int)(rnd(w) % 100) >= spawn_p) break;
+                        int role = ch == 'w' ? 0 : ch == 'f' ? 1 : ch == 'x' ? 2 : ch == 'j' ? 3 : 4;
+                        int type = ROLE[z][role];
+                        if (depth < GENTLE_M && type == ET_URCHIN && rnd(w) % 100 < 50) type = ROLE[z][0];   /* gentle */
+                        if (cycle > 0 && role < 2 && (int)(rnd(w) % 100) < 10 + 5 * cycle) type = ROLE[z][2];  /* spikier */
+                        int e = spawn_enemy(w, type, px, py);
+                        if (e >= 0) w->en[e].awake = 2;
+                        if (e >= 0 && cycle > 0) w->en[e].hp = (uint8_t)(w->en[e].hp + (cycle + 1) / 2);   /* tougher */
+                        break;
+                    }
+                    default: break;
+                    }
+                }
+            }
+        }
+        if (kind == CK_GATE)                        /* a new zone: a gate of two ledges over the chunk */
+            for (int c = 1; c < COLS - 1; c++) if (c < 4 || c > 7) set_cell(w, row, c, C_ROCK);
+        settle(w);
     }
-    /* the puffin on the ledge, its bubbles full, a fresh shield */
+    w->gen_chunk = k + 1;
+    w->rng = keep;
+}
+
+/* the dive from chunk k (0: the top): a ceiling, a ledge to stand on, a short drop, then the well */
+void world_begin(world *w, int k, const chunk *defs, int ndefs)
+{
+    int r0 = CHUNK_H * k;                           /* (chunk k's first row is TOP_ROWS + 12 k: the top's 7 rows above) */
+    memset(w->cell, C_ROCK, sizeof w->cell);
+    memset(w->cell_hp, 0, sizeof w->cell_hp);
+    w->top_row = r0;
+    w->gen_row = r0;
+    w->gen_chunk = k;
+    w->last_chunk = -1;
+    int zone = k / ZONE_CHUNKS;
+    for (int r = r0; r < r0 + TOP_ROWS; r++) {
+        new_row(w, r, zone);
+        if (r < r0 + 2) for (int c = 1; c < COLS - 1; c++) set_cell(w, r, c, C_ROCK);
+    }
+    for (int c = 1; c <= 3; c++) set_cell(w, r0 + 5, c, C_ROCK);
+    w->gen_row = r0 + TOP_ROWS;
+    w->n_en = 0;
+    memset(w->en, 0, sizeof w->en);
+    memset(w->sh, 0, sizeof w->sh);
+    memset(w->gm, 0, sizeof w->gm);
+    w->ndoors = 0;
+    w->boss = -1;
+    w->arena_row = -1;
+    w->rest_used = -1;
+    w->combo = w->combo_t = 0;
+    w->beam_t = w->hitstop = 0;
+    w->cleared = w->room = 0;
+    w->n_offers = 0;
+    w->zone_now = zone;
+    w->look = 0;
     hero *h = &w->h;
     memset(h, 0, sizeof *h);
     h->x = (CELL * 2 + 8) * SUB;
-    h->y = 5 * CELL * SUB;
+    h->y = (r0 + 5) * CELL * SUB;
     h->ground = 1;
     h->shell = (w->passives & P_SHELL) ? 1 : 0;
     w->ammo = w->ammo_max;
+    while (w->gen_row < (r0 + 5) + AHEAD_ROWS) gen_chunk(w, defs, ndefs);
+}
+
+/* (tests) rows row0 .. row0 + rows - 1 passable from every open column of the first: falling, walking along the rock and
+ * hopping up to two cells, never through rock or crystals (a rest stop's ledge has its gap; the walrus's floor opens
+ * once it is beaten: open here) */
+int world_reach(const world *w, int row0, int rows, int cols_from, char *err, int errn)
+{
+    enum { MAXR = 32 };
+    if (rows > MAXR) rows = MAXR;
+    (void)cols_from;
+#define FREE(y, x) ((y) >= 0 && (y) < rows && (x) >= 1 && (x) < COLS - 1 && \
+                    (!SOLID(world_cell(w, x, row0 + (y))) || world_cell(w, x, row0 + (y)) == C_ARENA))
+    for (int sx = 1; sx < COLS - 1; sx++) {
+        if (!FREE(0, sx)) continue;
+        uint8_t seen[MAXR][COLS];
+        memset(seen, 0, sizeof seen);
+        seen[0][sx] = 1;
+        for (int it = 0; it < 300; it++) {
+            int changed = 0;
+            for (int y = 0; y < rows; y++)
+                for (int x = 1; x < COLS - 1; x++) {
+                    if (!seen[y][x]) continue;
+#define MARK(yy, xx) do { if (FREE(yy, xx) && !seen[yy][xx]) { seen[yy][xx] = 1; changed = 1; } } while (0)
+                    if (FREE(y + 1, x) || y + 1 >= rows) {
+                        if (y + 1 < rows) MARK(y + 1, x);
+                        for (int d = -1; d <= 1; d += 2) if (FREE(y, x + d) && y + 1 < rows) MARK(y + 1, x + d);
+                    } else {
+                        for (int d = -1; d <= 1; d += 2) {
+                            MARK(y, x + d);
+                            if (FREE(y - 1, x)) { MARK(y - 1, x + d); if (FREE(y - 2, x)) MARK(y - 2, x + d); }
+                        }
+                    }
+#undef MARK
+                }
+            if (!changed) break;
+        }
+        int ok = 0;
+        for (int x = 1; x < COLS - 1; x++) if (seen[rows - 1][x]) ok = 1;
+        if (!ok) {
+            snprintf(err, (size_t)errn, "rows %d..%d (chunk %d, %s): no way down from column %d", row0, row0 + rows - 1,
+                     (row0 - TOP_ROWS) / CHUNK_H, "", sx);
+            return 0;
+        }
+    }
+#undef FREE
+    return 1;
 }
 
 /* ---- damage --------------------------------------------------------------------------------------------------------- */
@@ -450,12 +588,22 @@ static void kill_enemy(world *w, int i, int by_stomp)
             popn(w, POP_COMBO, w->h.x / SUB, w->h.y / SUB - 22, w->combo);
         }
     }
-    if (i == w->boss) {
-        w->won = 1;
+    if (i == w->boss) {                             /* the walrus beaten: its floor gives way, gems, a heart */
         w->events |= EV_WIN;
-        w->score += 500;
-        w->hitstop = 30;
+        w->score += 300;
+        w->hitstop = 20;
+        w->walruses++;
+        w->boss = -1;
         for (int k = 0; k < w->n_en; k++) if (w->en[k].type == ET_SNOWBALL) w->en[k].alive = 0;
+        drop_gems(w, x, y - 10, 20);
+        if (w->hp < w->hpmax) { w->hp++; popn(w, POP_HEART, x, y - 30, 1); }
+        for (int r = w->arena_row; r < w->arena_row + 3; r++) {
+            if (!has_row(w, r)) continue;
+            for (int c = 1; c < COLS - 1; c++) if (w->cell[r % RING][c] == C_ARENA) set_cell(w, r, c, C_EMPTY);
+            dirty_row(w, r);
+            fx(w, FX_BREAK, SHAFT_W / 2, r * CELL + 8, 1);
+        }
+        w->arena_row = -1;
     }
     (void)by_stomp;
 }
@@ -476,18 +624,17 @@ static void damage(world *w, int i, int dmg, int by_stomp)
 
 static void break_cell(world *w, int r, int c, int dmg)
 {
-    if (r < 0 || r >= w->rows || c <= 0 || c >= COLS - 1) return;
-    int k = w->cell[r][c];
+    if (!has_row(w, r) || c <= 0 || c >= COLS - 1) return;
+    int k = w->cell[r % RING][c];
     if (k != C_CRYSTAL && k != C_CRACKED) return;
-    if (w->cell_hp[r][c] > dmg) {
-        w->cell_hp[r][c] = (uint8_t)(w->cell_hp[r][c] - dmg);
-        w->cell[r][c] = C_CRACKED;
+    if (w->cell_hp[r % RING][c] > dmg) {
+        w->cell_hp[r % RING][c] = (uint8_t)(w->cell_hp[r % RING][c] - dmg);
+        w->cell[r % RING][c] = C_CRACKED;
         dirty_row(w, r);
         fx(w, FX_HIT, c * CELL + 8, r * CELL + 8, 255);
         return;
     }
-    w->cell[r][c] = C_EMPTY;
-    w->cell_hp[r][c] = 0;
+    set_cell(w, r, c, C_EMPTY);
     dirty_row(w, r);
     w->events |= EV_BREAK;
     fx(w, FX_BREAK, c * CELL + 8, r * CELL + 8, 0);
@@ -777,7 +924,8 @@ static void enemies_step(world *w)
 {
     hero *h = &w->h;
     int hx = h->x / SUB, hy = h->y / SUB - HB_H / 2;
-    int sp_mul = 256 + w->level * 12;               /* deeper: a little faster */
+    int sp_mul = 256 + world_difficulty(w->depth_m) * 12;   /* deeper: faster */
+    if (sp_mul > 256 * 2) sp_mul = 256 * 2;
     for (int i = 0; i < w->n_en; i++) {
         enemy *e = &w->en[i];
         if (!e->alive) continue;
@@ -1013,7 +1161,7 @@ static void doors_step(world *w, int in)
     if (!h->ground || h->dead) return;
     int hx = h->x / SUB, row = (h->y / SUB - 8) >> 4;
     for (int d = 0; d < w->ndoors; d++) {
-        if (w->door_row[d] != row || w->cell[row][w->door_col[d]] != C_DOOR) continue;
+        if (w->door_row[d] != row || world_cell(w, w->door_col[d], row) != C_DOOR) continue;
         int left = w->door_col[d] == 0;
         if ((left && hx - HB_W / 2 <= CELL + 1 && (in & IN_LEFT)) || (!left && hx + HB_W / 2 >= SHAFT_W - CELL - 1 && (in & IN_RIGHT))) {
             w->room = d + 1;
@@ -1024,21 +1172,38 @@ static void doors_step(world *w, int in)
     }
 }
 
-
-/* the bottom's floor reached: the level is done (the boss's cave: the results come once the walrus is beaten) */
-static void bottom_step(world *w)
+/* a rest stop's ledge reached: its shop (once) */
+static void rest_step(world *w)
 {
     hero *h = &w->h;
-    if (!h->ground || h->dead || w->cleared || w->boss_level) return;
+    if (!h->ground || h->dead || w->cleared) return;
     int r = (h->y / SUB + 1) >> 4;
-    if (r < 0 || r >= w->rows || w->cell[r][clampi(h->x / SUB / CELL, 1, COLS - 2)] != C_FLOOR) return;
+    if (world_cell(w, clampi(h->x / SUB / CELL, 1, COLS - 2), r) != C_FLOOR || r == w->rest_used) return;
     w->cleared = 1;
-    w->score += 100;
+    w->rest_used = r;
+    if (w->passives & P_SHELL) w->h.shell = 1;     /* the bubble shield back */
     w->events |= EV_CLEAR;
     world_make_offers(w, MAX_OFFER, 0);
 }
 
-void world_step(world *w, int in)
+/* the well goes on: rows made below the puffin, the critters and gems far above it forgotten */
+static void well_step(world *w, const chunk *defs, int ndefs)
+{
+    int hrow = w->h.y / SUB / CELL;
+    while (w->gen_row < hrow + AHEAD_ROWS) gen_chunk(w, defs, ndefs);
+    int gone = (hrow - 44) * CELL * SUB;
+    for (int i = 0; i < w->n_en; i++) if (w->en[i].alive && w->en[i].y < gone && i != w->boss) w->en[i].alive = 0;
+    for (int i = 0; i < MAX_GEM; i++) if (w->gm[i].alive && w->gm[i].y < gone) w->gm[i].alive = 0;
+    while (w->n_en > 0 && !w->en[w->n_en - 1].alive) w->n_en--;      /* (the list ends on a live one) */
+    int z = world_row_zone(w, hrow);
+    if (z != w->zone_now) {                         /* a new zone: its card, its tune */
+        w->zone_now = z;
+        w->events |= EV_ZONE;
+        if (w->passives & P_SHELL) w->h.shell = 1;
+    }
+}
+
+void world_step(world *w, int in, const chunk *defs, int ndefs)
 {
     int pressed = in & ~w->prev_in, released = ~in & w->prev_in;
     w->prev_in = in;
@@ -1048,7 +1213,7 @@ void world_step(world *w, int in)
     w->n_dirty = 0;
     w->gems_got = 0;
     if (w->hitstop) { w->hitstop--; return; }
-    if (w->cleared || w->room || w->h.dead || w->won) return;
+    if (w->cleared || w->room || w->h.dead) return;
     w->t++;
     if (w->combo_t) w->combo_t--;
     int32_t prev_feet = w->h.y;
@@ -1058,9 +1223,10 @@ void world_step(world *w, int in)
     contacts(w, prev_feet);
     gems_step(w);
     doors_step(w, in);
-    bottom_step(w);
-    int d = w->h.y / SUB - TOP_ROWS * CELL;
-    if (d > w->depth_px) w->depth_px = d;
+    rest_step(w);
+    well_step(w, defs, ndefs);
+    int d = ROW_M(w->h.y / SUB / CELL);             /* the depth: a point a metre */
+    if (d > w->depth_m) { w->score += d - w->depth_m; w->depth_m = d; }
     int look = clampi(w->h.vy * 10, -6 * SUB, 36 * SUB);   /* the camera looks ahead of a fall */
     if (w->h.ground) look = 0;
     w->look += (look - w->look) / 12;
@@ -1088,7 +1254,8 @@ int world_can_buy(const world *w, int up)
 int world_offer_price(const world *w, int up)
 {
     if (up < 0 || up >= UP_COUNT) return 0;
-    int p = PRICE[up][0] + PRICE[up][1] * w->level;
+    int lv = world_difficulty(w->depth_m);
+    int p = PRICE[up][0] + PRICE[up][1] * (lv > 14 ? 14 : lv);
     if (w->shop_mode == 1) p = p * 4 / 5;
     if (w->shop_mode == 2) p = 0;
     return p;
@@ -1142,11 +1309,19 @@ int world_buy(world *w, int k)
     return 1;
 }
 
+void world_leave_rest(world *w)
+{
+    w->cleared = 0;
+    w->n_offers = 0;
+    w->prev_in = 0;
+    w->h.vx = 0;
+}
+
 void world_leave_room(world *w)
 {
     if (!w->room) return;
     int d = w->room - 1;
-    w->cell[w->door_row[d]][w->door_col[d]] = C_SHUT;
+    if (has_row(w, w->door_row[d])) set_cell(w, w->door_row[d], w->door_col[d], C_SHUT);
     w->n_dirty = 0;
     dirty_row(w, w->door_row[d]);
     w->room = 0;
@@ -1159,7 +1334,10 @@ void world_leave_room(world *w)
 void world_snapshot(const world *w, snapshot *s)
 {
     memset(s, 0, sizeof *s);
-    s->level = (int8_t)w->level;
+    int k = (w->h.y / SUB / CELL - TOP_ROWS) / CHUNK_H;
+    s->chunk = (int16_t)clampi(k, 0, 32767);
+    s->walruses = (int8_t)clampi(w->walruses, 0, 127);
+    s->depth_m = (uint16_t)clampi(w->depth_m, 0, 65535);
     s->hp = (int8_t)w->hp;
     s->hpmax = (int8_t)w->hpmax;
     s->ammo_max = (int8_t)w->ammo_max;
@@ -1172,10 +1350,9 @@ void world_snapshot(const world *w, snapshot *s)
     s->best_combo = (uint16_t)w->best_combo;
 }
 
-void world_resume(world *w, const snapshot *s)
+void world_resume(world *w, const snapshot *s, const chunk *defs, int ndefs)
 {
     world_new_run(w, s->seed);
-    w->level = clampi(s->level, 0, LEVELS - 1);
     w->hpmax = clampi(s->hpmax, 1, MAX_HP);
     w->hp = clampi(s->hp, 1, w->hpmax);
     w->ammo_max = clampi(s->ammo_max, START_AMMO, MAX_AMMO);
@@ -1186,6 +1363,9 @@ void world_resume(world *w, const snapshot *s)
     w->kills = s->kills;
     w->score = (int)s->score;
     w->best_combo = s->best_combo;
+    w->walruses = s->walruses;
+    w->depth_m = s->depth_m;
+    world_begin(w, s->chunk < 0 ? 0 : s->chunk, defs, ndefs);
 }
 
 uint32_t world_hash(const world *w)
@@ -1193,7 +1373,7 @@ uint32_t world_hash(const world *w)
     uint32_t h = 2166136261u;
 #define HM(v) (h = (h ^ (uint32_t)(v)) * 16777619u)
     HM(w->h.x); HM(w->h.y); HM(w->h.vx); HM(w->h.vy); HM(w->hp); HM(w->ammo); HM(w->gems); HM(w->score);
-    HM(w->level); HM(w->combo); HM(w->t); HM(w->rng);
+    HM(w->depth_m); HM(w->gen_chunk); HM(w->combo); HM(w->t); HM(w->rng);
     for (int i = 0; i < w->n_en; i++) if (w->en[i].alive) { HM(w->en[i].x); HM(w->en[i].y); HM(w->en[i].hp); }
 #undef HM
     return h;
@@ -1205,8 +1385,8 @@ uint32_t world_hash(const world *w)
 static int col_score(const world *w, int col, int hx, int feet)
 {
     int x = col * CELL + 8, r0 = feet >> 4, free_rows = 0;
-    for (int r = r0; r < r0 + 10 && r < w->rows; r++) {
-        if (SOLID(w->cell[r][col])) break;
+    for (int r = r0; r < r0 + 10; r++) {
+        if (SOLID(world_cell(w, col, r)) && world_cell(w, col, r) != C_ARENA) break;
         free_rows++;
     }
     int s = free_rows * 10 - iabs(x - hx) / 4;
@@ -1231,12 +1411,11 @@ int bot_input(const world *w, uint32_t *st)
     int target = hx;
     if (h->ground) {
         int r = (feet + 1) >> 4, row = (feet - 8) >> 4, best = -1, bd = 999;
-        if (r >= w->rows) r = w->rows - 1;
         for (int c = 1; c < COLS - 1; c++) {        /* the nearest gap along this ledge */
-            if (SOLID(w->cell[r][c])) continue;
+            if (SOLID(world_cell(w, c, r))) continue;
             int cx = c * CELL + 8, d = iabs(cx - hx), blocked = 0;
             for (int k = hx >> 4; k != c; k += c > (hx >> 4) ? 1 : -1)     /* a wall: hopped over when low */
-                if (SOLID(w->cell[row][k]) && (row < 2 || SOLID(w->cell[row - 2][k]))) {
+                if (SOLID(world_cell(w, k, row)) && SOLID(world_cell(w, k, row - 2))) {
                     blocked = 1;
                     break;
                 }
@@ -1268,7 +1447,7 @@ int bot_input(const world *w, uint32_t *st)
             if (ey > feet - 4 && ey < feet + 120 && iabs(ex - hx) < 14) shoot = 1;
             if (ey > feet - 40 && ey < feet + 40 && iabs(ex - hx) < 30 && !EN_INFO[e->type].soft) shoot = 1;
         }
-        int below = w->cell[clampi((feet + 6) >> 4, 0, w->rows - 1)][clampi(hx >> 4, 0, COLS - 1)];
+        int below = world_cell(w, clampi(hx >> 4, 0, COLS - 1), (feet + 6) >> 4);
         if (below == C_CRYSTAL || below == C_CRACKED) shoot = 1;
         if (h->vy < 0 && h->jump_t) in |= IN_JUMP;   /* a jump held to its top */
         else if (shoot && w->ammo > 0 && h->air_t > COYOTE + 1) {
@@ -1293,4 +1472,10 @@ int bot_shop(const world *w)
             return k;
         }
     return -1;
+}
+
+/* (tests) the well made down to row r */
+void world_gen_to(world *w, int r, const chunk *defs, int ndefs)
+{
+    while (w->gen_row < r) gen_chunk(w, defs, ndefs);
 }
