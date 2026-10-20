@@ -355,6 +355,16 @@ static int solved_card(void)
     return g->status() == GS_WIN0 && (g->levels || (ui.players == 1 && g->level_stars));
 }
 
+/* a one-player game lost (a solitaire out of moves, a board filled, a level failed): its end card has a retry button
+ * under the result (the same deal, the same level: the stars card's replay); a tap elsewhere hides it as any end card */
+#define RETRY_H 1.2f                            /* the retry row, in the end card's unit, under its usual 3.8 */
+static int lost_card(void)
+{
+    if (screen != SCR_GAME || cur < 0 || ui.players != 1) return 0;
+    int st = games[cur]->status();
+    return st != GS_PLAY && st != GS_WIN0;
+}
+
 /* the game's gesture still going on: its pointer (or its fingers) down. A game that ends under it (a puzzle solved by
  * a drag, a move that wins) keeps hearing that gesture to its lifting, and its end waits: the tune, the pause, then
  * the card come after all its fingers are up; a gesture that undoes the solution (the pin moved back) leaves no end. */
@@ -4014,6 +4024,14 @@ static void draw_result(float cx, float cy, float u)
         draw_solved(cx, cy, u);
         return;
     }
+    if (lost_card()) {                          /* lost alone: the retry button under the result (a card RETRY_H taller) */
+        replay_btn.x = cx;
+        replay_btn.y = cy + 1.45f * u;
+        replay_btn.d = fminf(1.1f * fmaxf(u, 0.8f * ui.unit), 2.1f * L.br);   /* (the stars card's; in a small card
+                                                                                * still a thumb's) */
+        ui_button(replay_btn.x, replay_btn.y, replay_btn.d, ICON_REPLAY, 0);
+        cy -= RETRY_H / 2 * u;
+    }
     int np = ui.players;
     unsigned won = g->winners ? winners_of(st) : 0;
     if (np > 1 && won) {                       /* winners() (partners, a shared win, a tie): they stand together */
@@ -4090,7 +4108,7 @@ box ui_end_room(float w, float h)
     float u = ui.unit, pad = floorf(0.3f * u), cx = b.x + b.w / 2, cy = b.y + b.h / 2;
     float ks = 0.72f, hs = 6.8f * u * ks;       /* beside: the result's part, this wide */
     int side = b.w > 1.3f * b.h && w + hs + 3 * pad <= b.w * 0.98f;
-    float k = side ? ks : 0.62f, hw = 6.8f * u * k, hh = 3.8f * u * k;
+    float k = side ? ks : 0.62f, hw = 6.8f * u * k, hh = (3.8f + (lost_card() ? RETRY_H : 0)) * u * k;
     w = floorf(fminf(w, b.w * 0.98f - 2 * pad - (side ? hw + pad : 0)));
     h = floorf(fminf(h, b.h * 0.98f - 2 * pad - (side ? 0 : hh)));
     float cw, ch;
@@ -4264,7 +4282,12 @@ static void draw_over(void)
         SDL_FRect d = {b.x, b.y, b.w, b.h};
         SDL_RenderCopyF(ui.r, t_bg, &src, &d);
     } else end_veil(b, 90);
-    if (TH.dark) ui_put_c(t_card, cx, cy, 6.8f * u, 3.8f * u);
+    if (lost_card()) {                          /* lost alone: a row more, its retry button (t_card's look, taller) */
+        static const uint8_t card_c[4] = {28, 34, 32, 236};
+        float w = floorf(6.8f * u), h = floorf((3.8f + RETRY_H) * u);
+        if (TH.dark) ui_put(rounded((int)w, (int)h, 0.4f * u, card_c), floorf(cx - w / 2), floorf(cy - h / 2), w, h);
+        else light_panel(cx - w / 2, cy - h / 2, w, h, 0.4f * u);
+    } else if (TH.dark) ui_put_c(t_card, cx, cy, 6.8f * u, 3.8f * u);
     else light_panel(cx - 3.4f * u, cy - 1.9f * u, 6.8f * u, 3.8f * u, 0.4f * u);
     draw_result(cx, cy, u);
 }
@@ -5639,11 +5662,13 @@ static void press(float x, float y)
         if (next_btn.d > 0 && ui_button_hit(next_btn.x, next_btn.y, next_btn.d, x, y)) {   /* a solved puzzle's next */
             snd_play(SND_TAP);
             card_next();
+            PT.stray = 1;                       /* (its lifting: nobody's, not the new game's) */
             return;
         }
         if (replay_btn.d > 0 && ui_button_hit(replay_btn.x, replay_btn.y, replay_btn.d, x, y)) {   /* the same again */
-            snd_play(SND_TAP);
+            snd_play(SND_TAP);                  /* (the stars card's replay, a lost game's retry) */
             card_replay();
+            PT.stray = 1;
             return;
         }
         for (int k = 0; k < 3 && solved; k++)   /* the stars card's links: a review, a problem, support */
