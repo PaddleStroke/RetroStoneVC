@@ -2,8 +2,9 @@
  * Hex Landscape's rules: tiles as text and turned, placements (next to the land, rivers and rails meeting their own,
  * within reach), the points (edges met, the perfect tile and its bonus tile), regions, quests (exact: done closed at
  * n, failed past it or closed short; at least: done at n), tiles that fit nowhere set aside, undo of the last tile
- * only, the notation; every level: it loads, a play of it reaches its goal (the levels' tool's, tests/hexland_lines.h),
- * the naive players (the greedy one, the hint's) fall short of three stars from level 4 but in a chapter's first two;
+ * only, the notation; objectives (met for good, the level over once all are met, lost without the first); every
+ * level: one to three objectives, a play of it meeting them all (the levels' tool's, tests/hexland_lines.h), the hint's
+ * player measured;
  * the random puzzles (the same from the same seed, their size, the time they take); whole games from a seed (random
  * placements, the hint's always allowed, undo).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
@@ -32,7 +33,7 @@ static int at(int q, int r) { return hxl_cell(q, r); }
 
 static void setup(const char *start, const char *stack, const char *reserve)
 {
-    hxl_level_t lv = {start, stack, reserve, 100};
+    hxl_level_t lv = {start, stack, reserve, "", 100};
     CHECK(hxl_load(&g, &lv));
 }
 
@@ -114,34 +115,63 @@ int main(void)
     CHECK(hxl_current(&g.s)->tile == hxl_tile_parse("ffffff"));
     CHECK(hxl_stars(100, 100) == 3 && hxl_stars(80, 100) == 2 && hxl_stars(79, 100) == 1);
 
-    /* every level */
-    int intro_naive = 0, naive3 = 0, n_lv = 0;
+    /* objectives: as text both ways; a forest of 3, met for good; the level ends once all are met */
+    hxl_obj ob[HXL_OBJS];
+    char txt[64];
+    CHECK(hxl_objs_parse("f6 =v5 p3", ob, HXL_OBJS) == 3 && ob[1].kind == HXL_OB_EXACT && ob[1].terr == HXL_VILLAGE);
+    hxl_objs_text(ob, 3, txt, (int)sizeof txt);
+    CHECK(!strcmp(txt, "f6 =v5 p3"));
+    CHECK(hxl_objs_parse("=p3", ob, HXL_OBJS) < 0 && hxl_objs_parse("f", ob, HXL_OBJS) < 0 &&
+          hxl_objs_parse("f1 f2 f3 f4", ob, HXL_OBJS) < 0);
+    {
+        hxl_level_t lv = {"MMfmmmmm", "fmmfmm mmmfmm ffffff", "", "f3 s1000", 0};
+        CHECK(hxl_load(&g, &lv) && g.s.nobj == 2 && !g.s.met);
+        CHECK(hxl_obj_progress(&g.s, 0, NULL) == 1);
+        CHECK(hxl_play(&g, at(1, 0), 0, &res) && !res.obj_met && hxl_obj_progress(&g.s, 0, NULL) == 2);
+        CHECK(hxl_play(&g, at(2, 0), 0, &res) && res.obj_met == 1 && g.s.met == 1);
+        CHECK(!hxl_over(&g.s) && hxl_level_stars(&g.s, 0) == 2 && !hxl_lost(&g.s));
+        hxl_level_t lv2 = {"MMfmmmmm", "mmmfmm mmmmmm", "", "=f2", 0};   /* exactly 2: closed at 2, then over */
+        CHECK(hxl_load(&g, &lv2));
+        CHECK(hxl_play(&g, at(1, 0), 0, &res) && res.obj_met == 1 && hxl_over(&g.s) && hxl_level_stars(&g.s, 0) == 3);
+        CHECK(!hxl_play(&g, at(-1, 0), 0, &res));   /* over: nothing more */
+        hxl_level_t lv3 = {"MMfmmmmm", "mmmmmm", "", "f2 p1", 0};    /* the stack out without the main one: lost */
+        CHECK(hxl_load(&g, &lv3) && hxl_play(&g, at(1, 0), 0, &res) && hxl_over(&g.s) && hxl_lost(&g.s));
+        CHECK(hxl_level_stars(&g.s, 0) == 0);
+    }
+
+    /* every level: one to three objectives, the first three levels one each; a play of it meets them all */
+    int naive3 = 0, n_lv = 0, nobj[4] = {0}, kinds[5] = {0};
     double slow = 0;
     for (int L = 0; L < HXL_LEVELS; L++) {
         CHECK(hxl_level(&g, L));
-        CHECK(g.s.ns >= 5 && g.goal > 0 && g.start_tiles >= 1);
+        CHECK(g.s.ns >= 5 && g.start_tiles >= 1 && g.s.nobj >= 1 && g.s.nobj <= HXL_OBJS && !g.s.met);
+        if (L < 3) CHECK(g.s.nobj == 1);
+        nobj[g.s.nobj]++;
+        for (int i = 0; i < g.s.nobj; i++) kinds[g.s.obj[i].kind]++;
         t = g;
         CHECK(hxl_script(&t, HXL_LINES[L]));
-        CHECK(hxl_over(&t.s));
-        if (t.s.score < g.goal) printf("level %d: its play %d, the goal %d\n", L + 1, t.s.score, g.goal);
-        CHECK(t.s.score >= g.goal);
+        if (hxl_level_stars(&t.s, 0) != 3) printf("level %d: its play meets %x of its objectives\n", L + 1, t.s.met);
+        CHECK(hxl_over(&t.s) && hxl_level_stars(&t.s, 0) == 3);
         double t0 = now_ms();
-        int greedy = hxl_greedy(&g.s);
-        if (now_ms() - t0 > slow) slow = now_ms() - t0;
         t = g;
-        hxl_script(&t, "=");
-        int naive = greedy > t.s.score ? greedy : t.s.score, intro = L < 3 || L % (HXL_LEVELS / HXL_CHAPTERS) < 2;
-        if (intro) intro_naive += naive >= g.goal;
-        else {
+        hxl_greedy(&t.s);
+        if (now_ms() - t0 > slow) slow = now_ms() - t0;
+        if (L >= 3) {                           /* the hint's player, the greedy one */
             n_lv++;
-            if (naive >= g.goal) { naive3++; printf("level %d: a naive player gets three stars\n", L + 1); }
+            t = g;
+            hxl_script(&t, "=");
+            int naive = hxl_level_stars(&t.s, 0);
+            if (naive >= 3) naive3++;
         }
         for (int M = 0; M < L; M++)             /* no two levels alike */
             if (!strcmp(hxl_levels[M].stack, hxl_levels[L].stack)) { printf("levels %d and %d\n", M + 1, L + 1); fails++; }
     }
-    CHECK(naive3 == 0);
-    printf("hexland: %d levels; a naive player gets three stars in %d of the %d intro levels, 0 of the others; the "
-           "greedy player at most %.0f ms\n", HXL_LEVELS, intro_naive, HXL_LEVELS - n_lv, slow);
+    /* (the hint is a help: its player is not held to fall short; the tool measures a greedy player blind to the
+     * objectives, its table in its output) */
+    printf("hexland: %d levels (objectives: %d with one, %d with two, %d with three; regions %d, exact %d, perfect %d, "
+           "quests %d, score %d); the hint's player meets all of %d of the %d levels from 4; the greedy player at "
+           "most %.0f ms\n", HXL_LEVELS, nobj[1], nobj[2], nobj[3], kinds[0], kinds[1], kinds[2], kinds[3], kinds[4],
+           naive3, n_lv, slow);
     CHECK(!hxl_level(&g, HXL_LEVELS) && !hxl_level(&g, -1));
 
     /* random puzzles: the same from the same seed, the stack's size, the time */

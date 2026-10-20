@@ -1,0 +1,14 @@
+Paisagem hexagonal: as palavras do cartão de objetivos
+Objetivos
+Prado
+Floresta
+Campo
+Aldeia
+Rio
+Linha férrea
+Peças perfeitas
+Bandeiras de missão
+Pontos
+exatamente
+As bandeiras nas peças são missões bónus:
+constrói essa região para ganhar pontos e peças.

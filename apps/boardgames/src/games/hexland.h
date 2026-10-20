@@ -5,7 +5,7 @@
  * meet their six neighbours is perfect (more points, one more tile on the stack). Rivers and rails must go on: their
  * edges may only meet their own kind (or nothing yet). Some tiles carry a quest for the region of one of their
  * terrains: exactly n tiles (the region closed at n), or at least n. A quest done scores and puts tiles on the stack;
- * a region that grows past an exact n, or closes short, fails it. The run ends when the stack is empty.
+ * a region that grows past an exact n, or closes short, fails it. The run ends when the stack is empty, or a level's objectives are all met.
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
  *
  * The map: axial coordinates (q, r) from the first tile, pointy-top hexes, in a square array HXL_N x HXL_N (a cell's
@@ -17,7 +17,7 @@
  * Text: a tile is six letters from edge 0 (m meadow, f forest, w field, v village, r river, t rail), a quest after it
  * ("=f12": a forest of exactly 12; "+v8": a village of at least 8). A level: its first tiles ("<q><r><tile>" with q, r
  * as letters 'A' + 12 + q...), its stack and its reserve (the tiles the bonuses add, in order), space separated, and
- * its goal (the score for three stars). Moves (script): "q,r,k" a tile laid at (q, r) turned k sixths; "h" the hint's
+ * its objectives and a score goal (random play: the score for three stars). Moves (script): "q,r,k" a tile laid at (q, r) turned k sixths; "h" the hint's
  * placement; "=" the hint's placements to the end.
  */
 #ifndef HEXLAND_H
@@ -64,6 +64,13 @@ typedef struct {
     uint8_t terr, kind, n, state, size;         /* size: the region's size now */
 } hxl_quest;
 
+/* a level's objectives (the first the main one): a region of a terrain of at least n tiles (REGION), a region closed
+ * at exactly n (EXACT), n perfect tiles, n quest flags done, a score of n. Once met, met for good. Text: "f6" a forest
+ * of 6, "=v5" a village of exactly 5, "p3" three perfect tiles, "q2" two quests, "s400" a score of 400. */
+enum { HXL_OB_REGION, HXL_OB_EXACT, HXL_OB_PERFECT, HXL_OB_QUESTS, HXL_OB_SCORE };
+#define HXL_OBJS 3
+typedef struct { uint8_t kind, terr; uint16_t n; } hxl_obj;
+
 typedef struct {
     uint32_t cell[HXL_CELLS];                   /* the tiles laid (0: none) */
     hxl_item stack[HXL_STACK];
@@ -74,6 +81,9 @@ typedef struct {
     int nq;
     int score, placed, perfects, done, failed, skipped, matches;
     int last;                                   /* the last cell laid (-1) */
+    hxl_obj obj[HXL_OBJS];
+    int nobj;
+    unsigned met;                               /* bit i: objective i met */
 } hxl_state;
 
 /* what a placement did (for the screen): its points, the edges that met, perfect, tiles added, quests done or failed
@@ -82,6 +92,7 @@ typedef struct {
     int points, matches, perfect, bonus;
     int ndone, nfail, nforest, skipped;
     int done[8], fail[8], forest[8];
+    unsigned obj_met;                           /* objectives met by this placement */
 } hxl_result;
 
 typedef struct {
@@ -125,7 +136,17 @@ int  hxl_script(hxl_game *g, const char *moves);
 uint32_t hxl_tile_parse(const char *s);         /* six letters; 0 bad */
 void hxl_tile_text(uint32_t t, char *out);      /* seven bytes */
 int  hxl_items_parse(const char *s, hxl_item *out, int cap);   /* -1 bad */
-typedef struct { const char *start, *stack, *reserve; uint16_t goal; } hxl_level_t;
+typedef struct { const char *start, *stack, *reserve, *goals; uint16_t goal; } hxl_level_t;
+int  hxl_objs_parse(const char *s, hxl_obj *out, int cap);   /* -1 bad */
+void hxl_objs_text(const hxl_obj *o, int n, char *out, int cap);
+/* objective i: how far it has come (0..n), and a cell of the region that counts (-1 none) */
+int  hxl_obj_progress(const hxl_state *s, int i, int *cell);
+/* the largest region of terrain t: its size, a cell of it (may be NULL) */
+int  hxl_largest(const hxl_state *s, int t, int *cell);
+int  hxl_lost(const hxl_state *s);              /* a level over without its main objective */
+/* a level's stars: all objectives 3, the main one and half of them 2, the main one 1, else 0; without objectives
+ * (at random) by the score against the goal (hxl_stars) */
+int  hxl_level_stars(const hxl_state *s, int goal);
 int  hxl_load(hxl_game *g, const hxl_level_t *lv);   /* 0: bad */
 
 /* the puzzles' maker: a landscape painted on a disc of hexes (blobs of soft terrains, rivers and rails wandering

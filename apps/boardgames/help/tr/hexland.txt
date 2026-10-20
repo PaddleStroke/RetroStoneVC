@@ -1,15 +1,15 @@
 Altıgen Manzara
 # Amaç
-Bir yığın altıgen taştan bir manzara kur ve olabildiğince çok puan topla. Bir taşın her kenarında çayır, orman, tarla, köy, nehir ya da demiryolu vardır.
+Bir yığın altıgen taştan bir manzara kur. Bir taşın her kenarında çayır, orman, tarla, köy, nehir ya da demiryolu vardır. Her seviye başta hedeflerini verir: 6 taşlık bir orman, tam 5 taşlık bir köy, iki kusursuz taş...
 # Taş koymak
 Yığının üstündeki taşı istediğin gibi çevirip manzaranın yanına koy.
 - Aynı araziye değen her kenar 10 puan kazandırır.
 - Altı kenarı da komşularına uyan taş kusursuzdur: 30 puan daha ve yığına bir taş daha.
 - Nehirler ve demiryolları devam etmelidir: kenarları yalnızca aynı türden bir nehre ya da demiryoluna değebilir.
 - Hiçbir yere uymayan taş kenara konur.
-# Görevler
-Bir taşın üstündeki bayrak, kendi arazisinden bir bölge, yani o araziyle bağlanan taşları ister: tam gösterilen sayıda ya da arkasında artı varsa en az o kadar. Tamamlanan görev 50 puan kazandırır ve yığına üç taş ekler. Fazla büyüyen ya da çok küçük kapanan tam bölge başarısız olur.
+# Bölgeler ve görevler
+Bölge, aynı arazinin kenarlarıyla bağlanan taşlardır. Tam, açık kenarı kalmadan tam o büyüklükte kapanmış bir bölge ister. Taşlardaki bayraklar bonus görevlerdir: tamamlanınca 50 puan ve üç taş kazandırır.
 # Oyunun sonu
-Yığın boşalınca oyun biter.
+Bir seviye, tüm hedefleri tutunca ya da yığın boşalınca biter. İlk hedef tutmadıysa yeniden dene.
 # Seviyeler ve yıldızlar
-Bayrağın yanındaki puan: 3 yıldız; onun beşte dördü: 2 yıldız; yoksa 1.
+Tüm hedefler: 3 yıldız; ilki ve yarısı: 2 yıldız; yalnız ilki: 1. Rastgele oyun: bayrağın yanındaki puan 3 yıldız verir.

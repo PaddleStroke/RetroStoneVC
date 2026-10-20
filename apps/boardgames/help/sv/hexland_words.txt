@@ -1,0 +1,14 @@
+Hexlandskap: orden på målkortet
+Mål
+Äng
+Skog
+Åker
+By
+Flod
+Järnväg
+Perfekta brickor
+Uppdragsflaggor
+Poäng
+exakt
+Flaggor på brickor är bonusuppdrag:
+bygg det området för poäng och fler brickor.

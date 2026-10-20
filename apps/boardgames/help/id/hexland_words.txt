@@ -1,0 +1,14 @@
+Lanskap Heksagon: kata-kata kartu tujuan
+Tujuan
+Padang rumput
+Hutan
+Ladang
+Desa
+Sungai
+Rel
+Ubin sempurna
+Bendera misi
+Skor
+tepat
+Bendera pada ubin adalah misi bonus:
+bangun wilayah itu untuk poin dan ubin tambahan.

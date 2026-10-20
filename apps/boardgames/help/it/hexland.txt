@@ -1,15 +1,15 @@
 Paesaggio esagonale
 # Lo scopo
-Costruisci un paesaggio con una pila di tessere esagonali e fai più punti che puoi. Ogni lato di una tessera mostra prato, bosco, campo, villaggio, fiume o ferrovia.
+Costruisci un paesaggio con una pila di tessere esagonali. Ogni lato di una tessera mostra prato, bosco, campo, villaggio, fiume o ferrovia. Ogni livello indica all'inizio i suoi obiettivi: un bosco di 6 tessere, un villaggio di esattamente 5, due tessere perfette...
 # Posare una tessera
 Posa la tessera in cima alla pila accanto al paesaggio, girata come vuoi.
 - Ogni lato che tocca lo stesso terreno vale 10 punti.
 - Una tessera i cui sei lati combaciano tutti con i vicini è perfetta: 30 punti in più e una tessera in più nella pila.
 - Fiumi e ferrovie devono proseguire: i loro lati possono toccare solo un fiume o una ferrovia dello stesso tipo.
 - Una tessera che non sta da nessuna parte viene messa da parte.
-# Missioni
-Una bandierina su una tessera chiede una regione del suo terreno, le tessere unite da esso: esattamente il numero mostrato, o almeno tanti se è seguito da un più. Una missione compiuta vale 50 punti e aggiunge tre tessere alla pila. Una regione esatta che diventa troppo grande, o si chiude troppo piccola, fallisce.
+# Regioni e missioni
+Una regione sono le tessere unite dai lati di uno stesso terreno. Esattamente chiede una regione chiusa a quella misura, senza lati rimasti aperti. Le bandierine sulle tessere sono missioni bonus: compiute, valgono 50 punti e tre tessere.
 # La fine della partita
-La partita finisce quando la pila è vuota.
+Un livello finisce quando tutti i suoi obiettivi sono raggiunti, o quando la pila è vuota. Senza il primo obiettivo, riprova.
 # Livelli e stelle
-Il punteggio accanto alla bandierina: 3 stelle; i suoi quattro quinti: 2 stelle; altrimenti 1.
+Tutti gli obiettivi: 3 stelle; il primo e metà di essi: 2 stelle; il primo da solo: 1. Partita a caso: il punteggio accanto alla bandierina dà 3 stelle.

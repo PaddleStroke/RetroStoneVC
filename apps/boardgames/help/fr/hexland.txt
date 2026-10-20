@@ -1,15 +1,15 @@
 Paysage hexagonal
 # Le but
-Construis un paysage avec une pile de tuiles hexagonales et marque le plus de points possible. Chaque bord d'une tuile montre un pré, une forêt, un champ, un village, une rivière ou une voie ferrée.
+Construis un paysage avec une pile de tuiles hexagonales. Chaque bord d'une tuile montre un pré, une forêt, un champ, un village, une rivière ou une voie ferrée. Chaque niveau donne ses objectifs au départ : une forêt de 6 tuiles, un village d'exactement 5, deux tuiles parfaites...
 # Poser une tuile
 Pose la tuile du dessus de la pile à côté du paysage, tournée comme tu veux.
 - Chaque bord qui touche le même terrain rapporte 10 points.
 - Une tuile dont les six bords touchent tous des voisins identiques est parfaite : 30 points de plus et une tuile de plus sur la pile.
 - Les rivières et les voies ferrées doivent continuer : leurs bords ne peuvent toucher qu'une rivière ou une voie du même genre.
 - Une tuile qui ne va nulle part est mise de côté.
-# Les quêtes
-Un drapeau sur une tuile demande une région de son terrain, les tuiles reliées par lui : exactement le nombre indiqué, ou au moins autant s'il est suivi d'un plus. Une quête réussie rapporte 50 points et ajoute trois tuiles à la pile. Une région exacte qui devient trop grande, ou qui se ferme trop petite, échoue.
+# Régions et quêtes
+Une région, ce sont les tuiles reliées par les bords d'un même terrain. Exactement demande une région fermée à cette taille, sans aucun bord resté ouvert. Les drapeaux sur les tuiles sont des quêtes bonus : réussies, elles rapportent 50 points et trois tuiles.
 # La fin de la partie
-La partie se termine quand la pile est vide.
+Un niveau se termine quand tous ses objectifs sont atteints, ou quand la pile est vide. Sans le premier objectif, recommence.
 # Niveaux et étoiles
-Le score près du drapeau : 3 étoiles ; les quatre cinquièmes : 2 étoiles ; sinon 1.
+Tous les objectifs : 3 étoiles ; le premier et la moitié d'entre eux : 2 étoiles ; le premier seul : 1. En partie au hasard : le score près du drapeau donne 3 étoiles.

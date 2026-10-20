@@ -1,0 +1,14 @@
+Hex Landscape: the goal card's words (Goals; the terrains: meadow, forest, field, village, river, rail; perfect tiles; quest flags; score; exactly; the quest flags' tip in two lines)
+Goals
+Meadow
+Forest
+Field
+Village
+River
+Rail
+Perfect tiles
+Quest flags
+Score
+exactly
+Flags on tiles are bonus quests:
+build that region for points and more tiles.

@@ -6,6 +6,7 @@
  */
 #include "games/hexland.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -13,6 +14,8 @@
 
 static const int DQ[6] = {1, 0, -1, -1, 0, 1}, DR[6] = {0, 1, 1, 0, -1, -1};
 static const char LETTER[HXL_TERRAINS] = {'.', 'm', 'f', 'w', 'v', 'r', 't'};
+static int terrain_of(char ch);
+static void put(char *o, int *n, int cap, const char *s);
 
 /* ---- the map ----------------------------------------------------------------------------------------------------- */
 int hxl_cell(int q, int r)
@@ -128,7 +131,10 @@ int hxl_region(const hxl_state *s, int c, int t, int *open) { return region_fill
 
 const hxl_item *hxl_current(const hxl_state *s) { return s->top < s->ns ? &s->stack[s->top] : NULL; }
 int hxl_left(const hxl_state *s) { return s->ns - s->top; }
-int hxl_over(const hxl_state *s) { return s->top >= s->ns; }
+int hxl_over(const hxl_state *s)
+{
+    return s->top >= s->ns || (s->nobj > 0 && s->met == (1u << s->nobj) - 1);
+}
 
 int hxl_fits(const hxl_state *s, uint32_t tile)
 {
@@ -200,13 +206,171 @@ static void forests_closed(const hxl_state *s, int c, hxl_result *res)
     }
 }
 
+/* ---- objectives ---------------------------------------------------------------------------------------------- */
+/* the regions of terrain t: the largest (its size, a cell), the largest of at most n tiles (its size, a cell), and
+ * whether one is closed at exactly n */
+static void regions_of(const hxl_state *s, int t, int n, int *big, int *bigc, int *upto, int *uptoc, int *exact)
+{
+    uint8_t mark[HXL_CELLS];
+    memset(mark, 0, sizeof mark);
+    *big = *upto = *exact = 0;
+    *bigc = *uptoc = -1;
+    for (int c = 0; c < HXL_CELLS; c++) {
+        if (!s->cell[c] || mark[c] || !hxl_has(s->cell[c], t)) continue;
+        int open, size = region_fill(s, c, t, &open, mark);
+        if (size > *big) { *big = size; *bigc = c; }
+        if (size <= n && size > *upto) { *upto = size; *uptoc = c; }
+        if (size == n && !open) *exact = 1;
+    }
+}
+
+int hxl_largest(const hxl_state *s, int t, int *cell)
+{
+    int big, bigc, upto, uptoc, exact;
+    regions_of(s, t, 0, &big, &bigc, &upto, &uptoc, &exact);
+    if (cell) *cell = bigc;
+    return big;
+}
+
+/* objective i now: how far (not clamped), met */
+static int obj_now(const hxl_state *s, int i, int *cell, int *met)
+{
+    const hxl_obj *o = &s->obj[i];
+    int big, bigc, upto, uptoc, exact, v = 0;
+    if (cell) *cell = -1;
+    switch (o->kind) {
+    case HXL_OB_REGION:
+        regions_of(s, o->terr, o->n, &big, &bigc, &upto, &uptoc, &exact);
+        v = big;
+        if (cell) *cell = bigc;
+        *met = v >= o->n;
+        break;
+    case HXL_OB_EXACT:
+        regions_of(s, o->terr, o->n, &big, &bigc, &upto, &uptoc, &exact);
+        v = upto;
+        if (cell) *cell = uptoc;
+        *met = exact;
+        break;
+    case HXL_OB_PERFECT: v = s->perfects; *met = v >= o->n; break;
+    case HXL_OB_QUESTS: v = s->done; *met = v >= o->n; break;
+    default: v = s->score; *met = v >= o->n; break;
+    }
+    return v;
+}
+
+int hxl_obj_progress(const hxl_state *s, int i, int *cell)
+{
+    if (i < 0 || i >= s->nobj) return 0;
+    int met, v = obj_now(s, i, cell, &met);
+    if (s->met >> i & 1) return s->obj[i].n;
+    return v > s->obj[i].n ? s->obj[i].n : v;
+}
+
+/* the objectives the tile at c may have met (c < 0: all looked at; the start): a region only grows or closes
+ * through the tile just laid, so only its own region and its neighbours' are looked at */
+static void objs_check(hxl_state *s, int c, hxl_result *res)
+{
+    for (int i = 0; i < s->nobj; i++) {
+        if (s->met >> i & 1) continue;
+        const hxl_obj *o = &s->obj[i];
+        int met = 0;
+        if (c < 0 || (o->kind != HXL_OB_REGION && o->kind != HXL_OB_EXACT)) obj_now(s, i, NULL, &met);
+        else {
+            int from[7], n = 0;
+            if (hxl_has(s->cell[c], o->terr)) from[n++] = c;
+            for (int d = 0; d < 6; d++) {
+                int x = hxl_nb(c, d);
+                if (x >= 0 && s->cell[x] && hxl_edge(s->cell[x], hxl_opp(d)) == o->terr) from[n++] = x;
+            }
+            for (int k = 0; k < n && !met; k++) {
+                int open, size = hxl_region(s, from[k], o->terr, &open);
+                met = o->kind == HXL_OB_REGION ? size >= o->n : size == o->n && !open;
+            }
+        }
+        if (met) {
+            s->met |= 1u << i;
+            if (res) res->obj_met |= 1u << i;
+        }
+    }
+}
+
+#define OBJ_W 12                                /* the players' worth of a tile towards an objective */
+#define OBJ_MET 120                             /* and of an objective met */
+static int blind;                               /* (the levels' tool: a player who does not look at the objectives) */
+#ifdef HXL_GEN
+/* the objectives' worth of a state: met ones, and how far the others have come */
+static int obj_value(const hxl_state *s)
+{
+    int v = 0;
+    for (int i = 0; i < s->nobj; i++) {
+        const hxl_obj *o = &s->obj[i];
+        if (s->met >> i & 1) { v += OBJ_MET + OBJ_W * (o->kind == HXL_OB_SCORE ? 0 : o->n); continue; }
+        if (o->kind == HXL_OB_SCORE) continue;
+        int met, p = obj_now(s, i, NULL, &met);
+        v += OBJ_W * (p < o->n ? p : o->n) * (o->kind == HXL_OB_PERFECT || o->kind == HXL_OB_QUESTS ? 4 : 1);
+    }
+    return v;
+}
+#endif
+
+int hxl_lost(const hxl_state *s) { return s->nobj > 0 && hxl_over(s) && !(s->met & 1); }
+
+int hxl_level_stars(const hxl_state *s, int goal)
+{
+    if (!s->nobj) return hxl_stars(s->score, goal);
+    if (!(s->met & 1)) return 0;
+    int m = 0;
+    for (int i = 0; i < s->nobj; i++) m += s->met >> i & 1;
+    return m == s->nobj ? 3 : 2 * m >= s->nobj ? 2 : 1;
+}
+
+int hxl_objs_parse(const char *s, hxl_obj *out, int cap)
+{
+    int n = 0;
+    while (s && *s) {
+        if (*s == ' ') { s++; continue; }
+        if (n >= cap) return -1;
+        hxl_obj o = {HXL_OB_REGION, 0, 0};
+        int eq = *s == '=';
+        if (eq) { o.kind = HXL_OB_EXACT; s++; }
+        if (*s == 'p') o.kind = HXL_OB_PERFECT;
+        else if (*s == 'q') o.kind = HXL_OB_QUESTS;
+        else if (*s == 's') o.kind = HXL_OB_SCORE;
+        else if (!(o.terr = (uint8_t)terrain_of(*s))) return -1;
+        if (eq && o.kind != HXL_OB_EXACT) return -1;
+        s++;
+        int v = 0, d = 0;
+        while (*s >= '0' && *s <= '9') v = v * 10 + *s++ - '0', d++;
+        if (!d || v < 1 || v > 60000) return -1;
+        o.n = (uint16_t)v;
+        out[n++] = o;
+    }
+    return n;
+}
+
+void hxl_objs_text(const hxl_obj *o, int n, char *out, int cap)
+{
+    int k = 0;
+    out[0] = 0;
+    for (int i = 0; i < n; i++) {
+        char t[16];
+        int l = 0;
+        if (i) t[l++] = ' ';
+        if (o[i].kind == HXL_OB_EXACT) t[l++] = '=';
+        t[l++] = o[i].kind == HXL_OB_PERFECT ? 'p' : o[i].kind == HXL_OB_QUESTS ? 'q' : o[i].kind == HXL_OB_SCORE ? 's'
+                                                                                                         : LETTER[o[i].terr];
+        l += snprintf(t + l, sizeof t - (size_t)l, "%d", o[i].n);
+        put(out, &k, cap, t);
+    }
+}
+
 int hxl_place(hxl_state *s, int c, int k, hxl_result *res)
 {
     hxl_result dummy;
     if (!res) res = &dummy;
     memset(res, 0, sizeof *res);
     const hxl_item *it = hxl_current(s);
-    if (!it || c < 0 || c >= HXL_CELLS) return 0;
+    if (!it || hxl_over(s) || c < 0 || c >= HXL_CELLS) return 0;
     uint32_t tile = hxl_turn(it->tile, k);
     if (!hxl_can(s, c, tile)) return 0;
     int m, p, pts = hxl_gain(s, c, tile, &m, &p);
@@ -235,7 +399,8 @@ int hxl_place(hxl_state *s, int c, int k, hxl_result *res)
     }
     quests_check(s, res);
     forests_closed(s, c, res);
-    while (hxl_current(s) && !hxl_fits(s, hxl_current(s)->tile)) {
+    objs_check(s, c, res);
+    while (!hxl_over(s) && !hxl_fits(s, hxl_current(s)->tile)) {
         s->top++;
         s->skipped++;
         res->skipped++;
@@ -281,11 +446,24 @@ static int worth(const hxl_state *s, int c, int k, hxl_state *scratch, int *nb)
         n += x >= 0 && s->cell[x];
     }
     *nb = n;
-    if (!it->qn && !open_quests(s)) return hxl_gain(s, c, tile, NULL, NULL);
+    int goals = !blind && s->nobj > 0 && s->met != (1u << s->nobj) - 1;
+    if (!it->qn && !open_quests(s) && !goals) return hxl_gain(s, c, tile, NULL, NULL);
     memcpy(scratch, s, sizeof *s);
     hxl_result r;
     hxl_place(scratch, c, k, &r);
-    return r.points - r.nfail * (HXL_QUEST + 20) + r.bonus * 20;
+    int v = r.points - r.nfail * (HXL_QUEST + 20) + r.bonus * 20;
+    for (int i = 0; goals && i < s->nobj; i++) {   /* the objectives: met now, or the region it grows */
+        const hxl_obj *o = &s->obj[i];
+        if (s->met >> i & 1) continue;
+        if (scratch->met >> i & 1) { v += OBJ_MET; continue; }
+        if ((o->kind == HXL_OB_REGION || o->kind == HXL_OB_EXACT) && hxl_has(tile, o->terr)) {
+            int sz = hxl_region(scratch, c, o->terr, NULL);
+            v += o->kind == HXL_OB_REGION ? OBJ_W * (sz < o->n ? sz : o->n) : sz <= o->n ? OBJ_W * sz : -OBJ_W * 4;
+        }
+        if (o->kind == HXL_OB_PERFECT) v += 4 * OBJ_W * r.perfect;
+        if (o->kind == HXL_OB_QUESTS) v += 4 * OBJ_W * r.ndone;
+    }
+    return v;
 }
 
 /* the best gain of the next tile after the current one is laid as move m (its points only) */
@@ -505,6 +683,9 @@ int hxl_load(hxl_game *g, const hxl_level_t *lv)
     s->ns = hxl_items_parse(lv->stack, s->stack, HXL_STACK);
     s->nr = hxl_items_parse(lv->reserve, s->res, HXL_RES);
     if (s->ns < 1 || s->nr < 0) return 0;
+    s->nobj = hxl_objs_parse(lv->goals, s->obj, HXL_OBJS);
+    if (s->nobj < 0) return 0;
+    objs_check(s, -1, NULL);
     g->goal = lv->goal;
     begin(g);
     return 1;

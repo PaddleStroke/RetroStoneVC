@@ -1,0 +1,14 @@
+Heksagonalny krajobraz: słowa karty celów
+Cele
+Łąka
+Las
+Pole
+Wioska
+Rzeka
+Tory
+Idealne płytki
+Flagi zadań
+Wynik
+dokładnie
+Flagi na płytkach to zadania dodatkowe:
+zbuduj ten obszar, by zdobyć punkty i płytki.

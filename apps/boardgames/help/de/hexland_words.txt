@@ -1,0 +1,14 @@
+Hex-Landschaft: die Wörter der Zielkarte
+Ziele
+Wiese
+Wald
+Feld
+Dorf
+Fluss
+Gleis
+Perfekte Plättchen
+Aufgabenfahnen
+Punkte
+genau
+Fahnen auf Plättchen sind Bonusaufgaben:
+baue dieses Gebiet für Punkte und mehr Plättchen.

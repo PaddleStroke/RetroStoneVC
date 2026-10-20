@@ -1,0 +1,14 @@
+Paysage hexagonal : les mots de la carte des objectifs
+Objectifs
+Pré
+Forêt
+Champ
+Village
+Rivière
+Voie ferrée
+Tuiles parfaites
+Drapeaux de quête
+Score
+exactement
+Les drapeaux sur les tuiles sont des quêtes bonus :
+construis cette région pour des points et des tuiles.

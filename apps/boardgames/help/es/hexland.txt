@@ -1,15 +1,15 @@
 Paisaje hexagonal
 # El objetivo
-Construye un paisaje con una pila de fichas hexagonales y consigue tantos puntos como puedas. Cada borde de una ficha muestra prado, bosque, campo, pueblo, río o vía de tren.
+Construye un paisaje con una pila de fichas hexagonales. Cada borde de una ficha muestra prado, bosque, campo, pueblo, río o vía de tren. Cada nivel fija sus objetivos al empezar: un bosque de 6 fichas, un pueblo de exactamente 5, dos fichas perfectas...
 # Colocar una ficha
 Coloca la ficha de arriba de la pila junto al paisaje, girada como quieras.
 - Cada borde que toca el mismo terreno da 10 puntos.
 - Una ficha cuyos seis bordes coinciden con todos sus vecinos es perfecta: 30 puntos más y una ficha más en la pila.
 - Los ríos y las vías deben continuar: sus bordes solo pueden tocar un río o una vía del mismo tipo.
 - Una ficha que no cabe en ningún sitio se aparta.
-# Misiones
-Una bandera en una ficha pide una región de su terreno, las fichas unidas por él: exactamente el número indicado, o al menos ese número si lo sigue un más. Una misión cumplida da 50 puntos y añade tres fichas a la pila. Una región exacta que crece demasiado, o se cierra demasiado pequeña, fracasa.
+# Regiones y misiones
+Una región son las fichas unidas por bordes de un mismo terreno. Exactamente pide una región cerrada con ese tamaño, sin ningún borde abierto. Las banderas en las fichas son misiones extra: cumplidas, dan 50 puntos y tres fichas.
 # El final de la partida
-La partida termina cuando la pila está vacía.
+Un nivel termina cuando se cumplen todos sus objetivos o cuando la pila está vacía. Sin el primer objetivo, inténtalo de nuevo.
 # Niveles y estrellas
-La puntuación de la bandera: 3 estrellas; cuatro quintos de ella: 2 estrellas; si no, 1.
+Todos los objetivos: 3 estrellas; el primero y la mitad de ellos: 2 estrellas; solo el primero: 1. Partida al azar: la puntuación de la bandera da 3 estrellas.

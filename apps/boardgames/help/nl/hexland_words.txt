@@ -1,0 +1,14 @@
+Hexlandschap: de woorden van de doelenkaart
+Doelen
+Weide
+Bos
+Akker
+Dorp
+Rivier
+Spoor
+Perfecte tegels
+Opdrachtvlaggen
+Score
+precies
+Vlaggen op tegels zijn bonusopdrachten:
+bouw dat gebied voor punten en meer tegels.

@@ -1,15 +1,15 @@
 Kuusikulmamaisema
 # Tavoite
-Rakenna maisema kuusikulmaisista laatoista ja kerää niin paljon pisteitä kuin voit. Laatan jokaisella reunalla on niitty, metsä, pelto, kylä, joki tai rautatie.
+Rakenna maisema kuusikulmaisista laatoista. Laatan jokaisella reunalla on niitty, metsä, pelto, kylä, joki tai rautatie. Jokainen taso kertoo alussa tavoitteensa: 6 laatan metsä, täsmälleen 5 laatan kylä, kaksi täydellistä laattaa...
 # Laatan asettaminen
 Aseta pinon päällimmäinen laatta maiseman viereen haluamaasi asentoon käännettynä.
 - Jokainen reuna, joka kohtaa saman maaston, tuo 10 pistettä.
 - Laatta, jonka kaikki kuusi reunaa sopivat naapureihin, on täydellinen: 30 pistettä lisää ja yksi laatta lisää pinoon.
 - Joet ja radat jatkuvat: niiden reunat saavat kohdata vain samanlaisen joen tai radan.
 - Laatta, joka ei sovi mihinkään, pannaan sivuun.
-# Tehtävät
-Laatan lippu pyytää aluetta sen maastoa, eli sen yhdistämiä laattoja: täsmälleen näytetyn määrän tai vähintään niin monta, kun perässä on plus. Suoritettu tehtävä tuo 50 pistettä ja kolme laattaa pinoon. Täsmällinen alue, joka kasvaa liian suureksi tai sulkeutuu liian pienenä, epäonnistuu.
+# Alueet ja tehtävät
+Alue on laatat, joita saman maaston reunat yhdistävät. Täsmälleen vaatii alueen, joka on suljettu juuri siihen kokoon ilman avointa reunaa. Laattojen liput ovat lisätehtäviä: suoritettuina ne tuovat 50 pistettä ja kolme laattaa.
 # Pelin loppu
-Peli päättyy, kun pino on tyhjä.
+Taso päättyy, kun kaikki tavoitteet on saavutettu tai pino on tyhjä. Ilman ensimmäistä tavoitetta yritä uudelleen.
 # Tasot ja tähdet
-Lipun vieressä oleva pistemäärä: 3 tähteä; neljä viidesosaa siitä: 2 tähteä; muuten 1.
+Kaikki tavoitteet: 3 tähteä; ensimmäinen ja puolet niistä: 2 tähteä; vain ensimmäinen: 1. Satunnaispeli: lipun vieressä oleva pistemäärä antaa 3 tähteä.

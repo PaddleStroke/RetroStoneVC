@@ -1,0 +1,14 @@
+Paisaje hexagonal: las palabras de la tarjeta de objetivos
+Objetivos
+Prado
+Bosque
+Campo
+Pueblo
+Río
+Vía de tren
+Fichas perfectas
+Banderas de misión
+Puntos
+exactamente
+Las banderas en las fichas son misiones extra:
+construye esa región para ganar puntos y fichas.

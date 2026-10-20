@@ -1,15 +1,15 @@
 Hex-Landschaft
 # Das Ziel
-Baue aus einem Stapel sechseckiger Plättchen eine Landschaft und sammle so viele Punkte wie möglich. Jede Kante eines Plättchens zeigt Wiese, Wald, Feld, Dorf, Fluss oder Gleis.
+Baue aus einem Stapel sechseckiger Plättchen eine Landschaft. Jede Kante eines Plättchens zeigt Wiese, Wald, Feld, Dorf, Fluss oder Gleis. Jedes Level nennt am Anfang seine Ziele: ein Wald aus 6 Plättchen, ein Dorf aus genau 5, zwei perfekte Plättchen...
 # Ein Plättchen legen
 Lege das oberste Plättchen des Stapels neben die Landschaft, beliebig gedreht.
 - Jede Kante, die auf dasselbe Gelände trifft, bringt 10 Punkte.
 - Ein Plättchen, dessen sechs Kanten alle zu ihren Nachbarn passen, ist perfekt: 30 Punkte mehr und ein Plättchen mehr auf dem Stapel.
 - Flüsse und Gleise müssen weitergehen: Ihre Kanten dürfen nur auf einen Fluss oder ein Gleis derselben Art treffen.
 - Ein Plättchen, das nirgends passt, wird beiseitegelegt.
-# Aufgaben
-Eine Fahne auf einem Plättchen verlangt ein Gebiet seines Geländes, die dadurch verbundenen Plättchen: genau die gezeigte Zahl, oder mindestens so viele, wenn ein Plus folgt. Eine erfüllte Aufgabe bringt 50 Punkte und drei Plättchen auf den Stapel. Ein genaues Gebiet, das zu groß wird oder zu klein geschlossen wird, scheitert.
+# Gebiete und Aufgaben
+Ein Gebiet sind die Plättchen, die über Kanten desselben Geländes verbunden sind. Genau verlangt ein Gebiet, das bei dieser Größe geschlossen ist, ohne offene Kante. Fahnen auf Plättchen sind Bonusaufgaben: Erfüllt bringen sie 50 Punkte und drei Plättchen.
 # Das Ende der Partie
-Die Partie endet, wenn der Stapel leer ist.
+Ein Level endet, wenn alle Ziele erreicht sind oder der Stapel leer ist. Ohne das erste Ziel: noch einmal versuchen.
 # Level und Sterne
-Die Punktzahl an der Fahne: 3 Sterne; vier Fünftel davon: 2 Sterne; sonst 1.
+Alle Ziele: 3 Sterne; das erste und die Hälfte von ihnen: 2 Sterne; das erste allein: 1. Zufallsspiel: die Punktzahl an der Fahne gibt 3 Sterne.

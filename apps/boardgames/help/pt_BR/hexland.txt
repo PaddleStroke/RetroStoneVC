@@ -1,15 +1,15 @@
 Paisagem hexagonal
 # O objetivo
-Construa uma paisagem com uma pilha de peças hexagonais e faça o máximo de pontos possível. Cada borda de uma peça mostra prado, floresta, plantação, vila, rio ou ferrovia.
+Construa uma paisagem com uma pilha de peças hexagonais. Cada borda de uma peça mostra prado, floresta, plantação, vila, rio ou ferrovia. Cada nível mostra seus objetivos no início: uma floresta de 6 peças, uma vila de exatamente 5, duas peças perfeitas...
 # Colocar uma peça
 Coloque a peça do topo da pilha ao lado da paisagem, girada como quiser.
 - Cada borda que encosta no mesmo terreno vale 10 pontos.
 - Uma peça cujas seis bordas combinam com todos os vizinhos é perfeita: 30 pontos a mais e uma peça a mais na pilha.
 - Rios e ferrovias precisam continuar: suas bordas só podem encostar num rio ou numa ferrovia do mesmo tipo.
 - Uma peça que não cabe em lugar nenhum é deixada de lado.
-# Missões
-Uma bandeira numa peça pede uma região do seu terreno, as peças ligadas por ele: exatamente o número mostrado, ou pelo menos isso se vier seguido de um mais. Uma missão cumprida vale 50 pontos e põe três peças na pilha. Uma região exata que cresce demais, ou se fecha pequena demais, falha.
+# Regiões e missões
+Uma região são as peças ligadas por bordas de um mesmo terreno. Exatamente pede uma região fechada nesse tamanho, sem nenhuma borda aberta. As bandeiras nas peças são missões bônus: cumpridas, valem 50 pontos e três peças.
 # O fim da partida
-A partida termina quando a pilha fica vazia.
+Um nível termina quando todos os objetivos são cumpridos, ou quando a pilha fica vazia. Sem o primeiro objetivo, tente de novo.
 # Níveis e estrelas
-A pontuação da bandeira: 3 estrelas; quatro quintos dela: 2 estrelas; senão 1.
+Todos os objetivos: 3 estrelas; o primeiro e metade deles: 2 estrelas; só o primeiro: 1. Jogo aleatório: a pontuação da bandeira dá 3 estrelas.

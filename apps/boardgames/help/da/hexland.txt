@@ -1,15 +1,15 @@
 Hexlandskab
 # Målet
-Byg et landskab af en stak sekskantede brikker, og score så mange point som muligt. Hver kant på en brik viser eng, skov, mark, landsby, flod eller jernbane.
+Byg et landskab af en stak sekskantede brikker. Hver kant på en brik viser eng, skov, mark, landsby, flod eller jernbane. Hver bane giver sine mål ved starten: en skov på 6 brikker, en landsby på præcis 5, to perfekte brikker...
 # At lægge en brik
 Læg den øverste brik fra stakken ved siden af landskabet, drejet som du vil.
 - Hver kant, der møder samme terræn, giver 10 point.
 - En brik, hvis seks kanter alle passer til naboerne, er perfekt: 30 point mere og en brik mere i stakken.
 - Floder og jernbaner skal fortsætte: deres kanter må kun møde en flod eller en jernbane af samme slags.
 - En brik, der ikke passer nogen steder, lægges til side.
-# Opgaver
-Et flag på en brik kræver et område af dens terræn, brikkerne forbundet af det: præcis det viste tal, eller mindst så mange, når der står et plus efter. En løst opgave giver 50 point og lægger tre brikker i stakken. Et præcist område, der bliver for stort eller lukkes for lille, mislykkes.
+# Områder og opgaver
+Et område er de brikker, der hænger sammen ved kanter af samme terræn. Præcis kræver et område, der er lukket ved den størrelse, uden åbne kanter. Flag på brikker er bonusopgaver: løst giver de 50 point og tre brikker.
 # Spillets afslutning
-Spillet slutter, når stakken er tom.
+En bane slutter, når alle dens mål er nået, eller når stakken er tom. Uden det første mål: prøv igen.
 # Baner og stjerner
-Pointtallet ved flaget: 3 stjerner; fire femtedele af det: 2 stjerner; ellers 1.
+Alle mål: 3 stjerner; det første og halvdelen af dem: 2 stjerner; kun det første: 1. Tilfældigt spil: pointtallet ved flaget giver 3 stjerner.

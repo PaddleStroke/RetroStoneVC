@@ -1,15 +1,15 @@
 Lanskap Heksagon
 # Tujuan
-Bangun lanskap dari tumpukan ubin segi enam dan kumpulkan poin sebanyak mungkin. Setiap sisi ubin menunjukkan padang rumput, hutan, ladang, desa, sungai, atau rel.
+Bangun lanskap dari tumpukan ubin segi enam. Setiap sisi ubin menunjukkan padang rumput, hutan, ladang, desa, sungai, atau rel. Setiap level memberi tujuannya di awal: hutan 6 ubin, desa tepat 5 ubin, dua ubin sempurna...
 # Meletakkan ubin
 Letakkan ubin teratas tumpukan di samping lanskap, diputar sesukamu.
 - Setiap sisi yang bertemu medan yang sama memberi 10 poin.
 - Ubin yang keenam sisinya cocok dengan semua tetangganya sempurna: 30 poin lagi dan satu ubin lagi di tumpukan.
 - Sungai dan rel harus bersambung: sisinya hanya boleh bertemu sungai atau rel yang sejenis.
 - Ubin yang tidak muat di mana pun disisihkan.
-# Misi
-Bendera pada ubin meminta wilayah medannya, yaitu ubin yang tersambung olehnya: tepat sebanyak angka yang ditunjukkan, atau paling sedikit sebanyak itu jika diikuti tanda tambah. Misi yang selesai memberi 50 poin dan menambah tiga ubin ke tumpukan. Wilayah tepat yang tumbuh terlalu besar, atau tertutup terlalu kecil, gagal.
+# Wilayah dan misi
+Wilayah adalah ubin yang tersambung oleh sisi dengan medan yang sama. Tepat meminta wilayah yang tertutup pada ukuran itu, tanpa sisi yang masih terbuka. Bendera pada ubin adalah misi bonus: jika selesai, memberi 50 poin dan tiga ubin.
 # Akhir permainan
-Permainan berakhir saat tumpukan kosong.
+Level berakhir saat semua tujuannya tercapai, atau saat tumpukan kosong. Tanpa tujuan pertama, coba lagi.
 # Level dan bintang
-Skor di samping bendera: 3 bintang; empat perlimanya: 2 bintang; selain itu 1.
+Semua tujuan: 3 bintang; yang pertama dan separuhnya: 2 bintang; hanya yang pertama: 1. Permainan acak: skor di samping bendera memberi 3 bintang.

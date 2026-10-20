@@ -1,0 +1,14 @@
+Altıgen Manzara: hedef kartının sözcükleri
+Hedefler
+Çayır
+Orman
+Tarla
+Köy
+Nehir
+Demiryolu
+Kusursuz taşlar
+Görev bayrakları
+Puan
+tam
+Taşlardaki bayraklar bonus görevlerdir:
+o bölgeyi kur, puan ve taş kazan.

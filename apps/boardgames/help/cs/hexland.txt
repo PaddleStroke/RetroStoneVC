@@ -1,15 +1,15 @@
 Šestiúhelníková krajina
 # Cíl hry
-Postav krajinu z hromádky šestiúhelníkových dílků a získej co nejvíc bodů. Každá hrana dílku ukazuje louku, les, pole, vesnici, řeku nebo trať.
+Postav krajinu z hromádky šestiúhelníkových dílků. Každá hrana dílku ukazuje louku, les, pole, vesnici, řeku nebo trať. Každá úroveň na začátku určí své cíle: les ze 6 dílků, vesnici z přesně 5, dva dokonalé dílky...
 # Položení dílku
 Polož horní dílek z hromádky vedle krajiny, natočený, jak chceš.
 - Každá hrana, která se dotýká stejného terénu, dává 10 bodů.
 - Dílek, jehož všech šest hran sedí k sousedům, je dokonalý: o 30 bodů víc a jeden dílek navíc na hromádce.
 - Řeky a tratě musí pokračovat: jejich hrany se smějí dotýkat jen řeky nebo tratě stejného druhu.
 - Dílek, který nikam nepasuje, se odloží.
-# Úkoly
-Vlajka na dílku žádá oblast jeho terénu, tedy dílky jím spojené: přesně ukázaný počet, nebo aspoň tolik, když za ním stojí plus. Splněný úkol dá 50 bodů a přidá tři dílky na hromádku. Přesná oblast, která přeroste, nebo se uzavře příliš malá, selže.
+# Oblasti a úkoly
+Oblast tvoří dílky spojené hranami stejného terénu. Přesně žádá oblast uzavřenou právě v té velikosti, bez otevřené hrany. Vlajky na dílcích jsou bonusové úkoly: splněné dají 50 bodů a tři dílky.
 # Konec hry
-Hra končí, když je hromádka prázdná.
+Úroveň končí, když jsou splněny všechny cíle, nebo když je hromádka prázdná. Bez prvního cíle to zkus znovu.
 # Úrovně a hvězdy
-Skóre u vlajky: 3 hvězdy; čtyři pětiny z něj: 2 hvězdy; jinak 1.
+Všechny cíle: 3 hvězdy; první a polovina z nich: 2 hvězdy; jen první: 1. Náhodná hra: skóre u vlajky dá 3 hvězdy.

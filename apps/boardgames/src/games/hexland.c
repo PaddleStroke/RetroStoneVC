@@ -34,8 +34,9 @@
 #define TURN_MS 180
 #define WIN_MS 1800
 enum { T_PLACE, T_TURN, T_HINT, TOOLS };
-enum { FX_POP, FX_PUFF, FX_STARS, FX_BIRDS, FX_FLY, FX_FLAG, FX_SKIP };
-static const int FX_MS[] = {1100, 620, 1100, 2600, 760, 900, 700};
+enum { FX_POP, FX_PUFF, FX_STARS, FX_BIRDS, FX_FLY, FX_FLAG, FX_SKIP, FX_GOAL };
+static const int FX_MS[] = {1100, 620, 1100, 2600, 760, 900, 700, 1600};
+static void draw_light(Uint32 now);
 
 static hxl_game G;
 static int serial, variant_now, best_now;
@@ -50,7 +51,9 @@ static fxe FX[MAX_FX];
 static int nfx;
 
 /* the screen */
-static box room, view, tray;
+static box room, view, tray, strip;           /* the objectives' strip above the map */
+static int card_on, tip_on, hl_obj = -1;      /* the goal card, the quest flags' tip, an objective's region lit */
+static Uint32 hl_t0;
 static float tr_cx, tr_cy, tr_r, nx_x[2], nx_y[2], nx_r, cnt_x, cnt_y;   /* the tray's tile, the next ones, the count */
 static SDL_Texture *t_tray, *t_par, *t_cup;
 static int made_tray_w = -1, made_tray_h = -1, made_small = -1;
@@ -800,6 +803,13 @@ static void layout(box b)
         nx_y[0] = nx_y[1] = tray.y + 0.72f * b.h;
         cnt_x = tr_cx, cnt_y = tray.y + 0.14f * b.h;
     }
+    strip = (box){view.x, view.y, view.w, 0};
+    if (G.s.nobj > 0) {                         /* the objectives above the map */
+        float sh = 1.05f * u;
+        strip.h = sh;
+        view.y += sh + 0.1f * u;
+        view.h -= sh + 0.1f * u;
+    }
     int w = (int)tray.w, h = (int)tray.h;
     if (w != made_tray_w || h != made_tray_h) {
         made_tray_w = w, made_tray_h = h;
@@ -834,6 +844,7 @@ static void layout(box b)
 /* ---- the game ---------------------------------------------------------------------------------------------------- */
 static void calm(void)
 {
+    hl_obj = -1;
     nfx = 0;
     drop_cell = -1;
     ghost = hint_cell = tool_down = -1;
@@ -857,7 +868,10 @@ static void begin(void)
     calm();
     user_cam = 0;
     best_load();
-    if (view.w > 0) cam_auto(1);
+    card_on = ui.level >= 0 && G.s.nobj > 0;
+    tip_on = 0;
+    hl_obj = -1;
+    if (room.w > 0) layout(room);
 }
 
 static void start(int level)
@@ -874,11 +888,11 @@ static void start_random(int variant)
 }
 
 static int dropping(Uint32 now) { return drop_cell >= 0 && (int)(now - drop_t0) < DROP_MS; }
-static int status(void) { return hxl_over(&G.s) && !dropping(ui_ms()) ? GS_WIN0 : GS_PLAY; }
+static int status(void) { return hxl_over(&G.s) && !dropping(ui_ms()) ? (hxl_lost(&G.s) ? GS_WIN1 : GS_WIN0) : GS_PLAY; }
 static int turn(void) { return 0; }
 static int score(void) { return G.s.score; }
-static int par(void) { return G.goal; }
-static int level_stars(void) { return hxl_stars(G.s.score, G.goal); }
+static int par(void) { return G.s.nobj ? 0 : G.goal; }
+static int level_stars(void) { return hxl_level_stars(&G.s, G.goal); }
 
 static int busy(void)
 {
@@ -982,6 +996,13 @@ static void place(void)
     for (int i = 0; i < r.nforest; i++) fx_add(FX_BIRDS, r.forest[i], i, land + 150 + 120 * i);
     for (int i = 0; i < r.bonus; i++) fx_add(FX_FLY, c, i, land + 300 + 140 * i);
     if (r.skipped) fx_add(FX_SKIP, -1, r.skipped, land + 200);
+    for (int i = 0; i < G.s.nobj; i++)          /* an objective met: its line flashes, its region lights */
+        if (r.obj_met >> i & 1) {
+            fx_add(FX_GOAL, -1, i, land + 250);
+            hl_obj = i;
+            hl_t0 = land + 250;
+            ui_sound_later(SND_END, DROP_MS * 7 / 10 + 250);
+        }
     ghost = hint_cell = -1;
     rot = 0;
     rot_prev = -1;
@@ -1019,6 +1040,7 @@ static int undo(void)
 static int script(const char *moves)
 {
     calm();
+    if (*moves) card_on = 0;
     char buf[64];
     const char *s = moves;
     while (*s) {
@@ -1044,7 +1066,7 @@ static int script(const char *moves)
 /* ---- drawing ----------------------------------------------------------------------------------------------------- */
 static void draw_flag(const hxl_quest *q, float sx, float sy, float s, float pop, Uint8 alpha)
 {
-    float bh = fmaxf(0.4f * ui.unit, 0.46f * s), dh = 0.62f * bh, nw = ui_number_w(q->n, dh), plus = q->kind == HXL_ATLEAST;
+    float bh = fmaxf(0.5f * ui.unit, 0.5f * s), dh = 0.62f * bh, nw = ui_number_w(q->n, dh), plus = q->kind == HXL_ATLEAST;
     float bw = nw + 0.55f * bh + (plus ? 0.5f * dh : 0), px = sx + 0.18f * s, top = sy - 0.62f * s - bh;
     pzk_rgba pole = {70, 52, 36, alpha};
     pzk_line(px, sy - 0.05f * s, px, top - 0.02f * s, fmaxf(1.5f, 0.045f * s), 1, pole, 0);
@@ -1307,6 +1329,7 @@ static void draw_map(Uint32 now)
         }
         ui_animate();
     }
+    draw_light(now);
     draw_fx(now);
     if (had) SDL_RenderSetClipRect(ui.r, &was);
     else SDL_RenderSetClipRect(ui.r, NULL);
@@ -1361,6 +1384,267 @@ static void draw_tray(Uint32 now)
     }
 }
 
+/* ---- the objectives: the strip above the map, the goal card, the quest flags' tip ------------------------------ */
+static const char *const ICON_TILE[HXL_TERRAINS] = {"mmmmmm", "mmmmmm", "ffffff", "wwwwww", "vvvvvv", "rmmrmm",
+                                                     "tmmtmm"};
+static SDL_Texture *t_chip[2], *t_card, *t_tipbg;
+static int chip_w[2] = {-1, -1}, chip_h[2] = {-1, -1}, card_w = -1, card_h = -1, tip_w = -1, tip_h = -1;
+static int tip_seen = -1;
+
+/* an objective's picture, d across: its terrain's tile, a perfect tile under a star, a quest flag, the score's flag */
+static void obj_icon(const hxl_obj *o, float cx, float cy, float d)
+{
+    if (o->kind == HXL_OB_REGION || o->kind == HXL_OB_EXACT) {
+        put_tile(hxl_tile_parse(ICON_TILE[o->terr]), cx, cy + 0.06f * d, 0.44f * d, 255, 0);
+    } else if (o->kind == HXL_OB_PERFECT) {
+        ui_mark_gold_a(cx, cy, 1.1f * d, 0.6f);
+        put_tile(hxl_tile_parse("mfmmfm"), cx, cy + 0.1f * d, 0.40f * d, 255, 0);
+        ui_star(cx + 0.24f * d, cy - 0.26f * d, 0.42f * d, 1);
+    } else if (o->kind == HXL_OB_QUESTS) {
+        pzk_rgba pole = {70, 52, 36, 255};
+        pzk_line(cx - 0.22f * d, cy + 0.4f * d, cx - 0.22f * d, cy - 0.4f * d, fmaxf(1.5f, 0.06f * d), 1, pole, 0);
+        SDL_Texture *t = banner(HXL_FOREST, HXL_DONE, (int)(0.5f * d), (int)(0.34f * d));
+        if (t) ui_put(t, cx - 0.22f * d, cy - 0.4f * d, (int)(0.5f * d), (int)(0.34f * d));
+    } else if (t_par) {
+        ui_put_c(t_par, cx, cy, 0.7f * d, 0.7f * d);
+    }
+}
+
+/* a rounded panel w x h in colour c, lit at the top, kept */
+static SDL_Texture *round_tex(SDL_Texture **t, int *mw, int *mh, int w, int h, const uint8_t c[4], float rad)
+{
+    if (*t && *mw == w && *mh == h) return *t;
+    ui_free(t);
+    *mw = w, *mh = h;
+    if (w < 4 || h < 4) return NULL;
+    uint8_t *o = ui_buf(w, h);
+    art_roundrect(w, h, rad, c, o);
+    for (int y = 0; y < h; y++)
+        for (int x = 0; x < w; x++) {
+            uint8_t *p = o + 4 * ((size_t)y * w + x);
+            float k = 1.14f - 0.28f * y / h;
+            for (int j = 0; j < 3; j++) p[j] = (uint8_t)clampf(p[j] * k, 0, 255);
+        }
+    *t = ui_tex(w, h, o);
+    return *t;
+}
+
+/* "a/b" in cream, centred on (cx, cy), digits dh high; exact: "=" before b */
+static float frac_w(int a, int b, float dh, int exact)
+{
+    return ui_number_w(a, dh) + ui_number_w(b, dh) + 0.6f * dh + (exact ? 0.55f * dh : 0);
+}
+
+static void draw_eq(float x, float cy, float dh, Uint8 alpha)   /* "exactly": an equals sign */
+{
+    float t = fmaxf(1, 0.07f * dh), l = 0.36f * dh;
+    ui_fill(x, cy - 0.16f * dh - t, l, 2 * t, 255, 248, 232, alpha);
+    ui_fill(x, cy + 0.16f * dh - t, l, 2 * t, 255, 248, 232, alpha);
+}
+
+static void draw_frac(float cx, float cy, int a, int b, float dh, int exact)
+{
+    static const uint8_t cream[3] = {255, 248, 232};
+    float w = frac_w(a, b, dh, exact), x = cx - w / 2, wa = ui_number_w(a, dh), wb = ui_number_w(b, dh);
+    ui_number_ex(x + wa / 2, cy, dh, a, cream, 255, 0);
+    x += wa + 0.1f * dh;
+    pzk_rgba c = {255, 248, 232, 255};
+    pzk_line(x + 0.36f * dh, cy - 0.42f * dh, x + 0.04f * dh, cy + 0.42f * dh, fmaxf(1.5f, 0.1f * dh), 1, c, 0);
+    x += 0.5f * dh;
+    if (exact) {
+        draw_eq(x, cy, dh, 255);
+        x += 0.55f * dh;
+    }
+    ui_number_ex(x + wb / 2, cy, dh, b, cream, 255, 0);
+}
+
+static box chip_box(int i)                      /* the strip's line i */
+{
+    int n = G.s.nobj;
+    float gap = 0.15f * ui.unit, w = fminf((strip.w - (n - 1) * gap) / n, 4.6f * ui.unit);
+    float x0 = strip.x + (strip.w - (n * w + (n - 1) * gap)) / 2;
+    return (box){x0 + i * (w + gap), strip.y, w, strip.h};
+}
+
+static void draw_strip(Uint32 now)
+{
+    if (G.s.nobj <= 0 || strip.h <= 0) return;
+    for (int i = 0; i < G.s.nobj; i++) {
+        box b = chip_box(i);
+        int met = G.s.met >> i & 1, cell;
+        static const uint8_t wal[4] = {92, 62, 40, 240}, gold[4] = {206, 156, 46, 255};
+        float flash = 0;
+        for (int j = 0; j < nfx; j++)
+            if (FX[j].kind == FX_GOAL && FX[j].value == i) {
+                int a = (int)(now - FX[j].t0);
+                if (a < 0) met = 0;             /* not yet: as it was */
+                else flash = puz_pulse((float)a, 0, (float)FX_MS[FX_GOAL]);
+            }
+        if (flash > 0) ui_mark_gold_a(b.x + b.w / 2, b.y + b.h / 2, 1.4f * b.w, flash);
+        SDL_Texture *t = round_tex(&t_chip[met], &chip_w[met], &chip_h[met], (int)b.w, (int)b.h, met ? gold : wal,
+                                   0.3f * b.h);
+        if (t) ui_put(t, b.x, b.y, (int)b.w, (int)b.h);
+        const hxl_obj *o = &G.s.obj[i];
+        float d = 0.86f * b.h;
+        obj_icon(o, b.x + 0.12f * b.h + d / 2, b.y + b.h / 2, d);
+        int p = met ? o->n : hxl_obj_progress(&G.s, i, &cell);
+        if (p > o->n) p = o->n;
+        float dh = 0.44f * b.h, rest = b.w - (0.24f * b.h + d);
+        float cx = b.x + 0.12f * b.h + d + rest / 2;
+        if (met) {
+            if (t_tick) ui_put_c(t_tick, b.x + b.w - 0.33f * b.h, b.y + 0.3f * b.h, 0.5f * b.h, 0.5f * b.h);
+            rest -= 0.4f * b.h;
+            cx -= 0.2f * b.h;
+        }
+        float fw = o->kind == HXL_OB_SCORE ? ui_number_w(o->n, dh) : frac_w(p, o->n, dh, o->kind == HXL_OB_EXACT);
+        if (fw > rest - 0.15f * b.h) dh *= (rest - 0.15f * b.h) / fw;
+        if (o->kind == HXL_OB_SCORE) {
+            static const uint8_t cream[3] = {255, 248, 232};
+            ui_number_ex(cx, b.y + b.h / 2, dh, o->n, cream, 255, 0);
+        } else draw_frac(cx, b.y + b.h / 2, p, o->n, dh, o->kind == HXL_OB_EXACT);
+    }
+}
+
+/* the cells of the region of t through c (the rules' joins), lit */
+static void light_region(int c, int t, float a)
+{
+    static int16_t queue[HXL_CELLS];
+    static uint8_t seen[HXL_CELLS];
+    if (c < 0 || !G.s.cell[c]) return;
+    memset(seen, 0, sizeof seen);
+    int head = 0, tail = 0;
+    queue[tail++] = (int16_t)c;
+    seen[c] = 1;
+    while (head < tail) {
+        int x = queue[head++];
+        float sx, sy;
+        cell_screen(x, &sx, &sy);
+        ui_mark_gold_a(sx, sy, 1.9f * cam_s, a);
+        for (int d = 0; d < 6; d++) {
+            if (hxl_edge(G.s.cell[x], d) != t) continue;
+            int n = hxl_nb(x, d);
+            if (n < 0 || !G.s.cell[n] || seen[n] || hxl_edge(G.s.cell[n], hxl_opp(d)) != t) continue;
+            seen[n] = 1;
+            queue[tail++] = (int16_t)n;
+        }
+    }
+}
+
+static void draw_light(Uint32 now)
+{
+    if (hl_obj < 0 || hl_obj >= G.s.nobj) return;
+    int age = (int)(now - hl_t0);
+    if (age < 0) { ui_animate(); return; }
+    if (age > 1900) { hl_obj = -1; return; }
+    const hxl_obj *o = &G.s.obj[hl_obj];
+    if (o->kind != HXL_OB_REGION && o->kind != HXL_OB_EXACT) return;
+    int cell;
+    hxl_obj_progress(&G.s, hl_obj, &cell);
+    light_region(cell, o->terr, 0.75f * puz_pulse((float)age, 0, 1900) + 0.1f);
+    ui_animate();
+}
+
+/* a word of the game's (help/<lang>/hexland_words.txt) at x (centred, or from the left), px high, in cream */
+static float word_at(int i, float x, float cy, float px, float maxw, int centred)
+{
+    static const uint8_t cream[3] = {255, 248, 232};
+    int w, h;
+    SDL_Texture *t = ui_word("hexland_words", i, px, maxw, cream, &w, &h);
+    if (!t) return 0;
+    ui_put(t, centred ? x - w / 2.0f : x, cy - h / 2.0f, (float)w, (float)h);
+    return (float)w;
+}
+
+static box card_box(void)
+{
+    float u = ui.unit, w = fminf(room.w * 0.92f, 8.6f * u), h = (1.5f + 1.35f * G.s.nobj + 1.6f) * u;
+    if (h > room.h * 0.96f) h = room.h * 0.96f;
+    return (box){room.x + (room.w - w) / 2, room.y + (room.h - h) / 2, w, h};
+}
+
+static void draw_card(void)
+{
+    box b = card_box();
+    float u = ui.unit;
+    ui_fill(room.x, room.y, room.w, room.h, 0, 0, 0, 110);
+    if (card_w != (int)b.w || card_h != (int)b.h) {   /* a walnut-framed plank, darkened */
+        card_w = (int)b.w, card_h = (int)b.h;
+        int f = (int)fmaxf(4, 0.22f * u);
+        uint8_t *o = malloc((size_t)card_w * card_h * 4);
+        ui_free(&t_card);
+        if (o) {
+            memset(o, 0, (size_t)card_w * card_h * 4);
+            art_plank(card_w - 2 * f, card_h - 2 * f, f, o);
+            puz_bevel(o, card_w, card_h, 0.2f * u, 0.08f * u, 0.25f);
+            for (int i = 0; i < card_w * card_h; i++)
+                for (int j = 0; j < 3; j++) o[4 * i + j] = (uint8_t)(o[4 * i + j] * 0.42f);
+            t_card = ui_tex(card_w, card_h, o);
+        }
+        free(o);
+    }
+    if (t_card) ui_put(t_card, b.x, b.y, b.w, b.h);
+    word_at(0, b.x + b.w / 2, b.y + 0.85f * u, 0.62f * u, b.w - u, 1);
+    for (int i = 0; i < G.s.nobj; i++) {
+        const hxl_obj *o = &G.s.obj[i];
+        float cy = b.y + (1.75f + 1.35f * i + 0.6f) * u, ix = b.x + 1.1f * u, d = 1.15f * u;
+        if (i == 0 && G.s.nobj > 1) ui_mark_gold_a(ix, cy, 1.9f * d, 0.4f);   /* the main one */
+        obj_icon(o, ix, cy, d);
+        static const uint8_t cream[3] = {255, 248, 232};
+        float dh = 0.62f * u, x = ix + 0.85f * u;
+        if (o->kind == HXL_OB_EXACT) {
+            draw_eq(x, cy, dh, 255);
+            x += 0.55f * dh;
+        }
+        float nw = ui_number_w(o->n, dh);
+        ui_number_ex(x + nw / 2, cy, dh, o->n, cream, 255, 0);
+        x += nw + 0.3f * u;
+        int word = o->kind == HXL_OB_PERFECT ? 7 : o->kind == HXL_OB_QUESTS ? 8 : o->kind == HXL_OB_SCORE ? 9 : o->terr;
+        float maxw = b.x + b.w - 0.4f * u - x;
+        if (o->kind == HXL_OB_EXACT) {
+            word_at(word, x, cy - 0.22f * u, 0.44f * u, maxw, 0);
+            word_at(10, x, cy + 0.26f * u, 0.34f * u, maxw, 0);
+        } else word_at(word, x, cy, 0.46f * u, maxw, 0);
+    }
+    ui_button(b.x + b.w / 2, b.y + b.h - 0.9f * u, 1.1f * u, ICON_PLAY, UI_LIT);
+}
+
+static int quests_shown(void)
+{
+    if (G.s.nq > 0) return 1;
+    for (int i = G.s.top; i < G.s.ns && i < G.s.top + 3; i++)
+        if (G.s.stack[i].qn) return 1;
+    return 0;
+}
+
+/* the quest flags explained once: a note over the map's foot, gone at the next tap */
+static void draw_tip(void)
+{
+    if (tip_seen < 0) {
+        uint8_t b = 0;
+        tip_seen = ui_save_get("hexland/tip", &b, 1) > 0 && b;
+    }
+    if (!tip_on && !tip_seen && !card_on && quests_shown() && !win_on) tip_on = 1;
+    if (!tip_on) return;
+    float u = ui.unit, w = fminf(view.w * 0.96f, 9.5f * u), h = 1.7f * u, x = view.x + (view.w - w) / 2;
+    float y = view.y + view.h - h - 0.1f * u;
+    static const uint8_t wal[4] = {60, 40, 26, 240};
+    SDL_Texture *bg = round_tex(&t_tipbg, &tip_w, &tip_h, (int)w, (int)h, wal, 0.3f * h);
+    if (bg) ui_put(bg, x, y, (int)w, (int)h);
+    hxl_obj q = {HXL_OB_QUESTS, 0, 1};
+    obj_icon(&q, x + 0.75f * u, y + h / 2, 1.0f * u);
+    word_at(11, x + 1.45f * u, y + 0.52f * u, 0.4f * u, w - 1.7f * u, 0);
+    word_at(12, x + 1.45f * u, y + 1.15f * u, 0.36f * u, w - 1.7f * u, 0);
+}
+
+static void tip_close(void)
+{
+    if (!tip_on) return;
+    tip_on = 0;
+    tip_seen = 1;
+    uint8_t b = 1;
+    ui_save_set("hexland/tip", &b, 1);
+}
+
 static void draw(void)
 {
     Uint32 now = ui_ms();
@@ -1368,7 +1652,10 @@ static void draw(void)
     painted = 0;
     cam_at(now);
     draw_map(now);
+    draw_strip(now);
     draw_tray(now);
+    draw_tip();
+    if (card_on) draw_card();
     const hxl_item *it = hxl_current(&G.s);
     int ok = it && ghost >= 0 && hxl_can(&G.s, ghost, hxl_turn(it->tile, rot));
     ui_tool(T_PLACE, ICON_TICK, ok ? UI_LIT : UI_DIM);
@@ -1379,7 +1666,8 @@ static void draw(void)
 static void bar(int player, box b)
 {
     (void)player;
-    pzt_bar_two_cream(b, NULL, G.s.score, t_par, G.goal, G.s.score >= G.goal);
+    if (G.s.nobj) puz_bar_moves(b, NULL, G.s.score);   /* a level: its objectives above the map */
+    else pzt_bar_two_cream(b, NULL, G.s.score, t_par, G.goal, G.s.score >= G.goal);
 }
 
 /* ---- the pointer: a tap chooses, one finger drags the map, two pinch ------------------------------------------- */
@@ -1394,6 +1682,12 @@ static int in_box(box b, float x, float y) { return x >= b.x && y >= b.y && x < 
 
 static void tap_at(float x, float y)
 {
+    tip_close();
+    if (card_on) { card_on = 0; ui_sound(SND_TAP); ui_animate(); return; }
+    for (int i = 0; i < G.s.nobj && strip.h > 0; i++) {   /* an objective's line: its region lit */
+        box b = chip_box(i);
+        if (in_box(b, x, y)) { hl_obj = i; hl_t0 = ui_ms(); ui_sound(SND_TAP); ui_animate(); return; }
+    }
     if (in_box(tray, x, y)) {
         if (hypotf(x - tr_cx, (y - tr_cy) / TILT) < 1.2f * tr_r && hxl_current(&G.s)) turn_tile();
         return;
@@ -1405,6 +1699,8 @@ static void tap_at(float x, float y)
 
 static void tool(int t)
 {
+    tip_close();
+    if (card_on) { card_on = 0; ui_animate(); return; }
     if (t == T_PLACE) place();
     else if (t == T_TURN) turn_tile();
     else if (t == T_HINT) hint();
@@ -1510,6 +1806,8 @@ static void finger(int id, int phase, float x, float y)
 /* the keys: the arrows move the place chosen to the nearest empty place that way (the map follows) */
 static void key(SDL_Keycode k)
 {
+    tip_close();
+    if (card_on) { card_on = 0; ui_animate(); return; }
     if (k == SDLK_LEFT || k == SDLK_RIGHT || k == SDLK_UP || k == SDLK_DOWN) {
         if (!hxl_current(&G.s) || win_on) return;
         float dx = k == SDLK_LEFT ? -1 : k == SDLK_RIGHT ? 1 : 0, dy = k == SDLK_UP ? -1 : k == SDLK_DOWN ? 1 : 0;

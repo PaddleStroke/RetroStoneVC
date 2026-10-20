@@ -1,0 +1,14 @@
+Hexlandskab: ordene på målkortet
+Mål
+Eng
+Skov
+Mark
+Landsby
+Flod
+Jernbane
+Perfekte brikker
+Opgaveflag
+Point
+præcis
+Flag på brikker er bonusopgaver:
+byg det område for point og flere brikker.
