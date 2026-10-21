@@ -1,5 +1,5 @@
 /*
- * Clear the Arrows for one player: the rules. A board is packed with arrows: winding snakes of 1 to 12 squares, an
+ * Clear the Arrows for one player: the rules. A board is packed with arrows: winding snakes of 1 to 16 squares, an
  * arrowhead at one end. A tapped arrow slithers off the board when every square from its head straight to the edge is
  * free: its head goes straight out the way it points and its body follows the head's path square by square, so the
  * body never needs room of its own. Else its head bumps the first arrow in its way and it stays: a mistake. Clear the
@@ -17,7 +17,7 @@
  * from an empty board: arrows laid one by one (in symmetric pairs) onto the squares of a shape (a heart, a
  * diamond...), each with its way out clear of the arrows laid before it (it leaves before them), its body winding
  * through the free squares, over their ways out (they must wait for it). The squares left at the end are taken by
- * the tails of arrows nearby when that keeps every way out clear.
+ * the tails of arrows nearby when that keeps every way out clear; a few may stay empty (the board draws no squares).
  * A board as text: rows from the top split by '|', one character a square: '.' empty, 'U' 'R' 'D' 'L' an arrow's head
  * pointing up, right, down, left, 'u' 'r' 'd' 'l' a body square, pointing to the next square towards its head. The
  * notation (script, the screenshots, the tests): a square ("c4": column c from the left, row 4 from the top) taps the
@@ -29,11 +29,11 @@
 
 #include <stdint.h>
 
-#define ARX_MAXW 10
-#define ARX_MAXH 12
+#define ARX_MAXW 25
+#define ARX_MAXH 25
 #define ARX_CELLS (ARX_MAXW * ARX_MAXH)
-#define ARX_MAXP ARX_CELLS
-#define ARX_MAXLEN 12
+#define ARX_MAXP 250                            /* (an arrow's number fits a byte, ARX_NONE aside) */
+#define ARX_MAXLEN 16
 #define ARX_HIST 512
 #define ARX_LEVELS 150
 #define ARX_CHAPTERS 6

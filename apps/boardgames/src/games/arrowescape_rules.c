@@ -504,9 +504,7 @@ int arx_make(arx_map *m, const arx_spec *sp, uint32_t seed)
     memset(k.at, ARX_NONE, sizeof k.at);
     int lo = sp->lo < 1 ? 1 : sp->lo, hi = sp->hi < lo ? lo : sp->hi > ARX_MAXLEN ? ARX_MAXLEN : sp->hi;
     /* arrows as long as wanted first; when no head can grow one, shorter ones (single squares last) */
-    int len_now = lo;
-    static uint8_t banned[ARX_CELLS * 4];
-    memset(banned, 0, sizeof banned);
+    int len_now = lo, least = lo >= 3 ? 3 : 2;   /* (no single squares: what is left stays empty) */
     for (;;) {
         /* the longest chain behind each square: the arrows whose way out passes over it */
         memset(k.bv, 0, sizeof k.bv);
@@ -515,56 +513,59 @@ int arx_make(arx_map *m, const arx_spec *sp, uint32_t seed)
                  inside(m, x, y); x += ARX_DX[(int)m->p[j].dir], y += ARX_DY[(int)m->p[j].dir])
                 if (k.up[j] > k.bv[x + y * m->w]) k.bv[x + y * m->w] = k.up[j];
         /* the heads that can go: an empty square, a way whose squares are clear of what is laid; a long way across
-         * the shape first (the arrows laid later, over it, make it wait), next to what is laid */
-        int best = -1, bd = 0, bs = -1;
+         * the shape first (the arrows laid later, over it, make it wait), next to what is laid; the best few tried in
+         * turn */
+        enum { TRY = 48 };
+        int cand[TRY], score[TRY], nc = 0;
         for (int c = 0; c < m->w * m->h; c++) {
             if (!empty_cell(&k, c % m->w, c / m->w)) continue;
+            int walls = 0, outs = 0;
+            for (int e = 0; e < 4; e++) {
+                walls += !empty_cell(&k, c % m->w + ARX_DX[e], c / m->w + ARX_DY[e]);
+                outs += ray(m, k.at, c % m->w, c / m->w, e, NULL) < 0;
+            }
             for (int d = 0; d < 4; d++) {
-                if (banned[c * 4 + d] || ray(m, k.at, c % m->w, c / m->w, d, NULL) >= 0) continue;
+                if (ray(m, k.at, c % m->w, c / m->w, d, NULL) >= 0) continue;
                 int span = 0;
                 for (int x = c % m->w + ARX_DX[d], y = c / m->w + ARX_DY[d]; inside(m, x, y); x += ARX_DX[d], y += ARX_DY[d])
                     span += m->shape[x + y * m->w];
-                int s = pr_below(&r, 100) + span * sp->deep / 8 + 6 * k.bv[c] * sp->deep / 100;
-                int walls = 0;
-                for (int e = 0; e < 4; e++) walls += !empty_cell(&k, c % m->w + ARX_DX[e], c / m->w + ARX_DY[e]);
-                s += 12 * walls;
-                if (s > bs) { bs = s; best = c; bd = d; }
+                /* (a square with few ways out left goes first: no hole left behind) */
+                int s = pr_below(&r, 100) + span * sp->deep / 8 + 6 * k.bv[c] * sp->deep / 100 + 12 * walls + 70 * (4 - outs);
+                if (nc == TRY && s <= score[TRY - 1]) continue;
+                int i = nc < TRY ? nc++ : TRY - 1;
+                for (; i > 0 && score[i - 1] < s; i--) { score[i] = score[i - 1]; cand[i] = cand[i - 1]; }
+                score[i] = s;
+                cand[i] = c * 4 + d;
             }
         }
-        if (best < 0) {
-            if (len_now <= 1) break;
-            len_now--;                          /* no head grows one that long: shorter ones */
-            if (len_now == 1) fill_tails(&k, sym);   /* (tails before single squares) */
-            memset(banned, 0, sizeof banned);
-            continue;
+        int laid = 0;
+        for (int ci = 0; ci < nc && !laid; ci++) {
+            int best = cand[ci] / 4, bd = cand[ci] % 4;
+            arx_piece a = {(int8_t)(best % m->w), (int8_t)(best / m->w), (int8_t)bd, 1, {0}};
+            int u1 = pr_below(&r, hi - lo + 1), u2 = pr_below(&r, hi - lo + 1), want = lo + (u1 > u2 ? u1 : u2);
+            if (want < len_now) want = len_now;
+            grow(&k, &a, want, sp, &r);
+            for (; a.len >= len_now && !laid; a.len--) {
+                if (sym >= 2) { laid = try_lay(&k, &a, &a, 0); continue; }
+                arx_piece b = image(m, &a, sym);
+                int ca[ARX_MAXLEN], cb[ARX_MAXLEN], na = piece_cells(m, &a, ca), n2 = piece_cells(m, &b, cb), same = 0;
+                for (int i = 0; i < na; i++)
+                    for (int j = 0; j < n2; j++) same += ca[i] == cb[j];
+                /* its own image (the same squares, the same way: on the middle column), laid alone */
+                if (na && n2 && same == na && na == n2 && b.dir == a.dir && b.x == a.x && b.y == a.y)
+                    laid = try_lay(&k, &a, &a, 0);
+                else if (!same) laid = try_lay(&k, &a, &b, 1);
+            }
         }
-        arx_piece a = {(int8_t)(best % m->w), (int8_t)(best / m->w), (int8_t)bd, 1, {0}};
-        int u1 = pr_below(&r, hi - lo + 1), u2 = pr_below(&r, hi - lo + 1), want = lo + (u1 > u2 ? u1 : u2), laid = 0;
-        if (want < len_now) want = len_now;
-        grow(&k, &a, want, sp, &r);
-        for (; a.len >= len_now && !laid; a.len--) {
-            if (sym >= 2) { laid = try_lay(&k, &a, &a, 0); continue; }
-            arx_piece b = image(m, &a, sym);
-            int ca[ARX_MAXLEN], cb[ARX_MAXLEN], na = piece_cells(m, &a, ca), n2 = piece_cells(m, &b, cb), same = 0;
-            for (int i = 0; i < na; i++)
-                for (int j = 0; j < n2; j++) same += ca[i] == cb[j];
-            /* its own image (the same squares, the same way: on the middle column), laid alone */
-            if (na && n2 && same == na && na == n2 && b.dir == a.dir && b.x == a.x && b.y == a.y)
-                laid = try_lay(&k, &a, &a, 0);
-            else if (!same) laid = try_lay(&k, &a, &b, 1);
-        }
-        if (laid) memset(banned, 0, sizeof banned);
-        else banned[best * 4 + bd] = 1;
+        if (laid) continue;
+        if (len_now <= least || m->n + 2 > ARX_MAXP) break;
+        len_now--;                              /* no head grows one that long: shorter ones, down to the least */
     }
     fill_tails(&k, sym);
     int holes = 0;
     for (int c = 0; c < m->w * m->h; c++) holes += empty_cell(&k, c % m->w, c / m->w);
-    if (holes * 30 > cells) return 0;
-    for (int c = 0; c < m->w * m->h && sym < 2; c++) {   /* the holes symmetric too (the shape stays so) */
-        int x = c % m->w, y = c / m->w, o = sym == 1 ? (m->w - 1 - x) + (m->h - 1 - y) * m->w : (m->w - 1 - x) + y * m->w;
-        if (empty_cell(&k, x, y) != empty_cell(&k, o % m->w, o / m->w)) return 0;
-    }
-    for (int c = 0; c < m->w * m->h; c++)       /* a hole stays out of the shape: no bed shows there */
+    if (holes * 10 > cells) return 0;           /* (a few empty squares: the board shows no squares, nothing amiss) */
+    for (int c = 0; c < m->w * m->h; c++)       /* a hole stays out of the shape */
         if (empty_cell(&k, c % m->w, c / m->w)) m->shape[c] = 0;
     trim(m);
     return m->n > 0;
@@ -604,9 +605,9 @@ int arx_script(arx_game *g, const char *moves)
 void arx_variant(int v, arx_spec *sp)
 {
     static const arx_spec V[ARX_VARIANTS] = {
-        {6, 6, ARX_RECT, 0, 2, 5, 55, 40, 60},
-        {8, 9, ARX_OCTAGON, 0, 3, 8, 60, 50, 75},
-        {10, 11, ARX_ROUND, 0, 3, 12, 65, 60, 90},
+        {9, 9, ARX_RECT, 0, 3, 7, 60, 40, 70},
+        {14, 14, ARX_OCTAGON, 0, 3, 9, 65, 45, 85},
+        {20, 20, ARX_RECT, 0, 3, 8, 65, 35, 95},
     };
     *sp = V[v < 0 || v >= ARX_VARIANTS ? 0 : v];
 }
@@ -623,9 +624,9 @@ int arx_level(arx_game *g, int level)
 
 void arx_random(arx_game *g, int variant, uint32_t seed)
 {
-    static const uint8_t LO[ARX_VARIANTS] = {3, 5, 6};
+    static const uint8_t LO[ARX_VARIANTS] = {4, 7, 9};
     static const int SHAPES[ARX_VARIANTS][3] = {
-        {ARX_RECT, ARX_DIAMOND, ARX_OCTAGON}, {ARX_OCTAGON, ARX_ROUND, ARX_HEART}, {ARX_ROUND, ARX_HEART, ARX_BLOB}};
+        {ARX_RECT, ARX_DIAMOND, ARX_OCTAGON}, {ARX_OCTAGON, ARX_ROUND, ARX_HEART}, {ARX_RECT, ARX_ROUND, ARX_OCTAGON}};
     arx_spec sp;
     arx_variant(variant, &sp);
     int v = variant < 0 || variant >= ARX_VARIANTS ? 0 : variant;

@@ -1,7 +1,8 @@
 /*
  * Clear the Arrows' levels: src/games/arrowescape_levels.h. Our own boards: no published or commercial set is used.
- * Each chapter has its idea (short bent arrows on small boards; long arrows; spirals and interlocks; bigger boards;
- * shapes: hearts, diamonds, rounds; all of it on the largest boards) and makes many boards with the rules' maker
+ * Each chapter has its idea and its size (short bent arrows on boards of 5 to 7 squares; long arrows, 9 to 11; spirals
+ * and interlocks, 12 to 14; big boards, 16 to 18; shapes, 19 to 22; the largest, 23 to 25, dozens of arrows each;
+ * the shapes: hearts, diamonds, rounds) and makes many boards with the rules' maker
  * (arx_make, from fixed seeds: winding arrows laid backwards in mirrored or half-turned pairs over the chapter's
  * shapes). A board is kept when it can be cleared, when its arrows are not all free at the start, when its depth (the
  * rounds of taking every free arrow at once) is in the chapter's range, when it has the chapter's feature (past
@@ -50,13 +51,13 @@ typedef struct {
 
 #define S(x) (1 << (x))
 static const chapter CH[ARX_CHAPTERS] = {
-    {4, 4, 2, S(ARX_RECT) | S(ARX_DIAMOND) | S(ARX_PLUS) | S(ARX_OCTAGON), 3, 5, 75, 30, 0, 80, 2, 6, 0, 3, 1, 0.8, 5},
-    {6, 6, 2, S(ARX_RECT) | S(ARX_OCTAGON) | S(ARX_ROUND) | S(ARX_DIAMOND), 4, 9, 70, 40, 30, 90, 3, 8, 1, 1, 0, 1.2, 7},
-    {6, 7, 2, S(ARX_RECT) | S(ARX_OCTAGON) | S(ARX_ROUND), 6, 12, 85, 70, 40, 90, 3, 9, 2, 1, 0, 1.4, 8},
-    {8, 9, 2, S(ARX_RECT) | S(ARX_OCTAGON) | S(ARX_ROUND) | S(ARX_DIAMOND), 4, 11, 70, 40, 50, 100, 4, 12, 1, 0, 0, 2, 11},
-    {8, 9, 2, S(ARX_HEART) | S(ARX_DIAMOND) | S(ARX_ROUND) | S(ARX_BLOB), 4, 11, 70, 40, 60, 100, 4, 12, 3, 1, 0, 2.2, 12},
-    {9, 10, 2, S(ARX_HEART) | S(ARX_OCTAGON) | S(ARX_ROUND) | S(ARX_BLOB) | S(ARX_RECT), 4, 12, 65, 35, 70, 100, 5, 14,
-     3, 0, 0, 2.6, 14},
+    {5, 5, 2, S(ARX_RECT) | S(ARX_DIAMOND) | S(ARX_PLUS) | S(ARX_OCTAGON), 3, 5, 75, 30, 0, 80, 2, 6, 0, 3, 1, 0.8, 5},
+    {9, 9, 2, S(ARX_RECT) | S(ARX_OCTAGON) | S(ARX_ROUND) | S(ARX_DIAMOND), 4, 9, 70, 40, 30, 90, 4, 12, 1, 1, 0, 2, 10},
+    {12, 12, 2, S(ARX_RECT) | S(ARX_OCTAGON) | S(ARX_ROUND), 5, 14, 85, 70, 40, 90, 5, 16, 2, 1, 0, 3, 12},
+    {16, 16, 2, S(ARX_RECT) | S(ARX_OCTAGON) | S(ARX_ROUND) | S(ARX_DIAMOND), 3, 8, 70, 40, 50, 100, 6, 22, 1, 0, 0, 5, 18},
+    {19, 19, 3, S(ARX_HEART) | S(ARX_DIAMOND) | S(ARX_ROUND) | S(ARX_BLOB), 3, 7, 70, 40, 60, 100, 7, 24, 3, 1, 0, 6, 20},
+    {23, 23, 2, S(ARX_RECT) | S(ARX_OCTAGON) | S(ARX_ROUND) | S(ARX_HEART), 3, 7, 65, 35, 70, 100, 8, 30, 1,
+     0, 0, 8, 25},
 };
 
 static int by_diff(const void *a, const void *b)
@@ -150,8 +151,8 @@ static double look_of(const arx_map *m, int shape)
 
 /* ---- how hard a board is, measured ------------------------------------------------------------------------------
  * free: the share of the arrows free at the start; decoys: the arrows at the start whose next square is clear but
- * whose way out is not; naive: the mistakes of a near-sighted player, on average over 200 games (each tap on an arrow
- * whose next square is clear, at random, never twice on an arrow until another has left) */
+ * whose way out is not; naive: the mistakes of a near-sighted player, on average over 200 games (40 past 40 arrows:
+ * each tap on an arrow whose next square is clear, at random, never twice on an arrow until another has left) */
 static void measure(const arx_map *m, metric *mt)
 {
     int f0;
@@ -168,7 +169,8 @@ static void measure(const arx_map *m, metric *mt)
     }
     uint32_t r = pr_seed(77);
     long bumps = 0;
-    for (int t = 0; t < 200; t++) {
+    int games = m->n > 40 ? 40 : 200;          /* (fewer on the big boards: the same measure, sooner) */
+    for (int t = 0; t < games; t++) {
         arx_game p = g;
         uint8_t tried[ARX_MAXP] = {0};
         for (int k = 0; k < 6 * m->n && !arx_solved(&p); k++) {
@@ -187,7 +189,7 @@ static void measure(const arx_map *m, metric *mt)
         }
         bumps += p.mistakes;
     }
-    mt->naive = bumps / 200.0;
+    mt->naive = (double)bumps / games;
     /* the score: the depth, the near-sighted player's mistakes, the arrows blocked at the start, the arrows */
     mt->score = mt->rounds + 1.5 * mt->naive + 2 * (1 - mt->free) + m->n / 20.0;
 }
@@ -287,12 +289,14 @@ int main(void)
         const chapter *C = &CH[ch];
         uint32_t r = pr_seed(9300u + (uint32_t)ch);
         int n = 0;
-        for (int k = 0; k < 40 * MAKES && n < MAKES; k++) {
+        int makes = ch < 2 ? MAKES : ch < 4 ? 200 : 120;   /* (the big boards: fewer, each costs more) */
+        for (int k = 0; k < 40 * MAKES && n < makes; k++) {
             int shapes[ARX_SHAPES], ns = 0;
             for (int s = 0; s < ARX_SHAPES; s++)
                 if (C->shapes >> s & 1) shapes[ns++] = s;
             arx_spec sp = {C->w + pr_below(&r, C->grow + 1), C->h + pr_below(&r, C->grow + 1),
-                           shapes[pr_below(&r, ns)], pr_below(&r, 4) == 0 ? 1 : 0, C->lo, C->hi, C->turn, C->hug,
+                           shapes[pr_below(&r, ns)], ch >= 3 ? pr_below(&r, 3) : pr_below(&r, 4) == 0, C->lo, C->hi,
+                           C->turn, C->hug,
                            C->deep_lo + pr_below(&r, C->deep_hi - C->deep_lo + 1)};
             if (sp.shape == ARX_HEART && sp.w < 7) continue;
             static arx_map m;

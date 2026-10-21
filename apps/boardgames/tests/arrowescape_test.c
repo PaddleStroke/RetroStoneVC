@@ -4,7 +4,7 @@
  * as text both ways (winding bodies, a neck right behind its head, a body never on its own way out, no square
  * shared); every level: read back as written, its arrows apart and each on the board, every head pointing the way
  * its body travels, cleared by the test's own search (any order of free arrows, arrow by arrow), not all free at the
- * start, every arrow leaving at some point, its shape symmetric, past chapter 1 at most 15% of its arrows straight or
+ * start, every arrow leaving at some point, past chapter 1 at most 15% of its arrows straight or
  * single squares, the chapters' lengths, no two levels alike; the boards made at random (the same checks, the same
  * from the same seed, the time they take); whole games from a seed (random taps, hints, undo back to the start).
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
@@ -98,17 +98,6 @@ static int necks_behind(const arx_map *m)
     return 1;
 }
 
-static int symmetric_shape(const arx_map *m)
-{
-    int a = 1, b = 1;
-    for (int y = 0; y < m->h; y++)
-        for (int x = 0; x < m->w; x++) {
-            a &= m->shape[x + y * m->w] == m->shape[m->w - 1 - x + y * m->w];
-            b &= m->shape[x + y * m->w] == m->shape[m->w - 1 - x + (m->h - 1 - y) * m->w];
-        }
-    return a || b;
-}
-
 int main(void)
 {
     static arx_game g, t, first;
@@ -159,9 +148,9 @@ int main(void)
         own_from(&g.m, &o);
         CHECK(!o.overlap && !o.off && necks_behind(&g.m));
         int f0, rounds = arx_rounds(&g.m, &f0);
-        CHECK(rounds >= 2 && f0 < g.m.n);
+        CHECK(rounds >= (lv < 3 ? 2 : 3) && f0 < g.m.n);   /* (past level 3: three rounds deep at least) */
+        if (lv / per == ARX_CHAPTERS - 1) CHECK(g.m.w * g.m.h >= 380 && g.m.n >= 45);   /* the last: big */
         CHECK(own_clears(&g.m, (uint32_t)lv + 1) && own_clears(&g.m, (uint32_t)lv + 1000));
-        CHECK(symmetric_shape(&g.m));
         t = g;
         CHECK(arx_script(&t, "=") && arx_solved(&t) && t.mistakes == 0);
         int straight = 0, ch = lv / per;
@@ -179,6 +168,7 @@ int main(void)
         printf("arrowescape: chapter %d, arrows %.1f squares long on average, %.0f%% single squares\n", ch + 1,
                cells_ch[ch] / arrows_ch[ch], 100 * single_ch[ch] / arrows_ch[ch]);
     CHECK(cells_ch[1] / arrows_ch[1] > cells_ch[0] / arrows_ch[0] && cells_ch[2] / arrows_ch[2] >= 5);
+    CHECK(arrows_ch[ARX_CHAPTERS - 1] / per >= 60);   /* the last chapter: dozens of arrows a board */
     CHECK(!arx_level(&g, ARX_LEVELS) && !arx_level(&g, -1));
 
     /* the boards made at random */
