@@ -5,6 +5,7 @@
 # 320 x 440 upright. And the phone turning (the app restarts the game from a save state at the new size): after an
 # upright -> landscape turn the picture is exactly the one a landscape run shows at that frame, and back, on the title,
 # in a run, a level-up, paused, the results.
+# And the garden after the title, at nine sizes: no stray tile over the lawn (the soft layer's empty tile kept clear).
 #   tall_test.sh <pricklepatch_headless> <out dir>
 # MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/pricklepatch/LICENSE.
 H=$1
@@ -54,4 +55,26 @@ printf "300 tap START\n" > "$O/pause.input"
 turn "paused" 340 380 --opt bot=1 --opt ready=1 --opt seed=7 --input "$O/pause.input"
 f=$($H --frames 2400 --opt music=0 --opt ready=1 --opt frail=1 --opt seed=7 2>&1 | sed -n 's/.*run over at frame \([0-9]*\).*/\1/p')
 [ -n "$f" ] && turn "the results" $((f + 20)) $((f + 60)) --opt ready=1 --opt frail=1 --opt seed=7
+
+# the garden after the title, at every size (the phones' heights between their bars, landscape, the console): a run
+# started from the title (A) looks like a run started directly, frame for frame (only the hedgehog's step may differ:
+# under 1% of the pixels). The title's logo once wrote the soft layer's empty tile: a dash in every cell of the garden
+# (about 30% of the pixels changed).
+printf "30 tap A\n" > "$O/a.input"
+for d in 320x240 2340x1080 1080x2200 1080x2214 1080x2268 1080x2340 1080x2520 1440x3040 720x1500; do
+    $H --display "$d" --input "$O/a.input" --frames 101 --opt music=0 --opt seed=7 --shot "100:$O/garden-title-$d.png" > /dev/null 2>&1
+    $H --display "$d" --opt ready=1 --frames 71 --opt music=0 --opt seed=7 --shot "70:$O/garden-ref-$d.png" > /dev/null 2>&1
+    r=$(python3 -c '
+import sys
+from PIL import Image
+a, b = (Image.open(p).convert("RGB") for p in sys.argv[1:3])
+pa, pb = a.load(), b.load()
+w, h = a.size
+print("%d %d" % (sum(pa[x, y] != pb[x, y] for y in range(h) for x in range(w)) if a.size == b.size else w * h, w * h))
+' "$O/garden-title-$d.png" "$O/garden-ref-$d.png" 2>&1)
+    n=${r% *} all=${r#* }
+    if [ -n "$n" ] && [ "$n" -eq "$n" ] 2>/dev/null && [ $((n * 100)) -lt "$all" ]; then
+        ok "$d: the garden after the title as clean as a run's ($n of $all pixels differ)"
+    else ko "$d: the garden after the title differs from a run's: '$r'"; fi
+done
 [ $fail = 0 ] && echo "tall_test: all passed" || { echo "tall_test: FAILED"; exit 1; }

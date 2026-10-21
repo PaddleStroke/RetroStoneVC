@@ -9,8 +9,8 @@ VRAM (tiles, absolute; docs/spec.md "Video memory": the guideline is 64 KiB = 20
     0..296      BG1 the house kit (font, panel font, 2x cache, panel frame)
     297..316    BG1 the HUD's own tiles (the XP and boss bars)
     317..572    BG1 the glyph pool of the translated text (docs/i18n.md; 256 tiles: a Japanese title takes them)
-    573..892    BG1 the title's logo, and while a run is under way the soft layer's first tiles (BG2's base is 573:
-                the logo is drawn again when the title comes back)
+    574..893    BG1 the title's logo, and while a run is under way the soft layer's first tiles (BG2's base is 573:
+                the logo is drawn again when the title comes back; never on 573, BG2's tile 0, every empty cell's)
     573..1595   BG2 the soft layer's pool (its tile 0 stays clear): 768 tiles at 320 x 240, 1023 on a wider or a
                 taller screen (a phone: more of the garden, more pests on it)
     1600..      BG4 the garden (the lawn, clover, flowers, pebbles, the XP gems)
@@ -40,7 +40,24 @@ import make_art  # noqa: E402
 VR_BG1, VR_SOFT, SOFT_POOL, EXT_TILE, EXT_COUNT, VR_GROUND, VR_OBJ = 0, 573, 1023, 317, 256, 1600, 3072
 SOFT_POOL_CONSOLE = 768                # the pool used at 320 x 240 (the console): within the VRAM guideline
 UI_TILE = 297                       # the HUD's tiles, relative to BG1's base
-LOGO_TILE = 573                     # the title's logo, relative to BG1's base (the pool's first tiles)
+LOGO_TILE = 574                     # the title's logo, relative to BG1's base (the pool's tiles after its tile 0)
+UI_TILES, LOGO_TILES = 20, 320      # the HUD's tiles; the logo's at most (house_ui.h HU_LOGO_TILES)
+
+
+def check_layout(n_ground):
+    """The VRAM ranges (above) do not overlap and every map index fits in its 10 bits: build-time asserts."""
+    ranges = [("the HUD", UI_TILE, UI_TILES), ("the glyph pool", EXT_TILE, EXT_COUNT),
+              ("BG2's tile 0 (the empty cells)", VR_SOFT, 1), ("the logo", LOGO_TILE, LOGO_TILES),
+              ("the garden", VR_GROUND, n_ground)]
+    ranges.sort(key=lambda r: r[1])
+    for (na, a, n), (nb, b, _) in zip(ranges, ranges[1:]):
+        assert a + n <= b, "VRAM: %s (%d..%d) runs into %s (%d)" % (na, a, a + n - 1, nb, b)
+    assert LOGO_TILE + LOGO_TILES <= VR_SOFT + SOFT_POOL_CONSOLE, "VRAM: the logo past the pool"
+    assert VR_SOFT + SOFT_POOL <= VR_GROUND, "VRAM: the soft pool runs into the garden"
+    assert VR_GROUND + n_ground <= VR_OBJ, "VRAM: the garden runs into the sprites"
+    assert SOFT_POOL <= 1024 and LOGO_TILE + LOGO_TILES <= 1024 and n_ground <= 1024, "a map index past 10 bits"
+
+
 POP_TILES = 32                      # the number pops: 16 sprites of 16x8, drawn at run time
 PAL_UI, PAL_GROUND, PAL_SOFT, PAL_LOGO = 0, 1, 2, 5
 OBJ_HERO, OBJ_TOOLS, OBJ_ITEMS, OBJ_KIT, OBJ_FX = 0, 1, 2, 3, 4
@@ -163,6 +180,7 @@ def main():
     h.append("extern const uint8_t pp_ground_tiles[];")
     c.append(rsasset.c_bytes("pp_ground_tiles", rsasset.tiles_bytes(gt)))
     stats.append("ground %d" % len(gt))
+    check_layout(len(gt))
 
     # ---- the palettes -----------------------------------------------------------------------------------------------------
     for key in ("soft", "ground", "ground_night", "tools", "items", "fx"):

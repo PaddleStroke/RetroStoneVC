@@ -126,7 +126,10 @@ the poofs are drawn by the CPU into the 8x8 tiles of BG2, like a bitmap but only
 8x8 cell of the screen an object touches takes a tile from a pool (768 at 320 x 240, within the 64 KiB VRAM guideline
 with everything else; 1023 on the phone's wider or taller screens), pixels painted under what is there (the nearest
 pests first: a pool too small leaves out the farthest, at the screen's edge), uploaded with `rs_tiles_load8`, the map
-entries set, last frame's cleared. One 15-colour palette for all of them; a hit's flash and an elite's gold are
+entries set, last frame's cleared. The empty cells show the pool's tile 0, kept clear: uploaded blank with the used
+tiles every frame, and the title's logo (which borrows the pool's tiles while no run is drawn) starts at tile 1
+(build_assets.py checks the VRAM ranges at build time; tests/tall_test.sh compares the garden after the title with a
+run's at nine screen sizes: the logo once left a dash in every cell). One 15-colour palette for all of them; a hit's flash and an elite's gold are
 colour remaps. The art is cropped to what it draws (fewer cells). The gems lying on the ground are tiles of the
 garden's map (BG4) itself: an 8-px cell, its tile the gem's (a gem's glint cycles in the palette). The hardware
 sprites are kept for the gardener and its health bar, the tools that move (bees, mowers, rakes, pumpkins, bursts,

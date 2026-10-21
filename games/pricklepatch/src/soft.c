@@ -111,7 +111,9 @@ void soft_end(void)
     for (int i = 0; i < n_prev; i++)
         if (!cell_tile[prev[i]]) map[prev[i]] = 0;
     for (int i = 0; i < n_cur; i++) map[cur[i]] = RS_MAP(i + 1, PAL_SOFT, 0, 0, 0);
-    if (n_cur) rs_tiles_load8(VR_SOFT + 1, px[1], n_cur);
+    /* the used tiles, and tile 0 cleared again each frame (px[0] stays 0): the empty cells never show what was written
+     * there before (the title's logo once was: a dash in every cell of the garden) */
+    rs_tiles_load8(VR_SOFT, px[0], n_cur + 1);
     for (int i = 0; i < n_cur; i++) {
         cell_tile[cur[i]] = 0;
         prev[i] = cur[i];
