@@ -24,6 +24,7 @@ HINT_CRUMBLE = ひびわれた いわは おちる
 HINT_RAFT = うごく いかだに のろう
 HINT_WIND = かぜに おされる - ふんばろう
 HINT_BERRY = ベリーは おまけ - むずかしい
+HINT_SLICK = つるつるの かべは つかめない
 VERB_CONTINUE = つづける
 RUN_AT = とちゅう: へや %d-%d
 NEW_RUN = B: へや1から やりなおす

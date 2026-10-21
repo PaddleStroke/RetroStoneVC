@@ -346,6 +346,33 @@ def hang(kind):
     return t
 
 
+SLICK_DEPTH = [4, 4, 5, 5, 6, 6, 5, 4, 4, 5, 6, 7, 6, 5, 4, 4]   # the sheet's inner edge down a cell (seamless)
+
+
+def slick_quarter(q):
+    """a side wall's face (the gorge's outer walls, too slick to hold): the rock's exposed side (kind 5) under a glossy
+    sheet in the chapter's cap colours (moss, wet moss, crystal, glazed sand, ice), a glint running down it"""
+    t = rock_quarter(q, 5)
+    top, left = q < 2, q % 2 == 0
+    for y in range(8):
+        for x in range(8):
+            gy = y + (0 if top else 8)
+            ds = x if left else 7 - x
+            d = SLICK_DEPTH[gy]
+            if ds == 0:
+                c = T_OUT
+            elif ds == 1:
+                c = T_CL
+            elif ds < d:
+                c = T_CL if (ds == 2 and gy % 8 in (2, 3, 4)) or (ds == 3 and gy % 16 in (9, 10)) else T_CM
+            elif ds == d:
+                c = T_CD
+            else:
+                continue
+            t[y][x] = c
+    return t
+
+
 def fill_tile(c):
     return [[c] * 8 for _ in range(8)]
 
@@ -371,6 +398,8 @@ def build_tiles():
     tiles.append(fill_tile(T_OUT)); names.append("dark")            # deeper still
     for k in range(2):
         tiles.append(hang(k)); names.append("hang_%d" % k)
+    for q in range(4):
+        tiles.append(slick_quarter(q)); names.append("slick_%d" % q)
     return tiles, names
 
 

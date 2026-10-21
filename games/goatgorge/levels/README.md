@@ -25,10 +25,12 @@ The way out: `exit=right`, `exit=left` or `exit=top` on the room line. A side th
 see: its column is all `#` (tests/test_rooms.c checks it), so a room going out at the top has a wall on both sides.
 Above, the sky stays open (the kid may jump above the screen: a marker shows where, it comes back down). Without
 `exit=`, the room must open on exactly one side (a gap in the left or the right column, else the top row). A gap in
-the bottom row is a fall (a death).
+the bottom row is a fall (a death). The side walls are slick (their faces shine: moss, ice, crystal): the kid cannot
+hold them, no wall slide, no wall jump; that rock is the side column and up to two more joined to it along the row (a
+ledge jutting further, a cliff, a chimney inside the room: rock to hold).
 
 Settings on the `room` line: `hint=N` shows a tip the first seconds (1 jump, 2 wall jump, 3 dash, 4 spring, 5 crystal,
-6 crumbling, 7 raft, 8 wind, 9 berry); `wind=X,Y` a wind (1/256 px per frame: 192 pushes 0.75 px/f); `gust=ON,OFF`
+6 crumbling, 7 raft, 8 wind, 9 berry, 10 the slick side walls); `wind=X,Y` a wind (1/256 px per frame: 192 pushes 0.75 px/f); `gust=ON,OFF`
 the wind blows ON frames, then rests OFF frames.
 
 After changing a room: `make goatgorge-solve` (tests/solver.c finds and records each room's routes in

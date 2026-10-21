@@ -12,6 +12,7 @@
 #include "game.h"
 #include <stddef.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 static int iabs(int v) { return v < 0 ? -v : v; }
@@ -36,6 +37,7 @@ int room_parse(const char *text, room *r, char *err, int errlen)
     int row = 0;
     memset(r, 0, sizeof *r);
     memset(r->crumble_at, -1, sizeof r->crumble_at);
+    r->grip_off = GRIP_NO_BORDER;                           /* the gorge's outer walls are slick: no holding them */
     /* the room line's settings: wind=X,Y gust=ON,OFF */
     if (!strncmp(p, "room", 4)) {
         const char *e = strchr(p, '\n');
@@ -51,7 +53,7 @@ int room_parse(const char *text, room *r, char *err, int errlen)
             r->wind_x = (int16_t)x;
             r->wind_y = (int16_t)y;
         }
-        if ((s = strstr(line, "hint="))) r->hint = (uint8_t)(s[5] - '0');
+        if ((s = strstr(line, "hint="))) r->hint = (uint8_t)atoi(s + 5);
         if ((s = strstr(line, "exit=")))                    /* the way out named: the other open sides are sky */
             r->exit_set = s[5] == 'l' ? EXIT_LEFT : s[5] == 'r' ? EXIT_RIGHT : EXIT_TOP;
         if ((s = strstr(line, "gust="))) {
@@ -280,6 +282,37 @@ int world_solid(const world *w, const room *r, int x, int y, int wd, int ht)
             if (c == C_ROCK) return 1;
             if (c == C_CRUMBLE && crumble_solid(w, r->crumble_at[cy][cx])) return 1;
         }
+    for (int i = 0; i < r->nplats; i++)
+        if (i != w->ignore_plat && overlap(x, y, wd, ht, w->plat_x[i], w->plat_y[i], r->plat[i].w, r->plat[i].h)) return 1;
+    return 0;
+}
+
+/* a side wall's rock: past the room's side, or in its 3 outer columns joined to the side along the row (a ledge
+ * jutting further out, a floor's step, is the room's own rock) */
+int border_rock(const room *r, int cx, int cy)
+{
+    if (world_cell(r, cx, cy) != C_ROCK) return 0;
+    if (cx < 0 || cx >= ROOM_W) return 1;
+    if (cx > 2 && cx < ROOM_W - 3) return 0;
+    int y = cy < 0 ? 0 : cy, l = cx <= 2, rr = cx >= ROOM_W - 3;
+    for (int x = 0; x <= cx && l; x++) l = r->cell[y][x] == C_ROCK;
+    for (int x = ROOM_W - 1; x >= cx && rr; x--) rr = r->cell[y][x] == C_ROCK;
+    return l || rr;
+}
+
+/* world_solid for the walls the kid holds (slides down, jumps off); the same unless grip_off rules some out */
+int world_grip(const world *w, const room *r, int x, int y, int wd, int ht)
+{
+    if (!r->grip_off) return world_solid(w, r, x, y, wd, ht);
+    int cx0 = (x >= 0 ? x / CELL : (x - CELL + 1) / CELL), cx1 = (x + wd - 1 >= 0 ? (x + wd - 1) / CELL : (x + wd - CELL) / CELL);
+    int cy0 = (y >= 0 ? y / CELL : (y - CELL + 1) / CELL), cy1 = (y + ht - 1 >= 0 ? (y + ht - 1) / CELL : (y + ht - CELL) / CELL);
+    for (int cy = cy0; cy <= cy1; cy++)
+        for (int cx = cx0; cx <= cx1; cx++) {
+            int c = world_cell(r, cx, cy), b = c == C_ROCK && border_rock(r, cx, cy);
+            if (c == C_ROCK && !(b ? r->grip_off & GRIP_NO_BORDER : r->grip_off & GRIP_NO_INTERIOR)) return 1;
+            if (c == C_CRUMBLE && !(r->grip_off & GRIP_NO_INTERIOR) && crumble_solid(w, r->crumble_at[cy][cx])) return 1;
+        }
+    if (r->grip_off & GRIP_NO_INTERIOR) return 0;
     for (int i = 0; i < r->nplats; i++)
         if (i != w->ignore_plat && overlap(x, y, wd, ht, w->plat_x[i], w->plat_y[i], r->plat[i].w, r->plat[i].h)) return 1;
     return 0;
@@ -581,8 +614,8 @@ void world_step(world *w, const room *r, int in)
     } else if (h->coyote_t) {
         h->coyote_t--;
     }
-    int wall_l = world_solid(w, r, h->x - WALL_CHECK, h->y, WALL_CHECK, HB_H);
-    int wall_r = world_solid(w, r, h->x + HB_W, h->y, WALL_CHECK, HB_H);
+    int wall_l = world_grip(w, r, h->x - WALL_CHECK, h->y, WALL_CHECK, HB_H);
+    int wall_r = world_grip(w, r, h->x + HB_W, h->y, WALL_CHECK, HB_H);
     if (h->dash_cool) h->dash_cool--;
     if (h->refill_cool) h->refill_cool--;
     if (h->spawn_t) h->spawn_t--;
@@ -721,8 +754,8 @@ void world_step(world *w, const room *r, int in)
             int maxf = MAX_FALL, g = GRAVITY;
             if (iabs(h->vy) < APEX_V && (in & IN_JUMP)) g = APEX_GRAVITY;
             if (in & IN_DOWN) maxf = FAST_FALL;
-            int pushing = (mx < 0 && world_solid(w, r, h->x - 1, h->y, 1, HB_H)) ||
-                          (mx > 0 && world_solid(w, r, h->x + HB_W, h->y, 1, HB_H));
+            int pushing = (mx < 0 && world_grip(w, r, h->x - 1, h->y, 1, HB_H)) ||
+                          (mx > 0 && world_grip(w, r, h->x + HB_W, h->y, 1, HB_H));
             if (pushing && h->vy > 0 && !(in & IN_DOWN)) {
                 maxf = WALL_SLIDE;
                 h->sliding = 1;

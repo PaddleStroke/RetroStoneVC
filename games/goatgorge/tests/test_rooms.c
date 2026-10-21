@@ -151,6 +151,24 @@ static void walls_and_corners(void)
     for (int i = 0; i < 14; i++) world_step(&W, &R, IN_JUMP | IN_LEFT);
     for (int i = 0; i < 25; i++) world_step(&W, &R, IN_LEFT);
     CHECK(W.h.sliding && W.h.vy <= WALL_SLIDE, "pushing into a wall slides down it (vy %d)", W.h.vy);
+    /* the side walls are slick: pushed into, jumped at, they hold nothing */
+    static const char *SIDE =
+        "#...................\n" "#...................\n" "#...................\n" "#...................\n"
+        "#...................\n" "#...................\n" "#...................\n" "#...................\n"
+        "#...................\n" "#...................\n" "#...................\n" "#...................\n"
+        "#S..................\n" "####################\n" "####################\n";
+    load(SIDE);
+    int held = 0;
+    for (int i = 0; i < 14; i++) world_step(&W, &R, IN_JUMP | IN_LEFT);
+    for (int i = 0; i < 30; i++) {
+        world_step(&W, &R, IN_LEFT);
+        held |= W.h.sliding || (W.events & EV_WALLJUMP);
+        world_step(&W, &R, IN_LEFT | IN_JUMP);
+        held |= W.h.sliding || (W.events & EV_WALLJUMP);
+    }
+    CHECK(!held, "the side wall is slick: no slide, no wall jump");
+    CHECK(border_rock(&R, 0, 5) && !border_rock(&R, 5, 13) && border_rock(&R, 2, 13),
+          "the side wall's rock: the side column and two more joined to it, not the floor past them");
     /* corner correction: a jump 3 px into a ceiling's corner slides around it */
     static const char *CORNER =
         "####################\n" "#...................\n" "#...................\n" "#...................\n"

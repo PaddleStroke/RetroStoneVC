@@ -85,6 +85,9 @@ HINT_WIND = THE WIND PUSHES YOU - LEAN INTO IT
 #. Each room hides a berry: optional, harder to reach.
 #. max 38
 HINT_BERRY = BERRIES ARE OPTIONAL - AND TRICKY
+#. The gorge's outer walls (their faces shine: moss, ice, crystal) cannot be held: no wall slide, no wall jump.
+#. max 38
+HINT_SLICK = SHINY WALLS ARE TOO SLICK TO HOLD
 
 #. The title's prompt verb when a climb of the chosen chapter is under way: PRESS A TO <VERB> (it goes on at the room
 #. the player left).

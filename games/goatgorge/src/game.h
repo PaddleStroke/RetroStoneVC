@@ -113,8 +113,10 @@ typedef struct room {
     uint8_t exit_set, wall_sides;   /* exit= on the room's line; then the sides not the way out are unseen walls */
     uint8_t ndeco;                  /* the chapter's props drawn in the room (d: a decoration, not solid) */
     uint8_t deco_cx[MAX_DECO], deco_cy[MAX_DECO];
+    uint8_t grip_off;               /* GRIP_*: walls the kid cannot hold (tests/solver.c's skip check; the game: 0) */
 } room;
 enum { EXIT_NONE, EXIT_TOP, EXIT_LEFT, EXIT_RIGHT };
+enum { GRIP_NO_BORDER = 1, GRIP_NO_INTERIOR = 2 };
 
 /* ---- the world: the kid and the room's moving parts (saved in states) ---------------------------------------------- */
 typedef struct hero {
@@ -156,6 +158,8 @@ void world_spawn(world *w, const room *r, int held);   /* the room from its star
 void world_step(world *w, const room *r, int input);
 int  world_solid(const world *w, const room *r, int x, int y, int wd, int ht);
 int  world_cell(const room *r, int cx, int cy);     /* outside the room: its border carried on, the bottom open */
+int  border_rock(const room *r, int cx, int cy);    /* rock of a side wall: joined to the room's side along its row */
+int  world_grip(const world *w, const room *r, int x, int y, int wd, int ht);  /* a wall to slide on, jump off */
 void plat_pos(const plat_def *p, int32_t t, int *x, int *y);
 int  crumble_solid(const world *w, int i);
 int  wind_active(const room *r, int32_t t);

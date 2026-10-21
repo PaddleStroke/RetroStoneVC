@@ -24,6 +24,7 @@ HINT_CRUMBLE = 금 간 바위는 떨어져요
 HINT_RAFT = 움직이는 뗏목을 타요
 HINT_WIND = 바람이 밀어요 - 버텨요
 HINT_BERRY = 베리는 선택 - 그리고 어려워요
+HINT_SLICK = 반짝이는 벽은 미끄러워요
 VERB_CONTINUE = 계속
 RUN_AT = 진행 중: 방 %d-%d
 NEW_RUN = B: 1번 방부터 새로

@@ -173,12 +173,13 @@ static void put_cell(const room *r, int cx, int cy, int mx, int my, int salt)
         for (int q = 0; q < 4; q++) e[q] = TP(TT_DEEP);
     } else if (c == C_ROCK) {
         static const int dq[4][2] = {{-1, -1}, {1, -1}, {-1, 1}, {1, 1}};
+        int slick = (r->grip_off & GRIP_NO_BORDER) && cy >= -2 && border_rock(r, cx, cy);
         for (int q = 0; q < 4; q++) {
             int sx = dq[q][0], sy = dq[q][1];
             int v = draw_cell(r, cx, cy + sy) == C_ROCK, hz = draw_cell(r, cx + sx, cy) == C_ROCK;
             int dg = draw_cell(r, cx + sx, cy + sy) == C_ROCK;
             int kind = !v && !hz ? 6 : !v ? 4 : !hz ? 5 : !dg ? 3 : (int)(hsh(cx, cy, salt) % 3);
-            e[q] = TP(TT_ROCK_0_0 + q * 7 + kind);
+            e[q] = TP(slick && kind == 5 ? TT_SLICK_0 + q : TT_ROCK_0_0 + q * 7 + kind);   /* a side wall: slick */
         }
     } else if (c == C_SPIKE_U) {
         e[2] = e[3] = TP(TT_SPIKE_UP);
@@ -525,6 +526,7 @@ static const char *hint_text(int k)
     case 7: return TR(HINT_RAFT);
     case 8: return TR(HINT_WIND);
     case 9: return TR(HINT_BERRY);
+    case 10: return TR(HINT_SLICK);
     default: return NULL;
     }
 }

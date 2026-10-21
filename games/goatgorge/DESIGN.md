@@ -40,7 +40,7 @@ Positions are whole pixels with a 1/256 remainder; every move goes pixel by pixe
 | coyote time | 6 frames | jump buffer 6 frames, dash buffer 4 |
 | corner correction | 4 px (jumps), 5 px (dashes) | a ceiling's corner is slid around |
 | ledge pop | 3 px | a lip is stepped onto (falling, dashing) |
-| wall slide | 1.125 px/f while pushing into a wall | wall jump: 2.5 px/f away, the input held away 9 frames (a neutral jump is free) |
+| wall slide | 1.125 px/f while pushing into a wall (not the slick side walls) | wall jump: 2.5 px/f away, the input held away 9 frames (a neutral jump is free) |
 | dash | 8 px/f for 8 frames (64 px), 8 ways, after a 3-frame freeze | the direction is read at the freeze's end; 3 px/f kept after |
 | super jump | a jump during a ground dash: 3.25 px/f along it | |
 | refill | landing, a crystal, a spring | the scarf: red = the dash is ready, blue = used |
@@ -57,7 +57,10 @@ a 2-px shake and a trail of 5 ghosts (added half), a burst on a death, a flash o
 Single screens of 20 x 15 cells of 16 px. The way out is one side (`exit=` on the room's line): leaving through it fades
 to the next room; falling out of the bottom is a death. Every other side is a wall drawn in the room (its column of
 rock: the way out is the one open side), and above the walls the sky is open: the kid may jump off the screen (a small
-arrow shows where) and comes back down. Only the crystal cave has ceilings. Each room has one idea and a flow (the
+arrow shows where) and comes back down. The side walls are slick (a glossy sheet on their face: moss, wet moss,
+crystal, glazed sand, ice; the tip in room 1-7): no wall slide, no wall jump, so they cannot be climbed out of a room;
+the walls inside a room (chimneys, pillars, cliffs) hold as ever. `tests/solver.c --skip` checks it: no room can be
+left by climbing its side walls, nor faster for holding them. Only the crystal cave has ceilings. Each room has one idea and a flow (the
 entrance, the challenge, a breather, the way out), no empty stretch without a purpose (thorns under a jump, a thorny
 branch capping its height, a spike pillar in a gap, a safe long way beside a risky short one), its berry
 in sight of the main route, and the chapter's decorations (`d`: a flowering bush, mushrooms on a stump, crystals, a

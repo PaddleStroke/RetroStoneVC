@@ -1,0 +1,107 @@
+# tests/solver.c --skip on every room: before (round 3, side walls held: --grip-sides) and after (slick side walls).
+# before
+room 1-1 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 68 (side walls not held: 68)
+room 1-2 skip: climb 92 (0 wall jumps; side walls not held: 92), fastest 80 (side walls not held: 80)
+room 1-3 skip: climb 178 (3 wall jumps; side walls not held: -1), fastest 63 (side walls not held: 67) CLIMB
+room 1-4 skip: climb 100 (0 wall jumps; side walls not held: 100), fastest 84 (side walls not held: 84)
+room 1-5 skip: climb 220 (3 wall jumps; side walls not held: -1), fastest 91 (side walls not held: 91) CLIMB
+room 1-6 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 71 (side walls not held: 71)
+room 1-7 skip: climb 296 (4 wall jumps; side walls not held: -1), fastest 85 (side walls not held: 85) CLIMB
+room 1-8 skip: climb 156 (3 wall jumps; side walls not held: -1), fastest 60 (side walls not held: 64) CLIMB
+room 1-9 skip: climb 124 (0 wall jumps; side walls not held: 124), fastest 80 (side walls not held: 80)
+room 1-10 skip: climb 87 (2 wall jumps; side walls not held: -1), fastest 64 (side walls not held: 80) CLIMB SHORTCUT
+room 1-11 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 80 (side walls not held: 80)
+room 1-12 skip: climb 184 (3 wall jumps; side walls not held: -1), fastest 96 (side walls not held: 96) CLIMB
+room 2-1 skip: climb 64 (0 wall jumps; side walls not held: 64), fastest 64 (side walls not held: 64)
+room 2-2 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 69 (side walls not held: 76)
+room 2-3 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 108 (side walls not held: 108)
+room 2-4 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 87 (side walls not held: 87)
+room 2-5 skip: climb 83 (3 wall jumps; side walls not held: -1), fastest 63 (side walls not held: 76) CLIMB SHORTCUT
+room 2-6 skip: climb 175 (3 wall jumps; side walls not held: -1), fastest 76 (side walls not held: 79) CLIMB
+room 2-7 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 67 (side walls not held: 67)
+room 2-8 skip: climb 87 (2 wall jumps; side walls not held: -1), fastest 57 (side walls not held: 63) CLIMB
+room 2-9 skip: climb 231 (3 wall jumps; side walls not held: -1), fastest 68 (side walls not held: 68) CLIMB
+room 2-10 skip: climb 176 (4 wall jumps; side walls not held: -1), fastest 72 (side walls not held: 72) CLIMB
+room 3-1 skip: climb 492 (0 wall jumps; side walls not held: 492), fastest 84 (side walls not held: 84)
+room 3-2: TIMEOUT
+room 3-3 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 96 (side walls not held: 96)
+room 3-4 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 91 (side walls not held: 91)
+room 3-5 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 79 (side walls not held: 79)
+room 3-6 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 92 (side walls not held: 92)
+room 3-7 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 208 (side walls not held: 228) SHORTCUT
+room 3-8 skip: climb 208 (0 wall jumps; side walls not held: -1), fastest 87 (side walls not held: 87)
+room 3-9 skip: climb 273 (4 wall jumps; side walls not held: -1), fastest 68 (side walls not held: 71) CLIMB
+room 3-10 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 92 (side walls not held: 95)
+room 4-1 skip: climb 112 (0 wall jumps; side walls not held: 112), fastest 78 (side walls not held: 78)
+room 4-2 skip: climb 72 (0 wall jumps; side walls not held: 72), fastest 72 (side walls not held: 72)
+room 4-3 skip: climb 66 (2 wall jumps; side walls not held: -1), fastest 66 (side walls not held: 99) CLIMB SHORTCUT
+room 4-4 skip: climb 546 (4 wall jumps; side walls not held: -1), fastest 84 (side walls not held: 84) CLIMB
+room 4-5 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 79 (side walls not held: 79)
+room 4-6 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 102 (side walls not held: 102)
+room 4-7 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 75 (side walls not held: 76)
+room 4-8 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 88 (side walls not held: 88)
+room 4-9 skip: climb 313 (5 wall jumps; side walls not held: -1), fastest 72 (side walls not held: 72) CLIMB
+room 4-10 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 68 (side walls not held: 68)
+room 5-1 skip: climb 108 (0 wall jumps; side walls not held: 108), fastest 80 (side walls not held: 80)
+room 5-2 skip: climb 220 (3 wall jumps; side walls not held: -1), fastest 63 (side walls not held: 63) CLIMB
+room 5-3 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 104 (side walls not held: 92)
+room 5-4 skip: climb 187 (3 wall jumps; side walls not held: -1), fastest 76 (side walls not held: 75) CLIMB
+room 5-5 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 80 (side walls not held: 80)
+room 5-6 skip: climb 71 (2 wall jumps; side walls not held: -1), fastest 71 (side walls not held: 120) CLIMB SHORTCUT
+room 5-7 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 76 (side walls not held: 76)
+room 5-8 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 60 (side walls not held: 72)
+room 5-9 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 72 (side walls not held: 72)
+room 5-10 skip: climb 861 (4 wall jumps; side walls not held: -1), fastest 72 (side walls not held: 72) CLIMB
+# after
+room 1-1 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 68 (side walls not held: 68; 0 wall jumps; no wall held: 68)
+room 1-2 skip: climb 92 (0 wall jumps; side walls not held: 92), fastest 80 (side walls not held: 80; 0 wall jumps; no wall held: 80)
+room 1-3 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 67 (side walls not held: 67; 0 wall jumps; no wall held: 67)
+room 1-4 skip: climb 100 (0 wall jumps; side walls not held: 100), fastest 84 (side walls not held: 84; 0 wall jumps; no wall held: 84)
+room 1-5 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 91 (side walls not held: 91; 3 wall jumps; no wall held: -1)
+room 1-6 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 71 (side walls not held: 71; 0 wall jumps; no wall held: 71)
+room 1-7 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 85 (side walls not held: 85; 0 wall jumps; no wall held: 83)
+room 1-8 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 64 (side walls not held: 64; 0 wall jumps; no wall held: 64)
+room 1-9 skip: climb 124 (0 wall jumps; side walls not held: 124), fastest 80 (side walls not held: 80; 0 wall jumps; no wall held: 80)
+room 1-10 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 80 (side walls not held: 80; 3 wall jumps; no wall held: -1)
+room 1-11 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 80 (side walls not held: 80; 0 wall jumps; no wall held: 80)
+room 1-12 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 96 (side walls not held: 96; 1 wall jumps; no wall held: 104)
+room 2-1 skip: climb 64 (0 wall jumps; side walls not held: 64), fastest 64 (side walls not held: 64; 0 wall jumps; no wall held: 64)
+room 2-2 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 76 (side walls not held: 76; 0 wall jumps; no wall held: 71)
+room 2-3 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 108 (side walls not held: 108; 0 wall jumps; no wall held: 99)
+room 2-4 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 87 (side walls not held: 87; 0 wall jumps; no wall held: 87)
+room 2-6 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 79 (side walls not held: 79; 0 wall jumps; no wall held: 79)
+room 2-7 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 67 (side walls not held: 67; 0 wall jumps; no wall held: 67)
+room 2-8 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 63 (side walls not held: 63; 0 wall jumps; no wall held: 63)
+room 2-9 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 68 (side walls not held: 68; 0 wall jumps; no wall held: 68)
+room 2-10 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 72 (side walls not held: 72; 0 wall jumps; no wall held: 72)
+room 3-1 skip: climb 492 (0 wall jumps; side walls not held: 492), fastest 84 (side walls not held: 84; 0 wall jumps; no wall held: 84)
+room 3-2 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 79 (side walls not held: 79; 1 wall jumps; no wall held: 105)
+room 3-3 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 96 (side walls not held: 96; 0 wall jumps; no wall held: 96)
+room 3-4 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 91 (side walls not held: 91; 0 wall jumps; no wall held: 83)
+room 3-5 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 79 (side walls not held: 79; 1 wall jumps; no wall held: 105)
+room 3-6 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 92 (side walls not held: 92; 0 wall jumps; no wall held: 92)
+room 3-7 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 228 (side walls not held: 228; 0 wall jumps; no wall held: 228)
+room 3-8 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 87 (side walls not held: 87; 0 wall jumps; no wall held: 87)
+room 3-9 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 71 (side walls not held: 71; 0 wall jumps; no wall held: 71)
+room 3-10 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 95 (side walls not held: 95; 1 wall jumps; no wall held: 100)
+room 4-1 skip: climb 112 (0 wall jumps; side walls not held: 112), fastest 78 (side walls not held: 78; 0 wall jumps; no wall held: 78)
+room 4-2 skip: climb 72 (0 wall jumps; side walls not held: 72), fastest 72 (side walls not held: 72; 0 wall jumps; no wall held: 72)
+room 4-3 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 99 (side walls not held: 99; 0 wall jumps; no wall held: 99)
+room 4-4 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 84 (side walls not held: 84; 0 wall jumps; no wall held: 84)
+room 4-5 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 79 (side walls not held: 79; 0 wall jumps; no wall held: 79)
+room 4-6 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 102 (side walls not held: 102; 0 wall jumps; no wall held: 102)
+room 4-7 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 76 (side walls not held: 76; 1 wall jumps; no wall held: -1)
+room 4-8 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 88 (side walls not held: 88; 0 wall jumps; no wall held: 88)
+room 4-9 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 72 (side walls not held: 72; 0 wall jumps; no wall held: 72)
+room 4-10 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 68 (side walls not held: 68; 0 wall jumps; no wall held: 64)
+room 5-1 skip: climb 108 (0 wall jumps; side walls not held: 108), fastest 80 (side walls not held: 80; 0 wall jumps; no wall held: 80)
+room 5-2 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 63 (side walls not held: 63; 1 wall jumps; no wall held: 80)
+room 5-3 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 92 (side walls not held: 92; 0 wall jumps; no wall held: 92)
+room 5-4 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 75 (side walls not held: 75; 0 wall jumps; no wall held: 75)
+room 5-5 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 80 (side walls not held: 80; 0 wall jumps; no wall held: 80)
+room 5-7 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 76 (side walls not held: 76; 0 wall jumps; no wall held: 76)
+room 5-8 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 72 (side walls not held: 72; 2 wall jumps; no wall held: 81)
+room 5-9 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 72 (side walls not held: 72; 0 wall jumps; no wall held: 72)
+room 5-10 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 72 (side walls not held: 72; 1 wall jumps; no wall held: 71)
+room 2-5 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 84 (side walls not held: 84; 4 wall jumps; no wall held: -1)
+room 5-6 skip: climb -1 (0 wall jumps; side walls not held: -1), fastest 65 (side walls not held: 65; 0 wall jumps; no wall held: 65)

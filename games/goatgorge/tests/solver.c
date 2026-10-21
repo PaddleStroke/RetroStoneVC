@@ -8,6 +8,10 @@
  * played by the game's bot (--opt bot=1).
  *
  *   solver <levels/chN.txt> <chapter> [--room N] [--step K] [--keep Q] [--frames F]     -> solution lines on stdout
+ *     --slack       each route's robustness (inputs jittered) and the coarsest input step that solves it
+ *     --skip        the skip check: can a room be left by climbing its side walls, or faster for holding them?
+ *                   (no solutions written; --grip-sides: as when the side walls could be held)
+ *     --trace       the routes drawn over the room
  * MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft): games/goatgorge/LICENSE.
  */
 #include "game.h"
@@ -77,6 +81,10 @@ static int seen_add(uint64_t k)
     return 1;
 }
 
+/* the skip check's "climb only" search: no spring, crystal or raft, never standing above the start, no wall held
+ * but the room's side walls (room.grip_off has the interior's off) */
+static int pure;
+
 static int solve(const room *r, int want_berry, int step, int keep, int max_frames, uint8_t *out, int *nout)
 {
     int period = lcm_period(r);
@@ -102,6 +110,8 @@ static int solve(const room *r, int want_berry, int step, int keep, int max_fram
                 for (f = 0; f < step; f++) {
                     world_step(&w, r, ACT[a]);
                     if (w.h.dead_t) { dead = 1; break; }
+                    if (pure && ((w.events & (EV_SPRING | EV_GEM)) || w.h.riding ||
+                                 ((w.h.grounded || (w.events & (EV_LAND | EV_JUMP)) || w.h.coyote_t == COYOTE) && w.h.y < r->start_y - 4))) { dead = 1; break; }
                     if (w.exited) { done = 1; f++; break; }
                 }
                 if (dead) continue;
@@ -228,9 +238,11 @@ static void encode(const uint8_t *in, int n, char *out)
 int main(int argc, char **argv)
 {
     if (argc < 3) { fprintf(stderr, "usage: solver <levels/chN.txt> <chapter> [--room N] [--step K] [--keep Q] [--frames F]\n"); return 2; }
-    int only = 0, step = 4, keep = 1, frames = 1800, show = 0, slack = 0;
+    int only = 0, step = 4, keep = 1, frames = 1800, show = 0, slack = 0, skip = 0, grip_sides = 0;
     for (int i = 3; i < argc; i++) {
         if (!strcmp(argv[i], "--trace")) show = 1;
+        else if (!strcmp(argv[i], "--skip")) skip = 1;
+        else if (!strcmp(argv[i], "--grip-sides")) grip_sides = 1;
         else if (!strcmp(argv[i], "--slack")) slack = 1;
         else if (!strcmp(argv[i], "--room") && i + 1 < argc) only = atoi(argv[++i]);
         else if (!strcmp(argv[i], "--step") && i + 1 < argc) step = atoi(argv[++i]);
@@ -247,6 +259,7 @@ int main(int argc, char **argv)
     static room rooms[MAX_ROOMS];
     char err[200];
     int n = chapter_parse(text, rooms, MAX_ROOMS, err, sizeof err);
+    if (grip_sides) for (int i = 0; i < n; i++) rooms[i].grip_off = 0;   /* the side walls held: the rule before they were slick */
     if (n < 0) { fprintf(stderr, "%s: %s\n", argv[1], err); return 1; }
     nodes = malloc(sizeof(node) * (size_t)maxnodes);
     seen = malloc(sizeof(uint64_t) * SEEN_N);
@@ -255,6 +268,62 @@ int main(int argc, char **argv)
     int fail = 0;
     for (int i = 0; i < n; i++) {
         if (only && i + 1 != only) continue;
+        if (skip) {
+            /* the skip check: (1) the climb: can the kid leave by its side walls alone (no spring, crystal, raft or
+             * other wall, never standing higher than the start), when it cannot without holding them? (2) the
+             * shortcut: is the fastest route quicker holding the side walls than not? */
+            room a = rooms[i];
+            int st[2] = {step, 2}, got[4], len3[4];
+            static uint8_t ins[4][20000];
+            for (int m = 0; m < 4; m++) {
+                a.grip_off = (uint8_t)((m & 1 ? GRIP_NO_BORDER : rooms[i].grip_off) | (m < 2 ? GRIP_NO_INTERIOR : 0));
+                pure = m < 2;
+                got[m] = -1;
+                if ((m & 1) && (rooms[i].grip_off & GRIP_NO_BORDER)) {     /* the same rule: the same search */
+                    got[m] = got[m - 1];
+                    len3[m] = len3[m - 1];
+                    memcpy(ins[m], ins[m - 1], sizeof ins[m]);
+                    continue;
+                }
+                for (int k = 0; k < 2 && got[m] < 0; k++)
+                    got[m] = solve(&a, 0, st[k], keep, m < 2 ? 900 : 600, ins[m], &len3[m]);
+            }
+            pure = 0;
+            int jumps = 0;                  /* the climb's wall jumps (one kick off a wall is no climb) */
+            if (got[0] >= 0) {
+                world w;
+                a.grip_off = (uint8_t)(rooms[i].grip_off | GRIP_NO_INTERIOR);
+                world_spawn(&w, &a, 0);
+                for (int f = 0; f < len3[0]; f++) {
+                    world_step(&w, &a, ins[0][f]);
+                    jumps += (w.events & EV_WALLJUMP) != 0;
+                }
+            }
+            int climb = got[0] >= 0 && got[1] < 0 && jumps >= 2;
+            int cut = got[2] >= 0 && (got[3] < 0 || got[3] > got[2] + 12);
+            /* for the eye (not a failure): the fastest route's wall jumps off the room's own walls, and its time
+             * holding no wall at all (a room whose idea is not wall jumps should not need them) */
+            int inner = 0, none = -1, l5;
+            if (got[2] >= 0) {
+                world w;
+                a.grip_off = rooms[i].grip_off;
+                world_spawn(&w, &a, 0);
+                for (int f = 0; f < len3[2]; f++) {
+                    world_step(&w, &a, ins[2][f]);
+                    inner += (w.events & EV_WALLJUMP) != 0;
+                }
+                a.grip_off = GRIP_NO_BORDER | GRIP_NO_INTERIOR;
+                for (int k = 0; k < 2 && none < 0; k++) none = solve(&a, 0, st[k], keep, 600, in, &l5);
+            }
+            fprintf(stderr, "room %d-%d skip: climb %d (%d wall jumps; side walls not held: %d), fastest %d (side walls "
+                    "not held: %d; %d wall jumps; no wall held: %d)%s%s\n", chapter, i + 1, got[0], jumps, got[1],
+                    got[2], got[3], inner, none, climb ? " CLIMB" : "", cut ? " SHORTCUT" : "");
+            if (show && got[1] >= 0) { a.grip_off = GRIP_NO_INTERIOR | GRIP_NO_BORDER; trace(&a, ins[1], len3[1]); }
+            if (climb && show) { a.grip_off = (uint8_t)(rooms[i].grip_off | GRIP_NO_INTERIOR); trace(&a, ins[0], len3[0]); }
+            if (cut && show) { a.grip_off = rooms[i].grip_off; trace(&a, ins[2], len3[2]); }
+            fail |= climb || cut;
+            continue;
+        }
         for (int berry = 0; berry <= rooms[i].has_berry; berry++) {
             int k, got = -1, len2 = 0;
             /* the coarse steps first (fast), finer ones when the room needs a sharper timing */
