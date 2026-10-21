@@ -53,6 +53,7 @@ enum { C_EMPTY, C_ROCK, C_CRYSTAL, C_CRACKED, C_DOOR, C_SHUT, C_FLOOR, C_ARENA, 
 #define JUMP_CUT     384            /* jump released while rising: the rise cut to 1.5 px/f */
 #define COYOTE       5              /* frames after leaving a ledge when A still jumps (not fires) */
 #define JUMP_BUFFER  6              /* A pressed this soon before landing, with no ammo: a jump on landing */
+#define HOLD_FIRE    14             /* A held on in the air this long (and falling): the boots fire as for a new press */
 #define HURT_IFRAMES 90             /* safe after a hit (blinks) */
 #define HURT_KICK_VY 600            /* a hit throws the puffin up a little */
 #define HITSTOP_HURT 6

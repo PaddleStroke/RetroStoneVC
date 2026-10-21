@@ -128,6 +128,17 @@ int main(int argc, char **argv)
     printf("  info the bot dives %d m on average (%d .. %d), 600 m or more on %d of %d seeds\n", sum / seeds, minm, maxm,
            deep, seeds);
 
+    /* A held on from the jump: the boots fire once falling (a thumb on a touch button never lets go) */
+    world_new_run(&W, 77);
+    world_begin(&W, 0, defs, ndefs);
+    int fired = 0;
+    for (int fr = 0; fr < 90; fr++) {
+        world_step(&W, IN_JUMP | (fr < 40 ? IN_RIGHT : 0), defs, ndefs);
+        if (W.events & EV_SHOT) fired++;
+    }
+    snprintf(s, sizeof s, "A held from a jump and on: the boots fire in the fall (%d shots)", fired);
+    ok(fired >= 2, s);
+
     /* determinism */
     uint32_t h1 = 2166136261u, h2 = 2166136261u;
     dive(&W, 4242, 4000, NULL, 0, &h1);

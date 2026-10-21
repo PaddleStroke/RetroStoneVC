@@ -16,9 +16,9 @@ depth plus the gems and combos; the deepest dive is a gold rope in the well.
 ## Controls
 | | Console (pad) | Phone (touch, apps/launcher/games.cfg) | Keyboard |
 |---|---|---|---|
-| run | D-pad Left / Right | the drawn Left / Right buttons (bottom left) | arrows |
-| jump (on a ledge; released early: lower) | A (B, X, Y too) | the big A button (bottom right) | X |
-| fire down (in the air; held: again and again) | A (B, X, Y) | the big A button | X |
+| run | D-pad Left / Right | hold the left / right half of the screen (as Mole Marbles) | arrows |
+| jump (on a ledge; released early: lower) | A (B, X, Y too) | either drawn A button (the bottom corners; they win over the halves) | X |
+| fire down (in the air; held: again and again) | A (B, X, Y) | either A button | X |
 | a side room | push into its door from the ledge | the same | |
 | shops: choose, buy | the D-pad, A; the last line dives on | Left / Right, A | arrows, X |
 | pause | Start or Select (paused: A goes on, B the title) | the app's pause button | Enter / Backspace |
@@ -38,7 +38,7 @@ Positions are whole pixels with a 1/256 remainder; every move goes pixel by pixe
 | fall | 4.0 px/f | terminal velocity |
 | coyote time | 5 frames | A just after leaving a ledge still jumps (not fires) |
 | jump buffer | 6 frames | A just before landing with no bubbles left: a jump on landing |
-| fire | a new press in the air, then held: again every `period` frames | each shot sets the fall to `hover` (a little up) |
+| fire | a press in the air, then held: again every `period` frames; A held on from a jump (or off a ledge) fires too once falling, 14 frames in the air | each shot sets the fall to `hover` (a little up) |
 | bubbles | 8 (the tank: up to 16) | refilled on landing and by a stomp |
 | stomp | 4.0 px/f up (A held: 4.8), 2 damage | only on soft critters; a spiky one stings and bounces |
 | hurt | one heart, 90 frames safe (blinking), a 6-frame hit-stop, a small kick up | the bubble shield takes one hit (back at each rest stop and zone) |

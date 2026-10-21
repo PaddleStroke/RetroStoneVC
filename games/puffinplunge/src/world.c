@@ -780,6 +780,12 @@ static void hero_step(world *w, int in, int pressed, int released)
         }
     }
     if (!(in & IN_JUMP)) h->fire_held = 0;
+    /* A held on from the jump (or off a ledge) past the top: the boots fire too, no new press needed (a thumb on a
+     * touch button just stays down) */
+    if ((in & IN_JUMP) && !h->fire_held && !h->ground && h->vy > 0 && h->air_t > HOLD_FIRE && w->ammo > 0) {
+        h->fire_held = 1;
+        h->fire_t = 0;
+    }
     if (h->fire_held && !h->ground && !h->fire_t) fire(w);
     if (h->jump_t) h->jump_t--;
     /* gravity */
