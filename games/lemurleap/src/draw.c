@@ -24,7 +24,7 @@
 #include <string.h>
 
 #define COL_X        64             /* the column's left edge, stage x */
-#define HUD_ROWS     5              /* a tall screen: BG1's rows 0..4 pinned at its top (the HUD) */
+#define HUD_ROWS     7              /* BG1's rows 0..6: the HUD (a tall screen: pinned at its top) */
 #define PARTS        40
 #define OAM_BUDGET   124
 #define LINE_BUDGET  30
@@ -502,74 +502,32 @@ static int power_left(const hero *h, int *kind)
 }
 static int item_spr(int k) { return k == IT_PROP ? SPR_PROP : k == IT_ROCKET ? SPR_ROCKET : k == IT_SHIELD ? SPR_SHIELD : SPR_MAGNET; }
 
-/* landscape: the side panels (UI columns 0..7 and 32..39): the height and the record at the left, the coins and the
- * power-up at the right, icons and digits only (no words: every language fits) */
-static void hud_side_bg(void)
+/* The house HUD (as Hedgehog Hills, Beaver Rush...): the height in the kit's big digits centred at the top (y 10),
+ * the coins on row 4 and the record on row 6 under it, small cream text over the scene; a power-up running: its icon
+ * and its bar on row 6 instead of the record. The same in landscape (centred on the column) and upright (pinned at the
+ * screen's top, centred in the columns shown). */
+static int hud_mid_x(int narrow) { return narrow ? ht_mid_x() : 160; }
+static void hud_text(const world *w, const view *v, int narrow)
 {
-    hu_panel(0, 1, 8, 6);
-    hu_panel(0, 8, 8, 4);
-    hu_panel(32, 1, 8, 6);
-}
-static void hud_side_text(const world *w, const view *v)
-{
-    char s[16];
-    snprintf(s, sizeof s, "%d", v->best_m > world_height_m(w) ? v->best_m : world_height_m(w));
-    hu_clear_rows(10, 1);
-    hu_panel(0, 8, 8, 4);
-    hu_box_text(7 - hu_width(s, 0), 10, s);
-    int k, left = power_left(&w->h, &k);
+    char s[64];
+    hu_clear_rows(0, HUD_ROWS);
+    rs_strf(s, sizeof s, TR(COINS_N), w->coins);
+    hu_text(narrow ? ht_center(s, 0) : hu_center(s, 0), 4, s);
+    int k, left = power_left(&w->h, &k), mid = hud_mid_x(narrow) / 8;
     if (k) {
-        hu_panel(32, 8, 8, 4);
-        hud_bar(10, 35, 3, left, 256);
-    } else {
-        for (int r = 8; r < 12; r++)
-            for (int c = 32; c < 40; c++) rs_bg_put(RS_BG1, c, r, RS_MAP(0, PAL_UI, 0, 0, 0));
+        hud_bar(6, mid - 2, 5, left, 256);
+    } else if (v->best_m > 0) {
+        rs_strf(s, sizeof s, TR(BEST_M), v->best_m > world_height_m(w) ? v->best_m : world_height_m(w));
+        hu_text(narrow ? ht_center(s, 0) : hu_center(s, 0), 6, s);
     }
 }
-static void hud_side_sprites(const world *w, const view *v)
+static void hud_sprites(const world *w, int narrow)
 {
-    int ux = hu_ui_x();
-    spr(SPR_HUD_UP, ux + 4, 2 * 8 + 4, 3, 0);
-    hu_number(world_height_m(w), 32 + 4, 4 * 8 - 4, 3);
-    spr(SPR_FLAG, ux + 3, 9 * 8 + 4, 3, 0);
-    spr(SPR_HUD_COIN, ux + 33 * 8 - 4, 2 * 8 + 4, 3, 0);
-    hu_number(w->coins, 36 * 8 + 4, 4 * 8 - 4, 3);
-    budget_kit(4 * 8 - 4, 16, 8);
+    int dy = narrow ? rs_screen_top() : 0, mid = hud_mid_x(narrow);
+    hu_number(world_height_m(w), mid, 10 + dy, 3);
+    budget_kit(10 + dy, 16, 5);
     int k;
-    if (power_left(&w->h, &k) && k) spr(item_spr(k), ux + 32 * 8 + 6, 9 * 8 + 4, 3, 0);
-    (void)v;
-}
-
-/* upright: pinned at the screen's top: the height big in the middle, the coins and the record at the sides (clear of
- * the app's corner buttons), the power-up's bar under the height */
-static void hud_top_text(const world *w, const view *v)
-{
-    char s[16];
-    int c0, c1;
-    ht_cols(&c0, &c1);
-    hu_clear_rows(0, HUD_ROWS);
-    hu_panel(c0 - 1, 0, c1 - c0 + 2, HUD_ROWS);                      /* a band behind the HUD, over the climb ahead */
-    snprintf(s, sizeof s, "%d", w->coins);
-    hu_box_text(c0 + 2, 3, s);
-    snprintf(s, sizeof s, "%d", v->best_m > world_height_m(w) ? v->best_m : world_height_m(w));
-    hu_box_text(c1 - 1 - hu_width(s, 0), 3, s);
-    int k, left = power_left(&w->h, &k);
-    if (k) hud_bar(4, (c0 + c1) / 2 - 2, 4, left, 256);
-}
-static void hud_top_sprites(const world *w, int narrow)
-{
-    int c0, c1, top = rs_screen_top();
-    ht_cols(&c0, &c1);
-    int ux = hu_ui_x();
-    hu_number(world_height_m(w), ht_mid_x(), top + 6, 3);
-    budget_kit(top + 6, 16, 5);
-    spr(SPR_HUD_COIN, ux + c0 * 8 + 4, top + 3 * 8, 3, 0);
-    char s[16];
-    snprintf(s, sizeof s, "%d", w->best_m > world_height_m(w) ? w->best_m : world_height_m(w));
-    spr(SPR_FLAG, ux + (c1 - 3 - hu_width(s, 0)) * 8 + 2, top + 3 * 8 - 6, 3, 0);
-    int k;
-    if (power_left(&w->h, &k) && k) spr(item_spr(k), ux + ((c0 + c1) / 2 - 5) * 8, top + 4 * 8 - 4, 3, 0);
-    (void)narrow;
+    if (power_left(&w->h, &k) && k) spr(item_spr(k), hu_ui_x() + (mid / 8 - 5) * 8, 6 * 8 - 4 + dy, 3, 0);
 }
 
 /* ---- the panels ------------------------------------------------------------------------------------------------------- */
@@ -726,17 +684,16 @@ void draw_frame(const world *w, const view *v)
         } else if (over) {
             results_panel(w, v, narrow);
         } else {
-            if (narrow) hud_top_text(w, v);
-            else { hud_side_bg(); hud_side_text(w, v); }
+            hud_text(w, v, narrow);
             if (banner_t) {
                 static const int zk[ZONES] = {GS_ZONE_GARDEN, GS_ZONE_CLOUDS, GS_ZONE_SKY, GS_ZONE_SPACE};
                 const char *s = banner_kind == 10 ? HTR(NEW_BEST_EXCL) : rs_tr(&gs_strings, zk[banner_kind & 3]);
                 if (narrow) ht_big(9, s, HU_BIG_FREE);
-                else hu_big(hu_center(s, 1), 7, s, HU_BIG_FREE);
+                else hu_big(hu_center(s, 1), 9, s, HU_BIG_FREE);
             }
             if (v->first_run && w->t < 6 * SEC && !v->paused && !banner_t) {
                 const char *a = v->touch ? TR(HINT_TOUCH) : TR(HINT_PAD), *b = v->touch ? TR(HINT_TOUCH2) : TR(HINT_SHOOT);
-                if (narrow) { int r = ht_text_gap(7, a, 0, 1); ht_text_gap(r + 2 + hu_tall(b), b, 0, 1); }
+                if (narrow) { int r = ht_text_gap(9, a, 0, 1); ht_text_gap(r + 2 + hu_tall(b), b, 0, 1); }
                 else { hu_text(hu_center(a, 0), 18, a); hu_text(hu_center(b, 0), 20, b); }
             }
             if (v->paused) {
@@ -836,8 +793,7 @@ void draw_frame(const world *w, const view *v)
         return;
     }
     /* the HUD's sprites */
-    if (narrow) hud_top_sprites(w, narrow);
-    else hud_side_sprites(w, v);
+    hud_sprites(w, narrow);
     draw_parts(cam);
     draw_hero(w, cam, v->hat);
     draw_world_bits(w, cam);
