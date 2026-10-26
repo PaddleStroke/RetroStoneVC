@@ -6,9 +6,10 @@ apps/android/store/retrostone/screenshots/<en|fr|de>/NN-<what>.png.
     python3 apps/android/store/tools/store_shots_retrostone.py [--no-build]
 
 It builds the app first in its own folder (make -f apps/boardgames/Makefile host B=build/retrostone-store
-EDITION=retrostone: the Arcade tab too). The board games' pictures are the app's screen at 1080 x 1920 (9:16, a phone
-held upright), the Arcade game's at 1920 x 1080 (16:9: the app turns to landscape for it), the app's own layout at
-that size, no caption. The menus, the Stats page and the Arcade tab show the app as it is: free, nothing locked.
+EDITION=retrostone: the Arcade tab too). Every picture is the app's screen at 1080 x 1920 (9:16, a phone held
+upright; an Arcade game with a tall screen, as Beaver Rush, plays upright too; WIDE, 1920 x 1080, for one that turns
+the phone to landscape), the app's own layout at that size, no caption. The menus and the Arcade tab show the app as
+it is: free, nothing locked.
 MIT licence, (c) 2026 Pierre-Louis Boyer (8BCraft).
 """
 import argparse
@@ -27,17 +28,19 @@ UPRIGHT, WIDE = "1080x1920", "1920x1080"
 LANGS = ("en", "fr", "de")
 
 # what to show: (file name, size, the picture mode's arguments)
+# (the owner's list, 26 October 2026: three menus, then the games)
 SHOTS = [
-    ("01-menu", UPRIGHT, ["--tab", "4"]),                                        # the Cards and tiles tab
-    ("02-chess", UPRIGHT, SB.CHESS),
+    ("01-puzzles", UPRIGHT, ["--tab", "0"]),                                     # the menu: the Puzzles tab
+    ("02-strategy", UPRIGHT, ["--tab", "1"]),                                    # the Strategy tab
     ("03-arcade", UPRIGHT, ["--tab", "6"]),                                      # the Arcade tab
-    # mid-play: the coconut in the air, the shells still up (later, the round ends on its GAME OVER card)
-    ("04-arcade-game", WIDE, ["--game", "arcade_crabcoconut", "--at", "2500", "--pad", "START@60"]),
-    ("05-belote", UPRIGHT, ["--game", "belote", "--seed", "3", "--moves", "p p p t Qd Td Kd 7d Ah 8h Js",
-                            "--bots", "1:m,2:m,3:m"]),
-    ("06-mahjong", UPRIGHT, ["--game", "mahjong", "--seed", "2", "--moves", "=12"]),
-    ("07-nonograms", UPRIGHT, ["--game", "nonogram", "--pick", "--solved", "1-14 15-16:2 17:1"]),
-    ("08-stats", UPRIGHT, ["--page", "stats", "--stats-demo"]),
+    # a trick on the table, the 1898 trumps in the hand: the device plays every seat 30 moves, the hand shown
+    ("04-tarot", UPRIGHT, ["--game", "tarot", "--seed", "3", "--bots", "all:m", "--steps", "30", "--reveal"]),
+    ("05-chess", UPRIGHT, SB.CHESS),
+    # upright (the game's tall screen, 320 x 440: the whole trunk); mid-run: one chop made, the timer bar running
+    # (blind taps meet a branch soon: the GAME OVER card)
+    ("06-beaverrush", UPRIGHT, ["--game", "arcade_beaverrush", "--at", "5000", "--pad", "START@60 RIGHT@120"]),
+    ("07-mahjong", UPRIGHT, ["--game", "mahjong", "--seed", "2", "--moves", "=12"]),
+    ("08-rollblock", UPRIGHT, ["--game", "rollblock", "--pick", "--solved", "1-14 15-16:2 17:1"]),   # its levels
 ]
 
 
