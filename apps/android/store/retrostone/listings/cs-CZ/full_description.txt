@@ -1,0 +1,41 @@
+RetroStone spojuje v jedné bezplatné aplikaci deskové a karetní hry a hlavolamy u zeleného stolu (šachy, go, vrhcáby, mahjong, solitér, belote, bridž, sudoku, malované křížovky…) a arkády v pixel artu, vytvořené pro dotykovou obrazovku: celkem 253. Bez reklam, nic zamčeného: každá hra a každá úroveň je zdarma.
+
+HRY
+• Hlavolamy (52): Třídění kuliček · Třídění vody · Bloky · Skládačka · Miny · Trubky · Patnáctka · Tangram · Najdi rozdíly · Šachové úlohy a další
+• Logické hry (38): Sudoku · Malované křížovky · Součtové sudoku · Kakuro · Calcudoku · Binairo · Star Battle · Mosty · Stany · Futoshiki a další
+• Strategie (37): Dáma · Go · Reversi · Čtyři v řadě · Mankala · Mlýn · Gomoku · Čínská dáma · Hex · Kulečník a další
+• Šachová rodina (7): Banqi · Džungle · Janggi · Makruk · Šachy · Šógi · Xiangqi
+• Kostky a závody (15): Vrhcáby · Člověče, nezlob se · Yacht · Farkle · Hadi a žebříky · Královská hra z Uru · Zavři krabici · Lhářské kostky a další
+• Karty a kameny (59): Klondike · Pavouk · Volná pole · Mahjong · Mahjong solitér · Srdce · Piky · Belote · Bridž · Francouzský tarot · Gin rummy · Kanasta a další
+• Hádanky (8): Dvojice · Lodě · Mapový kvíz · Nakresli a hádej · Špion · Tajemná tvář · Tajný kód · Vlkodlaci
+• Arkády (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+ARKÁDY
+• Arkády v pixel artu pro dotykovou obrazovku (37), od her na jeden prst po plošinovky
+• Tvůj rekord se ukládá a každá rozehraná hra na tebe počká
+• Fungují i herní ovladače: až 4 hráči v některých hrách
+
+SPOLU, NEBO PROTI ZAŘÍZENÍ
+• S přáteli na jednom zařízení, které jde z ruky do ruky: 2 až 6 hráčů podle hry
+• Nebo nech zařízení obsadit místa, ve třech úrovních (lehká, střední, těžká): v 103 z 110 her pro dva a více hráčů
+• Tváří v tvář: polož telefon nebo tablet naplocho mezi sebe a figurky horního hráče se otočí k němu
+• Karetní hry drží každou ruku v tajnosti: clona zakryje karty, zatímco zařízení putuje k dalšímu hráči
+• Vrácení tahu, otočení desky, na výšku i na šířku a pravidla každé hry na jedno klepnutí
+
+HLAVOLAMY A ÚROVNĚ
+• 101 hlavolamů a solitérů s pečlivě navrženými úrovněmi, většinou 150: přes 14 000 úrovní
+• Až 3 hvězdičky za úroveň a nápověda, když se zasekneš
+• Pak náhodné hlavolamy bez konce
+
+KAŽDÝ DEN
+• Série dní, zkušenosti, úrovně a úspěchy a tvůj postup v každé záložce
+• Světlý nebo tmavý motiv a hledání, které najde každou hru podle názvu
+
+ZDARMA, BEZ REKLAM
+• Všechny hry a všechny úrovně zdarma: bez reklam, nic zamčeného, bez účtu
+• Otevřený zdrojový kód: celý kód je volně na GitHubu
+• Žádná data se nesbírají; funguje offline
+• 22 jazyků
+• Líbí se ti? Dobrovolné spropitné v nastavení pomáhá vzniku nových her
+
+Vytvořil 8BCraft.

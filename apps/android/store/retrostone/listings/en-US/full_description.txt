@@ -1,0 +1,41 @@
+RetroStone gathers 253 games in one free app: 216 board, card and puzzle games around a green table (chess, go, backgammon, mahjong, solitaire, belote, bridge, sudoku, nonograms...) and 37 pixel-art arcade games made for the touch screen. No ads, nothing locked: every game and every level is free.
+
+THE GAMES
+• Puzzles (52): Ball Sort · Water Sort · Block Puzzle · Jigsaw · Mines · Pipes · 15 Puzzle · Tangram · Spot the Difference · Chess Puzzles and 42 more
+• Logic (38): Sudoku · Nonograms · Killer Sudoku · Kakuro · Calcudoku · Binairo · Star Battle · Bridges · Tents · Futoshiki and 28 more
+• Strategy (37): Draughts · Go · Reversi · Four in a Row · Mancala · Nine Men's Morris · Gomoku · Chinese Checkers · Hex · Pool and 27 more
+• Chess family (7): Banqi · Chess · Janggi · Jungle · Makruk · Shogi · Xiangqi
+• Dice and race games (15): Backgammon · Ludo · Yacht · Farkle · Snakes and Ladders · Royal Game of Ur · Shut the Box · Liar's Dice and 7 more
+• Cards and tiles (59): Solitaire · Spider · Free Cells · Mahjong · Mahjong Solitaire · Hearts · Spades · Belote · Bridge · French Tarot · Gin Rummy · Canasta and 47 more
+• Guessing games (8): Draw and Guess · Map Quiz · Mystery Face · Pairs · Sea Battle · Secret Code · The Spy · Werewolves
+• Arcade (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+THE ARCADE
+• 37 pixel-art arcade games made for the touch screen, from one-finger games to platformers
+• Your best score is kept, and every game waits where you left it
+• Gamepads work too: up to 4 players in some games
+
+PLAY TOGETHER, OR AGAINST THE DEVICE
+• Friends on one device, passed from hand to hand: 2 to 6 players, depending on the game
+• Or let the device take seats, at three levels (easy, medium, hard): in 103 of the 110 games for two or more
+• Face to face: lay the phone or tablet flat between you, and the top player's pieces turn to face them
+• Card games keep every hand secret: a cover hides the cards while the device goes to the next player
+• Undo, turn the board round, portrait or landscape, and each game's rules a tap away
+
+PUZZLES AND LEVELS
+• 101 puzzles and solitaire games with hand-made levels, 150 for most of them: over 14,000 levels
+• Up to 3 stars per level, and a hint when you are stuck
+• Then random puzzles without end
+
+EVERY DAY
+• A daily streak, experience, levels and achievements, and your progress in every tab
+• Light or dark theme, and a search to find any game by its name
+
+FREE, WITH NO ADS
+• Every game and every level, free: no ads, nothing locked, no account
+• Open source: the whole code is on GitHub, free to read
+• No data collected; it plays offline
+• 22 languages
+• Like it? An optional tip in the settings helps make new games
+
+Made by 8BCraft.

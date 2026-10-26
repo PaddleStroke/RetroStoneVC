@@ -1,0 +1,41 @@
+RetroStone mengumpulkan 253 game dalam satu aplikasi gratis: 216 game papan, kartu, dan teka-teki di sekitar meja hijau (catur, go, backgammon, mahjong, solitaire, belote, bridge, sudoku, nonogram…) dan 37 game arcade bergaya pixel art yang dibuat untuk layar sentuh. Tanpa iklan, tanpa yang terkunci: setiap game dan setiap level gratis.
+
+GAME-NYA
+• Teka-teki (52): Urutkan Bola · Urutkan Air · Teka-teki Balok · Puzzle Gambar · Ranjau · Pipa · Teka-teki 15 · Tangram · Cari Perbedaan · Teka-teki catur dan 42 lainnya
+• Teka-teki logika (38): Sudoku · Nonogram · Sudoku Killer · Kakuro · Calcudoku · Binairo · Star Battle · Jembatan · Tenda · Futoshiki dan 28 lainnya
+• Strategi (37): Dam · Go · Reversi · Empat Sejajar · Mancala · Sembilan Bidak · Gomoku · Dam Cina · Hex · Biliar dan 27 lainnya
+• Keluarga catur (7): Banqi · Catur · Janggi · Makruk · Rimba · Shogi · Xiangqi
+• Dadu dan balapan (15): Backgammon · Ludo · Yacht · Farkle · Ular Tangga · Permainan Kerajaan Ur · Shut the Box · Dadu Pembohong dan 7 lainnya
+• Kartu dan ubin (59): Solitaire · Spider · Sel Bebas · Mahjong · Mahjong Solitaire · Hati · Sekop · Belote · Bridge · Tarot Prancis · Gin Rummy · Canasta dan 47 lainnya
+• Permainan tebak-tebakan (8): Cari Pasangan · Gambar dan Tebak · Kode Rahasia · Kuis Peta · Manusia serigala · Mata-mata · Perang Laut · Wajah Misterius
+• Arkade (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+ARCADE
+• 37 game arcade pixel art untuk layar sentuh, dari game satu jari sampai game platform
+• Skor terbaikmu disimpan, dan setiap game menunggu di tempat kamu berhenti
+• Gamepad juga bisa: sampai 4 pemain di beberapa game
+
+BERSAMA, ATAU MELAWAN PERANGKAT
+• Bersama teman di satu perangkat yang berpindah tangan: 2 sampai 6 pemain, tergantung game-nya
+• Atau biarkan perangkat mengisi kursi, dengan tiga tingkat (mudah, sedang, sulit): di 103 dari 110 game untuk dua orang atau lebih
+• Berhadapan: letakkan ponsel atau tablet mendatar di antara kalian, dan bidak pemain di atas berputar menghadapnya
+• Game kartu menjaga setiap tangan tetap rahasia: layar penutup menyembunyikan kartu saat perangkat berpindah ke pemain berikutnya
+• Batalkan langkah, putar papan, potret atau lanskap, dan aturan setiap game cukup satu ketukan
+
+TEKA-TEKI DAN LEVEL
+• 101 teka-teki dan solitaire dengan level yang dirancang satu per satu, kebanyakan 150: lebih dari 14.000 level
+• Hingga 3 bintang per level, dan petunjuk saat kamu buntu
+• Lalu teka-teki acak tanpa akhir
+
+SETIAP HARI
+• Rentetan harian, poin pengalaman, level dan pencapaian, serta kemajuanmu di setiap tab
+• Tema terang atau gelap, dan pencarian untuk menemukan game apa pun lewat namanya
+
+GRATIS, TANPA IKLAN
+• Semua game dan semua level gratis: tanpa iklan, tanpa yang terkunci, tanpa akun
+• Sumber terbuka: seluruh kodenya ada di GitHub, bebas dibaca
+• Tidak ada data yang dikumpulkan; bisa dimainkan offline
+• 22 bahasa
+• Suka? Tip sukarela di pengaturan membantu membuat game baru
+
+Dibuat oleh 8BCraft.

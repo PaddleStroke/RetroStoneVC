@@ -1,0 +1,41 @@
+RetroStone bundelt 253 spellen in één gratis app: 216 bord-, kaart- en puzzelspellen rond een groene speltafel (schaken, go, backgammon, mahjong, patience, belote, bridge, sudoku, nonogrammen…) en 37 arcadespellen in pixelart, gemaakt voor het touchscreen. Geen advertenties, niets op slot: elk spel en elk level is gratis.
+
+DE SPELLEN
+• Puzzels (52): Ballen sorteren · Water sorteren · Blokpuzzel · Legpuzzel · Mijnen · Buizen · Vijftienpuzzel · Tangram · Zoek de verschillen · Schaakpuzzels en nog 42
+• Logicapuzzels (38): Sudoku · Nonogrammen · Killersudoku · Kakuro · Calcudoku · Binairo · Star Battle · Bruggen · Tenten · Futoshiki en nog 28
+• Strategie (37): Dammen · Go · Reversi · Vier in een rij · Mancala · Molenspel · Gomoku · Chinees dammen · Hex · Pool en nog 27
+• De schaakfamilie (7): Banqi · Janggi · Jungleschaak · Makruk · Schaken · Shogi · Xiangqi
+• Dobbel- en racespellen (15): Backgammon · Ludo · Yacht · 10.000 · Slangen en ladders · Koninklijk spel van Ur · Shut the Box · Leugenaarsdobbelen en nog 7
+• Kaarten en stenen (59): Patience · Spider · Vrije cellen · Mahjong · Mahjong solitaire · Hartenjagen · Schoppen · Belote · Bridge · Frans tarot · Gin rummy · Canasta en nog 47
+• Raadspellen (8): De spion · Geheim gezicht · Geheime code · Kaartquiz · Paren zoeken · Teken en raad · Weerwolven · Zeeslag
+• Arcade (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+DE ARCADE
+• 37 arcadespellen in pixelart, gemaakt voor het touchscreen, van spellen met één vinger tot platformspellen
+• Je beste score wordt bewaard, en elk spel wacht waar je gebleven was
+• Gamepads werken ook: tot 4 spelers in sommige spellen
+
+SAMEN, OF TEGEN HET TOESTEL
+• Met vrienden op één toestel dat van hand tot hand gaat: 2 tot 6 spelers, afhankelijk van het spel
+• Of laat het toestel plaatsen innemen, op drie niveaus (makkelijk, gemiddeld, moeilijk): in 103 van de 110 spellen voor twee of meer
+• Tegenover elkaar: leg de telefoon of tablet plat tussen jullie in, en de stukken van de speler boven draaien naar hem toe
+• Kaartspellen houden elke hand geheim: een scherm bedekt de kaarten terwijl het toestel naar de volgende speler gaat
+• Ongedaan maken, het bord draaien, staand of liggend, en de regels van elk spel met één tik
+
+PUZZELS EN LEVELS
+• 101 puzzels en patiences met zorgvuldig ontworpen levels, meestal 150 per spel: meer dan 14.000 levels
+• Tot 3 sterren per level, en een hint als je vastzit
+• Daarna willekeurige puzzels zonder einde
+
+ELKE DAG
+• Een dagenreeks, ervaringspunten, niveaus en prestaties, en je voortgang in elk tabblad
+• Licht of donker thema, en een zoekfunctie om elk spel op naam te vinden
+
+GRATIS, ZONDER ADVERTENTIES
+• Alle spellen en alle levels gratis: geen advertenties, niets op slot, geen account
+• Open source: alle code staat op GitHub, vrij te lezen
+• Er worden geen gegevens verzameld; werkt offline
+• 22 talen
+• Vind je het leuk? Een vrijwillige fooi in de instellingen helpt nieuwe spellen te maken
+
+Gemaakt door 8BCraft.

@@ -1,0 +1,41 @@
+RetroStone łączy w jednej darmowej aplikacji gry planszowe, karciane i łamigłówki przy zielonym stole (szachy, go, backgammon, mahjong, pasjans, belote, brydż, sudoku, nonogramy…) oraz gry zręcznościowe w pixel arcie, stworzone na ekran dotykowy: łącznie 253. Bez reklam, nic zablokowanego: każda gra i każdy poziom są za darmo.
+
+GRY
+• Łamigłówki (52): Sortowanie kulek · Sortowanie wody · Klocki · Puzzle · Miny · Rury · Piętnastka · Tangram · Znajdź różnice · Zadania szachowe i inne
+• Łamigłówki logiczne (38): Sudoku · Obrazki logiczne · Sudoku z sumami · Kakuro · Calcudoku · Binairo · Star Battle · Mosty · Namioty · Futoshiki i inne
+• Strategia (37): Warcaby · Go · Reversi · Cztery w rzędzie · Mankala · Młynek · Gomoku · Chińskie warcaby · Hex · Bilard i inne
+• Rodzina szachów (7): Banqi · Dżungla · Janggi · Makruk · Shogi · Szachy · Xiangqi
+• Kości i wyścigi (15): Backgammon · Chińczyk · Yacht · Farkle · Węże i drabiny · Królewska gra z Ur · Zamknij pudełko · Kości kłamcy i inne
+• Karty i kamienie (59): Pasjans · Pająk · Wolne komórki · Mahjong · Pasjans mahjong · Kierki · Piki · Belote · Brydż · Tarot francuski · Gin remik · Kanasta i inne
+• Zgadywanki (8): Pary · Quiz z mapą · Rysuj i zgaduj · Statki · Szpieg · Tajemnicza twarz · Tajny kod · Wilkołaki
+• Gry zręcznościowe (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+ARCADE
+• Gry zręcznościowe w pixel arcie na ekran dotykowy (37), od gier na jeden palec po platformówki
+• Twój rekord jest zapisywany, a każda gra czeka w miejscu, w którym ją zostawiono
+• Działają też pady: do 4 graczy w niektórych grach
+
+RAZEM ALBO PRZECIW URZĄDZENIU
+• Ze znajomymi na jednym urządzeniu, podawanym z rąk do rąk: od 2 do 6 graczy, zależnie od gry
+• Albo oddaj miejsca urządzeniu, na trzech poziomach (łatwy, średni, trudny): w 103 z 110 gier dla dwóch lub więcej osób
+• Twarzą w twarz: połóż telefon lub tablet płasko między wami, a pionki gracza u góry obrócą się do niego
+• Gry karciane chronią każdą rękę: zasłona zakrywa karty, gdy urządzenie przechodzi do następnego gracza
+• Cofanie ruchu, obracanie planszy, pion lub poziom, a zasady każdej gry o jedno dotknięcie
+
+ŁAMIGŁÓWKI I POZIOMY
+• 101 łamigłówek i pasjansów z poziomami projektowanymi jeden po drugim, w większości po 150: ponad 14 000 poziomów
+• Do 3 gwiazdek za poziom i podpowiedź, gdy utkniesz
+• Potem losowe łamigłówki bez końca
+
+CODZIENNIE
+• Seria dni, doświadczenie, poziomy i osiągnięcia oraz twoje postępy w każdej zakładce
+• Jasny lub ciemny motyw i wyszukiwarka, która znajdzie każdą grę po nazwie
+
+ZA DARMO, BEZ REKLAM
+• Wszystkie gry i wszystkie poziomy za darmo: bez reklam, nic zablokowanego, bez konta
+• Otwarte źródło: cały kod jest na GitHubie, do swobodnego wglądu
+• Żadne dane nie są zbierane; działa offline
+• 22 języki
+• Podoba ci się? Dobrowolny napiwek w ustawieniach pomaga tworzyć nowe gry
+
+Stworzone przez 8BCraft.

@@ -1,0 +1,41 @@
+RetroStone reúne 253 juegos en una app gratuita: 216 juegos de mesa, de cartas y rompecabezas alrededor de un tapete verde (ajedrez, go, backgammon, mahjong, solitario, belote, bridge, sudoku, nonogramas…) y 37 juegos arcade en pixel art hechos para la pantalla táctil. Sin anuncios y sin nada bloqueado: todos los juegos y todos los niveles son gratis.
+
+LOS JUEGOS
+• Rompecabezas (52): Ordenar las bolas · Ordenar el agua · Bloques · Rompecabezas · Minas · Tuberías · Juego del 15 · Tangram · Encuentra las diferencias · Problemas de ajedrez y 42 más
+• Lógica (38): Sudoku · Nonogramas · Sudoku killer · Kakuro · Calcudoku · Binairo · Star Battle · Puentes · Tiendas · Futoshiki y 28 más
+• Estrategia (37): Damas · Go · Reversi · Cuatro en línea · Mancala · Juego del molino · Gomoku · Damas chinas · Hex · Billar americano y 27 más
+• La familia del ajedrez (7): Ajedrez · Banqi · Janggi · Juego de la selva · Makruk · Shogi · Xiangqi
+• Dados y carreras (15): Backgammon · Ludo · Generala · Diez mil · Serpientes y escaleras · Juego real de Ur · Cierra la caja · Dados mentirosos y 7 más
+• Cartas y fichas (59): Solitario · Spider · Celdas libres · Mahjong · Mahjong solitario · Corazones · Picas · Belote · Bridge · Tarot francés · Gin Rummy · Canasta y 47 más
+• Juegos de adivinar (8): Cara misteriosa · Código secreto · Dibuja y adivina · El espía · Hombres lobo · Hundir la flota · Parejas · Quiz de mapas
+• Arcade (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+EL ARCADE
+• 37 juegos arcade en pixel art hechos para la pantalla táctil, desde juegos de un dedo hasta plataformas
+• Tu mejor puntuación se guarda, y cada partida te espera donde la dejaste
+• También con mando: hasta 4 jugadores en algunos juegos
+
+EN COMPAÑÍA O CONTRA EL DISPOSITIVO
+• Con amigos en un solo dispositivo que pasa de mano en mano: de 2 a 6 jugadores, según el juego
+• O deja que el dispositivo ocupe asientos, en tres niveles (fácil, medio, difícil): en 103 de los 110 juegos para dos o más
+• Cara a cara: deja el móvil o la tableta plano entre los dos, y las piezas del jugador de enfrente se giran hacia él
+• Los juegos de cartas mantienen cada mano en secreto: una pantalla tapa las cartas mientras el dispositivo pasa al siguiente jugador
+• Deshacer, girar el tablero, en vertical u horizontal, y las reglas de cada juego a un toque
+
+ROMPECABEZAS Y NIVELES
+• 101 rompecabezas y solitarios con niveles diseñados uno a uno, 150 en la mayoría: más de 14000 niveles
+• Hasta 3 estrellas por nivel, y una pista cuando te atascas
+• Después, rompecabezas al azar sin fin
+
+CADA DÍA
+• Una racha diaria, experiencia, niveles y logros, y tu progreso en cada pestaña
+• Tema claro u oscuro, y un buscador para encontrar cualquier juego por su nombre
+
+GRATIS, SIN ANUNCIOS
+• Todos los juegos y todos los niveles, gratis: sin anuncios, nada bloqueado, sin cuenta
+• Código abierto: todo el código está en GitHub, libre para leer
+• No recoge ningún dato; funciona sin conexión
+• 22 idiomas
+• ¿Te gusta? Una propina opcional en los ajustes ayuda a crear nuevos juegos
+
+Creado por 8BCraft.

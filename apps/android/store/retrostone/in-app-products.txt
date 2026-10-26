@@ -1,0 +1,271 @@
+RetroStone: the tips, 3 consumable one-time products (Play Console > Monetize > Products > One-time products). Each language: the product's name, then its description. The prices: CHECKLIST-retrostone.md.
+
+######## com.eightbcraft.retrostone.tip1
+
+en-US
+  name: A small tip
+  description: Free and without ads: a tip keeps new games coming.
+
+cs-CZ
+  name: Malé spropitné
+  description: Zdarma a bez reklam: spropitné nám pomáhá tvořit nové hry.
+
+da-DK
+  name: Lidt drikkepenge
+  description: Gratis og uden reklamer: drikkepenge hjælper os med at lave nye spil.
+
+de-DE
+  name: Ein kleines Trinkgeld
+  description: Kostenlos und ohne Werbung: Ein Trinkgeld hilft uns, neue Spiele zu machen.
+
+el-GR
+  name: Ένα μικρό φιλοδώρημα
+  description: Δωρεάν και χωρίς διαφημίσεις: ένα φιλοδώρημα μας βοηθά να φτιάχνουμε νέα παιχνίδια.
+
+es-ES
+  name: Una propina pequeña
+  description: Gratis y sin anuncios: una propina nos ayuda a crear nuevos juegos.
+
+fi-FI
+  name: Pieni juomaraha
+  description: Ilmainen ja mainokseton: juomaraha auttaa meitä tekemään uusia pelejä.
+
+fr-FR
+  name: Un petit pourboire
+  description: Gratuit et sans pub : un pourboire nous aide à créer de nouveaux jeux.
+
+id
+  name: Tip kecil
+  description: Gratis dan tanpa iklan: tip membantu kami membuat permainan baru.
+
+it-IT
+  name: Una piccola mancia
+  description: Gratis e senza pubblicità: una mancia ci aiuta a creare nuovi giochi.
+
+ja-JP
+  name: 小さなチップ
+  description: 無料で広告なし。チップが新しいゲーム作りを支えます。
+
+ko-KR
+  name: 작은 팁
+  description: 무료, 광고 없음: 팁은 새 게임을 만드는 데 도움이 됩니다.
+
+no-NO
+  name: Litt driks
+  description: Gratis og uten reklame: driks hjelper oss å lage nye spill.
+
+nl-NL
+  name: Een kleine fooi
+  description: Gratis en zonder reclame: een fooi helpt ons nieuwe spellen te maken.
+
+pl-PL
+  name: Mały napiwek
+  description: Za darmo i bez reklam: napiwek pomaga nam tworzyć nowe gry.
+
+pt-BR
+  name: Uma gorjeta pequena
+  description: Grátis e sem anúncios: uma gorjeta nos ajuda a criar novos jogos.
+
+pt-PT
+  name: Uma gorjeta pequena
+  description: Grátis e sem anúncios: uma gorjeta ajuda-nos a criar novos jogos.
+
+ru-RU
+  name: Немного чаевых
+  description: Бесплатно и без рекламы: чаевые помогают нам делать новые игры.
+
+sv-SE
+  name: Lite dricks
+  description: Gratis och utan reklam: dricks hjälper oss att göra nya spel.
+
+tr-TR
+  name: Küçük bir bahşiş
+  description: Ücretsiz ve reklamsız: bahşiş yeni oyunlar yapmamıza yardım eder.
+
+uk
+  name: Трохи чайових
+  description: Безкоштовно і без реклами: чайові допомагають нам створювати нові ігри.
+
+zh-CN
+  name: 小小打赏
+  description: 免费且无广告：你的打赏让我们能做出更多新游戏。
+
+######## com.eightbcraft.retrostone.tip2
+
+en-US
+  name: A nice tip
+  description: Free and without ads: a tip keeps new games coming.
+
+cs-CZ
+  name: Pěkné spropitné
+  description: Zdarma a bez reklam: spropitné nám pomáhá tvořit nové hry.
+
+da-DK
+  name: Gode drikkepenge
+  description: Gratis og uden reklamer: drikkepenge hjælper os med at lave nye spil.
+
+de-DE
+  name: Ein schönes Trinkgeld
+  description: Kostenlos und ohne Werbung: Ein Trinkgeld hilft uns, neue Spiele zu machen.
+
+el-GR
+  name: Ένα ωραίο φιλοδώρημα
+  description: Δωρεάν και χωρίς διαφημίσεις: ένα φιλοδώρημα μας βοηθά να φτιάχνουμε νέα παιχνίδια.
+
+es-ES
+  name: Una buena propina
+  description: Gratis y sin anuncios: una propina nos ayuda a crear nuevos juegos.
+
+fi-FI
+  name: Mukava juomaraha
+  description: Ilmainen ja mainokseton: juomaraha auttaa meitä tekemään uusia pelejä.
+
+fr-FR
+  name: Un joli pourboire
+  description: Gratuit et sans pub : un pourboire nous aide à créer de nouveaux jeux.
+
+id
+  name: Tip lumayan
+  description: Gratis dan tanpa iklan: tip membantu kami membuat permainan baru.
+
+it-IT
+  name: Una bella mancia
+  description: Gratis e senza pubblicità: una mancia ci aiuta a creare nuovi giochi.
+
+ja-JP
+  name: ちょっといいチップ
+  description: 無料で広告なし。チップが新しいゲーム作りを支えます。
+
+ko-KR
+  name: 괜찮은 팁
+  description: 무료, 광고 없음: 팁은 새 게임을 만드는 데 도움이 됩니다.
+
+no-NO
+  name: God driks
+  description: Gratis og uten reklame: driks hjelper oss å lage nye spill.
+
+nl-NL
+  name: Een mooie fooi
+  description: Gratis en zonder reclame: een fooi helpt ons nieuwe spellen te maken.
+
+pl-PL
+  name: Fajny napiwek
+  description: Za darmo i bez reklam: napiwek pomaga nam tworzyć nowe gry.
+
+pt-BR
+  name: Uma boa gorjeta
+  description: Grátis e sem anúncios: uma gorjeta nos ajuda a criar novos jogos.
+
+pt-PT
+  name: Uma boa gorjeta
+  description: Grátis e sem anúncios: uma gorjeta ajuda-nos a criar novos jogos.
+
+ru-RU
+  name: Хорошие чаевые
+  description: Бесплатно и без рекламы: чаевые помогают нам делать новые игры.
+
+sv-SE
+  name: Bra dricks
+  description: Gratis och utan reklam: dricks hjälper oss att göra nya spel.
+
+tr-TR
+  name: Güzel bir bahşiş
+  description: Ücretsiz ve reklamsız: bahşiş yeni oyunlar yapmamıza yardım eder.
+
+uk
+  name: Гарні чайові
+  description: Безкоштовно і без реклами: чайові допомагають нам створювати нові ігри.
+
+zh-CN
+  name: 不错的打赏
+  description: 免费且无广告：你的打赏让我们能做出更多新游戏。
+
+######## com.eightbcraft.retrostone.tip3
+
+en-US
+  name: A big tip
+  description: Free and without ads: a tip keeps new games coming.
+
+cs-CZ
+  name: Velké spropitné
+  description: Zdarma a bez reklam: spropitné nám pomáhá tvořit nové hry.
+
+da-DK
+  name: Store drikkepenge
+  description: Gratis og uden reklamer: drikkepenge hjælper os med at lave nye spil.
+
+de-DE
+  name: Ein großes Trinkgeld
+  description: Kostenlos und ohne Werbung: Ein Trinkgeld hilft uns, neue Spiele zu machen.
+
+el-GR
+  name: Ένα μεγάλο φιλοδώρημα
+  description: Δωρεάν και χωρίς διαφημίσεις: ένα φιλοδώρημα μας βοηθά να φτιάχνουμε νέα παιχνίδια.
+
+es-ES
+  name: Una gran propina
+  description: Gratis y sin anuncios: una propina nos ayuda a crear nuevos juegos.
+
+fi-FI
+  name: Iso juomaraha
+  description: Ilmainen ja mainokseton: juomaraha auttaa meitä tekemään uusia pelejä.
+
+fr-FR
+  name: Un gros pourboire
+  description: Gratuit et sans pub : un pourboire nous aide à créer de nouveaux jeux.
+
+id
+  name: Tip besar
+  description: Gratis dan tanpa iklan: tip membantu kami membuat permainan baru.
+
+it-IT
+  name: Una grande mancia
+  description: Gratis e senza pubblicità: una mancia ci aiuta a creare nuovi giochi.
+
+ja-JP
+  name: 大きなチップ
+  description: 無料で広告なし。チップが新しいゲーム作りを支えます。
+
+ko-KR
+  name: 큰 팁
+  description: 무료, 광고 없음: 팁은 새 게임을 만드는 데 도움이 됩니다.
+
+no-NO
+  name: Stor driks
+  description: Gratis og uten reklame: driks hjelper oss å lage nye spill.
+
+nl-NL
+  name: Een grote fooi
+  description: Gratis en zonder reclame: een fooi helpt ons nieuwe spellen te maken.
+
+pl-PL
+  name: Duży napiwek
+  description: Za darmo i bez reklam: napiwek pomaga nam tworzyć nowe gry.
+
+pt-BR
+  name: Uma gorjeta grande
+  description: Grátis e sem anúncios: uma gorjeta nos ajuda a criar novos jogos.
+
+pt-PT
+  name: Uma gorjeta grande
+  description: Grátis e sem anúncios: uma gorjeta ajuda-nos a criar novos jogos.
+
+ru-RU
+  name: Щедрые чаевые
+  description: Бесплатно и без рекламы: чаевые помогают нам делать новые игры.
+
+sv-SE
+  name: Stor dricks
+  description: Gratis och utan reklam: dricks hjälper oss att göra nya spel.
+
+tr-TR
+  name: Büyük bir bahşiş
+  description: Ücretsiz ve reklamsız: bahşiş yeni oyunlar yapmamıza yardım eder.
+
+uk
+  name: Щедрі чайові
+  description: Безкоштовно і без реклами: чайові допомагають нам створювати нові ігри.
+
+zh-CN
+  name: 大方打赏
+  description: 免费且无广告：你的打赏让我们能做出更多新游戏。

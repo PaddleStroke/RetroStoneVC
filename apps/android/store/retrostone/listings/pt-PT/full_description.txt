@@ -1,0 +1,41 @@
+O RetroStone reúne 253 jogos numa app gratuita: 216 jogos de tabuleiro, de cartas e quebra-cabeças à volta de uma mesa verde (xadrez, go, gamão, mahjong, solitário, belote, bridge, sudoku, nonogramas…) e 37 jogos arcade em pixel art feitos para o ecrã tátil. Sem anúncios, nada bloqueado: todos os jogos e todos os níveis são grátis.
+
+OS JOGOS
+• Quebra-cabeças (52): Ordenar as bolas · Ordenar a água · Blocos · Puzzle · Minas · Canos · Jogo do 15 · Tangram · Descobre as Diferenças · Problemas de xadrez e mais 42
+• Lógica (38): Sudoku · Nonogramas · Sudoku killer · Kakuro · Calcudoku · Binairo · Star Battle · Pontes · Tendas · Futoshiki e mais 28
+• Estratégia (37): Damas · Go · Reversi · Quatro em linha · Mancala · Jogo do moinho · Gomoku · Damas chinesas · Hex · Bilhar e mais 27
+• A família do xadrez (7): Banqi · Janggi · Makruk · Selva · Shogi · Xadrez · Xiangqi
+• Dados e corridas (15): Gamão · Ludo · Yacht · Farkle · Cobras e Escadas · Jogo Real de Ur · Fecha a caixa · Dados mentirosos e mais 7
+• Cartas e peças (59): Solitário · Spider · Células livres · Mahjong · Paciência Mahjong · Copas · Espadas · Belote · Bridge · Tarot francês · Gin Rummy · Canasta e mais 47
+• Jogos de adivinhação (8): Batalha naval · Código secreto · Desenha e adivinha · Lobisomens · O espião · Pares · Quiz de mapas · Rosto misterioso
+• Arcade (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+O ARCADE
+• 37 jogos arcade em pixel art feitos para o ecrã tátil, de jogos de um dedo a jogos de plataformas
+• O teu recorde fica guardado, e cada partida espera por ti onde a deixaste
+• Os comandos também funcionam: até 4 jogadores em alguns jogos
+
+COM AMIGOS OU CONTRA O DISPOSITIVO
+• Com amigos num só dispositivo, passado de mão em mão: de 2 a 6 jogadores, conforme o jogo
+• Ou deixa o dispositivo ocupar lugares, em três níveis (fácil, médio, difícil): em 103 dos 110 jogos para dois ou mais
+• Frente a frente: pousa o telemóvel ou o tablet entre os dois, e as peças do jogador de cima viram-se para ele
+• Os jogos de cartas mantêm cada mão em segredo: um ecrã tapa as cartas enquanto o dispositivo passa ao jogador seguinte
+• Anular, rodar o tabuleiro, na vertical ou na horizontal, e as regras de cada jogo à distância de um toque
+
+QUEBRA-CABEÇAS E NÍVEIS
+• 101 quebra-cabeças e solitários com níveis criados um a um, 150 na maioria: mais de 14 000 níveis
+• Até 3 estrelas por nível, e uma pista quando ficas preso
+• Depois, quebra-cabeças aleatórios sem fim
+
+TODOS OS DIAS
+• Uma sequência de dias, experiência, níveis e conquistas, e o teu progresso em cada separador
+• Tema claro ou escuro, e uma pesquisa para encontrar qualquer jogo pelo nome
+
+GRÁTIS, SEM ANÚNCIOS
+• Todos os jogos e todos os níveis, grátis: sem anúncios, nada bloqueado, sem conta
+• Código aberto: todo o código está no GitHub, livre para ler
+• Nenhum dado recolhido; funciona offline
+• 22 idiomas
+• Gostas? Uma gorjeta opcional nas definições ajuda a criar novos jogos
+
+Criado por 8BCraft.

@@ -37,11 +37,12 @@ CONF   ?= apps/android/app-$(EDITION).conf
 $(if $(wildcard $(CONF)),,$(error no edition $(EDITION): $(CONF) is missing))
 EXE_NAME := $(shell sed -n 's/^EXE_NAME=//p' $(CONF))
 ED     := $(GEN)/edition.c
-# the in-app purchase's backend (apps/common/iap.h): none here (iap_none.c: the edition decides, the panel links to
-# the paid app); IAP=1 in the .conf: Google Play Billing (apps/common/iap_play.c, a slot not written yet:
-# apps/common/README.md). The iOS app (apps/ios) builds apps/ios/common/iap_storekit.swift instead.
-IAP_SRC := apps/common/$(if $(filter 1,$(shell sed -n 's/^IAP=//p' $(CONF))),iap_play.c,iap_none.c)
-$(if $(wildcard $(IAP_SRC)),,$(error $(CONF) says IAP=1: $(IAP_SRC) (Google Play Billing) is not written yet))
+# the in-app purchase's backend (apps/common/iap.h): none on the desktop (iap_none.c: the edition decides, the panel
+# links to the paid app, no tips); IAP=1 in the .conf: Google Play Billing in the Android build (apps/common/iap_play.c
+# and its Java class, apps/common/README.md; SRC_ANDROID below). The iOS app (apps/ios) builds
+# apps/ios/common/iap_storekit.swift instead.
+IAP_SRC := apps/common/iap_none.c
+IAP_ANDROID := apps/common/$(if $(filter 1,$(shell sed -n 's/^IAP=//p' $(CONF))),iap_play.c,iap_none.c)
 # the AI kit and the bots' registry (no SDL: the tests link them); ai_worker.c runs a bot on a thread (SDL)
 AI_SRC := $(D)/src/ai.c $(D)/src/bots.c
 SRC    := $(D)/src/shell.c $(D)/src/pages.c $(D)/src/stats.c $(D)/src/save.c $(D)/src/sound.c $(D)/src/art.c $(wildcard $(D)/src/card*.c) \
@@ -158,7 +159,8 @@ $(AB)/obj/%.o: %.c $(HDR)
 	@mkdir -p $(@D)
 	$(NDK_CC) $(CFLAGS) $(ARC_DEF) -fPIC -I$(SDL_SRC)/include -c -o $@ $<
 
-$(AB)/libmain.so: $(patsubst %.c,$(AB)/obj/%.o,$(SRC) $(ARC_DATA)) $(call arc_deps,android-$(ABI))
+SRC_ANDROID = $(patsubst $(IAP_SRC),$(IAP_ANDROID),$(SRC))
+$(AB)/libmain.so: $(patsubst %.c,$(AB)/obj/%.o,$(SRC_ANDROID) $(ARC_DATA)) $(call arc_deps,android-$(ABI))
 	$(NDK_CC) -shared -o $@ $(filter %.o,$^) $(if $(ARCADE),$(ARC_G0) $(ARC)/android-$(ABI)/libarcade_core.a \
 	    $(ARC)/android-$(ABI)/librs.a $(ARC_G1)) -Wl,-soname,libmain.so -Wl,--no-undefined \
 	    -Wl,-z,max-page-size=16384 -Wl,--build-id=sha1 -Lbuild/android/sdl2/libs/$(ABI) -lSDL2 -llog -landroid -lm

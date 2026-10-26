@@ -118,7 +118,7 @@ def _shadowed(im, picture, cx, cy, deg=0.0, shadow=0.5):
     im.alpha_composite(layer)
 
 
-def board_icon(art):
+def board_icon(art, die=True):
     """RetroStone Board: TILE x TILE, RGBA. The gold frame around the app's green table (lighter in the middle, as
     the app draws it), on it a card (the ace of hearts), a die and the white knight: the app's own pictures (art: a
     folder with knight.png, die.png, card.png, from apps/boardgames/android/icon_art.c)"""
@@ -132,17 +132,43 @@ def board_icon(art):
     im.paste(felt, (0, 0), mask.resize((TILE, TILE), Image.LANCZOS))
     load = lambda n: Image.open(os.path.join(art, n)).convert("RGBA")  # noqa: E731
     _shadowed(im, load("card.png"), 322, 190, -14, 0.55)
-    _shadowed(im, load("die.png"), 356, 366, 16, 0.6)
+    if die:
+        _shadowed(im, load("die.png"), 356, 366, 16, 0.6)
     _shadowed(im, load("knight.png"), 182, 258, 0, 0.6)
     return im
 
 
-def store_icon(games, full=False, art=None):
+def arcade_screen(hero, zoom=4, bez=11):
+    """an Arcade hero's close-up (its launcher card's pixels, at exactly zoom x) on a little screen in a dark bezel,
+    RGBA: for retrostone_icon and the store's feature graphic"""
+    cx, cy = HEROES[hero]
+    a = Image.fromarray(cards.source(hero, cards.read_table()).astype(np.uint8), "RGB")
+    s = HERO * zoom
+    face = a.crop((cx, cy, cx + HERO, cy + HERO)).resize((s, s), Image.NEAREST).convert("RGBA")
+    big = Image.new("RGBA", ((s + 2 * bez) * SS, (s + 2 * bez) * SS), (0, 0, 0, 0))
+    _rounded(s + 2 * bez, (0, 0, s + 2 * bez - 1, s + 2 * bez - 1), 18, OUT + (255,), big)
+    _rounded(s + 2 * bez, (3, 3, s + 2 * bez - 4, s + 2 * bez - 4), 15, (58, 52, 84, 255), big)
+    screen = big.resize((s + 2 * bez, s + 2 * bez), Image.LANCZOS)
+    mask = _rounded(s, (0, 0, s - 1, s - 1), 8, 255, Image.new("L", (s * SS, s * SS), 0))
+    screen.paste(face, (bez, bez), mask.resize((s, s), Image.LANCZOS))
+    return screen
+
+
+def retrostone_icon(art, hero="crabcoconut"):
+    """RetroStone (ICON_STYLE=retrostone: the board games and the Arcade in one app): TILE x TILE, RGBA. RetroStone
+    Board's table, card and knight, and in the die's place an Arcade hero on its little screen (arcade_screen), laid
+    on the table like the others"""
+    im = board_icon(art, die=False)
+    _shadowed(im, arcade_screen(hero), 340, 340, 9, 0.6)
+    return im
+
+
+def store_icon(games, full=False, art=None, style="board"):
     """the 512 x 512 store icon: the tile on its colour (Google Play rounds the corners itself); art: RetroStone
-    Board's pictures (board_icon)"""
+    Board's pictures (board_icon, or retrostone_icon with style="retrostone")"""
     bg = TABLE if art else RUBY if full else NAVY
     store = Image.new("RGBA", (512, 512), bg + (255,))
-    t = board_icon(art) if art else tile_icon(games, full)
+    t = (retrostone_icon(art) if style == "retrostone" else board_icon(art)) if art else tile_icon(games, full)
     store.alpha_composite(t, (16, 16))
     return store.convert("RGB")
 
@@ -152,13 +178,15 @@ def main():
     ap.add_argument("--conf", required=True)
     ap.add_argument("--res", required=True)
     ap.add_argument("--store")
-    ap.add_argument("--art", help="ICON_STYLE=board: the folder of the app's pictures (knight.png, die.png, card.png)")
+    ap.add_argument("--art", help="ICON_STYLE=board or retrostone: the folder of the app's pictures (knight.png, "
+                                  "die.png, card.png)")
     a = ap.parse_args()
     games, full = conf_games(a.conf)
-    board = read_conf(a.conf).get("ICON_STYLE") == "board"
+    style = read_conf(a.conf).get("ICON_STYLE")
+    board = style in ("board", "retrostone")
     if board and not a.art:
-        ap.error("ICON_STYLE=board needs --art")
-    icon = board_icon(a.art) if board else tile_icon(games, full)
+        ap.error(f"ICON_STYLE={style} needs --art")
+    icon = (retrostone_icon(a.art) if style == "retrostone" else board_icon(a.art)) if board else tile_icon(games, full)
     bg = TABLE if board else RUBY if full else NAVY
     dens = {"mdpi": 1, "hdpi": 1.5, "xhdpi": 2, "xxhdpi": 3, "xxxhdpi": 4}
     for name, k in dens.items():
@@ -185,7 +213,7 @@ def main():
                 '    <color name="ic_launcher_background">#%02x%02x%02x</color>\n</resources>\n' % bg)
     if a.store:
         os.makedirs(os.path.dirname(a.store), exist_ok=True)
-        store_icon(games, full, a.art if board else None).save(a.store)
+        store_icon(games, full, a.art if board else None, style).save(a.store)
 
 
 if __name__ == "__main__":

@@ -15,6 +15,10 @@ def out = new File(System.getenv("RSA_OUT") ?: new File(repo, "build/android/fre
 def sdlJava = new File(repo, "build/deps/src/SDL2-2.32.10/android-project/app/src/main/java")
 def appJava = conf.getProperty('JAVA_SRC') ? new File(repo, conf.getProperty('JAVA_SRC')) : file('src/main/java')
 def playReview = conf.getProperty('PLAY_REVIEW', '1') == '1'
+// IAP=1: the in-app purchases through Google Play Billing (the RetroStone app's tips): the Java class beside the
+// native side (apps/common/iap_play.c, which apps/boardgames/Makefile builds on the same key) and the library
+def iap = conf.getProperty('IAP', '0') == '1'
+def iapJava = new File(repo, "apps/common/android/java")
 // the build output stays out of the sources: build/android/<free|full>/gradle/app
 layout.buildDirectory = new File(out, "gradle/app")
 
@@ -51,7 +55,7 @@ android {
     }
     sourceSets {
         main {
-            java.srcDirs = [appJava, sdlJava]
+            java.srcDirs = [appJava, sdlJava] + (iap ? [iapJava] : [])
             jniLibs.srcDirs = [new File(out, "jniLibs")]
             res.srcDirs += [new File(out, "res")]
         }
@@ -89,4 +93,8 @@ dependencies {
     // the app's Credits & licences (apps/launcher/tools/gen_credits.py, PLAY_REVIEW: keep the version there in step)
     // (the Arcade apps only: PLAY_REVIEW=0 leaves it out, RetroStone Board)
     if (playReview) implementation 'com.google.android.play:review:2.0.2'
+    // the Google Play Billing Library (com.eightbcraft.iap.Billing), under the Android SDK License Agreement; it
+    // brings Play services, Google's data transport and AndroidX libraries: in the app's licences
+    // (apps/boardgames/tools/gen_arcade.py, PLAY_BILLING: keep the version there in step)
+    if (iap) implementation 'com.android.billingclient:billing:9.1.0'
 }

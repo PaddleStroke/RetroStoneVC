@@ -1,0 +1,41 @@
+RetroStone, 253 oyunu tek bir ücretsiz uygulamada toplar: yeşil bir masanın etrafında 216 masa, kart ve bulmaca oyunu (satranç, go, tavla, mahjong, solitaire, belot, briç, sudoku, nonogram…) ve dokunmatik ekran için yapılmış 37 piksel sanatı arcade oyunu. Reklam yok, kilitli hiçbir şey yok: her oyun ve her seviye ücretsiz.
+
+OYUNLAR
+• Bulmacalar (52): Top Sıralama · Su Sıralama · Blok Bulmaca · Yapboz · Mayınlar · Borular · 15 Bulmacası · Tangram · Farkı Bul · Satranç bulmacaları ve 42 oyun daha
+• Mantık oyunları (38): Sudoku · Nonogram · Katil Sudoku · Kakuro · Calcudoku · Binairo · Star Battle · Köprüler · Çadırlar · Futoshiki ve 28 oyun daha
+• Strateji (37): Dama · Go · Reversi · Dörtlü Sıra · Mangala · Dokuz Taş · Gomoku · Çin Daması · Hex · Bilardo ve 27 oyun daha
+• Satranç ailesi (7): Banqi · Hayvan Satrancı · Janggi · Makruk · Satranç · Shogi · Xiangqi
+• Zar ve yarış oyunları (15): Tavla · Kızma Birader · Yacht · Farkle · Yılanlar ve Merdivenler · Ur Kraliyet Oyunu · Kutuyu Kapat · Yalancı Zar ve 7 oyun daha
+• Kartlar ve taşlar (59): Solitaire · Örümcek · Boş Hücreler · Mahjong · Mahjong Solitaire · Kupa · Maça · Belot · Briç · Fransız tarotu · Cin Remi · Kanasta ve 47 oyun daha
+• Tahmin oyunları (8): Amiral Battı · Casus · Çiz ve Bil · Eşini Bul · Gizemli Yüz · Gizli Kod · Harita Testi · Kurt adamlar
+• Arcade oyunları (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+ARCADE
+• Dokunmatik ekran için yapılmış 37 piksel sanatı arcade oyunu: tek parmakla oynananlardan platform oyunlarına
+• En yüksek skorun saklanır, her oyun kaldığın yerde seni bekler
+• Oyun kumandaları da çalışır: bazı oyunlarda 4 oyuncuya kadar
+
+BİRLİKTE YA DA CİHAZA KARŞI
+• Elden ele dolaşan tek bir cihazda arkadaşlarınla: oyuna göre 2 ila 6 oyuncu
+• Ya da yerleri cihaza bırak, üç seviyede (kolay, orta, zor): iki ve daha fazla kişilik 110 oyunun 103 tanesinde
+• Yüz yüze: telefonu ya da tableti aranıza düz bırak, üstteki oyuncunun taşları ona doğru döner
+• Kart oyunları her eli gizli tutar: cihaz sıradaki oyuncuya geçerken bir ekran kartları örter
+• Geri alma, tahtayı çevirme, dikey ya da yatay, ve her oyunun kuralları bir dokunuş uzağında
+
+BULMACALAR VE SEVİYELER
+• Özenle tasarlanmış seviyeleri olan 101 bulmaca ve solitaire, çoğunda 150 seviye: 14.000 seviyeden fazla
+• Seviye başına 3 yıldıza kadar, takıldığında bir ipucu
+• Sonra bitmeyen rastgele bulmacalar
+
+HER GÜN
+• Günlük seri, deneyim puanı, seviyeler ve başarımlar, her sekmede ilerlemen
+• Açık veya koyu tema ve her oyunu adıyla bulan bir arama
+
+ÜCRETSİZ, REKLAMSIZ
+• Tüm oyunlar ve tüm seviyeler ücretsiz: reklam yok, kilit yok, hesap yok
+• Açık kaynak: kodun tamamı GitHub'da, herkes okuyabilir
+• Hiç veri toplanmaz; çevrimdışı çalışır
+• 22 dil
+• Beğendin mi? Ayarlardaki isteğe bağlı bahşiş yeni oyunların yapılmasına yardım eder
+
+8BCraft yapımı.

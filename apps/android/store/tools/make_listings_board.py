@@ -1001,8 +1001,11 @@ def defines(gid):
     """the #defines of a game's files (src/games/<id>.c, <id>_*.c and their .h), as text"""
     d = {}
     for p in own_files(gid, "[ch]"):
-        for k, v in re.findall(r"^#define\s+(\w+)\s+([^\n/]+)", src(p), re.M):
+        for k, v in re.findall(r"^#define[ \t]+(\w+)[ \t]+([^\n/]+)", src(p), re.M):
             d.setdefault(k, v.strip())
+        for body in re.findall(r"\benum\s*\{([^}]*)\}", src(p)):         # enum { X_LEVELS = 150, ... } too
+            for k, v in re.findall(r"\b([A-Z_][A-Z0-9_]*)\s*=\s*([^,]+)", body):
+                d.setdefault(k, v.strip())
     return d
 
 

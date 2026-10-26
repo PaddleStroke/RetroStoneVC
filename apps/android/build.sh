@@ -102,7 +102,7 @@ done
 # ---- 3. icons, Gradle, checks ----------------------------------------------------------------------------------------------
 say "icons"
 ART=()
-if [ "$(conf ICON_STYLE)" = board ]; then   # the app's own pictures, drawn by its code (apps/boardgames/android/icon_art.c)
+if [ "$(conf ICON_STYLE)" = board ] || [ "$(conf ICON_STYLE)" = retrostone ]; then   # the app's own pictures, drawn by its code (apps/boardgames/android/icon_art.c)
     make --no-print-directory -f apps/boardgames/Makefile icon-art B="$OUT/native" CONF="$CONF" ICON_DIR="$OUT/icon-art" \
         > "$OUT/icon-art.log" 2>&1 || { tail -20 "$OUT/icon-art.log"; exit 1; }
     ART=(--art "$OUT/icon-art")

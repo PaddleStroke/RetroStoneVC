@@ -1,0 +1,41 @@
+RetroStone vereint 253 Spiele in einer kostenlosen App: 216 Brett-, Karten- und Knobelspiele an einem grünen Spieltisch (Schach, Go, Backgammon, Mahjong, Solitär, Belote, Bridge, Sudoku, Nonogramme …) und 37 Arcade-Spiele in Pixel-Art, gemacht für den Touchscreen. Keine Werbung, nichts gesperrt: jedes Spiel und jedes Level ist kostenlos.
+
+DIE SPIELE
+• Knobelspiele (52): Kugeln sortieren · Wasser sortieren · Blockpuzzle · Puzzle · Minen · Rohre · 15-Puzzle · Tangram · Finde die Unterschiede · Schachaufgaben und 42 weitere
+• Logikrätsel (38): Sudoku · Nonogramme · Killer-Sudoku · Kakuro · Calcudoku · Binairo · Star Battle · Brücken · Zelte · Futoshiki und 28 weitere
+• Strategie (37): Dame · Go · Reversi · Vier in einer Reihe · Mancala · Mühle · Gomoku · Sternhalma · Hex · Poolbillard und 27 weitere
+• Die Schachfamilie (7): Banqi · Dschungelschach · Janggi · Makruk · Schach · Shogi · Xiangqi
+• Würfel- und Laufspiele (15): Backgammon · Ludo · Yacht · Zehntausend · Leiterspiel · Königliches Spiel von Ur · Klappenspiel · Lügenwürfel und 7 weitere
+• Karten und Steine (59): Klondike-Solitär · Spider · Freie Zellen · Mahjong · Mahjong-Solitär · Hearts · Pik · Belote · Bridge · Französisches Tarot · Gin-Rommé · Canasta und 47 weitere
+• Ratespiele (8): Der Spion · Geheimcode · Geheimes Gesicht · Landkarten-Quiz · Paare finden · Schiffe versenken · Werwölfe · Zeichnen und Raten
+• Arcade (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+DIE ARCADE
+• 37 Arcade-Spiele in Pixel-Art für den Touchscreen, von Ein-Finger-Spielen bis zu Jump 'n' Runs
+• Dein Rekord wird gespeichert, und jedes Spiel wartet dort, wo du aufgehört hast
+• Gamepads gehen auch: bis zu 4 Spieler in manchen Spielen
+
+ZUSAMMEN ODER GEGEN DAS GERÄT
+• Mit Freunden an einem Gerät, das von Hand zu Hand geht: 2 bis 6 Spieler, je nach Spiel
+• Oder lass das Gerät Plätze übernehmen, in drei Stufen (leicht, mittel, schwer): in 103 der 110 Spiele für zwei oder mehr
+• Gegenüber: Leg Handy oder Tablet flach zwischen euch, und die Figuren des Spielers oben drehen sich zu ihm
+• Kartenspiele halten jede Hand geheim: Eine Abdeckung verbirgt die Karten, während das Gerät weitergereicht wird
+• Zug zurück, Brett drehen, Hoch- oder Querformat und die Regeln jedes Spiels nur einen Fingertipp entfernt
+
+KNOBELSPIELE UND LEVEL
+• 101 Knobelspiele und Patiencen mit handgebauten Leveln, meist 150 pro Spiel: über 14.000 Level
+• Bis zu 3 Sterne pro Level und ein Hinweis, wenn du feststeckst
+• Danach Zufallsrätsel ohne Ende
+
+JEDEN TAG
+• Eine Tagesserie, Erfahrungspunkte, Stufen und Erfolge, und dein Fortschritt in jedem Reiter
+• Helles oder dunkles Design, und eine Suche, die jedes Spiel nach seinem Namen findet
+
+KOSTENLOS, OHNE WERBUNG
+• Alle Spiele und alle Level kostenlos: keine Werbung, nichts gesperrt, kein Konto
+• Open Source: der ganze Code liegt offen auf GitHub
+• Keine Datenerhebung; spielbar offline
+• 22 Sprachen
+• Gefällt's dir? Ein freiwilliges Trinkgeld in den Einstellungen hilft, neue Spiele zu machen
+
+Von 8BCraft.

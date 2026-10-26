@@ -1,0 +1,41 @@
+RetroStone samlar 253 spel i en gratis app: 216 bräd-, kort- och pusselspel kring ett grönt spelbord (schack, go, backgammon, mahjong, patiens, belote, bridge, sudoku, nonogram …) och 37 arkadspel i pixelgrafik, gjorda för pekskärmen. Ingen reklam, inget låst: varje spel och varje nivå är gratis.
+
+SPELEN
+• Pussel (52): Sortera kulorna · Sortera vattnet · Blockpussel · Pussel · Minor · Rör · Femtonspel · Tangram · Hitta skillnaderna · Schackproblem och 42 till
+• Logikspel (38): Sudoku · Nonogram · Killersudoku · Kakuro · Calcudoku · Binairo · Star Battle · Broar · Tält · Futoshiki och 28 till
+• Strategi (37): Dam · Go · Reversi · Fyra i rad · Mancala · Kvarn · Luffarschack · Kinaschack · Hex · Biljard och 27 till
+• Schackfamiljen (7): Banqi · Djungelschack · Janggi · Makruk · Schack · Shogi · Xiangqi
+• Tärning och kapplöpning (15): Backgammon · Fia · Yacht · Tiotusen · Ormar och stegar · Kungliga spelet från Ur · Shut the Box · Lögnartärningar och 7 till
+• Kort och brickor (59): Harpan · Spindelharpan · Fria celler · Mahjong · Mahjong-patiens · Hjärter · Spader · Belote · Bridge · Fransk tarot · Gin rummy · Canasta och 47 till
+• Gissningslekar (8): Det hemliga ansiktet · Hemlig kod · Hitta paren · Kartquiz · Rita och gissa · Sänka skepp · Spionen · Varulvar
+• Arkadspel (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+ARKADEN
+• 37 arkadspel i pixelgrafik gjorda för pekskärmen, från enfingerspel till plattformsspel
+• Ditt rekord sparas, och varje spel väntar där du slutade
+• Handkontroller fungerar också: upp till 4 spelare i vissa spel
+
+TILLSAMMANS ELLER MOT ENHETEN
+• Med vänner på en enda enhet som går från hand till hand: 2 till 6 spelare, beroende på spelet
+• Eller låt enheten ta platser, på tre nivåer (lätt, medel, svår): i 103 av de 110 spelen för två eller fler
+• Ansikte mot ansikte: lägg mobilen eller surfplattan platt mellan er, så vänds den övre spelarens pjäser mot hen
+• Kortspelen håller varje hand hemlig: en skärm döljer korten medan enheten går vidare till nästa spelare
+• Ångra, vänd brädet, stående eller liggande, och varje spels regler ett tryck bort
+
+PUSSEL OCH NIVÅER
+• 101 pussel och patienser med noga utformade nivåer, 150 för de flesta: över 14 000 nivåer
+• Upp till 3 stjärnor per nivå, och en ledtråd när du kör fast
+• Sedan slumpade pussel utan slut
+
+VARJE DAG
+• En dagsserie, erfarenhetspoäng, nivåer och prestationer, och dina framsteg i varje flik
+• Ljust eller mörkt tema, och en sökning som hittar vilket spel som helst på namnet
+
+GRATIS, UTAN REKLAM
+• Alla spel och alla nivåer gratis: ingen reklam, inget låst, inget konto
+• Öppen källkod: all kod finns på GitHub, fri att läsa
+• Inga data samlas in; fungerar offline
+• 22 språk
+• Gillar du det? En frivillig dricks i inställningarna hjälper till att skapa nya spel
+
+Skapat av 8BCraft.

@@ -1,0 +1,41 @@
+RetroStone riunisce 253 giochi in un'app gratuita: 216 giochi da tavolo, di carte e rompicapi attorno a un tappeto verde (scacchi, go, backgammon, mahjong, solitario, belote, bridge, sudoku, nonogrammi…) e 37 giochi arcade in pixel art pensati per il touch screen. Niente pubblicità, niente di bloccato: ogni gioco e ogni livello è gratis.
+
+I GIOCHI
+• Rompicapi (52): Ordina le palline · Ordina l'acqua · Blocchi · Puzzle · Mine · Tubi · Gioco del 15 · Tangram · Trova le differenze · Problemi di scacchi e altri 42
+• Logica (38): Sudoku · Nonogrammi · Sudoku killer · Kakuro · Calcudoku · Binairo · Star Battle · Ponti · Tende · Futoshiki e altri 28
+• Strategia (37): Dama · Go · Reversi · Quattro in fila · Mancala · Mulino · Gomoku · Dama cinese · Hex · Biliardo americano e altri 27
+• La famiglia degli scacchi (7): Banqi · Gioco della giungla · Janggi · Makruk · Scacchi · Shogi · Xiangqi
+• Dadi e percorsi (15): Backgammon · Ludo · Yacht · Farkle · Serpenti e scale · Gioco reale di Ur · Chiudi la scatola · Dadi bugiardi e altri 7
+• Carte e tessere (59): Solitario · Spider · Celle libere · Mahjong · Mahjong solitario · Cuori · Picche · Belote · Bridge · Tarot francese · Gin rummy · Canasta e altri 47
+• Giochi di deduzione (8): Battaglia navale · Codice segreto · Coppie · Disegna e indovina · La spia · Lupi mannari · Quiz delle mappe · Volto misterioso
+• Arcade (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+L'ARCADE
+• 37 giochi arcade in pixel art pensati per il touch screen, dai giochi a un dito ai platform
+• Il tuo record viene salvato, e ogni partita ti aspetta dove l'hai lasciata
+• Funzionano anche i controller: fino a 4 giocatori in alcuni giochi
+
+IN COMPAGNIA O CONTRO IL DISPOSITIVO
+• Con gli amici su un solo dispositivo, passato di mano in mano: da 2 a 6 giocatori, secondo il gioco
+• Oppure lascia che il dispositivo prenda dei posti, a tre livelli (facile, medio, difficile): in 103 dei 110 giochi per due o più
+• Faccia a faccia: appoggia il telefono o il tablet tra voi, e i pezzi del giocatore di fronte si girano verso di lui
+• I giochi di carte tengono segreta ogni mano: una schermata copre le carte mentre il dispositivo passa al giocatore successivo
+• Annulla, gira il tavoliere, in verticale o in orizzontale, e le regole di ogni gioco a portata di tocco
+
+ROMPICAPI E LIVELLI
+• 101 rompicapi e solitari con livelli creati uno per uno, 150 per la maggior parte: oltre 14.000 livelli
+• Fino a 3 stelle per livello, e un aiuto quando ti blocchi
+• Poi rompicapi casuali senza fine
+
+OGNI GIORNO
+• Una serie di giorni, esperienza, livelli e obiettivi, e i tuoi progressi in ogni scheda
+• Tema chiaro o scuro, e una ricerca per trovare qualsiasi gioco per nome
+
+GRATIS, SENZA PUBBLICITÀ
+• Tutti i giochi e tutti i livelli, gratis: niente pubblicità, niente di bloccato, nessun account
+• Open source: tutto il codice è su GitHub, libero da leggere
+• Nessun dato raccolto; funziona offline
+• 22 lingue
+• Ti piace? Una mancia facoltativa nelle impostazioni aiuta a creare nuovi giochi
+
+Creato da 8BCraft.

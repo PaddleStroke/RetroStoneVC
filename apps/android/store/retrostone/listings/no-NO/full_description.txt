@@ -1,0 +1,41 @@
+RetroStone samler 253 spill i én gratis app: 216 brett-, kort- og tenkespill rundt et grønt spillebord (sjakk, go, backgammon, mahjong, kabal, belote, bridge, sudoku, nonogram …) og 37 arkadespill i pikselgrafikk, laget for berøringsskjermen. Ingen reklame, ingenting låst: hvert spill og hvert nivå er gratis.
+
+SPILLENE
+• Nøtter (52): Sorter kulene · Sorter vannet · Blokkpuslespill · Puslespill · Miner · Rør · 15-spill · Tangram · Finn forskjellene · Sjakkoppgaver og 42 til
+• Logikkspill (38): Sudoku · Nonogrammer · Killersudoku · Kakuro · Calcudoku · Binairo · Star Battle · Bruer · Telt · Futoshiki og 28 til
+• Strategi (37): Dam · Go · Reversi · Fire på rad · Mancala · Mølle · Fem på rad · Kinasjakk · Hex · Biljard og 27 til
+• Sjakkfamilien (7): Banqi · Janggi · Jungelsjakk · Makruk · Shogi · Sjakk · Xiangqi
+• Terninger og veddeløp (15): Backgammon · Ludo · Yacht · 10 000 · Slanger og stiger · Det kongelige spillet fra Ur · Shut the Box · Løgnerterninger og 7 til
+• Kort og brikker (59): Kabal · Edderkopp · Ledige celler · Mahjong · Mahjong-kabal · Hjerter · Spar · Belote · Bridge · Fransk tarot · Gin rummy · Canasta og 47 til
+• Gjettelek (8): Det hemmelige ansiktet · Finn parene · Hemmelig kode · Kartquiz · Senke slagskip · Spionen · Tegn og gjett · Varulver
+• Arkadespill (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+ARKADEN
+• 37 arkadespill i pikselgrafikk laget for berøringsskjermen, fra énfingerspill til plattformspill
+• Rekorden din lagres, og hvert spill venter der du slapp
+• Spillkontrollere virker også: opptil 4 spillere i noen spill
+
+SAMMEN ELLER MOT ENHETEN
+• Med venner på én enhet som går fra hånd til hånd: 2 til 6 spillere, avhengig av spillet
+• Eller la enheten ta plasser, på tre nivåer (lett, middels, vanskelig): i 103 av de 110 spillene for to eller flere
+• Ansikt til ansikt: legg telefonen eller nettbrettet flatt mellom dere, og brikkene til spilleren øverst snur seg mot ham
+• Kortspillene holder hver hånd hemmelig: en skjerm dekker kortene mens enheten går videre til neste spiller
+• Angre, snu brettet, stående eller liggende, og reglene for hvert spill ett trykk unna
+
+NØTTER OG NIVÅER
+• 101 nøtter og kabaler med nøye utformede nivåer, 150 for de fleste: over 14 000 nivåer
+• Opptil 3 stjerner per nivå, og et hint når du står fast
+• Deretter tilfeldige oppgaver uten slutt
+
+HVER DAG
+• En dagsrekke, erfaringspoeng, nivåer og prestasjoner, og fremgangen din i hver fane
+• Lyst eller mørkt tema, og et søk som finner ethvert spill på navnet
+
+GRATIS, UTEN REKLAME
+• Alle spill og alle nivåer gratis: ingen reklame, ingenting låst, ingen konto
+• Åpen kildekode: all koden ligger på GitHub, fri å lese
+• Ingen data samles inn; fungerer offline
+• 22 språk
+• Liker du det? Et frivillig tips i innstillingene hjelper nye spill på vei
+
+Laget av 8BCraft.

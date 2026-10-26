@@ -1,0 +1,41 @@
+RetroStone kokoaa 253 peliä yhteen ilmaiseen sovellukseen: 216 lauta-, kortti- ja pulmapeliä vihreän pelipöydän ääressä (shakki, go, backgammon, mahjong, pasianssi, belote, bridge, sudoku, nonogrammit…) ja 37 pikseligrafiikalla tehtyä arcadepeliä kosketusnäytölle. Ei mainoksia, ei mitään lukittuna: jokainen peli ja jokainen taso on ilmainen.
+
+PELIT
+• Pulmapelit (52): Pallojen lajittelu · Veden lajittelu · Palikat · Palapeli · Miinat · Putket · 15-peli · Tangram · Etsi erot · Shakkitehtävät ja 42 muuta
+• Logiikkapelit (38): Sudoku · Kuvaristikot · Summasudoku · Kakuro · Calcudoku · Binairo · Star Battle · Sillat · Teltat · Futoshiki ja 28 muuta
+• Strategia (37): Tammi · Go · Reversi · Neljän suora · Mancala · Mylly · Gomoku · Kiinanshakki · Hex · Biljardi ja 27 muuta
+• Shakkiperhe (7): Banqi · Janggi · Makruk · Shakki · Shogi · Viidakkoshakki · Xiangqi
+• Noppa- ja kilpapelit (15): Backgammon · Ludo · Yacht · Kymppitonni · Käärmeet ja tikkaat · Urin kuninkaallinen peli · Shut the Box · Valehtelijan nopat ja 7 muuta
+• Kortit ja laatat (59): Pasianssi · Hämähäkki · Vapaat solut · Mahjong · Mahjong-pasianssi · Hertta · Pata · Belote · Bridge · Ranskalainen tarot · Gin rummy · Canasta ja 47 muuta
+• Arvauspelit (8): Ihmissudet · Karttavisa · Laivanupotus · Muistipeli · Piirrä ja arvaa · Salainen koodi · Salaiset kasvot · Vakooja
+• Arcade-pelit (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+ARCADE
+• 37 pikseligrafiikalla tehtyä arcadepeliä kosketusnäytölle, yhden sormen peleistä tasohyppelyihin
+• Ennätyksesi tallentuu, ja jokainen peli odottaa siinä, mihin jäit
+• Myös peliohjaimet toimivat: jopa 4 pelaajaa joissakin peleissä
+
+YHDESSÄ TAI LAITETTA VASTAAN
+• Ystävien kanssa yhdellä laitteella, joka kulkee kädestä käteen: 2–6 pelaajaa pelistä riippuen
+• Tai anna laitteen ottaa paikkoja kolmella tasolla (helppo, keskitaso, vaikea): 103 peliä 110:stä kahden tai useamman pelaajan pelistä
+• Kasvokkain: aseta puhelin tai tabletti tasaisesti väliinne, niin ylemmän pelaajan nappulat kääntyvät häneen päin
+• Korttipelit pitävät jokaisen käden salassa: suojakuva peittää kortit, kun laite siirtyy seuraavalle pelaajalle
+• Kumoa, käännä lauta, pysty- tai vaakasuunta, ja jokaisen pelin säännöt yhden napautuksen päässä
+
+PULMAT JA TASOT
+• 101 pulmapeliä ja pasianssia huolella suunnitelluilla tasoilla, useimmissa 150: yli 14 000 tasoa
+• Jopa 3 tähteä tasoa kohden ja vihje, kun jäät jumiin
+• Sen jälkeen satunnaisia pulmia loputtomasti
+
+JOKA PÄIVÄ
+• Päiväputki, kokemuspisteet, tasot ja saavutukset sekä edistymisesi jokaisella välilehdellä
+• Vaalea tai tumma teema ja haku, joka löytää minkä tahansa pelin nimellä
+
+ILMAINEN, ILMAN MAINOKSIA
+• Kaikki pelit ja kaikki tasot ilmaiseksi: ei mainoksia, ei lukituksia, ei tiliä
+• Avoin lähdekoodi: koko koodi on GitHubissa vapaasti luettavana
+• Mitään tietoja ei kerätä; toimii offline-tilassa
+• 22 kieltä
+• Pidätkö siitä? Vapaaehtoinen tippi asetuksissa auttaa tekemään uusia pelejä
+
+Tekijä: 8BCraft.

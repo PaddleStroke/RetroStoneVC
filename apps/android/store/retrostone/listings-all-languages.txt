@@ -1,0 +1,1145 @@
+250 in 1 Puzzle, Board, Arcade: Google Play store listing, 22 languages. Each language starts with a "=== LANGUAGE ===" line, then its three fields: App name, Short description, Full description.
+
+
+=== English (United States) (en-US) ===
+
+App name:
+250 in 1 Puzzle, Board, Arcade
+
+Short description:
+253 puzzle, board, card and arcade games. Free, open source, no ads, offline.
+
+Full description:
+RetroStone gathers 253 games in one free app: 216 board, card and puzzle games around a green table (chess, go, backgammon, mahjong, solitaire, belote, bridge, sudoku, nonograms...) and 37 pixel-art arcade games made for the touch screen. No ads, nothing locked: every game and every level is free.
+
+THE GAMES
+• Puzzles (52): Ball Sort · Water Sort · Block Puzzle · Jigsaw · Mines · Pipes · 15 Puzzle · Tangram · Spot the Difference · Chess Puzzles and 42 more
+• Logic (38): Sudoku · Nonograms · Killer Sudoku · Kakuro · Calcudoku · Binairo · Star Battle · Bridges · Tents · Futoshiki and 28 more
+• Strategy (37): Draughts · Go · Reversi · Four in a Row · Mancala · Nine Men's Morris · Gomoku · Chinese Checkers · Hex · Pool and 27 more
+• Chess family (7): Banqi · Chess · Janggi · Jungle · Makruk · Shogi · Xiangqi
+• Dice and race games (15): Backgammon · Ludo · Yacht · Farkle · Snakes and Ladders · Royal Game of Ur · Shut the Box · Liar's Dice and 7 more
+• Cards and tiles (59): Solitaire · Spider · Free Cells · Mahjong · Mahjong Solitaire · Hearts · Spades · Belote · Bridge · French Tarot · Gin Rummy · Canasta and 47 more
+• Guessing games (8): Draw and Guess · Map Quiz · Mystery Face · Pairs · Sea Battle · Secret Code · The Spy · Werewolves
+• Arcade (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+THE ARCADE
+• 37 pixel-art arcade games made for the touch screen, from one-finger games to platformers
+• Your best score is kept, and every game waits where you left it
+• Gamepads work too: up to 4 players in some games
+
+PLAY TOGETHER, OR AGAINST THE DEVICE
+• Friends on one device, passed from hand to hand: 2 to 6 players, depending on the game
+• Or let the device take seats, at three levels (easy, medium, hard): in 103 of the 110 games for two or more
+• Face to face: lay the phone or tablet flat between you, and the top player's pieces turn to face them
+• Card games keep every hand secret: a cover hides the cards while the device goes to the next player
+• Undo, turn the board round, portrait or landscape, and each game's rules a tap away
+
+PUZZLES AND LEVELS
+• 101 puzzles and solitaire games with hand-made levels, 150 for most of them: over 14,000 levels
+• Up to 3 stars per level, and a hint when you are stuck
+• Then random puzzles without end
+
+EVERY DAY
+• A daily streak, experience, levels and achievements, and your progress in every tab
+• Light or dark theme, and a search to find any game by its name
+
+FREE, WITH NO ADS
+• Every game and every level, free: no ads, nothing locked, no account
+• Open source: the whole code is on GitHub, free to read
+• No data collected; it plays offline
+• 22 languages
+• Like it? An optional tip in the settings helps make new games
+
+Made by 8BCraft.
+
+
+=== Czech (cs-CZ) ===
+
+App name:
+250 v 1: hlavolamy, deskovky
+
+Short description:
+Deskové a karetní hry, hlavolamy a arkády v jedné aplikaci. Bez reklam, offline.
+
+Full description:
+RetroStone spojuje v jedné bezplatné aplikaci deskové a karetní hry a hlavolamy u zeleného stolu (šachy, go, vrhcáby, mahjong, solitér, belote, bridž, sudoku, malované křížovky…) a arkády v pixel artu, vytvořené pro dotykovou obrazovku: celkem 253. Bez reklam, nic zamčeného: každá hra a každá úroveň je zdarma.
+
+HRY
+• Hlavolamy (52): Třídění kuliček · Třídění vody · Bloky · Skládačka · Miny · Trubky · Patnáctka · Tangram · Najdi rozdíly · Šachové úlohy a další
+• Logické hry (38): Sudoku · Malované křížovky · Součtové sudoku · Kakuro · Calcudoku · Binairo · Star Battle · Mosty · Stany · Futoshiki a další
+• Strategie (37): Dáma · Go · Reversi · Čtyři v řadě · Mankala · Mlýn · Gomoku · Čínská dáma · Hex · Kulečník a další
+• Šachová rodina (7): Banqi · Džungle · Janggi · Makruk · Šachy · Šógi · Xiangqi
+• Kostky a závody (15): Vrhcáby · Člověče, nezlob se · Yacht · Farkle · Hadi a žebříky · Královská hra z Uru · Zavři krabici · Lhářské kostky a další
+• Karty a kameny (59): Klondike · Pavouk · Volná pole · Mahjong · Mahjong solitér · Srdce · Piky · Belote · Bridž · Francouzský tarot · Gin rummy · Kanasta a další
+• Hádanky (8): Dvojice · Lodě · Mapový kvíz · Nakresli a hádej · Špion · Tajemná tvář · Tajný kód · Vlkodlaci
+• Arkády (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+ARKÁDY
+• Arkády v pixel artu pro dotykovou obrazovku (37), od her na jeden prst po plošinovky
+• Tvůj rekord se ukládá a každá rozehraná hra na tebe počká
+• Fungují i herní ovladače: až 4 hráči v některých hrách
+
+SPOLU, NEBO PROTI ZAŘÍZENÍ
+• S přáteli na jednom zařízení, které jde z ruky do ruky: 2 až 6 hráčů podle hry
+• Nebo nech zařízení obsadit místa, ve třech úrovních (lehká, střední, těžká): v 103 z 110 her pro dva a více hráčů
+• Tváří v tvář: polož telefon nebo tablet naplocho mezi sebe a figurky horního hráče se otočí k němu
+• Karetní hry drží každou ruku v tajnosti: clona zakryje karty, zatímco zařízení putuje k dalšímu hráči
+• Vrácení tahu, otočení desky, na výšku i na šířku a pravidla každé hry na jedno klepnutí
+
+HLAVOLAMY A ÚROVNĚ
+• 101 hlavolamů a solitérů s pečlivě navrženými úrovněmi, většinou 150: přes 14 000 úrovní
+• Až 3 hvězdičky za úroveň a nápověda, když se zasekneš
+• Pak náhodné hlavolamy bez konce
+
+KAŽDÝ DEN
+• Série dní, zkušenosti, úrovně a úspěchy a tvůj postup v každé záložce
+• Světlý nebo tmavý motiv a hledání, které najde každou hru podle názvu
+
+ZDARMA, BEZ REKLAM
+• Všechny hry a všechny úrovně zdarma: bez reklam, nic zamčeného, bez účtu
+• Otevřený zdrojový kód: celý kód je volně na GitHubu
+• Žádná data se nesbírají; funguje offline
+• 22 jazyků
+• Líbí se ti? Dobrovolné spropitné v nastavení pomáhá vzniku nových her
+
+Vytvořil 8BCraft.
+
+
+=== Danish (da-DK) ===
+
+App name:
+250 i 1: brætspil og arkade
+
+Short description:
+Bræt-, kort-, hjernevrider- og arkadespil: 253 spil, uden reklamer, offline.
+
+Full description:
+RetroStone samler 253 spil i én gratis app: 216 bræt-, kort- og hjernevriderspil omkring et grønt spillebord (skak, go, backgammon, mahjong, kabale, belote, bridge, sudoku, nonogrammer …) og 37 arkadespil i pixelgrafik, lavet til touchskærmen. Ingen reklamer, intet låst: hvert spil og hvert niveau er gratis.
+
+SPILLENE
+• Hjernevridere (52): Sortér kuglerne · Sortér vandet · Blokpuslespil · Puslespil · Miner · Rør · 15-spil · Tangram · Find forskellene · Skakopgaver og 42 til
+• Logikspil (38): Sudoku · Nonogrammer · Killersudoku · Kakuro · Calcudoku · Binairo · Star Battle · Broer · Telte · Futoshiki og 28 til
+• Strategi (37): Dam · Go · Reversi · Fire på række · Mancala · Mølle · Gomoku · Kinesisk skak · Hex · Pool og 27 til
+• Skakfamilien (7): Banqi · Janggi · Jungleskak · Makruk · Shogi · Skak · Xiangqi
+• Terninger og væddeløb (15): Backgammon · Ludo · Yacht · 10.000 · Slanger og stiger · Det kongelige spil fra Ur · Shut the Box · Løgnerterninger og 7 til
+• Kort og brikker (59): Kabale · Edderkop · Frie celler · Mahjong · Mahjong-kabale · Hjerterfri · Spar · Belote · Bridge · Fransk tarot · Gin rummy · Canasta og 47 til
+• Gættelege (8): Det hemmelige ansigt · Hemmelig kode · Kortquiz · Spionen · Sænke slagskibe · Tegn og gæt · Varulve · Vendespil
+• Arkadespil (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+ARKADEN
+• 37 arkadespil i pixelgrafik lavet til touchskærmen, fra spil med én finger til platformspil
+• Din rekord gemmes, og hvert spil venter, hvor du slap
+• Gamepads virker også: op til 4 spillere i nogle spil
+
+SAMMEN ELLER MOD ENHEDEN
+• Med venner på én enhed, der går fra hånd til hånd: 2 til 6 spillere, alt efter spillet
+• Eller lad enheden tage pladser, på tre niveauer (let, mellem, svær): i 103 af de 110 spil for to eller flere
+• Ansigt til ansigt: læg telefonen eller tabletten fladt mellem jer, og den øverste spillers brikker vender sig mod ham
+• Kortspillene holder hver hånd hemmelig: en skærm dækker kortene, mens enheden går videre til næste spiller
+• Fortryd, vend brættet, stående eller liggende, og hvert spils regler et tryk væk
+
+HJERNEVRIDERE OG NIVEAUER
+• 101 hjernevridere og kabaler med omhyggeligt designede niveauer, 150 for de fleste: over 14.000 niveauer
+• Op til 3 stjerner pr. niveau, og et hint, når du sidder fast
+• Derefter tilfældige opgaver uden ende
+
+HVER DAG
+• En stribe af dage, erfaringspoint, niveauer og præstationer, og dine fremskridt i hver fane
+• Lyst eller mørkt tema, og en søgning, der finder ethvert spil ud fra navnet
+
+GRATIS, UDEN REKLAMER
+• Alle spil og alle niveauer gratis: ingen reklamer, intet låst, ingen konto
+• Åben kildekode: al koden ligger på GitHub, fri at læse
+• Ingen data indsamles; virker offline
+• 22 sprog
+• Kan du lide det? Frivillige drikkepenge i indstillingerne hjælper nye spil på vej
+
+Lavet af 8BCraft.
+
+
+=== German (de-DE) ===
+
+App name:
+250 in 1 Rätsel, Brett, Arcade
+
+Short description:
+Brett-, Karten-, Knobel- und Arcade-Spiele: 253 Spiele, ohne Werbung, offline.
+
+Full description:
+RetroStone vereint 253 Spiele in einer kostenlosen App: 216 Brett-, Karten- und Knobelspiele an einem grünen Spieltisch (Schach, Go, Backgammon, Mahjong, Solitär, Belote, Bridge, Sudoku, Nonogramme …) und 37 Arcade-Spiele in Pixel-Art, gemacht für den Touchscreen. Keine Werbung, nichts gesperrt: jedes Spiel und jedes Level ist kostenlos.
+
+DIE SPIELE
+• Knobelspiele (52): Kugeln sortieren · Wasser sortieren · Blockpuzzle · Puzzle · Minen · Rohre · 15-Puzzle · Tangram · Finde die Unterschiede · Schachaufgaben und 42 weitere
+• Logikrätsel (38): Sudoku · Nonogramme · Killer-Sudoku · Kakuro · Calcudoku · Binairo · Star Battle · Brücken · Zelte · Futoshiki und 28 weitere
+• Strategie (37): Dame · Go · Reversi · Vier in einer Reihe · Mancala · Mühle · Gomoku · Sternhalma · Hex · Poolbillard und 27 weitere
+• Die Schachfamilie (7): Banqi · Dschungelschach · Janggi · Makruk · Schach · Shogi · Xiangqi
+• Würfel- und Laufspiele (15): Backgammon · Ludo · Yacht · Zehntausend · Leiterspiel · Königliches Spiel von Ur · Klappenspiel · Lügenwürfel und 7 weitere
+• Karten und Steine (59): Klondike-Solitär · Spider · Freie Zellen · Mahjong · Mahjong-Solitär · Hearts · Pik · Belote · Bridge · Französisches Tarot · Gin-Rommé · Canasta und 47 weitere
+• Ratespiele (8): Der Spion · Geheimcode · Geheimes Gesicht · Landkarten-Quiz · Paare finden · Schiffe versenken · Werwölfe · Zeichnen und Raten
+• Arcade (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+DIE ARCADE
+• 37 Arcade-Spiele in Pixel-Art für den Touchscreen, von Ein-Finger-Spielen bis zu Jump 'n' Runs
+• Dein Rekord wird gespeichert, und jedes Spiel wartet dort, wo du aufgehört hast
+• Gamepads gehen auch: bis zu 4 Spieler in manchen Spielen
+
+ZUSAMMEN ODER GEGEN DAS GERÄT
+• Mit Freunden an einem Gerät, das von Hand zu Hand geht: 2 bis 6 Spieler, je nach Spiel
+• Oder lass das Gerät Plätze übernehmen, in drei Stufen (leicht, mittel, schwer): in 103 der 110 Spiele für zwei oder mehr
+• Gegenüber: Leg Handy oder Tablet flach zwischen euch, und die Figuren des Spielers oben drehen sich zu ihm
+• Kartenspiele halten jede Hand geheim: Eine Abdeckung verbirgt die Karten, während das Gerät weitergereicht wird
+• Zug zurück, Brett drehen, Hoch- oder Querformat und die Regeln jedes Spiels nur einen Fingertipp entfernt
+
+KNOBELSPIELE UND LEVEL
+• 101 Knobelspiele und Patiencen mit handgebauten Leveln, meist 150 pro Spiel: über 14.000 Level
+• Bis zu 3 Sterne pro Level und ein Hinweis, wenn du feststeckst
+• Danach Zufallsrätsel ohne Ende
+
+JEDEN TAG
+• Eine Tagesserie, Erfahrungspunkte, Stufen und Erfolge, und dein Fortschritt in jedem Reiter
+• Helles oder dunkles Design, und eine Suche, die jedes Spiel nach seinem Namen findet
+
+KOSTENLOS, OHNE WERBUNG
+• Alle Spiele und alle Level kostenlos: keine Werbung, nichts gesperrt, kein Konto
+• Open Source: der ganze Code liegt offen auf GitHub
+• Keine Datenerhebung; spielbar offline
+• 22 Sprachen
+• Gefällt's dir? Ein freiwilliges Trinkgeld in den Einstellungen hilft, neue Spiele zu machen
+
+Von 8BCraft.
+
+
+=== Greek (el-GR) ===
+
+App name:
+250 σε 1: γρίφοι, επιτραπέζια
+
+Short description:
+Επιτραπέζια, τράπουλα, γρίφοι και arcade: 253 παιχνίδια χωρίς διαφημίσεις.
+
+Full description:
+Το RetroStone συγκεντρώνει 253 παιχνίδια σε μία δωρεάν εφαρμογή: 216 επιτραπέζια, παιχνίδια με τράπουλα και γρίφους γύρω από ένα πράσινο τραπέζι (σκάκι, γκο, τάβλι, μαζόνγκ, πασιέντζα, μπελότ, μπριτζ, σουντόκου, νονόγκραμ…) και 37 παιχνίδια arcade σε pixel art, φτιαγμένα για την οθόνη αφής. Χωρίς διαφημίσεις, τίποτα κλειδωμένο: κάθε παιχνίδι και κάθε επίπεδο είναι δωρεάν.
+
+ΤΑ ΠΑΙΧΝΙΔΙΑ
+• Γρίφοι (52): Ταξινόμηση μπαλών · Ταξινόμηση νερού · Τουβλάκια · Παζλ · Νάρκες · Σωλήνες · Παζλ του 15 · Τάγκραμ · Βρες τις διαφορές · Γρίφοι σκακιού και 42 ακόμη
+• Παιχνίδια λογικής (38): Σουντόκου · Νονόγραμμα · Σουντόκου αθροισμάτων · Κακούρο · Καλκουντόκου · Binairo · Μάχη των αστεριών · Γέφυρες · Σκηνές · Φουτοσίκι και 28 ακόμη
+• Στρατηγική (37): Ντάμα · Γκο · Ρεβέρσι · Τέσσερα στη σειρά · Μανκάλα · Μύλος · Γκομόκου · Κινέζικη ντάμα · Χεξ · Μπιλιάρδο και 27 ακόμη
+• Η οικογένεια του σκακιού (7): Ζούγκλα · Κινεζικό σκάκι · Κορεατικό σκάκι · Μακρούκ · Μπάντσι · Σκάκι · Σόγκι
+• Ζάρια και αγώνες δρόμου (15): Τάβλι · Λούντο · Yacht · Farkle · Φιδάκι · Βασιλικό παιχνίδι της Ουρ · Κλείσε το κουτί · Τα ζάρια του ψεύτη και 7 ακόμη
+• Τράπουλα και πλακίδια (59): Πασιέντζα · Αράχνη · Ελεύθερα κελιά · Μαζόνγκ · Πασιέντζα Μαζόνγκ · Κούπες · Μπαστούνια · Μπελότ · Μπριτζ · Γαλλικό ταρό · Τζιν ράμι · Κανάστα και 47 ακόμη
+• Παιχνίδια μαντεψιάς (8): Ζευγάρια · Ζωγράφισε και μάντεψε · Κουίζ χαρτών · Λυκάνθρωποι · Μυστηριώδες πρόσωπο · Μυστικός κωδικός · Ναυμαχία · Ο κατάσκοπος
+• Παιχνίδια arcade (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+ΤΟ ARCADE
+• 37 παιχνίδια arcade σε pixel art για την οθόνη αφής, από παιχνίδια με ένα δάχτυλο ως πλατφόρμες
+• Το ρεκόρ σου κρατιέται, και κάθε παιχνίδι σε περιμένει εκεί που το άφησες
+• Δουλεύουν και χειριστήρια: έως 4 παίκτες σε κάποια παιχνίδια
+
+ΜΑΖΙ Ή ΚΟΝΤΡΑ ΣΤΗ ΣΥΣΚΕΥΗ
+• Με φίλους σε μία συσκευή που περνά από χέρι σε χέρι: από 2 έως 6 παίκτες, ανάλογα με το παιχνίδι
+• Ή άσε τη συσκευή να πάρει θέσεις, σε τρία επίπεδα (εύκολο, μέτριο, δύσκολο): σε 103 από τα 110 παιχνίδια για δύο ή περισσότερους
+• Πρόσωπο με πρόσωπο: άφησε το κινητό ή το τάμπλετ ανάμεσά σας, και τα πιόνια του παίκτη απέναντι γυρίζουν προς αυτόν
+• Τα παιχνίδια με κάρτες κρατούν κάθε χέρι μυστικό: μια οθόνη κρύβει τις κάρτες όσο η συσκευή πηγαίνει στον επόμενο παίκτη
+• Αναίρεση, γύρισμα του ταμπλό, κάθετα ή οριζόντια, και οι κανόνες κάθε παιχνιδιού με ένα άγγιγμα
+
+ΓΡΙΦΟΙ ΚΑΙ ΕΠΙΠΕΔΑ
+• 101 γρίφοι και πασιέντζες με προσεγμένα επίπεδα, 150 στους περισσότερους: πάνω από 14.000 επίπεδα
+• Έως 3 αστέρια ανά επίπεδο, και μια βοήθεια όταν κολλήσεις
+• Μετά, τυχαίοι γρίφοι χωρίς τέλος
+
+ΚΑΘΕ ΜΕΡΑ
+• Σερί ημερών, εμπειρία, επίπεδα και επιτεύγματα, και η πρόοδός σου σε κάθε καρτέλα
+• Ανοιχτό ή σκούρο θέμα, και αναζήτηση για να βρεις κάθε παιχνίδι με το όνομά του
+
+ΔΩΡΕΑΝ, ΧΩΡΙΣ ΔΙΑΦΗΜΙΣΕΙΣ
+• Όλα τα παιχνίδια και όλα τα επίπεδα δωρεάν: χωρίς διαφημίσεις, τίποτα κλειδωμένο, χωρίς λογαριασμό
+• Ανοιχτός κώδικας: όλος ο κώδικας είναι ελεύθερα στο GitHub
+• Δεν συλλέγονται δεδομένα· παίζει χωρίς σύνδεση
+• 22 γλώσσες
+• Σου αρέσει; Ένα προαιρετικό φιλοδώρημα στις ρυθμίσεις βοηθά να φτιάχνονται νέα παιχνίδια
+
+Δημιουργία: 8BCraft.
+
+
+=== Spanish (Spain) (es-ES) ===
+
+App name:
+250 en 1: puzles, mesa, arcade
+
+Short description:
+Juegos de mesa, cartas, puzles y arcade: 253 juegos sin anuncios y sin conexión.
+
+Full description:
+RetroStone reúne 253 juegos en una app gratuita: 216 juegos de mesa, de cartas y rompecabezas alrededor de un tapete verde (ajedrez, go, backgammon, mahjong, solitario, belote, bridge, sudoku, nonogramas…) y 37 juegos arcade en pixel art hechos para la pantalla táctil. Sin anuncios y sin nada bloqueado: todos los juegos y todos los niveles son gratis.
+
+LOS JUEGOS
+• Rompecabezas (52): Ordenar las bolas · Ordenar el agua · Bloques · Rompecabezas · Minas · Tuberías · Juego del 15 · Tangram · Encuentra las diferencias · Problemas de ajedrez y 42 más
+• Lógica (38): Sudoku · Nonogramas · Sudoku killer · Kakuro · Calcudoku · Binairo · Star Battle · Puentes · Tiendas · Futoshiki y 28 más
+• Estrategia (37): Damas · Go · Reversi · Cuatro en línea · Mancala · Juego del molino · Gomoku · Damas chinas · Hex · Billar americano y 27 más
+• La familia del ajedrez (7): Ajedrez · Banqi · Janggi · Juego de la selva · Makruk · Shogi · Xiangqi
+• Dados y carreras (15): Backgammon · Ludo · Generala · Diez mil · Serpientes y escaleras · Juego real de Ur · Cierra la caja · Dados mentirosos y 7 más
+• Cartas y fichas (59): Solitario · Spider · Celdas libres · Mahjong · Mahjong solitario · Corazones · Picas · Belote · Bridge · Tarot francés · Gin Rummy · Canasta y 47 más
+• Juegos de adivinar (8): Cara misteriosa · Código secreto · Dibuja y adivina · El espía · Hombres lobo · Hundir la flota · Parejas · Quiz de mapas
+• Arcade (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+EL ARCADE
+• 37 juegos arcade en pixel art hechos para la pantalla táctil, desde juegos de un dedo hasta plataformas
+• Tu mejor puntuación se guarda, y cada partida te espera donde la dejaste
+• También con mando: hasta 4 jugadores en algunos juegos
+
+EN COMPAÑÍA O CONTRA EL DISPOSITIVO
+• Con amigos en un solo dispositivo que pasa de mano en mano: de 2 a 6 jugadores, según el juego
+• O deja que el dispositivo ocupe asientos, en tres niveles (fácil, medio, difícil): en 103 de los 110 juegos para dos o más
+• Cara a cara: deja el móvil o la tableta plano entre los dos, y las piezas del jugador de enfrente se giran hacia él
+• Los juegos de cartas mantienen cada mano en secreto: una pantalla tapa las cartas mientras el dispositivo pasa al siguiente jugador
+• Deshacer, girar el tablero, en vertical u horizontal, y las reglas de cada juego a un toque
+
+ROMPECABEZAS Y NIVELES
+• 101 rompecabezas y solitarios con niveles diseñados uno a uno, 150 en la mayoría: más de 14000 niveles
+• Hasta 3 estrellas por nivel, y una pista cuando te atascas
+• Después, rompecabezas al azar sin fin
+
+CADA DÍA
+• Una racha diaria, experiencia, niveles y logros, y tu progreso en cada pestaña
+• Tema claro u oscuro, y un buscador para encontrar cualquier juego por su nombre
+
+GRATIS, SIN ANUNCIOS
+• Todos los juegos y todos los niveles, gratis: sin anuncios, nada bloqueado, sin cuenta
+• Código abierto: todo el código está en GitHub, libre para leer
+• No recoge ningún dato; funciona sin conexión
+• 22 idiomas
+• ¿Te gusta? Una propina opcional en los ajustes ayuda a crear nuevos juegos
+
+Creado por 8BCraft.
+
+
+=== Finnish (fi-FI) ===
+
+App name:
+250 in 1: pulma, lauta, arcade
+
+Short description:
+Lauta-, kortti-, pulma- ja arcadepelejä: 253 peliä ilman mainoksia, offline.
+
+Full description:
+RetroStone kokoaa 253 peliä yhteen ilmaiseen sovellukseen: 216 lauta-, kortti- ja pulmapeliä vihreän pelipöydän ääressä (shakki, go, backgammon, mahjong, pasianssi, belote, bridge, sudoku, nonogrammit…) ja 37 pikseligrafiikalla tehtyä arcadepeliä kosketusnäytölle. Ei mainoksia, ei mitään lukittuna: jokainen peli ja jokainen taso on ilmainen.
+
+PELIT
+• Pulmapelit (52): Pallojen lajittelu · Veden lajittelu · Palikat · Palapeli · Miinat · Putket · 15-peli · Tangram · Etsi erot · Shakkitehtävät ja 42 muuta
+• Logiikkapelit (38): Sudoku · Kuvaristikot · Summasudoku · Kakuro · Calcudoku · Binairo · Star Battle · Sillat · Teltat · Futoshiki ja 28 muuta
+• Strategia (37): Tammi · Go · Reversi · Neljän suora · Mancala · Mylly · Gomoku · Kiinanshakki · Hex · Biljardi ja 27 muuta
+• Shakkiperhe (7): Banqi · Janggi · Makruk · Shakki · Shogi · Viidakkoshakki · Xiangqi
+• Noppa- ja kilpapelit (15): Backgammon · Ludo · Yacht · Kymppitonni · Käärmeet ja tikkaat · Urin kuninkaallinen peli · Shut the Box · Valehtelijan nopat ja 7 muuta
+• Kortit ja laatat (59): Pasianssi · Hämähäkki · Vapaat solut · Mahjong · Mahjong-pasianssi · Hertta · Pata · Belote · Bridge · Ranskalainen tarot · Gin rummy · Canasta ja 47 muuta
+• Arvauspelit (8): Ihmissudet · Karttavisa · Laivanupotus · Muistipeli · Piirrä ja arvaa · Salainen koodi · Salaiset kasvot · Vakooja
+• Arcade-pelit (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+ARCADE
+• 37 pikseligrafiikalla tehtyä arcadepeliä kosketusnäytölle, yhden sormen peleistä tasohyppelyihin
+• Ennätyksesi tallentuu, ja jokainen peli odottaa siinä, mihin jäit
+• Myös peliohjaimet toimivat: jopa 4 pelaajaa joissakin peleissä
+
+YHDESSÄ TAI LAITETTA VASTAAN
+• Ystävien kanssa yhdellä laitteella, joka kulkee kädestä käteen: 2–6 pelaajaa pelistä riippuen
+• Tai anna laitteen ottaa paikkoja kolmella tasolla (helppo, keskitaso, vaikea): 103 peliä 110:stä kahden tai useamman pelaajan pelistä
+• Kasvokkain: aseta puhelin tai tabletti tasaisesti väliinne, niin ylemmän pelaajan nappulat kääntyvät häneen päin
+• Korttipelit pitävät jokaisen käden salassa: suojakuva peittää kortit, kun laite siirtyy seuraavalle pelaajalle
+• Kumoa, käännä lauta, pysty- tai vaakasuunta, ja jokaisen pelin säännöt yhden napautuksen päässä
+
+PULMAT JA TASOT
+• 101 pulmapeliä ja pasianssia huolella suunnitelluilla tasoilla, useimmissa 150: yli 14 000 tasoa
+• Jopa 3 tähteä tasoa kohden ja vihje, kun jäät jumiin
+• Sen jälkeen satunnaisia pulmia loputtomasti
+
+JOKA PÄIVÄ
+• Päiväputki, kokemuspisteet, tasot ja saavutukset sekä edistymisesi jokaisella välilehdellä
+• Vaalea tai tumma teema ja haku, joka löytää minkä tahansa pelin nimellä
+
+ILMAINEN, ILMAN MAINOKSIA
+• Kaikki pelit ja kaikki tasot ilmaiseksi: ei mainoksia, ei lukituksia, ei tiliä
+• Avoin lähdekoodi: koko koodi on GitHubissa vapaasti luettavana
+• Mitään tietoja ei kerätä; toimii offline-tilassa
+• 22 kieltä
+• Pidätkö siitä? Vapaaehtoinen tippi asetuksissa auttaa tekemään uusia pelejä
+
+Tekijä: 8BCraft.
+
+
+=== French (France) (fr-FR) ===
+
+App name:
+250 en 1 : société et arcade
+
+Short description:
+253 casse-tête, jeux de société et d'arcade : gratuit, open source, sans pub.
+
+Full description:
+RetroStone réunit 253 jeux dans une appli gratuite : 216 jeux de société, de cartes et casse-tête autour d'un tapis vert (échecs, go, backgammon, mahjong, réussites, belote, bridge, sudoku, nonogrammes…) et 37 jeux d'arcade en pixel art faits pour l'écran tactile. Sans pub, rien de verrouillé : chaque jeu et chaque niveau est gratuit.
+
+LES JEUX
+• Casse-tête (52) : Tri des billes · Tri des liquides · Blocs · Puzzle · Mines · Tuyaux · Taquin · Tangram · Jeu des différences · Problèmes d'échecs et 42 autres
+• Logique (38) : Sudoku · Nonogrammes · Sudoku Killer · Kakuro · Calcudoku · Binairo · Star Battle · Ponts · Tentes · Futoshiki et 28 autres
+• Stratégie (37) : Dames · Go · Reversi · Quatre en ligne · Mancala · Jeu du moulin · Gomoku · Dames chinoises · Hex · Billard américain et 27 autres
+• La famille des échecs (7) : Banqi · Échecs · Janggi · Jeu de la jungle · Makruk · Shogi · Xiangqi
+• Dés et parcours (15) : Backgammon · Ludo · Yams · 10 000 · Serpents et échelles · Jeu royal d'Ur · Ferme la boîte · Dés menteurs et 7 autres
+• Cartes et tuiles (59) : Réussite · Spider · Cases libres · Mahjong · Mahjong solitaire · Dame de pique · Pique · Belote · Bridge · Tarot · Gin rami · Canasta et 47 autres
+• Jeux de déduction (8) : Bataille navale · Code secret · Dessine et devine · L'espion · Loups-garous · Paires · Quiz géo · Visage mystère
+• Arcade (37) : Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+L'ARCADE
+• 37 jeux d'arcade en pixel art faits pour l'écran tactile, des jeux à un doigt aux jeux de plateformes
+• Ton meilleur score est gardé, et chaque partie t'attend là où tu l'as laissée
+• Les manettes marchent aussi : jusqu'à 4 joueurs dans certains jeux
+
+À PLUSIEURS, OU CONTRE L'APPAREIL
+• Entre amis sur un seul appareil, qui passe de main en main : de 2 à 6 joueurs selon le jeu
+• Ou laisse l'appareil prendre des places, à trois niveaux (facile, moyen, difficile) : dans 103 des 110 jeux à deux ou plus
+• Face à face : pose le téléphone ou la tablette à plat entre vous, et les pièces du joueur d'en face se tournent vers lui
+• Les jeux de cartes gardent chaque main secrète : un écran cache les cartes pendant que l'appareil passe au joueur suivant
+• Annuler, retourner le plateau, en portrait ou en paysage, et les règles de chaque jeu à portée de doigt
+
+CASSE-TÊTE ET NIVEAUX
+• 101 casse-tête et réussites avec des niveaux conçus un par un, 150 pour la plupart : plus de 14 000 niveaux
+• Jusqu'à 3 étoiles par niveau, et un indice quand tu bloques
+• Puis des grilles au hasard, sans fin
+
+CHAQUE JOUR
+• Une série de jours, de l'expérience, des niveaux et des succès, et ta progression dans chaque onglet
+• Thème clair ou sombre, et une recherche pour trouver un jeu par son nom
+
+GRATUIT, SANS PUB
+• Tous les jeux et tous les niveaux, gratuits : sans pub, rien de verrouillé, sans compte
+• Open source : tout le code est sur GitHub, libre à lire
+• Aucune donnée collectée ; fonctionne hors ligne
+• 22 langues
+• Ça te plaît ? Un pourboire facultatif, dans les réglages, aide à créer de nouveaux jeux
+
+Créé par 8BCraft.
+
+
+=== Indonesian (id) ===
+
+App name:
+250 in 1: Game Papan & Arcade
+
+Short description:
+Game papan, kartu, teka-teki, dan arcade: 253 game tanpa iklan, bisa offline.
+
+Full description:
+RetroStone mengumpulkan 253 game dalam satu aplikasi gratis: 216 game papan, kartu, dan teka-teki di sekitar meja hijau (catur, go, backgammon, mahjong, solitaire, belote, bridge, sudoku, nonogram…) dan 37 game arcade bergaya pixel art yang dibuat untuk layar sentuh. Tanpa iklan, tanpa yang terkunci: setiap game dan setiap level gratis.
+
+GAME-NYA
+• Teka-teki (52): Urutkan Bola · Urutkan Air · Teka-teki Balok · Puzzle Gambar · Ranjau · Pipa · Teka-teki 15 · Tangram · Cari Perbedaan · Teka-teki catur dan 42 lainnya
+• Teka-teki logika (38): Sudoku · Nonogram · Sudoku Killer · Kakuro · Calcudoku · Binairo · Star Battle · Jembatan · Tenda · Futoshiki dan 28 lainnya
+• Strategi (37): Dam · Go · Reversi · Empat Sejajar · Mancala · Sembilan Bidak · Gomoku · Dam Cina · Hex · Biliar dan 27 lainnya
+• Keluarga catur (7): Banqi · Catur · Janggi · Makruk · Rimba · Shogi · Xiangqi
+• Dadu dan balapan (15): Backgammon · Ludo · Yacht · Farkle · Ular Tangga · Permainan Kerajaan Ur · Shut the Box · Dadu Pembohong dan 7 lainnya
+• Kartu dan ubin (59): Solitaire · Spider · Sel Bebas · Mahjong · Mahjong Solitaire · Hati · Sekop · Belote · Bridge · Tarot Prancis · Gin Rummy · Canasta dan 47 lainnya
+• Permainan tebak-tebakan (8): Cari Pasangan · Gambar dan Tebak · Kode Rahasia · Kuis Peta · Manusia serigala · Mata-mata · Perang Laut · Wajah Misterius
+• Arkade (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+ARCADE
+• 37 game arcade pixel art untuk layar sentuh, dari game satu jari sampai game platform
+• Skor terbaikmu disimpan, dan setiap game menunggu di tempat kamu berhenti
+• Gamepad juga bisa: sampai 4 pemain di beberapa game
+
+BERSAMA, ATAU MELAWAN PERANGKAT
+• Bersama teman di satu perangkat yang berpindah tangan: 2 sampai 6 pemain, tergantung game-nya
+• Atau biarkan perangkat mengisi kursi, dengan tiga tingkat (mudah, sedang, sulit): di 103 dari 110 game untuk dua orang atau lebih
+• Berhadapan: letakkan ponsel atau tablet mendatar di antara kalian, dan bidak pemain di atas berputar menghadapnya
+• Game kartu menjaga setiap tangan tetap rahasia: layar penutup menyembunyikan kartu saat perangkat berpindah ke pemain berikutnya
+• Batalkan langkah, putar papan, potret atau lanskap, dan aturan setiap game cukup satu ketukan
+
+TEKA-TEKI DAN LEVEL
+• 101 teka-teki dan solitaire dengan level yang dirancang satu per satu, kebanyakan 150: lebih dari 14.000 level
+• Hingga 3 bintang per level, dan petunjuk saat kamu buntu
+• Lalu teka-teki acak tanpa akhir
+
+SETIAP HARI
+• Rentetan harian, poin pengalaman, level dan pencapaian, serta kemajuanmu di setiap tab
+• Tema terang atau gelap, dan pencarian untuk menemukan game apa pun lewat namanya
+
+GRATIS, TANPA IKLAN
+• Semua game dan semua level gratis: tanpa iklan, tanpa yang terkunci, tanpa akun
+• Sumber terbuka: seluruh kodenya ada di GitHub, bebas dibaca
+• Tidak ada data yang dikumpulkan; bisa dimainkan offline
+• 22 bahasa
+• Suka? Tip sukarela di pengaturan membantu membuat game baru
+
+Dibuat oleh 8BCraft.
+
+
+=== Italian (it-IT) ===
+
+App name:
+250 in 1: tavolo e arcade
+
+Short description:
+Giochi da tavolo, di carte, rompicapi e arcade: 253 giochi, senza pubblicità.
+
+Full description:
+RetroStone riunisce 253 giochi in un'app gratuita: 216 giochi da tavolo, di carte e rompicapi attorno a un tappeto verde (scacchi, go, backgammon, mahjong, solitario, belote, bridge, sudoku, nonogrammi…) e 37 giochi arcade in pixel art pensati per il touch screen. Niente pubblicità, niente di bloccato: ogni gioco e ogni livello è gratis.
+
+I GIOCHI
+• Rompicapi (52): Ordina le palline · Ordina l'acqua · Blocchi · Puzzle · Mine · Tubi · Gioco del 15 · Tangram · Trova le differenze · Problemi di scacchi e altri 42
+• Logica (38): Sudoku · Nonogrammi · Sudoku killer · Kakuro · Calcudoku · Binairo · Star Battle · Ponti · Tende · Futoshiki e altri 28
+• Strategia (37): Dama · Go · Reversi · Quattro in fila · Mancala · Mulino · Gomoku · Dama cinese · Hex · Biliardo americano e altri 27
+• La famiglia degli scacchi (7): Banqi · Gioco della giungla · Janggi · Makruk · Scacchi · Shogi · Xiangqi
+• Dadi e percorsi (15): Backgammon · Ludo · Yacht · Farkle · Serpenti e scale · Gioco reale di Ur · Chiudi la scatola · Dadi bugiardi e altri 7
+• Carte e tessere (59): Solitario · Spider · Celle libere · Mahjong · Mahjong solitario · Cuori · Picche · Belote · Bridge · Tarot francese · Gin rummy · Canasta e altri 47
+• Giochi di deduzione (8): Battaglia navale · Codice segreto · Coppie · Disegna e indovina · La spia · Lupi mannari · Quiz delle mappe · Volto misterioso
+• Arcade (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+L'ARCADE
+• 37 giochi arcade in pixel art pensati per il touch screen, dai giochi a un dito ai platform
+• Il tuo record viene salvato, e ogni partita ti aspetta dove l'hai lasciata
+• Funzionano anche i controller: fino a 4 giocatori in alcuni giochi
+
+IN COMPAGNIA O CONTRO IL DISPOSITIVO
+• Con gli amici su un solo dispositivo, passato di mano in mano: da 2 a 6 giocatori, secondo il gioco
+• Oppure lascia che il dispositivo prenda dei posti, a tre livelli (facile, medio, difficile): in 103 dei 110 giochi per due o più
+• Faccia a faccia: appoggia il telefono o il tablet tra voi, e i pezzi del giocatore di fronte si girano verso di lui
+• I giochi di carte tengono segreta ogni mano: una schermata copre le carte mentre il dispositivo passa al giocatore successivo
+• Annulla, gira il tavoliere, in verticale o in orizzontale, e le regole di ogni gioco a portata di tocco
+
+ROMPICAPI E LIVELLI
+• 101 rompicapi e solitari con livelli creati uno per uno, 150 per la maggior parte: oltre 14.000 livelli
+• Fino a 3 stelle per livello, e un aiuto quando ti blocchi
+• Poi rompicapi casuali senza fine
+
+OGNI GIORNO
+• Una serie di giorni, esperienza, livelli e obiettivi, e i tuoi progressi in ogni scheda
+• Tema chiaro o scuro, e una ricerca per trovare qualsiasi gioco per nome
+
+GRATIS, SENZA PUBBLICITÀ
+• Tutti i giochi e tutti i livelli, gratis: niente pubblicità, niente di bloccato, nessun account
+• Open source: tutto il codice è su GitHub, libero da leggere
+• Nessun dato raccolto; funziona offline
+• 22 lingue
+• Ti piace? Una mancia facoltativa nelle impostazioni aiuta a creare nuovi giochi
+
+Creato da 8BCraft.
+
+
+=== Japanese (ja-JP) ===
+
+App name:
+250 in 1 パズル・ボード・アーケード
+
+Short description:
+ボードゲーム、カード、パズル、アーケード：253種のゲームを広告なし・オフラインで。
+
+Full description:
+RetroStoneは253種のゲームをひとつの無料アプリに。緑のテーブルを囲むボードゲーム・カードゲーム・パズルが216種（チェス、囲碁、バックギャモン、麻雀、ソリティア、ブロット、ブリッジ、ナンバープレイス、お絵かきロジック…）、そしてタッチ画面のために作ったドット絵のアーケードゲームが37種。広告なし、ロックなし：すべてのゲームとすべてのレベルが無料です。
+
+収録ゲーム
+• パズル (52)：ボールソート、ウォーターソート、ブロックパズル、ジグソーパズル、地雷、パイプ、15パズル、タングラム、まちがいさがし、チェスパズル、ほか42種
+• ロジックパズル (38)：ナンバープレイス、ノノグラム、キラーナンプレ、クロスサム、カルクドク、ビナイロ、スターバトル、ブリッジパズル、テント、不等号パズル、ほか28種
+• 戦略ゲーム (37)：チェッカー、囲碁、リバーシ、四目並べ、マンカラ、ナイン・メンズ・モリス、五目並べ、チャイニーズチェッカー、ヘックス、ビリヤード、ほか27種
+• チェスの仲間 (7)：シャンチー、チェス、チャンギ、マークルック、将棋、暗棋、闘獣棋
+• ダイスとすごろく (15)：バックギャモン、ルド、ヨット、ファークル、蛇と梯子、ウル王朝のゲーム、シャット・ザ・ボックス、ライアーダイス、ほか7種
+• カードとタイル (59)：ソリティア、スパイダー、空きセル、麻雀、麻雀ソリティア、ハーツ、スペード、ベロット、ブリッジ、フレンチ・タロット、ジン・ラミー、カナスタ、ほか47種
+• 推理ゲーム (8)：お絵かきクイズ、なぞの顔、スパイ、人狼、地図クイズ、海戦ゲーム、神経衰弱、秘密のコード
+• アーケード (37)：Beaver Rush、Biscuit Bandit、Blueberry Tumble、Caterpillar Crawl、Cosmo Corgi、Crab Coconut、Duck Parade、Fishy Feast、Frog Reach、Gecko Golf、Goat Gorge、Gopher Dig、Hamster Havoc、Hedgehog Hills、Jelly Jam、Kitty Kibble、Ladybug Laps、Leady Squid、Lemur Leap、Llama Drama、Mole Marbles、Moth Around、Mouse Espresso、Nutty Branch、Otter Rapids、Pancake Tower、Penguin Slalom、Pogo Mamie、Prickle Patch、Puffin Plunge、Raccoon Recycler、Radish Rascals、Seal Shove、Snail Switch、Snowball Siege、Spider Swing、Unicorn Hop
+
+アーケード
+• タッチ画面向けのドット絵アーケードゲーム37種：指一本で遊べるゲームからアクションゲームまで
+• ハイスコアは保存され、中断したゲームはそのまま続きから
+• ゲームパッドにも対応：一部のゲームは最大4人で
+
+みんなで、または端末と
+• 1台の端末を手渡しで回して友だちと：ゲームによって2〜6人
+• 端末に席をまかせることも。強さは3段階（やさしい・ふつう・むずかしい）：2人以上で遊ぶ110種のうち103種に対応
+• 向かい合わせ：スマホやタブレットを2人の間に平らに置くと、上側のプレイヤーの駒がその人の方を向きます
+• カードゲームでは手札は秘密：次のプレイヤーに端末を渡す間、カバーがカードを隠します
+• 待った、盤の回転、縦でも横でも。各ゲームのルールもワンタップで
+
+パズルとレベル
+• ひとつずつ作り込んだレベルのあるパズルとソリティアが101種、ほとんどが150レベル：合計14,000レベル以上
+• 各レベル最大3つの星、行き詰まったらヒント
+• その後はランダムなパズルがいつまでも
+
+毎日の楽しみ
+• 連続プレイ日数、経験値、レベル、実績、そして各タブの進み具合
+• ライト／ダークテーマ、ゲーム名で探せる検索
+
+無料、広告なし
+• すべてのゲームとすべてのレベルが無料：広告なし、ロックなし、アカウント不要
+• オープンソース：コードはすべてGitHubで公開
+• データは一切収集しません。オフラインで遊べます
+• 22言語に対応
+• 気に入ったら、設定画面から任意のチップで新しいゲーム作りを応援できます
+
+制作：8BCraft
+
+
+=== Korean (ko-KR) ===
+
+App name:
+250 in 1 퍼즐·보드·아케이드
+
+Short description:
+보드게임, 카드, 퍼즐, 아케이드: 253종의 게임을 광고 없이 오프라인으로.
+
+Full description:
+RetroStone은 253종의 게임을 하나의 무료 앱에 담았습니다. 초록 테이블에 둘러앉아 즐기는 보드게임·카드 게임·퍼즐 216종(체스, 바둑, 백개먼, 마작, 솔리테어, 블로트, 브리지, 스도쿠, 노노그램…)과 터치스크린을 위해 만든 픽셀 아트 아케이드 게임 37종. 광고 없음, 잠금 없음: 모든 게임과 모든 레벨이 무료입니다.
+
+수록 게임
+• 퍼즐 (52): 공 정렬 · 물 정렬 · 블록 퍼즐 · 직소 퍼즐 · 지뢰 · 파이프 · 15 퍼즐 · 칠교놀이 · 틀린 그림 찾기 · 체스 퍼즐 외 42종
+• 논리 퍼즐 (38): 스도쿠 · 노노그램 · 킬러 스도쿠 · 가쿠로 · 칼쿠도쿠 · 비나이로 · 스타 배틀 · 다리 잇기 · 텐트 · 후토시키 외 28종
+• 전략 게임 (37): 체커 · 바둑 · 리버시 · 사목 · 만칼라 · 나인 멘스 모리스 · 오목 · 다이아몬드 게임 · 헥스 · 포켓볼 외 27종
+• 체스 계열 (7): 막룩 · 반치 · 샹치 · 쇼기 · 장기 · 정글 · 체스
+• 주사위와 경주 (15): 백개먼 · 루도 · 요트 · 파클 · 뱀과 사다리 · 우르 왕실 게임 · 셧 더 박스 · 라이어 다이스 외 7종
+• 카드와 타일 (59): 솔리테어 · 스파이더 · 빈칸 솔리테어 · 마작 · 마작 솔리테어 · 하트 · 스페이드 · 블로트 · 브리지 · 프렌치 타로 · 진 러미 · 카나스타 외 47종
+• 추리 게임 (8): 그림 맞히기 · 늑대인간 · 비밀 코드 · 수수께끼 얼굴 · 스파이 · 지도 퀴즈 · 짝 맞추기 · 해전 게임
+• 아케이드 (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+아케이드
+• 터치스크린용 픽셀 아트 아케이드 게임 37종: 한 손가락 게임부터 플랫폼 게임까지
+• 최고 기록이 저장되고, 하던 게임은 멈춘 곳에서 기다립니다
+• 게임패드도 지원: 일부 게임은 최대 4인
+
+함께, 또는 기기와 대결
+• 기기 하나를 돌려 가며 친구들과: 게임에 따라 2~6명
+• 기기에 자리를 맡길 수도 있습니다. 난이도 3단계(쉬움, 보통, 어려움): 2인 이상 게임 110종 중 103종 지원
+• 마주 보고: 휴대폰이나 태블릿을 두 사람 사이에 눕혀 두면 위쪽 플레이어의 말이 그 사람 쪽으로 돌아갑니다
+• 카드 게임은 손패를 비밀로: 다음 플레이어에게 기기를 넘기는 동안 화면이 카드를 가립니다
+• 무르기, 보드 돌리기, 세로·가로 화면, 그리고 각 게임의 규칙을 한 번의 탭으로
+
+퍼즐과 레벨
+• 하나하나 설계한 레벨이 있는 퍼즐과 솔리테어 101종, 대부분 150레벨: 총 14,000레벨 이상
+• 레벨마다 최대 별 3개, 막히면 힌트
+• 그다음엔 끝없는 랜덤 퍼즐
+
+매일
+• 연속 플레이 일수, 경험치, 레벨과 업적, 탭마다의 진행도
+• 라이트/다크 테마, 이름으로 게임을 찾는 검색
+
+무료, 광고 없음
+• 모든 게임과 모든 레벨 무료: 광고 없음, 잠금 없음, 계정 없음
+• 오픈 소스: 모든 코드를 GitHub에 공개
+• 어떤 데이터도 수집하지 않음, 오프라인 플레이
+• 22개 언어
+• 마음에 드셨나요? 설정에서 선택적으로 팁을 보내 새 게임 제작을 응원할 수 있습니다
+
+제작: 8BCraft
+
+
+=== Norwegian (no-NO) ===
+
+App name:
+250 i 1: brettspill og arkade
+
+Short description:
+Brett-, kort-, tenke- og arkadespill: 253 spill, uten reklame, offline.
+
+Full description:
+RetroStone samler 253 spill i én gratis app: 216 brett-, kort- og tenkespill rundt et grønt spillebord (sjakk, go, backgammon, mahjong, kabal, belote, bridge, sudoku, nonogram …) og 37 arkadespill i pikselgrafikk, laget for berøringsskjermen. Ingen reklame, ingenting låst: hvert spill og hvert nivå er gratis.
+
+SPILLENE
+• Nøtter (52): Sorter kulene · Sorter vannet · Blokkpuslespill · Puslespill · Miner · Rør · 15-spill · Tangram · Finn forskjellene · Sjakkoppgaver og 42 til
+• Logikkspill (38): Sudoku · Nonogrammer · Killersudoku · Kakuro · Calcudoku · Binairo · Star Battle · Bruer · Telt · Futoshiki og 28 til
+• Strategi (37): Dam · Go · Reversi · Fire på rad · Mancala · Mølle · Fem på rad · Kinasjakk · Hex · Biljard og 27 til
+• Sjakkfamilien (7): Banqi · Janggi · Jungelsjakk · Makruk · Shogi · Sjakk · Xiangqi
+• Terninger og veddeløp (15): Backgammon · Ludo · Yacht · 10 000 · Slanger og stiger · Det kongelige spillet fra Ur · Shut the Box · Løgnerterninger og 7 til
+• Kort og brikker (59): Kabal · Edderkopp · Ledige celler · Mahjong · Mahjong-kabal · Hjerter · Spar · Belote · Bridge · Fransk tarot · Gin rummy · Canasta og 47 til
+• Gjettelek (8): Det hemmelige ansiktet · Finn parene · Hemmelig kode · Kartquiz · Senke slagskip · Spionen · Tegn og gjett · Varulver
+• Arkadespill (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+ARKADEN
+• 37 arkadespill i pikselgrafikk laget for berøringsskjermen, fra énfingerspill til plattformspill
+• Rekorden din lagres, og hvert spill venter der du slapp
+• Spillkontrollere virker også: opptil 4 spillere i noen spill
+
+SAMMEN ELLER MOT ENHETEN
+• Med venner på én enhet som går fra hånd til hånd: 2 til 6 spillere, avhengig av spillet
+• Eller la enheten ta plasser, på tre nivåer (lett, middels, vanskelig): i 103 av de 110 spillene for to eller flere
+• Ansikt til ansikt: legg telefonen eller nettbrettet flatt mellom dere, og brikkene til spilleren øverst snur seg mot ham
+• Kortspillene holder hver hånd hemmelig: en skjerm dekker kortene mens enheten går videre til neste spiller
+• Angre, snu brettet, stående eller liggende, og reglene for hvert spill ett trykk unna
+
+NØTTER OG NIVÅER
+• 101 nøtter og kabaler med nøye utformede nivåer, 150 for de fleste: over 14 000 nivåer
+• Opptil 3 stjerner per nivå, og et hint når du står fast
+• Deretter tilfeldige oppgaver uten slutt
+
+HVER DAG
+• En dagsrekke, erfaringspoeng, nivåer og prestasjoner, og fremgangen din i hver fane
+• Lyst eller mørkt tema, og et søk som finner ethvert spill på navnet
+
+GRATIS, UTEN REKLAME
+• Alle spill og alle nivåer gratis: ingen reklame, ingenting låst, ingen konto
+• Åpen kildekode: all koden ligger på GitHub, fri å lese
+• Ingen data samles inn; fungerer offline
+• 22 språk
+• Liker du det? Et frivillig tips i innstillingene hjelper nye spill på vei
+
+Laget av 8BCraft.
+
+
+=== Dutch (nl-NL) ===
+
+App name:
+250 in 1: puzzel, bord, arcade
+
+Short description:
+Bord-, kaart-, puzzel- en arcadespellen: 253 spellen, zonder advertenties.
+
+Full description:
+RetroStone bundelt 253 spellen in één gratis app: 216 bord-, kaart- en puzzelspellen rond een groene speltafel (schaken, go, backgammon, mahjong, patience, belote, bridge, sudoku, nonogrammen…) en 37 arcadespellen in pixelart, gemaakt voor het touchscreen. Geen advertenties, niets op slot: elk spel en elk level is gratis.
+
+DE SPELLEN
+• Puzzels (52): Ballen sorteren · Water sorteren · Blokpuzzel · Legpuzzel · Mijnen · Buizen · Vijftienpuzzel · Tangram · Zoek de verschillen · Schaakpuzzels en nog 42
+• Logicapuzzels (38): Sudoku · Nonogrammen · Killersudoku · Kakuro · Calcudoku · Binairo · Star Battle · Bruggen · Tenten · Futoshiki en nog 28
+• Strategie (37): Dammen · Go · Reversi · Vier in een rij · Mancala · Molenspel · Gomoku · Chinees dammen · Hex · Pool en nog 27
+• De schaakfamilie (7): Banqi · Janggi · Jungleschaak · Makruk · Schaken · Shogi · Xiangqi
+• Dobbel- en racespellen (15): Backgammon · Ludo · Yacht · 10.000 · Slangen en ladders · Koninklijk spel van Ur · Shut the Box · Leugenaarsdobbelen en nog 7
+• Kaarten en stenen (59): Patience · Spider · Vrije cellen · Mahjong · Mahjong solitaire · Hartenjagen · Schoppen · Belote · Bridge · Frans tarot · Gin rummy · Canasta en nog 47
+• Raadspellen (8): De spion · Geheim gezicht · Geheime code · Kaartquiz · Paren zoeken · Teken en raad · Weerwolven · Zeeslag
+• Arcade (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+DE ARCADE
+• 37 arcadespellen in pixelart, gemaakt voor het touchscreen, van spellen met één vinger tot platformspellen
+• Je beste score wordt bewaard, en elk spel wacht waar je gebleven was
+• Gamepads werken ook: tot 4 spelers in sommige spellen
+
+SAMEN, OF TEGEN HET TOESTEL
+• Met vrienden op één toestel dat van hand tot hand gaat: 2 tot 6 spelers, afhankelijk van het spel
+• Of laat het toestel plaatsen innemen, op drie niveaus (makkelijk, gemiddeld, moeilijk): in 103 van de 110 spellen voor twee of meer
+• Tegenover elkaar: leg de telefoon of tablet plat tussen jullie in, en de stukken van de speler boven draaien naar hem toe
+• Kaartspellen houden elke hand geheim: een scherm bedekt de kaarten terwijl het toestel naar de volgende speler gaat
+• Ongedaan maken, het bord draaien, staand of liggend, en de regels van elk spel met één tik
+
+PUZZELS EN LEVELS
+• 101 puzzels en patiences met zorgvuldig ontworpen levels, meestal 150 per spel: meer dan 14.000 levels
+• Tot 3 sterren per level, en een hint als je vastzit
+• Daarna willekeurige puzzels zonder einde
+
+ELKE DAG
+• Een dagenreeks, ervaringspunten, niveaus en prestaties, en je voortgang in elk tabblad
+• Licht of donker thema, en een zoekfunctie om elk spel op naam te vinden
+
+GRATIS, ZONDER ADVERTENTIES
+• Alle spellen en alle levels gratis: geen advertenties, niets op slot, geen account
+• Open source: alle code staat op GitHub, vrij te lezen
+• Er worden geen gegevens verzameld; werkt offline
+• 22 talen
+• Vind je het leuk? Een vrijwillige fooi in de instellingen helpt nieuwe spellen te maken
+
+Gemaakt door 8BCraft.
+
+
+=== Polish (pl-PL) ===
+
+App name:
+250 w 1: planszówki i arcade
+
+Short description:
+Gry planszowe, karciane, łamigłówki i arcade w jednej aplikacji. Bez reklam.
+
+Full description:
+RetroStone łączy w jednej darmowej aplikacji gry planszowe, karciane i łamigłówki przy zielonym stole (szachy, go, backgammon, mahjong, pasjans, belote, brydż, sudoku, nonogramy…) oraz gry zręcznościowe w pixel arcie, stworzone na ekran dotykowy: łącznie 253. Bez reklam, nic zablokowanego: każda gra i każdy poziom są za darmo.
+
+GRY
+• Łamigłówki (52): Sortowanie kulek · Sortowanie wody · Klocki · Puzzle · Miny · Rury · Piętnastka · Tangram · Znajdź różnice · Zadania szachowe i inne
+• Łamigłówki logiczne (38): Sudoku · Obrazki logiczne · Sudoku z sumami · Kakuro · Calcudoku · Binairo · Star Battle · Mosty · Namioty · Futoshiki i inne
+• Strategia (37): Warcaby · Go · Reversi · Cztery w rzędzie · Mankala · Młynek · Gomoku · Chińskie warcaby · Hex · Bilard i inne
+• Rodzina szachów (7): Banqi · Dżungla · Janggi · Makruk · Shogi · Szachy · Xiangqi
+• Kości i wyścigi (15): Backgammon · Chińczyk · Yacht · Farkle · Węże i drabiny · Królewska gra z Ur · Zamknij pudełko · Kości kłamcy i inne
+• Karty i kamienie (59): Pasjans · Pająk · Wolne komórki · Mahjong · Pasjans mahjong · Kierki · Piki · Belote · Brydż · Tarot francuski · Gin remik · Kanasta i inne
+• Zgadywanki (8): Pary · Quiz z mapą · Rysuj i zgaduj · Statki · Szpieg · Tajemnicza twarz · Tajny kod · Wilkołaki
+• Gry zręcznościowe (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+ARCADE
+• Gry zręcznościowe w pixel arcie na ekran dotykowy (37), od gier na jeden palec po platformówki
+• Twój rekord jest zapisywany, a każda gra czeka w miejscu, w którym ją zostawiono
+• Działają też pady: do 4 graczy w niektórych grach
+
+RAZEM ALBO PRZECIW URZĄDZENIU
+• Ze znajomymi na jednym urządzeniu, podawanym z rąk do rąk: od 2 do 6 graczy, zależnie od gry
+• Albo oddaj miejsca urządzeniu, na trzech poziomach (łatwy, średni, trudny): w 103 z 110 gier dla dwóch lub więcej osób
+• Twarzą w twarz: połóż telefon lub tablet płasko między wami, a pionki gracza u góry obrócą się do niego
+• Gry karciane chronią każdą rękę: zasłona zakrywa karty, gdy urządzenie przechodzi do następnego gracza
+• Cofanie ruchu, obracanie planszy, pion lub poziom, a zasady każdej gry o jedno dotknięcie
+
+ŁAMIGŁÓWKI I POZIOMY
+• 101 łamigłówek i pasjansów z poziomami projektowanymi jeden po drugim, w większości po 150: ponad 14 000 poziomów
+• Do 3 gwiazdek za poziom i podpowiedź, gdy utkniesz
+• Potem losowe łamigłówki bez końca
+
+CODZIENNIE
+• Seria dni, doświadczenie, poziomy i osiągnięcia oraz twoje postępy w każdej zakładce
+• Jasny lub ciemny motyw i wyszukiwarka, która znajdzie każdą grę po nazwie
+
+ZA DARMO, BEZ REKLAM
+• Wszystkie gry i wszystkie poziomy za darmo: bez reklam, nic zablokowanego, bez konta
+• Otwarte źródło: cały kod jest na GitHubie, do swobodnego wglądu
+• Żadne dane nie są zbierane; działa offline
+• 22 języki
+• Podoba ci się? Dobrowolny napiwek w ustawieniach pomaga tworzyć nowe gry
+
+Stworzone przez 8BCraft.
+
+
+=== Portuguese (Brazil) (pt-BR) ===
+
+App name:
+250 em 1: tabuleiro e arcade
+
+Short description:
+Jogos de tabuleiro, cartas, quebra-cabeças e arcade: 253 jogos, sem anúncios.
+
+Full description:
+O RetroStone reúne 253 jogos em um app gratuito: 216 jogos de tabuleiro, de cartas e quebra-cabeças em volta de uma mesa verde (xadrez, go, gamão, mahjong, paciência, belote, bridge, sudoku, nonogramas…) e 37 jogos arcade em pixel art feitos para a tela de toque. Sem anúncios, nada bloqueado: todos os jogos e todos os níveis são grátis.
+
+OS JOGOS
+• Quebra-cabeças (52): Ordenar as bolas · Ordenar a água · Blocos · Quebra-cabeça · Minas · Canos · Jogo do 15 · Tangram · Jogo dos Erros · Problemas de xadrez e mais 42
+• Lógica (38): Sudoku · Nonogramas · Sudoku killer · Kakuro · Calcudoku · Binairo · Star Battle · Pontes · Barracas · Futoshiki e mais 28
+• Estratégia (37): Damas · Go · Reversi · Quatro em linha · Mancala · Trilha · Gomoku · Damas chinesas · Hex · Sinuca e mais 27
+• A família do xadrez (7): Banqi · Janggi · Makruk · Selva · Shogi · Xadrez · Xiangqi
+• Dados e corridas (15): Gamão · Ludo · General · Farkle · Cobras e Escadas · Jogo Real de Ur · Fecha a caixa · Dados mentirosos e mais 7
+• Cartas e peças (59): Paciência · Paciência Spider · Células livres · Mahjong · Paciência Mahjong · Copas · Espadas · Belote · Bridge · Tarô francês · Gin Rummy · Canastra e mais 47
+• Jogos de adivinhação (8): Batalha naval · Código secreto · Desenhe e adivinhe · Lobisomens · O espião · Pares · Quiz de mapas · Rosto misterioso
+• Arcade (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+O ARCADE
+• 37 jogos arcade em pixel art feitos para a tela de toque, de jogos de um dedo a jogos de plataforma
+• Seu recorde fica salvo, e cada partida espera por você onde parou
+• Controles também funcionam: até 4 jogadores em alguns jogos
+
+COM AMIGOS OU CONTRA O APARELHO
+• Com amigos em um só aparelho, passado de mão em mão: de 2 a 6 jogadores, conforme o jogo
+• Ou deixe o aparelho ocupar lugares, em três níveis (fácil, médio, difícil): em 103 dos 110 jogos para dois ou mais
+• Frente a frente: deite o celular ou o tablet entre vocês, e as peças do jogador de cima se viram para ele
+• Os jogos de cartas mantêm cada mão em segredo: uma tela cobre as cartas enquanto o aparelho passa para o próximo jogador
+• Desfazer, girar o tabuleiro, retrato ou paisagem, e as regras de cada jogo a um toque
+
+QUEBRA-CABEÇAS E NÍVEIS
+• 101 quebra-cabeças e paciências com níveis criados um a um, 150 na maioria: mais de 14.000 níveis
+• Até 3 estrelas por nível, e uma dica quando você travar
+• Depois, quebra-cabeças aleatórios sem fim
+
+TODO DIA
+• Uma sequência de dias, experiência, níveis e conquistas, e seu progresso em cada aba
+• Tema claro ou escuro, e uma busca para achar qualquer jogo pelo nome
+
+GRÁTIS, SEM ANÚNCIOS
+• Todos os jogos e todos os níveis, grátis: sem anúncios, nada bloqueado, sem conta
+• Código aberto: todo o código está no GitHub, livre para ler
+• Nenhum dado coletado; funciona offline
+• 22 idiomas
+• Gostou? Uma gorjeta opcional nas configurações ajuda a criar novos jogos
+
+Criado por 8BCraft.
+
+
+=== Portuguese (Portugal) (pt-PT) ===
+
+App name:
+250 em 1: tabuleiro e arcade
+
+Short description:
+Jogos de tabuleiro, cartas, quebra-cabeças e arcade: 253 jogos, sem anúncios.
+
+Full description:
+O RetroStone reúne 253 jogos numa app gratuita: 216 jogos de tabuleiro, de cartas e quebra-cabeças à volta de uma mesa verde (xadrez, go, gamão, mahjong, solitário, belote, bridge, sudoku, nonogramas…) e 37 jogos arcade em pixel art feitos para o ecrã tátil. Sem anúncios, nada bloqueado: todos os jogos e todos os níveis são grátis.
+
+OS JOGOS
+• Quebra-cabeças (52): Ordenar as bolas · Ordenar a água · Blocos · Puzzle · Minas · Canos · Jogo do 15 · Tangram · Descobre as Diferenças · Problemas de xadrez e mais 42
+• Lógica (38): Sudoku · Nonogramas · Sudoku killer · Kakuro · Calcudoku · Binairo · Star Battle · Pontes · Tendas · Futoshiki e mais 28
+• Estratégia (37): Damas · Go · Reversi · Quatro em linha · Mancala · Jogo do moinho · Gomoku · Damas chinesas · Hex · Bilhar e mais 27
+• A família do xadrez (7): Banqi · Janggi · Makruk · Selva · Shogi · Xadrez · Xiangqi
+• Dados e corridas (15): Gamão · Ludo · Yacht · Farkle · Cobras e Escadas · Jogo Real de Ur · Fecha a caixa · Dados mentirosos e mais 7
+• Cartas e peças (59): Solitário · Spider · Células livres · Mahjong · Paciência Mahjong · Copas · Espadas · Belote · Bridge · Tarot francês · Gin Rummy · Canasta e mais 47
+• Jogos de adivinhação (8): Batalha naval · Código secreto · Desenha e adivinha · Lobisomens · O espião · Pares · Quiz de mapas · Rosto misterioso
+• Arcade (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+O ARCADE
+• 37 jogos arcade em pixel art feitos para o ecrã tátil, de jogos de um dedo a jogos de plataformas
+• O teu recorde fica guardado, e cada partida espera por ti onde a deixaste
+• Os comandos também funcionam: até 4 jogadores em alguns jogos
+
+COM AMIGOS OU CONTRA O DISPOSITIVO
+• Com amigos num só dispositivo, passado de mão em mão: de 2 a 6 jogadores, conforme o jogo
+• Ou deixa o dispositivo ocupar lugares, em três níveis (fácil, médio, difícil): em 103 dos 110 jogos para dois ou mais
+• Frente a frente: pousa o telemóvel ou o tablet entre os dois, e as peças do jogador de cima viram-se para ele
+• Os jogos de cartas mantêm cada mão em segredo: um ecrã tapa as cartas enquanto o dispositivo passa ao jogador seguinte
+• Anular, rodar o tabuleiro, na vertical ou na horizontal, e as regras de cada jogo à distância de um toque
+
+QUEBRA-CABEÇAS E NÍVEIS
+• 101 quebra-cabeças e solitários com níveis criados um a um, 150 na maioria: mais de 14 000 níveis
+• Até 3 estrelas por nível, e uma pista quando ficas preso
+• Depois, quebra-cabeças aleatórios sem fim
+
+TODOS OS DIAS
+• Uma sequência de dias, experiência, níveis e conquistas, e o teu progresso em cada separador
+• Tema claro ou escuro, e uma pesquisa para encontrar qualquer jogo pelo nome
+
+GRÁTIS, SEM ANÚNCIOS
+• Todos os jogos e todos os níveis, grátis: sem anúncios, nada bloqueado, sem conta
+• Código aberto: todo o código está no GitHub, livre para ler
+• Nenhum dado recolhido; funciona offline
+• 22 idiomas
+• Gostas? Uma gorjeta opcional nas definições ajuda a criar novos jogos
+
+Criado por 8BCraft.
+
+
+=== Russian (ru-RU) ===
+
+App name:
+250 в 1: головоломки, настолки
+
+Short description:
+Настольные и карточные игры, головоломки и аркады в одном приложении без рекламы
+
+Full description:
+RetroStone собирает в одном бесплатном приложении настольные и карточные игры и головоломки за зелёным столом (шахматы, го, нарды, маджонг, пасьянсы, белот, бридж, судоку, японские кроссворды…) и аркадные игры в пиксель-арте, сделанные для сенсорного экрана: всего 253. Без рекламы, ничего не заблокировано: все игры и все уровни бесплатны.
+
+ИГРЫ
+• Головоломки (52): Сортировка шариков · Сортировка воды · Блоки · Пазл · Мины · Трубы · Пятнашки · Танграм · Найди отличия · Шахматные задачи и другие
+• Логические игры (38): Судоку · Японские кроссворды · Судоку с суммами · Какуро · Калькудоку · Бинайро · Звёздная битва · Мосты · Палатки · Футошики и другие
+• Стратегия (37): Шашки · Го · Реверси · Четыре в ряд · Манкала · Мельница · Гомоку · Китайские шашки · Гекс · Пул и другие
+• Семейство шахмат (7): Баньци · Джунгли · Макрук · Сёги · Сянци · Чанги · Шахматы
+• Кости и гонки (15): Короткие нарды · Лудо · Яхта · Фаркл · Змеи и лестницы · Царская игра Ура · Закрой коробку · Кости лжеца и другие
+• Карты и фишки (59): Косынка · Паук · Свободные ячейки · Маджонг · Пасьянс маджонг · Червы · Пики · Белот · Бридж · Французское таро · Джин рамми · Канаста и другие
+• Игры на угадывание (8): Викторина по карте · Загадочное лицо · Морской бой · Найди пару · Оборотни · Рисуй и угадывай · Секретный код · Шпион
+• Аркады (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+АРКАДА
+• Аркадные игры в пиксель-арте для сенсорного экрана (37), от игр в одно касание до платформеров
+• Твой рекорд сохраняется, а каждая начатая игра тебя дождётся
+• Геймпады тоже работают: до 4 игроков в некоторых играх
+
+ВМЕСТЕ ИЛИ ПРОТИВ УСТРОЙСТВА
+• С друзьями на одном устройстве, которое переходит из рук в руки: от 2 до 6 игроков, в зависимости от игры
+• Или отдай места устройству, на трёх уровнях (лёгкий, средний, сложный): так можно играть почти во все игры для двоих и больше (103 из 110)
+• Лицом к лицу: положи телефон или планшет между вами, и фигуры верхнего игрока повернутся к нему
+• Карточные игры хранят каждую руку в тайне: заставка закрывает карты, пока устройство переходит к следующему игроку
+• Отмена хода, поворот доски, вертикально или горизонтально, и правила каждой игры в одно касание
+
+ГОЛОВОЛОМКИ И УРОВНИ
+• Головоломки и пасьянсы с продуманными уровнями (101), в большинстве по 150: больше 14 000 уровней
+• До 3 звёзд за уровень и подсказка, если застрял
+• А потом — бесконечные случайные задачи
+
+КАЖДЫЙ ДЕНЬ
+• Серия дней, опыт, уровни и достижения, и твой прогресс в каждой вкладке
+• Светлая или тёмная тема и поиск, который найдёт любую игру по названию
+
+БЕСПЛАТНО, БЕЗ РЕКЛАМЫ
+• Все игры и все уровни бесплатно: без рекламы, ничего не заблокировано, без аккаунта
+• Открытый исходный код: весь код открыт на GitHub
+• Никакие данные не собираются; работает без интернета
+• 22 языка
+• Нравится? Добровольные чаевые в настройках помогают делать новые игры
+
+Создано 8BCraft.
+
+
+=== Swedish (sv-SE) ===
+
+App name:
+250 i 1: brädspel och arkad
+
+Short description:
+Bräd-, kort-, pussel- och arkadspel: 253 spel i en gratis app, utan reklam.
+
+Full description:
+RetroStone samlar 253 spel i en gratis app: 216 bräd-, kort- och pusselspel kring ett grönt spelbord (schack, go, backgammon, mahjong, patiens, belote, bridge, sudoku, nonogram …) och 37 arkadspel i pixelgrafik, gjorda för pekskärmen. Ingen reklam, inget låst: varje spel och varje nivå är gratis.
+
+SPELEN
+• Pussel (52): Sortera kulorna · Sortera vattnet · Blockpussel · Pussel · Minor · Rör · Femtonspel · Tangram · Hitta skillnaderna · Schackproblem och 42 till
+• Logikspel (38): Sudoku · Nonogram · Killersudoku · Kakuro · Calcudoku · Binairo · Star Battle · Broar · Tält · Futoshiki och 28 till
+• Strategi (37): Dam · Go · Reversi · Fyra i rad · Mancala · Kvarn · Luffarschack · Kinaschack · Hex · Biljard och 27 till
+• Schackfamiljen (7): Banqi · Djungelschack · Janggi · Makruk · Schack · Shogi · Xiangqi
+• Tärning och kapplöpning (15): Backgammon · Fia · Yacht · Tiotusen · Ormar och stegar · Kungliga spelet från Ur · Shut the Box · Lögnartärningar och 7 till
+• Kort och brickor (59): Harpan · Spindelharpan · Fria celler · Mahjong · Mahjong-patiens · Hjärter · Spader · Belote · Bridge · Fransk tarot · Gin rummy · Canasta och 47 till
+• Gissningslekar (8): Det hemliga ansiktet · Hemlig kod · Hitta paren · Kartquiz · Rita och gissa · Sänka skepp · Spionen · Varulvar
+• Arkadspel (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+ARKADEN
+• 37 arkadspel i pixelgrafik gjorda för pekskärmen, från enfingerspel till plattformsspel
+• Ditt rekord sparas, och varje spel väntar där du slutade
+• Handkontroller fungerar också: upp till 4 spelare i vissa spel
+
+TILLSAMMANS ELLER MOT ENHETEN
+• Med vänner på en enda enhet som går från hand till hand: 2 till 6 spelare, beroende på spelet
+• Eller låt enheten ta platser, på tre nivåer (lätt, medel, svår): i 103 av de 110 spelen för två eller fler
+• Ansikte mot ansikte: lägg mobilen eller surfplattan platt mellan er, så vänds den övre spelarens pjäser mot hen
+• Kortspelen håller varje hand hemlig: en skärm döljer korten medan enheten går vidare till nästa spelare
+• Ångra, vänd brädet, stående eller liggande, och varje spels regler ett tryck bort
+
+PUSSEL OCH NIVÅER
+• 101 pussel och patienser med noga utformade nivåer, 150 för de flesta: över 14 000 nivåer
+• Upp till 3 stjärnor per nivå, och en ledtråd när du kör fast
+• Sedan slumpade pussel utan slut
+
+VARJE DAG
+• En dagsserie, erfarenhetspoäng, nivåer och prestationer, och dina framsteg i varje flik
+• Ljust eller mörkt tema, och en sökning som hittar vilket spel som helst på namnet
+
+GRATIS, UTAN REKLAM
+• Alla spel och alla nivåer gratis: ingen reklam, inget låst, inget konto
+• Öppen källkod: all kod finns på GitHub, fri att läsa
+• Inga data samlas in; fungerar offline
+• 22 språk
+• Gillar du det? En frivillig dricks i inställningarna hjälper till att skapa nya spel
+
+Skapat av 8BCraft.
+
+
+=== Turkish (tr-TR) ===
+
+App name:
+250 Bir Arada: Masa ve Arcade
+
+Short description:
+Masa, kart, bulmaca ve arcade oyunları: 253 oyun, reklamsız ve çevrimdışı.
+
+Full description:
+RetroStone, 253 oyunu tek bir ücretsiz uygulamada toplar: yeşil bir masanın etrafında 216 masa, kart ve bulmaca oyunu (satranç, go, tavla, mahjong, solitaire, belot, briç, sudoku, nonogram…) ve dokunmatik ekran için yapılmış 37 piksel sanatı arcade oyunu. Reklam yok, kilitli hiçbir şey yok: her oyun ve her seviye ücretsiz.
+
+OYUNLAR
+• Bulmacalar (52): Top Sıralama · Su Sıralama · Blok Bulmaca · Yapboz · Mayınlar · Borular · 15 Bulmacası · Tangram · Farkı Bul · Satranç bulmacaları ve 42 oyun daha
+• Mantık oyunları (38): Sudoku · Nonogram · Katil Sudoku · Kakuro · Calcudoku · Binairo · Star Battle · Köprüler · Çadırlar · Futoshiki ve 28 oyun daha
+• Strateji (37): Dama · Go · Reversi · Dörtlü Sıra · Mangala · Dokuz Taş · Gomoku · Çin Daması · Hex · Bilardo ve 27 oyun daha
+• Satranç ailesi (7): Banqi · Hayvan Satrancı · Janggi · Makruk · Satranç · Shogi · Xiangqi
+• Zar ve yarış oyunları (15): Tavla · Kızma Birader · Yacht · Farkle · Yılanlar ve Merdivenler · Ur Kraliyet Oyunu · Kutuyu Kapat · Yalancı Zar ve 7 oyun daha
+• Kartlar ve taşlar (59): Solitaire · Örümcek · Boş Hücreler · Mahjong · Mahjong Solitaire · Kupa · Maça · Belot · Briç · Fransız tarotu · Cin Remi · Kanasta ve 47 oyun daha
+• Tahmin oyunları (8): Amiral Battı · Casus · Çiz ve Bil · Eşini Bul · Gizemli Yüz · Gizli Kod · Harita Testi · Kurt adamlar
+• Arcade oyunları (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+ARCADE
+• Dokunmatik ekran için yapılmış 37 piksel sanatı arcade oyunu: tek parmakla oynananlardan platform oyunlarına
+• En yüksek skorun saklanır, her oyun kaldığın yerde seni bekler
+• Oyun kumandaları da çalışır: bazı oyunlarda 4 oyuncuya kadar
+
+BİRLİKTE YA DA CİHAZA KARŞI
+• Elden ele dolaşan tek bir cihazda arkadaşlarınla: oyuna göre 2 ila 6 oyuncu
+• Ya da yerleri cihaza bırak, üç seviyede (kolay, orta, zor): iki ve daha fazla kişilik 110 oyunun 103 tanesinde
+• Yüz yüze: telefonu ya da tableti aranıza düz bırak, üstteki oyuncunun taşları ona doğru döner
+• Kart oyunları her eli gizli tutar: cihaz sıradaki oyuncuya geçerken bir ekran kartları örter
+• Geri alma, tahtayı çevirme, dikey ya da yatay, ve her oyunun kuralları bir dokunuş uzağında
+
+BULMACALAR VE SEVİYELER
+• Özenle tasarlanmış seviyeleri olan 101 bulmaca ve solitaire, çoğunda 150 seviye: 14.000 seviyeden fazla
+• Seviye başına 3 yıldıza kadar, takıldığında bir ipucu
+• Sonra bitmeyen rastgele bulmacalar
+
+HER GÜN
+• Günlük seri, deneyim puanı, seviyeler ve başarımlar, her sekmede ilerlemen
+• Açık veya koyu tema ve her oyunu adıyla bulan bir arama
+
+ÜCRETSİZ, REKLAMSIZ
+• Tüm oyunlar ve tüm seviyeler ücretsiz: reklam yok, kilit yok, hesap yok
+• Açık kaynak: kodun tamamı GitHub'da, herkes okuyabilir
+• Hiç veri toplanmaz; çevrimdışı çalışır
+• 22 dil
+• Beğendin mi? Ayarlardaki isteğe bağlı bahşiş yeni oyunların yapılmasına yardım eder
+
+8BCraft yapımı.
+
+
+=== Ukrainian (uk) ===
+
+App name:
+250 в 1: настільні й аркади
+
+Short description:
+Настільні й карткові ігри, головоломки та аркади в одному застосунку без реклами
+
+Full description:
+RetroStone збирає в одному безкоштовному застосунку настільні й карткові ігри та головоломки за зеленим столом (шахи, го, нарди, маджонг, пасьянси, белот, бридж, судоку, японські кросворди…) і аркадні ігри в піксель-арті, створені для сенсорного екрана: усього 253. Без реклами, нічого не заблоковано: усі ігри й усі рівні безкоштовні.
+
+ІГРИ
+• Головоломки (52): Сортування кульок · Сортування води · Блоки · Пазл · Міни · Труби · П'ятнашки · Танграм · Знайди відмінності · Шахові задачі та інші
+• Логічні ігри (38): Судоку · Японські кросворди · Судоку із сумами · Какуро · Калькудоку · Бінайро · Зоряна битва · Мости · Намети · Футошікі та інші
+• Стратегія (37): Шашки · Го · Реверсі · Чотири в ряд · Манкала · Млин · Гомоку · Китайські шашки · Гекс · Пул та інші
+• Родина шахів (7): Баньці · Джунглі · Макрук · Сьоґі · Сянці · Чангі · Шахи
+• Кості й перегони (15): Короткі нарди · Лудо · Яхта · Фаркл · Змії та драбини · Королівська гра Ура · Закрий коробку · Кості брехуна та інші
+• Карти та фішки (59): Косинка · Павук · Вільні комірки · Маджонг · Пасьянс маджонг · Чирви · Піки · Белот · Бридж · Французьке таро · Джин рамі · Канаста та інші
+• Ігри на вгадування (8): Вікторина з мапою · Загадкове обличчя · Знайди пару · Малюй і вгадуй · Морський бій · Перевертні · Таємний код · Шпигун
+• Аркади (37): Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+АРКАДА
+• Аркадні ігри в піксель-арті для сенсорного екрана (37), від ігор в один дотик до платформерів
+• Твій рекорд зберігається, а кожна розпочата гра на тебе зачекає
+• Геймпади теж працюють: до 4 гравців у деяких іграх
+
+РАЗОМ АБО ПРОТИ ПРИСТРОЮ
+• З друзями на одному пристрої, що переходить з рук у руки: від 2 до 6 гравців, залежно від гри
+• Або віддай місця пристрою, на трьох рівнях (легкий, середній, складний): так можна грати майже в усі ігри для двох і більше (103 з 110)
+• Обличчям до обличчя: поклади телефон або планшет між вами, і фігури верхнього гравця повернуться до нього
+• Карткові ігри тримають кожну руку в таємниці: заставка закриває карти, поки пристрій переходить до наступного гравця
+• Скасування ходу, поворот дошки, вертикально чи горизонтально, і правила кожної гри в один дотик
+
+ГОЛОВОЛОМКИ ТА РІВНІ
+• Головоломки й пасьянси з продуманими рівнями (101), здебільшого по 150: понад 14 000 рівнів
+• До 3 зірок за рівень і підказка, якщо застряг
+• А потім — нескінченні випадкові задачі
+
+ЩОДНЯ
+• Серія днів, досвід, рівні й досягнення, і твій поступ у кожній вкладці
+• Світла або темна тема та пошук, що знайде будь-яку гру за назвою
+
+БЕЗКОШТОВНО, БЕЗ РЕКЛАМИ
+• Усі ігри й усі рівні безкоштовно: без реклами, нічого не заблоковано, без акаунта
+• Відкритий код: увесь код відкрито на GitHub
+• Жодні дані не збираються; працює без інтернету
+• 22 мови
+• Подобається? Добровільні чайові в налаштуваннях допомагають створювати нові ігри
+
+Створено 8BCraft.
+
+
+=== Chinese (Simplified) (zh-CN) ===
+
+App name:
+250合1 益智·棋牌·街机
+
+Short description:
+棋类、纸牌、益智和街机游戏：253 款游戏，无广告，可离线游玩。
+
+Full description:
+RetroStone 把 253 款游戏装进一个免费应用：围绕绿色牌桌的 216 款棋类、纸牌和益智游戏（国际象棋、围棋、双陆棋、麻将、纸牌接龙、勃洛特、桥牌、数独、数织……），以及为触屏打造的 37 款像素风街机游戏。无广告，无锁定：所有游戏和所有关卡全部免费。
+
+游戏列表
+• 益智游戏 (52)：小球排序、倒水排序、积木消除、拼图、地雷、水管、数字华容道、七巧板、找不同、国际象棋谜题、等另外 42 款
+• 逻辑谜题 (38)：数独、数织、杀手数独、数和、算独、二进制数独、星战、数桥、帐篷、不等号数独、等另外 28 款
+• 策略棋类 (37)：国际跳棋、围棋、黑白棋、四子棋、播棋、九子棋、五子棋、跳棋、六贯棋、台球、等另外 27 款
+• 象棋家族 (7)：国际象棋、斗兽棋、日本将棋、暗棋、泰国象棋、象棋、韩国象棋
+• 骰子与竞速 (15)：西洋双陆棋、鲁多、快艇骰子、法克尔、蛇梯棋、乌尔王族局戏、关箱子、吹牛骰子、等另外 7 款
+• 纸牌与骨牌 (59)：纸牌接龙、蜘蛛纸牌、空当纸牌、麻将、麻将接龙、红心大战、黑桃、贝洛特、桥牌、法式塔罗、金拉米、卡纳斯塔、等另外 47 款
+• 推理游戏 (8)：你画我猜、地图测验、海战棋、狼人、神秘面孔、秘密密码、翻牌配对、间谍
+• 街机 (37)：Beaver Rush、Biscuit Bandit、Blueberry Tumble、Caterpillar Crawl、Cosmo Corgi、Crab Coconut、Duck Parade、Fishy Feast、Frog Reach、Gecko Golf、Goat Gorge、Gopher Dig、Hamster Havoc、Hedgehog Hills、Jelly Jam、Kitty Kibble、Ladybug Laps、Leady Squid、Lemur Leap、Llama Drama、Mole Marbles、Moth Around、Mouse Espresso、Nutty Branch、Otter Rapids、Pancake Tower、Penguin Slalom、Pogo Mamie、Prickle Patch、Puffin Plunge、Raccoon Recycler、Radish Rascals、Seal Shove、Snail Switch、Snowball Siege、Spider Swing、Unicorn Hop
+
+街机
+• 37 款为触屏打造的像素风街机游戏，从单指小游戏到平台跳跃
+• 保存你的最高分，每局游戏都在你离开的地方等你
+• 也支持手柄：部分游戏最多 4 人同玩
+
+一起玩，或与设备对战
+• 朋友们轮流传递同一台设备：根据游戏 2 到 6 人
+• 也可以让设备坐上任意座位，三个难度（简单、中等、困难）：110 款两人及以上游戏中的 103 款支持
+• 面对面：把手机或平板平放在两人之间，上方玩家的棋子会转向他
+• 纸牌游戏让每个人的手牌保密：设备传给下一位玩家时，遮挡画面会盖住纸牌
+• 悔棋、旋转棋盘、竖屏或横屏，每款游戏的规则一点即看
+
+益智游戏与关卡
+• 101 款益智游戏和纸牌接龙带有精心设计的关卡，大多数各有 150 关：共 14000 多关
+• 每关最多 3 颗星，卡住时有提示
+• 之后还有无穷无尽的随机谜题
+
+每一天
+• 连续天数、经验值、等级和成就，以及每个分类的进度
+• 浅色或深色主题，还能按名称搜索任意游戏
+
+免费，无广告
+• 所有游戏和所有关卡免费：无广告，无锁定，无需账号
+• 开源：全部代码公开在 GitHub 上
+• 不收集任何数据；可离线游玩
+• 支持 22 种语言
+• 喜欢吗？可在设置中自愿打赏，支持我们制作新游戏
+
+由 8BCraft 制作。

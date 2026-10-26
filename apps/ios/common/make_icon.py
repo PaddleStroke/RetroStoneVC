@@ -33,10 +33,11 @@ def main():
     ap.add_argument("--out", required=True, help="the asset catalog to write (Assets.xcassets)")
     a = ap.parse_args()
     games, full = make_icon.conf_games(a.conf)
-    board = make_icon.read_conf(a.conf).get("ICON_STYLE") == "board"
+    style = make_icon.read_conf(a.conf).get("ICON_STYLE")
+    board = style in ("board", "retrostone")
     if board and not a.art:
-        ap.error("ICON_STYLE=board needs --art")
-    icon = make_icon.store_icon(games, full, a.art if board else None).convert("RGB")
+        ap.error(f"ICON_STYLE={style} needs --art")
+    icon = make_icon.store_icon(games, full, a.art if board else None, style).convert("RGB")
     icon = icon.resize((1024, 1024), Image.LANCZOS)
     d = os.path.join(a.out, "AppIcon.appiconset")
     os.makedirs(d, exist_ok=True)

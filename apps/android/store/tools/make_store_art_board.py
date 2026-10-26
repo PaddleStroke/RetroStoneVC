@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""The store graphics of RetroStone Board and RetroStone Board Free, from the app's own pictures (the Arcade's:
-make_store_art.py):
+"""The store graphics of RetroStone Board, RetroStone Board Free and RetroStone (the one free app), from the app's own
+pictures (the Arcade's: make_store_art.py):
 
-    python3 apps/android/store/tools/make_store_art_board.py [--build build/boardgames-store]
+    python3 apps/android/store/tools/make_store_art_board.py [--build build/boardgames-store] [board boardfree retrostone]
 
   apps/android/store/<board|boardfree>/graphics/icon-512.png          the 512 x 512 icon: make_icon.py's store_icon()
       with ICON_STYLE=board (the gold frame round the green table, the white knight, a die and a card), the launcher
@@ -12,6 +12,9 @@ make_store_art.py):
       walnut frame with a gold fillet, the app's name in gold (Noto Sans Bold, the app's own font), and some games'
       menu pictures (each game's thumb(), drawn by the app's code: board_thumbs.c) laid on the table with their
       shadows, the knight and the die in front; the free app: its free games only, and a FREE pill (the Arcade's).
+  apps/android/store/retrostone/graphics/...  RetroStone's: the icon with ICON_STYLE=retrostone (make_icon.py's
+      retrostone_icon: an Arcade hero on a little screen in the die's place); the feature graphic: "RetroStone" alone,
+      the board games' pictures and two Arcade heroes on their little screens (make_icon.arcade_screen).
 No text but the app's name (a brand, the same in every language).
 
 It builds what it needs in its own folder (--build, default build/boardgames-store): the app's icon pictures (make
@@ -46,7 +49,14 @@ LAYOUT = {
               ("sudoku", 905, 360, 185, 7), ("mahjong", 768, 368, 200, 2)],
     "boardfree": [("hearts", 872, 158, 215, 9), ("chess", 690, 170, 220, -6), ("backgammon", 600, 372, 200, -8),
                   ("sudoku", 905, 360, 185, 7), ("klondike", 768, 372, 195, 2)],
+    "retrostone": [("chess", 700, 148, 190, -6), ("mahjong", 893, 150, 180, 7), ("sudoku", 900, 380, 165, 6)],
 }
+# the knight and the die in front (icon-art's pictures): (name, centre x, centre y, size, turn)
+PIECES = {"board": [("knight", 478, 372, 170, 0), ("die", 676, 440, 66, 18)],
+          "retrostone": [("knight", 250, 370, 170, 0), ("die", 380, 440, 64, 18)]}
+# RetroStone's Arcade heroes on their little screens (make_icon.arcade_screen), laid among the games: (hero, centre x,
+# centre y, zoom, turn)
+ARCADE_LAYOUT = {"retrostone": [("frogreach", 520, 372, 3, -7), ("crabcoconut", 712, 372, 4, 5)]}
 THUMB = 480                                   # the pictures drawn at this size, then scaled down (smooth)
 
 
@@ -158,8 +168,13 @@ def feature(app, b):
     for gid, cx, cy, size, deg in LAYOUT[app]:
         lay(img, Image.open(os.path.join(thumbs, gid + ".png")).convert("RGBA"), cx, cy, size, deg)
     art = os.path.join(ROOT, b, "icon-art")
-    lay(img, Image.open(os.path.join(art, "knight.png")).convert("RGBA"), 478, 372, 170, 0)
-    lay(img, Image.open(os.path.join(art, "die.png")).convert("RGBA"), 676, 440, 66, 18)
+    for name, cx, cy, size, deg in PIECES.get(app, PIECES["board"]):
+        lay(img, Image.open(os.path.join(art, name + ".png")).convert("RGBA"), cx, cy, size, deg)
+    for hero, cx, cy, zoom, deg in ARCADE_LAYOUT.get(app, []):
+        make_icon._shadowed(img, make_icon.arcade_screen(hero, zoom, 4 + 2 * zoom), cx, cy, deg, 0.62)
+    if app == "retrostone":                       # one word: the name alone, larger, by the knight
+        gold_text(img, "RetroStone", 46, 88, 88)
+        return img.convert("RGB")
     top = 96 if app == "board" else 66
     gold_text(img, "RetroStone", 46, top, 84)
     gold_text(img, "Board", 48, top + 102, 84)
@@ -172,14 +187,16 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--build", default="build/boardgames-store", help="the folder for the app's pictures")
     ap.add_argument("--no-build", action="store_true", help="use the pictures already in --build")
+    ap.add_argument("apps", nargs="*", default=["board", "boardfree", "retrostone"], help="the apps (default: all)")
     a = ap.parse_args()
     if not a.no_build:
         build(a.build)
     art = os.path.join(ROOT, a.build, "icon-art")
-    for app in ("board", "boardfree"):
+    for app in a.apps:
         d = os.path.join(STORE, app, "graphics")
         os.makedirs(d, exist_ok=True)
-        make_icon.store_icon(None, False, art).save(os.path.join(d, "icon-512.png"))
+        make_icon.store_icon(None, False, art, "retrostone" if app == "retrostone" else "board").save(
+            os.path.join(d, "icon-512.png"))
         feature(app, a.build).save(os.path.join(d, "feature-1024x500.png"))
         print(f"{d}: icon-512.png, feature-1024x500.png")
 

@@ -1,0 +1,69 @@
+<en-GB>
+First release: 253 board, card, puzzle and arcade games in one free app, with no ads and nothing locked. Play offline, with friends on one device or against it.
+</en-GB>
+<cs-CZ>
+První vydání: deskové a karetní hry, hlavolamy a arkády v jedné bezplatné aplikaci, celkem 253, bez reklam a bez zámků. Hraj offline, s přáteli na jednom zařízení nebo proti němu.
+</cs-CZ>
+<da-DK>
+Første udgivelse: 253 bræt-, kort-, hjernevrider- og arkadespil i én gratis app, uden reklamer og uden noget låst. Spil offline, med venner på én enhed eller mod den.
+</da-DK>
+<de-DE>
+Erste Version: 253 Brett-, Karten-, Knobel- und Arcade-Spiele in einer kostenlosen App, ohne Werbung und ohne Sperren. Spiel offline, mit Freunden an einem Gerät oder gegen es.
+</de-DE>
+<el-GR>
+Πρώτη έκδοση: 253 επιτραπέζια, παιχνίδια με τράπουλα, γρίφοι και arcade σε μία δωρεάν εφαρμογή, χωρίς διαφημίσεις και χωρίς τίποτα κλειδωμένο. Παίξε χωρίς σύνδεση, με φίλους σε μία συσκευή ή κόντρα σε αυτήν.
+</el-GR>
+<en-US>
+First release: 253 board, card, puzzle and arcade games in one free app, with no ads and nothing locked. Play offline, with friends on one device or against it.
+</en-US>
+<es-ES>
+Primera versión: 253 juegos de mesa, de cartas, rompecabezas y arcade en una app gratuita, sin anuncios y sin nada bloqueado. Juega sin conexión, con amigos en un solo dispositivo o contra él.
+</es-ES>
+<fi-FI>
+Ensimmäinen julkaisu: 253 lauta-, kortti-, pulma- ja arcadepeliä yhdessä ilmaisessa sovelluksessa, ilman mainoksia ja ilman lukituksia. Pelaa offline, ystävien kanssa yhdellä laitteella tai laitetta vastaan.
+</fi-FI>
+<fr-FR>
+Première version : 253 jeux de société, de cartes, casse-tête et d'arcade dans une appli gratuite, sans pub et sans rien de verrouillé. Joue hors ligne, entre amis sur un seul appareil ou contre lui.
+</fr-FR>
+<id>
+Rilis pertama: 253 game papan, kartu, teka-teki, dan arcade dalam satu aplikasi gratis, tanpa iklan dan tanpa yang terkunci. Main offline, bersama teman di satu perangkat atau melawannya.
+</id>
+<it-IT>
+Prima versione: 253 giochi da tavolo, di carte, rompicapi e arcade in un'app gratuita, senza pubblicità e senza nulla di bloccato. Gioca offline, con gli amici su un solo dispositivo o contro di lui.
+</it-IT>
+<ja-JP>
+初回リリース：ボードゲーム・カード・パズル・アーケードの253種をひとつの無料アプリに。広告なし、ロックなし。オフラインで、1台の端末で友だちと、または端末と対戦。
+</ja-JP>
+<ko-KR>
+첫 출시: 보드게임·카드·퍼즐·아케이드 게임 253종을 하나의 무료 앱에. 광고 없음, 잠금 없음. 오프라인으로, 기기 하나로 친구와 함께 또는 기기와 대결.
+</ko-KR>
+<nl-NL>
+Eerste versie: 253 bord-, kaart-, puzzel- en arcadespellen in één gratis app, zonder advertenties en zonder iets op slot. Speel offline, met vrienden op één toestel of ertegen.
+</nl-NL>
+<no-NO>
+Første utgivelse: 253 brett-, kort-, tenke- og arkadespill i én gratis app, uten reklame og uten noe låst. Spill offline, med venner på én enhet eller mot den.
+</no-NO>
+<pl-PL>
+Pierwsze wydanie: gry planszowe, karciane, łamigłówki i gry zręcznościowe w jednej darmowej aplikacji, łącznie 253, bez reklam i bez blokad. Graj offline, ze znajomymi na jednym urządzeniu albo przeciw niemu.
+</pl-PL>
+<pt-BR>
+Primeira versão: 253 jogos de tabuleiro, de cartas, quebra-cabeças e arcade em um app gratuito, sem anúncios e sem nada bloqueado. Jogue offline, com amigos em um só aparelho ou contra ele.
+</pt-BR>
+<pt-PT>
+Primeira versão: 253 jogos de tabuleiro, de cartas, quebra-cabeças e arcade numa app gratuita, sem anúncios e sem nada bloqueado. Joga offline, com amigos num só dispositivo ou contra ele.
+</pt-PT>
+<ru-RU>
+Первый выпуск: настольные, карточные, аркадные игры и головоломки в одном бесплатном приложении, всего 253, без рекламы и без блокировок. Играйте офлайн, с друзьями на одном устройстве или против него.
+</ru-RU>
+<sv-SE>
+Första versionen: 253 bräd-, kort-, pussel- och arkadspel i en gratis app, utan reklam och utan något låst. Spela offline, med vänner på en enhet eller mot den.
+</sv-SE>
+<tr-TR>
+İlk sürüm: Tek ücretsiz uygulamada 253 masa, kart, bulmaca ve arcade oyunu; reklam yok, kilitli hiçbir şey yok. Tek cihazda arkadaşlarınla ya da cihaza karşı çevrimdışı oyna.
+</tr-TR>
+<uk>
+Перший випуск: настільні, карткові, аркадні ігри та головоломки в одному безкоштовному застосунку, усього 253, без реклами й без блокувань. Грайте офлайн, із друзями на одному пристрої або проти нього.
+</uk>
+<zh-CN>
+首次发布：253 款棋类、纸牌、益智和街机游戏，尽在一个免费应用，无广告，无锁定。可离线游玩，在同一台设备上与朋友同玩，或与设备对战。
+</zh-CN>

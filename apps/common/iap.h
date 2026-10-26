@@ -4,15 +4,14 @@
  * what the purchase opens (its free set until iap_unlocked(), then everything at once) and draws the panel; a backend
  * talks to the platform's store:
  *
- *   apps/common/iap_none.c          no in-app purchase (desktop, Android today): iap_available() 0, never unlocked,
- *                                   so the apps behave exactly as their compile-time editions (the "Get it" link
- *                                   to the paid app's store page)
+ *   apps/common/iap_none.c          no in-app purchase (the desktop, and Android without IAP=1): iap_available() 0,
+ *                                   never unlocked, so the apps behave exactly as their compile-time editions (the
+ *                                   "Get it" link to the paid app's store page), no tips
  *   apps/ios/common/iap_storekit.swift   iPhone and iPad: StoreKit 2 (the product's price, the purchase sheet,
  *                                   the transactions checked again at every launch, refunds, Family Sharing)
- *   (apps/common/iap_play.c)        the slot for Google Play Billing on Android, not written yet: a Java side
- *                                   (BillingClient) called through JNI, as ArcadeActivity's review prompt is; the
- *                                   apps' builds take it instead of iap_none.c when the app's .conf says IAP=1
- *                                   (apps/common/README.md)
+ *   apps/common/iap_play.c          Android, the app's .conf says IAP=1: Google Play Billing, through its Java class
+ *                                   (apps/common/android/java, com.eightbcraft.iap.Billing: the BillingClient);
+ *                                   the unlock and the tips (apps/common/README.md)
  *
  * The app keeps the unlock in its own save store and gives it back to iap_init() at the next launch, so a purchase
  * opens everything at once, offline too; the backend then checks the store's transactions and says so through
@@ -62,10 +61,10 @@ unsigned iap_changes(void);
 
 /* ---- tips: consumable products, bought as often as one likes, that open nothing (the Settings page's "Leave a
  * tip": three tiers, small to big). The ids come from the app's .conf (TIP_PRODUCTS). iap_none.c sells none (the page
- * then opens the app's support page, SUPPORT_URL, or hides the row); a backend that sells them (Google Play Billing,
- * StoreKit: not written yet) loads their prices and consumes each purchase at once.
- * TODO(billing): implement these in the store backends. The iOS app's StoreKit backend (apps/ios/common) defines
- * IAP_HAS_TIPS once it does; until then the iOS build gets the inline "none" below. */
+ * then opens the app's support page, SUPPORT_URL, or hides the row); a backend that sells them (Google Play Billing:
+ * iap_play.c) loads their prices and consumes each purchase at once.
+ * TODO(billing): the iOS app's StoreKit backend (apps/ios/common) does not sell tips yet; it defines IAP_HAS_TIPS once
+ * it does; until then the iOS build gets the inline "none" below. */
 #if defined(__IPHONEOS__) && !defined(IAP_HAS_TIPS)
 static inline void iap_tips_init(const char *const *product_ids, int n) { (void)product_ids; (void)n; }
 static inline int iap_tips_available(void) { return 0; }

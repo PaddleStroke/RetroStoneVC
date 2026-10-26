@@ -1,0 +1,41 @@
+RetroStone réunit 253 jeux dans une appli gratuite : 216 jeux de société, de cartes et casse-tête autour d'un tapis vert (échecs, go, backgammon, mahjong, réussites, belote, bridge, sudoku, nonogrammes…) et 37 jeux d'arcade en pixel art faits pour l'écran tactile. Sans pub, rien de verrouillé : chaque jeu et chaque niveau est gratuit.
+
+LES JEUX
+• Casse-tête (52) : Tri des billes · Tri des liquides · Blocs · Puzzle · Mines · Tuyaux · Taquin · Tangram · Jeu des différences · Problèmes d'échecs et 42 autres
+• Logique (38) : Sudoku · Nonogrammes · Sudoku Killer · Kakuro · Calcudoku · Binairo · Star Battle · Ponts · Tentes · Futoshiki et 28 autres
+• Stratégie (37) : Dames · Go · Reversi · Quatre en ligne · Mancala · Jeu du moulin · Gomoku · Dames chinoises · Hex · Billard américain et 27 autres
+• La famille des échecs (7) : Banqi · Échecs · Janggi · Jeu de la jungle · Makruk · Shogi · Xiangqi
+• Dés et parcours (15) : Backgammon · Ludo · Yams · 10 000 · Serpents et échelles · Jeu royal d'Ur · Ferme la boîte · Dés menteurs et 7 autres
+• Cartes et tuiles (59) : Réussite · Spider · Cases libres · Mahjong · Mahjong solitaire · Dame de pique · Pique · Belote · Bridge · Tarot · Gin rami · Canasta et 47 autres
+• Jeux de déduction (8) : Bataille navale · Code secret · Dessine et devine · L'espion · Loups-garous · Paires · Quiz géo · Visage mystère
+• Arcade (37) : Beaver Rush · Biscuit Bandit · Blueberry Tumble · Caterpillar Crawl · Cosmo Corgi · Crab Coconut · Duck Parade · Fishy Feast · Frog Reach · Gecko Golf · Goat Gorge · Gopher Dig · Hamster Havoc · Hedgehog Hills · Jelly Jam · Kitty Kibble · Ladybug Laps · Leady Squid · Lemur Leap · Llama Drama · Mole Marbles · Moth Around · Mouse Espresso · Nutty Branch · Otter Rapids · Pancake Tower · Penguin Slalom · Pogo Mamie · Prickle Patch · Puffin Plunge · Raccoon Recycler · Radish Rascals · Seal Shove · Snail Switch · Snowball Siege · Spider Swing · Unicorn Hop
+
+L'ARCADE
+• 37 jeux d'arcade en pixel art faits pour l'écran tactile, des jeux à un doigt aux jeux de plateformes
+• Ton meilleur score est gardé, et chaque partie t'attend là où tu l'as laissée
+• Les manettes marchent aussi : jusqu'à 4 joueurs dans certains jeux
+
+À PLUSIEURS, OU CONTRE L'APPAREIL
+• Entre amis sur un seul appareil, qui passe de main en main : de 2 à 6 joueurs selon le jeu
+• Ou laisse l'appareil prendre des places, à trois niveaux (facile, moyen, difficile) : dans 103 des 110 jeux à deux ou plus
+• Face à face : pose le téléphone ou la tablette à plat entre vous, et les pièces du joueur d'en face se tournent vers lui
+• Les jeux de cartes gardent chaque main secrète : un écran cache les cartes pendant que l'appareil passe au joueur suivant
+• Annuler, retourner le plateau, en portrait ou en paysage, et les règles de chaque jeu à portée de doigt
+
+CASSE-TÊTE ET NIVEAUX
+• 101 casse-tête et réussites avec des niveaux conçus un par un, 150 pour la plupart : plus de 14 000 niveaux
+• Jusqu'à 3 étoiles par niveau, et un indice quand tu bloques
+• Puis des grilles au hasard, sans fin
+
+CHAQUE JOUR
+• Une série de jours, de l'expérience, des niveaux et des succès, et ta progression dans chaque onglet
+• Thème clair ou sombre, et une recherche pour trouver un jeu par son nom
+
+GRATUIT, SANS PUB
+• Tous les jeux et tous les niveaux, gratuits : sans pub, rien de verrouillé, sans compte
+• Open source : tout le code est sur GitHub, libre à lire
+• Aucune donnée collectée ; fonctionne hors ligne
+• 22 langues
+• Ça te plaît ? Un pourboire facultatif, dans les réglages, aide à créer de nouveaux jeux
+
+Créé par 8BCraft.
